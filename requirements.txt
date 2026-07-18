@@ -1,0 +1,6 @@
+alibabacloud-docmind-api20220711
+alibabacloud-tea-openapi
+alibabacloud-tea-util
+oss2
+Pillow
+python-dotenv
