@@ -100,695 +100,44 @@ This work is part of a collaboration between O’Reilly and Confluent. See our s
 
 ## Table of Contents  
 
-Foreword.....................................................................  xv  
+**[Foreword](#foreword)**
 
-Preface......................................................................  xvii  
+**[Part I. Introduction to Event-Driven Microservices](#introduction-to-event-driven-microservices)**
 
-Part I.Introduction to Event-Driven Microservices  
+1. **[Why Event-Driven Microservices](#why-event-driven-microservices)**
+2. **[Fundamentals of Events and Event Streams](#fundamentals-of-events-and-event-streams)**
+3. **[Fundamentals of Event-Driven Microservices](#fundamentals-of-event-driven-microservices)**
 
-1. Why Event-Driven Microservices..............................................  3  
+**[Part II. Events and Event Streams](#events-and-event-streams)**
 
-What Are Event-Driven Microservices? 3  
+4. **[Schemas and Data Contracts](#schemas-and-data-contracts)**
+5. **[Designing Events](#designing-events)**
+6. **[Integrating Event-Driven Architectures with Existing Systems](#integrating-event-driven-architectures-with-existing-systems)**
+7. **[Denormalization and Eventification](#denormalization-and-eventification)**
+8. **[Stateful Event-Driven Microservices](#stateful-event-driven-microservices)**
+9. **[Deterministic Stream Processing](#deterministic-stream-processing)**
+10. **[Building Workflows with Microservices](#building-workflows-with-microservices)**
 
-6  
+**[Part III. Event-Driven Microservices Frameworks](#event-driven-microservices-frameworks)**
 
-Microservices, Boundaries, and Communication Structures 9  
+11. **[Basic Producer and Consumer Microservices](#basic-producer-and-consumer-microservices)**
+12. **[Heavyweight Framework Microservices](#heavyweight-framework-microservices)**
+13. **[Lightweight Framework Microservices](#lightweight-framework-microservices)**
+14. **[Streaming SQL](#streaming-sql)**
+15. **[Microservices Using Functions as a Service](#microservices-using-functions-as-a-service)**
 
-Business Communication Structures 9  
+**[Part IV. Consistency, Bad Data, and Supportive Tooling](#consistency-bad-data-and-supportive-tooling)**
 
-10  
+16. **[Eventual Consistency](#eventual-consistency)**
+17. **[Integrating Event-Driven and Request-Response Microservices](#integrating-event-driven-and-request-response-microservices)**
+18. **[Handling Bad Data in Event Streams](#handling-bad-data-in-event-streams)**
+19. **[Supportive Tooling](#supportive-tooling)**
+20. **[Testing Event-Driven Microservices](#testing-event-driven-microservices)**
+21. **[Deploying Event-Driven Microservices](#deploying-event-driven-microservices)**
+22. **[Conclusion](#conclusion)**
 
-Data Communication Structures 10  
+**[Index](#index)**
 
-11  
-
-13  
-
-13  
-
-13  
-
-13  
-
-The Team Scenario, Continued 15  
-
-Event-Driven Data Communication 15  
-
-17  
-
-18  
-
-18  
-
-20  
-
-20  
-
-2. Fundamentals of Events and Event Streams...................................  21  
-
-What’s an Event? 21  
-
-What’s an Event Stream? 22  
-
-24  
-
-Queuing 25  
-
-26  
-
-27  
-
-29  
-
-30  
-
-30  
-
-32  
-
-33  
-
-34  
-
-35  
-
-36  
-
-37  
-
-39  
-
-The Lambda Architecture 42  
-
-Event Data Definitions and Schemas 44  
-
-45  
-
-46  
-
-46  
-
-Hosted Services 46  
-
-46  
-
-47  
-
-47  
-
-47  
-
-3. Fundamentals of Event-Driven Microservices..................................  49  
-
-The Basics of Event-Driven Microservices 49  
-
-The Basic Producer/Consumer 51  
-
-53  
-
-55  
-
-57  
-
-58  
-
-58  
-
-58  
-
-59  
-
-How Small Should a Microservice Be? 61  
-
-62  
-
-63  
-
-63  
-
-64  
-
-65  
-
-Service Contracts 66  
-
-67  
-
-### Part II.Events and Event Streams  
-
-4. Schemas and Data Contracts................................................  71  
-
-A Brief Introduction to Serialization and Deserialization 72  
-
-What Is a Schema? 73  
-
-77  
-
-78  
-
-80  
-
-81  
-
-82  
-
-What Is a Data Contract? 85  
-
-87  
-
-Step 1: Design the New Schema 88  
-
-88  
-
-89  
-
-89  
-
-90  
-
-93  
-
-94  
-
-Summary 95  
-
-5. Designing Events..........................................................  97  
-
-97  
-
-State Events and Event-Carried State Transfer 99  
-
-Current State Events 100  
-
-Before/After State Events 102  
-
-Delta Events 104  
-
-104  
-
-The Problems with Delta Events 107  
-
-Where Do I Use Delta and State Events? 116  
-
-117  
-
-Measurement Events 119  
-
-120  
-
-120  
-
-Measurement Events Can Power Time-Sensitive Applications 120  
-
-Notification Events 121  
-
-123  
-
-124  
-
-#### 6. Integrating Event-Driven Architectures with Existing Systems..................  127  
-
-What Is Data Liberation? 128  
-
-The Dual Write Antipattern 129  
-
-Data Liberation Patterns 130  
-
-Data Liberation Frameworks 130  
-
-131  
-
-132  
-
-134  
-
-134  
-
-135  
-
-136  
-
-136  
-
-137  
-
-138  
-
-Performance Considerations 141  
-
-141  
-
-142  
-
-146  
-
-149  
-
-150  
-
-152  
-
-153  
-
-155  
-
-#### 7. Denormalization and Eventification.........................................  157  
-
-Eventification at the Transactional Outbox 160  
-
-Eventification in a Dedicated Service 162  
-
-164  
-
-166  
-
-166  
-
-167  
-
-168  
-
-#### 8. Stateful Event-Driven Microservices.........................................  169  
-
-170  
-
-171  
-
-172  
-
-173  
-
-175  
-
-176  
-
-177  
-
-178  
-
-179  
-
-180  
-
-181  
-
-184  
-
-185  
-
-Drawbacks of External State 186  
-
-187  
-
-188  
-
-190  
-
-Example: Effectively Once Processing for an Inventory Accounting Service 191  
-
-192  
-
-193  
-
-198  
-
-9. Deterministic Stream Processing...........................................  199  
-
-Determinism with Event-Driven Workflows 200  
-
-200  
-
-201  
-
-203  
-
-Custom Event Schedulers 204  
-
-204  
-
-205  
-
-205  
-
-Watermarks 205  
-
-206  
-
-Stream Time 208  
-
-210  
-
-Late Events with Watermarks and Stream Time 211  
-
-212  
-
-213  
-
-216  
-
-217  
-
-Intermittent Failures and Late Events 218  
-
-219  
-
-220  
-
-#### 10. Building Workflows with Microservices......................................  221  
-
-The Choreography Pattern 222  
-
-223  
-
-224  
-
-The Orchestration Pattern 226  
-
-227  
-
-229  
-
-230  
-
-230  
-
-230  
-
-231  
-
-232  
-
-235  
-
-237  
-
-238  
-
-240  
-
-Further Considerations of Durable Execution 241  
-
-243  
-
-### Part III.Event-Driven Microservices Frameworks  
-
-#### 11. Basic Producer and Consumer Microservices..................................  247  
-
-Where Do BPCs Work Well? 248  
-
-248  
-
-249  
-
-When the Data Store Does Much of the Work 251  
-
-251  
-
-252  
-
-#### 12. Heavyweight Framework Microservices.....................................  253  
-
-254  
-
-255  
-
-260  
-
-Benefits and Limitations 262  
-
-264  
-
-Use a Hosted Service 264  
-
-Build and Run Your Own Cluster 265  
-
-267  
-
-Driver Mode 267  
-
-Cluster Mode 268  
-
-268  
-
-269  
-
-271  
-
-272  
-
-274  
-
-274  
-
-274  
-
-275  
-
-275  
-
-276  
-
-13. Lightweight Framework Microservices......................................  277  
-
-278  
-
-280  
-
-280  
-
-281  
-
-282  
-
-283  
-
-283  
-
-284  
-
-14. Streaming SQL...........................................................  285  
-
-286  
-
-286  
-
-287  
-
-290  
-
-290  
-
-290  
-
-291  
-
-293  
-
-293  
-
-User-Defined Function Calls 294  
-
-295  
-
-15. Microservices Using Functions as a Service...................................  297  
-
-297  
-
-299  
-
-Cold Starts and Warm Starts 300  
-
-Termination and Shutdown 301  
-
-301  
-
-302  
-
-303  
-
-304  
-
-306  
-
-306  
-
-306  
-
-306  
-
-307  
-
-308  
-
-308  
-
-Direct-Call Pattern 309  
-
-311  
-
-Durable Function Orchestrators 314  
-
-314  
-
-318  
-
-320  
-
-### Part IV.Consistency, Bad Data, and Supportive Tooling  
-
-16. Eventual Consistency.....................................................  323  
-
-325  
-
-329  
-
-329  
-
-329  
-
-331  
-
-331  
-
-332  
-
-17. Integrating Event-Driven and Request-Response Microservices.................  333  
-
-334  
-
-336  
-
-338  
-
-341  
-
-341  
-
-345  
-
-348  
-
-349  
-
-351  
-
-354  
-
-356  
-
-Example: Experience Search and Review Application 358  
-
-The Benefits of Micro Frontends 361 The Drawbacks of Micro Frontends 362 Summary 362  
-
-18. Handling Bad Data in Event Streams........................................  365  
-
-The Main Types of Bad Data in Event Streams 366 Type 1: Corrupted Data 366 Type 2: Event Has No Schema 366 Type 3: Event Has an Invalid Schema 366 Type 4: Incompatible Schema Evolution 367 Type 5: Logically Invalid Value in a Field 368 Type 6: Logically Valid Value but Semantically Incorrect 368 Type 7: Missing Events 369 Type 8: Events That Should Not Have Been Produced 369 Preventing Bad Data with Schemas, Validation, and Tests 370 Preventing Bad Data Types 1–5 with Schemas and Schema Evolution 370 Data Quality Rules: Handling Type 6: (Logically Valid But Semantically Incorrect) 371 Testing: Handling Types 7 (Missing Data) and 8 (Data That Should Not Have Been Produced) 372 The Role of Event Design in Fixing Bad Data 372 Fix It Once and Fix It Right with State Events 374 Build Forward: Undo Bad Deltas with New Deltas 376 The Last Resort: Rewind, Rebuild, and Retry 377 Rewind, Rebuild, and Retry from an External Source 377 Rewind, Rebuild, and Retry with the Topic as the Source 378 Summary 379  
-
-19. Supportive Tooling.......................................................  381  
-
-Choosing Your Infrastructure: Build Versus Buy 382 Infrastructure as Code for Clusters and Services 382 Identity and Access Management 384 Microservice-to-Team Assignment System 385 Event-Stream Creation and Modification 385 Event Stream and Microservice Metadata Tagging 386 Quotas 387 Schema Registry 388 Managing Event-Stream Permissions 388 Schema Creation and Modification Notifications 390 Consumer Offset Management 390 State Management and Application Reset 391  
-
-392  
-
-Streamline the Microservice Creation Process 393  
-
-393  
-
-394  
-
-396  
-
-400  
-
-20. Testing Event-Driven Microservices.........................................  401  
-
-401  
-
-401  
-
-402  
-
-403  
-
-404  
-
-406  
-
-408  
-
-409  
-
-411  
-
-413  
-
-415  
-
-416  
-
-Programmatically Create a Temporary Single-Tenant Testing Environment 417  
-
-421  
-
-422  
-
-423  
-
-424  
-
-21. Deploying Event-Driven Microservices.......................................  425  
-
-425  
-
-426  
-
-427  
-
-427  
-
-428  
-
-430  
-
-431  
-
-431  
-
-432  
-
-Variant 3: Write Both the Old and New Events in Parallel 433  
-
-435  
-
-436  
-
-438  
-
-#### 22. Conclusion..............................................................  439  
-
-The Data Communication Structure 439  
-
-Business Domains and Bounded Contexts 440  
-
-440  
-
-441  
-
-Schematized Events 442  
-
-442  
-
-Microservices 443  
-
-444  
-
-444  
-
-445  
-
-Final Words 446  
-
-## Index.......................................................................  447  
 
 # Foreword  
 
@@ -872,17 +221,14 @@ Constant width
 
 Used for program listings, as well as within paragraphs to refer to program elements such as variable or function names, databases, data types, environment variables, statements, and keywords.  
 
-![figure](images/figure-0001.png)
+> [!TIP]
+> This element signifies a tip or suggestion.
 
-This element signifies a tip or suggestion.  
+> [!NOTE]
+> This element signifies a general note.
 
-![figure](images/figure-0002.png)
-
-This element signifies a general note.  
-
-![figure](images/figure-0003.png)
-
-This element indicates a warning or caution.  
+> [!WARNING]
+> This element indicates a warning or caution.
 
 ## O'Reilly Online Learning  
 
@@ -1304,7 +650,7 @@ Event-driven microservices provide a powerful framework for building purpose-bui
 
 This chapter just scratches the surface of event-driven microservices. The next two chapters will respectively dig deeper into both event streams and microservices, providing you with the basic building blocks for the remainder of this book.  
 
-## Fundamentals of Events and Event Streams  
+# Fundamentals of Events and Event Streams
 
 Event streams served by an *event broker* tend to be the dominant mode for powerful event-driven architectures, though you'll find that queues and ephemeral messaging also have a place. The second half of this chapter will cover each of these modes in more detail.  
 
@@ -4230,7 +3576,7 @@ The culture of the organization dictates how successful data liberation initiati
 
 While liberating data to event streams is a key foundation to building event-driven microservices, it’s not without its own side effects. Relational data tends to result in relational streams, which can be challenging to handle in practice. In the next chapter, we’ll take a look at some patterns and strategies for handling relational data in event streams.  
 
-## Denormalization and Eventification  
+# Denormalization and Eventification
 
 ![figure](images/figure-0105.png)
 
@@ -5089,7 +4435,7 @@ Event brokers that support transactions can enable extremely powerful effectivel
 
 Having covered state, it's time to take a look at what happens when events are late or arrive out of order. In the next chapter, we'll take a look at timestamps, determinism, and processing strategies for ensuring consistent computations.  
 
-## Deterministic Stream Processing  
+# Deterministic Stream Processing
 
 Event-driven microservices typically have topologies that are more complex than those introduced in the previous chapter (see "Microservice Topology" on page 58). They consume events from multiple partitioned event streams, maintain state, reparation data, and emit new events to other streams. They are also subject to all the same failure modes and faults as any other application, which can result in out-of-order events, late events, and questions around how events will be processed in actuality.  
 
@@ -5960,9 +5306,9 @@ Finally, durable execution engines have emerged as powerful tools for building h
 
 In the next chapter, I'll cover the basic consumer and producer microservice. While a fundamentally simple design, it provides the foundation for all other microservice frameworks and event-stream processing.  
 
-## Event-Driven Microservices Frameworks  
+# Event-Driven Microservices Frameworks
 
-### Basic Producer and Consumer Microservices  
+# Basic Producer and Consumer Microservices
 
 Basic producer and consumer (BPC) microservices ingest events from one or more event streams, apply any necessary transformations or business logic, and emit any necessary events to output event streams. Synchronous request-response I/O may also be a part of this workflow, but that topic is covered in more detail in Chapter 17. This chapter focuses strictly on event-driven components.  
 
@@ -6080,7 +5426,7 @@ The BPC pattern is also flexible. It pairs well with implementations where the d
 
 A major shortcoming is that BPCs lack the more advanced capabilities required for handling relationships between streams. For example, if you want to join data from event streams together, you must load it all into a database and join it there. Additionally, BPCs also lack out-of-the-box mechanisms such as state materialization, event scheduling, and timestamp-based decision making. The next two chapters cover how heavyweight and lightweight frameworks provide all of these features, and more.  
 
-## Heavyweight Framework Microservices  
+# Heavyweight Framework Microservices
 
 This chapter and the next cover the full-featured frameworks most commonly used in event-driven processing. Frequently referred to as *streaming frameworks*, they provide mechanisms and APIs for consuming, processing, and producing event streams. These frameworks can be roughly divided into heavyweight frameworks, which are covered in this chapter, and lightweight frameworks, which are covered in the next.  
 
@@ -6564,7 +5910,7 @@ Heavyweight frameworks operate using centralized resource clusters, which may re
 
 In the next chapter, we'll shift gears just a bit to look at the lightweight frameworks, and how they differ from the heavyweight options for building event-driven microservices.  
 
-## Lightweight Framework Microservices  
+# Lightweight Framework Microservices
 
 Lightweight frameworks differ from heavyweight frameworks in that they do not require a dedicated processing and resource management cluster. Instead, they rely solely on the event broker and the container management system (CMS) to scale, manage state, and recover from failures.  
 
@@ -6724,6 +6070,8 @@ This chapter introduced lightweight stream-processing frameworks, including thei
 Kafka Streams is a highly scalable processing framework that relies extensively on integration with the event broker to perform large-scale data processing. It remains the single most popular lightweight framework still in use today. In contrast, Apache Samza used to be an alternative option, but its popularity, usage, and project activity has dwindled since the first edition of this book was released.  
 
 In the next chapter, we’ll take a look at going even further up the abstraction layer by writing microservices using streaming SQL.  
+
+# Streaming SQL
 
 Streaming SQL is a declarative mechanism for building microservice-like queries. It's a handy way to reduce the overhead on getting started with stream processing, and is accessible to those of you who are familiar with plain old SQL. You tell the SQL API what you want the outcome to look like, and it does all the work to implement it using the underlying engine.  
 
@@ -7044,7 +6392,7 @@ from testing and local development to production deployments. Moreover, streamin
 
 While streaming SQL is commonly provided as part of a serverless framework, it’s not the only serverless option in town. In the next chapter, we’ll take a look at functions as a service and how they fit into the event-driven microservice world.  
 
-### Microservices Using Functions as a Service  
+# Microservices Using Functions as a Service
 
 Functions as a service (FaaS) are yet another way to build microservices. They're a serverless solution for building, managing, and deploying applications via function building blocks, and provide significant value as a means of implementing relatively simple to modestly complex event-driven solutions.  
 
@@ -7619,9 +6967,9 @@ Function-based solutions are particularly useful in handling stateless and simpl
 
 In the next chapter we'll take a look at eventual consistency—in particular, what it is, how it works, and what to watch out for.  
 
-## Consistency, Bad Data, and Supportive Tooling  
+# Consistency, Bad Data, and Supportive Tooling
 
-## Eventual Consistency  
+# Eventual Consistency
 
 ![figure](images/figure-0250.png)
 
@@ -7807,7 +7155,7 @@ Eventual-consistency issues can also arise when data in one event stream referen
 
 Next up, we're going to take a look at how to incorporate request-response patterns into event-driven microservices.  
 
-## Integrating Event-Driven and Request-Response Microservices  
+# Integrating Event-Driven and Request-Response Microservices
 
 As powerful as event-driven microservice patterns are, they cannot serve all the
 business needs of an organization. Request-response communications are common
@@ -8480,7 +7828,7 @@ Finally, micro frontends provide an architecture for full-stack development of p
 In the next chapter, we'll take a look at how we can prevent bad data from getting into
 your event streams, and what to do if it does.  
 
-## Handling Bad Data in Event Streams  
+# Handling Bad Data in Event Streams
 
 At a high level, bad data is data that doesn’t conform to what is expected; for example, an email address without the @ or a credit card expiry where the MM/YYYY format is swapped to YYYY/MM. Bad can also include malformed and corrupted data, such that it’s completely indecipherable and effectively garbage. This chapter covers how bad data can come to be, and how you can deal with it when it comes to event streams.  
 
@@ -8791,7 +8139,7 @@ ards, no schemas, no testing, and no validation, and subsequently pay a heavy pr
 
 The next chapter covers some additional tooling that can help you not only prevent bad data, but also to manage, deploy, test, and monitor your microservices and event streams organization wide.  
 
-## Supportive Tooling  
+# Supportive Tooling
 
 Supportive tooling enables you to efficiently manage your event-driven microservices and your event streams. This chapter covers the tools that you’re most likely to use, and includes tools you may need to build yourself or that you can install from free open sources. Additionally, some of these tools may be included as part of a SaaS offering, if you choose to go the route of paying for fully managed (or hosted) services. This chapter does not recommend purchasing one product or service over another, but does include links to free open source software as real-world examples of the described tooling (where applicable).  
 
@@ -9227,7 +8575,7 @@ Autonomy and control over your team's services are important aspects of managing
 In the next chapter, we'll look at the best testing practices for building and deploying
 your microservices.  
 
-## Testing Event-Driven Microservices  
+# Testing Event-Driven Microservices
 
 The small and purpose-built nature of microservices make them relatively easy to test, particularly in comparison to larger services. Event streams, queues, and request-response APIs provide the inputs. State is localized to the microservice’s own independent state store, and output events are written to its output streams. This chapter covers testing principles and strategies, including unit testing, integration testing, and performance testing.  
 
@@ -9949,7 +9297,7 @@ A single shared testing environment is a common strategy to employ when investme
 
 In the next chapter, we'll look at the best practices for deploying microservices.  
 
-## Deploying Event-Driven Microservices  
+# Deploying Event-Driven Microservices
 
 Deploying event-driven microservices can be challenging when compared to a single monolithic deployment. As the quantity of microservices within an organization increases, so does the importance of having standardized deployment processes in place. An organization managing only a few dozen services can get away with a few custom deployment processes, but any organization seriously invested in microservices, event-driven or otherwise, must invest in standardization and streamlining its deployment processes.  
 
@@ -10256,6 +9604,8 @@ You can deploy services in several ways, with the simplest being to stop the mic
 The next and final chapter is the conclusion, where I'll wrap up and review the major
 subjects covered in this book.  
 
+# Conclusion
+
 Event-driven microservice architectures provide a powerful and flexible approach to solving business problems. Event streams provide well-defined low-latency data to whichever services need it, as many times as they need it. Microservices enable you to create purpose-built services using the technologies best suited for the job, including databases, languages, and frameworks. Together, they enable resilient decoupled services that communicate durably and asynchronously, leaving you open to choosing the best options for solving your business use cases.  
 
 Here is a quick recap of everything covered in this book, as well as some final words.  
@@ -10413,6 +9763,8 @@ Event streams provide the data communication structure sorely lacking in many an
 Event-driven microservices compose their own data models from data sourced through event streams. This compositional nature provides unparalleled flexibility, allowing individual business units to focus on using whatever data is necessary to accomplish their business goals. Even organizations running just a handful of services can benefit greatly from the data communications provided by the event broker, which paves the way for building new services, fully decoupled from old business requirements and implementations.  
 
 In closing, event-driven microservices provide you with many powerful options for solving your business problems. Regardless of how you build the services themselves, this much is clear: the data communication structure extends the power of an organization's data to any service or team that requires it, eliminates access boundaries, and reduces unnecessary complexity related to production and distribution. It provides a solid foundation for you to build the services your organization needs to find ultimate business success.  
+
+# Index
 
 #### A  
 
