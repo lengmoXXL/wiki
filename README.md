@@ -53,6 +53,8 @@ raw/kafka-2011/
 - 术语首次出现时可保留英文，例如 `主题（topic）`、`代理节点（broker）`；代码中的 `producer.send("topic1", set)` 保持不变。
 - 将无语义图片说明补充完整，例如把 `![figure](images/figure-0001.png)` 改为 `![图 1：Kafka 架构](images/figure-0001.png)`。
 - 正文中的图号应能对应到图。例如“如图 1 所示”应对应 `图 1：Kafka 架构`；Markdown 绘制的图表或公式不要求存在图片文件。
+- 书的目录（Table of Contents）应从点线加页码的形式改为指向标题的 Markdown 锚点链接，以支持文内跳转。例如把 `Preface......  xvii` 改为 `[Preface](#preface)`。
+- O'Reilly 书中“提示/注意/警告”图标（图例区的 `figure-0001/0002/0003.png`）应转换为 GitHub 风格告警块 `> [!TIP]`、`> [!NOTE]`、`> [!WARNING]`，参考 `raw/ddia-2026/`。
 
 ## 4. 检查改动
 
