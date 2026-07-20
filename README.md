@@ -4,6 +4,7 @@
 
 - [A Critique of Snapshot Isolation](raw/critique-of-snapshot-isolation-2012/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/critique-of-snapshot-isolation-2012.pdf`
 - [Bigtable: A Distributed Storage System for Structured Data](raw/bigtable-2006/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/bigtable-2006.pdf`
+- [Building Event-Driven Microservices](raw/build-event-driven-microservices-2025/content_zh.md)：`oss://lengmo-asserts/books/build-event-driven-microservices-2025.pdf`
 - [Designing Data-Intensive Applications](raw/ddia-2026/content_zh.md)：`oss://lengmo-asserts/books/ddia-2026.pdf`
 - [The Google File System](raw/gfs-2003/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
 - [Kafka: a Distributed Messaging System for Log Processing](raw/kafka-2011/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
