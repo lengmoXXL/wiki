@@ -1298,16 +1298,15 @@ First, it creates the KafkaConsumer (1) and KafkaProducer (2). The aptly named K
 
 Example 3-1. A basic producer consumer application that tallies a sum per key and emits it if the sum is greater than 1000  
 
+```python
 from kafka import KafkaConsumer, KafkaProducer
 import json
 import time
 
 # 1) Initialize Kafka consumer
 consumer = KafkaConsumer(
-    'input_topic',  
-
-```python
-bootstrap_servers=['localhost:9092'],
+    'input_topic',
+    bootstrap_servers=['localhost:9092'],
 value_deserializer=lambda x: json.loads(x.decode('utf-8')),
 keyDeserializer=lambda x: x.decode('utf-8'),
 group_id='ch03-python_example_consumer_group_name',
@@ -1781,7 +1780,7 @@ jeremiah.writeTo(output);
 
 The consumer reads the Person data from the file (i.e., the event), deserializes it using the schema, and finally converts it into an object or structure native to the consumer's language. Example 4-3 shows a C++ consumer using the ParseFromIstream function to convert the serialized bytes into a well-structured Person class object.  
 
-## Example 4-3. Using C++ to parse the serialized Protobuf Person object  
+#### Example 4-3. Using C++ to parse the serialized Protobuf Person object  
 
 Person jeremiah;fstream input(argv[1],ios::in|ios::binary);jeremiah.ParseFromIstream(&input);// jeremiah is now populated with the id, name, and height received in the eventid= jeremiah.id();name= jeremiah.name();height= jeremiah.height();cc= jeremiah.countryCode();  
 
@@ -1856,7 +1855,7 @@ Protobuf became open source in 2008 and has long been popular for its gRPC forma
 
 Example 4-5 shows the Person object again as defined using the Proto3 version of Protobuf.  
 
-### Example 4-5. Proto3 example of Person  
+#### Example 4-5. Proto3 example of Person  
 
 message Person {
     // The person's unique ID
@@ -1967,7 +1966,7 @@ Here are a few notable points about JSON Schema’s data types and schema manage
 
 Example 4-7 shows a JSON Schema representation of the same Person object from Examples 4-5 and 4-6.  
 
-## Example 4-7. JSON Schema example of Person  
+#### Example 4-7. JSON Schema example of Person  
 
 {
     "id": "https://example.com/person.schema.json",
@@ -3051,7 +3050,7 @@ Brittle dependency between data set schema and output event schema
 
 Valid data model changes in the source data store, such as altering a data set or redefining a field type, may cause breaking changes to downstream consumers.  
 
-# Liberating Data with a Polling Query  
+## Liberating Data with a Polling Query  
 
 With query-based data liberation you query the data store, get the results, convert them into events, and write them to the event stream. You can write your own code to do this for you, or you can rely on the likes of Kafka Connect or Debezium, as mentioned previously. Given the wealth of connectors available today, I recommend that you start with a purpose-built framework instead of trying to rebuild your own.  
 
@@ -3420,7 +3419,7 @@ Trigger code can be customized to expose only a subset of specific fields. This 
 
 Some cons of using triggers are:  
 
-Performance overhead  
+#### Performance overhead  
 
 Triggers execute inline with actions on the database tables and can consume nontrivial processing resources. Depending on the performance requirements and SLAs of your services, this approach may cause an unacceptable load.  
 
@@ -5029,7 +5028,7 @@ Event-driven workflows:
 
 • Have a built-in retry mechanism for failures, as both event streams and queues won't make forward progress until the events have been successfully processed and a response created  
 
-### Request-response workflows:  
+Request-response workflows:
 
 • Can provide very low-latency results as there are no event streams to produce to and consume from  
 
@@ -5167,11 +5166,11 @@ Reduction in boilerplate error handling
 
 Developers can just write business logic as straightforward code, and rely on the engine to handle retries, failures, and state management.  
 
-#### Resource savings  
+Resource savings
 
 Your workflow avoids re-executing code that it's already run, including computations and calls to other services.  
 
-#### Supports long durations  
+Supports long durations
 
 - Workflows can run for minutes, hours, days, or longer, waiting for human approval or external events, without losing state or progress.  
 
@@ -5229,23 +5228,23 @@ Durable execution requires a dedicated durable data store to maintain the state 
 
 Durable execution engines typically use their own deeply coupled proprietary implementations to provide the durability guarantees that make them so useful. The durable execution engine keeps track of everything important for orchestrating the operations of the service, including:  
 
-#### Workflow progress  
+Workflow progress
 
 Equivalent to the line of code last executed, and if it was a success or a failure. It also contains the progress of the logic through branching, conditions, and loops.  
 
-#### All relevant state  
+All relevant state
 
 Any state that you deemed important enough to have appended to the append-only log.  
 
-## Parameters for function calls  
+Parameters for function calls
 
 The parameters passed to another function invocation or direct call APIs (HTTP, RPC, etc).  
 
-#### Returns from functions calls  
+Returns from functions calls
 
 The values that are returned from the function invocation or direct call APIs.  
 
-#### Durable promises  
+Durable promises
 
 Tracking which functions and direct call APIs have already been invoked or called, such that they're not repeatedly invoked when restoring from state.  
 
@@ -5259,30 +5258,30 @@ While durable execution engines can help prevent duplicate work, duplicate funct
 
 When evaluating whether a durable execution engine is right for your use case, you'll need to consider some trade-offs:  
 
-#### Introduces a new dependency  
+Introduces a new dependency
 
 First and foremost is the introduction of yet another dependency into your ecosystem, and the risks that that entails. Integrating with a DEE leads to a degree of vendor lock-in, and makes it more challenging to migrate later. What's the probability that the vendor will still be around in 5 or 10 years? Will I need to migrate all my orchestration services off and onto another DEE, or is there an open source option that I can run on my own?  
 
-#### Learning curve  
+Learning curve
 
 Adopting a durable execution engine can be initially conceptually challenging, especially for developers new to distributed systems concepts.  
 
-#### Engine-specific abstractions  
+Engine-specific abstractions
 
 Durable execution engines aren't all the same. You'll need to learn engine-specific concepts like workflows, activities, workers, timers, task queues, signals, await, promises, and others.  
 
-### Versioning challenges  
+Versioning challenges
 
 You'll need to evolve and change your workflows in line with your business requirements. Ensure that you have a good understanding of how to handle multiple versions of the same workflow. You may need to run multiple versions in parallel for a period of time, or modify your workflow code to handle both old data and new in the case of reprocessing.  
 
 There are also some operational and performance trade-offs to consider as well,
 including:  
 
-#### State persistence overhead  
+State persistence overhead
 
 Persisting the state of your workflow at each step introduces operational overhead, both in terms of computation and storage. Your service may suffer performance degradation, particularly for very high-throughput and low-latency operations.  
 
-#### Extra resources required  
+Extra resources required
 
 You're going to need extra resources to run your DEE above and beyond those that power your microservices. You'll either need to buy, build, and deploy the DEE resources, or you'll need to spend money for a hosted or managed solution. Resource requirements scale with usage.  
 
@@ -5472,7 +5471,7 @@ Additionally, user engagements can be billed only on a per-session basis, with a
 
 In this example there are two event streams: user product clicks, as shown in Example 12-1, and user advertisement views, as shown in Example 12-2. The goal is to aggregate these two streams into session windows and emit them once an event time (not wall-clock time) of 30 minutes has passed without a new user event (e.g., Click or AdView). Refer to Chapter 9 for a refresher on stream time and watermarks.  
 
-#### Example 12-1. The Click schema in Protobuf  
+Example 12-1. The Click schema in Protobuf
 
 message Click {
     int32 userId = 1;
@@ -5480,7 +5479,7 @@ message Click {
     Timestamp createdEventTime = 3;
 }  
 
-## Example 12-2. The AdView schema with Protobuf  
+Example 12-2. The AdView schema with Protobuf
 
 message AdView {
     int32 userId = 1;
@@ -6081,7 +6080,7 @@ That being said, the principles of the streaming SQL remain largely the same reg
 
 It's important to point out that there is no definitive streaming SQL standard at the moment (ANSI or otherwise). It's a bit of a wild west, with different frameworks offering differing syntaxes and semantics from one another. When we talk of streaming SQL then, it's important to note that we're talking about dialects in general—the syntax of one framework won't necessarily match the syntax of the other. But they're also not going to be that wildly different, and there's plenty of supporting documentation to help clear things up if you get stuck.  
 
-### The Basics of the Continuous Query  
+## The Basics of the Continuous Query  
 
 SQL is most commonly associated with table-based operations, and for good reason. SQL databases have been around for decades, and you're likely to have written your first SQL queries against a table in a relational database. Streaming SQL is simply a repurposing for use with event streams, with streams-as-tables forming the basic data abstraction.  
 
@@ -9766,7 +9765,7 @@ In closing, event-driven microservices provide you with many powerful options fo
 
 # Index
 
-#### A  
+### A  
 
 388-390  
 
@@ -10690,7 +10689,7 @@ serving real-time requests, 345-348
 
 external systems, request-response calls to, 205  
 
-#### F  
+### F  
 
 FaaS (see Function-as-a-Service)  
 
@@ -10798,7 +10797,7 @@ granularity, as a benefit of EDM, 5
 
 groupByKey operation, 206  
 
-## H  
+### H  
 
 Hadoop Distributed File System (HDFS), 152  
 
@@ -10858,7 +10857,7 @@ hydration time, 40
 
 hysteresis, 392  
 
-#### I  
+### I  
 
 IaC (infrastructure as code), 382-383  
 
@@ -10941,7 +10940,7 @@ Jupyter, 291, 292
 
 Jupyter, 292  
 
-## K  
+### K  
 
 Kafka Connect, 77, 130, 135, 303  
 
@@ -10971,7 +10970,7 @@ Kubeless, 302
 
 Kubernetes, 62, 64, 266, 414  
 
-## L  
+### L  
 
 lag monitoring/triggering, 304-305, 392  
 
@@ -11866,7 +11865,7 @@ two-pizza team measurement, 61
 
 2PC (two-phase commits), 129  
 
-#### u  
+### u  
 
 unit-testing of topology functions, 401-404, 428  
 
