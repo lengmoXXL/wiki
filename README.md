@@ -9,6 +9,7 @@
 - [The Google File System](raw/gfs-2003/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
 - [Kafka: a Distributed Messaging System for Log Processing](raw/kafka-2011/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
 - [The RocksDB Experience](raw/rocksdb-2021/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
+- [Publish/Subscribe Systems: Design and Principles](raw/pubsub-systems-design-and-principles-2012/content_zh.md)：`oss://lengmo-asserts/books/pub:sub-systems-design-and-principles-2012.pdf`
 
 ## 1. 准备环境
 
