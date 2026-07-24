@@ -39,15 +39,39 @@ python tools/parse_docmind.py papers/distributed-systems/kafka-2011.pdf
 
 ```text
 raw/kafka-2011/
-├── content.md
+├── raw.md
 └── images/
+    └── raw/
+        ├── figure-0001.png
+        └── ...
 ```
 
-脚本重跑时会先删除同名目录。例如，重跑上述命令会删除并重新生成 `raw/kafka-2011/`，因此需要先保存其中的人工修改。
+其中 `raw.md` 是 DocMind 脚本直接转换的结果，**不需要做任何修改**。
+`images/raw/` 下的图片是脚本裁剪的原始图片，同样不应修改。
+脚本重跑时会先删除同名目录，因此需要先保存其中的人工修改。
 
 ## 3. 校对并翻译
 
-以 `raw/kafka-2011/content.md` 为底稿，对照 PDF 校对内容，并将译文写入 `raw/kafka-2011/content_zh.md`。
+以 `raw/kafka-2011/raw.md` 为底稿，对照 PDF 校对内容，并将译文写入 `raw/kafka-2011/content_zh.md`。
+
+翻译中用到的图片，从 `images/raw/` 拷贝到 `images/` 下，在 `content_zh.md` 中以 `images/figure-XXXX.png` 引用。
+译文提交后目录结构如下：
+
+```text
+raw/kafka-2011/
+├── raw.md
+├── content_zh.md
+└── images/
+    ├── raw/              # 脚本原始输出，不应修改
+    │   ├── figure-0001.png
+    │   └── ...
+    ├── figure-0001.png   # 翻译用到的图片，从 raw/ 拷贝
+    └── ...
+```
+
+不同文档可能用到相同的图片（如 O'Reilly 的提示图标），
+这些图片在各自 `images/raw/` 下保留原始副本，
+仅在用到时才拷贝到 `images/` 下。
 
 校对和翻译以具体内容为准：
 

@@ -58,7 +58,7 @@ def main() -> int:
         pdf_path = temp_path / file_name
         pages_dir = temp_path / "pages"
         result_dir = temp_path / "result"
-        images_dir = result_dir / "images"
+        images_dir = result_dir / "images" / "raw"
         pages_dir.mkdir()
         images_dir.mkdir(parents=True)
 
@@ -192,7 +192,7 @@ def main() -> int:
         rendered_markdown = "\n\n".join(
             block.rstrip("\n") for block in local_markdown
         ).strip() + "\n"
-        (result_dir / "content.md").write_text(rendered_markdown, encoding="utf-8")
+        (result_dir / "raw.md").write_text(rendered_markdown, encoding="utf-8")
 
         raw_dir.mkdir(exist_ok=True)
         if output_dir.exists():
@@ -200,8 +200,8 @@ def main() -> int:
         shutil.move(result_dir, output_dir)
 
     print(f"Saved local results to {output_dir}")
-    print(f"- Markdown: {output_dir / 'content.md'}")
-    print(f"- Cropped figures: {output_dir / 'images'} ({figure_number})")
+    print(f"- Markdown: {output_dir / 'raw.md'}")
+    print(f"- Cropped figures: {output_dir / 'images' / 'raw'} ({figure_number})")
     return 0
 
 
