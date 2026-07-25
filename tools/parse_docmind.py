@@ -195,9 +195,19 @@ def main() -> int:
         (result_dir / "raw.md").write_text(rendered_markdown, encoding="utf-8")
 
         raw_dir.mkdir(exist_ok=True)
-        if output_dir.exists():
-            shutil.rmtree(output_dir)
-        shutil.move(result_dir, output_dir)
+        output_dir.mkdir(exist_ok=True)
+
+        # Only overwrite raw.md and images/raw/, preserve content_zh.md and images/
+        target_raw = output_dir / "raw.md"
+        target_images_raw = output_dir / "images" / "raw"
+        if target_raw.exists():
+            target_raw.unlink()
+        if target_images_raw.exists():
+            shutil.rmtree(target_images_raw)
+        target_images_raw.parent.mkdir(exist_ok=True)
+
+        shutil.move(str(result_dir / "raw.md"), str(target_raw))
+        shutil.move(str(result_dir / "images" / "raw"), str(target_images_raw))
 
     print(f"Saved local results to {output_dir}")
     print(f"- Markdown: {output_dir / 'raw.md'}")

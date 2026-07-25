@@ -28,9 +28,11 @@ This paper includes four main contributions: (1) We describe the evolution of Fa
 
 The following properties greatly influence our design. First, users consume an order of magnitude more content than they create. This behavior results in a workload dominated by fetching data and suggests that caching can have significant advantages. Second, our read operations fetch data from a variety of sources such as MySQL databases, HDFS installations, and backend services. This heterogeneity requires a flexible caching strategy able to store data from disparate sources.  
 
-Memcached provides a simple set of operations (set, get, and delete) that makes it attractive as an elemental component in a large-scale distributed system. The open-source version we started with provides a single-machine in-memory hash table. In this paper, we discuss how we took this basic building block, made it more efficient, and used it to build a distributed key-value store that can process billions of requests per second. Hence-forth, we use ‘memcached’ to refer to the source code or a running binary and ‘memcache’ to describe the distributed system.  
+Memcached provides a simple set of operations (set, get, and delete) that makes it attractive as an elemental component in a large-scale distributed system. The open-source version we started with provides a single-machine in-memory hash table. In this paper, we discuss how we took this basic building block, made it more efficient, and used it to build a distributed key-value store that can process billions of requests per second. Hence-forth, we use ‘memcached’ to refer to the source code
+or a running binary and ‘memcache’ to describe the dis-
+tributed system.  
 
-![Figure 1: Memcache as a demand-filled look-aside cache. The left half illustrates the read path for a web server on a cache miss. The right half illustrates the write path](images/figure-0001.png)
+![figure](images/raw/figure-0001.png)
 
 >Figure 1: Memcache as a demand-filled look-aside cache. The left half illustrates the read path for a web server on a cache miss. The right half illustrates the write path.  
 
@@ -47,7 +49,7 @@ just each layer independently as our workload changes.
 
 As is, memcached provides no server-to-server co-ordination; it is an in-memory hash table running on a single server. In the remainder of this paper we describe how we built a distributed key-value store based on memcached capable of operating under Facebook's workload. Our system provides a suite of configuration, aggregation, and routing services to organize memcached instances into a distributed system.  
 
-![Figure 2: Overall architecture](images/figure-0002.png)
+![figure](images/raw/figure-0002.png)
 
 >Figure 2: Overall architecture  
 
@@ -94,7 +96,7 @@ ing mrouter, without establishing and maintaining a
 
 >$^{2}$The $95^{th}$ percentile is 95 keys per request.  
 
-![Figure 3: Get latency for UDP, TCP via mrouter](images/figure-0003.png)
+![figure](images/raw/figure-0003.png)
 
 >Figure 3: Get latency for UDP, TCP via mrouter  
 
@@ -117,13 +119,7 @@ For reliability, clients perform set and delete operations over TCP through an i
 
 Web servers rely on a high degree of parallelism and over-subscription to achieve high throughput. The high memory demands of open TCP connections makes it prohibitively expensive to have an open connection between every web thread and memcached server without some form of connection coalescing via mrouter. Coalescing these connections improves the efficiency of the server by reducing the network, CPU and memory resources needed by high throughput TCP connections. Figure 3 shows the average, median, and $95^{th}$ percentile latencies of web servers in production getting keys over UDP and through mrouter via TCP. In all cases, the standard deviation from these averages was less than 1%. As the data show, relying on UDP can lead to a 20% reduction in latency to serve requests.  
 
-**Incast congestion:** Memcache clients implement flow-control mechanisms to limit incast congestion. When a  
-
-![Figure 4: Average time web requests spend waiting to be scheduled](images/figure-0004.png)
-
->Figure 4: Average time web requests spend waiting to be scheduled  
-
-client requests a large number of keys, the responses
+**Incast congestion:** Memcache clients implement flow-control mechanisms to limit incast congestion. When a client requests a large number of keys, the responses
 can overwhelm components such as rack and cluster
 switches if those responses arrive all at once. Clients
 therefore use a sliding window mechanism [11] to con-
@@ -135,7 +131,11 @@ when a request goes unanswered. The window applies
 to all memcache requests independently of destination;
 whereas TCP windows apply only to a single stream.  
 
-Figure 4 shows the impact of the window size on the amount of time user requests are in the runnable state but are waiting to be scheduled inside the web server. The data was gathered from multiple racks in one front-tend cluster. User requests exhibit a Poisson arrival process at each web server. According to Little's Law [26], $L = \lambda W$, the number of requests queued in the server ($L$) is directly proportional to the average time a request takes to process ($W$), assuming that the input request rate is constant (which it was for our experiment). The time web requests are waiting to be scheduled is a direct indication of the number of web requests in the system. With lower window sizes, the application will have to dispatch more groups of memcache requests serially, increasing the duration of the web request. As the window size gets too large, the number of simultaneous memcache requests causes incast congestion. The result will be memcache errors and the application falling back to the persistent storage for the data, which will result in slower processing of web requests. There is a balance between these extremes where unnecessary latency can be avoided and incast congestion can be minimized.  
+![figure](images/raw/figure-0004.png)
+
+>Figure 4: Average time web requests spend waiting to be scheduled  
+
+Figure 4 shows the impact of the window size on the amount of time user requests are in the runnable state but are waiting to be scheduled inside the web server. The data was gathered from multiple racks in one front-end cluster. User requests exhibit a Poisson arrival process at each web server. According to Little's Law [26], $L = \lambda W$, the number of requests queued in the server ($L$) is directly proportional to the average time a request takes to process ($W$), assuming that the input request rate is constant (which it was for our experiment). The time web requests are waiting to be scheduled is a direct indication of the number of web requests in the system. With lower window sizes, the application will have to dispatch more groups of memcache requests serially, increasing the duration of the web request. As the window size gets too large, the number of simultaneous memcache requests causes incast congestion. The result will be memcache errors and the application falling back to the persistent storage for the data, which will result in slower processing of web requests. There is a balance between these extremes where unnecessary latency can be avoided and incast congestion can be minimized.  
 
 ### 3.2 Reducing Load  
 
@@ -151,7 +151,14 @@ A slight modification to leases also mitigates thundering herds. Each memcached 
 
 To illustrate this point we collect data for all cache misses of a set of keys particularly susceptible to thundering herds for one week. Without leases, all of the cache misses resulted in a peak database query rate of 17K/s. With leases, the peak database query rate was 1.3K/s. Since we provision our databases based on peak load, our lease mechanism translates to a significant efficiency gain.  
 
-**Stale values:** With leases, we can minimize the application's wait time in certain use cases. We can further reduce this time by identifying situations in which returning slightly out-of-date data is acceptable. When a key is deleted, its value is transferred to a data struc-ture that holds recently deleted items, where it lives for
+**Stale values:** With leases, we can minimize the application's wait time in certain use cases. We can further reduce this time by identifying situations in which returning slightly out-of-date data is acceptable. When a key is deleted, its value is transferred to a data struc-  
+
+![figure](images/raw/figure-0005.png)
+
+>Figure 5: Daily and weekly working set of a high-churn
+family and a low-churn key family  
+
+ture that holds recently deleted items, where it lives for
 a short time before being flushed. A get request can re-
 turn a lease token or data that is marked as stale. Appli-
 cations that can continue to make forward progress with
@@ -160,11 +167,6 @@ stale data do not need to wait for the latest value to be
 that since the cached value tends to be a monotonically
 increasing snapshot of the database, most applications
 can use a stale value without any changes.  
-
-![Figure 5: Daily and weekly working set of a high-churn](images/figure-0005.png)
-
->Figure 5: Daily and weekly working set of a high-churn
-family and a low-churn key family  
 
 #### 3.2.2 Memcache Pools  
 
@@ -207,7 +209,7 @@ ciencies of disallowing this replication.
 
 While the storage cluster in a region holds the authoritative copy of data, user demand may replicate that data into frontend clusters. The storage cluster is responsible for invalidating cached data to keep frontend clusters consistent with the authoritative versions. As an optimization, a web server that modifies data also sends invalidations to its own cluster to provide read-after-  
 
-![Figure 6: Invalidation pipeline showing keys that need to be deleted via the daemon (mcsqueal)](images/figure-0006.png)
+![figure](images/raw/figure-0006.png)
 
 >Figure 6: Invalidation pipeline showing keys that need to be deleted via the daemon (mcsqueal).  
 
@@ -284,12 +286,12 @@ Employing fine-grained locking triples the peak get rate for hits from 600k to 1
 
 We also investigated the performance effects of using UDP instead of TCP. Figure 8 shows the peak request rate we can sustain with average latencies of less than one millisecond for single gets and multigets of 10 keys. We found that our UDP implementation outper-  
 
-![Figure 7: Multiget hit and miss performance comparison](images/figure-0007.png)
+![figure](images/raw/figure-0007.png)
 
 >Figure 7: Multiget hit and miss performance comparison
 by memcached version  
 
-![Figure 8: Get hit performance comparison for single gets and 10-key multigets over TCP and UDP](images/figure-0008.png)
+![figure](images/raw/figure-0008.png)
 
 >Figure 8: Get hit performance comparison for single gets and 10-key multigets over TCP and UDP  
 
@@ -319,7 +321,7 @@ We therefore introduce a hybrid scheme that relies on lazy eviction for most key
 
 Frequent software changes may be needed for upgrades, bug fixes, temporary diagnostics, or performance testing. A memcached server can reach 90% of its peak hit rate within a few hours. Consequently, it can take us over 12 hours to upgrade a set of memcached servers as the resulting database load needs to be managed carefully. We modified memcached to store its cached values and main data structures in System V shared memory regions so that the data can remain live across a software upgrade and thereby minimize disruption.  
 
-![Figure 9: Cumulative distribution of the number of distinct memcached servers accessed](images/figure-0009.png)
+![figure](images/raw/figure-0009.png)
 
 >Figure 9: Cumulative distribution of the number of distinct memcached servers accessed  
 
@@ -338,14 +340,16 @@ size, and latency characteristics of our workload.
 
 **Response size:** Figure 10 shows the response sizes from memcache requests. The difference between the median (135 bytes) and the mean (954 bytes) implies that there is a very large variation in the sizes of the cached items. In addition there appear to be three distinct peaks at approximately 200 bytes and 600 bytes. Larger items tend to store lists of data while smaller items tend to store single pieces of content.  
 
-Latency: We measure the round-trip latency to request data from memcache, which includes the cost of routing the request and receiving the reply, network transfer time, and the cost of deserialization and decompression. Over 7 days the median request latency is 333 microseconds while the 75th and 95th percentiles (p75 and p95) are 475μs and 1.135ms respectively. Our median end-to-end latency from an idle web server is 178μs while the p75 and p95 are 219μs and 374μs, respectively. The wide variance between the p95 latencies arises from
-handling large responses and waiting for the runnable
-thread to be scheduled as discussed in Section 3.1.  
+Latency: We measure the round-trip latency to request data from memcache, which includes the cost of routing the request and receiving the reply, network transfer time, and the cost of deserialization and decompression. Over 7 days the median request latency is 333 microseconds while the 75th and 95th percentiles (p75 and p95) are 475μs and 1.135ms respectively. Our median end-to-end latency from an idle web server is 178μs while the p75 and p95 are 219μs and 374μs, respectively. The  
 
-![Figure 10: Cumulative distribution of value sizes](images/figure-0010.png)
+![figure](images/raw/figure-0010.png)
 
 >Figure 10: Cumulative distribution of value sizes
  fetched  
+
+wide variance between the p95 latencies arises from
+handling large responses and waiting for the runnable
+thread to be scheduled as discussed in Section 3.1.  
 
 ### 7.2 Pool Statistics  
 
@@ -357,7 +361,7 @@ As discussed in Section 3.2.3, we replicate data within a pool and take advantag
 
 We recognize that the timeliness of invalidations is a critical factor in determining the probability of exposing stale data. To monitor this health, we sample one out  
 
-![Figure 11: Latency of the Delete Pipeline](images/figure-0011.png)
+![figure](images/raw/figure-0011.png)
 
 >Figure 11: Latency of the Delete Pipeline  
 
@@ -389,12 +393,7 @@ Our work in scaling memcache builds on extensive work in distributed data struct
 
 >Table 3: Distribution of item sizes for various pools in bytes  
 
-present an early version of a key-value storage system
-useful for Internet scale services. Ousterhout et al. [29]
-also present the case for a large scale in-memory key-
-value storage system. Unlike both of these solutions,
-memcache does not guarantee persistence. We rely on
-other systems to handle persistent data storage.  
+present an early version of a key-value storage system useful for Internet scale services. Ousterhout et al. [29] also present the case for a large scale in-memory key-value storage system. Unlike both of these solutions, memcache does not guarantee persistence. We rely on other systems to handle persistent data storage.  
 
 Ports et al. [31] provide a library to manage the cached results of queries to a transactional database. Our needs require a more flexible caching strategy. Our use of leases [18] and stale reads [23] leverages prior research on cache consistency and read operations in high-performance systems. Work by Ghandeharizadeh and Yap [15] also presents an algorithm that addresses the stale set problem based on time-stamps rather than explicit version numbers.  
 
@@ -412,7 +411,14 @@ In this paper, we show how to scale a memcached-based architecture to meet the g
 
 ## Acknowledgements  
 
-We would like to thank Philippe Ajoux, Nathan Bron-son, Mark Drayton, David Fetterman, Alex Gartrell, Andrii Grynenko, Robert Johnson, Sanjeev Kumar, Anton Likhтарov, Mark Marchukov, Scott Marlette, Ben Maurer, David Meisner, Konrad Michels, Andrew Pope, Jeff Rothschild, Jason Sobel, and Yee Jiun Song for their contributions. We would also like to thank the anonymous reviewers, our shepherd Michael Piatek, Tor M. Aamodt, Remzi H. Arpaci-Dusseau, and Tayler Hetherington for their valuable feedback on earlier drafts of the paper. Finally we would like to thank our fellow engineers at Facebook for their suggestions, bug-reports, and support which makes memcache what it is today.  
+We would like to thank Philippe Ajoux, Nathan Bron-
+son, Mark Drayton, David Fetterman, Alex Gartrell, Andrii Grynenko, Robert Johnson, Sanjeev Kumar, Anton
+Likhtarov, Mark Marchukov, Scott Marlette, Ben Maurer, David Meisner, Konrad Michels, Andrew Pope, Jeff
+Rothschild, Jason Sobel, and Yee Jiun Song for their
+contributions. We would also like to thank the anonymous reviewers, our shepherd Michael Piatek, Tor M.
+Aamodt, Remzi H. Arpaci-Dusseau, and Tayler Hetherington for their valuable feedback on earlier drafts of
+the paper. Finally we would like to thank our fellow engineers at Facebook for their suggestions, bug-reports,
+and support which makes memcache what it is today.  
 
 ## References  
 
@@ -468,10 +474,7 @@ pp. 319–332.
 
 [24] LAMPORT, L. The part-time parliament. ACM Transactions on Computer Systems 16, 2 (May 1998), 133–169.  
 
-[25] LIM, H., FAN, B., ANDERSEN, D. G., AND KAMINSKY, M.
-Silt: a memory-efficient, high-performance key-value store. In
-*Proceedings of the 23rd ACM Symposium on Operating Systems
-Principles* (2011), pp. 1–13.  
+[25] LIM, H., FAN, B., ANDERSEN, D. G., AND KAMINSKY, M. Silt: a memory-efficient, high-performance key-value store. In Proceedings of the 23rd ACM Symposium on Operating Systems Principles (2011), pp. 1–13.  
 
 [26] LITTLE, J., AND GRAVES, S. Little's law. *Building Intuition* (2008), 81–100.  
 
