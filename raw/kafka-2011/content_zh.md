@@ -2,7 +2,9 @@
 
 **Jay Kreps · Neha Narkhede · Jun Rao**<br>
 LinkedIn Corp.<br>
-[jkreps@linkedin.com](mailto:jkreps@linkedin.com) · [nnarkhede@linkedin.com](mailto:nnarkhede@linkedin.com) · [jrao@linkedin.com](mailto:jrao@linkedin.com)
+[jkreps@linkedin.com](mailto:jkreps@linkedin.com) ·
+[nnarkhede@linkedin.com](mailto:nnarkhede@linkedin.com) ·
+[jrao@linkedin.com](mailto:jrao@linkedin.com)
 
 > 允许免费制作本作品全部或部分内容的数字或纸质副本用于个人或课堂用途，
 > 前提是副本不以营利或商业利益为目的制作或传播，
