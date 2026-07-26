@@ -3353,10 +3353,12 @@ ON ( history.assigned_to_sysops_user_id = agent.sysops_user_id )
 
 > 图 6-7。将跨 schema 对象访问移至服务，远离直接的跨 schema 访问。
 
-![图 6-8：当需要其他域的数据时，通过拥有该 data domain 的服务访问](images/figure-0103.png)
+![图 6-8：通过服务访问其他域的数据](images/figure-0103.png)
 
-> 图 6-8。当需要其他域的数据时，通过拥有该 data domain 的服务访问。
+> 图 6-8。通过拥有该 data domain 的服务访问其他域的数据。
 
+当需要其他域的数据时，
+不要直接访问它们的数据库。
 而是通过拥有该 data domain 的服务来访问。
 
 完成此步骤后，数据库处于*每个服务的数据主权*状态，
