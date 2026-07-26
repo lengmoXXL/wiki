@@ -92,17 +92,17 @@ raw/kafka-2011/
 - 图片处理：
   - 无语义的图片说明要补充完整，如 `![figure](images/figure-0001.png)` 改为 `![图 1：Kafka 架构](images/figure-0001.png)`。
   - 正文中的图号应能对应到图，如"Kafka 的整体架构如图 1 所示"对应 `图 1：Kafka 架构`。
-  - 每张图片除引用行 `![alt](url)` 外，**下方还须紧跟一行图注** `> 图 N。<完整描述>。`（blockquote 形式）。`alt` 渲染时不可见（仅读屏/悬停显示），图注才是图片正下方读者能看到的说明；`alt` 写简短图名，图注写完整描述，二者图号须一致。例如 `raw/bigtable-2006/content_zh.md` 中：
+  - 每张图片除引用行 `![alt](url)` 外，**下方还须紧跟一行图注** `> 图 N：<完整描述>。`（blockquote 形式）。`alt` 渲染时不可见（仅读屏/悬停显示），图注才是图片正下方读者能看到的说明；`alt` 写简短图名，图注写完整描述，二者图号须一致。例如 `raw/bigtable-2006/content_zh.md` 中：
 
     ```markdown
     ![图 1：一个用于存储网页的示例表切片](images/figure-0001.png)
 
-    > 图 1。一个用于存储网页的示例表切片。行名是反转后的 URL。`contents` 列族保存页面内容，`anchor` 列族保存所有指向该页面的锚文本。Sports Illustrated 和 MY-look 的首页都引用了 CNN 首页，因此该行包含名为 `anchor:cnnsi.com` 和 `anchor:my.look.ca` 的列。每个 `anchor` 单元格只有一个版本；`contents` 列有三个版本，时间戳分别为 $t_3$、$t_5$ 和 $t_6$。
+    > 图 1：一个用于存储网页的示例表切片。行名是反转后的 URL。`contents` 列族保存页面内容，`anchor` 列族保存所有指向该页面的锚文本。Sports Illustrated 和 MY-look 的首页都引用了 CNN 首页，因此该行包含名为 `anchor:cnnsi.com` 和 `anchor:my.look.ca` 的列。每个 `anchor` 单元格只有一个版本；`contents` 列有三个版本，时间戳分别为 $t_3$、$t_5$ 和 $t_6$。
     ```
 
 - 原书中编号为 Figure 但实际内容是表格的，标注为 `表 X-Y` 而非 `图 X-Y`。例如 `raw/ddia-2026/content_zh.md` 中：
 
-  > 表 1-1。事务处理系统与分析系统的特征比较。
+  > 表 1-1：事务处理系统与分析系统的特征比较。
 
 - 书的目录（Table of Contents）应从点线加页码的形式改为指向标题的 Markdown 锚点链接，以支持文内跳转。例如 `raw/ddia-2026/content_zh.md` 中：
 
