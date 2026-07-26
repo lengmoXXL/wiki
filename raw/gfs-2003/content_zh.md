@@ -161,7 +161,7 @@ GFS 提供人们熟悉的文件系统接口，
 许多客户端可以同时向其中追加，
 而无需额外加锁。我们发现，
 这类文件对于构建大型分布式应用极其宝贵。
-第 3.4 节和第 3.3 节将分别进一步讨论快照和记录追加。  
+[快照](#34-快照)和[记录追加](#33-原子记录追加)将分别在第 3.4 节和第 3.3 节进一步讨论。  
 
 ### 2.3 架构  
 
@@ -184,8 +184,7 @@ GFS 提供人们熟悉的文件系统接口，
 文件到数据块的映射以及数据块的当前位置。
 它还控制整个系统范围内的活动，
 例如数据块租约管理、孤立数据块的垃圾回收以及数据块在数据块服务器之间的迁移。
-主节点通过定期与每台数据块服务器交换*心跳（HeartBeat）
-*消息来下达指令并收集其状态。  
+主节点通过定期与每台数据块服务器交换*心跳（HeartBeat）*消息来下达指令并收集其状态。  
 
 链接到每个应用程序中的 GFS 客户端代码实现文件系统 API，
 并代表应用程序与主节点和数据块服务器通信，
@@ -259,7 +258,7 @@ Linux 的缓冲区缓存已经会把频繁访问的数据保留在内存中。
 因而可以长期保持与数据块服务器的持久 TCP 连接，
 减少网络开销。第三，它减少了主节点上存储的元数据量，
 使我们能够把元数据保存在内存中，
-进而带来第 2.6.1 节将讨论的其他优势。  
+进而带来[内存数据结构](#261-内存数据结构)一节将讨论的其他优势。  
 
 另一方面，即使采用延迟空间分配，
 较大的数据块也有缺点。
@@ -301,7 +300,7 @@ Linux 的缓冲区缓存已经会把频繁访问的数据保留在内存中。
 这种定期扫描用于实现数据块垃圾回收、
 数据块服务器故障时的重新复制，
 以及为平衡各数据块服务器的负载和磁盘空间使用而进行的数据块迁移。
-第 4.3 节和第 4.4 节将进一步讨论这些活动。  
+[创建、重新复制与再平衡](#43-创建重新复制与再平衡)和[垃圾回收](#44-垃圾回收)将进一步讨论这些活动。  
 
 这种纯内存方法可能引起的一项担忧是，
 数据块数量乃至整个系统的容量会受主节点内存大小限制。
@@ -341,7 +340,7 @@ Linux 的缓冲区缓存已经会把频繁访问的数据保留在内存中。
 操作日志记录关键元数据变更的历史，
 是 GFS 的核心。它不仅是元数据唯一的持久记录，
 还充当定义并发操作顺序的逻辑时间线。
-文件和数据块及其版本（见第 4.5 节），
+文件和数据块及其版本（见[过期副本检测](#45-过期副本检测)），
 都由其创建时的逻辑时间进行唯一且永久的标识。  
 
 操作日志至关重要，因此必须可靠存储，
@@ -391,8 +390,8 @@ GFS 采用宽松的一致性模型，
 
 文件命名空间变更（例如文件创建）
 是原子的。它们完全由主节点处理：
-命名空间锁保证原子性和正确性（第 4.1 节）；
-主节点的操作日志则定义这些操作的全局全序（第 2.6.3 节）。  
+命名空间锁保证原子性和正确性（见[命名空间管理与锁定](#41-命名空间管理与锁定)）；
+主节点的操作日志则定义这些操作的全局全序（见[操作日志](#263-操作日志)）。  
 
 数据变更后文件区域的状态取决于变更类型、
 变更成功与否以及是否存在并发变更。
@@ -425,7 +424,7 @@ GFS 采用宽松的一致性模型，
 写入会在应用程序指定的文件偏移处写入数据。
 记录追加即使存在并发变更，
 也会由 GFS 选择偏移并以原子方式把数据（“记录”）
-至少追加一次（第 3.3 节）。
+至少追加一次（见[原子记录追加](#33-原子记录追加)）。
 （相比之下，“常规”追加只是在客户端认为是当前文件末尾的偏移处执行写入。）
 该偏移会返回给客户端，
 并标志包含这条记录的已定义区域的起点。
@@ -437,8 +436,8 @@ GFS 采用宽松的一致性模型，
 最后一次变更所涉及的文件区域保证处于已定义状态，
 并包含该次变更写入的数据。
 GFS 通过以下方式实现这一点：
-(a) 在一个数据块的所有副本上按同一顺序应用变更（第 3.1 节）；
-(b) 使用数据块版本号检测因数据块服务器停机期间遗漏变更而过期的副本（第 4.5 节）。
+(a) 在一个数据块的所有副本上按同一顺序应用变更（见[租约与变更顺序](#31-租约与变更顺序)）；
+(b) 使用数据块版本号检测因数据块服务器停机期间遗漏变更而过期的副本（见[过期副本检测](#45-过期副本检测)）。
 过期副本绝不会参与变更，
 也不会提供给向主节点查询数据块位置的客户端。
 它们会在最早的机会被垃圾回收。  
@@ -455,8 +454,8 @@ GFS 通过以下方式实现这一点：
 当然，即使一次变更成功很久以后，
 组件故障仍可能破坏或摧毁数据。
 GFS 通过主节点与所有数据块服务器之间的定期握手识别故障的数据块服务器，
-并通过校验和检测数据损坏（第 5.2 节）。
-问题一旦出现，系统会尽快从有效副本恢复数据（第 4.3 节）。
+并通过校验和检测数据损坏（见[数据完整性](#52-数据完整性)）。
+问题一旦出现，系统会尽快从有效副本恢复数据（见[创建、重新复制与再平衡](#43-创建重新复制与再平衡)）。
 只有在 GFS 来得及响应之前（通常只有几分钟）
 所有副本都丢失，数据块才会不可逆地丢失。
 即使在这种情况下，数据块也只是不可用而非损坏：
@@ -545,7 +544,7 @@ GFS 应用程序可以借助其他用途本就需要的几项简单技术来适�
    通过把数据流与控制流解耦，
    我们可以不考虑哪台数据块服务器是主副本，
    而根据网络拓扑调度成本高昂的数据流，
-   从而提高性能。第 3.2 节将进一步讨论这一点。  
+   从而提高性能。[数据流](#32-数据流)一节将进一步讨论这一点。  
 
 4. 所有副本确认收到数据后，
    客户端向主副本发送写入请求。
@@ -574,7 +573,7 @@ GFS 客户端代码会把它分解为多项写入操作。
 但可能与其他客户端的并发操作交错，
 并被后者覆盖。因此，共享文件区域最终可能包含来自不同客户端的片段；
 不过，由于各项操作都在所有副本上按相同顺序成功完成，
-各副本仍会完全相同。如第 2.7 节所述，
+各副本仍会完全相同。如[一致性模型](#27-一致性模型)所述，
 这使文件区域处于一致但未定义的状态。  
 
 ### 3.2 数据流  
@@ -636,7 +635,7 @@ GFS 在自己选择的偏移处，
 此类文件经常充当多生产者/单消费者队列，
 或包含许多不同客户端的合并结果。  
 
-记录追加是一种变更，它遵循第 3.1 节的控制流，
+记录追加是一种变更，它遵循[租约与变更顺序](#31-租约与变更顺序)的控制流，
 只在主副本上增加少量逻辑。
 客户端先把数据推送到文件最后一个数据块的所有副本，
 然后向主副本发送请求。
@@ -665,7 +664,7 @@ GFS 不保证所有副本逐字节完全相同，
 按照我们的一致性保证，
 成功的记录追加操作写入其数据的区域是已定义的（因而一致），
 而中间区域则不一致（因而未定义）。
-正如第 2.7.2 节讨论的，
+正如[对应用程序的影响](#272-对应用程序的影响)讨论的，
 我们的应用程序可以处理不一致区域。  
 
 ### 3.4 快照  
@@ -809,7 +808,7 @@ GFS 集群在多个层面都高度分布。
 其中一个因素是距离复制目标还有多大差距。
 例如，丢失两个副本的数据块优先级高于只丢失一个副本的数据块。
 此外，与属于近期已删除文件的数据块相比，
-我们优先重新复制仍有效文件的数据块（见第 4.4 节）。
+我们优先重新复制仍有效文件的数据块（见[垃圾回收](#44-垃圾回收)）。
 最后，为了最大限度减少故障对运行中应用程序的影响，
 任何阻碍客户端继续执行的数据块都会得到更高优先级。  
 
@@ -945,14 +944,14 @@ GFS 集群在多个层面都高度分布。
 客户端和其他服务器上未完成的请求会超时，
 随后它们会重新连接到重启后的服务器并重试，
 期间只会经历短暂波动。
-第 6.2.2 节报告了实际观察到的启动时间。  
+[元数据](#622-元数据)一节报告了实际观察到的启动时间。  
 
 #### 5.1.2 数据块复制  
 
 如前所述，每个数据块都会复制到不同机架上的多台数据块服务器。
 用户可以为文件命名空间的不同部分指定不同的复制级别，
 默认值为三。当数据块服务器离线，
-或通过校验和验证检测到损坏副本时（见第 5.2 节），
+或通过校验和验证检测到损坏副本时（见[数据完整性](#52-数据完整性)），
 主节点会按需克隆现有副本，
 使每个数据块保持完整的复制级别。
 虽然复制一直很好地满足了我们的需求，
@@ -1001,7 +1000,7 @@ GFS 外部的监控基础设施会利用复制的操作日志在其他地方启�
 一个 GFS 集群通常在数百台机器上拥有数千块磁盘，
 因此经常发生磁盘故障，
 导致读取和写入路径上的数据损坏或丢失。
-（其中一个原因见第 7 节。）
+（其中一个原因见[实践经验](#7-实践经验)。）
 我们可以利用其他数据块副本从损坏中恢复，
 但通过比较各数据块服务器上的副本来检测损坏并不现实。
 此外，副本存在差异也可能是合法的：
@@ -1226,7 +1225,7 @@ B 的数据块也更多，因为其中的文件往往更大。
 
 所有数据块服务器合计存储数十 GB 的元数据，
 其中大部分是用户数据每 64 KB 块的校验和。
-数据块服务器上保留的其他元数据只有第 4.5 节讨论的数据块版本号。  
+数据块服务器上保留的其他元数据只有[过期副本检测](#45-过期副本检测)讨论的数据块版本号。  
 
 主节点保存的元数据要小得多，
 只有几十 MB，平均每个文件约 100 字节。
@@ -1317,7 +1316,7 @@ B 的数据块也更多，因为其中的文件往往更大。
 
 ### 6.3 工作负载细分  
 
-本节详细分析两个 GFS 集群的工作负载；它们与第 6.2 节中的集群相当，但并不完全相同。集群 X 用于研发，
+本节详细分析两个 GFS 集群的工作负载；它们与[真实环境集群](#62-真实环境集群)中的集群相当，但并不完全相同。集群 X 用于研发，
 集群 Y 用于生产数据处理。  
 
 #### 6.3.1 方法与注意事项  
@@ -1634,31 +1633,36 @@ Yoshka 协助了早期测试。
 
 ## 参考文献  
 
-[1] Thomas Anderson, Michael Dahlin, Jeanna Neefe, David Patterson, Drew Roselli, and Randolph Wang. Serverless network file systems. In Proceedings of the 15th ACM Symposium on Operating System Principles, pages 109–126, Copper Mountain Resort, Colorado, December 1995.  
+[1] Thomas Anderson, Michael Dahlin, Jeanna Neefe, David Patterson, Drew Roselli, and Randolph Wang. Serverless network file systems。
+In Proceedings of the 15th ACM Symposium on Operating System Principles, pages 109–126, Copper Mountain Resort, Colorado, December 1995.  
 
-[2] Remzi H. Arpaci-Dusseau, Eric Anderson, Noah Treuhaft, David E. Culler, Joseph M. Hellerstein, David Patterson, and Kathy Yelick. Cluster I/O with River: Making the fast case common. In Proceedings of the Sixth Workshop on Input/Output in Parallel and Distributed Systems (IOPADS '99), pages 10–22, Atlanta, Georgia, May 1999.  
+[2] Remzi H. Arpaci-Dusseau, Eric Anderson, Noah Treuhaft, David E. Culler, Joseph M. Hellerstein, David Patterson, and Kathy Yelick。
+Cluster I/O with River: Making the fast case common. In Proceedings of the Sixth Workshop on Input/Output in Parallel and Distributed Systems (IOPADS '99), pages 10–22, Atlanta, Georgia, May 1999.  
 
 [3] Luis-Felipe Cabrera and Darrell D. E. Long. Swift: Using distributed disk striping to provide high I/O data rates. Computer Systems, 4(4):405–436, 1991.  
 
-[4] Garth A. Gibson, David F. Nagle, Khalil Amiri, Jeff Butler, Fay W. Chang, Howard Gobioff, Charles Hardin, Erik Riedel, David Rochberg, and Jim Zelenka. A cost-effective, high-bandwidth storage architecture. In Proceedings of the 8th Architectural Support for Programming Languages and Operating Systems, pages 92–103, San Jose, California, October 1998.
+[4] Garth A. Gibson, David F. Nagle, Khalil Amiri, Jeff Butler, Fay W。
+Chang, Howard Gobioff, Charles Hardin, Erik Riedel, David Rochberg, and Jim Zelenka. A cost-effective, high-bandwidth storage architecture。
+In Proceedings of the 8th Architectural Support for Programming Languages and Operating Systems, pages 92–103, San Jose, California, October 1998。
 
-[5] John Howard, Michael Kazar, Sherri Menees, David
-Nichols, Mahadev Satyanarayanan, Robert
-Sidebotham, and Michael West. Scale and
-performance in a distributed file system. ACM
-Transactions on Computer Systems, 6(1):51–81,
-February 1988.  
+[5] John Howard, Michael Kazar, Sherri Menees, David Nichols, Mahadev Satyanarayanan, Robert Sidebotham, and Michael West。
+Scale and performance in a distributed file system. ACM Transactions on Computer Systems, 6(1):51–81, February 1988.  
 
 [6] InterMezzo. http://www.inter-mezzo.org, 2003.  
 
-[7] Barbara Liskov, Sanjay Ghemawat, Robert Gruber, Paul Johnson, Liuba Shrira, and Michael Williams. Replication in the Harp file system. In *13th Symposium on Operating System Principles*, pages 226–238, Pacific Grove, CA, October 1991.  
+[7] Barbara Liskov, Sanjay Ghemawat, Robert Gruber, Paul Johnson, Liuba Shrira, and Michael Williams. Replication in the Harp file system。
+In *13th Symposium on Operating System Principles*, pages 226–238, Pacific Grove, CA, October 1991.  
 
 [8] Lustre. http://www.lustre.org, 2003.  
 
-[9] David A. Patterson, Garth A. Gibson, and Randy H. Katz. A case for redundant arrays of inexpensive disks (RAID). In Proceedings of the 1988 ACM SIGMOD International Conference on Management of Data, pages 109–116, Chicago, Illinois, September 1988.  
+[9] David A. Patterson, Garth A. Gibson, and Randy H. Katz. A case for redundant arrays of inexpensive disks (RAID)。
+In Proceedings of the 1988 ACM SIGMOD International Conference on Management of Data, pages 109–116, Chicago, Illinois, September 1988.  
 
-[10] Frank Schmuck and Roger Haskin. GPFS: A shared-disk file system for large computing clusters. In Proceedings of the First USENIX Conference on File and Storage Technologies, pages 231–244, Monterey, California, January 2002.  
+[10] Frank Schmuck and Roger Haskin. GPFS: A shared-disk file system for large computing clusters。
+In Proceedings of the First USENIX Conference on File and Storage Technologies, pages 231–244, Monterey, California, January 2002.  
 
-[11] Steven R. Soltis, Thomas M. Ruwart, and Matthew T. O'Keefe. The Global File System. In Proceedings of the Fifth NASA Goddard Space Flight Center Conference on Mass Storage Systems and Technologies, College Park, Maryland, September 1996.  
+[11] Steven R. Soltis, Thomas M. Ruwart, and Matthew T. O'Keefe. The Global File System。
+In Proceedings of the Fifth NASA Goddard Space Flight Center Conference on Mass Storage Systems and Technologies, College Park, Maryland, September 1996.  
 
-[12] Chandramohan A. Thekkath, Timothy Mann, and Edward K. Lee. Frangipani: A scalable distributed file system. In Proceedings of the 16th ACM Symposium on Operating System Principles, pages 224–237, Saint-Malo, France, October 1997.
+[12] Chandramohan A. Thekkath, Timothy Mann, and Edward K. Lee. Frangipani: A scalable distributed file system。
+In Proceedings of the 16th ACM Symposium on Operating System Principles, pages 224–237, Saint-Malo, France, October 1997。
