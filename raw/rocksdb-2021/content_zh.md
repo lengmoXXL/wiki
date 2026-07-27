@@ -37,7 +37,8 @@ RocksDB 是一种面向大规模分布式系统、
 
 ## 1 引言  
 
-RocksDB [19, 54] 是 Facebook 于 2012 年基于 Google 的 LevelDB 代码库 [22] 创建的高性能持久化键值存储引擎。
+RocksDB [19, 54] 是 Facebook 于 2012 年基于 Google 的 LevelDB 代码库 [22]
+创建的高性能持久化键值存储引擎。
 它针对固态硬盘（SSD）
 的特性进行了优化，面向大规模（分布式）
 应用，并被设计成嵌入上层应用的库组件。
@@ -51,7 +52,7 @@ RocksDB 及其各个组件具有很强的可定制性，
 因而可以让存储引擎适应广泛的需求和工作负载。
 可定制项包括预写日志（WAL）
 的处理方式、压缩策略，
-以及压实策略（即移除失效数据并优化 LSM 树的过程，
+以及压实（compaction）策略（即移除失效数据并优化 LSM 树的过程，
 详见 §2）。RocksDB 可以针对高写吞吐量、
 高读吞吐量、空间效率或介于其间的目标进行调优。
 由于配置灵活，许多应用都在使用 RocksDB，
@@ -294,9 +295,10 @@ RocksDB 支持多种不同的压实方式。
 
 ## 3 资源优化目标的演进  
 
+本节介绍我们的资源优化目标如何随时间演进：从写放大，到空间放大，再到 CPU 利用率。  
+
 ### 3.1 写放大  
 
-本节介绍我们的资源优化目标如何随时间演进：从写放大，到空间放大，再到 CPU 利用率。  
 
 我们开始开发 RocksDB 时，
 遵循当时业界的一般看法（例如 [34]），
@@ -864,7 +866,7 @@ RocksDB 遇到的大多数故障，
 ## 6 键值接口方面的经验  
 
 核心键值（KV）接口的通用性出人意料。
-几乎所有存储工作负载都可以由提供 KV API 的数据存储服务；
+几乎所有存储工作负载都可以由提供 KV API 的数据存储来服务；
 我们很少见到无法用此接口实现所需功能的应用。
 这或许正是 KV 存储如此流行的原因。
 KV 接口非常通用，键和值都是变长字节数组。
@@ -1095,13 +1097,9 @@ RocksDB 的成功归功于 Facebook 现任及曾经的所有 RocksDB 团队成�
 | |性能|可配置性|功能|
 | ---|---|---|---|
 | 2012|多线程压实||压实过滤器；防止 SSTable 被删除|
-| 2013|分级压实；
-前缀布隆过滤器；MemTable 布隆过滤器；
-供 MemTable 刷写使用的独立线程池|可插拔 MemTable；可插拔文件格式|合并操作符|
+| 2013|分级压实；前缀布隆过滤器；MemTable 布隆过滤器；供 MemTable 刷写使用的独立线程池|可插拔 MemTable；可插拔文件格式|合并操作符|
 | 2014|FIFO 压实；压实限速器；缓存友好型布隆过滤器|基于字符串的配置选项；动态配置变更|备份引擎；支持多个键空间（“列族”）；物理检查点|
-| 2015|动态分层压实；
-文件删除限速；并行执行 Level 0 和 Level 1 压实|独立配置文件；
-配置兼容性检查器|集成 SSTable 文件的批量装载；乐观事务与悲观事务|
+| 2015|动态分层压实；文件删除限速；并行执行 Level 0 和 Level 1 压实|独立配置文件；配置兼容性检查器|集成 SSTable 文件的批量装载；乐观事务与悲观事务|
 | 2016|最后一层采用不同压缩方式；并行插入 MemTable|跨实例的 MemTable 总大小上限；压实迁移工具|DeleteRange()|
 | 2017|最底层压实使用独立线程池；两级文件索引；Level 0 到 Level 0 的压实|块缓存和 MemTable 共用一个内存上限||
 | 2018|字典压缩；数据块内的哈希索引||自动从空间不足错误中恢复；查询跟踪与重放工具|
@@ -1157,164 +1155,301 @@ RocksDB 的成功归功于 Facebook 现任及曾经的所有 RocksDB 团队成�
 
 ## 参考文献  
 
-[1] Jung-Sang Ahn, Chiyoung Seo, Ravi Mayuram, Rahim Yaseen, Jin-Soo Kim, and Seungryoul Maeng. ForestDB: A fast key-value storage system for variable-length string keys. IEEE Trans. on Computers, 65(3):902–915, 2015.  
+[1] Jung-Sang Ahn, Chiyoung Seo, Ravi Mayuram, Rahim Yaseen, Jin-Soo Kim,
+and Seungryoul Maeng. ForestDB:
+A fast key-value storage system for variable-length string keys. IEEE Trans.
+on Computers, 65(3):902–915, 2015.  
 
-[2] Manos Athanassoulis, Michael S Kester, Lukas M Maas, Radu Stoica, Stratos Idreos, Anastasia Ailamaki, and Mark Callaghan. Designing access methods: The RUM conjecture. In Proc. Intl. Conf on Extending Database Technology (EDBT), volume 2016, pages 461–466, 2016.  
+[2] Manos Athanassoulis, Michael S Kester, Lukas M Maas, Radu Stoica,
+Stratos Idreos, Anastasia Ailamaki, and Mark Callaghan.
+Designing access methods: The RUM conjecture. In Proc. Intl.
+Conf on Extending Database Technology (EDBT), volume 2016, pages 461–466, 2016.  
 
-[3] Oana Balmau, Diego Didona, Rachid Guerraoui, Willy Zwaenepoel, Huapeng Yuan, Aashray Arora, Karan Gupta, and Pavan Konka. TRIAD: Creating synergies between memory, disk and log in log-structured key-value stores. In Proc. USENIX Annual Technical Conference (USENIX-ATC'17), pages 363–375, 2017.  
+[3] Oana Balmau, Diego Didona, Rachid Guerraoui, Willy Zwaenepoel, Huapeng Yuan,
+Aashray Arora, Karan Gupta, and Pavan Konka. TRIAD:
+Creating synergies between memory,
+disk and log in log-structured key-value stores. In Proc.
+USENIX Annual Technical Conference (USENIX-ATC'17), pages 363–375, 2017.  
 
-[4] Matias Björling. Zone Append: A new way of writing to zoned storage. In Proc. Usenix Linux Storage and Filesystems Conference (VAULT'20), 2020.  
+[4] Matias Björling. Zone Append: A new way of writing to zoned storage.
+In Proc. Usenix Linux Storage and Filesystems Conference (VAULT'20), 2020.  
 
-[5] Facebook Engineering Blog. LogDevice: A distributed data store for logs. https://engineering.fb.com/core-data/logdevice-a-distributed-data-store-for-logs/. [Online; retrieved September 2020].  
+[5] Facebook Engineering Blog. LogDevice: A distributed data store for logs.
+https://engineering.fb.com/core-data/logdevice-a-distributed-data-store-for-logs/.
+[Online; retrieved September 2020].  
 
-[6] Instagram Engineering Blog. Open-sourcing a 10x reduction in Apache Cassandra tail latency. https://instagram-engineering.com/open-sourcing-a-10x-reduction-in-apache-cassandra-tail-latency-d64f86b43589. [Online; retrieved September 2020].  
+[6] Instagram Engineering Blog.
+Open-sourcing a 10x reduction in Apache Cassandra tail latency.
+https://instagram-engineering.com/open-sourcing-a-10x-reduction-in-apache-cassandra-tail-latency-d64f86b43589.
+[Online; retrieved September 2020].  
 
-[7] Netflix Technology Blog. Application data caching using SSDs: The Moneta project: Next generation EV-Cache for better cost optimization. https://netflixtechblog.com/application-data-caching-using-ssds-5bf25df851ef. [Online; retrieved September 2020].  
+[7] Netflix Technology Blog. Application data caching using SSDs:
+The Moneta project: Next generation EV-Cache for better cost optimization.
+https://netflixtechblog.com/application-data-caching-using-ssds-5bf25df851ef.
+[Online; retrieved September 2020].  
 
-[8] Uber Engineering Blog. Cherami: Uber Engineering's durable and scalable task queue in Go. https://eng.uber.com/cherami-message-queue-system/. [Online; retrieved September 2020].  
+[8] Uber Engineering Blog. Cherami:
+Uber Engineering's durable and scalable task queue in Go.
+https://eng.uber.com/cherami-message-queue-system/. [Online;
+retrieved September 2020].  
 
-[9] Dhruba Borthakur. HDFS architecture guide. *Hadoop Apache Project*, 53(1-13):2, 2008.  
+[9] Dhruba Borthakur. HDFS architecture guide. *Hadoop Apache Project*,
+53(1-13):2, 2008.  
 
-[10] Mark Callaghan. MongoRocks and WiredTiger versus LinkBench on a small server. http://smalldatum.blogspot.com/2016/10/mongorocks-and-wiredtiger-versus.html. [Online; retrieved January 2021].  
+[10] Mark Callaghan.
+MongoRocks and WiredTiger versus LinkBench on a small server.
+http://smalldatum.blogspot.com/2016/10/mongorocks-and-wiredtiger-versus.html.
+[Online; retrieved January 2021].  
 
-[11] Zhichao Cao, Siying Dong, Sagar Vemuri, and David H.C. Du. Characterizing, modeling, and benchmarking RocksDB key-value workloads at Facebook. In 18th USENIX Conf. on File and Storage Technologies (FAST'20), pages 209–223, February 2020.  
+[11] Zhichao Cao, Siying Dong, Sagar Vemuri, and David H.C. Du. Characterizing,
+modeling, and benchmarking RocksDB key-value workloads at Facebook.
+In 18th USENIX Conf. on File and Storage Technologies (FAST'20), pages 209–223,
+February 2020.  
 
-[12] Paris Carbone, Asterios Katsifodimos, Stephan Ewen, Volker Markl, Seif Haridi, and Kostas Tzoumas. Apache Flink: Stream and batch processing in a single engine. Bulletin of the IEEE Computer Society Technical Committee on Data Engineering, 36(4), 2015.  
+[12] Paris Carbone, Asterios Katsifodimos, Stephan Ewen, Volker Markl,
+Seif Haridi, and Kostas Tzoumas. Apache Flink:
+Stream and batch processing in a single engine.
+Bulletin of the IEEE Computer Society Technical Committee on Data Engineering,
+36(4), 2015.  
 
-[13] Apache Cassandra. https://cassandra.apache.org/.[Online;retrievedSeptember2020].  
+[13] Apache Cassandra.
+https://cassandra.apache.org/.[Online;retrievedSeptember2020].  
 
-[14] Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C Hsieh, Deborah A Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E Gruber. Bigtable: A distributed storage system for structured data. ACM Trans. on Computer Systems (TOCS), 26(2):1–26, 2008.  
+[14] Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C Hsieh,
+Deborah A Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes,
+and Robert E Gruber. Bigtable: A distributed storage system for structured data.
+ACM Trans. on Computer Systems (TOCS), 26(2):1–26, 2008.  
 
-[15] Guoqiang Jerry Chen, Janet L Wiener, Shridhar Iyer, Anshul Jaiswal, Ran Lei, Nikhil Simha, Wei Wang, Kevin Wilfong, Tim Williamson, and Serhat Yilmaz. Realtime data processing at Facebook. In Proc. Intl. Conf. on Management of Data, pages 1087–1098, 2016.  
+[15] Guoqiang Jerry Chen, Janet L Wiener, Shridhar Iyer, Anshul Jaiswal,
+Ran Lei, Nikhil Simha, Wei Wang, Kevin Wilfong, Tim Williamson,
+and Serhat Yilmaz. Realtime data processing at Facebook. In Proc. Intl. Conf.
+on Management of Data, pages 1087–1098, 2016.  
 
-[16] James C Corbett, Jeffrey Dean, Michael Epstein, Andrew Fikes, Christopher Frost, Jeffrey John Furman, Sanjay Ghemawat, Andrey Gubarev, Christopher Heiser, Peter Hochschild, et al. Spanner: Google's globally distributed database. ACM Trans. on Computer Systems (TOCS), 31(3):1–22, 2013.  
+[16] James C Corbett, Jeffrey Dean, Michael Epstein, Andrew Fikes,
+Christopher Frost, Jeffrey John Furman, Sanjay Ghemawat, Andrey Gubarev,
+Christopher Heiser, Peter Hochschild, et al. Spanner:
+Google's globally distributed database. ACM Trans. on Computer Systems (TOCS),
+31(3):1–22, 2013.  
 
-[17] Niv Dayan, Manos Athanassoulis, and Stratos Idreos.
-Monkey: Optimal navigable key-value store. In Proc.
-Intl. Conf. on Management of Data (SIGMOD'17),
-pages 79–94, 2017.  
+[17] Niv Dayan, Manos Athanassoulis, and Stratos Idreos. Monkey:
+Optimal navigable key-value store. In Proc. Intl. Conf.
+on Management of Data (SIGMOD'17), pages 79–94, 2017.  
 
-[18] Cristian Diaconu, Craig Freedman, Erik Ismert, Per-Ake Larson, Pravin Mittal, Ryan Stonecipher, Nitin Verma, and Mike Zwilling. Hekaton: SQL server's memory-optimized OLTP engine. In Proc. ACM SIGMOD Intl. Conf. on Management of Data (SIGMOD'13), pages 1243–1254, 2013.  
+[18] Cristian Diaconu, Craig Freedman, Erik Ismert, Per-Ake Larson,
+Pravin Mittal, Ryan Stonecipher, Nitin Verma, and Mike Zwilling. Hekaton:
+SQL server's memory-optimized OLTP engine. In Proc. ACM SIGMOD Intl. Conf.
+on Management of Data (SIGMOD'13), pages 1243–1254, 2013.  
 
-[19] Siying Dong, Mark Callaghan, Leonidas Galanis, Dhruba Borthakur, Tony Savor, and Michael Stumm. Optimizing space amplification in RocksDB. In Proc. Conf. on Innovative Data Systems Research (CIDR'17), 2017.  
+[19] Siying Dong, Mark Callaghan, Leonidas Galanis, Dhruba Borthakur,
+Tony Savor, and Michael Stumm. Optimizing space amplification in RocksDB.
+In Proc. Conf. on Innovative Data Systems Research (CIDR'17), 2017.  
 
-[20] Jose Faleiro. The dangers of logical replication and a practical solution. In Proc. 18th Intl. Workshop on High Performance Transaction Systems (HPTS'19), 2019.  
+[20] Jose Faleiro. The dangers of logical replication and a practical solution.
+In Proc. 18th Intl. Workshop on High Performance Transaction Systems (HPTS'19),
+2019.  
 
-[21] Tasha Frankie, Gordon Hughes, and Ken Kreutz-Delgado. A mathematical model of the trim command in NAND-flash SSDs. In Proc. 50th Annual Southeast Regional Conference (ACM-SE'12), pages 59–64, 2012.  
+[21] Tasha Frankie, Gordon Hughes, and Ken Kreutz-Delgado.
+A mathematical model of the trim command in NAND-flash SSDs. In Proc.
+50th Annual Southeast Regional Conference (ACM-SE'12), pages 59–64, 2012.  
 
 [22] S. Ghemawat and J. Dean. LevelDB. https://github.com/google/leveldb, 2011.  
 
-[23] Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung. The Google File System. In Proc. 19th ACM Symp. on Operating Systems Principles (SOSP'03), pages 29–43, 2003.  
+[23] Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung.
+The Google File System. In Proc. 19th ACM Symp.
+on Operating Systems Principles (SOSP'03), pages 29–43, 2003.  
 
-[24] Guy Golan-Gueta, Edward Bortnikov, Eshcar Hillel, and
-Idit Keidar. Scaling concurrent log-structured data
-stores. In *Proc. European Conf. on Computer Systems
-(EUROSYS'15)*, pages 1–14, 2015.  
+[24] Guy Golan-Gueta, Edward Bortnikov, Eshcar Hillel, and Idit Keidar.
+Scaling concurrent log-structured data stores. In *Proc. European Conf.
+on Computer Systems (EUROSYS'15)*, pages 1–14, 2015.  
 
-[25] Caixin Gong, Shuibing He, Yili Gong, and Yingchun Lei. On integration of appends and merges in log-structured merge trees. In Proc. 48th Intl. Conf. on Parallel Processing (ICPP'19), pages 1–10, 2019.  
+[25] Caixin Gong, Shuibing He, Yili Gong, and Yingchun Lei.
+On integration of appends and merges in log-structured merge trees. In Proc.
+48th Intl. Conf. on Parallel Processing (ICPP'19), pages 1–10, 2019.  
 
 [26] Apache HBase. https://hbase.apache.org/.[Online;retrievedSeptember2020].  
 
-[27] Dongxu Huang, Qi Liu, Qiu Cui, Zhuhe Fang, Xiaoyu Ma, Fei Xu, Li Shen, Liu Tang, Yuxing Zhou, Menglong Huang, Wan Wei, Cong Liu, Jian Zhang, Jianjun Li, Xuelian Wu, Lingyu Song, Ruoxi Sun, Shuaipeng Yu, Lei Zhao, Nicholas Cameron, Liquan Pei, and Xin Tang. TiDB: A Raft-based HTAP database. Proc. VLDB Endow., 13(12):3072–3084, August 2020.  
+[27] Dongxu Huang, Qi Liu, Qiu Cui, Zhuhe Fang, Xiaoyu Ma, Fei Xu, Li Shen,
+Liu Tang, Yuxing Zhou, Menglong Huang, Wan Wei, Cong Liu, Jian Zhang,
+Jianjun Li, Xuelian Wu, Lingyu Song, Ruoxi Sun, Shuaipeng Yu, Lei Zhao,
+Nicholas Cameron, Liquan Pei, and Xin Tang. TiDB: A Raft-based HTAP database.
+Proc. VLDB Endow., 13(12):3072–3084, August 2020.  
 
-[28] Intel. Trim overview. https://www.intel.com/content/www/us/en/support/articles/000016148/memory-and-storage.html.[Online;retrievedJan2021].  
+[28] Intel. Trim overview.
+https://www.intel.com/content/www/us/en/support/articles/000016148/memory-and-storage.html.[Online;retrievedJan2021].  
 
 [29] Iron.io. https://www.iron.io/. [Online; retrieved September 2020].  
 
-[30] Hideaki Kimura. FOEDUS: OLTP engine for a thousand cores and NVRAM. In Proc. SIGMOD Intl. Conf. on Management of Data (SIGMOD'15), pages 691–706, 2015.  
+[30] Hideaki Kimura. FOEDUS: OLTP engine for a thousand cores and NVRAM.
+In Proc. SIGMOD Intl. Conf. on Management of Data (SIGMOD'15), pages 691–706,
+2015.  
 
-[31] Jay Kreps. Introducing Kafka Streams: Stream processing made simple. Confluent. https://www.confluent.io/blog/introducing-kafka-streams-stream-processing-made-simple/. [Online; retrieved September 2020].  
+[31] Jay Kreps. Introducing Kafka Streams: Stream processing made simple.
+Confluent.
+https://www.confluent.io/blog/introducing-kafka-streams-stream-processing-made-simple/.
+[Online; retrieved September 2020].  
 
-[32] B Kuszmaul. How TokuDB fractal tree indexes work.
-Technical report, Technical report, TokuTek, 2010.  
+[32] B Kuszmaul. How TokuDB fractal tree indexes work. Technical report,
+Technical report, TokuTek, 2010.  
 
-[33] Chuck Lever. End-to-end data integrity requirements for NFS. Oracle Corp. https://datatracker.ietf.org/meeting/83/materials/slides-83-nfsv4-2. [Online; retrieved September 2020].  
+[33] Chuck Lever. End-to-end data integrity requirements for NFS. Oracle Corp.
+https://datatracker.ietf.org/meeting/83/materials/slides-83-nfsv4-2. [Online;
+retrieved September 2020].  
 
-[34] Hyeontaek Lim, Bin Fan, David G Andersen, and Michael Kaminsky. SILT: A memory-efficient, high-performance key-value store. In Proc. 23rd ACM Symp. on Operating Systems Principles (SOSP'11), pages 1–13, 2011.  
+[34] Hyeontaek Lim, Bin Fan, David G Andersen, and Michael Kaminsky. SILT:
+A memory-efficient, high-performance key-value store. In Proc. 23rd ACM Symp.
+on Operating Systems Principles (SOSP'11), pages 1–13, 2011.  
 
-[35] Lanyue Lu, Thanumalayan Sankaranarayana Pillai, Hariharan Gopalakrishnan, Andrea C Arpaci-Dusseau, and Remzi H Arpaci-Dusseau. WiscKey: Separating keys from values in SSD-conscious storage. ACM Trans. on Storage (TOS), 13(1):1–28, 2017.  
+[35] Lanyue Lu, Thanumalayan Sankaranarayana Pillai, Hariharan Gopalakrishnan,
+Andrea C Arpaci-Dusseau, and Remzi H Arpaci-Dusseau. WiscKey:
+Separating keys from values in SSD-conscious storage. ACM Trans.
+on Storage (TOS), 13(1):1–28, 2017.  
 
-[36] Yoshinori Matsunobu. Migrating a database from InnoDB to MyRocks. Facebook Engineering Blog. https://engineering.fb.com/core-data/migrating-a-database-from-innodb-to-myrocks/, 2017. [Online; retrieved September 2020].  
+[36] Yoshinori Matsunobu. Migrating a database from InnoDB to MyRocks.
+Facebook Engineering Blog.
+https://engineering.fb.com/core-data/migrating-a-database-from-innodb-to-myrocks/,
+2017. [Online; retrieved September 2020].  
 
-[37] Yoshinori Matsunobu, Siying Dong, and Herman Lee.
-MyRocks: LSM-tree database storage engine serving
-Facebook's Social Graph. Proc. VLDB Endowment,
-13(12):3217–3230, August 2020.  
+[37] Yoshinori Matsunobu, Siying Dong, and Herman Lee. MyRocks:
+LSM-tree database storage engine serving Facebook's Social Graph. Proc.
+VLDB Endowment, 13(12):3217–3230, August 2020.  
 
-[38] Microsoft. Microsoft SQL Server. https://www.microsoft.com/en-us/sql-server/.[Online;retrievedSeptember2020].  
+[38] Microsoft. Microsoft SQL Server.
+https://www.microsoft.com/en-us/sql-server/.[Online;retrievedSeptember2020].  
 
-[39] MongoDB. WiredTiger Storage Engine. https://docs.mongodb.com/manual/core/wiredtiger/.
+[39] MongoDB. WiredTiger Storage Engine.
+https://docs.mongodb.com/manual/core/wiredtiger/.
 [Online;retrievedSeptember2020].  
 
-[40] MongoRocks. RocksDB storage engine module for MongoDB. https://github.com/mongodb-partners/mongo-rocks. [Online; retrieved September 2020].  
+[40] MongoRocks. RocksDB storage engine module for MongoDB.
+https://github.com/mongodb-partners/mongo-rocks. [Online;
+retrieved September 2020].  
 
-[41] MySQL. Introduction to InnoDB. https://dev.mysql.com/doc/refman/5.6/en/innodb-introduction.html.[Online;retrievedSeptember2020].  
+[41] MySQL. Introduction to InnoDB.
+https://dev.mysql.com/doc/refman/5.6/en/innodb-introduction.html.[Online;retrievedSeptember2020].  
 
 [42] MySQL. MySQL. https://www.mysql.com/.[Online;retrievedSeptember2020].  
 
-[43] Shadi A Noghabi, Kartik Paramasivam, Yi Pan, Navina Ramesh, Jon Bringhurst, Indranil Gupta, and Roy H Campbell. Samza: Stateful scalable stream processing at LinkedIn. *Proc. of the VLDB Endowment*, 10(12):1634–1645, 2017.  
+[43] Shadi A Noghabi, Kartik Paramasivam, Yi Pan, Navina Ramesh, Jon Bringhurst,
+Indranil Gupta, and Roy H Campbell. Samza:
+Stateful scalable stream processing at LinkedIn. *Proc. of the VLDB Endowment*,
+10(12):1634–1645, 2017.  
 
-[44] Michael A Olson, Keith Bostic, and Margo I Seltzer.
-Berkeley DB. In USENIX Annual Technical Conference,
-FREENIX Track, pages 183–191, 1999.  
+[44] Michael A Olson, Keith Bostic, and Margo I Seltzer. Berkeley DB.
+In USENIX Annual Technical Conference, FREENIX Track, pages 183–191, 1999.  
 
-[45] Patrick O'Neil, Edward Cheng, Dieter Gawlick, and Elizabeth O'Neil. The log-structured merge-tree (LSM-tree). Acta Informatica, 33(4):351–385, 1996.  
+[45] Patrick O'Neil, Edward Cheng, Dieter Gawlick, and Elizabeth O'Neil.
+The log-structured merge-tree (LSM-tree). Acta Informatica, 33(4):351–385, 1996.  
 
-[46] Keren Ouaknine, Oran Agra, and Zvika Guz. Optimization of RocksDB for Redis on flash. In Proc. Intl. Conf. on Compute and Data Analysis, pages 155–161, 2017.  
+[46] Keren Ouaknine, Oran Agra, and Zvika Guz.
+Optimization of RocksDB for Redis on flash. In Proc. Intl. Conf.
+on Compute and Data Analysis, pages 155–161, 2017.  
 
 [47] Mike Owens. *The definitive guide to SQLite*. Apress, 2006.  
 
-[48] Martin K Petersen. Linux data integrity extensions. In
-Linux Symposium, volume 4, page 5, 2008.  
+[48] Martin K Petersen. Linux data integrity extensions. In Linux Symposium,
+volume 4, page 5, 2008.  
 
-[49] Martin K. Petersen and Sergio Leunissen. Eliminating silent data corruption with Oracle Linux. Oracle Corp. https://oss.oracle.com/~mkp/docs/data-integrity-webcast.pdf. [Online; retrieved September 2020].  
+[49] Martin K. Petersen and Sergio Leunissen.
+Eliminating silent data corruption with Oracle Linux. Oracle Corp.
+https://oss.oracle.com/~mkp/docs/data-integrity-webcast.pdf. [Online;
+retrieved September 2020].  
 
-[50] Ivan Luiz Picoli, Niclas Hedam, Philippe Bonnet, and Pinar Tözün. Open-channel SSD (What is it good for). In Proc. Conf. on Innovative Data Systems Research (CIDR'20), 2020.  
+[50] Ivan Luiz Picoli, Niclas Hedam, Philippe Bonnet, and Pinar Tözün.
+Open-channel SSD (What is it good for). In Proc. Conf.
+on Innovative Data Systems Research (CIDR'20), 2020.  
 
-[51] Qihoo. https://github.com/Qihoo360/pika. [Online; retrieved September 2020].  
+[51] Qihoo. https://github.com/Qihoo360/pika. [Online;
+retrieved September 2020].  
 
-[52] Pandian Raju, Rohan Kadekodi, Vijay Chidambaram, and Ittai Abraham. PebblesDB: Building key-value stores using fragmented log-structured merge trees. In Proc. 26th Symp. on Operating Systems Principles (SOSP'17), pages 497–514, 2017.  
+[52] Pandian Raju, Rohan Kadekodi, Vijay Chidambaram, and Ittai Abraham.
+PebblesDB:
+Building key-value stores using fragmented log-structured merge trees. In Proc.
+26th Symp. on Operating Systems Principles (SOSP'17), pages 497–514, 2017.  
 
-[53] Kai Ren, Qing Zheng, Joy Arulraj, and Garth Gibson. SlimDB: A space-efficient key-value storage engine for semi-sorted data. *Proc. of the VLDB Endowment (VLDB'17)*, 10(13):2037–2048, 2017.  
+[53] Kai Ren, Qing Zheng, Joy Arulraj, and Garth Gibson. SlimDB:
+A space-efficient key-value storage engine for semi-sorted data. *Proc.
+of the VLDB Endowment (VLDB'17)*, 10(13):2037–2048, 2017.  
 
-[54] RocksDB.org. A persistent key-value store for fast storage environments. https://rocksdb.org.[Online;retrievedSeptember2020].  
+[54] RocksDB.org. A persistent key-value store for fast storage environments.
+https://rocksdb.org.[Online;retrievedSeptember2020].  
 
 [55] Jerome H Saltzer, David P Reed, and David D Clark.
-End-to-end arguments in system design. ACM Trans. on
-Computer Systems (TOCS), 2(4):277–288, 1984.  
+End-to-end arguments in system design. ACM Trans. on Computer Systems (TOCS),
+2(4):277–288, 1984.  
 
-[56] Tony Savor, Mitchell Douglas, Michael Gentili, Laurie Williams, Kent Beck, and Michael Stumm. Continuous deployment at Facebook and OANDA. In 2016 IEEE/ACM 38th International Conference on Software Engineering Companion (ICSE-C), pages 21–30. IEEE, 2016.  
+[56] Tony Savor, Mitchell Douglas, Michael Gentili, Laurie Williams, Kent Beck,
+and Michael Stumm. Continuous deployment at Facebook and OANDA.
+In 2016 IEEE/ACM 38th International Conference on Software Engineering Companion
+(ICSE-C), pages 21–30. IEEE, 2016.  
 
-[57] Russell Sears and Raghu Ramakrishnan. bLSM: a general purpose log-structured merge tree. In Proc. Intl. Conf. on Management of Data (SIGMOD '12), pages 217–228, 2012.  
+[57] Russell Sears and Raghu Ramakrishnan. bLSM:
+a general purpose log-structured merge tree. In Proc. Intl. Conf.
+on Management of Data (SIGMOD '12), pages 217–228, 2012.  
 
-[58] Arun Sharma. How we use RocksDB at Rockset. Rockset Blog. https://rockset.com/blog/how-we-use-rocksdb-at-rockset/. [Online; retrieved September 2020].  
+[58] Arun Sharma. How we use RocksDB at Rockset. Rockset Blog.
+https://rockset.com/blog/how-we-use-rocksdb-at-rockset/. [Online;
+retrieved September 2020].  
 
-[59] Arun Sharma. Dragon: A distributed graph query engine. Facebook Engineering Blog. https://engineering.fb.com/data-infrastructure/dragon-a-distributed-graph-query-engine/. [Online; retrieved September 2020].  
+[59] Arun Sharma. Dragon: A distributed graph query engine.
+Facebook Engineering Blog.
+https://engineering.fb.com/data-infrastructure/dragon-a-distributed-graph-query-engine/.
+[Online; retrieved September 2020].  
 
-[60] Pradeep J Shetty, Richard P Spillane, Ravikant R Malpani, Binesh Andrews, Justin Seyster, and Erez Zadok. Building workload-independent storage with VT-trees. In Proc. 11th USENIX Conf. on File and Storage Technologies (FAST'13), pages 17–30, 2013.  
+[60] Pradeep J Shetty, Richard P Spillane, Ravikant R Malpani, Binesh Andrews,
+Justin Seyster, and Erez Zadok.
+Building workload-independent storage with VT-trees. In Proc. 11th USENIX Conf.
+on File and Storage Technologies (FAST'13), pages 17–30, 2013.  
 
 [61] Gopalan Sivathanu, Charles P Wright, and Erez Zadok.
-Enhancing file system integrity through checksums.
-Technical report, Citeseer, 2004.  
+Enhancing file system integrity through checksums. Technical report, Citeseer,
+2004.  
 
-[62] Mark Slee, Aditya Agarwal, and Marc Kwiatkowski.
-Thrift: Scalable cross-language services implementation.
-Facebook White Paper, 5(8), 2007.  
+[62] Mark Slee, Aditya Agarwal, and Marc Kwiatkowski. Thrift:
+Scalable cross-language services implementation. Facebook White Paper, 5(8),
+2007.  
 
-[63] Google Open Source. Protobuf. https://opensource.google.com/projects/protobuf.[Online;retrievedSeptember2020].  
+[63] Google Open Source. Protobuf.
+https://opensource.google.com/projects/protobuf.[Online;retrievedSeptember2020].  
 
-[64] Rebecca Taft, Irfan Sharif, Andrei Matei, Nathan Van-Benschoten, Jordan Lewis, Tobias Grieger, Kai Niemi, Andy Woods, Anne Birzin, Raphael Poss, Paul Bardea, Amruta Ranade, Ben Darnell, Bram Gruneir, Justin Jaffray, Lucy Zhang, and Peter Mattis. CockroachDB: The resilient geo-distributed SQL database. In Proc. ACM SIGMOD Intl. Conf. on Management of Data (SIGMOD'20), pages 1493–1509, 2020.  
+[64] Rebecca Taft, Irfan Sharif, Andrei Matei, Nathan Van-Benschoten,
+Jordan Lewis, Tobias Grieger, Kai Niemi, Andy Woods, Anne Birzin, Raphael Poss,
+Paul Bardea, Amruta Ranade, Ben Darnell, Bram Gruneir, Justin Jaffray,
+Lucy Zhang, and Peter Mattis. CockroachDB:
+The resilient geo-distributed SQL database. In Proc. ACM SIGMOD Intl. Conf.
+on Management of Data (SIGMOD'20), pages 1493–1509, 2020.  
 
-[65] Amy Tai, Andrew Kryczka, Shobhit O. Kanaujia, Kyle Jamieson, Michael J. Freedman, and Asaf Cidon. Who's afraid of uncorrectable bit errors? Online recovery of flash errors with distributed redundancy. In 2019 USENIX Annual Technical Conference (USENIX ATC'19), pages 977–992, Renton, WA, July 2019.  
+[65] Amy Tai, Andrew Kryczka, Shobhit O. Kanaujia, Kyle Jamieson, Michael J.
+Freedman, and Asaf Cidon. Who's afraid of uncorrectable bit errors?
+Online recovery of flash errors with distributed redundancy.
+In 2019 USENIX Annual Technical Conference (USENIX ATC'19), pages 977–992,
+Renton, WA, July 2019.  
 
-[66] Tobias Vinçon, Sergej Hardock, Christian Riegger, Julian Oppermann, Andreas Koch, and Ilia Petrov. NoFTL-KV: Tackling write-amplification on KV-stores with native storage management. In Proc. 21st Intl. Conf. on Extending Database Technology (EDBT'18), pages 457–460, 2018.  
+[66] Tobias Vinçon, Sergej Hardock, Christian Riegger, Julian Oppermann,
+Andreas Koch, and Ilia Petrov. NoFTL-KV:
+Tackling write-amplification on KV-stores with native storage management.
+In Proc. 21st Intl. Conf. on Extending Database Technology (EDBT'18),
+pages 457–460, 2018.  
 
-[67] Peng Wang, Guangyu Sun, Song Jiang, Jian Ouyang, Shiding Lin, Chen Zhang, and Jason Cong. An efficient design and implementation of LSM-tree based key-value store on open-channel SSD. In Proc. 9th European Conf. on Computer Systems (EUROSYS'14), pages 1–14, 2014.  
+[67] Peng Wang, Guangyu Sun, Song Jiang, Jian Ouyang, Shiding Lin, Chen Zhang,
+and Jason Cong.
+An efficient design and implementation of LSM-tree based key-value store on
+open-channel SSD. In Proc. 9th European Conf. on Computer Systems (EUROSYS'14),
+pages 1–14, 2014.  
 
-[68] Fei Yang, K Dou, S Chen, JU Kang, and S Cho. Multi-streaming RocksDB. In Proc. Non-Volatile Memories Workshop, 2015.  
+[68] Fei Yang, K Dou, S Chen, JU Kang, and S Cho. Multi-streaming RocksDB.
+In Proc. Non-Volatile Memories Workshop, 2015.  
 
-[69] Jiacheng Zhang, Youyou Lu, Jiwu Shu, and Xiongjun Qin. FlashKV: Accelerating KV performance with open-channel SSDs. ACM Trans on Embedded Computing Systems (TECS), 16(5s):1–19, 2017.  
+[69] Jiacheng Zhang, Youyou Lu, Jiwu Shu, and Xiongjun Qin. FlashKV:
+Accelerating KV performance with open-channel SSDs.
+ACM Trans on Embedded Computing Systems (TECS), 16(5s):1–19, 2017.  
 
-[70] Yupu Zhang, Daniel S Myers, Andrea C Arpaci-Dusseau, and Remzi H Arpaci-Dusseau. Zettabyte reliability with flexible end-to-end data integrity. In Proc. 29th IEEE Symp. on Mass Storage Systems and Technologies (MSST'13), pages 1–14, 2013.  
+[70] Yupu Zhang, Daniel S Myers, Andrea C Arpaci-Dusseau,
+and Remzi H Arpaci-Dusseau.
+Zettabyte reliability with flexible end-to-end data integrity. In Proc.
+29th IEEE Symp. on Mass Storage Systems and Technologies (MSST'13), pages 1–14,
+2013.  
 
-[71] Yupu Zhang, Abhishek Rajimwale, Andrea C Arpaci-Dusseau, and Remzi H Arpaci-Dusseau. End-to-end data integrity for file systems: A ZFS case study. In Proc. 8th USENIX Conf. on File and Storage Technologies (FAST'10), pages 29–42, 2010.
+[71] Yupu Zhang, Abhishek Rajimwale, Andrea C Arpaci-Dusseau,
+and Remzi H Arpaci-Dusseau. End-to-end data integrity for file systems:
+A ZFS case study. In Proc. 8th USENIX Conf.
+on File and Storage Technologies (FAST'10), pages 29–42, 2010.  

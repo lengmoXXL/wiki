@@ -15,12 +15,12 @@ Yahoo! Research
 开发者就必须自行保证：
 即使发生故障，或者其他事务并发访问数据库，
 事务仍能以原子方式执行。
-理想情况下，事务系统应提供可串行化，
+理想情况下，事务系统应提供可串行化（serializability），
 即并发事务的执行结果等同于这些事务串行执行的结果。
 然而，基于锁实现的实践经验表明，
 可串行化是一项代价高昂的特性，
 会带来很高的开销和较低的并发度。
-因此，商业系统通常实现诸如*快照隔离*之类的较弱保证，
+因此，商业系统通常实现诸如*快照隔离（snapshot isolation）*之类的较弱保证，
 以牺牲可串行化。于是，
 开发者仍需应对缺乏可串行化可能造成的异常。  
 
@@ -29,7 +29,7 @@ Yahoo! Research
 这些方案通常为了效率而牺牲可串行化。
 例如，Google Percolator 在 BigTable 之上实现了基于锁的快照隔离。
 本文表明，在无锁事务支持实现中，
-这种取舍并非必要。我们提出写快照隔离，
+这种取舍并非必要。我们提出写快照隔离（write-snapshot isolation），
 这是一种新的隔离级别，
 其性能可与快照隔离相媲美，
 同时又能提供可串行化。
@@ -177,7 +177,8 @@ Yahoo! Research
 无论基于锁还是无锁的方法，
 时间戳都由集中式服务器——时间戳预言机——分配，
 因而能确定事务之间的提交顺序。
-事务 $txn_i$ 被分配开始时间戳 $T_s(txn_i)$ 和提交时间戳 $T_c(txn_i)$（记为 $[T_s(txn_i), T_c(txn_i)]$），
+事务 $txn_i$ 被分配开始时间戳 $T_s(txn_i)$ 和提交时间戳 $T_c(txn_i)$，
+记为 $[T_s(txn_i), T_c(txn_i)]$，
 它读取提交时间戳满足 $\delta < T_s(txn_i)$ 的最新数据版本。
 换言之，事务既能看到自己的全部更改，
 也能看到在 $txn_i$ 开始前已经提交的事务所做的修改。
@@ -240,18 +241,18 @@ $T_c$ 是状态预言机中保存事务提交时间戳的状态，
 $lastCommit$ 是状态预言机中保存已修改行最近提交时间戳的状态。  
 
 ```text
-算法 1　提交请求（T_s(txn_i)，R）：{提交，中止}
-1: 对每一行 r ∈ R 执行
-2:     若 lastCommit(r) > T_s(txn_i)，则
-3:         返回“中止”；
-4:     结束条件分支
-5: 结束循环
+算法 1　提交请求（T_s(txn_i)，R）：{commit, abort}
+1: for each row r ∈ R do
+2:     if lastCommit(r) > T_s(txn_i) then
+3:         return abort;
+4:     end if
+5: end for
 
 6: T_c(txn_i) → TimestampOracle.next();
-7: 对每一行 r ∈ R 执行
+7: for each row r ∈ R do
 8:     lastCommit(r) → T_c(txn_i);
-9: 结束循环
-10: 返回“提交”；
+9: end for
+10: return commit;
 ```
 
 为了检查写-写冲突，算法 1 会针对所有已经提交的事务检查时间重叠。
@@ -306,7 +307,7 @@ H 1. $r1[x] r2[y] w1[y] w2[x] c1 c2$
 
 快照隔离实现不会阻止历史 1，
 因为两个事务写入不同的数据项，
-即不存在空间重叠。这可能引发一种称为写偏差的著名异常 [5]。
+即不存在空间重叠。这可能引发一种称为写偏差（write skew）的著名异常 [5]。
 写偏差在实践中可能出现的原因是，
 交错事务的写集可能由数据库中的某项约束联系起来。
 即使每个事务都在提交前验证该约束，
@@ -494,7 +495,7 @@ $$ T_{s}(txn_{i})<T_{c}(txn_{j})<T_{c}(txn_{i}). $$
 > 这是因为读操作由数据库快照提供服务，
 > 实际执行读取的时间不会影响返回值。
 
-### 4.2 防止读-写冲突足以保证可串行化吗？
+### 4.2 防止读-写冲突足以保证可串行化吗？  
 
 下面证明写快照隔离具备可串行化。
 为此，我们需要证明，在写快照隔离下运行的每个历史 $h$ 都等价于某个串行历史 $serial(h)$ [5]。
@@ -647,18 +648,18 @@ $lastCommit$ 是状态预言机中保存已修改行最近提交时间戳的状�
 数据包略微增大并不会影响性能。  
 
 ```text
-算法 2　提交请求（T_s(txn_i)，R_w，R_r）：{提交，中止}
-1: 对每一行 r ∈ R_r 执行
-2:     若 lastCommit(r) > T_s(txn_i)，则
-3:         返回“中止”；
-4:     结束条件分支
-5: 结束循环
+算法 2　提交请求（T_s(txn_i)，R_w，R_r）：{commit, abort}
+1: for each row r ∈ R_r do
+2:     if lastCommit(r) > T_s(txn_i) then
+3:         return abort;
+4:     end if
+5: end for
 
 6: T_c(txn_i) → TimestampOracle.next();
-7: 对每一行 r ∈ R_w 执行
+7: for each row r ∈ R_w do
 8:     lastCommit(r) → T_c(txn_i);
-9: 结束循环
-10: 返回“提交”；
+9: end for
+10: return commit;
 ```
 
 ### 5.1 只读事务  
@@ -943,7 +944,7 @@ zipfianLatest 分布下的中止率增长得更快。
 > 这是因为读集主要从最近写入的数据中选取，
 > 增加了读-写冲突概率。
 
-## 7. 相关工作
+## 7. 相关工作  
 
 本节回顾相关研究。首先，我们将自己的工作与隔离级别方面的相关研究进行对比。然后回顾大规模数据存储中快照隔离的近期实现。
 
@@ -1117,7 +1118,7 @@ Percolator 将锁存放在相同的数据表中，
 我们的实现 Omid 已开源并公开发布[^7]，
 未来可在运行于分布式数据存储之上的真实事务应用中试用。
 
-## A. 实现细节
+## A. 实现细节  
 
 下面简要介绍我们此前工作 [17, 20] 涉及的状态预言机实现。
 时间戳从集成于状态预言机内部的时间戳预言机取得。
@@ -1137,23 +1138,23 @@ Percolator 将锁存放在相同的数据表中，
 算法 3 展示状态预言机处理提交请求的过程。  
 
 ```text
-算法 3　提交请求：{提交，中止}
-1: 对每一行 r ∈ R 执行
-2:     若 lastCommit(r) /= null，则
-3:         若 lastCommit(r) > T_s(txn_i)，则
-4:             返回“中止”；
-5:         结束条件分支
-6:     否则
-7:         若 T_max > T_s(txn_i)，则
-8:             返回“中止”；
-9:         结束条件分支
-10:     结束条件分支
-11: 结束循环
+算法 3　提交请求：{commit, abort}
+1: for each row r ∈ R do
+2:     if lastCommit(r) /= null then
+3:         if lastCommit(r) > T_s(txn_i) then
+4:             return abort;
+5:         end if
+6:     else
+7:         if T_max > T_s(txn_i) then
+8:             return abort;
+9:         end if
+10:     end if
+11: end for
 
-12: 对每一行 r ∈ R 执行
+12: for each row r ∈ R do
 13:     committed(r): T_s(txn_i) → T_c(txn_i)
-14: 结束循环
-15: 返回“提交”
+14: end for
+15: return commit
 ```
 
 第 8 行会悲观地中止事务，
@@ -1212,54 +1213,93 @@ BookKeeper 能够持久化 200K TPS 的数据。
 
 ## 参考文献  
 
-[1] A. Adya. Weak consistency: a generalized theory and optimistic implementations for distributed transactions. PhD thesis, Citeseer, 1999.  
+[1] A. Adya. Weak consistency: a generalized theory and optimistic
+implementations for distributed transactions. PhD thesis, Citeseer, 1999.
 
-[2] A. Adya, B. Liskov, and P. O'Neil. Generalized isolation level definitions. In Data Engineering, 2000. Proceedings. 16th International Conference on, pages 67–78. IEEE, 2000.  
+[2] A. Adya, B. Liskov, and P. O'Neil. Generalized isolation level definitions.
+In Data Engineering, 2000. Proceedings. 16th International Conference on, pages
+67–78. IEEE, 2000.
 
-[3] ANSI. ANSI X3.135-1992, American National Standard for Information Systems—Database Language—SQL, 1992.  
+[3] ANSI. ANSI X3. 135-1992, American National Standard for Information
+Systems—Database Language—SQL, 1992.
 
-[4] J. Baker, C. Bond, J. C. Corbett, J. J. Furman, A. Khorlin, J. Larson, J. M. Leon, Y. Li, A. Lloyd, and V. Yushprakh. Megastore: Providing Scalable, Highly Available Storage for Interactive Services. In CIDR, 2011.  
+[4] J. Baker, C. Bond, J. C. Corbett, J. J. Furman, A. Khorlin, J. Larson, J. M.
+Leon, Y. Li, A. Lloyd, and V. Yushprakh. Megastore: Providing Scalable, Highly
+Available Storage for Interactive Services. In CIDR, 2011.
 
-[5] H. Berenson, P. Bernstein, J. Gray, J. Melton, E. O'Neil, and P. O'Neil. A critique of ANSI sql isolation levels. SIGMOD Rec., 1995.  
+[5] H. Berenson, P. Bernstein, J. Gray, J. Melton, E. O'Neil, and P. O'Neil. A
+critique of ANSI sql isolation levels. SIGMOD Rec. , 1995.
 
-[6] P. Bernstein, V. Hadzilacos, and N. Goodman. *Concurrency control and recovery in database systems*, volume 5. Addison-Wesley New York, 1987.  
+[6] P. Bernstein, V. Hadzilacos, and N. Goodman. *Concurrency control and
+recovery in database systems*, volume 5. Addison-Wesley New York, 1987.
 
-[7] M. Bornea, O. Hodson, S. Elnikety, and A. Fekete. One-copy serializability with snapshot isolation under the hood. In Data Engineering (ICDE), 2011 IEEE 27th International Conference on, pages 625–636. IEEE, 2011.  
+[7] M. Bornea, O. Hodson, S. Elnikety, and A. Fekete. One-copy serializability
+with snapshot isolation under the hood. In Data Engineering (ICDE), 2011 IEEE
+27th International Conference on, pages 625–636. IEEE, 2011.
 
-[8] M. Cahill, U. Röhm, and A. Fekete. Serializable isolation for snapshot databases. ACM Transactions on Database Systems (TODS), 34(4):20, 2009.  
+[8] M. Cahill, U. Röhm, and A. Fekete. Serializable isolation for snapshot
+databases. ACM Transactions on Database Systems (TODS), 34(4): 20, 2009.
 
-[9] F. Chang, J. Dean, S. Ghemawat, W. C. Hsieh, D. A. Wallach, M. Burrows, T. Chandra, A. Fikes, and R. E. Gruber. Bigtable: A distributed storage system for structured data. *TOCS*, 2008.  
+[9] F. Chang, J. Dean, S. Ghemawat, W. C. Hsieh, D. A. Wallach, M. Burrows, T.
+Chandra, A. Fikes, and R. E. Gruber. Bigtable: A distributed storage system for
+structured data. *TOCS*, 2008.
 
-[10] S. Chen, A. Ailamaki, M. Athanassoulis, P. Gibbons, R. Johnson, I. Pandis, and R. Stoica. Tpc-e vs. tpc-c: characterizing the new tpc-e benchmark via an i/o comparison study. ACM SIGMOD Record, 39(3):5–10, 2011.  
+[10] S. Chen, A. Ailamaki, M. Athanassoulis, P. Gibbons, R. Johnson, I. Pandis,
+and R. Stoica. Tpc-e vs. tpc-c: characterizing the new tpc-e benchmark via an
+i/o comparison study. ACM SIGMOD Record, 39(3): 5–10, 2011.
 
-[11] B. F. Cooper, A. Silberstein, E. Tam, R. Ramakrishnan, and R. Sears. Benchmarking cloud serving systems with ycsb. In SoCC'10, 2010.  
+[11] B. F. Cooper, A. Silberstein, E. Tam, R. Ramakrishnan, and R. Sears.
+Benchmarking cloud serving systems with ycsb. In SoCC'10, 2010.
 
-[12] T. P. P. Council. Tpc benchmark e standard specification version 1.12.0, September 2010.  
+[12] T. P. P. Council. Tpc benchmark e standard specification version 1. 12. 0,
+September 2010.
 
-[13] S. Das, D. Agrawal, and A. El Abbadi. Elastras: an elastic transactional data store in the cloud. In HotCloud'09, 2009.  
+[13] S. Das, D. Agrawal, and A. El Abbadi. Elastras: an elastic transactional
+data store in the cloud. In HotCloud'09, 2009.
 
-[14] S. Das, D. Agrawal, and A. El Abbadi. G-store: a scalable data store for transactional multi key access in the cloud. In SoCC'10, 2010.  
+[14] S. Das, D. Agrawal, and A. El Abbadi. G-store: a scalable data store for
+transactional multi key access in the cloud. In SoCC'10, 2010.
 
-[15] D. Dice, O. Shalev, and N. Shavit. Transactional locking ii. Distributed Computing, pages 194–208, 2006.  
+[15] D. Dice, O. Shalev, and N. Shavit. Transactional locking ii. Distributed
+Computing, pages 194–208, 2006.
 
-[16] A. Fekete, D. Liarokapis, E. O'Neil, P. O'Neil, and D. Shasha. Making snapshot isolation serializable. *ACM Transactions on Database Systems (TODS)*, 30(2):492–528, 2005.  
+[16] A. Fekete, D. Liarokapis, E. O'Neil, P. O'Neil, and D. Shasha. Making
+snapshot isolation serializable. *ACM Transactions on Database Systems (TODS)*,
+30(2): 492–528, 2005.
 
-[17] D. G. Ferro, F. Junqueira, B. Reed, and M. Yabandeh. Lock-free Transactional Support for Distributed Data Stores. In *SOSP Poster Session*, 2011.  
+[17] D. G. Ferro, F. Junqueira, B. Reed, and M. Yabandeh. Lock-free
+Transactional Support for Distributed Data Stores. In *SOSP Poster Session*,
+2011.
 
-[18] P. Hunt, M. Konar, F. Junqueira, and B. Reed. Zookeeper: wait-free coordination for internet-scale systems. In Proceedings of the 2010 USENIX conference on USENIX annual technical conference, pages 11–11. USENIX Association, 2010.  
+[18] P. Hunt, M. Konar, F. Junqueira, and B. Reed. Zookeeper: wait-free
+coordination for internet-scale systems. In Proceedings of the 2010 USENIX
+conference on USENIX annual technical conference, pages 11–11. USENIX
+Association, 2010.
 
-[19] S. Jorwekar, A. Fekete, K. Ramamirtham, and S. Sudarshan. Automating the detection of snapshot isolation anomalies. In Proceedings of the 33rd international conference on Very large data bases, pages 1263–1274. VLDB Endowment, 2007.  
+[19] S. Jorwekar, A. Fekete, K. Ramamirtham, and S. Sudarshan. Automating the
+detection of snapshot isolation anomalies. In Proceedings of the 33rd
+international conference on Very large data bases, pages 1263–1274. VLDB
+Endowment, 2007.
 
-[20] F. Junqueira, B. Reed, and M. Yabandeh. Lock-free Transactional Support for Large-scale Storage Systems. In HotDep, 2011.  
+[20] F. Junqueira, B. Reed, and M. Yabandeh. Lock-free Transactional Support for
+Large-scale Storage Systems. In HotDep, 2011.
 
-[21] H. Kung and J. Robinson. On optimistic methods for concurrency control. ACM Transactions on Database Systems (TODS), 6(2):213–226, 1981.  
+[21] H. Kung and J. Robinson. On optimistic methods for concurrency control. ACM
+Transactions on Database Systems (TODS), 6(2): 213–226, 1981.
 
-[22] J. J. Levandoski, D. Lomet, M. F. Mokbel, and K. K. Zhao. Deuteronomy: Transaction Support for Cloud Data. In CIDR, 2011.  
+[22] J. J. Levandoski, D. Lomet, M. F. Mokbel, and K. K. Zhao. Deuteronomy:
+Transaction Support for Cloud Data. In CIDR, 2011.
 
-[23] Y. Lin, K. Bettina, R. Jiménez-Peris, M. Patiño-Martínez, and J. E. Armendáriz-Iñigo. Snapshot isolation and integrity constraints in replicated databases. ACM Trans. Database Syst., 2009.  
+[23] Y. Lin, K. Bettina, R. Jiménez-Peris, M. Patiño-Martínez, and J. E.
+Armendáriz-Iñigo. Snapshot isolation and integrity constraints in replicated
+databases. ACM Trans. Database Syst. , 2009.
 
-[24] D. Peng and F. Dabek. Large-scale incremental processing using distributed transactions and notifications. In *OSDI*, 2010.  
+[24] D. Peng and F. Dabek. Large-scale incremental processing using distributed
+transactions and notifications. In *OSDI*, 2010.
 
-[25] H. Vo, C. Chen, and B. Ooi. Towards elastic transactional cloud storage with range query support. Proceedings of the VLDB Endowment, 3(1-2):506–514, 2010.  
+[25] H. Vo, C. Chen, and B. Ooi. Towards elastic transactional cloud storage
+with range query support. Proceedings of the VLDB Endowment, 3(1-2): 506–514,
+2010.
 
-[26] C. Zhang and H. De Sterck. Supporting multi-row distributed transactions with global snapshot isolation using bare-bones hbase. Proc. of Grid2010, 2010.  
+[26] C. Zhang and H. De Sterck. Supporting multi-row distributed transactions
+with global snapshot isolation using bare-bones hbase. Proc. of Grid2010, 2010.

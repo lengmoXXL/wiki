@@ -2,8 +2,6 @@
 
 可靠、可扩展、可维护系统背后的核心思想  
 
-![野猪封面插图及作者名](images/figure-0001.png)
-
 “过去十年来，这是理解分布式系统最好的一本书，
 而第二版让它变得更加出色。
 它弥合了分布式系统理论与工程实践之间的巨大鸿沟。
@@ -347,9 +345,9 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
 
 11. **[批处理](#批处理)**
     - [使用 Unix 工具进行批处理](#使用-unix-工具进行批处理)
-    - [简单日志分析](#简单的日志分析)
+    - [简单的日志分析](#简单的日志分析)
     - [命令链与自定义程序](#命令链与自定义程序)
-    - [排序与内存聚合](#排序与内存内聚合)
+    - [排序与内存内聚合](#排序与内存内聚合)
     - [分布式系统中的批处理](#分布式系统中的批处理)
     - [分布式文件系统](#分布式文件系统)
     - [对象存储](#对象存储)
@@ -378,8 +376,8 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
     - [状态、流与不可变性](#状态流与不可变性)
     - [处理流](#处理流)
     - [流处理的用途](#流处理的用途)
-    - [关于时间的推理](#时间推理)
-    - [流联结](#流连接)
+    - [时间推理](#时间推理)
+    - [流连接](#流连接)
     - [容错](#chapter-12-fault-tolerance)
     - [小结](#chapter-12-summary)
 
@@ -404,11 +402,11 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
     - [责任与问责](#责任与问责)
     - [反馈循环](#反馈循环)
     - [隐私与追踪](#隐私与追踪)
-    - [监视](#监控)
+    - [监控](#监控)
     - [同意与选择自由](#同意与选择自由)
     - [隐私与数据使用](#隐私与数据使用)
     - [数据作为资产与权力](#数据作为资产与权力)
-    - [铭记工业革命](#回顾工业革命)
+    - [回顾工业革命](#回顾工业革命)
     - [立法与自律](#立法与自律)
     - [小结](#chapter-14-summary)
 
@@ -889,7 +887,8 @@ BI）；*数据科学家*则在数据中寻找新的洞见，
 
 这促成了两类系统的分化——我们将在全书中使用这一区分：  
 
-- 事务处理系统由创建数据的后端服务和数据基础设施组成——例如，通过为外部用户提供服务来创建数据。在这里，应用代码根据用户执行的操作，读取并修改数据库中的数据。  
+- 事务处理系统由创建数据的后端服务和数据基础设施组成——例如，通过为外部用户提供服务来创建数据。在这里，应用代码根据用户执行的操作，
+  读取并修改数据库中的数据。  
 
 - 分析系统服务于业务分析师和数据科学家的需求。它们包含事务处理系统数据的只读副本，并针对分析所需的数据处理类型进行了优化。  
 
@@ -1887,130 +1886,249 @@ GDPR 赋予许多欧洲国家的居民对其个人数据更大的控制权和更
 
 ## 参考文献
 
-[1] Richard T. Kouzes, Gordon A. Anderson, Stephen T. Elbert, Ian Gorton, and Deborah K. Gracio. "The Changing Paradigm of Data-Intensive Computing." IEEE Computer, volume 42, issue 1, pages 26–34, January 2009. doi:10.1109/MC.2009.26
+[1] Richard T. Kouzes, Gordon A. Anderson, Stephen T. Elbert, Ian Gorton, and
+Deborah K. Gracio. "The Changing Paradigm of Data-Intensive Computing." IEEE
+Computer, volume 42, issue 1, pages 26–34, January 2009. doi:10.1109/MC.2009.26
 
-[2] Martin Kleppmann, Adam Wiggins, Peter van Hardenberg, and Mark McGranaghan. "Local-First Software: You Own Your Data, in Spite of the Cloud." At 2019 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software (Onward!), October 2019. doi:10.1145/3359591.3359737
+[2] Martin Kleppmann, Adam Wiggins, Peter van Hardenberg, and Mark McGranaghan.
+"Local-First Software: You Own Your Data, in Spite of the Cloud." At 2019 ACM
+SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on
+Programming and Software (Onward!), October 2019. doi:10.1145/3359591.3359737
 
-[3] Joe Reis and Matt Housley. *Fundamentals of Data Engineering*. O'Reilly Media, 2022. ISBN: 9781098108304
+[3] Joe Reis and Matt Housley. *Fundamentals of Data Engineering*. O'Reilly
+Media, 2022. ISBN: 9781098108304
 
-[4] Rui Pedro Machado and Helder Russa. *Analytics Engineering with SQL and dbt*. O'Reilly Media, 2023. ISBN: 9781098142384
+[4] Rui Pedro Machado and Helder Russa. *Analytics Engineering with SQL and
+dbt*. O'Reilly Media, 2023. ISBN: 9781098142384
 
-[5] Edgar F. Codd, S. B. Codd, and C. T. Salley. "Providing OLAP to User-Analysts: An IT Mandate." E. F. Codd Associates, 1993. Archived at perma.cc/RKX8-2GEE
+[5] Edgar F. Codd, S. B. Codd, and C. T. Salley. "Providing OLAP to
+User-Analysts: An IT Mandate." E. F. Codd Associates, 1993. Archived at
+perma.cc/RKX8-2GEE
 
-[6] Chinmay Soman and Neha Pawar. "Comparing Three Real-Time OLAP Databases: Apache Pinot, Apache Druid, and ClickHouse." startree.ai, April 2023. Archived at perma.cc/8BZP-VWPA
+[6] Chinmay Soman and Neha Pawar. "Comparing Three Real-Time OLAP Databases:
+Apache Pinot, Apache Druid, and ClickHouse." startree.ai, April 2023. Archived
+at perma.cc/8BZP-VWPA
 
-[7] Surajit Chaudhuri and Umeshwar Dayal. "An Overview of Data Warehousing and OLAP Technology." ACM SIGMOD Record, volume 26, issue 1, pages 65–74, March 1997. doi:10.1145/248603.248616
+[7] Surajit Chaudhuri and Umeshwar Dayal. "An Overview of Data Warehousing and
+OLAP Technology." ACM SIGMOD Record, volume 26, issue 1, pages 65–74, March
+1997. doi:10.1145/248603.248616
 
-[8] Fatma Özcan, Yuanyuan Tian, and Pinar Törzün. "Hybrid Transactional/Analytical Processing: A Survey." At ACM International Conference on Management of Data (SIGMOD), May 2017. doi:10.1145/3035918.3054784
+[8] Fatma Özcan, Yuanyuan Tian, and Pinar Törzün. "Hybrid
+Transactional/Analytical Processing: A Survey." At ACM International Conference
+on Management of Data (SIGMOD), May 2017. doi:10.1145/3035918.3054784
 
-[9] Adam Prout, Szu-Po Wang, Joseph Victor, Zhou Sun, Yongzhu Li, Jack Chen, Evan Bergeron, Eric Hanson, Robert Walzer, Rodrigo Gomes, and Nikita Shamgunov. "Cloud-Native Transactions and Analytics in SingleStore." At International Conference on Management of Data (SIGMOD), June 2022. doi:10.1145/3514221.3526055
+[9] Adam Prout, Szu-Po Wang, Joseph Victor, Zhou Sun, Yongzhu Li, Jack Chen,
+Evan Bergeron, Eric Hanson, Robert Walzer, Rodrigo Gomes, and Nikita Shamgunov.
+"Cloud-Native Transactions and Analytics in SingleStore." At International
+Conference on Management of Data (SIGMOD), June 2022.
+doi:10.1145/3514221.3526055
 
-[10] Chao Zhang, Guoliang Li, Jintao Zhang, Xinning Zhang, and Jianhua Feng. "HTAP Databases: A Survey." IEEE Transactions on Knowledge and Data Engineering, volume 36, issue 11, pages 6410–6429, April 2024. doi:10.1109/TKDE.2024.3389693
+[10] Chao Zhang, Guoliang Li, Jintao Zhang, Xinning Zhang, and Jianhua Feng.
+"HTAP Databases: A Survey." IEEE Transactions on Knowledge and Data Engineering,
+volume 36, issue 11, pages 6410–6429, April 2024. doi:10.1109/TKDE.2024.3389693
 
-[11] Michael Stonebraker and Ugur Cetintemel. "One Size Fits All: An Idea Whose Time Has Come and Gone." At 21st International Conference on Data Engineering (ICDE), April 2005. doi:10.1109/ICDE.2005.1
+[11] Michael Stonebraker and Ugur Cetintemel. "One Size Fits All: An Idea Whose
+Time Has Come and Gone." At 21st International Conference on Data Engineering
+(ICDE), April 2005. doi:10.1109/ICDE.2005.1
 
-[12] Jeffrey Cohen, Brian Dolan, Mark Dunlap, Joseph M. Hellerstein, and Caleb Welton. "MAD Skills: New Analysis Practices for Big Data." Proceedings of the VLDB Endowment, volume 2, issue 2, pages 1481–1492, August 2009. doi:10.14778/1687553.1687576
+[12] Jeffrey Cohen, Brian Dolan, Mark Dunlap, Joseph M. Hellerstein, and Caleb
+Welton. "MAD Skills: New Analysis Practices for Big Data." Proceedings of the
+VLDB Endowment, volume 2, issue 2, pages 1481–1492, August 2009.
+doi:10.14778/1687553.1687576
 
-[13] Dan Olteanu. "The Relational Data Borg Is Learning." Proceedings of the VLDB Endowment, volume 13, issue 12, pages 3502–3515, August 2020. doi:10.14778/3415478.3415572
+[13] Dan Olteanu. "The Relational Data Borg Is Learning." Proceedings of the
+VLDB Endowment, volume 13, issue 12, pages 3502–3515, August 2020.
+doi:10.14778/3415478.3415572
 
-[14] Matt Bornstein, Martin Casado, and Jennifer Li. “Emerging Architectures for Modern Data Infrastructure: 2020.” future.a16z.com, October 2020. Archived at perma.cc/LF8W-KDCC
+[14] Matt Bornstein, Martin Casado, and Jennifer Li. “Emerging Architectures for
+Modern Data Infrastructure: 2020.” future.a16z.com, October 2020. Archived at
+perma.cc/LF8W-KDCC
 
-[15] Rihan Hai, Christos Koutras, Christoph Quix, and Matthias Jarke. "Data Lakes: A Survey of Functions and Systems." IEEE Transactions on Knowledge and Data Engineering (TKDE), volume 35, issue 12, pages 12571–12590, December 2023. doi:10.1109/TKDE.2023.3270101
+[15] Rihan Hai, Christos Koutras, Christoph Quix, and Matthias Jarke. "Data
+Lakes: A Survey of Functions and Systems." IEEE Transactions on Knowledge and
+Data Engineering (TKDE), volume 35, issue 12, pages 12571–12590, December 2023.
+doi:10.1109/TKDE.2023.3270101
 
 [16] Martin Fowler. “Data Lake.” martinfowler.com, February 2015. Archived at
 perma.cc/4WKN-CZUK
 
-[17] Bobby Johnson and Joseph Adler. "The Sushi Principle: Raw Data Is Better." At *Strata+Hadoop World*, February 2015.
+[17] Bobby Johnson and Joseph Adler. "The Sushi Principle: Raw Data Is Better."
+At *Strata+Hadoop World*, February 2015.
 
-[18] DataKitchen, Inc. “The DataOps Manifesto.” dataopsmanifesto.org, 2017. Archived at perma.cc/3F5N-FUQ4
+[18] DataKitchen, Inc. “The DataOps Manifesto.” dataopsmanifesto.org, 2017.
+Archived at perma.cc/3F5N-FUQ4
 
-[19] Tejas Manohar. "What Is Reverse ETL: A Definition & Why It's Taking Off." hightouch.io, November 2021. Archived at perma.cc/A7TN-GLYJ
+[19] Tejas Manohar. "What Is Reverse ETL: A Definition & Why It's Taking Off."
+hightouch.io, November 2021. Archived at perma.cc/A7TN-GLYJ
 
-[20] Camille Fournier. "Why Is It So Hard to Decide to Buy?" *skamille.medium.com*, July 2021. Archived at *perma.cc/6VSG-HQ5X*
+[20] Camille Fournier. "Why Is It So Hard to Decide to Buy?"
+*skamille.medium.com*, July 2021. Archived at *perma.cc/6VSG-HQ5X*
 
-[21] David Heinemeier Hansson. “Why We’re Leaving the Cloud.” world.hey.com, October 2022. Archived at perma.cc/82E6-UJ65
+[21] David Heinemeier Hansson. “Why We’re Leaving the Cloud.” world.hey.com,
+October 2022. Archived at perma.cc/82E6-UJ65
 
-[22] Nima Badizadegan. “Use One Big Server.” *specbranch.com*, August 2022. Archived at *perma.cc/M8NB-95UK*
+[22] Nima Badizadegan. “Use One Big Server.” *specbranch.com*, August 2022.
+Archived at *perma.cc/M8NB-95UK*
 
-[23] Steve Yegge. "Dear Google Cloud: Your Deprecation Policy Is Killing You." steve-yegge.medium.com, August 2020. Archived at perma.cc/KQP9-SPGU
+[23] Steve Yegge. "Dear Google Cloud: Your Deprecation Policy Is Killing You."
+steve-yegge.medium.com, August 2020. Archived at perma.cc/KQP9-SPGU
 
-[24] Alexandre Verbitski, Anurag Gupta, Debanjan Saha, Murali Brahmdesam, Kamal Gupta, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice, Tengiz Kharatishvili, and Xiaofeng Bao. "Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases." At ACM International Conference on Management of Data (SIGMOD), May 2017. doi:10.1145/3035918.3056101
+[24] Alexandre Verbitski, Anurag Gupta, Debanjan Saha, Murali Brahmdesam, Kamal
+Gupta, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice, Tengiz
+Kharatishvili, and Xiaofeng Bao. "Amazon Aurora: Design Considerations for High
+Throughput Cloud-Native Relational Databases." At ACM International Conference
+on Management of Data (SIGMOD), May 2017. doi:10.1145/3035918.3056101
 
-[25] Panagiotis Antonopoulos, Alex Budovski, Cristian Diaconu, Alejandro Hernandez Saenz, Jack Hu, Hanuma Kodavalla, Donald Kossmann, Sandeep Lingam, Umar Farooq Minhas, Naveen Prakash, Vijendra Purohit, Hugh Qu, Chaitanya Sreenivas Ravella, Krystyna Reisteter, Sheetal Shrotri, Dixon Tang, and Vikram Wakade. "Socrates: The New SQL Server in the Cloud." At ACM International Conference on Management of Data (SIGMOD), June 2019. doi:10.1145/3299869.3314047
+[25] Panagiotis Antonopoulos, Alex Budovski, Cristian Diaconu, Alejandro
+Hernandez Saenz, Jack Hu, Hanuma Kodavalla, Donald Kossmann, Sandeep Lingam,
+Umar Farooq Minhas, Naveen Prakash, Vijendra Purohit, Hugh Qu, Chaitanya
+Sreenivas Ravella, Krystyna Reisteter, Sheetal Shrotri, Dixon Tang, and Vikram
+Wakade. "Socrates: The New SQL Server in the Cloud." At ACM International
+Conference on Management of Data (SIGMOD), June 2019.
+doi:10.1145/3299869.3314047
 
-[26] Midhul Vuppalapati, Justin Miron, Rachit Agarwal, Dan Truong, Ashish Motivala, and Thierry Cruanes. "Building an Elastic Query Engine on Disaggregated Storage." At 17th USENIX Symposium on Networked Systems Design and Implementation (NSDI), February 2020.
+[26] Midhul Vuppalapati, Justin Miron, Rachit Agarwal, Dan Truong, Ashish
+Motivala, and Thierry Cruanes. "Building an Elastic Query Engine on
+Disaggregated Storage." At 17th USENIX Symposium on Networked Systems Design and
+Implementation (NSDI), February 2020.
 
-[27] Nick Van Wiggeren. “The Real Failure Rate of EBS.” *planetscale.com*, March 2025. Archived at *perma.cc/43CR-SAHA5*
+[27] Nick Van Wiggeren. “The Real Failure Rate of EBS.” *planetscale.com*, March
+2025. Archived at *perma.cc/43CR-SAHA5*
 
-[28] Colin Breck. “Predicting the Future of Distributed Systems.” blog.colinbreck.com, August 2024. Archived at perma.cc/K5FC-4XX2
+[28] Colin Breck. “Predicting the Future of Distributed Systems.”
+blog.colinbreck.com, August 2024. Archived at perma.cc/K5FC-4XX2
 
-[29] Gwen Shapira. “Compute-Storage Separation Explained.” *thenile.dev*, January 2023. Archived at perma.cc/QCV3-XJNZ
+[29] Gwen Shapira. “Compute-Storage Separation Explained.” *thenile.dev*,
+January 2023. Archived at perma.cc/QCV3-XJNZ
 
-[30] Ravi Murthy and Gurmeet Goindi. "AlloyDB for PostgreSQL Under the Hood: Intelligent, Database-Aware Storage." cloud.google.com, May 2022. Archived at archive.org
+[30] Ravi Murthy and Gurmeet Goindi. "AlloyDB for PostgreSQL Under the Hood:
+Intelligent, Database-Aware Storage." cloud.google.com, May 2022. Archived at
+archive.org
 
-[31] Jack Vanlightly. “The Architecture of Serverless Data Systems.” jack-vanlightly.com, November 2023. Archived at perma.cc/UDV4-TNJ5
+[31] Jack Vanlightly. “The Architecture of Serverless Data Systems.”
+jack-vanlightly.com, November 2023. Archived at perma.cc/UDV4-TNJ5
 
-[32] Eric Jonas, Johann Schleier-Smith, Vikram Sreekanti, Chia-Che Tsai, Anurag Khandelwal, Qifan Pu, Vaishaal Shankar, Joao Carreira, Karl Krauth, Neeraja Yadawdkar, Joseph E. Gonzalez, Raluca Ada Popa, Ion Stoica, and David A. Patterson. "Cloud Programming Simplified: A Berkeley View on Serverless Computing." arXiv:1902.03383, February 2019.
+[32] Eric Jonas, Johann Schleier-Smith, Vikram Sreekanti, Chia-Che Tsai, Anurag
+Khandelwal, Qifan Pu, Vaishaal Shankar, Joao Carreira, Karl Krauth, Neeraja
+Yadawdkar, Joseph E. Gonzalez, Raluca Ada Popa, Ion Stoica, and David A.
+Patterson. "Cloud Programming Simplified: A Berkeley View on Serverless
+Computing." arXiv:1902.03383, February 2019.
 
-[33] Betsy Beyer, Jennifer Petoff, Chris Jones, and Niall Richard Murphy. *Site Reliability Engineering: How Google Runs Production Systems*. O'Reilly Media, 2016. ISBN: 9781491929124
+[33] Betsy Beyer, Jennifer Petoff, Chris Jones, and Niall Richard Murphy. *Site
+Reliability Engineering: How Google Runs Production Systems*. O'Reilly Media,
+2016. ISBN: 9781491929124
 
-[34] Thomas Limoncelli. "The Time I Stole \$10,000 from Bell Labs." ACM Queue, volume 18, issue 5, November 2020. doi:10.1145/3434571.3434773
+[34] Thomas Limoncelli. "The Time I Stole \$10,000 from Bell Labs." ACM Queue,
+volume 18, issue 5, November 2020. doi:10.1145/3434571.3434773
 
-[35] Charity Majors. “The Future of Ops Jobs.” acloudguru.com, August 2020. Archived at perma.cc/GRU2-CZG3
+[35] Charity Majors. “The Future of Ops Jobs.” acloudguru.com, August 2020.
+Archived at perma.cc/GRU2-CZG3
 
-[36] Boris Cherkasky. "(Over)Pay as You Go for Your Datastore." *medium.com*, September 2021. Archived at *perma.cc/Q8TV-2AM2*
+[36] Boris Cherkasky. "(Over)Pay as You Go for Your Datastore." *medium.com*,
+September 2021. Archived at *perma.cc/Q8TV-2AM2*
 
-[37] Shlomi Kushchi. “Serverless Doesn’t Mean DevOpsLess or NoOps.” thenewstack.io, February 2023. Archived at perma.cc/3NJR-AYYU
+[37] Shlomi Kushchi. “Serverless Doesn’t Mean DevOpsLess or NoOps.”
+thenewstack.io, February 2023. Archived at perma.cc/3NJR-AYYU
 
-[38] Erik Bernhardsson. "Storm in the Stratosphere: How the Cloud Will Be Reshuffled." erikbern.com, November 2021. Archived at perma.cc/SYB2-99P3
+[38] Erik Bernhardsson. "Storm in the Stratosphere: How the Cloud Will Be
+Reshuffled." erikbern.com, November 2021. Archived at perma.cc/SYB2-99P3
 
-[39] Benn Stancil. “The Data OS.” *benn.substack.com*, September 2021. Archived at *perma.cc/WQ43-FHS6*
+[39] Benn Stancil. “The Data OS.” *benn.substack.com*, September 2021. Archived
+at *perma.cc/WQ43-FHS6*
 
-[40] Maria Korolov. "Data Residency Laws Pushing Companies Toward Residency as a Service." csoonline.com, January 2022. Archived at perma.cc/CHE4-XZZ2
+[40] Maria Korolov. "Data Residency Laws Pushing Companies Toward Residency as a
+Service." csoonline.com, January 2022. Archived at perma.cc/CHE4-XZZ2
 
-[41] Severin Borenstein. "Can Data Centers Flex Their Power Demand?" *energyathaas.wordpress.com*, April 2025. Archived at *perma.cc/MUD3-A6FF*
+[41] Severin Borenstein. "Can Data Centers Flex Their Power Demand?"
+*energyathaas.wordpress.com*, April 2025. Archived at *perma.cc/MUD3-A6FF*
 
-[42] Bilge Acun, Benjamin Lee, Fiodar Kazhamiaka, Aditya Sundarraj, Kiwan Maeng, Manoj Chakkaravarthy, David Brooks, and Carole-Jean Wu. "Carbon Dependencies in Datacenter Design and Management." ACM SIGENERGY Energy Informatics Review, volume 3, issue 3, pages 21–26, October 2023. doi:10.1145/3630614.3630619
+[42] Bilge Acun, Benjamin Lee, Fiodar Kazhamiaka, Aditya Sundarraj, Kiwan Maeng,
+Manoj Chakkaravarthy, David Brooks, and Carole-Jean Wu. "Carbon Dependencies in
+Datacenter Design and Management." ACM SIGENERGY Energy Informatics Review,
+volume 3, issue 3, pages 21–26, October 2023. doi:10.1145/3630614.3630619
 
-[43] Kousik Nath. “These Are the Numbers Every Computer Engineer Should Know.” freecodecamp.org, September 2019. Archived at perma.cc/RW73-36RL
+[43] Kousik Nath. “These Are the Numbers Every Computer Engineer Should Know.”
+freecodecamp.org, September 2019. Archived at perma.cc/RW73-36RL
 
-[44] Joseph M. Hellerstein, Jose Faleiro, Joseph E. Gonzalez, Johann Schleier-Smith, Vikram Sreekanti, Alexey Tumanov, and Chenggang Wu. "Serverless Computing: One Step Forward, Two Steps Back." arXiv:1812.03651, December 2018.
+[44] Joseph M. Hellerstein, Jose Faleiro, Joseph E. Gonzalez, Johann
+Schleier-Smith, Vikram Sreekanti, Alexey Tumanov, and Chenggang Wu. "Serverless
+Computing: One Step Forward, Two Steps Back." arXiv:1812.03651, December 2018.
 
-[45] Frank McSherry, Michael Isard, and Derek G. Murray. "Scalability! But at What COST?" At 15th USENIX Workshop on Hot Topics in Operating Systems (HotOS), May 2015.
+[45] Frank McSherry, Michael Isard, and Derek G. Murray. "Scalability! But at
+What COST?" At 15th USENIX Workshop on Hot Topics in Operating Systems (HotOS),
+May 2015.
 
-[46] Cindy Sridharan. *Distributed Systems Observability: A Guide to Building Robust Systems*. Report, O'Reilly Media, 2018. Archived at perma.cc/M6JL-XKCM
+[46] Cindy Sridharan. *Distributed Systems Observability: A Guide to Building
+Robust Systems*. Report, O'Reilly Media, 2018. Archived at perma.cc/M6JL-XKCM
 
-[47] Charity Majors. “Observability—A 3-Year Retrospective.” *thenewstack.io*, August 2019. Archived at *perma.cc/CG62-TJWL*
+[47] Charity Majors. “Observability—A 3-Year Retrospective.” *thenewstack.io*,
+August 2019. Archived at *perma.cc/CG62-TJWL*
 
-[48] Benjamin H. Sigelman, Luiz André Barroso, Mike Burrows, Pat Stephenson, Manoj Plakal, Donald Beaver, Saul Jaspan, and Chandan Shanbhag. "Dapper, a Large-Scale Distributed Systems Tracing Infrastructure." Google Technical Report dapper-2010-1, April 2010. Archived at perma.cc/K7KU-2TMH
+[48] Benjamin H. Sigelman, Luiz André Barroso, Mike Burrows, Pat Stephenson,
+Manoj Plakal, Donald Beaver, Saul Jaspan, and Chandan Shanbhag. "Dapper, a
+Large-Scale Distributed Systems Tracing Infrastructure." Google Technical Report
+dapper-2010-1, April 2010. Archived at perma.cc/K7KU-2TMH
 
-[49] Rodrigo Laigner, Yongluan Zhou, Marcos Antonio Vaz Salles, Yijian Liu, and Marcos Kalinowski. "Data Management in Microservices: State of the Practice, Challenges, and Research Directions." Proceedings of the VLDB Endowment, volume 14, issue 13, pages 3348–3361, September 2021. doi:10.14778/3484224.3484232
+[49] Rodrigo Laigner, Yongluan Zhou, Marcos Antonio Vaz Salles, Yijian Liu, and
+Marcos Kalinowski. "Data Management in Microservices: State of the Practice,
+Challenges, and Research Directions." Proceedings of the VLDB Endowment, volume
+14, issue 13, pages 3348–3361, September 2021. doi:10.14778/3484224.3484232
 
-[50] Jordan Tigani. "Big Data Is Dead." *motherduck.com*, February 2023. Archived at *perma.cc/HT4Q-K77U*
+[50] Jordan Tigani. "Big Data Is Dead." *motherduck.com*, February 2023.
+Archived at *perma.cc/HT4Q-K77U*
 
-[51] Sam Newman. *Building Microservices*, 2nd edition. O'Reilly Media, 2021. ISBN: 9781492034025
+[51] Sam Newman. *Building Microservices*, 2nd edition. O'Reilly Media, 2021.
+ISBN: 9781492034025
 
-[52] Chris Richardson. "Microservices: Decomposing Applications for Deployability and Scalability." infoq.com, May 2014. Archived at perma.cc/CKN4-YEQ2
+[52] Chris Richardson. "Microservices: Decomposing Applications for
+Deployability and Scalability." infoq.com, May 2014. Archived at
+perma.cc/CKN4-YEQ2
 
-[53] Mohammad Shahrad, Rodrigo Fonseca, Ínigo Goiri, Gohar Chaudhry, Paul Batum, Jason Cooke, Eduardo Laureano, Colby Tresness, Mark Russinovich, and Riccardo Bianchini. "Serverless in the Wild: Characterizing and Optimizing the Serverless Workload at a Large Cloud Provider." At USENIX Annual Technical Conference (ATC), July 2020.
+[53] Mohammad Shahrad, Rodrigo Fonseca, Ínigo Goiri, Gohar Chaudhry, Paul Batum,
+Jason Cooke, Eduardo Laureano, Colby Tresness, Mark Russinovich, and Riccardo
+Bianchini. "Serverless in the Wild: Characterizing and Optimizing the Serverless
+Workload at a Large Cloud Provider." At USENIX Annual Technical Conference
+(ATC), July 2020.
 
-[54] Luiz André Barroso, Urs Hölzle, and Parthasarathy Ranganathan. *The Datacenter as a Computer: Designing Warehouse-Scale Machines*, 3rd edition. Springer Nature, 2019. ISBN: 9783031017612
+[54] Luiz André Barroso, Urs Hölzle, and Parthasarathy Ranganathan. *The
+Datacenter as a Computer: Designing Warehouse-Scale Machines*, 3rd edition.
+Springer Nature, 2019. ISBN: 9783031017612
 
-[55] David Fiala, Frank Mueller, Christian Engelmann, Rolf Riesen, Kurt Ferreira, and Ron Brightwell. "Detection and Correction of Silent Data Corruption for Large-Scale High-Performance Computing." At International Conference for High Performance Computing, Networking, Storage and Analysis (SC), November 2012. doi:10.1109/SC.2012.49
+[55] David Fiala, Frank Mueller, Christian Engelmann, Rolf Riesen, Kurt
+Ferreira, and Ron Brightwell. "Detection and Correction of Silent Data
+Corruption for Large-Scale High-Performance Computing." At International
+Conference for High Performance Computing, Networking, Storage and Analysis
+(SC), November 2012. doi:10.1109/SC.2012.49
 
-[56] Anna Kornfeld Simpson, Adriana Szekeres, Jacob Nelson, and Irene Zhang. "Securing RDMA for High-Performance Datacenter Storage Systems." At 12th USENIX Workshop on Hot Topics in Cloud Computing (HotCloud), July 2020.
+[56] Anna Kornfeld Simpson, Adriana Szekeres, Jacob Nelson, and Irene Zhang.
+"Securing RDMA for High-Performance Datacenter Storage Systems." At 12th USENIX
+Workshop on Hot Topics in Cloud Computing (HotCloud), July 2020.
 
-[57] Arjun Singh, Joon Ong, Amit Agarwal, Glen Anderson, Ashby Armistead, Roy Bannon, Seb Boving, Gaurav Desai, Bob Felderman, Paulie Germano, Anand Kanagala, Jeff Provost, Jason Simmons, Eiichi Tanda, Jim Wanderer, Urs Hölzle, Stephen Stuart, and Amin Vahdat. "Jupiter Rising: A Decade of Clos Topologies and Centralized Control in Google's Datacenter Network." At Annual Conference of the ACM Special Interest Group on Data Communication (SIGCOMM), August 2015. doi:10.1145/2785956.2787508
+[57] Arjun Singh, Joon Ong, Amit Agarwal, Glen Anderson, Ashby Armistead, Roy
+Bannon, Seb Boving, Gaurav Desai, Bob Felderman, Paulie Germano, Anand Kanagala,
+Jeff Provost, Jason Simmons, Eiichi Tanda, Jim Wanderer, Urs Hölzle, Stephen
+Stuart, and Amin Vahdat. "Jupiter Rising: A Decade of Clos Topologies and
+Centralized Control in Google's Datacenter Network." At Annual Conference of the
+ACM Special Interest Group on Data Communication (SIGCOMM), August 2015.
+doi:10.1145/2785956.2787508
 
-[58] Glenn K. Lockwood. “Hadoop’s Uncomfortable Fit in HPC.” glennklockwood.blogspot.co.uk, May 2014. Archived at perma.cc/S8XX-Y67B
+[58] Glenn K. Lockwood. “Hadoop’s Uncomfortable Fit in HPC.”
+glennklockwood.blogspot.co.uk, May 2014. Archived at perma.cc/S8XX-Y67B
 
-[59] Cathy O'Neil. *Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy*. Crown Publishing, 2016. ISBN: 9780553418811
+[59] Cathy O'Neil. *Weapons of Math Destruction: How Big Data Increases
+Inequality and Threatens Democracy*. Crown Publishing, 2016. ISBN: 9780553418811
 
-[60] Supreeth Shastri, Vinay Banakar, Melissa Wasserman, Arun Kumar, and Vijay Chidambaram. "Understanding and Benchmarking the Impact of GDPR on Database Systems." Proceedings of the VLDB Endowment, volume 13, issue 7, pages 1064–1077, March 2020. doi:10.14778/3384345.3384354
+[60] Supreeth Shastri, Vinay Banakar, Melissa Wasserman, Arun Kumar, and Vijay
+Chidambaram. "Understanding and Benchmarking the Impact of GDPR on Database
+Systems." Proceedings of the VLDB Endowment, volume 13, issue 7, pages
+1064–1077, March 2020. doi:10.14778/3384345.3384354
 
-[61] Martin Fowler. “Datensparsamkeit.” martinfowler.com, December 2013. Archived at perma.cc/R9QX-CME6
+[61] Martin Fowler. “Datensparsamkeit.” martinfowler.com, December 2013.
+Archived at perma.cc/R9QX-CME6
 
-[62] "Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 (General Data Protection Regulation)." *Official Journal of the European Union* L 119/1, May 2016.
+[62] "Regulation (EU) 2016/679 of the European Parliament and of the Council of
+27 April 2016 (General Data Protection Regulation)." *Official Journal of the
+European Union* L 119/1, May 2016.
 
 # 定义非功能需求  
 
@@ -2710,7 +2828,8 @@ SPOF），因为该部分的故障会升级为整个系统的失效。
 > 但对于那些因不可靠计算机系统导致的错误判决而蒙冤入狱、
 > 宣告破产、甚至自杀的人来说，这丝毫无法带来安慰。  
 >
-> 在某些情况下，我们可能会选择牺牲可靠性来降低开发成本（例如，为未经验证的市场开发产品原型时）——但我们应当非常清楚自己何时在走捷径，并牢记可能产生的后果。  
+> 在某些情况下，我们可能会选择牺牲可靠性来降低开发成本（例如，为未经验证的市场开发产品原型时）——但我们应当非常清楚自己何时在走捷径，
+> 并牢记可能产生的后果。  
 
 ## 可扩展性  
 
@@ -3091,20 +3210,23 @@ QCon San Francisco，2016 年 12 月。
 [4] Raffi Krikorian. “New Tweets per Second Record, and How!” blog.x.com，
 2013 年 8 月。存档于 perma.cc/6JZN-XJYN  
 
-[5] Jaz Volpert. "When Imperfect Systems Are Good, Actually: Bluesky's Lossy Timelines." *jazco.dev*，
-2025 年 2 月。存档于 *perma.cc/2PVE-L2MX*  
+[5] Jaz Volpert. "When Imperfect Systems Are Good, Actually: Bluesky's Lossy
+Timelines." *jazco.dev*， 2025 年 2 月。存档于 *perma.cc/2PVE-L2MX*  
 
-[6] Samuel Axon. “3% of Twitter’s Servers Dedicated to Justin Bieber.” mashable.com，
-2010 年 9 月。存档于 perma.cc/F35N-CGVX  
+[6] Samuel Axon. “3% of Twitter’s Servers Dedicated to Justin Bieber.”
+mashable.com， 2010 年 9 月。存档于 perma.cc/F35N-CGVX  
 
-[7] Nathan Bronson, Abutalib Aghayev, Aleksey Charapko, and Timothy Zhu. "Meta-stable Failures in Distributed Systems." 发表于 Workshop on Hot Topics in Operating Systems (HotOS)，
-2021 年 5 月。doi:10.1145/3458336.3465286  
+[7] Nathan Bronson, Abutalib Aghayev, Aleksey Charapko, and Timothy Zhu.
+"Meta-stable Failures in Distributed Systems." 发表于 Workshop on Hot Topics in
+Operating Systems (HotOS)， 2021 年 5 月。doi:10.1145/3458336.3465286  
 
 [8] Marc Brooker. “Metastability and Distributed Systems.” brooker.co.za，
 2021 年 5 月。存档于 perma.cc/7FGJ-7XRK  
 
-[9] Lexiang Huang, Matthew Magnusson, Abishek Bangalore Muralikrishna, Salman Estyak, Rebecca Isaacs, Abutalib Aghayev, Timothy Zhu, and Aleksey Charapko. "Metastable Failures in the Wild." 发表于 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI)，
-2022 年 7 月。  
+[9] Lexiang Huang, Matthew Magnusson, Abishek Bangalore Muralikrishna, Salman
+Estyak, Rebecca Isaacs, Abutalib Aghayev, Timothy Zhu, and Aleksey Charapko.
+"Metastable Failures in the Wild." 发表于 16th USENIX Symposium on Operating
+Systems Design and Implementation (OSDI)， 2022 年 7 月。  
 
 [10] Marc Brooker. “Exponential Backoff and Jitter.” aws.amazon.com，
 2015 年 3 月。存档于 perma.cc/R6MS-AZKH  
@@ -3115,29 +3237,37 @@ QCon San Francisco，2016 年 12 月。
 [12] Michael T. Nygard. *Release It!*，
 第 2 版。Pragmatic Bookshelf，2018 年。ISBN: 9781680502398  
 
-[13] Frank Chen. “Slowing Down to Speed Up—Circuit Breakers for Slack’s CI/CD.” slackengineering，
-2022 年 8 月。存档于 perma.cc/5FGS-ZPH3  
+[13] Frank Chen. “Slowing Down to Speed Up—Circuit Breakers for Slack’s
+CI/CD.” slackengineering， 2022 年 8 月。存档于 perma.cc/5FGS-ZPH3  
 
-[14] Marc Brooker. “Fixing Retries with Token Buckets and Circuit Breakers.” brooker.co.za，
-2022 年 2 月。存档于 perma.cc/MD6N-GW26  
+[14] Marc Brooker. “Fixing Retries with Token Buckets and Circuit Breakers.”
+brooker.co.za， 2022 年 2 月。存档于 perma.cc/MD6N-GW26  
 
-[15] David Yanacek. “Using Load Shedding to Avoid Overload.” Amazon Builders’ Library，
-aws.amazon.com。存档于 perma.cc/9SAW-68MP  
+[15] David Yanacek. “Using Load Shedding to Avoid Overload.” Amazon Builders’
+Library， aws.amazon.com。存档于 perma.cc/9SAW-68MP  
 
 [16] Matthew Sackman. “Pushing Back.” wellquite.org，
 2016 年 5 月。存档于 perma.cc/3KCZ-RUFY  
 
-[17] Dmitry Kopytkov and Patrick Lee. “Meet Bandaid, the Dropbox Service Proxy.” *dropbox.tech*，
-2018 年 3 月。存档于 *perma.cc/KUU6-YG4S*  
+[17] Dmitry Kopytkov and Patrick Lee. “Meet Bandaid, the Dropbox Service
+Proxy.” *dropbox.tech*， 2018 年 3 月。存档于 *perma.cc/KUU6-YG4S*  
 
-[18] Haryadi S. Gunawi, Riza O. Suminto, Russell Sears, Casey Golliher, Swaminathan Sundararaman, Xing Lin, Tim Emami, Weiguang Sheng, Nematollah Bidokhti, Caitie McCaffrey, Gary Grider, Parks M. Fields, Kevin Harms, Robert B. Ross, Andree Jacobson, Robert Ricci, Kirk Webb, Peter Alvaro, H. Birali Runesha, Mingzhe Hao, and Huaicheng Li. "Fail-Slow at Scale: Evidence of Hardware Performance Faults in Large Production Systems." 发表于 16th USENIX Conference on File and Storage Technologies，
-2018 年 2 月。  
+[18] Haryadi S. Gunawi, Riza O. Suminto, Russell Sears, Casey Golliher,
+Swaminathan Sundararaman, Xing Lin, Tim Emami, Weiguang Sheng, Nematollah
+Bidokhti, Caitie McCaffrey, Gary Grider, Parks M. Fields, Kevin Harms, Robert
+B. Ross, Andree Jacobson, Robert Ricci, Kirk Webb, Peter Alvaro, H. Birali
+Runesha, Mingzhe Hao, and Huaicheng Li. "Fail-Slow at Scale: Evidence of
+Hardware Performance Faults in Large Production Systems." 发表于 16th USENIX
+Conference on File and Storage Technologies， 2018 年 2 月。  
 
 [19] Marc Brooker. “Is the Mean Really Useless?” brooker.co.za，
 2017 年 12 月。存档于 perma.cc/U5AE-CVEM  
 
-[20] Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati, Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall, and Werner Vogels. "Dynamo: Amazon's Highly Available Key-Value Store." 发表于 21st ACM Symposium on Operating Systems Principles (SOSP)，
-2007 年 10 月。doi:10.1145/1294261.1294281  
+[20] Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati,
+Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall,
+and Werner Vogels. "Dynamo: Amazon's Highly Available Key-Value Store." 发表于
+21st ACM Symposium on Operating Systems Principles (SOSP)， 2007 年 10 月。
+doi:10.1145/1294261.1294281  
 
 [21] Kathryn Whitenton. “The Need for Speed, 23 Years Later.” *nngroup.com*，
 2020 年 5 月。存档于 *perma.cc/C4ER-LZYA*  
@@ -3148,161 +3278,197 @@ aws.amazon.com。存档于 perma.cc/9SAW-68MP
 [23] Jake Brutlag. “Speed Matters for Google Web Search.” services.google.com，
 2009 年 6 月。存档于 perma.cc/BK7R-X7M2  
 
-[24] Eric Schurman and Jake Brutlag. “Performance Related Changes and Their User Impact.” 在 Velocity 2009 上的演讲。  
+[24] Eric Schurman and Jake Brutlag. “Performance Related Changes and Their
+User Impact.” 在 Velocity 2009 上的演讲。  
 
-[25] Akamai Technologies, Inc. “The State of Online Retail Performance.” akamai.com，
-2017 年 4 月。存档于 perma.cc/UEK2-HYCS  
+[25] Akamai Technologies, Inc. “The State of Online Retail Performance.”
+akamai.com， 2017 年 4 月。存档于 perma.cc/UEK2-HYCS  
 
-[26] Xiao Bai, Ioannis Arapakis, B. Barla Cambazoglu, and Ana Freire. "Understanding and Leveraging the Impact of Response Latency on User Behaviour in Web Search." ACM Transactions on Information Systems，
-第 36 卷，第 2 期，
-文章 21，2018 年 4 月。doi:10.1145/3106372  
+[26] Xiao Bai, Ioannis Arapakis, B. Barla Cambazoglu, and Ana Freire.
+"Understanding and Leveraging the Impact of Response Latency on User Behaviour
+in Web Search." ACM Transactions on Information Systems， 第 36 卷，第 2 期， 文章 21，
+2018 年 4 月。doi:10.1145/3106372  
 
-[27] Jeffrey Dean and Luiz André Barroso. "The Tail at Scale." *Communications of the ACM*，
-第 56 卷，第 2 期，
-第 74–80 页，2013 年 2 月。*doi:10.1145/2408776.2408794*  
+[27] Jeffrey Dean and Luiz André Barroso. "The Tail at Scale." *Communications
+of the ACM*， 第 56 卷，第 2 期， 第 74–80 页，2013 年 2 月。*doi:10.1145/2408776.2408794*  
 
-[28] Alex Hidalgo. *Implementing Service Level Objectives: A Practical Guide to SLIs, SLOs, and Error Budgets*. O'Reilly Media，2020 年。ISBN: 9781492076813  
+[28] Alex Hidalgo. *Implementing Service Level Objectives: A Practical Guide
+to SLIs, SLOs, and Error Budgets*. O'Reilly Media，2020 年。ISBN: 9781492076813  
 
-[29] Jeffrey C. Mogul and John Wilkes. "Nines Are Not Enough: Meaningful Metrics for Clouds." 发表于第 17 届操作系统热点研讨会（HotOS），
-2019 年 5 月。doi:10.1145/3317550.3321432  
+[29] Jeffrey C. Mogul and John Wilkes. "Nines Are Not Enough: Meaningful
+Metrics for Clouds." 发表于第 17 届操作系统热点研讨会（HotOS）， 2019 年 5 月。
+doi:10.1145/3317550.3321432  
 
-[30] Tamás Hauer, Philipp Hoffmann, John Lunney, Dan Ardelean, and Amer Diwan. "Meaningful Availability." 发表于第 17 届 USENIX 网络系统设计与实现研讨会（NSDI），
-2020 年 2 月。  
+[30] Tamás Hauer, Philipp Hoffmann, John Lunney, Dan Ardelean, and Amer Diwan.
+"Meaningful Availability." 发表于第 17 届 USENIX 网络系统设计与实现研讨会（NSDI）， 2020 年 2 月。  
 
-[31] Gil Tene. “HdrHistogram: A High Dynamic Range Histogram.” *hdrhistogram.github.io/HdrHistogram*  
+[31] Gil Tene. “HdrHistogram: A High Dynamic Range Histogram.”
+*hdrhistogram.github.io/HdrHistogram*  
 
-[32] Ted Dunning. “The t-digest: Efficient Estimates of Distributions.” *Software Impacts*，
-第 7 卷，文章 100049，
-2021 年 2 月。*doi:10.1016/j.simpa.2020.100049*  
+[32] Ted Dunning. “The t-digest: Efficient Estimates of Distributions.”
+*Software Impacts*， 第 7 卷，文章 100049， 2021 年 2 月。
+*doi:10.1016/j.simpa.2020.100049*  
 
-[33] David Kohn. "How Percentile Approximation Works (and Why It's More Useful than Averages)." *timescale.com*，
-2021 年 9 月。存档于 *perma.cc/3PDP-NR8B*  
+[33] David Kohn. "How Percentile Approximation Works (and Why It's More Useful
+than Averages)." *timescale.com*， 2021 年 9 月。存档于 *perma.cc/3PDP-NR8B*  
 
-[34] Heinrich Hartmann and Theo Schlossnagle. “Circllhist—A Log-Linear Histogram Data Structure for IT Infrastructure Monitoring.” arXiv:2001.06561，
+[34] Heinrich Hartmann and Theo Schlossnagle. “Circllhist—A Log-Linear
+Histogram Data Structure for IT Infrastructure Monitoring.” arXiv:2001.06561，
 2020 年 1 月。  
 
-[35] Charles Masson, Jee E. Rim, and Homin K. Lee. "DDSketch: A Fast and Fully-Mergeable Quantile Sketch with Relative-Error Guarantees." Proceedings of the VLDB Endowment，
-第 12 卷，第 12 期，
-第 2195–2205 页，
-2019 年 8 月。doi:10.14778/3352063.3352135  
+[35] Charles Masson, Jee E. Rim, and Homin K. Lee. "DDSketch: A Fast and
+Fully-Mergeable Quantile Sketch with Relative-Error Guarantees." Proceedings
+of the VLDB Endowment， 第 12 卷，第 12 期， 第 2195–2205 页， 2019 年 8 月。
+doi:10.14778/3352063.3352135  
 
-[36] Baron Schwartz. "Why Percentiles Don't Work the Way You Think." solar-winds.com，
-2016 年 11 月。存档于 perma.cc/469T-6UGB  
+[36] Baron Schwartz. "Why Percentiles Don't Work the Way You Think."
+solar-winds.com， 2016 年 11 月。存档于 perma.cc/469T-6UGB  
 
-[37] Walter L. Heimerdinger and Charles B. Weinstock. "A Conceptual Framework for System Fault Tolerance." 技术报告 CMU/SEI-92-TR-033，
-卡内基梅隆大学软件工程研究所，
-1992 年 10 月。存档于 perma.cc/GD2V-DMJW  
+[37] Walter L. Heimerdinger and Charles B. Weinstock. "A Conceptual Framework
+for System Fault Tolerance." 技术报告 CMU/SEI-92-TR-033， 卡内基梅隆大学软件工程研究所， 1992 年 10
+月。存档于 perma.cc/GD2V-DMJW  
 
-[38] Felix C. Gärtner. "Fundamentals of Fault-Tolerant Distributed Computing in Asynchronous Environments." ACM Computing Surveys，
-第 31 卷，第 1 期，
-第 1–26 页，1999 年 3 月。doi:10.1145/311531.311532  
+[38] Felix C. Gärtner. "Fundamentals of Fault-Tolerant Distributed Computing
+in Asynchronous Environments." ACM Computing Surveys， 第 31 卷，第 1 期， 第 1–26 页，
+1999 年 3 月。doi:10.1145/311531.311532  
 
-[39] Algirdas Avižienis, Jean-Claude Laprie, Brian Randell, and Carl Landwehr. "Basic Concepts and Taxonomy of Dependable and Secure Computing." IEEE Transactions on Dependable and Secure Computing，
-第 1 卷，第 1 期，
-第 11–33 页，2004 年 1 月。doi:10.1109/TDSC.2004.2  
+[39] Algirdas Avižienis, Jean-Claude Laprie, Brian Randell, and Carl Landwehr.
+"Basic Concepts and Taxonomy of Dependable and Secure Computing." IEEE
+Transactions on Dependable and Secure Computing， 第 1 卷，第 1 期， 第 11–33 页，2004 年
+1 月。doi:10.1109/TDSC.2004.2  
 
-[40] Ding Yuan, Yu Luo, Xin Zhuang, Guilherme Renna Rodrigues, Xu Zhao, Yongle Zhang, Pranay U. Jain, and Michael Stumm. "Simple Testing Can Prevent Most Critical Failures: An Analysis of Production Failures in Distributed Data-Intensive Systems." 发表于第 11 届 USENIX 操作系统设计与实现研讨会（OSDI），
-2014 年 10 月。  
+[40] Ding Yuan, Yu Luo, Xin Zhuang, Guilherme Renna Rodrigues, Xu Zhao, Yongle
+Zhang, Pranay U. Jain, and Michael Stumm. "Simple Testing Can Prevent Most
+Critical Failures: An Analysis of Production Failures in Distributed
+Data-Intensive Systems." 发表于第 11 届 USENIX 操作系统设计与实现研讨会（OSDI）， 2014 年 10 月。  
 
-[41] Casey Rosenthal and Nora Jones. *Chaos Engineering*. O'Reilly Media，2020 年。ISBN: 9781492043867  
+[41] Casey Rosenthal and Nora Jones. *Chaos Engineering*. O'Reilly Media，2020
+年。ISBN: 9781492043867  
 
-[42] Eduardo Pinheiro, Wolf-Dietrich Weber, and Luiz Andre Barroso. "Failure Trends in a Large Disk Drive Population." 发表于第 5 届 USENIX 文件与存储技术会议（FAST），
+[42] Eduardo Pinheiro, Wolf-Dietrich Weber, and Luiz Andre Barroso. "Failure
+Trends in a Large Disk Drive Population." 发表于第 5 届 USENIX 文件与存储技术会议（FAST），
 2007 年 2 月。  
 
-[43] Bianca Schroeder and Garth A. Gibson. "Disk Failures in the Real World: What Does an Mttf of 1,000,000 Hours Mean to You?" 发表于第 5 届 USENIX 文件与存储技术会议（FAST），
-2007 年 2 月。  
+[43] Bianca Schroeder and Garth A. Gibson. "Disk Failures in the Real World:
+What Does an Mttf of 1,000,000 Hours Mean to You?" 发表于第 5 届 USENIX
+文件与存储技术会议（FAST）， 2007 年 2 月。  
 
 [44] Andy Klein. "Backblaze Drive Stats for Q2 2021." backblaze.com，
 2021 年 8 月。存档于 perma.cc/2943-UD5E  
 
-[45] Iyswarya Narayanan, Di Wang, Myeongjae Jeon, Bikash Sharma, Laura Caulfield, Anand Sivasubramaniam, Ben Cutler, Jie Liu, Badridine Khessib, and Kushagra Vaid. "SSD Failures in Datacenters: What? When? And Why?" 发表于第 9 届 ACM 系统与存储国际会议（SYSTOR），
-2016 年 6 月。doi:10.1145/2928275.2928278  
+[45] Iyswarya Narayanan, Di Wang, Myeongjae Jeon, Bikash Sharma, Laura
+Caulfield, Anand Sivasubramaniam, Ben Cutler, Jie Liu, Badridine Khessib, and
+Kushagra Vaid. "SSD Failures in Datacenters: What? When? And Why?" 发表于第 9 届
+ACM 系统与存储国际会议（SYSTOR）， 2016 年 6 月。doi:10.1145/2928275.2928278  
 
-[46] Alibaba Cloud Storage Team. "Storage System Design Analysis: Factors Affecting NVMe SSD Performance (1)." alibabacloud.com，
-2019 年 1 月。存档于 archive.org  
+[46] Alibaba Cloud Storage Team. "Storage System Design Analysis: Factors
+Affecting NVMe SSD Performance (1)." alibabacloud.com， 2019 年 1 月。存档于
+archive.org  
 
-[47] Bianca Schroeder, Raghav Lagisetty, and Arif Merchant. "Flash Reliability in Production: The Expected and the Unexpected." 发表于第 14 届 USENIX 文件与存储技术会议（FAST），
-2016 年 2 月。  
+[47] Bianca Schroeder, Raghav Lagisetty, and Arif Merchant. "Flash Reliability
+in Production: The Expected and the Unexpected." 发表于第 14 届 USENIX
+文件与存储技术会议（FAST）， 2016 年 2 月。  
 
-[48] Jacob Alter, Ji Xue, Alma Dimnaku, and Evgenia Smirni. "SSD Failures in the Field: Symptoms, Causes, and Prediction Models." 发表于国际高性能计算、
-网络、存储与分析会议（SC），
-2019 年 11 月。doi:10.1145/3295500.3356172  
+[48] Jacob Alter, Ji Xue, Alma Dimnaku, and Evgenia Smirni. "SSD Failures in
+the Field: Symptoms, Causes, and Prediction Models." 发表于国际高性能计算、 网络、
+存储与分析会议（SC）， 2019 年 11 月。doi:10.1145/3295500.3356172  
 
-[49] Daniel Ford, François Labelle, Florentina I. Popovici, Murray Stokely, Van-Anh Truong, Luiz Barroso, Carrie Grimes, and Sean Quinlan. "Availability in Globally Distributed Storage Systems." 发表于第 9 届 USENIX 操作系统设计与实现研讨会（OSDI），
+[49] Daniel Ford, François Labelle, Florentina I. Popovici, Murray Stokely,
+Van-Anh Truong, Luiz Barroso, Carrie Grimes, and Sean Quinlan. "Availability
+in Globally Distributed Storage Systems." 发表于第 9 届 USENIX 操作系统设计与实现研讨会（OSDI），
 2010 年 10 月。  
 
-[50] Kashi Venkatesh Vishwanath and Nachiappan Nagappan. "Characterizing Cloud Computing Hardware Reliability." 发表于第 1 届 ACM 云计算研讨会（SoCC），
-2010 年 6 月。doi:10.1145/1807128.1807161  
+[50] Kashi Venkatesh Vishwanath and Nachiappan Nagappan. "Characterizing Cloud
+Computing Hardware Reliability." 发表于第 1 届 ACM 云计算研讨会（SoCC）， 2010 年 6 月。
+doi:10.1145/1807128.1807161  
 
-[51] Peter H. Hochschild, Paul Turner, Jeffrey C. Mogul, Rama Govindaraju, Parthasarathy Ranganathan, David E. Culler, and Amin Vahdat. "Cores That Don't Count." 发表于操作系统热点研讨会（HotOS），
-2021 年 6 月。doi:10.1145/3458336.3465297  
+[51] Peter H. Hochschild, Paul Turner, Jeffrey C. Mogul, Rama Govindaraju,
+Parthasarathy Ranganathan, David E. Culler, and Amin Vahdat. "Cores That Don't
+Count." 发表于操作系统热点研讨会（HotOS）， 2021 年 6 月。doi:10.1145/3458336.3465297  
 
-[52] Harish Dattatraya Dixit, Sneha Pendharkar, Matt Beadon, Chris Mason, Tejasvi Chakravarthy, Bharath Muthiah, and Sriram Sankar. Silent Data Corruptions at Scale. arXiv:2102.11245，
-2021 年 2 月。  
+[52] Harish Dattatraya Dixit, Sneha Pendharkar, Matt Beadon, Chris Mason,
+Tejasvi Chakravarthy, Bharath Muthiah, and Sriram Sankar. Silent Data
+Corruptions at Scale. arXiv:2102.11245， 2021 年 2 月。  
 
-[53] Diogo Behrens, Marco Serafini, Sergei Arnautov, Flavio P. Junqueira, and Christof Fetzer. "Scalable Error Isolation for Distributed Systems." 发表于第 12 届 USENIX 网络系统设计与实现研讨会（NSDI），
-2015 年 5 月。  
+[53] Diogo Behrens, Marco Serafini, Sergei Arnautov, Flavio P. Junqueira, and
+Christof Fetzer. "Scalable Error Isolation for Distributed Systems." 发表于第 12 届
+USENIX 网络系统设计与实现研讨会（NSDI）， 2015 年 5 月。  
 
-[54] Bianca Schroeder, Eduardo Pinheiro, and Wolf-Dietrich Weber. "DRAM Errors in the Wild: A Large-Scale Field Study." 发表于第 11 届测量与建模国际联合会议（SIGMETRICS），
+[54] Bianca Schroeder, Eduardo Pinheiro, and Wolf-Dietrich Weber. "DRAM Errors
+in the Wild: A Large-Scale Field Study." 发表于第 11 届测量与建模国际联合会议（SIGMETRICS），
 2009 年 6 月。doi:10.1145/1555349.1555372  
 
-[55] Yoongu Kim, Ross Daly, Jeremie Kim, Chris Fallin, Ji Hye Lee, Donghyuk Lee, Chris Wilkerson, Konrad Lai, and Onur Mutlu. "Flipping Bits in Memory Without Accessing Them: An Experimental Study of DRAM Disturbance Errors." 发表于第 41 届年度计算机体系结构国际研讨会（ISCA），
-2014 年 6 月。doi:10.5555/2665671.2665726  
+[55] Yoongu Kim, Ross Daly, Jeremie Kim, Chris Fallin, Ji Hye Lee, Donghyuk
+Lee, Chris Wilkerson, Konrad Lai, and Onur Mutlu. "Flipping Bits in Memory
+Without Accessing Them: An Experimental Study of DRAM Disturbance Errors."
+发表于第 41 届年度计算机体系结构国际研讨会（ISCA）， 2014 年 6 月。doi:10.5555/2665671.2665726  
 
 [56] Tim Bray. “Worst Case.” tbray.org，2021 年 10 月。存档于 perma.cc/4QQM-RTHN  
 
-[57] Sangeetha Abdu Jyothi. "Solar Superstorms: Planning for an Internet Apocalypse." 发表于 ACM SIGCOMM 会议，
-2021 年 8 月。doi:10.1145/3452296.3472916  
+[57] Sangeetha Abdu Jyothi. "Solar Superstorms: Planning for an Internet
+Apocalypse." 发表于 ACM SIGCOMM 会议， 2021 年 8 月。doi:10.1145/3452296.3472916  
 
-[58] Adrian Cockcroft. “Failure Modes and Continuous Resilience.” adrianco.medium.com，
-2019 年 11 月。存档于 perma.cc/7SYS-BVJP  
+[58] Adrian Cockcroft. “Failure Modes and Continuous Resilience.”
+adrianco.medium.com， 2019 年 11 月。存档于 perma.cc/7SYS-BVJP  
 
-[59] Shujie Han, Patrick P. C. Lee, Fan Xu, Yi Liu, Cheng He, and Jiongzhou Liu. "An In-Depth Study of Correlated Failures in Production SSD-Based Data Centers." 发表于第 19 届 USENIX 文件与存储技术会议（FAST），
-2021 年 2 月。  
+[59] Shujie Han, Patrick P. C. Lee, Fan Xu, Yi Liu, Cheng He, and Jiongzhou
+Liu. "An In-Depth Study of Correlated Failures in Production SSD-Based Data
+Centers." 发表于第 19 届 USENIX 文件与存储技术会议（FAST）， 2021 年 2 月。  
 
-[60] Edmund B. Nightingale, John R. Douceur, and Vince Orgovan. "Cycles, Cells and Platters: An Empirical Analysis of Hardware Failures on a Million Consumer PCs." 发表于第 6 届欧洲计算机系统会议（EuroSys），
-2011 年 4 月。doi:10.1145/1966445.1966477  
+[60] Edmund B. Nightingale, John R. Douceur, and Vince Orgovan. "Cycles, Cells
+and Platters: An Empirical Analysis of Hardware Failures on a Million Consumer
+PCs." 发表于第 6 届欧洲计算机系统会议（EuroSys）， 2011 年 4 月。doi:10.1145/1966445.1966477  
 
-[61] Haryadi S. Gunawi, Mingzhe Hao, Tanakorn Leesatapornwongsa, Tiratat Patana-anake, Thanh Do, Jeffry Adityatama, Kurnia J. Eliazar, Agung Laksono, Jeffrey F. Lukman, Vincentius Martin, and Anang D. Satria. "What Bugs Live in the Cloud? A Study of 3000+ Issues in Cloud Systems." 发表于第 5 届 ACM 云计算研讨会（SoCC），
-2014 年 11 月。doi:10.1145/2670979.2670986  
+[61] Haryadi S. Gunawi, Mingzhe Hao, Tanakorn Leesatapornwongsa, Tiratat
+Patana-anake, Thanh Do, Jeffry Adityatama, Kurnia J. Eliazar, Agung Laksono,
+Jeffrey F. Lukman, Vincentius Martin, and Anang D. Satria. "What Bugs Live in
+the Cloud? A Study of 3000+ Issues in Cloud Systems." 发表于第 5 届 ACM
+云计算研讨会（SoCC）， 2014 年 11 月。doi:10.1145/2670979.2670986  
 
-[62] Jay Kreps. “Getting Real About Distributed System Reliability.” blog.empathybox.com，
-2012 年 3 月。存档于 perma.cc/9B5Q-AEBW  
+[62] Jay Kreps. “Getting Real About Distributed System Reliability.”
+blog.empathybox.com， 2012 年 3 月。存档于 perma.cc/9B5Q-AEBW  
 
 [63] Nelson Minar. “Leap Second Crashes Half the Internet.” somebits.com，
 2012 年 7 月。存档于 perma.cc/2WB8-D6EU  
 
-[64] Hewlett Packard Enterprise. "Support Alerts—Customer Bulletin a00092491en_us." support.hpe.com，
-2019 年 11 月。存档于 perma.cc/S5F6-7ZAC  
+[64] Hewlett Packard Enterprise. "Support Alerts—Customer Bulletin
+a00092491en_us." support.hpe.com， 2019 年 11 月。存档于 perma.cc/S5F6-7ZAC  
 
 [65] Lorin Hochstein. “Awesome Limits.” github.com，
 2020 年 11 月。存档于 perma.cc/3R5M-E5Q4  
 
-[66] Caitie McCaffrey. "Clients Are Jerks: AKA How Halo 4 DoSed the Services at Launch & How We Survived." *caitiem.com*，
-2015 年 6 月。存档于 *perma.cc/MXX4-W373*  
+[66] Caitie McCaffrey. "Clients Are Jerks: AKA How Halo 4 DoSed the Services
+at Launch & How We Survived." *caitiem.com*， 2015 年 6 月。存档于
+*perma.cc/MXX4-W373*  
 
-[67] Lilia Tang, Chaitanya Bhandari, Yongle Zhang, Anna Karanika, Shuyang Ji, Indranil Gupta, and Tianyin Xu. "Fail Through the Cracks: Cross-System Interaction Failures in Modern Cloud Systems." 发表于第 18 届欧洲计算机系统会议（EuroSys），
+[67] Lilia Tang, Chaitanya Bhandari, Yongle Zhang, Anna Karanika, Shuyang Ji,
+Indranil Gupta, and Tianyin Xu. "Fail Through the Cracks: Cross-System
+Interaction Failures in Modern Cloud Systems." 发表于第 18 届欧洲计算机系统会议（EuroSys），
 2023 年 5 月。doi:10.1145/3552326.3587448  
 
-[68] Mike Ulrich. Addressing Cascading Failures. 载于 Betsy Beyer, Jennifer Petoff, Chris Jones, and Niall Richard Murphy（编）。
-*Site Reliability Engineering: How Google Runs Production Systems*. O'Reilly Media，2016 年。ISBN: 9781491929124  
+[68] Mike Ulrich. Addressing Cascading Failures. 载于 Betsy Beyer, Jennifer
+Petoff, Chris Jones, and Niall Richard Murphy（编）。 *Site Reliability
+Engineering: How Google Runs Production Systems*. O'Reilly Media，2016 年。ISBN:
+9781491929124  
 
-[69] Harri Faßbender. “Cascading Failures in Large-Scale Distributed Systems.” blog.mi.hdm-stuttgart.de，
-2022 年 3 月。存档于 perma.cc/K7VY-YJRX  
+[69] Harri Faßbender. “Cascading Failures in Large-Scale Distributed Systems.”
+blog.mi.hdm-stuttgart.de， 2022 年 3 月。存档于 perma.cc/K7VY-YJRX  
 
-[70] Richard I. Cook. "How Complex Systems Fail." Cognitive Technologies Laboratory，
-2000 年 4 月。存档于 perma.cc/RDS6-2YVA  
+[70] Richard I. Cook. "How Complex Systems Fail." Cognitive Technologies
+Laboratory， 2000 年 4 月。存档于 perma.cc/RDS6-2YVA  
 
-[71] David D. Woods. “STELLA: Report from the SNAFUcatchers Workshop on Coping with Complexity.” *snafucatchers.github.io*，
-2017 年 3 月。存档于 *archive.org*  
+[71] David D. Woods. “STELLA: Report from the SNAFUcatchers Workshop on Coping
+with Complexity.” *snafucatchers.github.io*， 2017 年 3 月。存档于 *archive.org*  
 
-[72] David Oppenheimer, Archana Ganapathi, and David A. Patterson. "Why Do Internet Services Fail, and What Can Be Done About It?" 发表于第 4 届 USENIX 互联网技术与系统研讨会（USITS），
-2003 年 3 月。  
+[72] David Oppenheimer, Archana Ganapathi, and David A. Patterson. "Why Do
+Internet Services Fail, and What Can Be Done About It?" 发表于第 4 届 USENIX
+互联网技术与系统研讨会（USITS）， 2003 年 3 月。  
 
 [73] Sidney Dekker. *The Field Guide to Understanding "Human Error"*，
 第 3 版。CRC Press，2017 年。ISBN: 9781472439055  
 
-[74] Sidney Dekker. *Drift into Failure: From Hunting Broken Components to Understanding Complex Systems*. CRC Press，2011 年。ISBN: 9781315257396  
+[74] Sidney Dekker. *Drift into Failure: From Hunting Broken Components to
+Understanding Complex Systems*. CRC Press，2011 年。ISBN: 9781315257396  
 
 [75] John Allspaw. “Blameless PostMortems and a Just Culture.” etsy.com，
 2012 年 5 月。存档于 perma.cc/YMJ7-NTAP  
@@ -3313,53 +3479,61 @@ aws.amazon.com。存档于 perma.cc/9SAW-68MP
 [77] Michael Jurewitz. "The Human Impact of Bugs." *jury.me*，
 2013 年 3 月。存档于 *perma.cc/5KQ4-VDYL*  
 
-[78] Mark Halper. "How Software Bugs Led to 'One of the Greatest Miscarriages of Justice' in British History." *Communications of the ACM*，
-第 68 卷，第 3 期，
-第 12–14 页，2025 年 1 月。doi:10.1145/3703779  
+[78] Mark Halper. "How Software Bugs Led to 'One of the Greatest Miscarriages
+of Justice' in British History." *Communications of the ACM*， 第 68 卷，第 3 期， 第
+12–14 页，2025 年 1 月。doi:10.1145/3703779  
 
-[79] Nicholas Bohm, James Christie, Peter Bernard Ladkin, Bev Littlewood, Paul Marshall, Stephen Mason, Martin Newby, Steven J. Murdoch, Harold Thimbleby, and Martyn Thomas. "The Legal Rule That Computers Are Presumed to be Operating Correctly—Unforeseen and Unjust Consequences." 简报，
-*benthamsgaze.org*，
-2022 年 6 月。存档于 *perma.cc/WQ6X-TMW4*  
+[79] Nicholas Bohm, James Christie, Peter Bernard Ladkin, Bev Littlewood, Paul
+Marshall, Stephen Mason, Martin Newby, Steven J. Murdoch, Harold Thimbleby,
+and Martyn Thomas. "The Legal Rule That Computers Are Presumed to be Operating
+Correctly—Unforeseen and Unjust Consequences." 简报， *benthamsgaze.org*， 2022 年
+6 月。存档于 *perma.cc/WQ6X-TMW4*  
 
 [80] Dan McKinley. “Choose Boring Technology.” *mcfunley.com*，
 2015 年 3 月。存档于 *perma.cc/7QW7-J4YP*  
 
-[81] Andy Warfield. “Building and Operating a Pretty Big Storage System Called S3.” *allthingsdistributed.com*，
-2023 年 7 月。存档于 *perma.cc/7LPK-TP7V*  
+[81] Andy Warfield. “Building and Operating a Pretty Big Storage System Called
+S3.” *allthingsdistributed.com*， 2023 年 7 月。存档于 *perma.cc/7LPK-TP7V*  
 
 [82] Marc Brooker. “Surprising Scalability of Multitenancy.” brooker.co.za，
 2023 年 3 月。存档于 perma.cc/ZZD9-VV8T  
 
-[83] Ben Stopford. “Shared Nothing vs. Shared Disk Architectures: An Independent View.” *benstopford.com*，
-2009 年 11 月。存档于 *perma.cc/7BXH-EDUR*  
+[83] Ben Stopford. “Shared Nothing vs. Shared Disk Architectures: An
+Independent View.” *benstopford.com*， 2009 年 11 月。存档于 *perma.cc/7BXH-EDUR*  
 
-[84] Michael Stonebraker. "The Case for Shared Nothing." IEEE Database Engineering Bulletin，
-第 9 卷，第 1 期，
-第 4–9 页，1986 年 3 月。perma.cc/P9YL-C4PS  
+[84] Michael Stonebraker. "The Case for Shared Nothing." IEEE Database
+Engineering Bulletin， 第 9 卷，第 1 期， 第 4–9 页，1986 年 3 月。perma.cc/P9YL-C4PS  
 
-[85] Panagiotis Antonopoulos, Alex Budovski, Cristian Diaconu, Alejandro Hernandez Saenz, Jack Hu, Hanuma Kodavalla, Donald Kossmann, Sandeep Lingam, Umar Farooq Minhas, Naveen Prakash, Vijendra Purohit, Hugh Qu, Chaitanya Sreenivas Ravella, Krystyna Reisteter, Sheetal Shrotri, Dixon Tang, and Vikram Wakade. "Socrates: The New SQL Server in the Cloud." 发表于 ACM 数据管理国际会议（SIGMOD），
+[85] Panagiotis Antonopoulos, Alex Budovski, Cristian Diaconu, Alejandro
+Hernandez Saenz, Jack Hu, Hanuma Kodavalla, Donald Kossmann, Sandeep Lingam,
+Umar Farooq Minhas, Naveen Prakash, Vijendra Purohit, Hugh Qu, Chaitanya
+Sreenivas Ravella, Krystyna Reisteter, Sheetal Shrotri, Dixon Tang, and Vikram
+Wakade. "Socrates: The New SQL Server in the Cloud." 发表于 ACM 数据管理国际会议（SIGMOD），
 2019 年 6 月。doi:10.1145/3299869.3314047  
 
 [86] Sam Newman. *Building Microservices*，
 第 2 版。O'Reilly Media，2021 年。ISBN: 9781492034025  
 
-[87] Nathan Ensmenger. "When Good Software Goes Bad: The Surprising Durability of an Ephemeral Technology." 发表于 The Maintainers Conference，
-2016 年 4 月。存档于 perma.cc/ZXT4-HGZB  
+[87] Nathan Ensmenger. "When Good Software Goes Bad: The Surprising Durability
+of an Ephemeral Technology." 发表于 The Maintainers Conference， 2016 年 4 月。存档于
+perma.cc/ZXT4-HGZB  
 
-[88] Robert L. Glass. *Facts and Fallacies of Software Engineering*. Addison-Wesley Professional，2002 年。ISBN: 9780321117427  
+[88] Robert L. Glass. *Facts and Fallacies of Software Engineering*.
+Addison-Wesley Professional，2002 年。ISBN: 9780321117427  
 
-[89] Marianne Bellotti. Kill It with Fire. No Starch Press，2021 年。ISBN: 9781718501188  
+[89] Marianne Bellotti. Kill It with Fire. No Starch Press，2021 年。ISBN:
+9781718501188  
 
 [90] Lisanne Bainbridge. “Ironies of Automation.” *Automatica*，
 第 19 卷，第 6 期，
 第 775–779 页，
 1983 年 11 月。doi:10.1016/0005-1098(83)90046-8  
 
-[91] James Hamilton. "On Designing and Deploying Internet-Scale Services." 发表于第 21 届大型系统安装管理会议（LISA），
-2007 年 11 月。  
+[91] James Hamilton. "On Designing and Deploying Internet-Scale Services."
+发表于第 21 届大型系统安装管理会议（LISA）， 2007 年 11 月。  
 
-[92] Dotan Horovits. "Open Source for Better Observability." horovits.medium.com，
-2021 年 10 月。存档于 perma.cc/R2HD-U2ZT  
+[92] Dotan Horovits. "Open Source for Better Observability."
+horovits.medium.com， 2021 年 10 月。存档于 perma.cc/R2HD-U2ZT  
 
 [93] Brian Foote and Joseph Yoder. "Big Ball of Mud." 发表于第 4 届程序设计模式语言会议（PLoP），
 1997 年 9 月。存档于 perma.cc/4GUP-2PBV  
@@ -3367,21 +3541,26 @@ aws.amazon.com。存档于 perma.cc/9SAW-68MP
 [94] Marc Brooker. “What Is a Simple System?” brooker.co.za，
 2022 年 5 月。存档于 perma.cc/U72T-BFVE  
 
-[95] Frederick P. Brooks. “No Silver Bullet—Essence and Accident in Software Engineering.” 载于 *The Mythical Man-Month*，
-周年纪念版，Addison-Wesley，1995 年。ISBN: 9780201835953  
+[95] Frederick P. Brooks. “No Silver Bullet—Essence and Accident in Software
+Engineering.” 载于 *The Mythical Man-Month*， 周年纪念版，Addison-Wesley，1995 年。ISBN:
+9780201835953  
 
 [96] Dan Luu. “Against Essential and Accidental Complexity.” danluu.com，
 2020 年 12 月。存档于 perma.cc/H5ES-69KC  
 
-[97] Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley Professional，1994 年。ISBN: 9780201633610  
+[97] Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. *Design
+Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley
+Professional，1994 年。ISBN: 9780201633610  
 
-[98] Eric Evans. *Domain-Driven Design: Tackling Complexity in the Heart of Software*. Addison-Wesley Professional，2003 年。ISBN: 9780321125217  
+[98] Eric Evans. *Domain-Driven Design: Tackling Complexity in the Heart of
+Software*. Addison-Wesley Professional，2003 年。ISBN: 9780321125217  
 
-[99] Hongyu Pei Breivold, Ivica Crnkovic, and Peter J. Eriksson. "Analyzing Software Evolvability." 发表于第 32 届年度 IEEE 国际计算机软件与应用会议（COMPSAC），
-2008 年 7 月。doi:10.1109/COMPSAC.2008.50  
+[99] Hongyu Pei Breivold, Ivica Crnkovic, and Peter J. Eriksson. "Analyzing
+Software Evolvability." 发表于第 32 届年度 IEEE 国际计算机软件与应用会议（COMPSAC）， 2008 年 7 月。
+doi:10.1109/COMPSAC.2008.50  
 
-[100] Enrico Zaninotto. “From X Programming to the X Organisation.” 发表于 XP Conference，
-2002 年 5 月。存档于 perma.cc/R9AR-QCKZ  
+[100] Enrico Zaninotto. “From X Programming to the X Organisation.” 发表于 XP
+Conference， 2002 年 5 月。存档于 perma.cc/R9AR-QCKZ  
 
 # 数据模型与查询语言  
 
@@ -4453,7 +4632,7 @@ CREATE
 例如，假设我们想找出所有从美国移居欧洲的人的姓名。
 可以找出所有满足以下条件的顶点：
 它们有一条 BORN_IN 边指向美国境内的某个地点，
-并有一条 LIVING_IN 边指向欧洲境内的某个地点；
+并有一条 LIVES_IN 边指向欧洲境内的某个地点；
 然后返回每个此类顶点的 name 属性。  
 
 示例 3-5 展示了如何用 Cypher 表达该查询。
@@ -5417,26 +5596,26 @@ Spark 和 Flink 等批处理框架也加入了对它的支持；
 
 ## 参考文献  
 
-[1] Jamie Brandon. “Unexplanations: Query Optimization Works Because SQL Is Declarative.” scattered-thoughts.net，
-2024 年 2 月。存档于 perma.cc/P6W2-WMFZ  
+[1] Jamie Brandon. “Unexplanations: Query Optimization Works Because SQL Is
+Declarative.” scattered-thoughts.net， 2024 年 2 月。存档于 perma.cc/P6W2-WMFZ  
 
-[2] Neel Krishnaswami. "What Declarative Languages Are." semantic-domain.blogspot.com，
-2013 年 7 月。存档于 perma.cc/R4LP-T2RV  
+[2] Neel Krishnaswami. "What Declarative Languages Are."
+semantic-domain.blogspot.com， 2013 年 7 月。存档于 perma.cc/R4LP-T2RV  
 
-[3] Joseph M. Hellerstein. "The Declarative Imperative: Experiences and Conjectures in Distributed Logic." 技术报告 UCB/EECS-2010-90，
-加州大学伯克利分校电子工程与计算机科学系，
-2010 年 6 月。存档于 perma.cc/K56R-VVQM  
+[3] Joseph M. Hellerstein. "The Declarative Imperative: Experiences and
+Conjectures in Distributed Logic." 技术报告 UCB/EECS-2010-90，
+加州大学伯克利分校电子工程与计算机科学系， 2010 年 6 月。存档于 perma.cc/K56R-VVQM  
 
-[4] Edgar F. Codd. "A Relational Model of Data for Large Shared Data Banks." *Communications of the ACM*，
-第 13 卷第 6 期，
-第 377–387 页，
-1970 年 6 月。doi:10.1145/362384.362685  
+[4] Edgar F. Codd. "A Relational Model of Data for Large Shared Data Banks."
+*Communications of the ACM*， 第 13 卷第 6 期， 第 377–387 页， 1970 年 6 月。
+doi:10.1145/362384.362685  
 
-[5] Michael Stonebraker and Joseph M. Hellerstein. "What Goes Around Comes Around." 收录于 *Readings in Database Systems*，
-第 4 版，MIT Press，
-2005 年，第 2–41 页。ISBN: 9780262693141  
+[5] Michael Stonebraker and Joseph M. Hellerstein. "What Goes Around Comes
+Around." 收录于 *Readings in Database Systems*， 第 4 版，MIT Press， 2005 年，第 2–41 页。
+ISBN: 9780262693141  
 
-[6] Markus Winand. “Modern SQL: Beyond Relational.” modern-sql.com，2015 年。存档于 perma.cc/D63V-WAPN  
+[6] Markus Winand. “Modern SQL: Beyond Relational.” modern-sql.com，2015 年。存档于
+perma.cc/D63V-WAPN  
 
 [7] Martin Fowler. “Orm Hate.” martinfowler.com，
 2012 年 5 月。存档于 perma.cc/VCM8-PKNG  
@@ -5444,8 +5623,9 @@ Spark 和 Flink 等批处理框架也加入了对它的支持；
 [8] Vlad Mihalcea. “N+1 Query Problem with JPA and Hibernate.” vladmihalcea.com，
 2023 年 1 月。存档于 perma.cc/79EV-TZKB  
 
-[9] Jens Schauder. “This Is the Beginning of the End of the N+1 Problem: Introducing Single Query Loading.” spring.io，
-2023 年 8 月。存档于 perma.cc/6V96-R333  
+[9] Jens Schauder. “This Is the Beginning of the End of the N+1 Problem:
+Introducing Single Query Loading.” spring.io， 2023 年 8 月。存档于
+perma.cc/6V96-R333  
 
 [10] Jamie Brandon. “SQL Needed Structure.” scattered-thoughts.net，
 2025 年 9 月。存档于 perma.cc/9EVK-HLVR  
@@ -5453,16 +5633,18 @@ Spark 和 Flink 等批处理框架也加入了对它的支持；
 [11] William Zola. “6 Rules of Thumb for MongoDB Schema Design.” mongodb.com，
 2014 年 6 月。存档于 perma.cc/T2BZ-PPJB  
 
-[12] Sidney Andrews and Christopher McClister. “Data Modeling in Azure Cosmos DB.” learn.microsoft.com，
-2023 年 2 月。存档于 archive.org  
+[12] Sidney Andrews and Christopher McClister. “Data Modeling in Azure Cosmos
+DB.” learn.microsoft.com， 2023 年 2 月。存档于 archive.org  
 
-[13] Raffi Krikorian. “Timelines at Scale.” 2012 年 11 月发表于 QCon San Francisco。存档于 perma.cc/V9G5-KLYK  
+[13] Raffi Krikorian. “Timelines at Scale.” 2012 年 11 月发表于 QCon San Francisco。
+存档于 perma.cc/V9G5-KLYK  
 
-[14] Ralph Kimball and Margy Ross. *The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling*，
-第 3 版。John Wiley & Sons，2013 年。ISBN: 9781118530801  
+[14] Ralph Kimball and Margy Ross. *The Data Warehouse Toolkit: The Definitive
+Guide to Dimensional Modeling*， 第 3 版。John Wiley & Sons，2013 年。ISBN:
+9781118530801  
 
-[15] Michael Kaminsky. “Data Warehouse Modeling: Star Schema vs. OBT.” five-tran.com，
-2022 年 8 月。存档于 perma.cc/2PZK-BFFP  
+[15] Michael Kaminsky. “Data Warehouse Modeling: Star Schema vs. OBT.”
+five-tran.com， 2022 年 8 月。存档于 perma.cc/2PZK-BFFP  
 
 [16] Joe Nelson. “User-defined Order in SQL.” *begriffs.com*，
 2018 年 3 月。存档于 *perma.cc/GS3W-F7AD*  
@@ -5475,37 +5657,53 @@ Spark 和 Flink 等批处理框架也加入了对它的支持；
 
 [19] Martin Fowler. “Schemaless Data Structures.” martinfowler.com，2013 年 1 月。  
 
-[20] Amr Awadallah. “Schema-on-Read vs. Schema-on-Write.” 2009 年 5 月发表于 Berkeley EECS RAD Lab Retreat。存档于 perma.cc/DTB2-JCFR  
+[20] Amr Awadallah. “Schema-on-Read vs. Schema-on-Write.” 2009 年 5 月发表于
+Berkeley EECS RAD Lab Retreat。存档于 perma.cc/DTB2-JCFR  
 
-[21] Martin Odersky. “The Trouble with Types.” 2013 年 9 月发表于 *Strange Loop*。存档于 *perma.cc/85QE-PVEP*  
+[21] Martin Odersky. “The Trouble with Types.” 2013 年 9 月发表于 *Strange Loop*。
+存档于 *perma.cc/85QE-PVEP*  
 
-[22] Conrad Irwin. “MongoDB—Confessions of a PostgreSQL Lover.” 2013 年 10 月发表于 HTML5DevConf。存档于 perma.cc/C2J6-3AL5  
+[22] Conrad Irwin. “MongoDB—Confessions of a PostgreSQL Lover.” 2013 年 10 月发表于
+HTML5DevConf。存档于 perma.cc/C2J6-3AL5  
 
-[23] “Percona Toolkit Documentation: pt-online-schema-change.” docs.percona.com，2023 年。存档于 perma.cc/9K8R-E5UH  
+[23] “Percona Toolkit Documentation: pt-online-schema-change.”
+docs.percona.com，2023 年。存档于 perma.cc/9K8R-E5UH  
 
-[24] Shlomi Noach. “gh-ost: GitHub’s Online Schema Migration Tool for MySQL.” *github.blog*，
-2016 年 8 月。存档于 *perma.cc/7XAG-XB72*  
+[24] Shlomi Noach. “gh-ost: GitHub’s Online Schema Migration Tool for MySQL.”
+*github.blog*， 2016 年 8 月。存档于 *perma.cc/7XAG-XB72*  
 
-[25] Shayon Mukherjee. "pg-osc: Zero Downtime Schema Changes in PostgreSQL." shayon.dev，
-2022 年 2 月。存档于 perma.cc/35WN-7WMY  
+[25] Shayon Mukherjee. "pg-osc: Zero Downtime Schema Changes in PostgreSQL."
+shayon.dev， 2022 年 2 月。存档于 perma.cc/35WN-7WMY  
 
-[26] Carlos Pérez-Aradros Herce. “Introducing pgroll: Zero-Downtime, Reversible, Schema Migrations for Postgres.” xata.io，
-2023 年 10 月。存档于 archive.org  
+[26] Carlos Pérez-Aradros Herce. “Introducing pgroll: Zero-Downtime,
+Reversible, Schema Migrations for Postgres.” xata.io， 2023 年 10 月。存档于
+archive.org  
 
-[27] James C. Corbett, Jeffrey Dean, Michael Epstein, Andrew Fikes, Christopher Frost, JJ Furman, Sanjay Ghemawat, Andrey Gubarev, Christopher Heiser, Peter Hochschild, Wilson Hsieh, Sebastian Kanthak, Eugene Kogan, Hongyi Li, Alexander Lloyd, Sergey Melnik, David Mwaura, David Nagle, Sean Quinlan, Rajesh Rao, Lindsay Rolig, Dale Woodford, Yasushi Saito, Christopher Taylor, Michal Szymaniak, and Ruth Wang. "Spanner: Google's Globally-Distributed Database." 2012 年 10 月发表于第 10 届 USENIX 操作系统设计与实现研讨会（OSDI）。  
+[27] James C. Corbett, Jeffrey Dean, Michael Epstein, Andrew Fikes,
+Christopher Frost, JJ Furman, Sanjay Ghemawat, Andrey Gubarev, Christopher
+Heiser, Peter Hochschild, Wilson Hsieh, Sebastian Kanthak, Eugene Kogan,
+Hongyi Li, Alexander Lloyd, Sergey Melnik, David Mwaura, David Nagle, Sean
+Quinlan, Rajesh Rao, Lindsay Rolig, Dale Woodford, Yasushi Saito, Christopher
+Taylor, Michal Szymaniak, and Ruth Wang. "Spanner: Google's
+Globally-Distributed Database." 2012 年 10 月发表于第 10 届 USENIX
+操作系统设计与实现研讨会（OSDI）。  
 
-[28] Donald K. Burleson. “Reduce I/O with Oracle Cluster Tables.” *dba-oracle.com*。存档于 *perma.cc/7LBJ-9X2C*  
+[28] Donald K. Burleson. “Reduce I/O with Oracle Cluster Tables.”
+*dba-oracle.com*。存档于 *perma.cc/7LBJ-9X2C*  
 
-[29] Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber. "Bigtable: A Distributed Storage System for Structured Data." 2006 年 11 月发表于第 7 届 USENIX 操作系统设计与实现研讨会（OSDI）。  
+[29] Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A.
+Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber.
+"Bigtable: A Distributed Storage System for Structured Data." 2006 年 11 月发表于第
+7 届 USENIX 操作系统设计与实现研讨会（OSDI）。  
 
 [30] Priscilla Walmsley. XQuery，
 第 2 版。O'Reilly Media，2015 年。ISBN: 9781491915080  
 
-[31] Paul C. Bryan, Kris Zyp, and Mark Nottingham. "JavaScript Object Notation (JSON) Pointer." RFC 6901，
-IETF，2013 年 4 月。  
+[31] Paul C. Bryan, Kris Zyp, and Mark Nottingham. "JavaScript Object Notation
+(JSON) Pointer." RFC 6901， IETF，2013 年 4 月。  
 
-[32] Stefan Gössner, Glyn Normington, and Carsten Bormann. "JSONPath: Query Expressions for JSON." RFC 9535，
-IETF，2024 年 2 月。  
+[32] Stefan Gössner, Glyn Normington, and Carsten Bormann. "JSONPath: Query
+Expressions for JSON." RFC 9535， IETF，2024 年 2 月。  
 
 [33] Michael Stonebraker and Andrew Pavlo. "What Goes Around Comes Around...
 And Around...." ACM SIGMOD Record，第 53 卷第 2 期，第 21–37 页，
@@ -5517,39 +5715,58 @@ PageRank Citation Ranking: Bringing Order to the Web." 技术报告 1999-66，
 Stanford University InfoLab，1999 年 11 月。
 存档于 perma.cc/UML9-UZHW  
 
-[35] Nathan Bronson, Zach Amsden, George Cabrera, Prasad Chakka, Peter Dimov, Hui Ding, Jack Ferris, Anthony Giardullo, Sachin Kulkarni, Harry Li, Mark Marchukov, Dmitri Petrov, Lovro Puzar, Yee Jiun Song, and Venkat Venkataramani. "TAO: Facebook's Distributed Data Store for the Social Graph." 2013 年 6 月发表于 USENIX 年度技术会议（ATC）。  
+[35] Nathan Bronson, Zach Amsden, George Cabrera, Prasad Chakka, Peter Dimov,
+Hui Ding, Jack Ferris, Anthony Giardullo, Sachin Kulkarni, Harry Li, Mark
+Marchukov, Dmitri Petrov, Lovro Puzar, Yee Jiun Song, and Venkat
+Venkataramani. "TAO: Facebook's Distributed Data Store for the Social Graph."
+2013 年 6 月发表于 USENIX 年度技术会议（ATC）。  
 
-[36] Natasha Noy, Yuqing Gao, Anshu Jain, Anant Narayanan, Alan Patterson, and Jamie Taylor. "Industry-Scale Knowledge Graphs: Lessons and Challenges." Communications of the ACM，
-第 62 卷第 8 期，
-第 36–43 页，2019 年 8 月。doi:10.1145/3331166  
+[36] Natasha Noy, Yuqing Gao, Anshu Jain, Anant Narayanan, Alan Patterson, and
+Jamie Taylor. "Industry-Scale Knowledge Graphs: Lessons and Challenges."
+Communications of the ACM， 第 62 卷第 8 期， 第 36–43 页，2019 年 8 月。
+doi:10.1145/3331166  
 
-[37] Xiyang Feng, Guodong Jin, Ziyi Chen, Chang Liu, and Semih Salihoglu. “KÜZU Graph Database Management System.” 2023 年 1 月发表于第 13 届创新数据系统研究年会（CIDR 2023）。存档于 perma.cc/PS6J-ZBZU  
+[37] Xiyang Feng, Guodong Jin, Ziyi Chen, Chang Liu, and Semih Salihoglu.
+“KÜZU Graph Database Management System.” 2023 年 1 月发表于第 13 届创新数据系统研究年会（CIDR
+2023）。存档于 perma.cc/PS6J-ZBZU  
 
-[38] Maciej Besta, Emanuel Peter, Robert Gerstenberger, Marc Fischer, Michał Podstawski, Claude Barthels, Gustavo Alonso, Torsten Hoefler. "Demystifying Graph Databases: Analysis and Taxonomy of Data Organization, System Designs, and Graph Queries." arXiv:1910.09017，
-2019 年 10 月。  
+[38] Maciej Besta, Emanuel Peter, Robert Gerstenberger, Marc Fischer, Michał
+Podstawski, Claude Barthels, Gustavo Alonso, Torsten Hoefler. "Demystifying
+Graph Databases: Analysis and Taxonomy of Data Organization, System Designs,
+and Graph Queries." arXiv:1910.09017， 2019 年 10 月。  
 
 [39] “Apache TinkerPop. TinkerPop 3.6.3 Documentation.” *tinkerpop.apache.org*，
 2023 年 5 月。存档于 *perma.cc/KM7W-7PAT*  
 
-[40] Nadime Francis, Alastair Green, Paolo Guagliardo, Leonid Libkin, Tobias Lindaaker, Victor Marsault, Stefan Plantikow, Mats Rydberg, Petra Selmer, and Andrés Taylor. "Cypher: An Evolving Query Language for Property Graphs." 2018 年 5 月发表于数据管理国际会议（SIGMOD）。doi:10.1145/3183713.3190657  
+[40] Nadime Francis, Alastair Green, Paolo Guagliardo, Leonid Libkin, Tobias
+Lindaaker, Victor Marsault, Stefan Plantikow, Mats Rydberg, Petra Selmer, and
+Andrés Taylor. "Cypher: An Evolving Query Language for Property Graphs." 2018
+年 5 月发表于数据管理国际会议（SIGMOD）。doi:10.1145/3183713.3190657  
 
 [41] Emil Eifrem. Twitter 通信，2014 年 1 月。存档于 perma.cc/WM4S-BW64  
 
-[42] Francesco Tisiot. “Explore the New SEARCH and CYCLE Features in PostgreSQL® 14.” aiven.io，
-2021 年 12 月。存档于 perma.cc/J6BT-83UZ  
+[42] Francesco Tisiot. “Explore the New SEARCH and CYCLE Features in
+PostgreSQL® 14.” aiven.io， 2021 年 12 月。存档于 perma.cc/J6BT-83UZ  
 
-[43] Gaurav Goel. “Understanding Hierarchies in Oracle.” *towardsdatascience.com*，
-2020 年 5 月。存档于 *perma.cc/5ZLR-Q7EW*  
+[43] Gaurav Goel. “Understanding Hierarchies in Oracle.”
+*towardsdatascience.com*， 2020 年 5 月。存档于 *perma.cc/5ZLR-Q7EW*  
 
-[44] Alin Deutsch, Yu Xu, and Mingxi Wu. "Seamless Syntactic and Semantic Integration of Query Primitives over Relational and Graph Data in GSQL." tigergraph.com，
-2018 年 11 月。存档于 perma.cc/JG7J-Y35X  
+[44] Alin Deutsch, Yu Xu, and Mingxi Wu. "Seamless Syntactic and Semantic
+Integration of Query Primitives over Relational and Graph Data in GSQL."
+tigergraph.com， 2018 年 11 月。存档于 perma.cc/JG7J-Y35X  
 
-[45] Oskar van Rest, Sungpack Hong, Jinha Kim, Xuming Meng, and Hassan Chafi. "PGQL: A Property Graph Query Language." 2016 年 6 月发表于第 4 届图数据管理经验与系统国际研讨会（GRADE5）。doi:10.1145/2960414.2960421  
+[45] Oskar van Rest, Sungpack Hong, Jinha Kim, Xuming Meng, and Hassan Chafi.
+"PGQL: A Property Graph Query Language." 2016 年 6 月发表于第 4
+届图数据管理经验与系统国际研讨会（GRADE5）。doi:10.1145/2960414.2960421  
 
-[46] Philip Rathle and Brad Bebee. “GQL: The ISO Standard for Graphs Has Arrived.” aws.amazon.com，
-2024 年 4 月。存档于 perma.cc/5TEU-N2Y8  
+[46] Philip Rathle and Brad Bebee. “GQL: The ISO Standard for Graphs Has
+Arrived.” aws.amazon.com， 2024 年 4 月。存档于 perma.cc/5TEU-N2Y8  
 
-[47] Alin Deutsch, Nadime Francis, Alastair Green, Keith Hare, Bei Li, Leonid Libkin, Tobias Lindaaker, Victor Marsault, Wim Martens, Jan Michels, Filip Muralak, Stefan Plantikow, Petra Selmer, Oskar van Rest, Hannes Voigt, Domagoj Vrgoč, Mingxi Wu, and Fred Zemke. "Graph Pattern Matching in GQL and SQL/PGQ." 2022 年 6 月发表于数据管理国际会议（SIGMOD）。doi:10.1145/3514221.3526057  
+[47] Alin Deutsch, Nadime Francis, Alastair Green, Keith Hare, Bei Li, Leonid
+Libkin, Tobias Lindaaker, Victor Marsault, Wim Martens, Jan Michels, Filip
+Muralak, Stefan Plantikow, Petra Selmer, Oskar van Rest, Hannes Voigt, Domagoj
+Vrgoč, Mingxi Wu, and Fred Zemke. "Graph Pattern Matching in GQL and SQL/PGQ."
+2022 年 6 月发表于数据管理国际会议（SIGMOD）。doi:10.1145/3514221.3526057  
 
 [48] Alastair Green. “SQL...And Now GQL.” opencypher.org，
 2019 年 9 月。存档于 perma.cc/AFB2-3SY7  
@@ -5560,84 +5777,86 @@ docs.aws.amazon.com。存档于 perma.cc/CX3T-EZU9
 [50] Cognitect. “Datomic Data Model.” Datomic Cloud Documentation，
 docs.datomic.com。存档于 perma.cc/LGM9-LEUT  
 
-[51] David Beckett and Tim Berners-Lee. "Turtle—Terse RDF Triple Language." W3C 团队提交稿，
-2011 年 3 月。  
+[51] David Beckett and Tim Berners-Lee. "Turtle—Terse RDF Triple Language."
+W3C 团队提交稿， 2011 年 3 月。  
 
-[52] Sinclair Target. “Whatever Happened to the Semantic Web?” twobithistory.org，
-2018 年 5 月。存档于 perma.cc/M8GL-9KHS  
+[52] Sinclair Target. “Whatever Happened to the Semantic Web?”
+twobithistory.org， 2018 年 5 月。存档于 perma.cc/M8GL-9KHS  
 
-[53] Gavin Mendel-Gleason. “The Semantic Web Is Dead—Long Live the Semantic Web!” terminusdb.com，
-2022 年 8 月。存档于 perma.cc/G2MZ-DSS3  
+[53] Gavin Mendel-Gleason. “The Semantic Web Is Dead—Long Live the Semantic
+Web!” terminusdb.com， 2022 年 8 月。存档于 perma.cc/G2MZ-DSS3  
 
 [54] Manu Sporny. "JSON-LD and Why I Hate the Semantic Web." *manu.sporny.org*，
 2014 年 1 月。存档于 *perma.cc/7PT4-PJKF*  
 
-[55] University of Michigan Library. “Biomedical Ontologies and Controlled Vocabularies.” guides.lib.umich.edu/ontology。存档于 perma.cc/Q5GA-F2N8  
+[55] University of Michigan Library. “Biomedical Ontologies and Controlled
+Vocabularies.” guides.lib.umich.edu/ontology。存档于 perma.cc/Q5GA-F2N8  
 
 [56] Facebook. “The Open Graph Protocol.” ogp.me。存档于 perma.cc/C49A-GUSY  
 
-[57] Matt Haughey. "Everything You Ever Wanted to Know About Unfurling but Were Afraid to Ask /or/ How to Make Your Site Previews Look Amazing in Slack." *medium.com*，
-2015 年 11 月。存档于 *perma.cc/C7S8-4PZN*  
+[57] Matt Haughey. "Everything You Ever Wanted to Know About Unfurling but
+Were Afraid to Ask /or/ How to Make Your Site Previews Look Amazing in Slack."
+*medium.com*， 2015 年 11 月。存档于 *perma.cc/C7S8-4PZN*  
 
 [58] W3C RDF Working Group. “Resource Description Framework (RDF).” w3.org，
 2004 年 2 月。  
 
-[59] Steve Harris, Andy Seaborne, and Eric Prud'hommeaux. "SPARQL 1.1 Query Language." W3C 推荐标准，
-2013 年 3 月。  
+[59] Steve Harris, Andy Seaborne, and Eric Prud'hommeaux. "SPARQL 1.1 Query
+Language." W3C 推荐标准， 2013 年 3 月。  
 
-[60] Todd J. Green, Shan Shan Huang, Boon Thau Loo, and Wenchao Zhou. "Datalog and Recursive Query Processing." Foundations and Trends in Databases，
-第 5 卷第 2 期，
-第 105–195 页，
-2013 年 11 月。doi:10.1561/1900000017  
+[60] Todd J. Green, Shan Shan Huang, Boon Thau Loo, and Wenchao Zhou. "Datalog
+and Recursive Query Processing." Foundations and Trends in Databases， 第 5 卷第 2
+期， 第 105–195 页， 2013 年 11 月。doi:10.1561/1900000017  
 
-[61] Stefano Ceri, Georg Gottlob, and Letizia Tanca. "What You Always Wanted to Know About Datalog (And Never Dared to Ask)." IEEE Transactions on Knowledge and Data Engineering，
-第 1 卷第 1 期，
-第 146–166 页，
-1989 年 3 月。doi:10.1109/69.43410  
+[61] Stefano Ceri, Georg Gottlob, and Letizia Tanca. "What You Always Wanted
+to Know About Datalog (And Never Dared to Ask)." IEEE Transactions on
+Knowledge and Data Engineering， 第 1 卷第 1 期， 第 146–166 页， 1989 年 3 月。
+doi:10.1109/69.43410  
 
-[62] Serge Abiteboul, Richard Hull, and Victor Vianu. *Foundations of Databases*. Addison-Wesley，
-1995 年。ISBN: 9780201537710。
-可在线访问 webdam.inria.fr/Alice。  
+[62] Serge Abiteboul, Richard Hull, and Victor Vianu. *Foundations of
+Databases*. Addison-Wesley， 1995 年。ISBN: 9780201537710。 可在线访问
+webdam.inria.fr/Alice。  
 
-[63] Scott Meyer, Andrew Carter, and Andrew Rodriguez. "Liquid: The Soul of a New Graph Database, Part 2." engineering.linkedin.com，
-2020 年 9 月。存档于 perma.cc/K9M4-PD6Q  
+[63] Scott Meyer, Andrew Carter, and Andrew Rodriguez. "Liquid: The Soul of a
+New Graph Database, Part 2." engineering.linkedin.com， 2020 年 9 月。存档于
+perma.cc/K9M4-PD6Q  
 
 [64] Matt Bessey. "Why, After 6 Years, I'm over GraphQL." *bessey.dev*，
 2024 年 5 月。存档于 *perma.cc/2PAU-JYRA*  
 
-[65] Dominic Betts, Julián Domínguez, Grigori Melnik, Fernando Simonazzi, and Mani Subramanian. *Exploring CQRS and Event Sourcing*. Microsoft Patterns & Practices，
-2012 年。ISBN: 9781621140164。存档于 perma.cc/7A39-3NM8  
+[65] Dominic Betts, Julián Domínguez, Grigori Melnik, Fernando Simonazzi, and
+Mani Subramanian. *Exploring CQRS and Event Sourcing*. Microsoft Patterns &
+Practices， 2012 年。ISBN: 9781621140164。存档于 perma.cc/7A39-3NM8  
 
 [66] Greg Young. “CQRS and Event Sourcing.” 2014 年 8 月发表于 Code on the Beach。  
 
 [67] Greg Young. “CQRS Documents.” *cqrs.wordpress.com*，
 2010 年 11 月。存档于 *perma.cc/X5R6-R47F*  
 
-[68] Brent Robinson. "Crypto Shredding: How It Can Solve Modern Data Retention Challenges." *medium.com*，
-2019 年 1 月。存档于 *perma.cc/4LFK-S6XE*  
+[68] Brent Robinson. "Crypto Shredding: How It Can Solve Modern Data Retention
+Challenges." *medium.com*， 2019 年 1 月。存档于 *perma.cc/4LFK-S6XE*  
 
-[69] Devin Petersohn, Stephen Macke, Doris Xin, William Ma, Doris Lee, Xiangxi Mo, Joseph E. Gonzalez, Joseph M. Hellerstein, Anthony D. Joseph, and Aditya Parameswaran. "Towards Scalable Dataframe Systems." Proceedings of the VLDB Endowment，
-第 13 卷第 11 期，
-第 2033–2046 页，
-2020 年 7 月。doi:10.14778/3407790.3407807  
+[69] Devin Petersohn, Stephen Macke, Doris Xin, William Ma, Doris Lee, Xiangxi
+Mo, Joseph E. Gonzalez, Joseph M. Hellerstein, Anthony D. Joseph, and Aditya
+Parameswaran. "Towards Scalable Dataframe Systems." Proceedings of the VLDB
+Endowment， 第 13 卷第 11 期， 第 2033–2046 页， 2020 年 7 月。
+doi:10.14778/3407790.3407807  
 
-[70] Stavros Papadopoulos, Kushal Datta, Samuel Madden, and Timothy Mattson. "The TileDB Array Data Storage Manager." Proceedings of the VLDB Endowment，
-第 10 卷第 4 期，
-第 349–360 页，
-2016 年 11 月。doi:10.14778/3025111.3025117  
+[70] Stavros Papadopoulos, Kushal Datta, Samuel Madden, and Timothy Mattson.
+"The TileDB Array Data Storage Manager." Proceedings of the VLDB Endowment， 第
+10 卷第 4 期， 第 349–360 页， 2016 年 11 月。doi:10.14778/3025111.3025117  
 
-[71] Florin Rusu. "Multidimensional Array Data Management." *Foundations and Trends in Databases*，
-第 12 卷第 2–3 期，
-第 69–220 页，
-2023 年 2 月。doi:10.1561/1900000069  
+[71] Florin Rusu. "Multidimensional Array Data Management." *Foundations and
+Trends in Databases*， 第 12 卷第 2–3 期， 第 69–220 页， 2023 年 2 月。
+doi:10.1561/1900000069  
 
-[72] Ed Targett. “Bloomberg, Man Group Team Up to Develop Open Source ‘ArcticDB’ Database.” *thestack.technology*，
-2023 年 3 月。存档于 *perma.cc/M5YD-QQYV*  
+[72] Ed Targett. “Bloomberg, Man Group Team Up to Develop Open Source
+‘ArcticDB’ Database.” *thestack.technology*， 2023 年 3 月。存档于
+*perma.cc/M5YD-QQYV*  
 
-[73] Dennis A. Benson, Ilene Karsch-Mizrachi, David J. Lipman, James Ostell, and David L. Wheeler. GenBank. Nucleic Acids Research，
-第 36 卷第 suppl_1 期，
-第 D25–D30 页，
-2008 年 1 月。doi:10.1093/nar/gkm929  
+[73] Dennis A. Benson, Ilene Karsch-Mizrachi, David J. Lipman, James Ostell,
+and David L. Wheeler. GenBank. Nucleic Acids Research， 第 36 卷第 suppl_1 期， 第
+D25–D30 页， 2008 年 1 月。doi:10.1093/nar/gkm929  
 
 # 存储与检索  
 
@@ -6262,7 +6481,8 @@ B 树上的范围查询简单而快速，
 包括 RocksDB 在内的许多存储引擎会在这种情况下施加*背压*：
 暂停所有读写，直到 MemTable 被写出到磁盘 [30, 31]。  
 
-就读取吞吐量而言，现代 SSD（尤其是通过速度远高于 SATA 总线的 PCIe 总线连接的 NVMe [Non-Volatile Memory Express] SSD）
+就读取吞吐量而言，现代 SSD（尤其是通过速度远高于 SATA 总线的 PCIe 总线连接的 NVMe [Non-Volatile Memory
+Express] SSD）
 可以并行执行许多独立的读取请求。
 LSM 树和 B 树都能提供很高的读取吞吐量，
 但存储引擎必须经过精心设计，
@@ -7239,92 +7459,147 @@ IVF 和 HNSW 算法的完整细节超出了本书范围，
 
 ## 参考文献  
 
-[1] Nikolay Samokhvalov. "How Partial, Covering, and Multicolumn Indexes May Slow Down UPDATE in PostgreSQL." *postgres.ai*, October 2021. Archived at *perma.cc/PBK3-F4G9*  
+[1] Nikolay Samokhvalov. "How Partial, Covering, and Multicolumn Indexes May
+Slow Down UPDATE in PostgreSQL." *postgres.ai*, October 2021. Archived at
+*perma.cc/PBK3-F4G9*  
 
-[2] Goetz Graefe. "Modern B-Tree Techniques." *Foundations and Trends in Databases*, volume 3, issue 4, pages 203–402, August 2011. doi:10.1561/1900000028  
+[2] Goetz Graefe. "Modern B-Tree Techniques." *Foundations and Trends in
+Databases*, volume 3, issue 4, pages 203–402, August 2011.
+doi:10.1561/1900000028  
 
-[3] Evan Jones. "Why Databases Use Ordered Indexes but Programming Uses Hash Tables." evanjones.ca, December 2019. Archived at perma.cc/NJX8-3ZZD  
+[3] Evan Jones. "Why Databases Use Ordered Indexes but Programming Uses Hash
+Tables." evanjones.ca, December 2019. Archived at perma.cc/NJX8-3ZZD  
 
-[4] Branimir Lambov. “CEP-25: Trie-Indexed SSTable Format.” cwiki.apache.org, November 2022. Archived at perma.cc/HD7W-PW8U (linked Google Doc archived at perma.cc/UL6C-AAAe)  
+[4] Branimir Lambov. “CEP-25: Trie-Indexed SSTable Format.” cwiki.apache.org,
+November 2022. Archived at perma.cc/HD7W-PW8U (linked Google Doc archived at
+perma.cc/UL6C-AAAe)  
 
-[5] Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.
-*Introduction to Algorithms*, 3rd edition. MIT Press, 2009. ISBN: 9780262533058  
+[5] Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford
+Stein. *Introduction to Algorithms*, 3rd edition. MIT Press, 2009. ISBN:
+9780262533058  
 
-[6] Branimir Lambov. "Trie Memtables in Cassandra." Proceedings of the VLDB Endowment, volume 15, issue 12, pages 3359–3371, August 2022. doi:10.14778/3554821.3554828  
+[6] Branimir Lambov. "Trie Memtables in Cassandra." Proceedings of the VLDB
+Endowment, volume 15, issue 12, pages 3359–3371, August 2022.
+doi:10.14778/3554821.3554828  
 
-[7] Dhruba Borthakur. “The History of RocksDB.” *rocksdb.blogspot.com*, November 2013. Archived at *perma.cc/Z7C5-JPSP*  
+[7] Dhruba Borthakur. “The History of RocksDB.” *rocksdb.blogspot.com*,
+November 2013. Archived at *perma.cc/Z7C5-JPSP*  
 
-[8] Matteo Bertozzi. “Apache HBase I/O—HFile.” blog.cloudera.com, June 2012. Archived at perma.cc/U9XH-L2KL  
+[8] Matteo Bertozzi. “Apache HBase I/O—HFile.” blog.cloudera.com, June 2012.
+Archived at perma.cc/U9XH-L2KL  
 
-[9] Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber. "Bigtable: A Distributed Storage System for Structured Data." At 7th USENIX Symposium on Operating System Design and Implementation (OSDI), November 2006.  
+[9] Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A.
+Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber.
+"Bigtable: A Distributed Storage System for Structured Data." At 7th USENIX
+Symposium on Operating System Design and Implementation (OSDI), November 2006.  
 
-[10] Patrick O'Neil, Edward Cheng, Dieter Gawlick, and Elizabeth O'Neil. "The Log-Structured Merge-Tree (LSM-Tree)." *Acta Informatica*, volume 33, issue 4, pages 351–385, June 1996. doi:10.1007/s002360050048  
+[10] Patrick O'Neil, Edward Cheng, Dieter Gawlick, and Elizabeth O'Neil. "The
+Log-Structured Merge-Tree (LSM-Tree)." *Acta Informatica*, volume 33, issue 4,
+pages 351–385, June 1996. doi:10.1007/s002360050048  
 
-[11] Mendel Rosenblum and John K. Ousterhout. "The Design and Implementation of a Log-Structured File System." ACM Transactions on Computer Systems, volume 10, issue 1, pages 26–52, February 1992. doi:10.1145/146941.146943  
+[11] Mendel Rosenblum and John K. Ousterhout. "The Design and Implementation
+of a Log-Structured File System." ACM Transactions on Computer Systems, volume
+10, issue 1, pages 26–52, February 1992. doi:10.1145/146941.146943  
 
-[12] Michael Armbrust, Tathagata Das, Liwen Sun, Burak Yavuz, Shixiong Zhu, Mukul Murthy, Joseph Torres, Herman van Hovell, Adrian Ionescu, Alicja Luszczak, Michał Świtakowski, Michał Szafrański, Xiao Li, Takuya Ueshin, Mostafa Mokhtar, Peter Boncz, Ali Ghodsi, Sameer Paranjpye, Pieter Senster, Reynold Xin, and Matei Zaharia. "Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores." Proceedings of the VLDB Endowment, volume 13, issue 12, pages 3411–3424, August 2020. doi:10.14778/3415478.3415560  
+[12] Michael Armbrust, Tathagata Das, Liwen Sun, Burak Yavuz, Shixiong Zhu,
+Mukul Murthy, Joseph Torres, Herman van Hovell, Adrian Ionescu, Alicja
+Luszczak, Michał Świtakowski, Michał Szafrański, Xiao Li, Takuya Ueshin,
+Mostafa Mokhtar, Peter Boncz, Ali Ghodsi, Sameer Paranjpye, Pieter Senster,
+Reynold Xin, and Matei Zaharia. "Delta Lake: High-Performance ACID Table
+Storage over Cloud Object Stores." Proceedings of the VLDB Endowment, volume
+13, issue 12, pages 3411–3424, August 2020. doi:10.14778/3415478.3415560  
 
-[13] Burton H. Bloom. "Space/Time Trade-offs in Hash Coding with Allowable Errors." *Communications of the ACM*, volume 13, issue 7, pages 422–426, July 1970. doi:10.1145/362686.362692  
+[13] Burton H. Bloom. "Space/Time Trade-offs in Hash Coding with Allowable
+Errors." *Communications of the ACM*, volume 13, issue 7, pages 422–426, July
+1970. doi:10.1145/362686.362692  
 
-[14] Adam Kirsch and Michael Mitzenmacher. "Less Hashing, Same Performance: Building a Better Bloom Filter." Random Structures & Algorithms, volume 33, issue 2, pages 187–218, September 2008. doi:10.1002/rsa.20208  
+[14] Adam Kirsch and Michael Mitzenmacher. "Less Hashing, Same Performance:
+Building a Better Bloom Filter." Random Structures & Algorithms, volume 33,
+issue 2, pages 187–218, September 2008. doi:10.1002/rsa.20208  
 
-[15] Thomas Hurst. “Bloom Filter Calculator.” *hur.st*, September 2023. Archived at *perma.cc/L3AV-6VC2*  
+[15] Thomas Hurst. “Bloom Filter Calculator.” *hur.st*, September 2023.
+Archived at *perma.cc/L3AV-6VC2*  
 
-[16] Chen Luo and Michael J. Carey. “LSM-Based Storage Techniques: a Survey.” The VLDB Journal, volume 29, pages 393–418, July 2019. doi:10.1007/s00778-019-00555-y  
+[16] Chen Luo and Michael J. Carey. “LSM-Based Storage Techniques: a Survey.”
+The VLDB Journal, volume 29, pages 393–418, July 2019.
+doi:10.1007/s00778-019-00555-y  
 
-[17] Subhadeep Sarkar and Manos Athanassoulis. "Dissecting, Designing, and Optimizing LSM-Based Data Stores." Tutorial at ACM International Conference on Management of Data (SIGMOD), June 2022. Slides archived at perma.cc/93B3-E827  
+[17] Subhadeep Sarkar and Manos Athanassoulis. "Dissecting, Designing, and
+Optimizing LSM-Based Data Stores." Tutorial at ACM International Conference on
+Management of Data (SIGMOD), June 2022. Slides archived at perma.cc/93B3-E827  
 
-[18] Mark Callaghan. “Name That Compaction Algorithm.” *smalldatum.blogspot.com*, August 2018. Archived at *perma.cc/CN4M-82DY*  
+[18] Mark Callaghan. “Name That Compaction Algorithm.”
+*smalldatum.blogspot.com*, August 2018. Archived at *perma.cc/CN4M-82DY*  
 
-[19] Prashanth Rao. "Embedded Databases (1): The Harmony of DuckDB, KütüDB and LanceDB." *thedataquarry.com*, August 2023. Archived at *perma.cc/PA28-2R35*  
+[19] Prashanth Rao. "Embedded Databases (1): The Harmony of DuckDB, KütüDB and
+LanceDB." *thedataquarry.com*, August 2023. Archived at *perma.cc/PA28-2R35*  
 
-[20] Hacker News discussion. "Bluesky Migrates to Single-Tenant SQLite." news.ycombinator.com, October 2023. Archived at perma.cc/69LM-5P6X  
+[20] Hacker News discussion. "Bluesky Migrates to Single-Tenant SQLite."
+news.ycombinator.com, October 2023. Archived at perma.cc/69LM-5P6X  
 
-[21] Rudolf Bayer and Edward M. McCreight. "Organization and Maintenance of Large Ordered Indices." Boeing Scientific Research Laboratories, Mathematical and Information Sciences Laboratory, report no. 20, July 1970. doi:10.1145/1734663.1734671  
+[21] Rudolf Bayer and Edward M. McCreight. "Organization and Maintenance of
+Large Ordered Indices." Boeing Scientific Research Laboratories, Mathematical
+and Information Sciences Laboratory, report no. 20, July 1970.
+doi:10.1145/1734663.1734671  
 
-[22] Douglas Comer. "The Ubiquitous B-Tree." ACM Computing Surveys, volume 11, issue 2, pages 121–137, June 1979. doi:10.1145/356770.356776  
+[22] Douglas Comer. "The Ubiquitous B-Tree." ACM Computing Surveys, volume 11,
+issue 2, pages 121–137, June 1979. doi:10.1145/356770.356776  
 
-[23] Alex Miller. “Torn Write Detection and Protection.” transactional.blog, April 2025. Archived at perma.cc/G7EB-33EW  
+[23] Alex Miller. “Torn Write Detection and Protection.” transactional.blog,
+April 2025. Archived at perma.cc/G7EB-33EW  
 
-[24] C. Mohan and Frank Levine. "ARIES/IM: An Efficient and High Concurrency Index Management Method Using Write-Ahead Logging." At ACM International Conference on Management of Data (SIGMOD), June 1992. doi:10.1145/130283.130338  
+[24] C. Mohan and Frank Levine. "ARIES/IM: An Efficient and High Concurrency
+Index Management Method Using Write-Ahead Logging." At ACM International
+Conference on Management of Data (SIGMOD), June 1992.
+doi:10.1145/130283.130338  
 
-[25] Hironobu Suzuki. “The Internals of PostgreSQL.” *interdb.jp*，2017 年。归档于 *archive.org*  
+[25] Hironobu Suzuki. “The Internals of PostgreSQL.” *interdb.jp*，2017 年。归档于
+*archive.org*  
 
 [26] Howard Chu. “LDAP at Lightning Speed.” 发表于 Build Stuff ’14，
 2014 年 11 月。归档于 perma.cc/GB6Z-P8YH  
 
-[27] Manos Athanassoulis, Michael S. Kester, Lukas M. Maas, Radu Stoica, Stratos Idriss, Anastasia Ailamaki, and Mark Callaghan. "Designing Access Methods: The RUM Conjecture." 发表于第 19 届 International Conference on Extending Database Technology（EDBT），
-2016 年 3 月。doi:10.5441/002/edbt.2016.42  
+[27] Manos Athanassoulis, Michael S. Kester, Lukas M. Maas, Radu Stoica,
+Stratos Idriss, Anastasia Ailamaki, and Mark Callaghan. "Designing Access
+Methods: The RUM Conjecture." 发表于第 19 届 International Conference on Extending
+Database Technology（EDBT）， 2016 年 3 月。doi:10.5441/002/edbt.2016.42  
 
 [28] Ben Stopford. “Log Structured Merge Trees.” *benstopford.com*，
 2015 年 2 月。归档于 *perma.cc/E5BV-KUJ6*  
 
-[29] Mark Callaghan. "The Advantages of an LSM vs. a B-Tree." *smalldatum.blogspot.co.uk*，
-2016 年 1 月。归档于 *perma.cc/3TYZ-EFUD*  
+[29] Mark Callaghan. "The Advantages of an LSM vs. a B-Tree."
+*smalldatum.blogspot.co.uk*， 2016 年 1 月。归档于 *perma.cc/3TYZ-EFUD*  
 
-[30] Oana Balmau, Florin Dinu, Willy Zwaenepoel, Karan Gupta, Ravishankar Chandhiramoorthi, and Diego Didona. "SILK: Preventing Latency Spikes in Log-Structured Merge Key-Value Stores." 发表于 USENIX Annual Technical Conference，
-2019 年 7 月。  
+[30] Oana Balmau, Florin Dinu, Willy Zwaenepoel, Karan Gupta, Ravishankar
+Chandhiramoorthi, and Diego Didona. "SILK: Preventing Latency Spikes in
+Log-Structured Merge Key-Value Stores." 发表于 USENIX Annual Technical
+Conference， 2019 年 7 月。  
 
-[31] Igor Canadi, Siying Dong, Mark Callaghan, et al. "RocksDB Tuning Guide." *github.com*，2023 年。归档于 *perma.cc/UNY4-MK6C*  
+[31] Igor Canadi, Siying Dong, Mark Callaghan, et al. "RocksDB Tuning Guide."
+*github.com*，2023 年。归档于 *perma.cc/UNY4-MK6C*  
 
-[32] Gabriel Haas and Viktor Leis. "What Modern NVMe Storage Can Do, and How to Exploit It: High-Performance I/O for High-Performance Storage Engines." Proceedings of the VLDB Endowment，
-第 16 卷，第 9 期，
-第 2090–2102 页。
-2023 年 5 月。doi:10.14778/3598581.3598584  
+[32] Gabriel Haas and Viktor Leis. "What Modern NVMe Storage Can Do, and How
+to Exploit It: High-Performance I/O for High-Performance Storage Engines."
+Proceedings of the VLDB Endowment， 第 16 卷，第 9 期， 第 2090–2102 页。 2023 年 5 月。
+doi:10.14778/3598581.3598584  
 
 [33] Emmanuel Goossaert. “Coding for SSDs.” *codecapsule.com*，2014 年 2 月。  
 
-[34] Jack Vanlightly. “Is Sequential IO Dead in the Era of the NVMe Drive?” jack-vanlightly.com，
-2023 年 5 月。归档于 perma.cc/7TMZ-TAPU  
+[34] Jack Vanlightly. “Is Sequential IO Dead in the Era of the NVMe Drive?”
+jack-vanlightly.com， 2023 年 5 月。归档于 perma.cc/7TMZ-TAPU  
 
-[35] Alibaba Cloud Storage Team. "Storage System Design Analysis: Factors Affecting NVMe SSD Performance (2)." alibabacloud.com，
-2019 年 1 月。归档于 archive.org  
+[35] Alibaba Cloud Storage Team. "Storage System Design Analysis: Factors
+Affecting NVMe SSD Performance (2)." alibabacloud.com， 2019 年 1 月。归档于
+archive.org  
 
-[36] Xiao-Yu Hu and Robert Haas. "The Fundamental Limit of Flash Random Write Performance: Understanding, Analysis and Performance Modelling." *domino-web.draco.res.ibm.com*，
-2010 年 3 月。归档于 *perma.cc/8JUL-4ZDS*  
+[36] Xiao-Yu Hu and Robert Haas. "The Fundamental Limit of Flash Random Write
+Performance: Understanding, Analysis and Performance Modelling."
+*domino-web.draco.res.ibm.com*， 2010 年 3 月。归档于 *perma.cc/8JUL-4ZDS*  
 
-[37] Lanyue Lu, Thanumalayan Sankaranarayana Pillai, Andrea C. Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau. "WiscKey: Separating Keys from Values in SSD-Conscious Storage." 发表于第 4 届 USENIX Conference on File and Storage Technologies（FAST），
-2016 年 2 月。  
+[37] Lanyue Lu, Thanumalayan Sankaranarayana Pillai, Andrea C. Arpaci-Dusseau,
+and Remzi H. Arpaci-Dusseau. "WiscKey: Separating Keys from Values in
+SSD-Conscious Storage." 发表于第 4 届 USENIX Conference on File and Storage
+Technologies（FAST）， 2016 年 2 月。  
 
 [38] Peter Zaitsev. “Innodb Double Write.” percona.com，
 2006 年 8 月。归档于 perma.cc/NT4S-DK7T  
@@ -7332,80 +7607,112 @@ IVF 和 HNSW 算法的完整细节超出了本书范围，
 [39] Tomas Vondra. “On the Impact of Full-Page Writes.” *2ndquadrant.com*，
 2016 年 11 月。归档于 *perma.cc/7N6B-CVL3*  
 
-[40] Mark Callaghan. “Read, Write & Space Amplification—B-Tree vs. LSM.” small-datum.blogspot.com，
-2015 年 11 月。归档于 perma.cc/S487-WK5P  
+[40] Mark Callaghan. “Read, Write & Space Amplification—B-Tree vs. LSM.”
+small-datum.blogspot.com， 2015 年 11 月。归档于 perma.cc/S487-WK5P  
 
-[41] Mark Callaghan. “Choosing Between Efficiency and Performance with RocksDB.” 发表于 Code Mesh，2016 年 11 月  
+[41] Mark Callaghan. “Choosing Between Efficiency and Performance with
+RocksDB.” 发表于 Code Mesh，2016 年 11 月  
 
-[42] Subhadeep Sarkar, Tarikul Islam Papon, Dimitris Staratzis, Zichen Zhu, and Manos Athanassoulis. "Enabling Timely and Persistent Deletion in LSM-Engines." ACM Transactions on Database Systems，
-第 48 卷，第 3 期，
-第 8 号文章，2023 年 8 月。doi:10.1145/3599724  
+[42] Subhadeep Sarkar, Tarikul Islam Papon, Dimitris Staratzis, Zichen Zhu,
+and Manos Athanassoulis. "Enabling Timely and Persistent Deletion in
+LSM-Engines." ACM Transactions on Database Systems， 第 48 卷，第 3 期， 第 8 号文章，2023
+年 8 月。doi:10.1145/3599724  
 
-[43] Lukas Fittl. “Postgres vs. SQL Server: B-Tree Index Differences & the Benefit of Deduplication.” pganalyze.com，
-2025 年 4 月。归档于 perma.cc/XY6T-LTPX  
+[43] Lukas Fittl. “Postgres vs. SQL Server: B-Tree Index Differences & the
+Benefit of Deduplication.” pganalyze.com， 2025 年 4 月。归档于 perma.cc/XY6T-LTPX  
 
-[44] Drew Silcock. “How Postgres Stores Data on Disk—This One’s a Page Turner.” drew.silcock.dev，
-2024 年 8 月。归档于 perma.cc/8K7K-7VJ2  
+[44] Drew Silcock. “How Postgres Stores Data on Disk—This One’s a Page
+Turner.” drew.silcock.dev， 2024 年 8 月。归档于 perma.cc/8K7K-7VJ2  
 
-[45] Joe Webb. “Using Covering Indexes to Improve Query Performance.” *simple-talk.com*，
-2008 年 9 月。归档于 *perma.cc/6MEZ-R5VR*  
+[45] Joe Webb. “Using Covering Indexes to Improve Query Performance.”
+*simple-talk.com*， 2008 年 9 月。归档于 *perma.cc/6MEZ-R5VR*  
 
-[46] Michael Stonebraker, Samuel Madden, Daniel J. Abadi, Stavros Harizopoulos, Nabil Hachem, and Pat Helland. "The End of an Architectural Era (It's Time for a Complete Rewrite)." 发表于第 33 届 International Conference on Very Large Data Bases（VLDB），
-2007 年 9 月。  
+[46] Michael Stonebraker, Samuel Madden, Daniel J. Abadi, Stavros
+Harizopoulos, Nabil Hachem, and Pat Helland. "The End of an Architectural Era
+(It's Time for a Complete Rewrite)." 发表于第 33 届 International Conference on
+Very Large Data Bases（VLDB）， 2007 年 9 月。  
 
-[47] “VoltDB Technical Overview White Paper.” VoltDB，2017 年。归档于 perma.cc/B9SF-SK5G  
+[47] “VoltDB Technical Overview White Paper.” VoltDB，2017 年。归档于
+perma.cc/B9SF-SK5G  
 
-[48] Stephen M. Rumble, Ankita Kejriwal, and John K. Ousterhout. "Log-Structured Memory for DRAM-Based Storage." 发表于第 12 届 USENIX Conference on File and Storage Technologies（FAST），
-2014 年 2 月。  
+[48] Stephen M. Rumble, Ankita Kejriwal, and John K. Ousterhout.
+"Log-Structured Memory for DRAM-Based Storage." 发表于第 12 届 USENIX Conference on
+File and Storage Technologies（FAST）， 2014 年 2 月。  
 
-[49] Stavros Harizopoulos, Daniel J. Abadi, Samuel Madden, and Michael Stonebraker. "OLTP Through the Looking Glass, and What We Found There." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2008 年 6 月。doi:10.1145/1376616.1376713  
+[49] Stavros Harizopoulos, Daniel J. Abadi, Samuel Madden, and Michael
+Stonebraker. "OLTP Through the Looking Glass, and What We Found There." 发表于
+ACM International Conference on Management of Data（SIGMOD）， 2008 年 6 月。
+doi:10.1145/1376616.1376713  
 
-[50] Per-Åke Larson, Cipri Clinciu, Campbell Fraser, Eric N. Hanson, Mostafa Mokhtar, Michal Nowakiewicz, Vassilis Papadimos, Susan L. Price, Srikumar Rangarajan, Remus Rusanu, and Mayukh Saubhasik. "Enhancements to SQL Server Column Stores." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2013 年 6 月。doi:10.1145/2463676.2463708  
+[50] Per-Åke Larson, Cipri Clinciu, Campbell Fraser, Eric N. Hanson, Mostafa
+Mokhtar, Michal Nowakiewicz, Vassilis Papadimos, Susan L. Price, Srikumar
+Rangarajan, Remus Rusanu, and Mayukh Saubhasik. "Enhancements to SQL Server
+Column Stores." 发表于 ACM International Conference on Management of
+Data（SIGMOD）， 2013 年 6 月。doi:10.1145/2463676.2463708  
 
-[51] Franz Färber, Norman May, Wolfgang Lehner, Philipp Große, Ingo Müller, Hannes Rauhe, and Jonathan Dees. "The SAP HANA Database—An Architecture Overview." *IEEE Data Engineering Bulletin*，
-第 35 卷，第 1 期，
-第 28–33 页，2012 年 3 月。归档于 *perma.cc/H2WC-YQZY*  
+[51] Franz Färber, Norman May, Wolfgang Lehner, Philipp Große, Ingo Müller,
+Hannes Rauhe, and Jonathan Dees. "The SAP HANA Database—An Architecture
+Overview." *IEEE Data Engineering Bulletin*， 第 35 卷，第 1 期， 第 28–33 页，2012 年 3
+月。归档于 *perma.cc/H2WC-YQZY*  
 
-[52] Michael Stonebraker. “The Traditional RDBMS Wisdom Is (Almost Certainly) All Wrong.” 在 EPFL 所作的演讲，
-2013 年 5 月。  
+[52] Michael Stonebraker. “The Traditional RDBMS Wisdom Is (Almost Certainly)
+All Wrong.” 在 EPFL 所作的演讲， 2013 年 5 月。  
 
-[53] Adam Prout, Szu-Po Wang, Joseph Victor, Zhou Sun, Yongzhu Li, Jack Chen, Evan Bergeron, Eric Hanson, Robert Walzer, Rodrigo Gomes, and Nikita Shamgunov. "Cloud-Native Transactions and Analytics in SingleStore." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2022 年 6 月。doi:10.1145/3514221.3526055  
+[53] Adam Prout, Szu-Po Wang, Joseph Victor, Zhou Sun, Yongzhu Li, Jack Chen,
+Evan Bergeron, Eric Hanson, Robert Walzer, Rodrigo Gomes, and Nikita
+Shamgunov. "Cloud-Native Transactions and Analytics in SingleStore." 发表于 ACM
+International Conference on Management of Data（SIGMOD）， 2022 年 6 月。
+doi:10.1145/3514221.3526055  
 
-[54] Tino Tereshko and Jordan Tigani. "BigQuery Under the Hood." cloud.google.com，
-2016 年 1 月。归档于 perma.cc/WP2Y-FUCF  
+[54] Tino Tereshko and Jordan Tigani. "BigQuery Under the Hood."
+cloud.google.com， 2016 年 1 月。归档于 perma.cc/WP2Y-FUCF  
 
-[55] Wes McKinney. "The Road to Composable Data Systems: Thoughts on the Last 15 Years and the Future." *wesmckinney.com*，
-2023 年 9 月。归档于 *perma.cc/6L2M-GTJX*  
+[55] Wes McKinney. "The Road to Composable Data Systems: Thoughts on the Last
+15 Years and the Future." *wesmckinney.com*， 2023 年 9 月。归档于
+*perma.cc/6L2M-GTJX*  
 
-[56] Michael Stonebraker, Daniel J. Abadi, Adam Batkin, Xuedong Chen, Mitch Cherniack, Miguel Ferreira, Edmond Lau, Amerson Lin, Sam Madden, Elizabeth O'Neil, Pat O'Neil, Alex Rasin, Nga Tran, and Stan Zdonik. "C-Store: A Column-Oriented DBMS." 发表于第 31 届 International Conference on Very Large Data Bases（VLDB），
-2005 年 9 月。  
+[56] Michael Stonebraker, Daniel J. Abadi, Adam Batkin, Xuedong Chen, Mitch
+Cherniack, Miguel Ferreira, Edmond Lau, Amerson Lin, Sam Madden, Elizabeth
+O'Neil, Pat O'Neil, Alex Rasin, Nga Tran, and Stan Zdonik. "C-Store: A
+Column-Oriented DBMS." 发表于第 31 届 International Conference on Very Large Data
+Bases（VLDB）， 2005 年 9 月。  
 
 [57] Julien Le Dem. “Dremel Made Simple with Parquet.” blog.x.com，
 2013 年 9 月。归档于 archive.org  
 
-[58] Sergey Melnik, Andrey Gubarev, Jing Jing Long, Geoffrey Romer, Shiva Shivakumar, Matt Tolton, and Theo Vassilakis. "Dremel: Interactive Analysis of Web-Scale Datasets." 发表于第 36 届 International Conference on Very Large Data Bases（VLDB），
-2010 年 9 月。doi:10.14778/1920841.1920886  
+[58] Sergey Melnik, Andrey Gubarev, Jing Jing Long, Geoffrey Romer, Shiva
+Shivakumar, Matt Tolton, and Theo Vassilakis. "Dremel: Interactive Analysis of
+Web-Scale Datasets." 发表于第 36 届 International Conference on Very Large Data
+Bases（VLDB）， 2010 年 9 月。doi:10.14778/1920841.1920886  
 
-[59] Joe Kearney. “Understanding Record Shredding: Storing Nested Data in Columns.” joekearney.co.uk，
-2016 年 12 月。归档于 perma.cc/ZD5N-AX5D  
+[59] Joe Kearney. “Understanding Record Shredding: Storing Nested Data in
+Columns.” joekearney.co.uk， 2016 年 12 月。归档于 perma.cc/ZD5N-AX5D  
 
-[60] Jamie Brandon. “A Shallow Survey of OLAP and HTAP Query Engines.” scattered-thoughts.net，
-2023 年 9 月。归档于 perma.cc/L3KH-J4JF  
+[60] Jamie Brandon. “A Shallow Survey of OLAP and HTAP Query Engines.”
+scattered-thoughts.net， 2023 年 9 月。归档于 perma.cc/L3KH-J4JF  
 
-[61] Benoit Dageville, Thierry Cruanes, Marcin Zukowski, Vadim Antonov, Artin Avanes, Jon Bock, Jonathan Claybaugh, Daniel Engovatov, Martin Hentschel, Jiansheng Huang, Allison W. Lee, Ashish Motivala, Abdul Q. Munir, Steven Pelley, Peter Povinec, Greg Rahn, Spyridon Triantafyllis, and Philipp Unterbrunner. "The Snowflake Elastic Data Warehouse." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2016 年 6 月。doi:10.1145/2882903.2903741  
+[61] Benoit Dageville, Thierry Cruanes, Marcin Zukowski, Vadim Antonov, Artin
+Avanes, Jon Bock, Jonathan Claybaugh, Daniel Engovatov, Martin Hentschel,
+Jiansheng Huang, Allison W. Lee, Ashish Motivala, Abdul Q. Munir, Steven
+Pelley, Peter Povinec, Greg Rahn, Spyridon Triantafyllis, and Philipp
+Unterbrunner. "The Snowflake Elastic Data Warehouse." 发表于 ACM International
+Conference on Management of Data（SIGMOD）， 2016 年 6 月。
+doi:10.1145/2882903.2903741  
 
-[62] Mark Raasveldt and Hannes Mühleisen. "Data Management for Data Science Towards Embedded Analytics." 发表于第 10 届 Conference on Innovative Data Systems Research（CIDR），
-2020 年 1 月。归档于 perma.cc/65G2-NYDT  
+[62] Mark Raasveldt and Hannes Mühleisen. "Data Management for Data Science
+Towards Embedded Analytics." 发表于第 10 届 Conference on Innovative Data Systems
+Research（CIDR）， 2020 年 1 月。归档于 perma.cc/65G2-NYDT  
 
-[63] Jean-François Im, Kishore Gopalakrishna, Subbu Subramaniam, Mayank Shrivastava, Adwait Tumbde, Xiaotian Jiang, Jennifer Dai, Seunghyun Lee, Neha Pawar, Jialiang Li, and Ravi Aringunram. "Pinot: Realtime OLAP for 530 Million Users." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2018 年 5 月。doi:10.1145/3183713.3190661  
+[63] Jean-François Im, Kishore Gopalakrishna, Subbu Subramaniam, Mayank
+Shrivastava, Adwait Tumbde, Xiaotian Jiang, Jennifer Dai, Seunghyun Lee, Neha
+Pawar, Jialiang Li, and Ravi Aringunram. "Pinot: Realtime OLAP for 530 Million
+Users." 发表于 ACM International Conference on Management of Data（SIGMOD）， 2018 年
+5 月。doi:10.1145/3183713.3190661  
 
-[64] Fangjin Yang, Eric Tschetter, Xavier Léauté, Nelson Ray, Gian Merlino, and Deep Ganguli. "Druid: A Real-Time Analytical Data Store." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2014 年 6 月。doi:10.1145/2588555.2595631  
+[64] Fangjin Yang, Eric Tschetter, Xavier Léauté, Nelson Ray, Gian Merlino,
+and Deep Ganguli. "Druid: A Real-Time Analytical Data Store." 发表于 ACM
+International Conference on Management of Data（SIGMOD）， 2014 年 6 月。
+doi:10.1145/2588555.2595631  
 
 [65] Chunwei Liu, Anna Pavlenko, Matteo Interlandi, and Brandon Haynes.
 "Deep Dive into Common Open Formats for Analytical DBMSs." Proceedings
@@ -7413,85 +7720,95 @@ of the VLDB Endowment，第 16 卷，第 11 期，第 3044–3056 页，
 2023 年 7 月。
 doi:10.14778/3611479.3611507  
 
-[66] Xinyu Zeng, Yulong Hui, Jiahong Shen, Andrew Pavlo, Wes McKinney, and Huanchen Zhang. "An Empirical Evaluation of Columnar Storage Formats." Proceedings of the VLDB Endowment，
-第 17 卷，第 2 期，
-第 148–161 页。doi:10.14778/3626292.3626298  
+[66] Xinyu Zeng, Yulong Hui, Jiahong Shen, Andrew Pavlo, Wes McKinney, and
+Huanchen Zhang. "An Empirical Evaluation of Columnar Storage Formats."
+Proceedings of the VLDB Endowment， 第 17 卷，第 2 期， 第 148–161 页。
+doi:10.14778/3626292.3626298  
 
-[67] Weston Pace. “Lance v2: A Columnar Container Format for Modern Data.” blog.lancedb.com，
-2024 年 4 月。归档于 perma.cc/ZK3Q-S9VJ  
+[67] Weston Pace. “Lance v2: A Columnar Container Format for Modern Data.”
+blog.lancedb.com， 2024 年 4 月。归档于 perma.cc/ZK3Q-S9VJ  
 
 [68] Yoav Helfman. “Nimble, A New Columnar File Format.” 发表于 *VeloXCon*，
 2024 年 4 月。  
 
-[69] Wes McKinney. "Apache Arrow: High-Performance Columnar Data Framework." 发表于 CMU Database Group—Vaccination Database Tech Talks，
-2021 年 12 月。  
+[69] Wes McKinney. "Apache Arrow: High-Performance Columnar Data Framework."
+发表于 CMU Database Group—Vaccination Database Tech Talks， 2021 年 12 月。  
 
 [70] Wes McKinney. *Python for Data Analysis*，
 第 3 版。O'Reilly Media，2022 年。ISBN: 9781098104023  
 
-[71] Paul Dix. "The Design of InfluxDB IOx: An In-Memory Columnar Database Written in Rust with Apache Arrow." 发表于 CMU Database Group—Vaccination Database Tech Talks，
-2021 年 5 月。  
+[71] Paul Dix. "The Design of InfluxDB IOx: An In-Memory Columnar Database
+Written in Rust with Apache Arrow." 发表于 CMU Database Group—Vaccination
+Database Tech Talks， 2021 年 5 月。  
 
-[72] Carlota Soto and Mike Freedman. "Building Columnar Compression for Large PostgreSQL Databases." *timescale.com*，
-2024 年 3 月。归档于 *perma.cc/7KTF-V3EH*  
+[72] Carlota Soto and Mike Freedman. "Building Columnar Compression for Large
+PostgreSQL Databases." *timescale.com*， 2024 年 3 月。归档于 *perma.cc/7KTF-V3EH*  
 
-[73] Daniel J. Abadi, Peter Boncz, Stavros Harizopoulos, Stratos Idreos, and Samuel Madden. "The Design and Implementation of Modern Column-Oriented Database Systems." Foundations and Trends in Databases，
-第 5 卷，第 3 期，
-第 197–280 页，
-2013 年 12 月。doi:10.1561/1900000024  
+[73] Daniel J. Abadi, Peter Boncz, Stavros Harizopoulos, Stratos Idreos, and
+Samuel Madden. "The Design and Implementation of Modern Column-Oriented
+Database Systems." Foundations and Trends in Databases， 第 5 卷，第 3 期， 第 197–280
+页， 2013 年 12 月。doi:10.1561/1900000024  
 
-[74] Daniel Lemire, Gregory Ssi-Yan-Kai, and Owen Kaser. "Consistently Faster and Smaller Compressed Bitmaps with Roaring." Software: Practice and Experience，
-第 46 卷，第 11 期，
-第 1547–1569 页，
-2016 年 11 月。doi:10.1002/spe.2402  
+[74] Daniel Lemire, Gregory Ssi-Yan-Kai, and Owen Kaser. "Consistently Faster
+and Smaller Compressed Bitmaps with Roaring." Software: Practice and
+Experience， 第 46 卷，第 11 期， 第 1547–1569 页， 2016 年 11 月。doi:10.1002/spe.2402  
 
-[75] Jaz Volpert. “An Entire Social Network in 1.6GB (GraphD Part 2).” jazco.dev，
-2024 年 4 月。归档于 perma.cc/L27Z-QVMG  
+[75] Jaz Volpert. “An Entire Social Network in 1.6GB (GraphD Part 2).”
+jazco.dev， 2024 年 4 月。归档于 perma.cc/L27Z-QVMG  
 
-[76] Andrew Lamb, Matt Fuller, Ramakrishna Varadarajan, Nga Tran, Ben Vandiver, Lyric Doshi, and Chuck Bear. "The Vertica Analytic Database: C-Store 7 Years Later." Proceedings of the VLDB Endowment，
-第 5 卷，第 12 期，
-第 1790–1801 页，
-2012 年 8 月。doi:10.14778/2367502.2367518  
+[76] Andrew Lamb, Matt Fuller, Ramakrishna Varadarajan, Nga Tran, Ben
+Vandiver, Lyric Doshi, and Chuck Bear. "The Vertica Analytic Database: C-Store
+7 Years Later." Proceedings of the VLDB Endowment， 第 5 卷，第 12 期， 第 1790–1801
+页， 2012 年 8 月。doi:10.14778/2367502.2367518  
 
-[77] Timo Kersten, Viktor Leis, Alfons Kemper, Thomas Neumann, Andrew Pavlo, and Peter Boncz. "Everything You Always Wanted to Know About Compiled and Vectorized Queries But Were Afraid to Ask." Proceedings of the VLDB Endowment，
-第 11 卷，第 13 期，
-第 2209–2222 页，
-2018 年 9 月。doi:10.14778/3275366.3284966  
+[77] Timo Kersten, Viktor Leis, Alfons Kemper, Thomas Neumann, Andrew Pavlo,
+and Peter Boncz. "Everything You Always Wanted to Know About Compiled and
+Vectorized Queries But Were Afraid to Ask." Proceedings of the VLDB Endowment，
+第 11 卷，第 13 期， 第 2209–2222 页， 2018 年 9 月。doi:10.14778/3275366.3284966  
 
 [78] Forrest Smith. “Memory Bandwidth Napkin Math.” forrestthewoods.com，
 2020 年 2 月。归档于 perma.cc/Y8U4-PS7N  
 
-[79] Peter Boncz, Marcin Zukowski, and Niels Nes. "MonetDB/X100: Hyper-Pipelining Query Execution." 发表于第 2 届 Biennial Conference on Innovative Data Systems Research（CIDR），
-2005 年 1 月。归档于 perma.cc/R4KF-QKHF  
+[79] Peter Boncz, Marcin Zukowski, and Niels Nes. "MonetDB/X100:
+Hyper-Pipelining Query Execution." 发表于第 2 届 Biennial Conference on Innovative
+Data Systems Research（CIDR）， 2005 年 1 月。归档于 perma.cc/R4KF-QKHF  
 
-[80] Jingren Zhou and Kenneth A. Ross. "Implementing Database Operations Using SIMD Instructions." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2002 年 6 月。doi:10.1145/564691.564709  
+[80] Jingren Zhou and Kenneth A. Ross. "Implementing Database Operations Using
+SIMD Instructions." 发表于 ACM International Conference on Management of
+Data（SIGMOD）， 2002 年 6 月。doi:10.1145/564691.564709  
 
-[81] Kevin Bartley. "OLTP Queries: Transfer Expensive Workloads to Materialize." *materialize.com*，
-2024 年 8 月。归档于 *perma.cc/4TYM-TYD8*  
+[81] Kevin Bartley. "OLTP Queries: Transfer Expensive Workloads to
+Materialize." *materialize.com*， 2024 年 8 月。归档于 *perma.cc/4TYM-TYD8*  
 
-[82] Jim Gray, Surajit Chaudhuri, Adam Bosworth, Andrew Layman, Don Reichart, Murali Venkatrao, Frank Pellow, and Hamid Pirahesh. "Data Cube: A Relational Aggregation Operator Generalizing Group-By, Cross-Tab, and Sub-Totals." *Data Mining and Knowledge Discovery*，
-第 1 卷，第 1 期，
-第 29–53 页，2007 年 3 月。doi:10.1023/A:1009726021843  
+[82] Jim Gray, Surajit Chaudhuri, Adam Bosworth, Andrew Layman, Don Reichart,
+Murali Venkatrao, Frank Pellow, and Hamid Pirahesh. "Data Cube: A Relational
+Aggregation Operator Generalizing Group-By, Cross-Tab, and Sub-Totals." *Data
+Mining and Knowledge Discovery*， 第 1 卷，第 1 期， 第 29–53 页，2007 年 3 月。
+doi:10.1023/A:1009726021843  
 
-[83] Frank Ramsak, Volker Markl, Robert Fenk, Martin Zirkel, Klaus Elhardt, and Rudolf Bayer. "Integrating the UB-Tree into a Database System Kernel." 发表于第 26 届 International Conference on Very Large Data Bases（VLDB），
-2000 年 9 月。  
+[83] Frank Ramsak, Volker Markl, Robert Fenk, Martin Zirkel, Klaus Elhardt,
+and Rudolf Bayer. "Integrating the UB-Tree into a Database System Kernel."
+发表于第 26 届 International Conference on Very Large Data Bases（VLDB）， 2000 年 9 月。  
 
-[84] Octavian Procopiu, Pankaj K. Agarwal, Lars Arge, and Jeffrey Scott Vitter. "Bkd-Tree: A Dynamic Scalable kd-Tree." 发表于第 8 届 International Symposium on Spatial and Temporal Databases（SSTD），
-2003 年 7 月。doi:10.1007/978-3-540-45072-6_4  
+[84] Octavian Procopiu, Pankaj K. Agarwal, Lars Arge, and Jeffrey Scott
+Vitter. "Bkd-Tree: A Dynamic Scalable kd-Tree." 发表于第 8 届 International
+Symposium on Spatial and Temporal Databases（SSTD）， 2003 年 7 月。
+doi:10.1007/978-3-540-45072-6_4  
 
-[85] Joseph M. Hellerstein, Jeffrey F. Naughton, and Avi Pfeffer. "Generalized Search Trees for Database Systems." 发表于第 21 届 International Conference on Very Large Data Bases（VLDB），
-1995 年 9 月。  
+[85] Joseph M. Hellerstein, Jeffrey F. Naughton, and Avi Pfeffer. "Generalized
+Search Trees for Database Systems." 发表于第 21 届 International Conference on Very
+Large Data Bases（VLDB）， 1995 年 9 月。  
 
-[86] Isaac Brodsky. “H3: Uber’s Hexagonal Hierarchical Spatial Index.” eng.uber.com，
-2018 年 6 月。归档于 archive.org  
+[86] Isaac Brodsky. “H3: Uber’s Hexagonal Hierarchical Spatial Index.”
+eng.uber.com， 2018 年 6 月。归档于 archive.org  
 
-[87] Robert Escriva, Bernard Wong, and Emin Gün Sirer. "HyperDex: A Distributed, Searchable Key-Value Store." 发表于 ACM SIGCOMM Conference，
-2012 年 8 月。doi:10.1145/2377677.2377681  
+[87] Robert Escriva, Bernard Wong, and Emin Gün Sirer. "HyperDex: A
+Distributed, Searchable Key-Value Store." 发表于 ACM SIGCOMM Conference， 2012 年 8
+月。doi:10.1145/2377677.2377681  
 
-[88] Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. *Introduction to Information Retrieval*. Cambridge University Press，
-2008 年。ISBN: 9780521865715。
-可在线获取于 nlp.stanford.edu/IR-book。  
+[88] Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze.
+*Introduction to Information Retrieval*. Cambridge University Press， 2008 年。
+ISBN: 9780521865715。 可在线获取于 nlp.stanford.edu/IR-book。  
 
 [89] Jianguo Wang, Chunbin Lin, Yannis Papakonstantinou, and Steven Swanson.
 "An Experimental Study of Bitmap Compression vs. Inverted List Compression."
@@ -7502,51 +7819,58 @@ doi:10.1145/3035918.3064007
 [90] Adrien Grand. “What Is in a Lucene Index?” 发表于 *Lucene/Solr Revolution*，
 2013 年 11 月。归档于 *perma.cc/Z7QN-GBYY*  
 
-[91] Michael McCandless. “Visualizing Lucene’s Segment Merges.” blog.mikemccandless.com，
-2011 年 2 月。归档于 perma.cc/3ZV8-72W6  
+[91] Michael McCandless. “Visualizing Lucene’s Segment Merges.”
+blog.mikemccandless.com， 2011 年 2 月。归档于 perma.cc/3ZV8-72W6  
 
-[92] Lukas Fittl. “Understanding Postgres GIN Indexes: The Good and the Bad.” *pganalyze.com*，
-2021 年 12 月。归档于 *perma.cc/V3MW-26H6*  
+[92] Lukas Fittl. “Understanding Postgres GIN Indexes: The Good and the Bad.”
+*pganalyze.com*， 2021 年 12 月。归档于 *perma.cc/V3MW-26H6*  
 
-[93] Jimmy Angelakos. “The State of (Full) Text Search in PostgreSQL 12.” 发表于 FOSDEM，
-2020 年 2 月。归档于 perma.cc/J6US-3WZS  
+[93] Jimmy Angelakos. “The State of (Full) Text Search in PostgreSQL 12.” 发表于
+FOSDEM， 2020 年 2 月。归档于 perma.cc/J6US-3WZS  
 
-[94] Alexander Korotkov. “Index Support for Regular Expression Search.” 发表于 PGConf.EU Prague，
-2012 年 10 月。归档于 perma.cc/5RFZ-ZKdq  
+[94] Alexander Korotkov. “Index Support for Regular Expression Search.” 发表于
+PGConf.EU Prague， 2012 年 10 月。归档于 perma.cc/5RFZ-ZKdq  
 
-[95] Michael McCandless. “Lucene’s FuzzyQuery Is 100 Times Faster in 4.0.” blog.mikemccandless.com，
-2011 年 3 月。归档于 perma.cc/E2WC-GHTW  
+[95] Michael McCandless. “Lucene’s FuzzyQuery Is 100 Times Faster in 4.0.”
+blog.mikemccandless.com， 2011 年 3 月。归档于 perma.cc/E2WC-GHTW  
 
-[96] Steffen Heinz, Justin Zobel, and Hugh E. Williams. "Burst Tries: A Fast, Efficient Data Structure for String Keys." ACM Transactions on Information Systems，
-第 20 卷，第 2 期，
-第 192–223 页，
-2002 年 4 月。doi:10.1145/506309.506312  
+[96] Steffen Heinz, Justin Zobel, and Hugh E. Williams. "Burst Tries: A Fast,
+Efficient Data Structure for String Keys." ACM Transactions on Information
+Systems， 第 20 卷，第 2 期， 第 192–223 页， 2002 年 4 月。doi:10.1145/506309.506312  
 
-[97] Klaus U. Schulz and Stoyan Mihov. "Fast String Correction with Levenshtein Automata." International Journal on Document Analysis and Recognition，
-第 5 卷，第 1 期，
-第 67–85 页，2002 年 11 月。doi:10.1007/s10032-002-0082-8  
+[97] Klaus U. Schulz and Stoyan Mihov. "Fast String Correction with
+Levenshtein Automata." International Journal on Document Analysis and
+Recognition， 第 5 卷，第 1 期， 第 67–85 页，2002 年 11 月。doi:10.1007/s10032-002-0082-8  
 
-[98] Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. “Efficient Estimation of Word Representations in Vector Space.” arXiv:1301.3781，2013 年 9 月  
+[98] Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. “Efficient
+Estimation of Word Representations in Vector Space.” arXiv:1301.3781，2013 年 9
+月  
 
-[99] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. "BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding." 发表于 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies，
-2019 年 6 月。doi:10.18653/v1/N19-1423  
+[99] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. "BERT:
+Pre-Training of Deep Bidirectional Transformers for Language Understanding."
+发表于 Conference of the North American Chapter of the Association for
+Computational Linguistics: Human Language Technologies， 2019 年 6 月。
+doi:10.18653/v1/N19-1423  
 
-[100] Alec Radford, Karthik Narasimhan, Tim Salimans, and Ilya Sutskever. "Improving Language Understanding by Generative Pre-Training." openai.com，
+[100] Alec Radford, Karthik Narasimhan, Tim Salimans, and Ilya Sutskever.
+"Improving Language Understanding by Generative Pre-Training." openai.com，
 2018 年 6 月。归档于 perma.cc/5N3C-DJ4C  
 
-[101] Matthijs Douze, Maria Lomeli, and Lucas Hosseini. "Faiss Indexes." github.com，
-2024 年 8 月。归档于 perma.cc/2EWG-FPBS  
+[101] Matthijs Douze, Maria Lomeli, and Lucas Hosseini. "Faiss Indexes."
+github.com， 2024 年 8 月。归档于 perma.cc/2EWG-FPBS  
 
-[102] Varik Matevosyan. “Understanding pgvector’s HNSW Index Storage in Postgres.” lantern.dev，
-2024 年 8 月。归档于 perma.cc/B2YB-JB59  
+[102] Varik Matevosyan. “Understanding pgvector’s HNSW Index Storage in
+Postgres.” lantern.dev， 2024 年 8 月。归档于 perma.cc/B2YB-JB59  
 
-[103] Dmitry Baranchuk, Artem Babenko, and Yury Malkov. "Revisiting the Inverted Indices for Billion-Scale Approximate Nearest Neighbors." 发表于 European Conference on Computer Vision（ECCV），
-2018 年 9 月。doi:10.1007/978-3-030-01258-8_13  
+[103] Dmitry Baranchuk, Artem Babenko, and Yury Malkov. "Revisiting the
+Inverted Indices for Billion-Scale Approximate Nearest Neighbors." 发表于
+European Conference on Computer Vision（ECCV）， 2018 年 9 月。
+doi:10.1007/978-3-030-01258-8_13  
 
-[104] Yury A. Malkov and Dmitry A. Yashunin. "Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs." IEEE Transactions on Pattern Analysis and Machine Intelligence，
-第 42 卷，第 4 期，
-第 824–836 页，
-2020 年 4 月。doi:10.1109/TPAMI.2018.2889473  
+[104] Yury A. Malkov and Dmitry A. Yashunin. "Efficient and Robust Approximate
+Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs." IEEE
+Transactions on Pattern Analysis and Machine Intelligence， 第 42 卷，第 4 期， 第
+824–836 页， 2020 年 4 月。doi:10.1109/TPAMI.2018.2889473  
 
 # 编码与演化  
 
@@ -7691,7 +8015,8 @@ Ruby 有 Marshal。
 
 - 在这些库中，数据版本控制往往只是事后才考虑的问题。由于它们旨在快速、轻松地编码数据，往往忽视了向前兼容和向后兼容这些麻烦的问题 [4]。  
 
-- 效率（编码或解码所需的 CPU 时间，以及编码后结构的大小）通常也只是事后才考虑的问题。例如，Java 内置序列化因性能糟糕、编码臃肿而声名狼藉 [5]。  
+- 效率（编码或解码所需的 CPU 时间，以及编码后结构的大小）通常也只是事后才考虑的问题。例如，Java 内置序列化因性能糟糕、编码臃肿而声名狼藉
+  [5]。  
 
 由于这些原因，除非常短暂的用途外，使用编程语言内置的编码通常不是个好主意。  
 
@@ -8944,132 +9269,173 @@ Actor 模型是一种用于单个进程内并发的编程模型。
 
 ## 参考文献  
 
-[1] “CWE-502: Deserialization of Untrusted Data.” Common Weakness Enumeration, cwe.mitre.org, 2006 年 7 月。归档于 perma.cc/26EU-UK9Y  
+[1] “CWE-502: Deserialization of Untrusted Data.” Common Weakness Enumeration,
+cwe.mitre.org, 2006 年 7 月。归档于 perma.cc/26EU-UK9Y  
 
-[2] Steve Breen. "What Do WebLogic, WebSphere, JBoss, Jenkins, OpenNMS, and Your Application Have in Common? This Vulnerability." foxglovesecurity.com, 2015 年 11 月。归档于 perma.cc/9U97-UVVD  
+[2] Steve Breen. "What Do WebLogic, WebSphere, JBoss, Jenkins, OpenNMS, and
+Your Application Have in Common? This Vulnerability." foxglovesecurity.com,
+2015 年 11 月。归档于 perma.cc/9U97-UVVD  
 
-[3] Patrick McKenzie. "What the Rails Security Issue Means for Your Startup." kalzumeus.com, 2013 年 1 月。归档于 perma.cc/2MBJ-7PZ6  
+[3] Patrick McKenzie. "What the Rails Security Issue Means for Your Startup."
+kalzumeus.com, 2013 年 1 月。归档于 perma.cc/2MBJ-7PZ6  
 
-[4] Brian Goetz. “Towards Better Serialization.” openjdk.org, 2019 年 6 月。归档于 perma.cc/UK6U-GQDE  
+[4] Brian Goetz. “Towards Better Serialization.” openjdk.org, 2019 年 6 月。归档于
+perma.cc/UK6U-GQDE  
 
-[5] Eishay Smith. "jvm-serializers Wiki." github.com, 2023 年 10 月。归档于 perma.cc/PJP7-WCNG  
+[5] Eishay Smith. "jvm-serializers Wiki." github.com, 2023 年 10 月。归档于
+perma.cc/PJP7-WCNG  
 
-[6] “XML Is a Poor Copy of S-Expressions.” wiki.c2.com, 2013 年 5 月。归档于 perma.cc/7FAN-YBK  
+[6] “XML Is a Poor Copy of S-Expressions.” wiki.c2.com, 2013 年 5 月。归档于
+perma.cc/7FAN-YBK  
 
-[7] Julia Evans. “Examples of Floating Point Problems.” *jvns.ca*, 2023 年 1 月。归档于 *perma.cc/M57L-QKKW*  
+[7] Julia Evans. “Examples of Floating Point Problems.” *jvns.ca*, 2023 年 1 月。
+归档于 *perma.cc/M57L-QKKW*  
 
 [8] Matt Harris. "Snowflake: An Update and Some Very Important Information."
 发至 *Twitter Development Talk* 邮件列表的电子邮件，2010 年 10 月。
 归档于 *perma.cc/8UBV-MZ3D*  
 
-[9] Yakov Shafranovich. "RFC 4180: Common Format and MIME Type for Comma-Separated Values (CSV) Files." IETF, 2005 年 10 月。  
+[9] Yakov Shafranovich. "RFC 4180: Common Format and MIME Type for
+Comma-Separated Values (CSV) Files." IETF, 2005 年 10 月。  
 
-[10] Andy Coates. “Evolving JSON Schemas—Part I.” *creekservice.org*, 2024 年 1 月。归档于 *perma.cc/MZW3-UA54*  
+[10] Andy Coates. “Evolving JSON Schemas—Part I.” *creekservice.org*, 2024 年 1
+月。归档于 *perma.cc/MZW3-UA54*  
 
-[11] Andy Coates. “Evolving JSON Schemas—Part II.” *creekservice.org*, 2024 年 1 月。归档于 *perma.cc/GT5H-WKZ5*  
+[11] Andy Coates. “Evolving JSON Schemas—Part II.” *creekservice.org*, 2024 年
+1 月。归档于 *perma.cc/GT5H-WKZ5*  
 
-[12] Pierre Genevès, Nabil Layaya, and Vincent Quint. "Ensuring Query Compatibility with Evolving XML Schemas." INRIA 技术报告 6711，
-2008 年 11 月。归档于 arxiv.org  
+[12] Pierre Genevès, Nabil Layaya, and Vincent Quint. "Ensuring Query
+Compatibility with Evolving XML Schemas." INRIA 技术报告 6711， 2008 年 11 月。归档于
+arxiv.org  
 
-[13] Tim Bray. “Bits on the Wire.” tbray.org, 2019 年 11 月。归档于 perma.cc/3BT3-BQU3  
+[13] Tim Bray. “Bits on the Wire.” tbray.org, 2019 年 11 月。归档于
+perma.cc/3BT3-BQU3  
 
-[14] Mark Slee, Aditya Agarwal, and Marc Kwiatkowski. "Thrift: Scalable Cross-Language Services Implementation." Facebook 技术报告，
-2007 年 4 月。归档于 perma.cc/22BS-TUFB  
+[14] Mark Slee, Aditya Agarwal, and Marc Kwiatkowski. "Thrift: Scalable
+Cross-Language Services Implementation." Facebook 技术报告， 2007 年 4 月。归档于
+perma.cc/22BS-TUFB  
 
 [15] Martin Kleppmann. "Schema Evolution in Avro, Protocol Buffers and Thrift."
 martin.kleppmann.com, 2012 年 12 月。归档于 perma.cc/E4R2-9RJT  
 
-[16] Doug Cutting et al. “[PROPOSAL] New Subproject: Avro.” hadoop-general 邮件列表中的邮件讨论串，
-lists.apache.org，
-2009 年 4 月。归档于 perma.cc/4A79-BMEB  
+[16] Doug Cutting et al. “[PROPOSAL] New Subproject: Avro.” hadoop-general
+邮件列表中的邮件讨论串， lists.apache.org， 2009 年 4 月。归档于 perma.cc/4A79-BMEB  
 
-[17] Apache Software Foundation. "Apache Avro 1.12.0 Specification." avro.apache.org, 2024 年 8 月。归档于 perma.cc/C36P-5EBQ  
+[17] Apache Software Foundation. "Apache Avro 1.12.0 Specification."
+avro.apache.org, 2024 年 8 月。归档于 perma.cc/C36P-5EBQ  
 
-[18] Apache Software Foundation. "Avro Schemas as LL(1) CFG Definitions." avro.apache.org, 2024 年 8 月。归档于 perma.cc/JB44-EM9Q  
+[18] Apache Software Foundation. "Avro Schemas as LL(1) CFG Definitions."
+avro.apache.org, 2024 年 8 月。归档于 perma.cc/JB44-EM9Q  
 
 [19] Tony Hoare. "Null References: The Billion Dollar Mistake." QCon London 演讲，
 2009 年 3 月。  
 
-[20] Confluent, Inc. “Schema Registry Overview.” docs.confluent.io, 2024。归档于 perma.cc/92C3-A9JA  
+[20] Confluent, Inc. “Schema Registry Overview.” docs.confluent.io, 2024。归档于
+perma.cc/92C3-A9JA  
 
-[21] Aditya Auradkar and Tom Quiggle. "Introducing Espresso—LinkedIn's Hot New Distributed Document Store." engineering.linkedin.com, 2015 年 1 月。归档于 perma.cc/FX4P-VW9T  
+[21] Aditya Auradkar and Tom Quiggle. "Introducing Espresso—LinkedIn's Hot New
+Distributed Document Store." engineering.linkedin.com, 2015 年 1 月。归档于
+perma.cc/FX4P-VW9T  
 
-[22] Jay Kreps. “Putting Apache Kafka to Use: A Practical Guide to Building a Stream Data Platform (Part 2).” *confluent.io*, 2015 年 2 月。归档于 *perma.cc/8UA4-ZS5S*  
+[22] Jay Kreps. “Putting Apache Kafka to Use: A Practical Guide to Building a
+Stream Data Platform (Part 2).” *confluent.io*, 2015 年 2 月。归档于
+*perma.cc/8UA4-ZS5S*  
 
-[23] Gwen Shapira. “The Problem of Managing Schemas.” oreilly.com, 2014 年 11 月。归档于 perma.cc/BY8Q-RYV3  
+[23] Gwen Shapira. “The Problem of Managing Schemas.” oreilly.com, 2014 年 11
+月。归档于 perma.cc/BY8Q-RYV3  
 
-[24] John Larmouth. ASN.1 Complete. Morgan Kaufmann, 1999. ISBN: 9780122334351. 归档于 perma.cc/GB7Y-XSXQ  
+[24] John Larmouth. ASN.1 Complete. Morgan Kaufmann, 1999. ISBN:
+9780122334351. 归档于 perma.cc/GB7Y-XSXQ  
 
-[25] Burton S. Kaliski Jr. “A Layman’s Guide to a Subset of ASN.1, BER, and DER.” 技术说明，
-RSA Data Security, Inc.，
-1993 年 11 月。归档于 perma.cc/2LMN-W9U8  
+[25] Burton S. Kaliski Jr. “A Layman’s Guide to a Subset of ASN.1, BER, and
+DER.” 技术说明， RSA Data Security, Inc.， 1993 年 11 月。归档于 perma.cc/2LMN-W9U8  
 
-[26] Jacob Hoffman-Andrews. “A Warm Welcome to ASN.1 and DER.” letsencrypt.org, 2020 年 4 月。归档于 perma.cc/CYT2-GPQ8  
+[26] Jacob Hoffman-Andrews. “A Warm Welcome to ASN.1 and DER.”
+letsencrypt.org, 2020 年 4 月。归档于 perma.cc/CYT2-GPQ8  
 
-[27] Lev Walkin. "Question: Extensibility and Dropping Fields." *lionet.info*, 2010 年 9 月。归档于 *perma.cc/VX8E-NLH3*  
+[27] Lev Walkin. "Question: Extensibility and Dropping Fields." *lionet.info*,
+2010 年 9 月。归档于 *perma.cc/VX8E-NLH3*  
 
-[28] Jacqueline Xu. “Online Migrations at Scale.” stripe.com, 2017 年 2 月。归档于 perma.cc/X59W-DK7Y  
+[28] Jacqueline Xu. “Online Migrations at Scale.” stripe.com, 2017 年 2 月。归档于
+perma.cc/X59W-DK7Y  
 
-[29] Geoffrey Litt, Peter van Hardenberg, and Orion Henry. "Project Cambria: Translate Your Data with Lenses." 技术报告，
-2020 年 10 月。归档于 perma.cc/WA4V-VKDB  
+[29] Geoffrey Litt, Peter van Hardenberg, and Orion Henry. "Project Cambria:
+Translate Your Data with Lenses." 技术报告， 2020 年 10 月。归档于 perma.cc/WA4V-VKDB  
 
-[30] Pat Helland. “Data on the Outside Versus Data on the Inside.” 第二届两年一度的创新数据系统研究会议（CIDR），
-2005 年 1 月。归档于 perma.cc/GH56-WYZS  
+[30] Pat Helland. “Data on the Outside Versus Data on the Inside.”
+第二届两年一度的创新数据系统研究会议（CIDR）， 2005 年 1 月。归档于 perma.cc/GH56-WYZS  
 
 [31] Roy Thomas Fielding. "Architectural Styles and the Design of Network-Based
 Software Architectures." 加州大学欧文分校博士论文，2000 年。归档于
 perma.cc/LWY9-7BPE  
 
-[32] Roy Thomas Fielding. “REST APIs Must Be Hypertext-Driven.” roy.gbiv.com, 2008 年 10 月。归档于 perma.cc/M2ZW-8ATG  
+[32] Roy Thomas Fielding. “REST APIs Must Be Hypertext-Driven.” roy.gbiv.com,
+2008 年 10 月。归档于 perma.cc/M2ZW-8ATG  
 
-[33] “OpenAPI Specification Version 3.1.0.” swagger.io, 2021 年 2 月。归档于 perma.cc/3S6S-K5M4  
+[33] “OpenAPI Specification Version 3.1.0.” swagger.io, 2021 年 2 月。归档于
+perma.cc/3S6S-K5M4  
 
-[34] Michi Henning. "The Rise and Fall of CORBA." *Communications of the ACM*, 第 51 卷，
-第 8 期，第 52–57 页，
-2008 年 8 月。*doi:10.1145/1378704.1378718*  
+[34] Michi Henning. "The Rise and Fall of CORBA." *Communications of the ACM*,
+第 51 卷， 第 8 期，第 52–57 页， 2008 年 8 月。*doi:10.1145/1378704.1378718*  
 
-[35] Pete Lacey. “The S Stands for Simple.” harmful.cat-v.org, 2006 年 11 月。归档于 perma.cc/4PMK-Z9X7  
+[35] Pete Lacey. “The S Stands for Simple.” harmful.cat-v.org, 2006 年 11 月。归档于
+perma.cc/4PMK-Z9X7  
 
-[36] Stefan Tilkov. “Interview: Pete Lacey Criticizes Web Services.” infoq.com, 2006 年 12 月。归档于 perma.cc/JWF4-XY3P  
+[36] Stefan Tilkov. “Interview: Pete Lacey Criticizes Web Services.”
+infoq.com, 2006 年 12 月。归档于 perma.cc/JWF4-XY3P  
 
-[37] Tim Bray. “The Loyal WS-Opposition.” tbray.org, 2004 年 9 月。归档于 perma.cc/J5Q8-69Q2  
+[37] Tim Bray. “The Loyal WS-Opposition.” tbray.org, 2004 年 9 月。归档于
+perma.cc/J5Q8-69Q2  
 
-[38] Andrew D. Birrell and Bruce Jay Nelson. "Implementing Remote Procedure Calls." ACM Transactions on Computer Systems (TOCS), 第 2 卷，
-第 1 期，第 39–59 页，
+[38] Andrew D. Birrell and Bruce Jay Nelson. "Implementing Remote Procedure
+Calls." ACM Transactions on Computer Systems (TOCS), 第 2 卷， 第 1 期，第 39–59 页，
 1984 年 2 月。doi:10.1145/2080.357392  
 
-[39] Jim Waldo, Geoff Wyant, Ann Wollrath, and Sam Kendall. "A Note on Distributed Computing." Sun Microsystems Laboratories, Inc.，
-技术报告 TR-94-29，
+[39] Jim Waldo, Geoff Wyant, Ann Wollrath, and Sam Kendall. "A Note on
+Distributed Computing." Sun Microsystems Laboratories, Inc.， 技术报告 TR-94-29，
 1994 年 11 月。归档于 perma.cc/8LRZ-BSZR  
 
-[40] Steve Vinoski. “Convenience over Correctness.” IEEE Internet Computing, 第 12 卷，
-第 4 期，第 89–92 页，
-2008 年 7 月。doi:10.1109/MIC.2008.75  
+[40] Steve Vinoski. “Convenience over Correctness.” IEEE Internet Computing, 第
+12 卷， 第 4 期，第 89–92 页， 2008 年 7 月。doi:10.1109/MIC.2008.75  
 
-[41] Brandur Leach. “Designing Robust and Predictable APIs with Idempotency.” stripe.com, 2017 年 2 月。归档于 perma.cc/JD22-XZQT  
+[41] Brandur Leach. “Designing Robust and Predictable APIs with Idempotency.”
+stripe.com, 2017 年 2 月。归档于 perma.cc/JD22-XZQT  
 
-[42] Sam Rose. “Load Balancing.” *samwho.dev*, 2023 年 4 月。归档于 *perma.cc/Q7BA-9AE2*  
+[42] Sam Rose. “Load Balancing.” *samwho.dev*, 2023 年 4 月。归档于
+*perma.cc/Q7BA-9AE2*  
 
-[43] Troy Hunt. “Your API Versioning Is Wrong, Which Is Why I Decided to Do It 3 Different Wrong Ways.” troyhunt.com, 2014 年 2 月。归档于 perma.cc/9DSW-DGR5  
+[43] Troy Hunt. “Your API Versioning Is Wrong, Which Is Why I Decided to Do It
+3 Different Wrong Ways.” troyhunt.com, 2014 年 2 月。归档于 perma.cc/9DSW-DGR5  
 
-[44] Brandur Leach. “APIs As Infrastructure: Future-Proofing Stripe with Versioning.” stripe.com, 2017 年 8 月。归档于 perma.cc/L63K-USFW  
+[44] Brandur Leach. “APIs As Infrastructure: Future-Proofing Stripe with
+Versioning.” stripe.com, 2017 年 8 月。归档于 perma.cc/L63K-USFW  
 
-[45] OASIS Web Services Business Process Execution Language (WSBPEL) Technical Committee. "Web Services Business Process Execution Language Version 2.0." docs.oasis-open.org, 2007 年 4 月。  
+[45] OASIS Web Services Business Process Execution Language (WSBPEL) Technical
+Committee. "Web Services Business Process Execution Language Version 2.0."
+docs.oasis-open.org, 2007 年 4 月。  
 
-[46] “Temporal. Temporal Service.” docs.temporal.io, 2024。归档于 perma.cc/32P3-CJ9V  
+[46] “Temporal. Temporal Service.” docs.temporal.io, 2024。归档于
+perma.cc/32P3-CJ9V  
 
-[47] Stephan Ewen. “Why We Built Restate.” restate.dev, 2023 年 8 月。归档于 perma.cc/BJJ2-X75K  
+[47] Stephan Ewen. “Why We Built Restate.” restate.dev, 2023 年 8 月。归档于
+perma.cc/BJJ2-X75K  
 
-[48] Keith Tenzer and Joshua Smith. “Understanding Idempotency in Distributed Systems.” temporal.io, 2024 年 2 月。归档于 perma.cc/TY4U-EH3W  
+[48] Keith Tenzer and Joshua Smith. “Understanding Idempotency in Distributed
+Systems.” temporal.io, 2024 年 2 月。归档于 perma.cc/TY4U-EH3W  
 
-[49] “Temporal. Temporal Workflow.” docs.temporal.io, 2024。归档于 perma.cc/B5C5-Y396  
+[49] “Temporal. Temporal Workflow.” docs.temporal.io, 2024。归档于
+perma.cc/B5C5-Y396  
 
-[50] Jack Kleeman. “Solving Durable Execution’s Immutability Problem.” restate.dev, 2024 年 2 月。归档于 perma.cc/G55L-EYH5  
+[50] Jack Kleeman. “Solving Durable Execution’s Immutability Problem.”
+restate.dev, 2024 年 2 月。归档于 perma.cc/G55L-EYH5  
 
-[51] Srinath Perera. “Exploring Event-Driven Architecture: A Beginner’s Guide for Cloud Native Developers.” wso2.com, 2023 年 8 月。归档于 archive.org  
+[51] Srinath Perera. “Exploring Event-Driven Architecture: A Beginner’s Guide
+for Cloud Native Developers.” wso2.com, 2023 年 8 月。归档于 archive.org  
 
-[52] Philip A. Bernstein, Sergey Bykov, Alan Geller, Gabriel Kliot, and Jorgen Thelin. “Orleans: Distributed Virtual Actors for Programmability and Scalability.” Microsoft Research 技术报告 MSR-TR-2014-41，
-2014 年 3 月。归档于 perma.cc/PD3U-WDMF  
+[52] Philip A. Bernstein, Sergey Bykov, Alan Geller, Gabriel Kliot, and Jorgen
+Thelin. “Orleans: Distributed Virtual Actors for Programmability and
+Scalability.” Microsoft Research 技术报告 MSR-TR-2014-41， 2014 年 3 月。归档于
+perma.cc/PD3U-WDMF  
 
 # 复制
 
@@ -11116,10 +11482,9 @@ B 先发生于 A，或者 A 和 B 并发。
 
 ## 参考文献  
 
-[1] B. G. Lindsay, P. G. Selinger, C. Galtieri, J. N. Gray, R. A. Lorie, T. G. Price, F. Putzolu, I. L. Traiger, and B. W. Wade. “分布式数据库札记。”
-IBM Research，
-研究报告 RJ2571(33471)，
-1979 年 7 月。存档于 perma.cc/EPZ3-MHDD  
+[1] B. G. Lindsay, P. G. Selinger, C. Galtieri, J. N. Gray, R. A. Lorie, T. G.
+Price, F. Putzolu, I. L. Traiger, and B. W. Wade. “分布式数据库札记。” IBM Research，
+研究报告 RJ2571(33471)， 1979 年 7 月。存档于 perma.cc/EPZ3-MHDD  
 
 [2] Kenny Gryp. “MySQL 术语更新。”
 *dev.mysql.com*，
@@ -11134,22 +11499,23 @@ IBM Research，
 learn.microsoft.com，
 2024 年 9 月。存档于 perma.cc/ABH6-3MXF  
 
-[5] Mostafa Elhemali, Niall Gallagher, Nicholas Gordon, Joseph Idziorek, Richard Krog, Colin Lazier, Erben Mo, Akhilesh Mritunjai, Somu Perianayagam, Tim Rath, Swami Sivasubramanian, James Christopher Sorenson III, Sroaj Sosothikul, Doug Terry, and Akshat Vig. “Amazon DynamoDB：
-可扩展、性能可预测的全托管 NoSQL 数据库服务。”
-发表于 USENIX 年度技术会议（ATC），
-2022 年 7 月。  
+[5] Mostafa Elhemali, Niall Gallagher, Nicholas Gordon, Joseph Idziorek,
+Richard Krog, Colin Lazier, Erben Mo, Akhilesh Mritunjai, Somu Perianayagam,
+Tim Rath, Swami Sivasubramanian, James Christopher Sorenson III, Sroaj
+Sosothikul, Doug Terry, and Akshat Vig. “Amazon DynamoDB： 可扩展、性能可预测的全托管 NoSQL
+数据库服务。” 发表于 USENIX 年度技术会议（ATC）， 2022 年 7 月。  
 
-[6] Rebecca Taft, Irfan Sharif, Andrei Matei, Nathan VanBenschoten, Jordan Lewis, Tobias Grieger, Kai Niemi, Andy Woods, Anne Birzin, Raphael Poss, Paul Bardea, Amruta Ranade, Ben Darnell, Bram Gruneir, Justin Jaffray, Lucy Zhang, and Peter Mattis. “CockroachDB：
-弹性的地理分布式 SQL 数据库。”
-发表于 ACM SIGMOD 数据管理国际会议（SIGMOD），
-2020 年 6 月。doi:10.1145/3318464.3386134  
+[6] Rebecca Taft, Irfan Sharif, Andrei Matei, Nathan VanBenschoten, Jordan
+Lewis, Tobias Grieger, Kai Niemi, Andy Woods, Anne Birzin, Raphael Poss, Paul
+Bardea, Amruta Ranade, Ben Darnell, Bram Gruneir, Justin Jaffray, Lucy Zhang,
+and Peter Mattis. “CockroachDB： 弹性的地理分布式 SQL 数据库。” 发表于 ACM SIGMOD
+数据管理国际会议（SIGMOD）， 2020 年 6 月。doi:10.1145/3318464.3386134  
 
-[7] Dongxu Huang, Qi Liu, Qiu Cui, Zhuhe Fang, Xiaoyu Ma, Fei Xu, Li Shen, Liu Tang, Yuxing Zhou, Menglong Huang, Wan Wei, Cong Liu, Jian Zhang, Jianjun Li, Xuelian Wu, Lingyu Song, Ruoxi Sun, Shuaipeng Yu, Lei Zhao, Nicholas Cameron, Liquan Pei, and Xin Tang. “TiDB：
-基于 Raft 的 HTAP 数据库。”
-《VLDB Endowment 论文集》，
-第 13 卷第 12 期，
-第 3072–3084 页，
-2020 年 8 月。doi:10.14778/3415478.3415535  
+[7] Dongxu Huang, Qi Liu, Qiu Cui, Zhuhe Fang, Xiaoyu Ma, Fei Xu, Li Shen, Liu
+Tang, Yuxing Zhou, Menglong Huang, Wan Wei, Cong Liu, Jian Zhang, Jianjun Li,
+Xuelian Wu, Lingyu Song, Ruoxi Sun, Shuaipeng Yu, Lei Zhao, Nicholas Cameron,
+Liquan Pei, and Xin Tang. “TiDB： 基于 Raft 的 HTAP 数据库。” 《VLDB Endowment 论文集》， 第
+13 卷第 12 期， 第 3072–3084 页， 2020 年 8 月。doi:10.14778/3415478.3415535  
 
 [8] Mallory Knodel and Niels ten Oever. “互联网草案与 RFC 中的术语、
 权力和包容性语言。”IETF 互联网草案，
@@ -11196,39 +11562,40 @@ tapoueh.org，
 *amitkapila16.blogspot.com*，
 2023 年 9 月。存档于 *perma.cc/F9VX-JLER*  
 
-[20] Aru Petchimuthu. “升级 Amazon RDS for PostgreSQL 或 Amazon Aurora PostgreSQL 数据库，
-第 2 部分：使用 pglogical 扩展。”
-aws.amazon.com，
-2021 年 8 月。存档于 perma.cc/RXT8-FS2T  
+[20] Aru Petchimuthu. “升级 Amazon RDS for PostgreSQL 或 Amazon Aurora PostgreSQL
+数据库， 第 2 部分：使用 pglogical 扩展。” aws.amazon.com， 2021 年 8 月。存档于
+perma.cc/RXT8-FS2T  
 
-[21] Yogeshwer Sharma, Philippe Ajoux, Petchean Ang, David Callies, Abhishek Choudhary, Laurent Demailly, Thomas Fersch, Liat Atsmon Guz, Andrzej Kotulski, Sachin Kulkarni, Sanjeev Kumar, Harry Li, Jun Li, Evgeniy Makeev, Kowshik Prakasam, Robbert van Renesse, Sabyasachi Roy, Pratyush Seth, Yee Jiun Song, Benjamin Wester, Kaushik Veeraraghavan, and Peter Xie. “Wormhole：
-为地理复制互联网服务提供可靠的发布—订阅支持。”
-发表于第 12 届 USENIX 网络系统设计与实现研讨会（NSDI），
-2015 年 5 月。  
+[21] Yogeshwer Sharma, Philippe Ajoux, Petchean Ang, David Callies, Abhishek
+Choudhary, Laurent Demailly, Thomas Fersch, Liat Atsmon Guz, Andrzej Kotulski,
+Sachin Kulkarni, Sanjeev Kumar, Harry Li, Jun Li, Evgeniy Makeev, Kowshik
+Prakasam, Robbert van Renesse, Sabyasachi Roy, Pratyush Seth, Yee Jiun Song,
+Benjamin Wester, Kaushik Veeraraghavan, and Peter Xie. “Wormhole：
+为地理复制互联网服务提供可靠的发布—订阅支持。” 发表于第 12 届 USENIX 网络系统设计与实现研讨会（NSDI）， 2015 年 5 月。  
 
 [22] Douglas B. Terry. “用棒球解释复制数据的一致性。”
 Microsoft Research，
 技术报告 MSR-TR-2011-137，
 2011 年 10 月。存档于 perma.cc/F4KZ-AR38  
 
-[23] Douglas B. Terry, Alan J. Demers, Karin Petersen, Mike J. Spreitzer, Marvin M. Theher, and Brent B. Welch. “弱一致性复制数据的会话保证。”
-发表于第 3 届并行与分布式信息系统国际会议（PDIS），
-1994 年 9 月。doi:10.1109/PDIS.1994.331722  
+[23] Douglas B. Terry, Alan J. Demers, Karin Petersen, Mike J. Spreitzer,
+Marvin M. Theher, and Brent B. Welch. “弱一致性复制数据的会话保证。” 发表于第 3
+届并行与分布式信息系统国际会议（PDIS）， 1994 年 9 月。doi:10.1109/PDIS.1994.331722  
 
 [24] Werner Vogels. “最终一致性。”
 ACM Queue，
 第 6 卷第 6 期，
 第 14–19 页，2008 年 10 月。doi:10.1145/1466443.1466448  
 
-[25] Simon Willison. 对“My thoughts about Fly.io (so far) and other newish technology I'm getting into”的回复。
-news.ycombinator.com，
-2022 年 5 月。  
+[25] Simon Willison. 对“My thoughts about Fly.io (so far) and other newish
+technology I'm getting into”的回复。 news.ycombinator.com， 2022 年 5 月。  
 
 [26] Nithin Tharakan. “扩展 Bitbucket 的数据库。”
 *atlassian.com*，
 2020 年 10 月。存档于 *perma.cc/JAB7-9FGX*  
 
-[27] Terry Pratchett. *Reaper Man: A Discworld Novel*. Victor Gollancz，1991 年。ISBN: 9780575049796  
+[27] Terry Pratchett. *Reaper Man: A Discworld Novel*. Victor Gollancz，1991 年。
+ISBN: 9780575049796  
 
 [28] Peter Bailis、
 Alan Fekete、
@@ -11525,7 +11892,8 @@ haslab.wordpress.com，
 > 每块碎片都映射出游戏世界的一个副本 [3]。
 > 于是，shard 一词开始表示一组并行游戏服务器中的一个，
 > 后来又被沿用到数据库领域。
-> 另一种说法是，它最初是 System for Highly Available Replicated Data 的首字母缩写——据称这是一个 20 世纪 80 年代的数据库，
+> 另一种说法是，它最初是 System for Highly Available Replicated Data 的首字母缩写——据称这是一个 20 世纪
+> 80 年代的数据库，
 > 但其详情已湮没在历史中。  
 >
 > 顺便一提，分区与*网络分区*（网络分裂，netsplit）毫无关系；后者是节点间网络中的一种故障。我们将在第 9 章讨论此类故障。  
@@ -12402,10 +12770,12 @@ notion.com，
 akka-dia.org，
 2007 年 11 月。存档于 perma.cc/NU6Q-DRXZ  
 
-[6] Jingyu Zhou, Meng Xu, Alexander Shraer, Bala Namasivayam, Alex Miller, Evan Tschannen, Steve Atherton, Andrew J. Beamon, Rusty Sears, John Leach, Dave Rosenthal, Xin Dong, Will Wilson, Ben Collins, David Scherer, Alec Grieser, Young Liu, Alvin Moore, Bhaskar Muppana, Xiaoge Su, and Vishesh Yadav. “FoundationDB：
-一种分布式、解耦的事务型键值存储。”
-载于 ACM International Conference on Management of Data (SIGMOD)，
-2021 年 6 月。doi:10.1145/3448016.3457559  
+[6] Jingyu Zhou, Meng Xu, Alexander Shraer, Bala Namasivayam, Alex Miller,
+Evan Tschannen, Steve Atherton, Andrew J. Beamon, Rusty Sears, John Leach,
+Dave Rosenthal, Xin Dong, Will Wilson, Ben Collins, David Scherer, Alec
+Grieser, Young Liu, Alvin Moore, Bhaskar Muppana, Xiaoge Su, and Vishesh
+Yadav. “FoundationDB： 一种分布式、解耦的事务型键值存储。” 载于 ACM International Conference on
+Management of Data (SIGMOD)， 2021 年 6 月。doi:10.1145/3448016.3457559  
 
 [7] Marco Slot. “Citus 12：
 面向 PostgreSQL、
@@ -12421,19 +12791,18 @@ Amazon Web Services，
 但应该做的事情。” *thenile.dev*，
 2023 年 2 月。存档于 *perma.cc/C3J4-JSFW*  
 
-[10] Malte Schwarzkopf, Eddie Kohler, M. Frans Kaashoek, and Robert Morris. “立场：
-通过构造实现 GDPR 合规。”
-载于 Towards Polystores That Manage Multiple Databases, Privacy, Security and/or Policy Issues for Heterogenous Data (Poly)，
-2019 年 8 月。doi:10.1007/978-3-030-33752-0_3  
+[10] Malte Schwarzkopf, Eddie Kohler, M. Frans Kaashoek, and Robert Morris.
+“立场： 通过构造实现 GDPR 合规。” 载于 Towards Polystores That Manage Multiple Databases,
+Privacy, Security and/or Policy Issues for Heterogenous Data (Poly)， 2019 年 8
+月。doi:10.1007/978-3-030-33752-0_3  
 
 [11] Gwen Shapira. “pg_karnak 简介：
 跨租户数据库的事务型模式迁移。”
 *thenile.dev*，
 2024 年 11 月。存档于 *perma.cc/R5RD-8HR9*  
 
-[12] Arka Ganguli, Guido Iaquinti, Maggie Zhou, and Rafael Chacón. “使用 Vitesse 扩展 Slack 的数据存储。”
-slackengineering，
-2020 年 12 月。存档于 perma.cc/UW8F-ALJK  
+[12] Arka Ganguli, Guido Iaquinti, Maggie Zhou, and Rafael Chacón. “使用 Vitesse
+扩展 Slack 的数据存储。” slackengineering， 2020 年 12 月。存档于 perma.cc/UW8F-ALJK  
 
 [13] Ikai Lan. “App Engine Datastore 提示：
 单调递增值并不好。” ikaisays.com，
@@ -12451,15 +12820,15 @@ cloudera.com，
 martin.kleppmann.com，
 2012 年 6 月。存档于 perma.cc/LK5U-VZSN  
 
-[17] Mostafa Elhemali, Niall Gallagher, Nicholas Gordon, Joseph Idziorek, Richard Krog, Colin Lazier, Erben Mo, Akhilesh Mritunjai, Somu Perianayagam, Tim Rath, Swami Sivasubramanian, James Christopher Sorenson III, Sroaj Sosothikul, Doug Terry, and Akshat Vig. “Amazon DynamoDB：
-可扩展、性能可预测且完全托管的 NoSQL 数据库服务。”
-载于 USENIX Annual Technical Conference (ATC)，
-2022 年 7 月。  
+[17] Mostafa Elhemali, Niall Gallagher, Nicholas Gordon, Joseph Idziorek,
+Richard Krog, Colin Lazier, Erben Mo, Akhilesh Mritunjai, Somu Perianayagam,
+Tim Rath, Swami Sivasubramanian, James Christopher Sorenson III, Sroaj
+Sosothikul, Doug Terry, and Akshat Vig. “Amazon DynamoDB： 可扩展、性能可预测且完全托管的
+NoSQL 数据库服务。” 载于 USENIX Annual Technical Conference (ATC)， 2022 年 7 月。  
 
-[18] David Karger, Eric Lehman, Tom Leighton, Rina Panigrahy, Matthew Levine, and Daniel Lewin. “一致性哈希与随机树：
-缓解万维网热点的分布式缓存协议。”
-载于 29th Annual ACM Symposium on Theory of Computing (STOC)，
-1997 年 5 月。doi:10.1145/258533.258660  
+[18] David Karger, Eric Lehman, Tom Leighton, Rina Panigrahy, Matthew Levine,
+and Daniel Lewin. “一致性哈希与随机树： 缓解万维网热点的分布式缓存协议。” 载于 29th Annual ACM Symposium
+on Theory of Computing (STOC)， 1997 年 5 月。doi:10.1145/258533.258660  
 
 [19] Damian Gryski. “一致性哈希：
 算法权衡。” dgryski.medium.com，
@@ -12483,10 +12852,11 @@ mashable.com，
 *engineering.fb.com*，
 2020 年 8 月。存档于 *perma.cc/EFS3-XQYT*  
 
-[24] Sangmin Lee, Zhenhua Guo, Omer Sunercan, Jun Ying, Thawan Kooburat, Suryadeep Biswal, Jun Chen, Kun Huang, Yatpang Cheung, Yiding Zhou, Kaushik Veeraraghavan, Biren Damani, Pol Mauri Ruiz, Vikas Mehta, and Chunqiang Tang. “Shard Manager：
-面向地理分布式应用的通用分片管理框架。”
-载于 28th ACM SIGOPS Symposium on Operating Systems Principles (SOSP)，
-2021 年 10 月。doi:10.1145/3477132.3483546  
+[24] Sangmin Lee, Zhenhua Guo, Omer Sunercan, Jun Ying, Thawan Kooburat,
+Suryadeep Biswal, Jun Chen, Kun Huang, Yatpang Cheung, Yiding Zhou, Kaushik
+Veeraraghavan, Biren Damani, Pol Mauri Ruiz, Vikas Mehta, and Chunqiang Tang.
+“Shard Manager： 面向地理分布式应用的通用分片管理框架。” 载于 28th ACM SIGOPS Symposium on Operating
+Systems Principles (SOSP)， 2021 年 10 月。doi:10.1145/3477132.3483546  
 
 [25] Scott Lystig Fritchie. “可调整大小的哈希表之批判：
 Riak Core 与随机切片。”
@@ -12511,10 +12881,10 @@ Cambridge University Press，
 2008。ISBN: 9780521865715。
 可在线获取：nlp.stanford.edu/IR-book。  
 
-[30] Michael Busch, Krishna Gade, Brian Larson, Patrick Lok, Samuel Luckenbill, and Jimmy Lin. “Earlybird：
-Twitter 的实时搜索。”
-载于 28th IEEE International Conference on Data Engineering (ICDE)，
-2012 年 4 月。doi:10.1109/ICDE.2012.149  
+[30] Michael Busch, Krishna Gade, Brian Larson, Patrick Lok, Samuel
+Luckenbill, and Jimmy Lin. “Earlybird： Twitter 的实时搜索。” 载于 28th IEEE
+International Conference on Data Engineering (ICDE)， 2012 年 4 月。
+doi:10.1109/ICDE.2012.149  
 
 [31] Nadav Har'El. “Cassandra 3 中的索引。”
 github.com，
@@ -12958,7 +13328,8 @@ SELECT COUNT(*) FROM emails WHERE recipient_id = 2 AND unread_flag = true;
 因为当多个客户端试图并发写入同一对象时，
 它们可以防止更新丢失（见[防止更新丢失](#防止更新丢失)）。
 然而，它们并不是通常意义上的事务。
-例如，Aerospike 的“强一致性”模式以及 Cassandra 和 ScyllaDB 的“轻量级事务”功能提供单个对象上的线性一致性读取（见[线性一致性](#线性一致性)）
+例如，Aerospike 的“强一致性”模式以及 Cassandra 和 ScyllaDB 的“轻量级事务”
+功能提供单个对象上的线性一致性读取（见[线性一致性](#线性一致性)）
 和条件写入，但不提供跨多个对象的保证。  
 
 ### 多对象事务的必要性  
@@ -15143,22 +15514,19 @@ SSI 是一种相对较新的算法，
 *benthamsgaze.org*，
 2021 年 7 月。存档于 *perma.cc/CNM4-553F*  
 
-[2] Donald D. Chamberlin, Morton M. Astrahan, Michael W. Blasgen, James N. Gray, W. Frank King, Bruce G. Lindsay, Raymond Lorie, James W. Mehl, Thomas G. Price, Franco Putzolu, Patricia Griffiths Selinger, Mario Schkolnick, Donald R. Slutz, Irving L. Traiger, Bradford W. Wade, and Robert A. Yost。
-《System R 的历史与评估》。
-Communications of the ACM，
-第 24 卷，第 10 期，
-第 632–646 页，
-1981 年 10 月。doi:10.1145/358769.358784  
+[2] Donald D. Chamberlin, Morton M. Astrahan, Michael W. Blasgen, James N.
+Gray, W. Frank King, Bruce G. Lindsay, Raymond Lorie, James W. Mehl, Thomas G.
+Price, Franco Putzolu, Patricia Griffiths Selinger, Mario Schkolnick, Donald
+R. Slutz, Irving L. Traiger, Bradford W. Wade, and Robert A. Yost。 《System R
+的历史与评估》。 Communications of the ACM， 第 24 卷，第 10 期， 第 632–646 页， 1981 年 10 月。
+doi:10.1145/358769.358784  
 
-[3] Jim N. Gray, Raymond A. Lorie, Gianfranco R. Putzolu, and Irving L. Traiger。
-《共享数据库中的锁粒度与一致性程度》。
-收录于 *Modeling in Data Base Management Systems: Proceedings of the IFIP Working Conference on Modelling in Data Base Management Systems*，
-G. M. Nijssen 编，
-第 364–394 页，
-Elsevier/North Holland Publishing，
-1976 年。另收录于 *Readings in Database Systems* 第 4 版，
-Joseph M. Hellerstein 与 Michael Stonebraker 编，
-MIT Press，2005 年。ISBN: 9780262693141  
+[3] Jim N. Gray, Raymond A. Lorie, Gianfranco R. Putzolu, and Irving L.
+Traiger。 《共享数据库中的锁粒度与一致性程度》。 收录于 *Modeling in Data Base Management Systems:
+Proceedings of the IFIP Working Conference on Modelling in Data Base
+Management Systems*， G. M. Nijssen 编， 第 364–394 页， Elsevier/North Holland
+Publishing， 1976 年。另收录于 *Readings in Database Systems* 第 4 版， Joseph M.
+Hellerstein 与 Michael Stonebraker 编， MIT Press，2005 年。ISBN: 9780262693141  
 
 [4] Kapali P. Eswaran, Jim N. Gray, Raymond A. Lorie, and Irving L. Traiger。
 《数据库系统中的一致性概念与谓词锁》。
@@ -15167,29 +15535,33 @@ MIT Press，2005 年。ISBN: 9780262693141
 第 624–633 页，
 1976 年 11 月。doi:10.1145/360363.360369  
 
-[5] Rebecca Taft, Irfan Sharif, Andrei Matei, Nathan VanBenschoten, Jordan Lewis, Tobias Grieger, Kai Niemi, Andy Woods, Anne Birzin, Raphael Poss, Paul Bardea, Amruta Ranade, Ben Darnell, Bram Gruneir, Justin Jaffray, Lucy Zhang, and Peter Mattis。
-《CockroachDB：
-具有韧性的地理分布式 SQL 数据库》。
-发表于 ACM SIGMOD 数据管理国际会议（SIGMOD），
-2020 年 6 月。doi:10.1145/3318464.3386134  
+[5] Rebecca Taft, Irfan Sharif, Andrei Matei, Nathan VanBenschoten, Jordan
+Lewis, Tobias Grieger, Kai Niemi, Andy Woods, Anne Birzin, Raphael Poss, Paul
+Bardea, Amruta Ranade, Ben Darnell, Bram Gruneir, Justin Jaffray, Lucy Zhang,
+and Peter Mattis。 《CockroachDB： 具有韧性的地理分布式 SQL 数据库》。 发表于 ACM SIGMOD
+数据管理国际会议（SIGMOD）， 2020 年 6 月。doi:10.1145/3318464.3386134  
 
-[6] Dongxu Huang, Qi Liu, Qiu Cui, Zhuhe Fang, Xiaoyu Ma, Fei Xu, Li Shen, Liu Tang, Yuxing Zhou, Menglong Huang, Wan Wei, Cong Liu, Jian Zhang, Jianjun Li, Xuelian Wu, Lingyu Song, Ruoxi Sun, Shuaipeng Yu, Lei Zhao, Nicholas Cameron, Liquan Pei, and Xin Tang。
-《TiDB：基于 Raft 的 HTAP 数据库》。
-Proceedings of the VLDB Endowment，
-第 13 卷，第 12 期，
-第 3072–3084 页，
-2020 年 8 月。doi:10.14778/3415478.3415535  
+[6] Dongxu Huang, Qi Liu, Qiu Cui, Zhuhe Fang, Xiaoyu Ma, Fei Xu, Li Shen, Liu
+Tang, Yuxing Zhou, Menglong Huang, Wan Wei, Cong Liu, Jian Zhang, Jianjun Li,
+Xuelian Wu, Lingyu Song, Ruoxi Sun, Shuaipeng Yu, Lei Zhao, Nicholas Cameron,
+Liquan Pei, and Xin Tang。 《TiDB：基于 Raft 的 HTAP 数据库》。 Proceedings of the VLDB
+Endowment， 第 13 卷，第 12 期， 第 3072–3084 页， 2020 年 8 月。
+doi:10.14778/3415478.3415535  
 
-[7] James C. Corbett, Jeffrey Dean, Michael Epstein, Andrew Fikes, Christopher Frost, JJ Furman, Sanjay Ghemawat, Andrey Gubarev, Christopher Heiser, Peter Hochschild, Wilson Hsieh, Sebastian Kanthak, Eugene Kogan, Hongyi Li, Alexander Lloyd, Sergey Melnik, David Mwaura, David Nagle, Sean Quinlan, Rajesh Rao, Lindsay Rolig, Dale Woodford, Yasushi Saito, Christopher Taylor, Michal Szymaniak, and Ruth Wang。
-《Spanner：Google 的全球分布式数据库》。
-发表于第 10 届 USENIX 操作系统设计与实现研讨会（OSDI），
-2012 年 10 月。  
+[7] James C. Corbett, Jeffrey Dean, Michael Epstein, Andrew Fikes, Christopher
+Frost, JJ Furman, Sanjay Ghemawat, Andrey Gubarev, Christopher Heiser, Peter
+Hochschild, Wilson Hsieh, Sebastian Kanthak, Eugene Kogan, Hongyi Li,
+Alexander Lloyd, Sergey Melnik, David Mwaura, David Nagle, Sean Quinlan,
+Rajesh Rao, Lindsay Rolig, Dale Woodford, Yasushi Saito, Christopher Taylor,
+Michal Szymaniak, and Ruth Wang。 《Spanner：Google 的全球分布式数据库》。 发表于第 10 届 USENIX
+操作系统设计与实现研讨会（OSDI）， 2012 年 10 月。  
 
-[8] Jingyu Zhou, Meng Xu, Alexander Shraer, Bala Namasivayam, Alex Miller, Evan Tschannen, Steve Atherton, Andrew J. Beamon, Rusty Sears, John Leach, Dave Rosenthal, Xin Dong, Will Wilson, Ben Collins, David Scherer, Alec Grieser, Young Liu, Alvin Moore, Bhaskar Muppana, Xiaoge Su, and Vishesh Yadav。
-《FoundationDB：
-分布式解耦事务型键值存储》。
-发表于 ACM 数据管理国际会议（SIGMOD），
-2021 年 6 月。doi:10.1145/3448016.3457559  
+[8] Jingyu Zhou, Meng Xu, Alexander Shraer, Bala Namasivayam, Alex Miller,
+Evan Tschannen, Steve Atherton, Andrew J. Beamon, Rusty Sears, John Leach,
+Dave Rosenthal, Xin Dong, Will Wilson, Ben Collins, David Scherer, Alec
+Grieser, Young Liu, Alvin Moore, Bhaskar Muppana, Xiaoge Su, and Vishesh
+Yadav。 《FoundationDB： 分布式解耦事务型键值存储》。 发表于 ACM 数据管理国际会议（SIGMOD）， 2021 年 6 月。
+doi:10.1145/3448016.3457559  
 
 [9] Theo Härder and Andreas Reuter。
 《面向事务的数据库恢复原理》。
@@ -15198,15 +15570,12 @@ ACM Computing Surveys，
 第 287–317 页，
 1983 年 12 月。doi:10.1145/289.291  
 
-[10] Peter Bailis, Alan Fekete, Ali Ghodsi, Joseph M. Hellerstein, and Ion Stoica。
-《HAT，而非 CAP：
-迈向高可用事务》。发表于第 14 届 USENIX 操作系统热点研讨会（HotOS），
-2013 年 5 月。  
+[10] Peter Bailis, Alan Fekete, Ali Ghodsi, Joseph M. Hellerstein, and Ion
+Stoica。 《HAT，而非 CAP： 迈向高可用事务》。发表于第 14 届 USENIX 操作系统热点研讨会（HotOS）， 2013 年 5 月。  
 
-[11] Armando Fox, Steven D. Gribble, Yatin Chawathe, Eric A. Brewer, and Paul Gauthier。
-《基于集群的可扩展网络服务》。
-发表于第 16 届 ACM 操作系统原理研讨会（SOSP），
-1997 年 10 月。doi:10.1145/268998.266662  
+[11] Armando Fox, Steven D. Gribble, Yatin Chawathe, Eric A. Brewer, and Paul
+Gauthier。 《基于集群的可扩展网络服务》。 发表于第 16 届 ACM 操作系统原理研讨会（SOSP）， 1997 年 10 月。
+doi:10.1145/268998.266662  
 
 [12] Tony Andrews。
 《在 Oracle 中强制实施复杂约束》。
@@ -15219,12 +15588,9 @@ Addison-Wesley，
 1987 年。ISBN: 9780201107159。
 可在 microsoft.com 在线获取。  
 
-[14] Alan Fekete, Dimitrios Liarokapis, Elizabeth O'Neil, Patrick O'Neil, and Dennis Shasha。
-《使快照隔离可串行化》。
-ACM Transactions on Database Systems，
-第 30 卷，第 2 期，
-第 492–528 页，
-2005 年 6 月。doi:10.1145/1071610.1071615  
+[14] Alan Fekete, Dimitrios Liarokapis, Elizabeth O'Neil, Patrick O'Neil, and
+Dennis Shasha。 《使快照隔离可串行化》。 ACM Transactions on Database Systems， 第 30 卷，第 2
+期， 第 492–528 页， 2005 年 6 月。doi:10.1145/1071610.1071615  
 
 [15] Mai Zheng, Joseph Tucek, Feng Qin, and Mark Lillibridge。
 《理解 SSD 在电源故障下的稳健性》。
@@ -15250,38 +15616,32 @@ support.hpe.com，
 postgresql.org 的 pgsql-hackers 邮件列表讨论串，
 2018 年 3 月。存档于 perma.cc/5RKU-57FL  
 
-[20] Anthony Rebello, Yuvraj Patel, Ramnathan Alagappan, Andrea C. Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau。
-《应用能否从 fsync 失败中恢复？
-》。发表于 USENIX 年度技术会议（ATC），
-2020 年 7 月。  
+[20] Anthony Rebello, Yuvraj Patel, Ramnathan Alagappan, Andrea C.
+Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau。 《应用能否从 fsync 失败中恢复？ 》。发表于 USENIX
+年度技术会议（ATC）， 2020 年 7 月。  
 
-[21] Thanumalayan Sankaranarayana Pillai, Vijay Chidambaram, Ramnatthan Alagappan, Samer Al-Kiswany, Andrea C. Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau。
-《崩溃一致性：重新思考文件系统的基本抽象》。
-ACM Queue，第 13 卷，
-第 7 期，第 20–28 页，
-2015 年 7 月。doi:10.1145/2800695.2801719  
+[21] Thanumalayan Sankaranarayana Pillai, Vijay Chidambaram, Ramnatthan
+Alagappan, Samer Al-Kiswany, Andrea C. Arpaci-Dusseau, and Remzi H.
+Arpaci-Dusseau。 《崩溃一致性：重新思考文件系统的基本抽象》。 ACM Queue，第 13 卷， 第 7 期，第 20–28 页， 2015
+年 7 月。doi:10.1145/2800695.2801719  
 
-[22] Thanumalayan Sankaranarayana Pillai, Vijay Chidambaram, Ramnatthan Alagappan, Samer Al-Kiswany, Andrea C. Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau。
-《并非所有文件系统都生而平等：
-构建崩溃一致应用的复杂性》。
-发表于第 11 届 USENIX 操作系统设计与实现研讨会（OSDI），
-2014 年 10 月。  
+[22] Thanumalayan Sankaranarayana Pillai, Vijay Chidambaram, Ramnatthan
+Alagappan, Samer Al-Kiswany, Andrea C. Arpaci-Dusseau, and Remzi H.
+Arpaci-Dusseau。 《并非所有文件系统都生而平等： 构建崩溃一致应用的复杂性》。 发表于第 11 届 USENIX
+操作系统设计与实现研讨会（OSDI）， 2014 年 10 月。  
 
 [23] Chris Siebenmann。
 《Unix 的文件持久性问题》。
 utcc.utoronto.ca，
 2016 年 4 月。存档于 perma.cc/VSS8-5MC4  
 
-[24] Aishwarya Ganesan, Ramnatthan Alagappan, Andrea C. Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau。
-《冗余并不意味着容错：
-分布式存储对单一错误和损坏的反应分析》。
-发表于第 15 届 USENIX 文件与存储技术会议（FAST），
-2017 年 2 月。  
+[24] Aishwarya Ganesan, Ramnatthan Alagappan, Andrea C. Arpaci-Dusseau, and
+Remzi H. Arpaci-Dusseau。 《冗余并不意味着容错： 分布式存储对单一错误和损坏的反应分析》。 发表于第 15 届 USENIX
+文件与存储技术会议（FAST）， 2017 年 2 月。  
 
-[25] Lakshmi N. Bairavasundaram, Garth R. Goodson, Bianca Schroeder, Andrea C. Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau。
-《存储栈中的数据损坏分析》。
-发表于第 6 届 USENIX 文件与存储技术会议（FAST），
-2008 年 2 月。  
+[25] Lakshmi N. Bairavasundaram, Garth R. Goodson, Bianca Schroeder, Andrea C.
+Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau。 《存储栈中的数据损坏分析》。 发表于第 6 届 USENIX
+文件与存储技术会议（FAST）， 2008 年 2 月。  
 
 [26] Richard van der Hoff。
 《我们如何在 matrix.org 主服务器上发现 Postgres 损坏并从中恢复》。
@@ -15347,9 +15707,8 @@ michaelmelanson.net，
 *engineering.gusto.com*，
 2014 年 4 月。存档于 *perma.cc/7B2H-PU94*  
 
-[38] Hal Berenson, Philip A. Bernstein, Jim N. Gray, Jim Melton, Elizabeth O'Neil, and Patrick O'Neil。
-《对 ANSI SQL 隔离级别的批判》。
-发表于 ACM 数据管理国际会议（SIGMOD），
+[38] Hal Berenson, Philip A. Bernstein, Jim N. Gray, Jim Melton, Elizabeth
+O'Neil, and Patrick O'Neil。 《对 ANSI SQL 隔离级别的批判》。 发表于 ACM 数据管理国际会议（SIGMOD），
 1995 年 5 月。doi:10.1145/568271.223785  
 
 [39] Atul Adya。
@@ -16314,7 +16673,8 @@ Linux 的流量控制器（TC）
 
 日历时钟的作用符合人们对时钟的直觉预期：
 它根据日历返回当前日期和时间（也称墙上时钟时间）。
-例如，Linux 上的 `clock_gettime(CLOCK_REALTIME)` 和 Java 中的 `System.currentTimeMillis` 返回自纪元以来的秒数（或毫秒数）；
+例如，Linux 上的 `clock_gettime(CLOCK_REALTIME)` 和 Java 中的 `System.currentTimeMillis`
+返回自纪元以来的秒数（或毫秒数）；
 这里的纪元依据公历定义为 1970 年 1 月 1 日 UTC 午夜，
 并且不计算闰秒。有些系统使用其他日期作为参考点。
 （虽然 Linux 的时钟被称为实时（real-time）
@@ -16343,7 +16703,8 @@ Linux 的流量控制器（TC）
 
 单调时钟适合测量持续时间（时间间隔），
 例如超时时间或服务的响应时间；
-以 Linux 上的 `clock_gettime(CLOCK_MONOTONIC)` 或 `clock_gettime(CLOCK_BOOTTIME)` [42] 以及 Java 中的 `System.nanoTime` 为例，
+以 Linux 上的 `clock_gettime(CLOCK_MONOTONIC)` 或 `clock_gettime(CLOCK_BOOTTIME)`
+[42] 以及 Java 中的 `System.nanoTime` 为例，
 它们都使用单调时钟测量时间。
 这个名称源于此类时钟保证始终向前走（日历时钟则可能在时间上向后跳）。  
 
@@ -17654,7 +18015,8 @@ DST 除了可重放性之外还有多项优势。
 
 本章讨论了分布式系统中可能出现的各种问题。例如：  
 
-- 每当你尝试通过网络发送一个数据包时，它都可能丢失或遭遇任意时长的延迟。同样，回复也可能丢失或延迟，因此，如果没有收到回复，你根本无法知道消息是否已经送达。  
+- 每当你尝试通过网络发送一个数据包时，它都可能丢失或遭遇任意时长的延迟。同样，回复也可能丢失或延迟，因此，如果没有收到回复，
+  你根本无法知道消息是否已经送达。  
 
 - 一个节点的时钟可能与其他节点严重不同步（尽管你已尽力配置 NTP），
   它可能突然向前或向后跳变；
@@ -18790,7 +19152,8 @@ $r$ 是数据库的响应（OK 或 Error）。
 > 因为这需要事务之间进行成本高昂的协调 [14]。
 > 另一方面，Spanner 和 FoundationDB 提供严格可串行化 [15, 16]。  
 >
-> 也可以将较弱的隔离级别与线性一致性结合，或将较弱的一致性模型与可串行化结合；事实上，一致性模型和隔离级别在很大程度上可以彼此独立地选择 [17, 18]。  
+> 也可以将较弱的隔离级别与线性一致性结合，或将较弱的一致性模型与可串行化结合；事实上，一致性模型和隔离级别在很大程度上可以彼此独立地选择 [17,
+> 18]。  
 
 ### 依赖线性一致性  
 
@@ -19622,7 +19985,8 @@ ID 生成器可以改为写入一条描述一批 ID 的记录；
 
 让多个节点就单个值达成一致的能力非常有用。例如：  
 
-- 当采用单主复制的数据库首次启动，或现有主节点发生故障时，多个节点可能会同时尝试成为主节点。类似地，多个节点也可能竞相获取锁或租约。共识可以让它们决定谁胜出。  
+- 当采用单主复制的数据库首次启动，或现有主节点发生故障时，多个节点可能会同时尝试成为主节点。类似地，多个节点也可能竞相获取锁或租约。
+  共识可以让它们决定谁胜出。  
 
 - 如果多人同时尝试预订飞机上的最后一个座位或剧院里的同一个座位，或尝试用同一用户名注册账户，而又无法确定谁先到，那么共识算法可以决定谁应当成功。  
 
@@ -19781,7 +20145,8 @@ CAS 操作会检查对象的当前值是否等于预期值。如果相等，它�
 
 2. 当节点想向日志添加一个值时，它会针对一个尚未作出决定的槽位提出该值。  
 
-3. 当共识算法对某个槽位作出决定，而且之前的所有槽位也都已经决定时，便将决定的值作为新日志条目追加；任何已作出决定的连续后续槽位，其决定值也会被追加到日志中。  
+3. 当共识算法对某个槽位作出决定，而且之前的所有槽位也都已经决定时，便将决定的值作为新日志条目追加；任何已作出决定的连续后续槽位，
+   其决定值也会被追加到日志中。  
 
 4. 如果某个提议值未被选入一个槽位，想添加它的节点就会针对更后面的槽位重新提出该值。  
 
@@ -22092,7 +22457,8 @@ JMESPath 或 JSONPath 等 JSON 查询语言。
 
 ## DataFrame  
 
-数据科学家和统计学家通常习惯使用 R 和 Pandas 中的 DataFrame 数据模型（参见[数据帧、矩阵和数组](#数据帧矩阵和数组)）。DataFrame 类似于关系数据库中的表：
+数据科学家和统计学家通常习惯使用 R 和 Pandas 中的 DataFrame 数据模型（参见[数据帧、矩阵和数组](#数据帧矩阵和数组)）。
+DataFrame 类似于关系数据库中的表：
 它是行的集合，同一列中的所有值都具有相同类型。
 用户无需编写一个大型 SQL 查询，
 而是调用与关系算子相对应的函数来执行过滤、
@@ -22425,77 +22791,95 @@ Venice 支持混合存储，
 [1] Nathan Marz. "How to Beat the CAP Theorem." *nathanmarz.com*，
 2011 年 10 月。存档于 *perma.cc/4BS9-R9A4*
 
-[2] Molly Bartlett Dishman and Martin Fowler. "Agile Architecture." 发表于 O'Reilly Software Architecture Conference，
-2015 年 3 月。
+[2] Molly Bartlett Dishman and Martin Fowler. "Agile Architecture." 发表于 O'Reilly
+Software Architecture Conference， 2015 年 3 月。
 
-[3] Jeffrey Dean and Sanjay Ghemawat. "MapReduce: Simplified Data Processing on Large Clusters." 发表于第 6 届 USENIX Symposium on Operating System Design and Implementation（OSDI），
-2004 年 12 月。
+[3] Jeffrey Dean and Sanjay Ghemawat. "MapReduce: Simplified Data Processing on
+Large Clusters." 发表于第 6 届 USENIX Symposium on Operating System Design and
+Implementation（OSDI）， 2004 年 12 月。
 
-[4] Shivnath Babu and Herodotos Herodotou. "Massively Parallel Databases and MapReduce Systems." Foundations and Trends in Databases，
-第 5 卷第 1 期，
-第 1–104 页，2013 年 11 月。doi:10.1561/1900000036
+[4] Shivnath Babu and Herodotos Herodotou. "Massively Parallel Databases and
+MapReduce Systems." Foundations and Trends in Databases， 第 5 卷第 1 期， 第 1–104 页，
+2013 年 11 月。doi:10.1561/1900000036
 
-[5] David J. DeWitt and Michael Stonebraker. "MapReduce: A Major Step Backwards." 最初于 2008 年 1 月发表于 databasecolumn.vertica.com。存档于 perma.cc/U8PA-K48V
+[5] David J. DeWitt and Michael Stonebraker. "MapReduce: A Major Step
+Backwards." 最初于 2008 年 1 月发表于 databasecolumn.vertica.com。存档于 perma.cc/U8PA-K48V
 
-[6] Henry Robinson. "The Elephant Was a Trojan Horse: On the Death of Map-Reduce at Google." *the-paper-trail.org*，
-2014 年 6 月。存档于 *perma.cc/9FEM-X787*
+[6] Henry Robinson. "The Elephant Was a Trojan Horse: On the Death of Map-Reduce
+at Google." *the-paper-trail.org*， 2014 年 6 月。存档于 *perma.cc/9FEM-X787*
 
-[7] Urs Hölzle. "R.I.P. MapReduce. After having served us well since 2003, today we removed the remaining internal codebase for good." x.com，
-2019 年 9 月。存档于 perma.cc/B34T-LLY7
+[7] Urs Hölzle. "R.I.P. MapReduce. After having served us well since 2003, today
+we removed the remaining internal codebase for good." x.com， 2019 年 9 月。存档于
+perma.cc/B34T-LLY7
 
-[8] Adam Drake. “Command-Line Tools Can Be 235x Faster than Your Hadoop Cluster.” aadrake.com，
-2014 年 1 月。存档于 perma.cc/87SP-ZMCY
+[8] Adam Drake. “Command-Line Tools Can Be 235x Faster than Your Hadoop
+Cluster.” aadrake.com， 2014 年 1 月。存档于 perma.cc/87SP-ZMCY
 
 [9] "sort: Sort Text Files." GNU Coreutils 9.7 文档，
 Free Software Foundation, Inc.，2025 年。存档于 perma.cc/68KN-E8TL
 
-[10] Michael Ovsiannikov, Silvius Rus, Damian Reeves, Paul Sutter, Sriram Rao, and Jim Kelly. "The Quantcast File System." Proceedings of the VLDB Endowment，
-第 6 卷第 11 期，
-第 1092–1101 页，
-2013 年 8 月。doi:10.14778/2536222.2536234
+[10] Michael Ovsiannikov, Silvius Rus, Damian Reeves, Paul Sutter, Sriram Rao,
+and Jim Kelly. "The Quantcast File System." Proceedings of the VLDB Endowment， 第
+6 卷第 11 期， 第 1092–1101 页， 2013 年 8 月。doi:10.14778/2536222.2536234
 
-[11] Andrew Wang, Zhe Zhang, Kai Zheng, Uma Maheswara G., and Vinayakumar B. "Introduction to HDFS Erasure Coding in Apache Hadoop." blog.cloudera.com，
-2015 年 9 月。存档于 archive.org
+[11] Andrew Wang, Zhe Zhang, Kai Zheng, Uma Maheswara G., and Vinayakumar B.
+"Introduction to HDFS Erasure Coding in Apache Hadoop." blog.cloudera.com， 2015
+年 9 月。存档于 archive.org
 
-[12] Andy Warfield. “Building and Operating a Pretty Big Storage System Called S3.” *allthingsdistributed.com*，
-2023 年 7 月。存档于 *perma.cc/7LPK-TP7V*
+[12] Andy Warfield. “Building and Operating a Pretty Big Storage System Called
+S3.” *allthingsdistributed.com*， 2023 年 7 月。存档于 *perma.cc/7LPK-TP7V*
 
-[13] Vinod Kumar Vavilapalli, Arun C. Murthy, Chris Douglas, Sharad Agarwal, Mahadev Konar, Robert Evans, Thomas Graves, Jason Lowe, Hitesh Shah, Siddharth Seth, Bikas Saha, Carlo Curino, Owen O'Malley, Sanjay Radia, Benjamin Reed, and Eric Baldeschwieler. "Apache Hadoop YARN: Yet Another Resource Negotiator." 发表于第 4 届 Annual Symposium on Cloud Computing（SoCC），
-2013 年 10 月。doi:10.1145/2523616.2523633
+[13] Vinod Kumar Vavilapalli, Arun C. Murthy, Chris Douglas, Sharad Agarwal,
+Mahadev Konar, Robert Evans, Thomas Graves, Jason Lowe, Hitesh Shah, Siddharth
+Seth, Bikas Saha, Carlo Curino, Owen O'Malley, Sanjay Radia, Benjamin Reed, and
+Eric Baldeschwieler. "Apache Hadoop YARN: Yet Another Resource Negotiator." 发表于第
+4 届 Annual Symposium on Cloud Computing（SoCC）， 2013 年 10 月。
+doi:10.1145/2523616.2523633
 
-[14] Richard M. Karp. "Reducibility Among Combinatorial Problems." *Complexity of Computer Computations. The IBM Research Symposia Series*. Springer，1972 年。doi:10.1007/978-1-4684-2001-2_9
+[14] Richard M. Karp. "Reducibility Among Combinatorial Problems." *Complexity
+of Computer Computations. The IBM Research Symposia Series*. Springer，1972 年。
+doi:10.1007/978-1-4684-2001-2_9
 
-[15] J. D. Ullman. "NP-Complete Scheduling Problems." Journal of Computer and System Sciences，
-第 10 卷第 3 期，
-第 384–393 页，
-1975 年 6 月。doi:10.1016/S0022-0000(75)80008-0
+[15] J. D. Ullman. "NP-Complete Scheduling Problems." Journal of Computer and
+System Sciences， 第 10 卷第 3 期， 第 384–393 页， 1975 年 6 月。
+doi:10.1016/S0022-0000(75)80008-0
 
-[16] Gilad David Maayan. "The Complete Guide to Spot Instances on AWS, Azure and GCP." datacenterdynamics.com，
-2021 年 3 月。存档于 archive.org
+[16] Gilad David Maayan. "The Complete Guide to Spot Instances on AWS, Azure and
+GCP." datacenterdynamics.com， 2021 年 3 月。存档于 archive.org
 
-[17] Abhishek Verma, Luis Pedrosa, Madhukar Korupolu, David Oppenheimer, Eric Tune, and John Wilkes. "Large-Scale Cluster Management at Google with Borg." 发表于第 10 届 European Conference on Computer Systems（EuroSys），
-2015 年 4 月。doi:10.1145/2741948.2741964
+[17] Abhishek Verma, Luis Pedrosa, Madhukar Korupolu, David Oppenheimer, Eric
+Tune, and John Wilkes. "Large-Scale Cluster Management at Google with Borg."
+发表于第 10 届 European Conference on Computer Systems（EuroSys）， 2015 年 4 月。
+doi:10.1145/2741948.2741964
 
-[18] Matei Zaharia, Mosharaf Chowdhury, Tathagata Das, Ankur Dave, Justin Ma, Murphy McCauley, Michael J. Franklin, Scott Shenker, and Ion Stoica. "Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing." 发表于第 9 届 USENIX Symposium on Networked Systems Design and Implementation（NSDI），
-2012 年 4 月。
+[18] Matei Zaharia, Mosharaf Chowdhury, Tathagata Das, Ankur Dave, Justin Ma,
+Murphy McCauley, Michael J. Franklin, Scott Shenker, and Ion Stoica. "Resilient
+Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster
+Computing." 发表于第 9 届 USENIX Symposium on Networked Systems Design and
+Implementation（NSDI）， 2012 年 4 月。
 
-[19] Paris Carbone, Stephan Ewen, Seif Haridi, Asterios Katsifodimos, Volker Markl, and Kostas Tzoumas. "Apache Flink: Stream and Batch Processing in a Single Engine." Bulletin of the IEEE Computer Society Technical Committee on Data Engineering，
-第 38 卷第 4 期，
-第 28–38 页，2015 年 12 月。存档于 perma.cc/G3N3-BKX5
+[19] Paris Carbone, Stephan Ewen, Seif Haridi, Asterios Katsifodimos, Volker
+Markl, and Kostas Tzoumas. "Apache Flink: Stream and Batch Processing in a
+Single Engine." Bulletin of the IEEE Computer Society Technical Committee on
+Data Engineering， 第 38 卷第 4 期， 第 28–38 页，2015 年 12 月。存档于 perma.cc/G3N3-BKX5
 
-[20] Mark Grover, Ted Malaska, Jonathan Seidman, and Gwen Shapira. *Hadoop Application Architectures*. O'Reilly Media，2015 年。ISBN: 9781491900048
+[20] Mark Grover, Ted Malaska, Jonathan Seidman, and Gwen Shapira. *Hadoop
+Application Architectures*. O'Reilly Media，2015 年。ISBN: 9781491900048
 
-[21] Jules S. Damji, Brooke Wenig, Tathagata Das, and Denny Lee. *Learning Spark*，
-第 2 版。O'Reilly Media，2020 年。ISBN: 9781492050049
+[21] Jules S. Damji, Brooke Wenig, Tathagata Das, and Denny Lee. *Learning
+Spark*， 第 2 版。O'Reilly Media，2020 年。ISBN: 9781492050049
 
-[22] Michael Isard, Mihai Budiu, Yuan Yu, Andrew Birrell, and Dennis Fetterly. "Dryad: Distributed Data-Parallel Programs from Sequential Building Blocks." 发表于第 2 届 European Conference on Computer Systems（EuroSys），
-2007 年 3 月。doi:10.1145/1272996.1273005
+[22] Michael Isard, Mihai Budiu, Yuan Yu, Andrew Birrell, and Dennis Fetterly.
+"Dryad: Distributed Data-Parallel Programs from Sequential Building Blocks."
+发表于第 2 届 European Conference on Computer Systems（EuroSys）， 2007 年 3 月。
+doi:10.1145/1272996.1273005
 
-[23] Daniel Warneke and Odej Kao. "Nephele: Efficient Parallel Data Processing in the Cloud." 发表于第 2 届 Workshop on Many-Task Computing on Grids and Supercomputers（MTAGS），
-2009 年 11 月。doi:10.1145/1646468.1646476
+[23] Daniel Warneke and Odej Kao. "Nephele: Efficient Parallel Data Processing
+in the Cloud." 发表于第 2 届 Workshop on Many-Task Computing on Grids and
+Supercomputers（MTAGS）， 2009 年 11 月。doi:10.1145/1646468.1646476
 
-[24] Hossein Ahmadi. "In-Memory Query Execution in Google BigQuery." cloud.google.com，
-2016 年 8 月。存档于 perma.cc/DGG2-FL9W
+[24] Hossein Ahmadi. "In-Memory Query Execution in Google BigQuery."
+cloud.google.com， 2016 年 8 月。存档于 perma.cc/DGG2-FL9W
 
 [25] Tom White. *Hadoop: The Definitive Guide*，
 第 4 版。O'Reilly Media，2015 年。ISBN: 9781491901632
@@ -22503,65 +22887,73 @@ Free Software Foundation, Inc.，2025 年。存档于 perma.cc/68KN-E8TL
 [26] Fabian Hueske. "Peeking into Apache Flink's Engine Room." flink.apache.org，
 2015 年 3 月。存档于 perma.cc/44BW-ALJX
 
-[27] Mostafa Mokhtar. "Hive 0.14 Cost Based Optimizer (CBO) Technical Overview." hortonworks.com，
-2015 年 3 月。存档于 archive.org
+[27] Mostafa Mokhtar. "Hive 0.14 Cost Based Optimizer (CBO) Technical Overview."
+hortonworks.com， 2015 年 3 月。存档于 archive.org
 
-[28] Michael Armbrust, Reynold S. Xin, Cheng Lian, Yin Huai, Davies Liu, Joseph K. Bradley, Xiangrui Meng, Tomer Kaftan, Michael J. Franklin, Ali Ghodsi, and Matei Zaharia. "Spark SQL: Relational Data Processing in Spark." 发表于 ACM International Conference on Management of Data（SIGMOD），
-2015 年 6 月。doi:10.1145/2723372.2742797
+[28] Michael Armbrust, Reynold S. Xin, Cheng Lian, Yin Huai, Davies Liu, Joseph
+K. Bradley, Xiangrui Meng, Tomer Kaftan, Michael J. Franklin, Ali Ghodsi, and
+Matei Zaharia. "Spark SQL: Relational Data Processing in Spark." 发表于 ACM
+International Conference on Management of Data（SIGMOD）， 2015 年 6 月。
+doi:10.1145/2723372.2742797
 
-[29] Kaya Kupferschmidt. "Spark vs. Pandas, Part 2—Spark." towardsdatascience.com，
-2020 年 10 月。存档于 perma.cc/5BRK-G4N5
+[29] Kaya Kupferschmidt. "Spark vs. Pandas, Part 2—Spark."
+towardsdatascience.com， 2020 年 10 月。存档于 perma.cc/5BRK-G4N5
 
 [30] Ammar Chalifah. "Tracking Payments at Scale." bolt.eu.com，
 2025 年 6 月。存档于 perma.cc/Q4KX-8K3J
 
-[31] Nafi Ahmet Turgut, Hamza Akyildiz, Hasan Burak Yel, Mehmet Ikbal Ozmen, Mutlu Polatcan, Pinar Baki, and Esra Kayabali. "Demand Forecasting at Getir Built with Amazon Forecast." aws.amazon.com，
-2023 年 5 月。存档于 perma.cc/H3H6-GNL7
+[31] Nafi Ahmet Turgut, Hamza Akyildiz, Hasan Burak Yel, Mehmet Ikbal Ozmen,
+Mutlu Polatcan, Pinar Baki, and Esra Kayabali. "Demand Forecasting at Getir
+Built with Amazon Forecast." aws.amazon.com， 2023 年 5 月。存档于 perma.cc/H3H6-GNL7
 
-[32] Jason (Siyu) Zhu. "Enhancing Homepage Feed Relevance by Harnessing the Power of Large Corpus Sparse ID Embeddings." linkedin.com，
-2023 年 8 月。存档于 archive.org
+[32] Jason (Siyu) Zhu. "Enhancing Homepage Feed Relevance by Harnessing the
+Power of Large Corpus Sparse ID Embeddings." linkedin.com， 2023 年 8 月。存档于
+archive.org
 
-[33] Avery Ching, Sital Kedia, and Shuojie Wang. "Apache Spark @Scale: A 60 TB+ Production Use Case." engineering.fb.com，
-2016 年 8 月。存档于 perma.cc/F7R5-YFAV
+[33] Avery Ching, Sital Kedia, and Shuojie Wang. "Apache Spark @Scale: A 60 TB+
+Production Use Case." engineering.fb.com， 2016 年 8 月。存档于 perma.cc/F7R5-YFAV
 
-[34] Edward Kim. "How ACH Works: A Developer Perspective—Part 1." *engineering.gusto.com*，
-2014 年 4 月。存档于 *perma.cc/F67P-VBLK*
+[34] Edward Kim. "How ACH Works: A Developer Perspective—Part 1."
+*engineering.gusto.com*， 2014 年 4 月。存档于 *perma.cc/F67P-VBLK*
 
-[35] Zhamak Dehghani. "How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh." martinfowler.com，
-2019 年 5 月。存档于 perma.cc/LN2L-L4VC
+[35] Zhamak Dehghani. "How to Move Beyond a Monolithic Data Lake to a
+Distributed Data Mesh." martinfowler.com， 2019 年 5 月。存档于 perma.cc/LN2L-L4VC
 
 [36] Chris Riccomini. “What the Heck Is a Data Mesh?!” *cnr.sh*，
 2021 年 6 月。存档于 *perma.cc/NEJ2-BAX3*
 
-[37] Chad Sanderson, Mark Freeman, and B. E. Schmidt. *Data Contracts*. O'Reilly Media，2025 年。ISBN: 9781098157623
+[37] Chad Sanderson, Mark Freeman, and B. E. Schmidt. *Data Contracts*. O'Reilly
+Media，2025 年。ISBN: 9781098157623
 
-[38] Daniel Abadi. “Data Fabric vs. Data Mesh: What’s the Difference?” starburst.io，
-2021 年 11 月。存档于 perma.cc/RSK3-HXDK
+[38] Daniel Abadi. “Data Fabric vs. Data Mesh: What’s the Difference?”
+starburst.io， 2021 年 11 月。存档于 perma.cc/RSK3-HXDK
 
-[39] Michael Armbrust, Ali Ghodsi, Reynold Xin, and Matei Zaharia. "Lakehouse: A New Generation of Open Platforms That Unify Data Warehousing and Advanced Analytics." 发表于第 11 届 Annual Conference on Innovative Data Systems Research（CIDR），
-2021 年 1 月。存档于 perma.cc/7C6D-T9NR
+[39] Michael Armbrust, Ali Ghodsi, Reynold Xin, and Matei Zaharia. "Lakehouse: A
+New Generation of Open Platforms That Unify Data Warehousing and Advanced
+Analytics." 发表于第 11 届 Annual Conference on Innovative Data Systems
+Research（CIDR）， 2021 年 1 月。存档于 perma.cc/7C6D-T9NR
 
-[40] Leslie G. Valiant. "A Bridging Model for Parallel Computation." *Communications of the ACM*，
-第 33 卷第 8 期，
-第 103–111 页，
-1990 年 8 月。doi:10.1145/79173.79181
+[40] Leslie G. Valiant. "A Bridging Model for Parallel Computation."
+*Communications of the ACM*， 第 33 卷第 8 期， 第 103–111 页， 1990 年 8 月。
+doi:10.1145/79173.79181
 
-[41] Stephan Ewen, Kostas Tzoumas, Moritz Kaufmann, and Volker Markl. "Spinning Fast Iterative Data Flows." Proceedings of the VLDB Endowment，
-第 5 卷第 11 期，
-第 1268–1279 页，
-2012 年 7 月。doi:10.14778/2350229.2350245
+[41] Stephan Ewen, Kostas Tzoumas, Moritz Kaufmann, and Volker Markl. "Spinning
+Fast Iterative Data Flows." Proceedings of the VLDB Endowment， 第 5 卷第 11 期， 第
+1268–1279 页， 2012 年 7 月。doi:10.14778/2350229.2350245
 
-[42] Grzegorz Malewicz, Matthew H. Austern, Aart J. C. Bik, James C. Dehnert, Ilan Horn, Naty Leiser, and Grzegorz Czajkowski. “Pregel: A System for Large-Scale Graph Processing.” 发表于 ACM International Conference on Management of Data（SIGMOD），
-2010 年 6 月。doi:10.1145/1807167.1807184
+[42] Grzegorz Malewicz, Matthew H. Austern, Aart J. C. Bik, James C. Dehnert,
+Ilan Horn, Naty Leiser, and Grzegorz Czajkowski. “Pregel: A System for
+Large-Scale Graph Processing.” 发表于 ACM International Conference on Management of
+Data（SIGMOD）， 2010 年 6 月。doi:10.1145/1807167.1807184
 
-[43] Richard MacManus. “OpenAI Chats About Scaling LLMs at Anyscale’s Ray Summit.” thenewstack.io，
-2023 年 9 月。存档于 perma.cc/YJD6-KUXU
+[43] Richard MacManus. “OpenAI Chats About Scaling LLMs at Anyscale’s Ray
+Summit.” thenewstack.io， 2023 年 9 月。存档于 perma.cc/YJD6-KUXU
 
-[44] Jay Kreps. "Why Local State Is a Fundamental Primitive in Stream Processing." oreilly.com，
-2014 年 7 月。存档于 perma.cc/P8HU-R5LA
+[44] Jay Kreps. "Why Local State Is a Fundamental Primitive in Stream
+Processing." oreilly.com， 2014 年 7 月。存档于 perma.cc/P8HU-R5LA
 
-[45] Félix GV. “Open Sourcing Venice—LinkedIn’s Derived Data Platform.” linkedin.com，
-2022 年 9 月。存档于 archive.org
+[45] Félix GV. “Open Sourcing Venice—LinkedIn’s Derived Data Platform.”
+linkedin.com， 2022 年 9 月。存档于 archive.org
 
 # 流处理
 
@@ -24592,27 +24984,24 @@ VoltDB 通过在多个节点上冗余处理每条输入消息来复制状态（�
 
 ## 参考文献  
 
-[1] Tyler Akidau, Robert Bradshaw, Craig Chambers, Slava Chernyak, Rafael J. Fernández-Moctezuma, Reuven Lax, Sam McVeety, Daniel Mills, Frances Perry, Eric Schmidt, and Sam Whittle. “Dataflow 模型：
-在大规模、无界、乱序数据处理中平衡正确性、
-延迟与成本的实用方法。”
-《VLDB Endowment 论文集》，
-第 8 卷第 12 期，
-第 1792–1803 页，
-2015 年 8 月。doi:10.14778/2824032.2824076  
+[1] Tyler Akidau, Robert Bradshaw, Craig Chambers, Slava Chernyak, Rafael J.
+Fernández-Moctezuma, Reuven Lax, Sam McVeety, Daniel Mills, Frances Perry,
+Eric Schmidt, and Sam Whittle. “Dataflow 模型： 在大规模、无界、乱序数据处理中平衡正确性、
+延迟与成本的实用方法。” 《VLDB Endowment 论文集》， 第 8 卷第 12 期， 第 1792–1803 页， 2015 年 8 月。
+doi:10.14778/2824032.2824076  
 
-[2] Harold Abelson, Gerald Jay Sussman, and Julie Sussman. *Structure and Interpretation of Computer Programs*，
-第 2 版。MIT Press，
-1996。ISBN: 9780262510875。存档于 archive.org  
+[2] Harold Abelson, Gerald Jay Sussman, and Julie Sussman. *Structure and
+Interpretation of Computer Programs*， 第 2 版。MIT Press， 1996。ISBN:
+9780262510875。存档于 archive.org  
 
-[3] Patrick Th. Eugster, Pascal A. Felber, Rachid Guerraoui, and Anne-Marie Kermarrec. “发布/订阅的多种面貌。”
-《ACM Computing Surveys》，
-第 35 卷第 2 期，
-第 114–131 页，
+[3] Patrick Th. Eugster, Pascal A. Felber, Rachid Guerraoui, and Anne-Marie
+Kermarrec. “发布/订阅的多种面貌。” 《ACM Computing Surveys》， 第 35 卷第 2 期， 第 114–131 页，
 2003 年 6 月。doi:10.1145/857076.857078  
 
-[4] Don Carney, Ugur Cetintemel, Mitch Cherniack, Christian Convey, Sangdon Lee, Greg Seidman, Michael Stonebraker, Nesime Tatbul, and Stan Zdonik. “监控流——一类新的数据管理应用。”
-第 28 届超大型数据库国际会议（VLDB），
-2002 年 8 月。doi:10.1016/B978-155860869-6/50027-5  
+[4] Don Carney, Ugur Cetintemel, Mitch Cherniack, Christian Convey, Sangdon
+Lee, Greg Seidman, Michael Stonebraker, Nesime Tatbul, and Stan Zdonik. “监控流——
+一类新的数据管理应用。” 第 28 届超大型数据库国际会议（VLDB）， 2002 年 8 月。
+doi:10.1016/B978-155860869-6/50027-5  
 
 [5] Matthew Sackman. “施加背压。”wellquite.org，2016 年 5 月。存档于 perma.cc/3KCZ-RUFY  
 
@@ -24642,13 +25031,15 @@ grafana.com，
 
 [12] Jim N. Gray. “队列就是数据库。”微软研究院技术报告 MSR-TR-95-56，1995 年 12 月。存档于 arxiv.org  
 
-[13] Mark Hapner, Rich Burridge, Rahul Sharma, Joseph Fialli, Kate Stout, and Nigel Deakin. “JSR-343 Java 消息服务（JMS）
-2.0 规范。”*jms-spec.java.net*，
-2013 年 3 月。存档于 *perma.cc/E4YG-46TA*  
+[13] Mark Hapner, Rich Burridge, Rahul Sharma, Joseph Fialli, Kate Stout, and
+Nigel Deakin. “JSR-343 Java 消息服务（JMS） 2.0 规范。”*jms-spec.java.net*， 2013 年 3 月。
+存档于 *perma.cc/E4YG-46TA*  
 
-[14] Sanjay Aiyagari, Matthew Arrott, Mark Atwell, Jason Brome, Alan Conway, Robert Godfrey, Robert Greig, Pieter Hintjens, John O'Hara, Matthias Radestock, Alexis Richardson, Martin Ritchie, Shahrokh Sadjadi, Rafael Schlooming, Steven Shaw, Martin Sustrik, Carl Triellof, Kim van der Riet, and Steve Vinoski. “AMQP：
-高级消息队列协议规范。”
-版本 0-9-1，2008 年 11 月。存档于 perma.cc/6YJJ-GM9X  
+[14] Sanjay Aiyagari, Matthew Arrott, Mark Atwell, Jason Brome, Alan Conway,
+Robert Godfrey, Robert Greig, Pieter Hintjens, John O'Hara, Matthias
+Radestock, Alexis Richardson, Martin Ritchie, Shahrokh Sadjadi, Rafael
+Schlooming, Steven Shaw, Martin Sustrik, Carl Triellof, Kim van der Riet, and
+Steve Vinoski. “AMQP： 高级消息队列协议规范。” 版本 0-9-1，2008 年 11 月。存档于 perma.cc/6YJJ-GM9X  
 
 [15] “Pub/Sub 架构概览。”cloud.google.com，2025。存档于 perma.cc/VWF5-ABP4  
 
@@ -24745,13 +25136,12 @@ engineeringblog.yelp.com，
 第 18 卷第 2 期，
 第 3–18 页，1995 年 6 月。存档于 archive.org  
 
-[38] Mihai Budiu, Tej Chajed, Frank McSherry, Leonid Ryzhyk, and Val Tannen. “DBSP：
-流上的增量计算及其在数据库中的应用。”
-《SIGMOD Record》，
-第 53 卷第 1 期，
-第 87–95 页，2024 年 3 月。doi:10.1145/3665252.3665271  
+[38] Mihai Budiu, Tej Chajed, Frank McSherry, Leonid Ryzhyk, and Val Tannen.
+“DBSP： 流上的增量计算及其在数据库中的应用。” 《SIGMOD Record》， 第 53 卷第 1 期， 第 87–95 页，2024 年 3 月。
+doi:10.1145/3665252.3665271  
 
-[39] Jim Gray and Andreas Reuter. *Transaction Processing: Concepts and Techniques*. Morgan Kaufmann，1992。ISBN: 9781558601901  
+[39] Jim Gray and Andreas Reuter. *Transaction Processing: Concepts and
+Techniques*. Morgan Kaufmann，1992。ISBN: 9781558601901  
 
 [40] Martin Kleppmann. “面向计算机科学家的会计学。”
 martin.kleppmann.com，
@@ -24818,10 +25208,9 @@ complexevents.com，
 第 7 卷第 11 期，
 2009 年 12 月。doi:10.1145/1661785.1667562  
 
-[55] Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier. “HyperLogLog：
-一种近乎最优的基数估计算法分析。”
-算法分析会议（AofA），
-2007 年 6 月。doi:10.46298/dmtcs.3545  
+[55] Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier.
+“HyperLogLog： 一种近乎最优的基数估计算法分析。” 算法分析会议（AofA）， 2007 年 6 月。
+doi:10.46298/dmtcs.3545  
 
 [56] Jay Kreps. “质疑 Lambda 架构。”oreilly.com，2014 年 7 月。存档于 perma.cc/2WY5-HC8Y  
 
@@ -24837,9 +25226,8 @@ oreilly.com，
 计算模型。”*risingwave.com*，
 2023 年 11 月。存档于 *perma.cc/LM74-XDEL*  
 
-[60] Frank McSherry, Derek G. Murray, Rebecca Isaacs, and Michael Isard. “差分数据流。”
-第 6 届创新数据系统研究双年会（CIDR），
-2013 年 1 月。存档于 perma.cc/T83W-ZBR2  
+[60] Frank McSherry, Derek G. Murray, Rebecca Isaacs, and Michael Isard.
+“差分数据流。” 第 6 届创新数据系统研究双年会（CIDR）， 2013 年 1 月。存档于 perma.cc/T83W-ZBR2  
 
 [61] Andy Hattemer. “数据库中的增量计算。”
 *materialize.com*，
@@ -24860,12 +25248,10 @@ oreilly.com，
 *Kafka Summit*，
 2016 年 4 月。存档于 *perma.cc/QBQ4-F9MR*  
 
-[66] Tyler Akidau, Alex Balikov, Kaya Bekiroğlu, Slava Chernyak, Josh Haberman, Reuven Lax, Sam McVeety, Daniel Mills, Paul Nordstrom, and Sam Whittle. “MillWheel：
-互联网规模的容错流处理。”
-《VLDB Endowment 论文集》，
-第 6 卷第 11 期，
-第 1033–1044 页，
-2013 年 8 月。doi:10.14778/2536222.2536229  
+[66] Tyler Akidau, Alex Balikov, Kaya Bekiroğlu, Slava Chernyak, Josh
+Haberman, Reuven Lax, Sam McVeety, Daniel Mills, Paul Nordstrom, and Sam
+Whittle. “MillWheel： 互联网规模的容错流处理。” 《VLDB Endowment 论文集》， 第 6 卷第 11 期， 第
+1033–1044 页， 2013 年 8 月。doi:10.14778/2536222.2536229  
 
 [67] Alex Dean. “改善 Snowplow 对时间的理解。”
 snowplow.io，
@@ -24876,10 +25262,10 @@ snowplow.io，
 learn.microsoft.com，
 2025 年 7 月。存档于 archive.org  
 
-[69] Rajagopal Ananthanarayanan, Venkatesh Basker, Sumit Das, Ashish Gupta, Haifeng Jiang, Tianhao Qiu, Alexey Reznichenko, Deomid Ryabkov, Manpreet Singh, and Shivakumar Venkataraman. “Photon：
-连续数据流的容错可扩展连接。”
-ACM 数据管理国际会议（SIGMOD），
-2013 年 6 月。doi:10.1145/2463676.2465272  
+[69] Rajagopal Ananthanarayanan, Venkatesh Basker, Sumit Das, Ashish Gupta,
+Haifeng Jiang, Tianhao Qiu, Alexey Reznichenko, Deomid Ryabkov, Manpreet
+Singh, and Shivakumar Venkataraman. “Photon： 连续数据流的容错可扩展连接。” ACM
+数据管理国际会议（SIGMOD）， 2013 年 6 月。doi:10.1145/2463676.2465272  
 
 [70] Ben Kirwin. “实现不可能之事：
 Kafka 中的恰好一次消息传递模式。”
@@ -24890,26 +25276,24 @@ ben.kirw.in，
 第 2 届创新数据系统研究双年会（CIDR），
 2005 年 1 月。存档于 perma.cc/K9AH-LQPS  
 
-[72] Ralph Kimball and Margy Ross. *The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling*，
-第 3 版。John Wiley & Sons，2013。ISBN: 9781118530801  
+[72] Ralph Kimball and Margy Ross. *The Data Warehouse Toolkit: The Definitive
+Guide to Dimensional Modeling*， 第 3 版。John Wiley & Sons，2013。ISBN:
+9781118530801  
 
 [73] Viktor Klang. “我创造了‘effectively-once’（有效一次）
 这个说法，用来指代至少一次 + 幂等操作的消息处理。”
 x.com，2016 年 10 月。存档于 perma.cc/7DT9-TDG2  
 
-[74] Matei Zaharia, Tathagata Das, Haoyuan Li, Scott Shenker, and Ion Stoica. “离散化流：
-大型集群上高效且容错的流处理模型。”
-第 4 届 USENIX 云计算热点会议（HotCloud），
-2012 年 6 月。  
+[74] Matei Zaharia, Tathagata Das, Haoyuan Li, Scott Shenker, and Ion Stoica.
+“离散化流： 大型集群上高效且容错的流处理模型。” 第 4 届 USENIX 云计算热点会议（HotCloud）， 2012 年 6 月。  
 
 [75] Kostas Tzoumas, Stephan Ewen, and Robert Metzger. “使用 Apache Flink 实现高吞吐量、
 低延迟和恰好一次的流处理。”
 *ververica.com*，
 2015 年 8 月。存档于 *archive.org*  
 
-[76] Paris Carbone, Gyula Fóra, Stephan Ewen, Seif Haridi, and Kostas Tzoumas. “分布式数据流的轻量级异步快照。”
-arXiv:1506.08603，
-2015 年 6 月。  
+[76] Paris Carbone, Gyula Fóra, Stephan Ewen, Seif Haridi, and Kostas Tzoumas.
+“分布式数据流的轻量级异步快照。” arXiv:1506.08603， 2015 年 6 月。  
 
 [77] Ryan Betts and John Hugg. *Fast Data: Smart and at Scale*. 报告，
 O'Reilly Media，
@@ -24920,9 +25304,9 @@ Kafka 是这样实现的。”
 *confluent.io*，
 2019 年 6 月。存档于 *perma.cc/Q2AU-Q2ED*  
 
-[79] Jason Gustafson, Flavio Junqueira, Apurva Mehta, Sriram Subramanian, and Guozhang Wang. “KIP-98——恰好一次投递与事务性消息传递。”
-cwiki.apache.org，
-2016 年 11 月。存档于 perma.cc/95PT-RCTG  
+[79] Jason Gustafson, Flavio Junqueira, Apurva Mehta, Sriram Subramanian, and
+Guozhang Wang. “KIP-98——恰好一次投递与事务性消息传递。” cwiki.apache.org， 2016 年 11 月。存档于
+perma.cc/95PT-RCTG  
 
 [80] Pat Helland. “幂等性不是一种疾病。”
 《Communications of the ACM》，
@@ -24934,10 +25318,8 @@ cwiki.apache.org，
 发送至 samza-dev 邮件列表的电子邮件，
 2014 年 9 月。存档于 perma.cc/7DPD-GJNL  
 
-[82] E. N. (Mootaz) Elnozahy, Lorenzo Alvisi, Yi-Min Wang, and David B. Johnson. “消息传递系统中回滚恢复协议综述。”
-《ACM Computing Surveys》，
-第 34 卷第 3 期，
-第 375–408 页，
+[82] E. N. (Mootaz) Elnozahy, Lorenzo Alvisi, Yi-Min Wang, and David B.
+Johnson. “消息传递系统中回滚恢复协议综述。” 《ACM Computing Surveys》， 第 34 卷第 3 期， 第 375–408 页，
 2002 年 9 月。doi:10.1145/568522.568525  
 
 [83] Adam Warski. “Kafka Streams——它在流处理版图中处于什么位置？”
@@ -25112,7 +25494,8 @@ B 树和列式存储。在第 6 章讨论复制时，
   当两个事件源自不同服务时，
   它们之间没有定义好的顺序。  
 
-- 有些应用程序维护客户端状态，在收到用户输入后立即更新（不等待服务器确认），甚至可以继续离线工作。对于这类应用程序，客户端和服务器极有可能以不同顺序看到事件。  
+- 有些应用程序维护客户端状态，在收到用户输入后立即更新（不等待服务器确认），甚至可以继续离线工作。对于这类应用程序，
+  客户端和服务器极有可能以不同顺序看到事件。  
 
 从形式上讲，确定事件全序称为全序广播；
 正如我们在[共识的多种面貌](#共识的多种面貌)中看到的，
@@ -25152,7 +25535,8 @@ B 树和列式存储。在第 6 章讨论复制时，
   接收方仍然需要处理乱序交付的事件，
   并且还需要传递额外的元数据。  
 
-- 如果可以记录一个事件，用以表示用户做出决定前所看到的系统状态，并为该事件赋予唯一标识符，那么后续任何事件都可以引用这个事件标识符，以记录因果依赖 [4]。  
+- 如果可以记录一个事件，用以表示用户做出决定前所看到的系统状态，并为该事件赋予唯一标识符，那么后续任何事件都可以引用这个事件标识符，以记录因果依赖
+  [4]。  
 
 - 冲突解决算法（参见[自动解决冲突](#自动解决冲突)）
   有助于处理以意外顺序交付的事件。
@@ -25528,7 +25912,8 @@ Kafka 协议正在成为事件流事实上的标准，
   它提取被索引的列或字段中的值，
   并按这些值排序（这里假设使用的是按键排序的 SSTable 或 B 树索引）。
 
-- 全文搜索索引的创建过程，是先应用语言检测、分词、词干提取或词形还原、拼写纠正和同义词识别等各种自然语言处理函数，再构建用于高效查找的数据结构（例如倒排索引）。
+- 全文搜索索引的创建过程，是先应用语言检测、分词、词干提取或词形还原、拼写纠正和同义词识别等各种自然语言处理函数，
+  再构建用于高效查找的数据结构（例如倒排索引）。
 
 - 在机器学习系统中，我们可以认为模型是通过对训练数据应用各种特征提取和统计分析函数而派生的。
   当模型应用于新的输入数据时，
@@ -26765,9 +27150,8 @@ Bitcoin 和 Ethereum 等区块链是带有密码学一致性检查的共享型�
 rachbelaid.com，
 2015 年 7 月。存档于 perma.cc/ZVP9-YDCB
 
-[2] Philippe Ajoux, Nathan Bronson, Sanjeev Kumar, Wyatt Lloyd, and Kaushik Veeraraghavan. “大规模采用更强一致性所面临的挑战。”
-第 15 届 USENIX 操作系统热点研讨会（HotOS），
-2015 年 5 月。
+[2] Philippe Ajoux, Nathan Bronson, Sanjeev Kumar, Wyatt Lloyd, and Kaushik
+Veeraraghavan. “大规模采用更强一致性所面临的挑战。” 第 15 届 USENIX 操作系统热点研讨会（HotOS）， 2015 年 5 月。
 
 [3] Pat Helland and Dave Campbell. “在流沙上建造。”
 第 4 届两年一度的创新数据系统研究会议（CIDR），
@@ -26807,10 +27191,9 @@ Manning，2015。ISBN: 9781617290343
 
 [12] Jay Kreps. “质疑 Lambda 架构。” oreilly.com，2014 年 7 月。存档于 perma.cc/PGH6-XUCH
 
-[13] Raul Castro Fernandez, Peter Pietzuch, Jay Kreps, Neha Narkhede, Jun Rao, Joel Koshy, Dong Lin, Chris Riccomini, and Guozhang Wang. “Liquid：
-统一近线与离线大数据集成。”
-第 7 届两年一度的创新数据系统研究会议（CIDR），
-2015 年 1 月。存档于 perma.cc/QMA9-8PKL
+[13] Raul Castro Fernandez, Peter Pietzuch, Jay Kreps, Neha Narkhede, Jun Rao,
+Joel Koshy, Dong Lin, Chris Riccomini, and Guozhang Wang. “Liquid：
+统一近线与离线大数据集成。” 第 7 届两年一度的创新数据系统研究会议（CIDR）， 2015 年 1 月。存档于 perma.cc/QMA9-8PKL
 
 [14] Dennis M. Ritchie and Ken Thompson. “UNIX 分时系统。”
 *Communications of the ACM*，
@@ -26833,14 +27216,13 @@ cs.berkeley.edu，
 *wp.sigm.org*，
 2015 年 7 月。存档于 *perma.cc/G7J2-KR45*
 
-[18] Jennie Duggan, Aaron J. Elmore, Michael Stonebraker, Magda Balazinska, Bill Howe, Jeremy Kepner, Sam Madden, David Maier, Tim Mattson, and Stan Zdonik. “BigDAWG 多存储系统。”
-ACM SIGMOD Record，
-第 44 卷第 2 期，
-第 11–16 页，2015 年 6 月。doi:10.1145/2814710.2814713
+[18] Jennie Duggan, Aaron J. Elmore, Michael Stonebraker, Magda Balazinska, Bill
+Howe, Jeremy Kepner, Sam Madden, David Maier, Tim Mattson, and Stan Zdonik.
+“BigDAWG 多存储系统。” ACM SIGMOD Record， 第 44 卷第 2 期， 第 11–16 页，2015 年 6 月。
+doi:10.1145/2814710.2814713
 
-[19] David B. Lomet, Alan Fekete, Gerhard Weikum, and Mike Zwilling. “在云中拆分事务服务。”
-第 4 届两年一度的创新数据系统研究会议（CIDR），
-2009 年 1 月。存档于 arxiv.org
+[19] David B. Lomet, Alan Fekete, Gerhard Weikum, and Mike Zwilling.
+“在云中拆分事务服务。” 第 4 届两年一度的创新数据系统研究会议（CIDR）， 2009 年 1 月。存档于 arxiv.org
 
 [20] Martin Kleppmann and Jay Kreps. “Kafka、
 Samza 与 Unix 分布式数据哲学。”
@@ -26858,15 +27240,13 @@ voltactivedata.com，
 [23] Dan Bricklin and Bob Frankston. “VisiCalc：
 来自其创造者的信息。” danbricklin.com。存档于 archive.org
 
-[24] D. Sculley, Gary Holt, Daniel Golovin, Eugene Davydov, Todd Phillips, Dietmar Ebner, Vinay Chaudhary, and Michael Young. “机器学习：
-技术债务的高息信用卡。”
-NIPS 机器学习软件工程研讨会（SE4ML），
-2014 年 12 月。存档于 perma.cc/M3MD-U7WL
+[24] D. Sculley, Gary Holt, Daniel Golovin, Eugene Davydov, Todd Phillips,
+Dietmar Ebner, Vinay Chaudhary, and Michael Young. “机器学习： 技术债务的高息信用卡。” NIPS
+机器学习软件工程研讨会（SE4ML）， 2014 年 12 月。存档于 perma.cc/M3MD-U7WL
 
-[25] Peter Bailis, Alan Fekete, Michael J. Franklin, Ali Ghodsi, Joseph M. Hellerstein, and Ion Stoica. “野生并发控制：
-现代应用完整性的实证研究。”
-ACM 国际数据管理会议（SIGMOD），
-2015 年 6 月。doi:10.1145/2723372.2737784
+[25] Peter Bailis, Alan Fekete, Michael J. Franklin, Ali Ghodsi, Joseph M.
+Hellerstein, and Ion Stoica. “野生并发控制： 现代应用完整性的实证研究。” ACM 国际数据管理会议（SIGMOD）， 2015
+年 6 月。doi:10.1145/2723372.2737784
 
 [26] Guy Steele. “回复：
 需要宏（原主题：回复：
@@ -26890,18 +27270,16 @@ people.csail.mit.edu，
 *Strange Loop*，
 2014 年 9 月。存档于 *perma.cc/U6E8-A9MT*
 
-[32] Sebastian Burckhardt, Daan Leijen, Jonathan Protzenko, and Manuel Fähndrich. “全局序列协议：
-复制共享状态的稳健抽象。”
-第 29 届欧洲面向对象编程会议（ECOOP），
-2015 年 7 月。doi:10.4230/LIPIcs.ECOOP.2015.568
+[32] Sebastian Burckhardt, Daan Leijen, Jonathan Protzenko, and Manuel
+Fähndrich. “全局序列协议： 复制共享状态的稳健抽象。” 第 29 届欧洲面向对象编程会议（ECOOP）， 2015 年 7 月。
+doi:10.4230/LIPIcs.ECOOP.2015.568
 
 [33] Evan Czaplicki and Stephen Chong. “用于 GUI 的异步函数式响应式编程。”
 第 34 届 ACM SIGPLAN 编程语言设计与实现会议（PLDI），
 2013 年 6 月。doi:10.1145/2491956.2462161
 
-[34] Eno Thereska, Damian Guy, Michael Noll, and Neha Narkhede. “在 Apache Kafka 中统一流处理与交互式查询。”
-*confluent.io*，
-2016 年 10 月。存档于 *perma.cc/W8JG-EAZF*
+[34] Eno Thereska, Damian Guy, Michael Noll, and Neha Narkhede. “在 Apache Kafka
+中统一流处理与交互式查询。” *confluent.io*， 2016 年 10 月。存档于 *perma.cc/W8JG-EAZF*
 
 [35] Frank McSherry. “作为数据库的数据流。” github.com，2016 年 7 月。存档于 perma.cc/384D-DUFH
 
@@ -26920,9 +27298,8 @@ Kafka 及相关工具实现低延迟 Web 规模欺诈防范。”
 第 16 届国际数据工程会议（ICDE），
 2000 年 2 月。doi:10.1109/ICDE.2000.839387
 
-[41] Sudhir Jorwekar, Alan Fekete, Krithi Ramamritham, and S. Sudarshan. “自动检测快照隔离异常。”
-第 33 届超大型数据库国际会议（VLDB），
-2007 年 9 月。
+[41] Sudhir Jorwekar, Alan Fekete, Krithi Ramamritham, and S. Sudarshan.
+“自动检测快照隔离异常。” 第 33 届超大型数据库国际会议（VLDB）， 2007 年 9 月。
 
 [42] Kyle Kingsbury. “分布式系统安全性研究。” jepsen.io。
 
@@ -26936,12 +27313,10 @@ ACM Transactions on Computer Systems，
 第 277–288 页，
 1984 年 11 月。doi:10.1145/357401.357402
 
-[45] Peter Bailis, Alan Fekete, Michael J. Franklin, Ali Ghodsi, Joseph M. Hellerstein, and Ion Stoica. “数据库系统中的协调规避。”
-Proceedings of the VLDB Endowment，
-第 8 卷第 3 期，
-第 185–196 页，
-2014 年 11 月。
-doi:10.14778/2735508.2735509，扩展版本以 arXiv:1402.2237 发表
+[45] Peter Bailis, Alan Fekete, Michael J. Franklin, Ali Ghodsi, Joseph M.
+Hellerstein, and Ion Stoica. “数据库系统中的协调规避。” Proceedings of the VLDB Endowment， 第
+8 卷第 3 期， 第 185–196 页， 2014 年 11 月。 doi:10.14778/2735508.2735509，扩展版本以
+arXiv:1402.2237 发表
 
 [46] Alex Yarmula. “Manhattan 中的强一致性。” blog.x.com，2016 年 3 月。存档于 archive.org
 
@@ -27723,7 +28098,8 @@ idlewords.com，
 *zdnet.com*，
 2020 年 11 月。存档于 *perma.cc/3MKW-YKRS*
 
-[17] Cathy O'Neil. *Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy*. Crown Publishing，2016 年。ISBN: 9780553418811
+[17] Cathy O'Neil. *Weapons of Math Destruction: How Big Data Increases
+Inequality and Threatens Democracy*. Crown Publishing，2016 年。ISBN: 9780553418811
 
 [18] Julia Angwin. “让算法承担责任。” nytimes.com，2016 年 8 月。存档于 archive.org
 
@@ -27731,10 +28107,9 @@ idlewords.com，
 ICML 机器学习中的人类可解释性研讨会，
 2016 年 6 月。存档于 arxiv.org
 
-[20] United States Senate Committee on Commerce, Science, and Transportation, Office of Oversight and Investigations, Majority Staff. “数据经纪行业评述：
-出于营销目的收集、使用和出售消费者数据。”
-工作人员报告，commerce.senate.gov，
-2013 年 12 月。存档于 perma.cc/32NV-YWLQ
+[20] United States Senate Committee on Commerce, Science, and Transportation,
+Office of Oversight and Investigations, Majority Staff. “数据经纪行业评述： 出于营销目的收集、
+使用和出售消费者数据。” 工作人员报告，commerce.senate.gov， 2013 年 12 月。存档于 perma.cc/32NV-YWLQ
 
 [21] Stephanie Assad、
 Robert Clark、
@@ -27745,7 +28120,8 @@ Daniel Ershov 和 Lei Xu. “算法定价与竞争：
 第 723–771 页，
 2024 年 3 月。doi:10.1086/726906
 
-[22] Donella H. Meadows 和 Diana Wright. *Thinking in Systems: A Primer*. Chelsea Green Publishing，2008 年。ISBN: 9781603580557
+[22] Donella H. Meadows 和 Diana Wright. *Thinking in Systems: A Primer*. Chelsea
+Green Publishing，2008 年。ISBN: 9781603580557
 
 [23] Daniel J. Bernstein. “听一场‘大数据’/‘数据科学’演讲。
 在脑中把‘数据’换成‘监控’：
@@ -27758,7 +28134,8 @@ Daniel Ershov 和 Lei Xu. “算法定价与竞争：
 而且越来越糟。” *arstechnica.com*，
 2016 年 1 月。存档于 *archive.org*
 
-[26] Bruce Schneier. *Data and Goliath: The Hidden Battles to Collect Your Data and Control Your World*. W. W. Norton，2015 年。ISBN: 9780393352177
+[26] Bruce Schneier. *Data and Goliath: The Hidden Battles to Collect Your Data
+and Control Your World*. W. W. Norton，2015 年。ISBN: 9780393352177
 
 [27] The Grugq. “没什么可隐藏的。” grugq.tumblr.com，2016 年 4 月。存档于
 perma.cc/BL95-8W5M
@@ -27885,7 +28262,8 @@ x.com，2021 年 4 月。存档于 perma.cc/3NYS-MHLC
 
 1. 在并发语境下，描述一种看起来在单一时间点生效的操作，因此另一个并发进程永远不会遇到该操作处于“完成一半”的状态。另见隔离性。
 
-2. 在事务语境下，描述将一组写入归为一体，即使发生故障，也必须要么全部提交，要么全部回滚。参见[原子性](#acid-原子性)和[两阶段提交](#两阶段提交)。
+2. 在事务语境下，描述将一组写入归为一体，即使发生故障，也必须要么全部提交，要么全部回滚。
+   参见[原子性](#acid-原子性)和[两阶段提交](#两阶段提交)。
 
 ## 背压
 
@@ -28208,6 +28586,8 @@ x.com，2021 年 4 月。存档于 perma.cc/3NYS-MHLC
 <a id="book-index"></a>
 
 # 索引
+
+> 索引条目后的页码对应原书印刷版。
 
 ## 符号
 

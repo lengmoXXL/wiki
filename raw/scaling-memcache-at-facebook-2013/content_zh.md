@@ -177,8 +177,7 @@ memcached 不提供服务器间协调；
 memcache 响应的延迟都是用户请求响应时间的关键因素。
 单个用户 Web 请求通常会导致数百个独立的 memcache get 请求。
 例如，
-加载我们的一个热门页面平均需要从 memcache 获取 521 个不同的数据项。
-¹
+加载我们的一个热门页面平均需要从 memcache 获取 521 个不同的数据项。¹
 
 我们在集群中配置数百台 memcached 服务器以减少数据库和其他服务的负载。
 数据项通过一致性哈希 [22] 分布在 memcached 服务器上。
@@ -254,7 +253,7 @@ memcache 客户端观察到 0.25% 的 get 请求被丢弃。
 TCP 消除了向我们的 UDP 实现添加重试机制的需要。
 
 Web 服务器依靠高度并行和超额订阅来实现高吞吐量。
-开放 TCP 连接的高内存需求使得在每台 Web 线程和 memcached 服务器之间保持开放连接的成本过高，
+开放 TCP 连接的高内存需求使得在每个 Web 线程和 memcached 服务器之间保持开放连接的成本过高，
 除非通过 mcrouter 进行某种形式的连接合并。
 合并这些连接通过减少高吞吐量 TCP 连接所需的网络、
 CPU 和内存资源来提高服务器效率。
@@ -365,7 +364,7 @@ get 请求可以返回租约令牌或标记为过期的数据。
 大多数应用可以在不做任何更改的情况下使用过期值。
 
 ![图 5：高流失率和低流失率键族的每日和每周工作集](images/figure-0005.png)
-> 图 5：低流失率和高流失率键族的每日和每周工作集大小对比，
+> 图 5：高流失率和低流失率键族的每日和每周工作集大小对比，
 > 分别为最小、
 > 平均和最大近似值。
 > 每日与每周工作集之间的差异表示流失量。
@@ -510,7 +509,7 @@ incast 拥塞也会恶化。
 以保持前端集群与权威版本一致。
 作为优化，
 修改数据的 Web 服务器还会向其自己的集群发送失效通知，
-以提供读后写语义，
+以提供写后读语义（read-after-write），
 用于单个用户请求，
 并减少过期数据在其本地缓存中存在的时间。
 
@@ -608,8 +607,8 @@ A 类数据项大小是 B 类的两倍且访问频率高得多，
 现有集群故障或执行计划维护时，
 缓存的命中率会非常低，
 削弱了保护后端服务的能力。
-一个称为冷集群预热（Cold Cluster Warmup）
-的系统通过允许"冷集群"（即缓存为空的前端集群）
+一个称为冷集群预热（Cold Cluster Warmup）的系统
+通过允许"冷集群"（即缓存为空的前端集群）
 中的客户端从"热集群"（即缓存具有正常命中率的集群）
 而不是持久存储检索数据来缓解这个问题。
 这利用了上述跨前端集群发生的数据复制。
@@ -1056,7 +1055,7 @@ Glendenning 等人 [17] 利用 Paxos [24] 和法定人数 [16] 构建 Scatter，
 能够抵御流失。
 Lloyd 等人 [27] 研究了 COPS（一个广域存储系统）中的因果一致性。
 
-TÁO [37] 是另一个严重依赖缓存来服务大量低延迟查询的 Facebook 系统。
+TAO [37] 是另一个严重依赖缓存来服务大量低延迟查询的 Facebook 系统。
 TAO 在两个根本方面与 memcache 不同。
 (1) TAO 实现了一个图数据模型，
 其中节点由固定长度的持久标识符（64 位整数）标识。
@@ -1119,7 +1118,8 @@ bug 报告和支持，
 
 [2] Couchbase. http://www.couchbase.com/.
 
-[3] Making Facebook Self-Healing. https://www.facebook.com/note.php?note_id=10150275248698920.
+[3] Making Facebook Self-Healing.
+https://www.facebook.com/note.php?note_id=10150275248698920.
 
 [4] Open Compute Project. http://www.opencompute.org.
 
@@ -1129,62 +1129,126 @@ bug 报告和支持，
 
 [7] Scaling Out. https://www.facebook.com/note.php?note_id=23844338919.
 
-[8] ATIKOGLU, B., XU, Y., FRACHTENBERG, E., JIANG, S., AND PALECZNY, M. Workload analysis of a large-scale key-value store. ACM SIGMETRICS Performance Evaluation Review 40, 1 (June 2012), 53–64.
+[8] ATIKOGLU, B. , XU, Y. , FRACHTENBERG, E. , JIANG, S. , AND PALECZNY, M.
+Workload analysis of a large-scale key-value store. ACM SIGMETRICS Performance
+Evaluation Review 40, 1 (June 2012), 53–64.
 
-[9] BEREZECKI, M., FRACHTENBERG, E., PALECZNY, M., AND STEELE, K. Power and performance evaluation of memcached on the tilepro64 architecture. *Sustainable Computing: Informatics and Systems* 2, 2 (June 2012), 81 – 90.
+[9] BEREZECKI, M. , FRACHTENBERG, E. , PALECZNY, M. , AND STEELE, K. Power and
+performance evaluation of memcached on the tilepro64 architecture. *Sustainable
+Computing: Informatics and Systems* 2, 2 (June 2012), 81 – 90.
 
-[10] BOYD-WICKIZER, S., CLEMENTS, A. T., MAO, Y., PESTEREV, A., KAASHOEK, M. F., MORRIS, R., AND ZELDOVICH, N. An analysis of linux scalability to many cores. In Proceedings of the 9th USENIX Symposium on Operating Systems Design & Implementation (2010), pp. 1–8.
+[10] BOYD-WICKIZER, S. , CLEMENTS, A. T. , MAO, Y. , PESTEREV, A. , KAASHOEK, M.
+F. , MORRIS, R. , AND ZELDOVICH, N. An analysis of linux scalability to many
+cores. In Proceedings of the 9th USENIX Symposium on Operating Systems Design &
+Implementation (2010), pp. 1–8.
 
-[11] CERF, V. G., AND KAHN, R. E. A protocol for packet network intercommunication. ACM SIGCOMM Computer Communication Review 35, 2 (Apr. 2005), 71–82.
+[11] CERF, V. G. , AND KAHN, R. E. A protocol for packet network
+intercommunication. ACM SIGCOMM Computer Communication Review 35, 2 (Apr. 2005),
+71–82.
 
-[12] DECANDIA, G., HASTORUN, D., JAMPANI, M., KAKULAPATI, G., LAKSHMAN, A., PILCHIN, A., SIVASUBRAMANIAN, S., VOSSHALL, P., AND VOGELS, W. Dynamo: amazon's highly available key-value store. ACM SIGOPS Operating Systems Review 41, 6 (Dec. 2007), 205–220.
+[12] DECANDIA, G. , HASTORUN, D. , JAMPANI, M. , KAKULAPATI, G. , LAKSHMAN, A. ,
+PILCHIN, A. , SIVASUBRAMANIAN, S. , VOSSHALL, P. , AND VOGELS, W. Dynamo:
+amazon's highly available key-value store. ACM SIGOPS Operating Systems Review
+41, 6 (Dec. 2007), 205–220.
 
-[13] FALL, K., IANNACONE, G., MANESH, M., RATNASAMY, S., ARGYRAKI, K., DOBRESCU, M., AND EGI, N. Routebricks: enabling general purpose network infrastructure. ACM SIGOPS Operating Systems Review 45, 1 (Feb. 2011), 112–125.
+[13] FALL, K. , IANNACONE, G. , MANESH, M. , RATNASAMY, S. , ARGYRAKI, K. ,
+DOBRESCU, M. , AND EGI, N. Routebricks: enabling general purpose network
+infrastructure. ACM SIGOPS Operating Systems Review 45, 1 (Feb. 2011), 112–125.
 
-[14] FITZPATRICK, B. Distributed caching with memcached. *Linux Journal* 2004, 124 (Aug. 2004), 5.
+[14] FITZPATRICK, B. Distributed caching with memcached. *Linux Journal* 2004,
+124 (Aug. 2004), 5.
 
-[15] GHANDEHARIZADEH, S., AND YAP, J. Gumball: a race condition prevention technique for cache augmented sql database management systems. In Proceedings of the 2nd ACM SIGMOD Workshop on Databases and Social Networks (2012), pp. 1–6.
+[15] GHANDEHARIZADEH, S. , AND YAP, J. Gumball: a race condition prevention
+technique for cache augmented sql database management systems. In Proceedings of
+the 2nd ACM SIGMOD Workshop on Databases and Social Networks (2012), pp. 1–6.
 
-[16] GIFFORD, D. K. Weighted voting for replicated data. In Proceedings of the 7th ACM Symposium on Operating Systems Principles (1979), pp. 150–162.
+[16] GIFFORD, D. K. Weighted voting for replicated data. In Proceedings of the
+7th ACM Symposium on Operating Systems Principles (1979), pp. 150–162.
 
-[17] GLENDENNING, L., BESCHASTNIKH, I., KRISHNAMURTHY, A., AND ANDERSON, T. Scalable consistency in Scatter. In Proceedings of the 23rd ACM Symposium on Operating Systems Principles (2011), pp. 15–28.
+[17] GLENDENNING, L. , BESCHASTNIKH, I. , KRISHNAMURTHY, A. , AND ANDERSON, T.
+Scalable consistency in Scatter. In Proceedings of the 23rd ACM Symposium on
+Operating Systems Principles (2011), pp. 15–28.
 
-[18] GRAY, C., AND CHERITON, D. Leases: An efficient fault-tolerant mechanism for distributed file cache consistency. ACM SIGOPS Operating Systems Review 23, 5 (Nov. 1989), 202–210.
+[18] GRAY, C. , AND CHERITON, D. Leases: An efficient fault-tolerant mechanism
+for distributed file cache consistency. ACM SIGOPS Operating Systems Review 23,
+5 (Nov. 1989), 202–210.
 
-[19] GRIBBLE, S. D., BREWER, E. A., HELLERSTEIN, J. M., AND CULLER, D. Scalable, distributed data structures for internet service construction. In Proceedings of the 4th USENIX Symposium on Operating Systems Design & Implementation (2000), pp. 319–332.
+[19] GRIBBLE, S. D. , BREWER, E. A. , HELLERSTEIN, J. M. , AND CULLER, D.
+Scalable, distributed data structures for internet service construction. In
+Proceedings of the 4th USENIX Symposium on Operating Systems Design &
+Implementation (2000), pp. 319–332.
 
-[20] HEINRICH, J. *MIPS R4000 Microprocessor User's Manual*. MIPS technologies, 1994.
+[20] HEINRICH, J. *MIPS R4000 Microprocessor User's Manual*. MIPS technologies,
+1994.
 
-[21] HERLIHY, M. P., AND WING, J. M. Linearizability: a correctness condition for concurrent objects. *ACM Transactions on Programming Languages and Systems* 12, 3 (July 1990), 463–492.
+[21] HERLIHY, M. P. , AND WING, J. M. Linearizability: a correctness condition
+for concurrent objects. *ACM Transactions on Programming Languages and Systems*
+12, 3 (July 1990), 463–492.
 
-[22] KARGER, D., LEHMAN, E., LEIGHTON, T., PANIGRAHY, R., LEVINE, M., AND LEWIN, D. Consistent Hashing and Random trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web. In Proceedings of the 29th annual ACM Symposium on Theory of Computing (1997), pp. 654–663.
+[22] KARGER, D. , LEHMAN, E. , LEIGHTON, T. , PANIGRAHY, R. , LEVINE, M. , AND
+LEWIN, D. Consistent Hashing and Random trees: Distributed Caching Protocols for
+Relieving Hot Spots on the World Wide Web. In Proceedings of the 29th annual ACM
+Symposium on Theory of Computing (1997), pp. 654–663.
 
-[23] KEETON, K., MORREY, III, C. B., SOULES, C. A., AND VEITCH, A. Lazybase: freshness vs. performance in information management. ACM SIGOPS Operating Systems Review 44, 1 (Dec. 2010), 15–19.
+[23] KEETON, K. , MORREY, III, C. B. , SOULES, C. A. , AND VEITCH, A. Lazybase:
+freshness vs. performance in information management. ACM SIGOPS Operating
+Systems Review 44, 1 (Dec. 2010), 15–19.
 
-[24] LAMPORT, L. The part-time parliament. ACM Transactions on Computer Systems 16, 2 (May 1998), 133–169.
+[24] LAMPORT, L. The part-time parliament. ACM Transactions on Computer Systems
+16, 2 (May 1998), 133–169.
 
-[25] LIM, H., FAN, B., ANDERSEN, D. G., AND KAMINSKY, M. Silt: a memory-efficient, high-performance key-value store. In *Proceedings of the 23rd ACM Symposium on Operating Systems Principles* (2011), pp. 1–13.
+[25] LIM, H. , FAN, B. , ANDERSEN, D. G. , AND KAMINSKY, M. Silt: a
+memory-efficient, high-performance key-value store. In *Proceedings of the 23rd
+ACM Symposium on Operating Systems Principles* (2011), pp. 1–13.
 
-[26] LITTLE, J., AND GRAVES, S. Little's law. *Building Intuition* (2008), 81–100.
+[26] LITTLE, J. , AND GRAVES, S. Little's law. *Building Intuition* (2008),
+81–100.
 
-[27] LLOYD, W., FREEDMAN, M., KAMINSKY, M., AND ANDERSEN, D. Don't settle for eventual: scalable causal consistency for wide-area storage with COPS. In Proceedings of the 23rd ACM Symposium on Operating Systems Principles (2011), pp. 401–416.
+[27] LLOYD, W. , FREEDMAN, M. , KAMINSKY, M. , AND ANDERSEN, D. Don't settle for
+eventual: scalable causal consistency for wide-area storage with COPS. In
+Proceedings of the 23rd ACM Symposium on Operating Systems Principles (2011),
+pp. 401–416.
 
-[28] METREVELI, Z., ZELDOVICH, N., AND KAASHOEK, M. Cphash: A cache-partitioned hash table. In Proceedings of the 17th ACM SIGPLAN symposium on Principles and Practice of Parallel Programming (2012), pp. 319–320.
+[28] METREVELI, Z. , ZELDOVICH, N. , AND KAASHOEK, M. Cphash: A
+cache-partitioned hash table. In Proceedings of the 17th ACM SIGPLAN symposium
+on Principles and Practice of Parallel Programming (2012), pp. 319–320.
 
-[29] OUSTERHOUT, J., AGRAWAL, P., ERICKSON, D., KOZYRAKIS, C., LEVERICH, J., MAZIÈRES, D., MITRA, S., NARAYANAN, A., ONGARO, D., PARULKAR, G., ROSENBLOUM, M., RUMBLE, S. M., STRATMANN, E., AND STUTSMAN, R. The case for ramcloud. *Communications of the ACM* 54, 7 (July 2011), 121–130.
+[29] OUSTERHOUT, J. , AGRAWAL, P. , ERICKSON, D. , KOZYRAKIS, C. , LEVERICH, J.
+, MAZIÈRES, D. , MITRA, S. , NARAYANAN, A. , ONGARO, D. , PARULKAR, G. ,
+ROSENBLOUM, M. , RUMBLE, S. M. , STRATMANN, E. , AND STUTSMAN, R. The case for
+ramcloud. *Communications of the ACM* 54, 7 (July 2011), 121–130.
 
-[30] PHANISHAYEE, A., KREVAT, E., VASUDEVAN, V., ANDERSEN, D. G., GANGER, G. R., GIBSON, G. A., AND SESHAN, S. Measurement and analysis of tcp throughput collapse in cluster-based storage systems. In Proceedings of the 6th USENIX Conference on File and Storage Technologies (2008), pp. 12:1–12:14.
+[30] PHANISHAYEE, A. , KREVAT, E. , VASUDEVAN, V. , ANDERSEN, D. G. , GANGER, G.
+R. , GIBSON, G. A. , AND SESHAN, S. Measurement and analysis of tcp throughput
+collapse in cluster-based storage systems. In Proceedings of the 6th USENIX
+Conference on File and Storage Technologies (2008), pp. 12: 1–12: 14.
 
-[31] PORTS, D. R. K., CLEMENTS, A. T., ZHANG, I., MADDEN, S., AND LISKOV, B. Transactional consistency and automatic management in an application data cache. In Proceedings of the 9th USENIX Symposium on Operating Systems Design & Implementation (2010), pp. 1–15.
+[31] PORTS, D. R. K. , CLEMENTS, A. T. , ZHANG, I. , MADDEN, S. , AND LISKOV, B.
+Transactional consistency and automatic management in an application data cache.
+In Proceedings of the 9th USENIX Symposium on Operating Systems Design &
+Implementation (2010), pp. 1–15.
 
-[32] RAJASHEKHAR, M. Twemproxy: A fast, light-weight proxy for memcached. https://dev.twitter.com/blog/twemproxy.
+[32] RAJASHEKHAR, M. Twemproxy: A fast, light-weight proxy for memcached.
+https://dev.twitter.com/blog/twemproxy.
 
-[33] RAJASHEKHAR, M., AND YUE, Y. Caching with twemcache. http://engineering.twitter.com/2012/07/caching-with-twemcache.html.
+[33] RAJASHEKHAR, M. , AND YUE, Y. Caching with twemcache.
+http://engineering.twitter.com/2012/07/caching-with-twemcache.html.
 
-[34] RATNASAMY, S., FRANCIS, P., HANDLEY, M., KARP, R., AND SHENKER, S. A scalable content-addressable network. ACM SIGCOMM Computer Communication Review 31, 4 (Oct. 2001), 161–172.
+[34] RATNASAMY, S. , FRANCIS, P. , HANDLEY, M. , KARP, R. , AND SHENKER, S. A
+scalable content-addressable network. ACM SIGCOMM Computer Communication Review
+31, 4 (Oct. 2001), 161–172.
 
-[35] SATYANARAYANAN, M., KISTLER, J., KUMAR, P., OKASAKI, M., SIEGEL, E., AND STEERE, D. Coda: A highly available file system for a distributed workstation environment. *IEEE Transactions on Computers* 39, 4 (Apr. 1990), 447–459.
+[35] SATYANARAYANAN, M. , KISTLER, J. , KUMAR, P. , OKASAKI, M. , SIEGEL, E. ,
+AND STEERE, D. Coda: A highly available file system for a distributed
+workstation environment. *IEEE Transactions on Computers* 39, 4 (Apr. 1990),
+447–459.
 
-[36] STOICA, I., MORRIS, R., KARGER, D., KAASHOEK, M., AND BALAKRISHNAN, H. Chord: A scalable peer-to-peer lookup service for internet applications. ACM SIGCOMM Computer Communication Review 31, 4 (Oct. 2001), 149–160.
+[36] STOICA, I. , MORRIS, R. , KARGER, D. , KAASHOEK, M. , AND BALAKRISHNAN, H.
+Chord: A scalable peer-to-peer lookup service for internet applications. ACM
+SIGCOMM Computer Communication Review 31, 4 (Oct. 2001), 149–160.
 
-[37] VENKATARAMANI, V., AMSDEN, Z., BRONSON, N., CABRERA III, G., CHAKKA, P., DIMOV, P., DING, H., FERRIS, J., GIARDULLO, A., HOON, J., KULKARNI, S., LAWRENCE, N., MARCHUKOV, M., PETROV, D., AND PUZAR, L. Tao: how facebook serves the social graph. In Proceedings of the ACM SIGMOD International Conference on Management of Data (2012), pp. 791–792.
+[37] VENKATARAMANI, V. , AMSDEN, Z. , BRONSON, N. , CABRERA III, G. , CHAKKA, P.
+, DIMOV, P. , DING, H. , FERRIS, J. , GIARDULLO, A. , HOON, J. , KULKARNI, S. ,
+LAWRENCE, N. , MARCHUKOV, M. , PETROV, D. , AND PUZAR, L. Tao: how facebook
+serves the social graph. In Proceedings of the ACM SIGMOD International
+Conference on Management of Data (2012), pp. 791–792.

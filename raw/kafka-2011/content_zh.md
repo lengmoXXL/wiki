@@ -397,7 +397,7 @@ ZooKeeper 中每个消费者组都关联一个所有权注册表和一个偏移�
 每个消费者都会同时在代理节点注册表和消费者注册表上注册 ZooKeeper 监视器，
 因此只要代理节点集合或消费者组发生变化，就会收到通知。  
 
-消费者初次启动时，或通过监视器获知代理节点/消费者发生变化时，会启动重新平衡过程，以确定自己应当消费的新分区子集。  
+消费者初次启动时，或通过监视器获知代理节点/消费者发生变化时，会启动重新平衡过程，以确定自己应当消费的新分区子集。该过程如算法 1 所述。  
 
 **算法 1：组 G 中消费者 C_i 的重新平衡过程**
 
@@ -652,7 +652,7 @@ Kafka 降低了传输开销。
 并在需要时回退消费位置。
 由于专注于日志处理应用，
 Kafka 实现了远高于传统消息系统的吞吐量。
-它还提供集成式分布支持，
+它还提供集成的分布式支持，
 并能够横向扩展。我们已经在 LinkedIn 成功地将 Kafka 用于离线和在线应用。  
 
 未来我们希望沿若干方向继续推进。
@@ -684,7 +684,8 @@ Kafka 实现了远高于传统消息系统的吞吐量。
 
 [4] http://developer.yahoo.com/blogs/hadoop/posts/2010/06/enabling_hadoop_batch_process_1/  
 
-[5] Efficient data transfer through zero copy: https://www.ibm.com/developerworks/linux/library/j-zerocopy/
+[5] Efficient data transfer through zero copy:
+https://www.ibm.com/developerworks/linux/library/j-zerocopy/
 
 [6] Facebook’s Scribe, http://www.facebook.com/note.php?note_id=32008268919
 
@@ -702,12 +703,15 @@ Kafka 实现了远高于传统消息系统的吞吐量。
 
 [13] https://issues.apache.org/jira/browse/ZOOKEEPER-775  
 
-[14] JAVA Message Service: http://download.oracle.com/javaee/1.3/jms/tutorial/1_3_1-fcs/doc/jms_tutorialTOC.html.
+[14] JAVA Message Service:
+http://download.oracle.com/javaee/1.3/jms/tutorial/1_3_1-fcs/doc/jms_tutorialTOC.html.
 
-[15] Oracle Enterprise Messaging Service: http://www.oracle.com/technetwork/middleware/ias/index-093455.html
+[15] Oracle Enterprise Messaging Service:
+http://www.oracle.com/technetwork/middleware/ias/index-093455.html
 
 [16] http://www.rabbitmq.com/  
 
-[17] TIBCO Enterprise Message Service: http://www.tibco.com/products/soa/messaging/
+[17] TIBCO Enterprise Message Service:
+http://www.tibco.com/products/soa/messaging/
 
 [18] Kafka, http://sna-projects.com/kafka/

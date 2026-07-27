@@ -96,7 +96,7 @@ GFS 与以往的分布式文件系统具有许多共同目标，
 由另一台机器同时或稍后处理的中间结果。
 对于巨大文件上的这种访问模式，
 追加成为性能优化和原子性保证的重点，
-而在客户端缓存数据块则不再具有吸引力。  
+而在客户端缓存数据块（chunk）则不再具有吸引力。  
 
 第四，协同设计应用程序与文件系统 API 可以提高灵活性，从而使整个系统受益。  
 
@@ -135,7 +135,10 @@ GFS 与以往的分布式文件系统具有许多共同目标，
   注重性能的应用程序通常会批量处理小型读取并对其排序，
   以便在文件中稳定向前读取，而不是来回跳转。
 
-- 工作负载还包含许多把数据追加到文件的大型顺序写入。典型操作大小与读取类似。文件写好以后很少再次修改。系统支持在文件任意位置进行小型写入，但不要求这种操作高效。
+- 工作负载还包含许多把数据追加到文件的大型顺序写入。
+  典型操作大小与读取类似。
+  文件写好以后很少再次修改。
+  系统支持在文件任意位置进行小型写入，但不要求这种操作高效。
 
 - 系统必须为多个客户端并发追加同一文件高效实现定义明确的语义。
   我们的文件经常用作生产者—消费者队列或多路合并。
@@ -153,7 +156,7 @@ GFS 提供人们熟悉的文件系统接口，
 通过路径名标识。系统支持创建、
 删除、打开、关闭、读取和写入文件等常规操作。  
 
-此外，GFS 还提供*快照*和*记录追加*操作。
+此外，GFS 还提供*快照（snapshot）*和*记录追加（record append）*操作。
 快照能够以很低的成本创建文件或目录树的副本。
 记录追加允许多个客户端并发向同一文件追加数据，
 同时保证每个客户端单次追加的原子性。
@@ -165,14 +168,14 @@ GFS 提供人们熟悉的文件系统接口，
 
 ### 2.3 架构  
 
-如图 1 所示，一个 GFS 集群由一台主节点和多台数据块服务器组成，
+如图 1 所示，一个 GFS 集群由一台主节点（master）和多台数据块服务器（chunkserver）组成，
 并由多个客户端访问。它们通常都是运行用户级服务器进程的通用 Linux 机器。
 只要机器资源允许，并且能够接受运行可能不稳定的应用代码所导致的可靠性下降，
 就可以很容易地在同一台机器上同时运行数据块服务器和客户端。  
 
 文件被划分成固定大小的数据块。
 每个数据块由主节点在创建数据块时分配的、
-不可变且全局唯一的 64 位数据块句柄标识。
+不可变且全局唯一的 64 位数据块句柄（chunk handle）标识。
 数据块服务器把数据块作为 Linux 文件存储在本地磁盘上，
 并按照数据块句柄和字节范围读取或写入数据块数据。
 为保证可靠性，每个数据块都复制到多台数据块服务器。
@@ -183,7 +186,7 @@ GFS 提供人们熟悉的文件系统接口，
 包括命名空间、访问控制信息、
 文件到数据块的映射以及数据块的当前位置。
 它还控制整个系统范围内的活动，
-例如数据块租约管理、孤立数据块的垃圾回收以及数据块在数据块服务器之间的迁移。
+例如数据块租约（lease）管理、孤立数据块的垃圾回收以及数据块在数据块服务器之间的迁移。
 主节点通过定期与每台数据块服务器交换*心跳（HeartBeat）*消息来下达指令并收集其状态。  
 
 链接到每个应用程序中的 GFS 客户端代码实现文件系统 API，
@@ -1163,15 +1166,12 @@ $N$ 个客户端同时追加到单个文件。
 客户端仍可继续写入另一个文件。  
 
 ![图 3(a)：聚合读取吞吐量](images/figure-0003.png)
-
 > 图 3(a)：读取。
 
 ![图 3(b)：聚合写入吞吐量](images/figure-0004.png)
-
 > 图 3(b)：写入。
 
 ![图 3(c)：聚合记录追加吞吐量](images/figure-0005.png)
-
 > 图 3(c)：记录追加。
 
 > 图 3：聚合吞吐量。上方曲线表示由网络拓扑决定的理论上限，
@@ -1402,7 +1402,7 @@ Google 完全控制 GFS 及其应用程序，
 | 64K..128K|0.3|0.7|0.3|0.3|22.7|1.2|
 | 128K..256K|0.8|0.6|16.5|0.2|<0.1|5.8|
 | 256K..512K|1.4|0.3|3.4|7.7|<0.1|38.4|
-| 512K..1M|65.9|55.1|74.1|58.0|.1|46.8|
+| 512K..1M|65.9|55.1|74.1|58.0|<0.1|46.8|
 | 1M..∞|6.4|30.1|3.3|28.0|53.9|7.4|  
 
 > 表 5：按操作大小细分的传输字节数（%）。
@@ -1633,36 +1633,57 @@ Yoshka 协助了早期测试。
 
 ## 参考文献  
 
-[1] Thomas Anderson, Michael Dahlin, Jeanna Neefe, David Patterson, Drew Roselli, and Randolph Wang. Serverless network file systems。
-In Proceedings of the 15th ACM Symposium on Operating System Principles, pages 109–126, Copper Mountain Resort, Colorado, December 1995.  
+[1] Thomas Anderson, Michael Dahlin, Jeanna Neefe, David Patterson,
+Drew Roselli, and Randolph Wang. Serverless network file systems.
+In Proceedings of the 15th ACM Symposium on Operating System Principles,
+pages 109–126, Copper Mountain Resort, Colorado, December 1995.  
 
-[2] Remzi H. Arpaci-Dusseau, Eric Anderson, Noah Treuhaft, David E. Culler, Joseph M. Hellerstein, David Patterson, and Kathy Yelick。
-Cluster I/O with River: Making the fast case common. In Proceedings of the Sixth Workshop on Input/Output in Parallel and Distributed Systems (IOPADS '99), pages 10–22, Atlanta, Georgia, May 1999.  
+[2] Remzi H. Arpaci-Dusseau, Eric Anderson, Noah Treuhaft, David E. Culler,
+Joseph M. Hellerstein, David Patterson, and Kathy Yelick.
+Cluster I/O with River: Making the fast case common.
+In Proceedings of the Sixth Workshop on Input/Output in Parallel and Distributed
+Systems (IOPADS '99), pages 10–22, Atlanta, Georgia, May 1999.  
 
-[3] Luis-Felipe Cabrera and Darrell D. E. Long. Swift: Using distributed disk striping to provide high I/O data rates. Computer Systems, 4(4):405–436, 1991.  
+[3] Luis-Felipe Cabrera and Darrell D. E. Long. Swift:
+Using distributed disk striping to provide high I/O data rates.
+Computer Systems, 4(4):405–436, 1991.  
 
-[4] Garth A. Gibson, David F. Nagle, Khalil Amiri, Jeff Butler, Fay W。
-Chang, Howard Gobioff, Charles Hardin, Erik Riedel, David Rochberg, and Jim Zelenka. A cost-effective, high-bandwidth storage architecture。
-In Proceedings of the 8th Architectural Support for Programming Languages and Operating Systems, pages 92–103, San Jose, California, October 1998。
+[4] Garth A. Gibson, David F. Nagle, Khalil Amiri, Jeff Butler, Fay W. Chang,
+Howard Gobioff, Charles Hardin, Erik Riedel, David Rochberg, and Jim Zelenka.
+A cost-effective, high-bandwidth storage architecture.
+In Proceedings of the 8th Architectural Support for Programming Languages and
+Operating Systems, pages 92–103, San Jose, California, October 1998.  
 
-[5] John Howard, Michael Kazar, Sherri Menees, David Nichols, Mahadev Satyanarayanan, Robert Sidebotham, and Michael West。
-Scale and performance in a distributed file system. ACM Transactions on Computer Systems, 6(1):51–81, February 1988.  
+[5] John Howard, Michael Kazar, Sherri Menees, David Nichols,
+Mahadev Satyanarayanan, Robert Sidebotham, and Michael West.
+Scale and performance in a distributed file system.
+ACM Transactions on Computer Systems, 6(1):51–81, February 1988.  
 
 [6] InterMezzo. http://www.inter-mezzo.org, 2003.  
 
-[7] Barbara Liskov, Sanjay Ghemawat, Robert Gruber, Paul Johnson, Liuba Shrira, and Michael Williams. Replication in the Harp file system。
-In *13th Symposium on Operating System Principles*, pages 226–238, Pacific Grove, CA, October 1991.  
+[7] Barbara Liskov, Sanjay Ghemawat, Robert Gruber, Paul Johnson, Liuba Shrira,
+and Michael Williams. Replication in the Harp file system.
+In *13th Symposium on Operating System Principles*, pages 226–238,
+Pacific Grove, CA, October 1991.  
 
 [8] Lustre. http://www.lustre.org, 2003.  
 
-[9] David A. Patterson, Garth A. Gibson, and Randy H. Katz. A case for redundant arrays of inexpensive disks (RAID)。
-In Proceedings of the 1988 ACM SIGMOD International Conference on Management of Data, pages 109–116, Chicago, Illinois, September 1988.  
+[9] David A. Patterson, Garth A. Gibson, and Randy H. Katz.
+A case for redundant arrays of inexpensive disks (RAID).
+In Proceedings of the 1988 ACM SIGMOD International Conference on Management of
+Data, pages 109–116, Chicago, Illinois, September 1988.  
 
-[10] Frank Schmuck and Roger Haskin. GPFS: A shared-disk file system for large computing clusters。
-In Proceedings of the First USENIX Conference on File and Storage Technologies, pages 231–244, Monterey, California, January 2002.  
+[10] Frank Schmuck and Roger Haskin. GPFS:
+A shared-disk file system for large computing clusters.
+In Proceedings of the First USENIX Conference on File and Storage Technologies,
+pages 231–244, Monterey, California, January 2002.  
 
-[11] Steven R. Soltis, Thomas M. Ruwart, and Matthew T. O'Keefe. The Global File System。
-In Proceedings of the Fifth NASA Goddard Space Flight Center Conference on Mass Storage Systems and Technologies, College Park, Maryland, September 1996.  
+[11] Steven R. Soltis, Thomas M. Ruwart, and Matthew T. O'Keefe.
+The Global File System.
+In Proceedings of the Fifth NASA Goddard Space Flight Center Conference on Mass
+Storage Systems and Technologies, College Park, Maryland, September 1996.  
 
-[12] Chandramohan A. Thekkath, Timothy Mann, and Edward K. Lee. Frangipani: A scalable distributed file system。
-In Proceedings of the 16th ACM Symposium on Operating System Principles, pages 224–237, Saint-Malo, France, October 1997。
+[12] Chandramohan A. Thekkath, Timothy Mann, and Edward K. Lee. Frangipani:
+A scalable distributed file system.
+In Proceedings of the 16th ACM Symposium on Operating System Principles,
+pages 224–237, Saint-Malo, France, October 1997.  
