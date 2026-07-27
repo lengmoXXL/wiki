@@ -11,6 +11,7 @@
 - [The RocksDB Experience](raw/rocksdb-2021/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
 - [Scaling Memcache at Facebook](raw/scaling-memcache-at-facebook-2013/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf`
 - [Software Architecture: The Hard Parts](raw/software-architecture-2021/content_zh.md)：`oss://lengmo-asserts/books/software-architecture-2021.pdf`
+- [控制论与科学方法论](raw/控制论与科学方法论-2025/content_zh.md)：`oss://lengmo-asserts/books/控制论与科学方法论-2025.pdf`（中文原著，仅校对）
 
 ## 1. 准备环境
 
@@ -54,6 +55,7 @@ raw/kafka-2011/
 ## 3. 校对并翻译
 
 以 `raw/kafka-2011/raw.md` 为底稿，对照 PDF 校对内容，并将译文写入 `raw/kafka-2011/content_zh.md`。
+中文原著（如《控制论与科学方法论》）不需要翻译，但仍需对照 PDF 校对，结果同样写入 `content_zh.md`。
 
 翻译中用到的图片，从 `images/raw/` 拷贝到 `images/` 下，在 `content_zh.md` 中以 `images/figure-XXXX.png` 引用。
 译文提交后目录结构如下：
