@@ -162,6 +162,43 @@ O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
   - `> [!NOTE]` — 注意/说明
   - `> [!WARNING]` — 警告
 
+### 导出 PDF 页面图片核对
+校对公式、图表细节时，可以把 PDF 对应页导出为图片直接查看。步骤如下：
+1. 从 OSS 下载 PDF（凭据见 `.env`）：
+   ```bash
+   .venv/bin/python - <<'EOF'
+   import os, oss2
+   from dotenv import load_dotenv
+   load_dotenv(".env")
+   auth = oss2.Auth(os.environ["ALIBABA_CLOUD_ACCESS_KEY_ID"], os.environ["ALIBABA_CLOUD_ACCESS_KEY_SECRET"])
+   bucket = oss2.Bucket(auth, "https://oss-cn-beijing.aliyuncs.com", "lengmo-asserts")
+   bucket.get_object_to_file("books/控制论与科学方法论-2025.pdf", "/tmp/book.pdf")
+   EOF
+   ```
+2. 确定页码偏移：扫描版 PDF 没有文本层，且 PDF 页索引与书页码存在固定偏移（前置页所致）。
+   先用一个已知地标确定偏移量，例如某公式在书页 13、在 PDF 第 32 页（0 基索引 31），偏移即 +18；
+   之后「0 基页索引 = 书页码 + 偏移 - 1」。
+   不知道书页码时，可按译文行号占全文的比例估算大致范围，再用第 4 步的拼图快速扫页定位。
+3. 用 pymupdf 导出整页或裁剪局部：
+   ```bash
+   .venv/bin/python - <<'EOF'
+   import fitz
+   doc = fitz.open("/tmp/book.pdf")
+   page = doc[31]  # 0 基页索引
+   page.get_pixmap(dpi=100).save("/tmp/page.png")  # 整页
+   r = page.rect
+   clip = fitz.Rect(r.width*0.25, r.height*0.55, r.width*0.85, r.height*0.80)
+   page.get_pixmap(dpi=200, clip=clip).save("/tmp/crop.png")  # 局部放大
+   EOF
+   ```
+4. 连续扫页时用 ImageMagick 拼图（每行 4 页，两行 8 页一屏）：
+   ```bash
+   convert p030.png p031.png p032.png p033.png +append row1.png
+   convert p034.png p035.png p036.png p037.png +append row2.png
+   convert row1.png row2.png -append montage.png
+   ```
+核对时先用整页图确认章节位置，再用 200 dpi 裁剪图逐项核对上下标、分数线和符号方向。
+
 ## 4. 检查改动
 
 ```bash
