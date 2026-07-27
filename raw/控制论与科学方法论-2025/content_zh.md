@@ -738,7 +738,7 @@ $$ x+y=12 \qquad (3) $$
 因此我们可以利用这种情况。
 方程组便变为：
 
-$$ \left\{\begin{aligned}x/9&\leqslant1\\ y/9&\leqslant1\\ x+y&=13\end{aligned}\right. $$
+$$ \begin{cases} x/9&\leqslant1\\ y/9&\leqslant1\\ x+y&=13 \end{cases} $$
 
 得x=8，y=5。
 继续使用这个方法，
@@ -9188,14 +9188,14 @@ B：次品在x个球中。
 我们都得再称一次就找到次品，
 因此有：
 
-$$ \left\{ \begin{aligned} a/3&\leqslant1\\ b/3&\leqslant1\\ c/3&\leqslant1 \end{aligned} \right. $$
+$$ \begin{cases} a/3&\leqslant1\\ b/3&\leqslant1\\ c/3&\leqslant1 \end{cases} $$
 
 $$ a+b+c=8 $$
 
 解此方程组可得3组解，
 这3组解都是正确的。
 
-$$ ①\left\{ \begin{aligned} a&=2\\ b&=3\\ c&=3 \end{aligned} \right. \qquad ②\left\{ \begin{aligned} a&=3\\ b&=2\\ c&=3 \end{aligned} \right. \qquad ③\left\{ \begin{aligned} a&=3\\ b&=3\\ c&=2 \end{aligned} \right. $$
+$$ ①\begin{cases} a&=2\\ b&=3\\ c&=3 \end{cases} \qquad ②\begin{cases} a&=3\\ b&=2\\ c&=3 \end{cases} \qquad ③\begin{cases} a&=3\\ b&=3\\ c&=2 \end{cases} $$
 
 下面三个图分别表示上面的 3 种称法。
 
