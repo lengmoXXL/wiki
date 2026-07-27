@@ -738,7 +738,7 @@ $$ x+y=12 \qquad (3) $$
 因此我们可以利用这种情况。
 方程组便变为：
 
-$$ \begin{cases} x/9&\leqslant1\\ y/9&\leqslant1\\ x+y&=13 \end{cases} $$
+$$ \left\{\begin{aligned} x/9&\leqslant1\\ y/9&\leqslant1\\ x+y&=13 \end{aligned}\right. $$
 
 得x=8，y=5。
 继续使用这个方法，
@@ -6959,7 +6959,7 @@ $H^+$ 和 $OH^-$ 结合成水，
 
 > 表 4.1：7 种基本突变。
 
-| 名称 | 名称 | 控制维数 | 状态维数 | 稳定转化方式 | 势函数类型 |
+| 类别 | 名称 | 控制维数 | 状态维数 | 稳定转化方式 | 势函数类型 |
 | --- | --- | --- | --- | --- | --- |
 | 尖点型 | 折叠型 | 1 | 1 | a→b | $G=\frac{1}{3}X^3-a_1X$ |
 | 尖点型 | 尖点型 | 2 | 1 | a⇄b | $G=\frac{1}{4}X^4-\frac{1}{2}a_1X^2-a_2X$ |
@@ -9188,14 +9188,14 @@ B：次品在x个球中。
 我们都得再称一次就找到次品，
 因此有：
 
-$$ \begin{cases} a/3&\leqslant1\\ b/3&\leqslant1\\ c/3&\leqslant1 \end{cases} $$
+$$ \left\{\begin{aligned} a/3&\leqslant1\\ b/3&\leqslant1\\ c/3&\leqslant1 \end{aligned}\right. $$
 
 $$ a+b+c=8 $$
 
 解此方程组可得3组解，
 这3组解都是正确的。
 
-$$ ①\begin{cases} a&=2\\ b&=3\\ c&=3 \end{cases} \qquad ②\begin{cases} a&=3\\ b&=2\\ c&=3 \end{cases} \qquad ③\begin{cases} a&=3\\ b&=3\\ c&=2 \end{cases} $$
+$$ ①\left\{\begin{aligned} a&=2\\ b&=3\\ c&=3 \end{aligned}\right. \qquad ②\left\{\begin{aligned} a&=3\\ b&=2\\ c&=3 \end{aligned}\right. \qquad ③\left\{\begin{aligned} a&=3\\ b&=3\\ c&=2 \end{aligned}\right. $$
 
 下面三个图分别表示上面的 3 种称法。
 
