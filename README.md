@@ -7,6 +7,7 @@
 - [Building Event-Driven Microservices](raw/build-event-driven-microservices-2025/content_zh.md)：`oss://lengmo-asserts/books/build-event-driven-microservices-2025.pdf`
 - [Designing Data-Intensive Applications](raw/ddia-2026/content_zh.md)：`oss://lengmo-asserts/books/ddia-2026.pdf`
 - [The Google File System](raw/gfs-2003/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
+- [Just for Fun](raw/just-for-fun-2002/content_zh.md)：`oss://lengmo-asserts/books/just-for-fun-2002.pdf`
 - [Kafka: a Distributed Messaging System for Log Processing](raw/kafka-2011/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
 - [The RocksDB Experience](raw/rocksdb-2021/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
 - [Scaling Memcache at Facebook](raw/scaling-memcache-at-facebook-2013/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf`
