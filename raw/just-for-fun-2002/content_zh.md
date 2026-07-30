@@ -2585,7 +2585,7 @@ AT&T 没把它当一门商业生意。
 到 1984 年拆分之时，AT&T 终于被允许进入计算机行业，
 而大学里——特别是 University of California-Berkeley——
 的计算机科学家们，
-已经在 Bill Joy 和 Marshall Kirk McKusik 这类人的带领下，
+已经在 Bill Joy 和 Marshall Kirk McKusick 这类人的带领下，
 研究和改进 Unix 多年。
 人们倒未必总会费心把自己做的东西写成文档。
 
@@ -6334,7 +6334,7 @@ Bill 似乎觉得，基因改造之类的进步会让我们失去人性。
 
 *我们的"一夜成名"。*
 
-你读过 advocacy newsgroup（布道新闻组）吗？
+你读过 advocacy newsgroup（倡导新闻组）吗？
 它们存在的全部意义就是鼓吹某样东西，
 也就意味着贬低别的什么东西。
 所以你一上去，
@@ -10425,7 +10425,7 @@ Linux 带给人们的，
 
 Adams, Douglas，28
 
-advocacy newsgroup（布道新闻组），155-56，157，158，159，162
+advocacy newsgroup（倡导新闻组），155-56，157，158，159，162
 
 AI，见人工智能
 
@@ -10501,7 +10501,7 @@ BSD，见 Berkeley Software Distribution 代码库
 
 C（编程语言），45，52
 
-Cabal，Internet（互联网秘密集团），117，118
+Internet Cabal，117，118
 
 电子计算器，6
 
@@ -10579,7 +10579,7 @@ Compaq，203
 
 版权
   《伯尔尼公约》与，94
-  数字版权法案（美国），207，208，212
+  数字千年版权法（美国），207，208，212
   版权延长法案（美国），226
   知识产权与，205-8，210
   许可证，58，152，206
@@ -10785,13 +10785,13 @@ Intel，135，142
   另见版权
 
 Internet，53，57，88，248
-  advocacy newsgroup（布道新闻组），155-56，157，158，159，162
+  advocacy newsgroup（倡导新闻组），155-56，157，158，159，162
   连锁信恶作剧，93
   知识产权问题，204，212-13
   Linux 新闻组，117-18
   MP3 技术与，216
 
-Internet Cabal（互联网秘密集团），117，118
+Internet Cabal，117，118
 
 IP，见知识产权
 
@@ -10801,7 +10801,7 @@ IP，见知识产权
 
 Java（编程语言），156，158，218-19
 
-Jini（交互代理语言），151-52，157
+Jini，151-52，157
 
 Jobs, Steven，149-51，154
 
@@ -10828,7 +10828,7 @@ Lessig, Larry，226
   Sun Microsystems 与，152，156，157，218
   另见 General Public License
 
-"Linus 定律"，243-44
+"Linus 法则"，243-44
 
 Linuxcare，203
 
@@ -10902,9 +10902,9 @@ Massachusetts Institute of Technology，115，194
 
 数学，6，74-75，76
 
-McKusik, Marshall Kirk，56，114
+McKusick, Marshall Kirk，56，114
 
-微内核方案，操作系统与，98-99，101，104，150
+微内核路线，操作系统与，98-99，101，104，150
 
 Microsoft，114，149，151
   软件捆绑，218
@@ -10915,21 +10915,21 @@ Microsoft，114，149，151
   与 Linux 系统的比较，160-61
   Netscape 与，156
 
-MicroVAX 计算机，53, 54
+MicroVAX 计算机，53，54
 Minix 操作系统，129
-  与 Linux 的比较，92, 98-106
-  Torvalds 作为其用户，52, 61-63, 78, 81, 84-87, 90-91
-MIT。见 Massachusetts Institute of Technology
+  与 Linux 的比较，92，98-106
+  Torvalds 作为其用户，52，61-63，78，81，84-87，90-91
+MIT，见 Massachusetts Institute of Technology
 移动电话。见手机
 调制解调器（modem），63
-宏内核路线，操作系统与，99-100, 101, 104
+宏内核路线，操作系统与，99-100，101，104
 Morfar。见 Törnqvist, Leo Waldernar
 动机（motivation）
-  影响因素，xviii-xxii, 244-49
-  程序员的动机，122, 227, 228
+  影响因素，xviii-xxii，244-49
+  程序员的动机，122，227，228
 Motorola，41
 Mozart, Wolfgang Amadeus，211
-Mozilla（Netscape 项目），155-57, 231-32
+Mozilla（Netscape 项目），155-57，231-32
 Mozilla Crypto Group，157
 MP3 技术，216
 多任务处理，计算机的，41
@@ -10944,46 +10944,46 @@ Nesson, Charles，226
 NetBSD，57
 Netherlands Unix Users Group，113
 Netscape，20
-  Mozilla 项目，155-57, 231-32
-联网（networking），117, 151
+  Mozilla 项目，155-57，231-32
+联网（networking），117，151
   Linux 与联网，116-17
 新闻组（newsgroups）
-  宣传倡导，155-56, 157, 158, 159, 162
+  倡导，155-56，157，158，159，162
   Linux 新闻组，117-18
-Newton, Isaac，94, 228
-Nokia，33, 94, 243, 244
-Norssen High School（Helsinki），24, 25
+Newton, Isaac，94，228
+Nokia，33，94，243，244
+Norssen High School（Helsinki），24，25
 Norway，32
-Novell, Inc.，57, 130
+Novell, Inc.，57，130
 
 ### O
 
 OpenBSD，57
 Open Law Project，226
-open source，20, 114, 121-22, 128, 141
+open source，20，114，121-22，128，141
   反体制情绪，161
   Apple Computer 与，149-50
   控制权问题，218
-  自由软件运动与，58, 166-67, 194-95
+  自由软件运动与，58，166-67，194-95
   未来技术发展与，223-24
-  General Public License 与，58, 59, 96-97, 194-96, 225
-  IBM 与，157-58, 162
+  General Public License 与，58，59，96-97，194-96，225
+  IBM 与，157-58，162
   理想主义者与实用主义者之争，163-66
   Informix 与，158-59
-  知识产权问题与，204, 210, 230
-  Netscape 浏览器技术与，155-57, 231-32
+  知识产权问题与，204，210，230
+  Netscape 浏览器技术与，155-57，231-32
   Palm Computing 与，219
-  程序员动机与，122, 227, 228
+  程序员动机与，122，227，228
   开源的理由，225-34
-  Sun Microsystems 与，151, 152
+  Sun Microsystems 与，151，152
   另见 Linux 操作系统
-操作系统（OS），75, 222-23
-  早期版本，39, 41
-  微内核路线，98-99, 101, 104, 150
-  宏内核路线，99-100, 101, 104
+操作系统（OS），75，222-23
+  早期版本，39，41
+  微内核路线，98-99，101，104，150
+  宏内核路线，99-100，101，104
   Torvalds 早期对操作系统的鼓捣，44
   另见 Linux 操作系统；以及其他具体操作系统
-《Operating Systems: Design and Implementation》（Tanenbaum），51, 52, 54, 79-80, 112, 122-23
+《Operating Systems: Design and Implementation》（Tanenbaum），51，52，54，79-80，112，122-23
 Oracle，159
 OS/2 操作系统，158
 
@@ -10991,29 +10991,29 @@ OS/2 操作系统，158
 
 Prince of Persia（电脑游戏），61
 编程语言
-  汇编语言，39, 41, 44, 45, 46, 63
-  BASIC，7, 10
-  C，45, 52
+  汇编语言，39，41，44，45，46，63
+  BASIC，7，10
+  C，45，52
   Forth，43
-  Java，156, 158, 218-19
-  机器语言，10, 44, 45
+  Java，156，158，218-19
+  机器语言，10，44，45
   另见计算机编程
 保护模式（protected mode），62
-Pac Man（电脑游戏），46, 47
-页面换出到磁盘（page-to-disk），91, 92
+Pac Man（电脑游戏），46，47
+页面换出到磁盘（page-to-disk），91，92
 Palm Computing，219
 Palm Pilots，219
-专利（patents），204, 208-9
+专利（patents），204，208-9
 PC。见个人电脑
 PC Week（杂志），186-88
 PDP-11 计算机，56
 企鹅，作为 Linux 标志，138-40
 Pentium F0 0F 死锁 bug，165-66
-感知的作用，222, 223
-个人电脑，39, 41, 48-49, 51, 222-23, 225
-Playboy（杂志），16, 18
-Polytechnic University of Helsinki，58, 129
-可移植性（portability），101-2, 104-5, 132
+感知的作用，222，223
+个人电脑，39，41，48-49，51，222-23，225
+Playboy（杂志），16，18
+Polytechnic University of Helsinki，58，129
+可移植性（portability），101-2，104-5，132
 POSIX，79
 POSIX 标准，79-80
 President's Ball（芬兰），198-99
@@ -11024,106 +11024,106 @@ Q-DOS 操作系统，41
 
 ### R
 
-Randi（Torvalds 的猫），50-51, 123
-Raymond, Eric，156-57, 163, 166, 167, 196
-只读存储器（ROM），44-45, 62
+Randi（Torvalds 的猫），50-51，123
+Raymond, Eric，156-57，163，166，167，196
+只读存储器（ROM），44-45，62
 实模式（real mode），62
 录音技术，音乐产业与，216-17
-Red Hat，143, 158, 159, 164, 166, 172-75, 192, 203
+Red Hat，143，158，159，164，166，172-75，192，203
 Red Herring（杂志），65
-驯鹿，芬兰与，31, 32
+驯鹿，芬兰与，31，32
 Richie, Dennis，56
-ROM（只读存储器），44-45, 62
+ROM（只读存储器），44-45，62
 Roman Empire，247
 root 账户，191
-root beer，Torvalds 对它的厌恶，131, 136
-Russia，13, 32, 33
+root beer，Torvalds 对它的厌恶，131，136
+Russia，13，32，33
 
 ### S
 
 San Jose Mercury News，20
-桑拿，21-22, 31-32, 131
+桑拿，21-22，31-32，131
 Saxberg, Ole Torvald Elis（Farfar；祖父），14
 科学，对其的最初认识，227-28
 Scientology，213
 安全问题，Linux 与，117
-性，Torvalds 的生命意义理论与，xix, xviii, xxi, 246-47
+性，Torvalds 的生命意义理论与，xix，xviii，xxi，246-47
 共享软件（shareware），93
 shell 命令，54
-shell 程序，82-84, 87
+shell 程序，82-84，87
 Sibelius, Jean，176
 Silicon Graphics，203
-Silicon Valley，21, 22, 23, 149
-Sinclair, Clive，41, 48
-Sinclair QL 计算机，41-46, 48, 49, 51, 53
+Silicon Valley，21，22，23，149
+Sinclair, Clive，41，48
+Sinclair QL 计算机，41-46，48，49，51，53
 Sinebrychoff 家族，16
-68008 计算机芯片，41-42, 48
-社会秩序，作为动机因素，xviii-xxii, 245-49
+68008 计算机芯片，41-42，48
+社会秩序，作为动机因素，xviii-xxii，245-49
 socket，Unix，116
 Sony，223
-Sony Playstation 2，222, 223
-源代码，82, 94。另见 open source
+Sony Playstation 2，222，223
+源代码，82，94。另见 open source
 Space Wars（电脑游戏），56
-Spektrum（大学俱乐部），27-28, 77, 110-11
+Spektrum（大学俱乐部），27-28，77，110-11
 Spice Girls，211
-Stallman, Richard，58-59, 96, 156, 163, 166, 167, 194-96
-Star Office，152, 181
+Stallman, Richard，58-59，96，156，163，166，167，194-96
+Star Office，152，181
 Sun Microsystems，151-53
-  Java 编程语言，156, 158, 218-19
-  Jini 交互代理语言，151-52, 157
+  Java 编程语言，156，158，218-19
+  Jini，151-52，157
   Linux 与，157
-  Unix 操作系统，79, 82
-生存，作为动机因素，xviii-xxi, 244-48
+  Unix 操作系统，79，82
+生存，作为动机因素，xviii-xxi，244-48
 SuSE（Linux 发行版），159
 Sweden，13
 Symbolics，194-95
-系统调用（system calls），54-55, 79, 81-83
+系统调用（system calls），54-55，79，81-83
 System V 代码库（Unix），56-57
 
 ### T
 
 Taligent 操作系统，149
 Tanenbaum, Andrew S.
-  对 Linux 的攻击，98, 100-106, 111-12, 117
-  Minix 操作系统与，52, 61
-  所著《Operating Systems》，51, 52, 53, 79-80, 122-23
+  对 Linux 的攻击，98，100-106，111-12，117
+  Minix 操作系统与，52，61
+  所著《Operating Systems》，51，52，53，79-80，122-23
 任务切换（task-switching），63
 TCP/IP（网络标准），117
 技术
   未来发展展望，220-24
-  Torvalds 的生命意义理论与，xix-xx, xxi
+  Torvalds 的生命意义理论与，xix-xx，xxi
 Tele，143
 电话通信，Linux 对其的利用，229
-终端仿真（terminal emulation），62-64, 77, 78, 90
+终端仿真（terminal emulation），62-64，77，78，90
 Tevanian, Avie，149-50
 Thompson, Ken，56
 Timex 计算机，41
 Tivo，229
-Törnqvist, Leo Waldernar（Morfar；外祖父），6, 7, 9, 11-12, 14, 18, 35, 136
+Törnqvist, Leo Waldernar（Morfar；外祖父），6，7，9，11-12，14，18，35，136
 Törnqvist, Mormor（外祖母），18
-Torvalds, Anna（Mikke；母亲），15, 16, 18, 84, 123, 128, 144, 145
+Torvalds, Anna（Mikke；母亲），15，16，18，84，123，128，144，145
   家庭背景与相识经过，65-71
 Torvalds, Celeste（女儿），141
-Torvalds, Daniela（女儿），xvii, xxi, 23, 25, 34, 141, 144, 172, 177, 181, 200, 201
-Torvalds, Leo（同父异母的兄弟），10-11, 15-16
+Torvalds, Daniela（女儿），xvii，xxi，23，25，34，141，144，172，177，181，200，201
+Torvalds, Leo（同父异母的兄弟），10-11，15-16
 Torvalds, Linus
   平易近人之处，186-90
-  服兵役，28-29, 50
-  BMW 跑车，109-10, 237
-  作为猫主人，50-51, 123
+  服兵役，28-29，50
+  BMW 跑车，109-10，237
+  作为猫主人，50-51，123
   童年外貌，3-5
-  大学岁月，27-28, 50, 51-54, 60-64, 77-81, 90, 110-11, 114, 136-37
+  大学岁月，27-28，50，51-54，60-64，77-81，90，110-11，114，136-37
   商业成功对他的影响，237-38
-  以电脑为童年爱好，9-10, 16-19, 24, 26, 39-47, 69, 71
+  以电脑为童年爱好，9-10，16-19，24，26，39-47，69，71
   控制权问题之于他，215-19
-  恋爱与婚姻，71, 122-23, 128, 144
-  早期编程尝试，8, 10, 17, 43-47
+  恋爱与婚姻，71，122-23，128，144
+  早期编程尝试，8，10，17，43-47
   名声的好处与坏处，235-37
   家庭背景，13-16
   家人对其童年的回忆，65-71
   粉丝网站，129
   对编程的着迷，73-76
-  第一台电脑，6-8, 12, 35, 39
+  第一台电脑，6-8，12，35，39
   第一台 PC，60-64
   写下的第一个程序，8
   首次访美，130-32
@@ -11132,54 +11132,54 @@ Torvalds, Linus
   人生指导原则，179
   高中岁月，24-26
   外界对其形象的误解，188-90
-  对锻炼的兴趣渐增，133, 240-41
+  对锻炼的兴趣渐增，133，240-41
   对知识产权的关注，204-14
   与 Jobs（Steven）的会面，149-51
-  作为记者的宠儿，163, 167-69, 186-88
+  作为记者的宠儿，163，167-69，186-88
   与 Joy（Bill）的会面，151-53
-  作为 Linux 社区领袖，20, 120-22, 168-69, 190
-  生命意义理论，xvii-xxii, 51, 221, 242-49
+  作为 Linux 社区领袖，20，120-22，168-69，190
+  生命意义理论，xvii-xxii，51，221，242-49
   搬入新居，200-201
-  网上为他发起的募捐，64, 118, 142
+  网上为他发起的募捐，64，118，142
   开源哲学的理由，225-34
-  父母离异，10, 18, 34, 67
+  父母离异，10，18，34，67
   论人们令人窒息的严肃，191-97
-  政治观点，165, 230
+  政治观点，165，230
   作为 President's Ball 受邀嘉宾，198-99
-  公开演讲，112, 113-14, 120, 170, 179-85, 192
-  作为研究助理，115, 133
+  公开演讲，112，113-14，120，170，179-85，192
+  作为研究助理，115，133
   root 账户，191-92
   学校奖学金，40-41
   睡眠对他的重要性，148
-  社交上的不自信，26, 27, 110-11
-  作为 Spektrum 俱乐部成员，27-28, 77, 110-11
-  股票期权，166, 172-78
+  社交上的不自信，26，27，110-11
+  作为 Spektrum 俱乐部成员，27-28，77，110-11
+  股票期权，166，172-78
   童年暑期打工，40
-  作为助教，115, 122-23
-  终端仿真程序，62-64, 77, 78, 90
-  在 Transmeta 公司，20, 71, 115, 141-48, 159, 166, 169, 178, 181, 186-89
+  作为助教，115，122-23
+  终端仿真程序，62-64，77，78，90
+  在 Transmeta 公司，20，71，115，141-48，159，166，169，178，181，186-89
   电话号码不公开，170-71
   另见 Linux 操作系统
-Torvalds, Märtta（Farmor；祖母），14, 91
-Torvalds, Nils（Nicke；父亲），10-11, 15, 17, 18, 26, 41, 60, 65-68, 69, 84, 123, 128, 200
-Torvalds, Patricia（女儿），xvii, xviii, xxi, xxii, 23, 25, 34, 71, 132, 141, 144, 145, 154, 155, 177, 181, 200, 201
-Torvalds, Sara（妹妹），4, 8, 11, 15-19, 25, 63, 64, 65, 67-72, 84, 92, 123, 155
-Torvalds, Tove（妻子），xvii, xxi, xxii, 11, 50, 108, 136, 239, 240
-  Comdex Show（1999）与，180, 181
-  恋爱与婚姻，71, 122-23, 128, 144
-  女儿们的出生，141, 144, 155
-  家庭生活，23, 34, 159, 170
+Torvalds, Märtta（Farmor；祖母），14，91
+Torvalds, Nils（Nicke；父亲），10-11，15，17，18，26，41，60，65-68，69，84，123，128，200
+Torvalds, Patricia（女儿），xvii，xviii，xxi，xxii，23，25，34，71，132，141，144，145，154，155，177，181，200，201
+Torvalds, Sara（妹妹），4，8，11，15-19，25，63，64，65，67-72，84，92，123，155
+Torvalds, Tove（妻子），xvii，xxi，xxii，11，50，108，136，239，240
+  Comdex Show（1999）与，180，181
+  恋爱与婚姻，71，122-23，128，144
+  女儿们的出生，141，144，155
+  家庭生活，23，34，159，170
   与记者，129
   Linux 企鹅标志与，138-39
   搬入新居，200-201
   移居美国，144-45
   在 President's Ball 上，199
-  Red Hat 首次公开募股，172, 173
-  作为壁球运动员，133, 134
+  Red Hat 首次公开募股，172，173
+  作为壁球运动员，133，134
 商标（trademarks），208
-  Linux 操作系统纠纷，20, 133-35
-商业秘密（trade secrets），208, 209-10, 213
-Transmeta 公司，20, 71, 115, 141-48, 159, 166, 169, 178, 181, 184, 186-89
+  Linux 操作系统纠纷，20，133-35
+商业秘密（trade secrets），208，209-10，213
+Transmeta 公司，20，71，115，141-48，159，166，169，178，181，184，186-89
 Transmeta Web Slate，229
 
 ### U
@@ -11187,40 +11187,40 @@ Transmeta Web Slate，229
 Ultrix 操作系统，53
 United States Copyright Extension Act，226
 University of California-Berkeley，56-57
-University of Helsinki，27, 53, 54, 117, 122, 128-29, 143
+University of Helsinki，27，53，54，117，122，128-29，143
 University of Illinois，156
 Unix Domain Socket，116
-Unix 操作系统，20, 52-58, 79, 87, 130, 160
-  Berkeley Software Distribution 代码库，57, 152, 153
+Unix 操作系统，20，52-58，79，87，130，160
+  Berkeley Software Distribution 代码库，57，152，153
   Bourne Shell，82-83
   IBM 的版本，157
   厂商纠纷，169
 
 ### V
 
-VA Linux，135, 174-75, 177, 228
+VA Linux，135，174-75，177，228
 矢量图形（vector graphics），46
 VHS 录像带，217
 VIC-20。见 Commodore VIC-20 计算机
-Vierumaki, Jouko（Avuton），49, 69, 72, 84, 94, 134, 239
+Vierumaki, Jouko（Avuton），49，69，72，84，94，134，239
 Vikings（维京人），13
 Visor（计算设备），219
-VMS 操作系统，53, 55
+VMS 操作系统，53，55
 
 ### W
 
 Wendt, Ernst von（曾祖父），15
-Windows NT 操作系统，158, 160, 167
-Windows 操作系统，55, 118, 158
+Windows NT 操作系统，158，160，167
+Windows 操作系统，55，118，158
 Wired（杂志），153
-无线技术，215, 248
-  手机，32-33, 243, 244
-Wirzenius, Lars，27, 58, 64, 108, 115, 127-28
+无线技术，215，248
+  手机，32-33，243，244
+Wirzenius, Lars，27，58，64，108，115，127-28
 Wosniak, Steve，41
 Wapit，230-31
-战争，Torvalds 的生命意义理论与，xviii-xix, xxi, 247
+战争，Torvalds 的生命意义理论与，xviii-xix，xxi，247
 Webrush（伯克利活动），242-44
-Web 服务器，Linux 与，157-58, 160, 226
+Web 服务器，Linux 与，157-58，160，226
 
 ### X
 
