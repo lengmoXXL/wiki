@@ -5,6 +5,7 @@
 - [A Critique of Snapshot Isolation](raw/critique-of-snapshot-isolation-2012/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/critique-of-snapshot-isolation-2012.pdf`
 - [Bigtable: A Distributed Storage System for Structured Data](raw/bigtable-2006/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/bigtable-2006.pdf`
 - [Building Event-Driven Microservices](raw/build-event-driven-microservices-2025/content_zh.md)：`oss://lengmo-asserts/books/build-event-driven-microservices-2025.pdf`
+- [Cores that don't count](raw/cores-dont-count-2021/content_zh.md)：`oss://lengmo-asserts/papers/machine/cores-dont-count-2021.pdf`
 - [Designing Data-Intensive Applications](raw/ddia-2026/content_zh.md)：`oss://lengmo-asserts/books/ddia-2026.pdf`
 - [The Google File System](raw/gfs-2003/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
 - [Just for Fun](raw/just-for-fun-2002/content_zh.md)：`oss://lengmo-asserts/books/just-for-fun-2002.pdf`
@@ -82,6 +83,11 @@ raw/kafka-2011/
 - 专业术语直接使用英文。例如 `raw/kafka-2011/content_zh.md` 中，topic、broker、producer、consumer 在中文正文中直接使用：
 
   > 某种特定类型的消息流由一个主题（topic）定义。生产者可以向主题发布消息；发布的消息随后存储在一组称为代理节点（broker）的服务器上。消费者可以从代理节点订阅一个或多个主题，并通过从代理节点拉取数据来消费所订阅的消息。
+
+  不要自造术语译名：除非已有广泛使用的中文译法（如"三模冗余"），术语一律保留英文。
+  论文自造的术语尤其如此，例如 `raw/cores-dont-count-2021/content_zh.md` 中，mercurial core、CEE、SDC、fail-stop、hyperscaler 均保留英文：
+
+  > 我们把出现这种行为的核称为 mercurial core。mercurial 核极为罕见，但在大规模服务器集群中，我们能观察到它们造成的破坏……
 
   代码中的类名和方法名保持不变：
 
