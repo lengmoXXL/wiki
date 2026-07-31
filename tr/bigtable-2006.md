@@ -76,7 +76,7 @@ $$
 (row:string, column:string, time:int64) \rightarrow string
 $$
 
-![图 1：存储网页的示例表切片](images/figure-0001.png)
+![图 1：存储网页的示例表切片](../raw/bigtable-2006/images/figure-0001.png)
 > 图 1：存储网页的示例表切片。
 > 行名是反转后的 URL。
 > `contents` 列族保存页面内容，
@@ -345,7 +345,7 @@ Bigtable 客户端不依赖主服务器获取 tablet 位置信息，
 
 我们使用一个类似 B$^{+}$ 树 [10] 的三级层次结构存储 tablet 位置信息（见图 4）。
 
-![图 4：tablet 位置层次结构](images/figure-0002.png)
+![图 4：tablet 位置层次结构](../raw/bigtable-2006/images/figure-0002.png)
 > 图 4：tablet 位置的三级层次结构。
 > 第一级是 Chubby 中保存根 tablet 位置的文件，
 > 第二级是 METADATA 表中的 tablet，
@@ -474,7 +474,7 @@ tablet 服务器在 `METADATA` 表中找到的条目只涵盖主服务器要求�
 
 如图 5 所示，tablet 的持久状态存储在 GFS 中。
 
-![图 5：tablet 的表示方式](images/figure-0003.png)
+![图 5：tablet 的表示方式](../raw/bigtable-2006/images/figure-0003.png)
 > 图 5：tablet 的持久化表示。
 > 更新先写入提交日志，
 > 最近提交的更新缓存在内存中的 memtable，
@@ -758,7 +758,7 @@ $R$ 的取值使每项基准测试在每台 tablet 服务器上读写约 1 GB �
 | 顺序写入 | 8547 | 3623 | 2451 | 1905 |
 | 扫描 | 15385 | 10526 | 9524 | 7843 |
 
-![图 6：每秒读写的 1000 字节值数量](images/figure-0004.png)
+![图 6：每秒读写的 1000 字节值数量](../raw/bigtable-2006/images/figure-0004.png)
 > 图 6：每秒读写的 1000 字节值数量。
 > 表格显示每台 tablet 服务器的速率，
 > 折线图显示聚合速率。

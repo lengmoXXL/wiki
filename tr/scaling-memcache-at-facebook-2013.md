@@ -86,7 +86,7 @@ Memcached 提供了一组简单的操作（set、get 和 delete），
 我们使用"memcached"来指代源代码或运行中的二进制文件，
 使用"memcache"来描述分布式系统。
 
-![图 1：Memcache 作为按需填充的旁路缓存](images/figure-0001.png)
+![图 1：Memcache 作为按需填充的旁路缓存](../raw/scaling-memcache-at-facebook-2013/images/figure-0001.png)
 > 图 1：Memcache 作为按需填充的旁路缓存。
 > Web 服务器先向 memcache 请求数据，
 > 未命中时从数据库获取并回填缓存；
@@ -135,7 +135,7 @@ memcached 不提供服务器间协调；
 聚合和路由服务，
 将 memcached 实例组织成分布式系统。
 
-![图 2：总体架构](images/figure-0002.png)
+![图 2：总体架构](../raw/scaling-memcache-at-facebook-2013/images/figure-0002.png)
 > 图 2：总体架构。
 > 共置的集群被组织为一个区域，
 > 并指定一个主区域，
@@ -228,7 +228,7 @@ Web 服务器中的每个线程被允许直接与 memcached 服务器通信，
 
 > ²第 95 百分位数为每个请求 95 个键。
 
-![图 3：通过 UDP 和通过 mcrouter 的 TCP 的 get 延迟](images/figure-0003.png)
+![图 3：通过 UDP 和通过 mcrouter 的 TCP 的 get 延迟](../raw/scaling-memcache-at-facebook-2013/images/figure-0003.png)
 > 图 3：生产环境中 Web 服务器通过 UDP 和通过 mcrouter 的 TCP 获取键的平均、
 > 中位数和第 95 百分位延迟。
 > UDP 消除了 TCP 连接建立开销，
@@ -278,7 +278,7 @@ CPU 和内存资源来提高服务器效率。
 该窗口独立于目的地应用于所有 memcache 请求；
 而 TCP 窗口仅适用于单个流。
 
-![图 4：Web 请求等待被调度的平均时间](images/figure-0004.png)
+![图 4：Web 请求等待被调度的平均时间](../raw/scaling-memcache-at-facebook-2013/images/figure-0004.png)
 > 图 4：Web 请求在服务器内等待被调度的平均时间随滑动窗口大小的变化。
 > 窗口大小（最大并发请求数）对请求排队等待时间有显著影响。
 
@@ -364,7 +364,7 @@ get 请求可以返回租约令牌或标记为陈旧的数据。
 由于缓存值往往是数据库的单调递增快照，
 大多数应用可以在不做任何更改的情况下使用陈旧值。
 
-![图 5：高流失率和低流失率键族的每日和每周工作集](images/figure-0005.png)
+![图 5：高流失率和低流失率键族的每日和每周工作集](../raw/scaling-memcache-at-facebook-2013/images/figure-0005.png)
 > 图 5：高流失率和低流失率键族的每日和每周工作集大小对比，
 > 分别为最小、
 > 平均和最大近似值。
@@ -514,7 +514,7 @@ incast 拥塞也会恶化。
 用于单个用户请求，
 并减少陈旧数据在其本地缓存中存在的时间。
 
-![图 6：失效管道](images/figure-0006.png)
+![图 6：失效管道](../raw/scaling-memcache-at-facebook-2013/images/figure-0006.png)
 > 图 6：失效管道架构。
 > 数据库变更通过 mcsqueal 守护进程批量发送失效请求到 memcached 集群，
 > 以保持缓存与数据库一致。
@@ -785,7 +785,7 @@ Intel 82574L 千兆以太网控制器和 12GB 内存。
 而未命中只需要一个静态响应（END）用于整个 multiget，
 表示所有键都未命中。
 
-![图 7：Multiget 命中和未命中性能比较](images/figure-0007.png)
+![图 7：Multiget 命中和未命中性能比较](../raw/scaling-memcache-at-facebook-2013/images/figure-0007.png)
 > 图 7：不同版本 memcached 在亚毫秒平均响应时间下可维持的最大请求率（multiget 命中与未命中）。
 > 第一组为细粒度锁之前的 memcached，
 > 第二组为采用细粒度锁的当前版本，
@@ -795,7 +795,7 @@ Intel 82574L 千兆以太网控制器和 12GB 内存。
 图 8 展示了我们在平均延迟低于一毫秒的条件下可以维持的峰值请求率，
 分别针对单个 get 和 10 键 multiget。
 
-![图 8：单个 get 和 10 键 multiget 在 TCP 和 UDP 上的 get 命中性能比较](images/figure-0008.png)
+![图 8：单个 get 和 10 键 multiget 在 TCP 和 UDP 上的 get 命中性能比较](../raw/scaling-memcache-at-facebook-2013/images/figure-0008.png)
 > 图 8：单个 get 和 10 键 multiget 在 TCP 和 UDP 上的 get 命中性能对比。
 > UDP 在两种场景下均优于 TCP，
 > multiget 通过批量获取提升了吞吐量。
@@ -899,7 +899,7 @@ bug 修复、
 这种类型的大多数请求将访问超过 100 台不同的服务器；
 访问数百台 memcached 服务器并不罕见。
 
-![图 9：访问的不同 memcached 服务器数量的累积分布](images/figure-0009.png)
+![图 9：访问的不同 memcached 服务器数量的累积分布](../raw/scaling-memcache-at-facebook-2013/images/figure-0009.png)
 > 图 9：每次 Web 请求访问的不同 memcached 服务器数量的累积分布。
 > 多数请求只需访问少数几台服务器，
 > 但长尾请求可能需要访问大量服务器。
@@ -922,7 +922,7 @@ bug 修复、
 p95 延迟之间的巨大差异源于处理大响应和等待可运行线程被调度，
 如第 3.1 节所讨论的。
 
-![图 10：获取的值大小的累积分布](images/figure-0010.png)
+![图 10：获取的值大小的累积分布](../raw/scaling-memcache-at-facebook-2013/images/figure-0010.png)
 > 图 10：从 memcache 获取的值大小的累积分布。
 > 中位数为 135 字节，
 > 均值为 954 字节，
@@ -987,7 +987,7 @@ set 和 delete 率。
 查找采样的键，
 并在数据项尽管有应使其失效的删除操作但仍然被缓存时记录错误。
 
-![图 11：删除管道的延迟](images/figure-0011.png)
+![图 11：删除管道的延迟](../raw/scaling-memcache-at-facebook-2013/images/figure-0011.png)
 > 图 11：删除管道的延迟：给定延迟时间后仍未完成（失败）的删除操作比例，
 > 分删除源和目标与主区域共置、
 > 以及删除源自副本区域并发送到副本区域两种情况。

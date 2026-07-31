@@ -2,19 +2,19 @@
 
 ## 当前文档
 
-- [A Critique of Snapshot Isolation](raw/critique-of-snapshot-isolation-2012/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/critique-of-snapshot-isolation-2012.pdf`
-- [Bigtable: A Distributed Storage System for Structured Data](raw/bigtable-2006/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/bigtable-2006.pdf`
-- [Building Event-Driven Microservices](raw/build-event-driven-microservices-2025/content_zh.md)：`oss://lengmo-asserts/books/build-event-driven-microservices-2025.pdf`
-- [Cores that don't count](raw/cores-dont-count-2021/content_zh.md)：`oss://lengmo-asserts/papers/machine/cores-dont-count-2021.pdf`
-- [Designing Data-Intensive Applications](raw/ddia-2026/content_zh.md)：`oss://lengmo-asserts/books/ddia-2026.pdf`
-- [The Google File System](raw/gfs-2003/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
-- [Just for Fun](raw/just-for-fun-2002/content_zh.md)：`oss://lengmo-asserts/books/just-for-fun-2002.pdf`
-- [Kafka: a Distributed Messaging System for Log Processing](raw/kafka-2011/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
-- [The RocksDB Experience](raw/rocksdb-2021/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
-- [Scaling Memcache at Facebook](raw/scaling-memcache-at-facebook-2013/content_zh.md)：`oss://lengmo-asserts/papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf`
-- [Silent Data Corruptions at Scale](raw/slient-data-corruptions-at-scale-2021/content_zh.md)：`oss://lengmo-asserts/papers/machine/slient-data-corruptions-at-scale-2021.pdf`
-- [Software Architecture: The Hard Parts](raw/software-architecture-2021/content_zh.md)：`oss://lengmo-asserts/books/software-architecture-2021.pdf`
-- [控制论与科学方法论](raw/控制论与科学方法论-2025/content_zh.md)：`oss://lengmo-asserts/books/控制论与科学方法论-2025.pdf`（中文原著，仅校对）
+- [A Critique of Snapshot Isolation](tr/critique-of-snapshot-isolation-2012.md)：`oss://lengmo-asserts/papers/distributed-systems/critique-of-snapshot-isolation-2012.pdf`
+- [Bigtable: A Distributed Storage System for Structured Data](tr/bigtable-2006.md)：`oss://lengmo-asserts/papers/distributed-systems/bigtable-2006.pdf`
+- [Building Event-Driven Microservices](tr/build-event-driven-microservices-2025.md)：`oss://lengmo-asserts/books/build-event-driven-microservices-2025.pdf`
+- [Cores that don't count](tr/cores-dont-count-2021.md)：`oss://lengmo-asserts/papers/machine/cores-dont-count-2021.pdf`
+- [Designing Data-Intensive Applications](tr/ddia-2026.md)：`oss://lengmo-asserts/books/ddia-2026.pdf`
+- [The Google File System](tr/gfs-2003.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
+- [Just for Fun](tr/just-for-fun-2002.md)：`oss://lengmo-asserts/books/just-for-fun-2002.pdf`
+- [Kafka: a Distributed Messaging System for Log Processing](tr/kafka-2011.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
+- [The RocksDB Experience](tr/rocksdb-2021.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
+- [Scaling Memcache at Facebook](tr/scaling-memcache-at-facebook-2013.md)：`oss://lengmo-asserts/papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf`
+- [Silent Data Corruptions at Scale](tr/slient-data-corruptions-at-scale-2021.md)：`oss://lengmo-asserts/papers/machine/slient-data-corruptions-at-scale-2021.pdf`
+- [Software Architecture: The Hard Parts](tr/software-architecture-2021.md)：`oss://lengmo-asserts/books/software-architecture-2021.pdf`
+- [控制论与科学方法论](tr/控制论与科学方法论-2025.md)：`oss://lengmo-asserts/books/控制论与科学方法论-2025.pdf`（中文原著，仅校对）
 
 ## 1. 准备环境
 
@@ -53,26 +53,31 @@ raw/kafka-2011/
 
 其中 `raw.md` 是 DocMind 脚本直接转换的结果，**不需要做任何修改**。
 `images/raw/` 下的图片是脚本裁剪的原始图片，同样不应修改。
-脚本重跑时会先删除同名目录，因此需要先保存其中的人工修改。
+脚本重跑时只会覆盖 `raw.md` 和 `images/raw/`，不会修改 `images/` 下人工挑选的图片或 `tr/` 下的译文。
 
 ## 3. 校对并翻译
 
-以 `raw/kafka-2011/raw.md` 为底稿，对照 PDF 校对内容，并将译文写入 `raw/kafka-2011/content_zh.md`。
-中文原著（如《控制论与科学方法论》）不需要翻译，但仍需对照 PDF 校对，结果同样写入 `content_zh.md`。
+以 `raw/kafka-2011/raw.md` 为底稿，对照 PDF 校对内容，并将译文写入 `tr/kafka-2011.md`。
+`tr/` 下的文件名沿用对应的 `raw/` 子目录名。
+中文原著（如《控制论与科学方法论》）不需要翻译，但仍需对照 PDF 校对，结果同样写入 `tr/<原目录名>.md`。
 
-翻译中用到的图片，从 `images/raw/` 拷贝到 `images/` 下，在 `content_zh.md` 中以 `images/figure-XXXX.png` 引用。
+翻译中用到的图片，从 `raw/<原目录名>/images/raw/` 拷贝到同级 `images/` 下，
+并在译文中以 `../raw/<原目录名>/images/figure-XXXX.png` 引用。
 译文提交后目录结构如下：
 
 ```text
-raw/kafka-2011/
-├── raw.md
-├── content_zh.md
-└── images/
-    ├── raw/              # 脚本原始输出，不应修改
-    │   ├── figure-0001.png
-    │   └── ...
-    ├── figure-0001.png   # 翻译用到的图片，从 raw/ 拷贝
-    └── ...
+.
+├── raw/
+│   └── kafka-2011/
+│       ├── raw.md
+│       └── images/
+│           ├── raw/              # 脚本原始输出，不应修改
+│           │   ├── figure-0001.png
+│           │   └── ...
+│           ├── figure-0001.png   # 翻译用到的图片，从 raw/ 拷贝
+│           └── ...
+└── tr/
+    └── kafka-2011.md
 ```
 
 不同文档可能用到相同的图片（如 O'Reilly 的提示图标），
@@ -83,11 +88,11 @@ raw/kafka-2011/
 
 - 专业术语直接使用英文，除非中文译法已广泛使用（如"三模冗余""快照隔离"）。无论用英文还是中文，术语都不再以括注附另一种语言的译名。
 
-  例如 `raw/cores-dont-count-2021/content_zh.md` 中，mercurial core、CEE、SDC、fail-stop、hyperscaler 直接使用英文：
+  例如 `tr/cores-dont-count-2021.md` 中，mercurial core、CEE、SDC、fail-stop、hyperscaler 直接使用英文：
 
   > 我们把出现这种行为的核称为 mercurial core。mercurial 核极为罕见，但在大规模服务器集群中，我们能观察到它们造成的破坏……
 
-  `raw/kafka-2011/content_zh.md` 中的主题、代理节点等通行译法则直接使用中文：
+  `tr/kafka-2011.md` 中的主题、代理节点等通行译法则直接使用中文：
 
   > 某种特定类型的消息流由一个主题定义。生产者可以向主题发布消息；发布的消息随后存储在一组称为代理节点的服务器上。消费者可以从代理节点订阅一个或多个主题，并通过从代理节点拉取数据来消费所订阅的消息。
 
@@ -101,21 +106,23 @@ raw/kafka-2011/
   ```
 
 - 图片处理：
-  - 无语义的图片说明要补充完整，如 `![figure](images/figure-0001.png)` 改为 `![图 1：Kafka 架构](images/figure-0001.png)`。
+  - 无语义的图片说明要补充完整，
+    如 `![figure](../raw/kafka-2011/images/figure-0001.png)`
+    改为 `![图 1：Kafka 架构](../raw/kafka-2011/images/figure-0001.png)`。
   - 正文中的图号应能对应到图，如"Kafka 的整体架构如图 1 所示"对应 `图 1：Kafka 架构`。
-  - 每张图片除引用行 `![alt](url)` 外，**下方还须紧跟一行图注** `> 图 N：<完整描述>。`（blockquote 形式）。`alt` 渲染时不可见（仅读屏/悬停显示），图注才是图片正下方读者能看到的说明；`alt` 写简短图名，图注写完整描述，二者图号须一致。例如 `raw/bigtable-2006/content_zh.md` 中：
+  - 每张图片除引用行 `![alt](url)` 外，**下方还须紧跟一行图注** `> 图 N：<完整描述>。`（blockquote 形式）。`alt` 渲染时不可见（仅读屏/悬停显示），图注才是图片正下方读者能看到的说明；`alt` 写简短图名，图注写完整描述，二者图号须一致。例如 `tr/bigtable-2006.md` 中：
 
     ```markdown
-    ![图 1：一个用于存储网页的示例表切片](images/figure-0001.png)
+    ![图 1：一个用于存储网页的示例表切片](../raw/bigtable-2006/images/figure-0001.png)
 
     > 图 1：一个用于存储网页的示例表切片。行名是反转后的 URL。`contents` 列族保存页面内容，`anchor` 列族保存所有指向该页面的锚文本。Sports Illustrated 和 MY-look 的首页都引用了 CNN 首页，因此该行包含名为 `anchor:cnnsi.com` 和 `anchor:my.look.ca` 的列。每个 `anchor` 单元格只有一个版本；`contents` 列有三个版本，时间戳分别为 $t_3$、$t_5$ 和 $t_6$。
     ```
 
-- 原书中编号为 Figure 但实际内容是表格的，标注为 `表 X-Y` 而非 `图 X-Y`。例如 `raw/ddia-2026/content_zh.md` 中：
+- 原书中编号为 Figure 但实际内容是表格的，标注为 `表 X-Y` 而非 `图 X-Y`。例如 `tr/ddia-2026.md` 中：
 
   > 表 1-1：事务处理系统与分析系统的特征比较。
 
-- 书的目录（Table of Contents）应从点线加页码的形式改为指向标题的 Markdown 锚点链接，以支持文内跳转。例如 `raw/ddia-2026/content_zh.md` 中：
+- 书的目录（Table of Contents）应从点线加页码的形式改为指向标题的 Markdown 锚点链接，以支持文内跳转。例如 `tr/ddia-2026.md` 中：
 
   ```markdown
   - **[前言](#前言)**
@@ -141,7 +148,7 @@ raw/kafka-2011/
   参见[识别并确定组件大小模式](#识别并确定组件大小模式)。
   ```
 
-- 正文与译文按标点换行，句号、逗号、问号、叹号等都可断行，一行尽可能短。例如 `raw/scaling-memcache-at-facebook-2013/content_zh.md` 中：
+- 正文与译文按标点换行，句号、逗号、问号、叹号等都可断行，一行尽可能短。例如 `tr/scaling-memcache-at-facebook-2013.md` 中：
 
   > 此后，
   > 我们使用"memcached"来指代源代码或运行中的二进制文件，
@@ -153,7 +160,7 @@ raw/kafka-2011/
 
 O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
 
-- **告警块转换**：O'Reilly 书中"提示/注意/警告"小图标会在正文中反复出现（DocMind 可能将其识别为重复的图片，如 `figure-0002.png`），应统一转换为 GitHub 风格告警块。例如 `raw/ddia-2026/content_zh.md` 中：
+- **告警块转换**：O'Reilly 书中"提示/注意/警告"小图标会在正文中反复出现（DocMind 可能将其识别为重复的图片，如 `figure-0002.png`），应统一转换为 GitHub 风格告警块。例如 `tr/ddia-2026.md` 中：
 
   ```markdown
   > [!NOTE]

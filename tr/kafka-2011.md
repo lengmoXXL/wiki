@@ -211,7 +211,7 @@ Kafka 的整体架构如图 1 所示。
 第 3.2 节说明在分布式环境中生产者和消费者如何与多个代理节点交互；
 第 3.3 节讨论 Kafka 的传送保证。
 
-![图 1：Kafka 架构](images/figure-0001.png)
+![图 1：Kafka 架构](../raw/kafka-2011/images/figure-0001.png)
 > 图 1：Kafka 架构。一个 Kafka 集群由多个代理节点组成，
 > 每个主题被划分为多个分区并分布在各代理节点上，
 > 多个生产者和消费者可以同时发布和消费消息。
@@ -256,7 +256,7 @@ Kafka 中存储的消息没有显式消息 ID。
 Kafka 日志与内存索引的布局如图 2 所示，
 每个方框中标出了相应消息的偏移量。
 
-![图 2：Kafka 日志结构](images/figure-0002.png)
+![图 2：Kafka 日志结构](../raw/kafka-2011/images/figure-0002.png)
 > 图 2：Kafka 日志结构。每个分区对应一个逻辑日志，
 > 物理上由多个段文件组成。
 > 每个方框中标出了相应消息的偏移量。
@@ -491,7 +491,7 @@ Kafka 会运行恢复过程，
 将发布请求均匀分发到这组 Kafka 代理节点。
 Kafka 的在线消费者作为服务运行在同一个数据中心内。
 
-![图 3：Kafka 部署架构](images/figure-0003.png)
+![图 3：Kafka 部署架构](../raw/kafka-2011/images/figure-0003.png)
 > 图 3：Kafka 在 LinkedIn 的部署架构。
 > 每个数据中心内共置一个 Kafka 集群，
 > 在线消费者运行在同一数据中心，
@@ -579,7 +579,7 @@ Kafka 的发布速率分别达到每秒 50,000 条和 400,000 条消息。
 这些数值比 ActiveMQ 高出若干数量级，
 且至少是 RabbitMQ 的 2 倍。
 
-![图 4：生产者性能对比](images/figure-0004.png)
+![图 4：生产者性能对比](../raw/kafka-2011/images/figure-0004.png)
 > 图 4：Kafka、ActiveMQ 与 RabbitMQ 的生产者吞吐量对比。
 > 横轴表示随时间发送到代理节点的数据量（MB），
 > 纵轴表示生产者吞吐量（消息/秒）。
@@ -637,7 +637,7 @@ ActiveMQ 的一项开销来自 JMS 所要求的繁重消息头，
 最后，通过使用 sendfile API，
 Kafka 降低了传输开销。
 
-![图 5：消费者性能对比](images/figure-0005.png)
+![图 5：消费者性能对比](../raw/kafka-2011/images/figure-0005.png)
 > 图 5：Kafka、ActiveMQ 与 RabbitMQ 的消费者吞吐量对比。
 > 横轴表示随时间消费的数据量（MB），
 > 纵轴表示消费者吞吐量（消息/秒）。

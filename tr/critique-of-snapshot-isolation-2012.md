@@ -162,7 +162,7 @@ Yahoo! Research
 
 [^1]: [http://hbase.apache.org](http://hbase.apache.org)
 
-![图 1：快照隔离保证下的示例运行](images/figure-0001.png)
+![图 1：快照隔离保证下的示例运行](../raw/critique-of-snapshot-isolation-2012/images/figure-0001.png)
 
 > 图 1：快照隔离保证下的一次示例运行。
 > $write(r, v)$ 将值 $v$ 写入数据项 $r$，
@@ -428,7 +428,7 @@ $$ T_{s}(txn_{i})<T_{c}(txn_{j})<T_{c}(txn_{i}). $$
 事务 $txn_n$ 没有修改事务 $txn_{c''}$ 所读的数据（其读集在此为空），
 所以 $txn_n$ 的提交时间落在 $txn_{c''}$ 的生存期内并不会造成 RW 时间重叠。
 
-![图 2：写快照隔离保证下的示例运行](images/figure-0002.png)
+![图 2：写快照隔离保证下的示例运行](../raw/critique-of-snapshot-isolation-2012/images/figure-0002.png)
 
 > 图 2：写快照隔离保证下的一次示例运行。
 > $write(r, v)$ 将值 $v$ 写入数据项 $r$，
@@ -489,7 +489,7 @@ $$ T_{s}(txn_{i})<T_{c}(txn_{j})<T_{c}(txn_{i}). $$
 
 换言之，不对只读事务检查冲突，因而它们绝不会中止。
 
-![图 3：只读事务的等价时间区间](images/figure-0003.png)
+![图 3：只读事务的等价时间区间](../raw/critique-of-snapshot-isolation-2012/images/figure-0003.png)
 
 > 图 3：在写快照隔离下运行的每个只读事务，
 > 都等价于一个具有相同开始时间戳、
@@ -518,7 +518,7 @@ $$ T_{s}(txn_{i})<T_{c}(txn_{j})<T_{c}(txn_{i}). $$
 
 [^3]: Megastore 通过牺牲可串行化实现这一性能。它对数据存储进行分区，并且只在分区之间提供有限的一致性保证。详见第 7 节。
 
-![图 4：写事务的等价时间区间](images/figure-0004.png)
+![图 4：写事务的等价时间区间](../raw/critique-of-snapshot-isolation-2012/images/figure-0004.png)
 
 > 图 4：在写快照隔离下运行的每个写事务，
 > 都等价于一个具有相同提交时间戳、
@@ -813,7 +813,7 @@ status oracle 中的提交算法在快照隔离和写快照隔离下具有非常
 我们使用复杂工作负载，
 其中各行从 2000 万行中随机选取。[^6]
 
-![图 5：status oracle 上的开销](images/figure-0005.png)
+![图 5：status oracle 上的开销](../raw/critique-of-snapshot-isolation-2012/images/figure-0005.png)
 
 > 图 5：status oracle 在 SI 与 WSI 下的性能对比。
 > 横轴表示平均吞吐量（TPS），纵轴表示平均延迟（ms）。
@@ -862,7 +862,7 @@ status oracle 未过载时，
 该实验的结果着重体现二者检查冲突的开销，
 而不涉及它们能够提供的并发度。
 
-![图 6：均匀分布下的性能](images/figure-0006.png)
+![图 6：均匀分布下的性能](../raw/critique-of-snapshot-isolation-2012/images/figure-0006.png)
 
 > 图 6：行按均匀分布选取时，SI 与 WSI 在 HBase 上的性能对比。
 > 横轴表示平均吞吐量（TPS），纵轴表示平均延迟（ms）。
@@ -898,7 +898,7 @@ zipfianLatest 分布中的热门数据项则位于最近插入的数据之中。
 延迟为 172 ms。
 总体而言，写快照隔离的性能可与快照隔离相媲美。
 
-![图 7：Zipf 分布下的性能](images/figure-0007.png)
+![图 7：Zipf 分布下的性能](../raw/critique-of-snapshot-isolation-2012/images/figure-0007.png)
 
 > 图 7：行按 Zipf 分布选取时，SI 与 WSI 在 HBase 上的性能对比。
 > 横轴表示平均吞吐量（TPS），纵轴表示平均延迟（ms）。
@@ -912,13 +912,13 @@ zipfianLatest 分布中的热门数据项则位于最近插入的数据之中。
 对于 Zipf 分布下的混合工作负载，
 快照隔离和写快照隔离提供了相同的并发度。
 
-![图 8：Zipf 分布下的中止率](images/figure-0008.png)
+![图 8：Zipf 分布下的中止率](../raw/critique-of-snapshot-isolation-2012/images/figure-0008.png)
 
 > 图 8：Zipf 分布下 SI 与 WSI 的平均中止率对比。
 > 横轴表示平均吞吐量（TPS），纵轴表示中止率（%）。
 > 中止率随吞吐量线性上升，WSI 的中止率略高于 SI 但差异可忽略。
 
-![图 9：zipfianLatest 分布下的性能](images/figure-0009.png)
+![图 9：zipfianLatest 分布下的性能](../raw/critique-of-snapshot-isolation-2012/images/figure-0009.png)
 
 > 图 9：行按 zipfianLatest 分布选取时，SI 与 WSI 在 HBase 上的性能对比。
 > 横轴表示平均吞吐量（TPS），纵轴表示平均延迟（ms）。
@@ -941,7 +941,7 @@ zipfianLatest 分布下的中止率增长得更快。
 从而增加了写快照隔离中发生读-写冲突的概率。
 这项轻微开销正是获得写快照隔离所提供的可串行化需要付出的代价。
 
-![图 10：zipfianLatest 分布下的中止率](images/figure-0010.png)
+![图 10：zipfianLatest 分布下的中止率](../raw/critique-of-snapshot-isolation-2012/images/figure-0010.png)
 
 > 图 10：zipfianLatest 分布下 SI 与 WSI 的平均中止率对比。
 > 横轴表示平均吞吐量（TPS），纵轴表示中止率（%）。

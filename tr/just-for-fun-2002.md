@@ -2,7 +2,7 @@
 
 **一个意外革命者的故事**
 
-![Tux，Linux 吉祥物](images/figure-0001.png)
+![Tux，Linux 吉祥物](../raw/just-for-fun-2002/images/figure-0001.png)
 > 图 1：Tux，Linux 的吉祥物企鹅。
 
 “妙趣横生……

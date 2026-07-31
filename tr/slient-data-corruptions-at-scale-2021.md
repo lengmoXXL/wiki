@@ -256,7 +256,7 @@ Facebook 系列应用拥有数十亿用户，
 它用于跨多个数据集获取并执行 SQL 和类 SQL 查询，
 如 Presto、Hive 和 Spark 查询 [5, 6]。
 
-![图 1：Spark 高层架构](images/figure-0001.png)
+![图 1：Spark 高层架构](../raw/slient-data-corruptions-at-scale-2021/images/figure-0001.png)
 
 > 图 1：Spark 高层架构。
 > Driver Program 通过 Cluster Manager 把任务分配给 Worker Node；
@@ -312,7 +312,7 @@ Spark 是一种广为人知的分布式处理框架，
 图 2 直观展示了损坏如何显现，
 以及它与数据库之间的关联。
 
-![图 2：应用层 SDC](images/figure-0002.png)
+![图 2：应用层 SDC](../raw/slient-data-corruptions-at-scale-2021/images/figure-0002.png)
 
 > 图 2：应用层 SDC。
 > 缺陷 CPU 在 Spark 的 shuffle-and-merge 流程中，
@@ -617,7 +617,7 @@ Java 提供了 `+PrintAssembly` 选项；
 
 ### 5.3 汇编层测试用例
 
-![图 3：silent error 的高层调试流程](images/figure-0003.png)
+![图 3：silent error 的高层调试流程](../raw/slient-data-corruptions-at-scale-2021/images/figure-0003.png)
 
 > 图 3：silent error 的高层调试流程。
 > 调试从偶发复现的 Spark 工作负载开始，

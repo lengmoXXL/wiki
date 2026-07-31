@@ -716,7 +716,7 @@ IDE 就会贴心地弹出一个对话框，询问开发人员是否想要自动�
 然而，任意在组件之间导入类或组件对模块化来说意味着灾难。
 例如，图 1-1 说明了架构师渴望避免的一种特别有害的反模式。  
 
-![图 1-1：组件之间的循环依赖](images/figure-0004.png)
+![图 1-1：组件之间的循环依赖](../raw/software-architecture-2021/images/figure-0004.png)
 
 > 图 1-1：组件之间的循环依赖。
 
@@ -766,7 +766,7 @@ public class CycleTest {
 然而，架构师可能也希望验证架构的宏观结构以及微观结构。
 当设计像图 1-2 那样的分层架构时，架构师定义层以确保关注点分离。  
 
-![图 1-2：传统的分层架构](images/figure-0005.png)
+![图 1-2：传统的分层架构](../raw/software-architecture-2021/images/figure-0005.png)
 
 > 图 1-2：传统的分层架构。
 
@@ -1056,7 +1056,7 @@ Sysops Squad 应用的单体系统处理工单管理、运维报告、客户注�
 以及一般管理功能，如用户维护、登录和专家技能及资料维护。
 图 1-3 和相应的表 1-1 说明和描述了现有单体应用的组件（命名空间的 ss. 部分指定了 Sysops Squad 应用上下文）。  
 
-![图 1-3：现有 Sysops Squad 应用中的组件](images/figure-0006.png)
+![图 1-3：现有 Sysops Squad 应用中的组件](../raw/software-architecture-2021/images/figure-0006.png)
 
 > 图 1-3：现有 Sysops Squad 应用中的组件。
 
@@ -1091,7 +1091,7 @@ Sysops Squad 应用的单体系统处理工单管理、运维报告、客户注�
 该数据库用于持久化客户、用户、
 合同、计费、付款、知识库和客户调查问卷；表列于表 1-2 中，ER 模型如图 1-4 所示。  
 
-![图 1-4：现有 Sysops Squad 应用中的数据模型](images/figure-0007.png)
+![图 1-4：现有 Sysops Squad 应用中的数据模型](../raw/software-architecture-2021/images/figure-0007.png)
 
 > 图 1-4：现有 Sysops Squad 应用中的数据模型。
 
@@ -1158,7 +1158,7 @@ Meilir Page-Jones 做出了敏锐的观察，即架构中的耦合可以分为�
 
 11 月 3 日，星期三，13:00  
 
-![插图 2-1：Logan 打断架构师们关于分布式架构的讨论](images/figure-0008.png)
+![插图 2-1：Logan 打断架构师们关于分布式架构的讨论](../raw/software-architecture-2021/images/figure-0008.png)
 
 > 插图 2-1：Logan 在自助餐厅打断 Addison 和 Austen 等架构师关于分布式架构的讨论。
 
@@ -1223,7 +1223,7 @@ Logan 打断了越来越激烈的讨论。"这确实是苹果和橘子的比较�
 正如架构中的许多事情，建议很简单；难点在于细节，特别是困难的部分如何纠缠在一起，
 使得难以看到和理解各个部分，如图 2-1 所示。  
 
-![图 2-1：纠缠的发辫让单独的发丝难以辨认](images/figure-0009.png)
+![图 2-1：纠缠的发辫让单独的发丝难以辨认](../raw/software-architecture-2021/images/figure-0009.png)
 
 > 图 2-1：纠缠的发辫让单独的发丝难以辨认。
 
@@ -1354,7 +1354,7 @@ architecture quantum 在某种程度上是静态耦合的度量，对于大多�
 
 任何单体架构风格必然有一个 quantum 为一，如图 2-2 所示。  
 
-![图 2-2：单体架构的 quantum 数始终为一](images/figure-0010.png)
+![图 2-2：单体架构的 quantum 数始终为一](../raw/software-architecture-2021/images/figure-0010.png)
 
 > 图 2-2：单体架构的 quantum 数始终为一。
 
@@ -1366,7 +1366,7 @@ architecture quantum 的静态耦合度量有助于识别架构中的耦合点�
 
 分布式架构通常以组件级别的解耦为特征；考虑下一组架构风格，从图 2-3 所示的基于服务的架构开始。  
 
-![图 2-3：基于服务的架构的 architecture quantum](images/figure-0011.png)
+![图 2-3：基于服务的架构的 architecture quantum](../raw/software-architecture-2021/images/figure-0011.png)
 
 > 图 2-3：基于服务的架构的 architecture quantum。
 
@@ -1394,7 +1394,7 @@ architecture quantum 的静态耦合度量有助于识别架构中的耦合点�
 与之前的单体架构相同，
 还有请求 orchestrator 本身——架构运行所需的任何整体耦合点都围绕它形成一个 architecture quantum。  
 
-![图 2-4：mediator 事件驱动架构具有单个 architecture quantum](images/figure-0012.png)
+![图 2-4：mediator 事件驱动架构具有单个 architecture quantum](../raw/software-architecture-2021/images/figure-0012.png)
 
 > 图 2-4：mediator 事件驱动架构具有单个 architecture quantum。
 
@@ -1406,7 +1406,7 @@ architecture quantum 的静态分析回答的问题是，
 "这个架构依赖是否是引导此服务所必需的？"即使在事件驱动架构中，某些服务不访问数据库，
 如果它们依赖确实访问数据库的服务，那么它们就成为 architecture quantum 静态耦合的一部分。  
 
-![图 2-5：即使是分布式架构如代理者风格的事件驱动架构也可以是单个 quantum](images/figure-0013.png)
+![图 2-5：即使是分布式架构如代理者风格的事件驱动架构也可以是单个 quantum](../raw/software-architecture-2021/images/figure-0013.png)
 
 > 图 2-5：即使是分布式架构如代理者风格的事件驱动架构也可以是单个 quantum。
 
@@ -1420,7 +1420,7 @@ architecture quantum 的静态耦合度量评估架构和运维组件之间的�
 因此，操作系统、数据存储、消息代理、
 容器编排和所有其他运维依赖构成了 architecture quantum 的静态耦合点，使用尽可能严格的契约，即运维依赖。  
 
-![图 2-6：具有多个 quantum 的事件驱动架构](images/figure-0014.png)
+![图 2-6：具有多个 quantum 的事件驱动架构](../raw/software-architecture-2021/images/figure-0014.png)
 
 > 图 2-6：具有多个 quantum 的事件驱动架构。
 
@@ -1428,7 +1428,7 @@ architecture quantum 的静态耦合度量评估架构和运维组件之间的�
 允许每个单独的服务各自形成自己的 quantum，
 如图 2-7 所示。  
 
-![图 2-7：微服务可以形成自己的 quantum](images/figure-0015.png)
+![图 2-7：微服务可以形成自己的 quantum](../raw/software-architecture-2021/images/figure-0015.png)
 
 > 图 2-7：微服务可以形成自己的 quantum。
 
@@ -1438,7 +1438,7 @@ architecture quantum 的静态耦合度量评估架构和运维组件之间的�
 
 然而，如果系统与用户界面紧密耦合，架构就形成单个 architecture quantum，如图 2-8 所示。  
 
-![图 2-8：紧密耦合的用户界面可以将微服务 architecture quantum 数降为一](images/figure-0016.png)
+![图 2-8：紧密耦合的用户界面可以将微服务 architecture quantum 数降为一](../raw/software-architecture-2021/images/figure-0016.png)
 
 > 图 2-8：紧密耦合的用户界面可以将微服务 architecture quantum 数降为一。
 
@@ -1453,7 +1453,7 @@ architecture quantum 的静态耦合度量评估架构和运维组件之间的�
 用户界面元素可以出现在上面，并且还促进组件之间的松耦合通信，通常使用事件。
 这种架构如图 2-9 所示。  
 
-![图 2-9：在微前端架构中，每个服务+用户界面组件形成一个 architecture quantum](images/figure-0017.png)
+![图 2-9：在微前端架构中，每个服务+用户界面组件形成一个 architecture quantum](../raw/software-architecture-2021/images/figure-0017.png)
 
 > 图 2-9：在微前端架构中，每个服务+用户界面组件形成一个 architecture quantum。
 
@@ -1468,7 +1468,7 @@ architecture quantum 的静态耦合度量评估架构和运维组件之间的�
 
 静态耦合只是分布式架构中作用力的一半。另一半是动态耦合。  
 
-![图 2-10：共享数据库形成两个系统之间的耦合点，创建单个 quantum](images/figure-0018.png)
+![图 2-10：共享数据库形成两个系统之间的耦合点，创建单个 quantum](../raw/software-architecture-2021/images/figure-0018.png)
 
 > 图 2-10：共享数据库形成两个系统之间的耦合点，创建单个 quantum。
 
@@ -1497,7 +1497,7 @@ architecture quantum 在分布式架构中相互交互以形成工作流的行�
 
 同步通信要求请求者等待接收者的响应，如图 2-11 所示。  
 
-![图 2-11：同步调用等待接收者的结果](images/figure-0019.png)
+![图 2-11：同步调用等待接收者的结果](../raw/software-architecture-2021/images/figure-0019.png)
 
 > 图 2-11：同步调用等待接收者的结果。
 
@@ -1508,7 +1508,7 @@ architecture quantum 在分布式架构中相互交互以形成工作流的行�
 一旦调用者收到消息将被处理的确认，它就返回工作。如果请求需要响应值，
 接收者可以使用回复队列（异步地）通知调用者结果，如图 2-12 所示。  
 
-![图 2-12：异步通信允许并行处理](images/figure-0020.png)
+![图 2-12：异步通信允许并行处理](../raw/software-architecture-2021/images/figure-0020.png)
 
 > 图 2-12：异步通信允许并行处理。
 
@@ -1544,7 +1544,7 @@ architecture quantum 在分布式架构中相互交互以形成工作流的行�
 
 服务通信期间发挥作用的每个力都表现为一个维度。对于特定决策，架构师可以绘制代表这些力强度的空间位置图。  
 
-![图 2-13：动态 quantum 耦合的维度](images/figure-0021.png)
+![图 2-13：动态 quantum 耦合的维度](../raw/software-architecture-2021/images/figure-0021.png)
 
 > 图 2-13：动态 quantum 耦合的维度。
 
@@ -1576,7 +1576,7 @@ architecture quantum 在分布式架构中相互交互以形成工作流的行�
 
 ### 11 月 23 日，星期二，14:32
 
-![插图 2-2：Austen 向 Addison 请教 architecture quantum](images/figure-0022.png)
+![插图 2-2：Austen 向 Addison 请教 architecture quantum](../raw/software-architecture-2021/images/figure-0022.png)
 
 > 插图 2-2：Austen 来到 Addison 的办公室，请教 architecture quantum 的概念。
 
@@ -1683,7 +1683,7 @@ architecture quantum 定义了架构特征的范围——静态耦合如何影�
 
 9 月 21 日，星期二，09:33  
 
-![插图 3-1：业务赞助商与 Addison 和 Austen 的紧张会议](images/figure-0023.png)
+![插图 3-1：业务赞助商与 Addison 和 Austen 的紧张会议](../raw/software-architecture-2021/images/figure-0023.png)
 
 > 插图 3-1：Sysops Squad 工单应用的业务赞助商与架构师 Addison 和 Austen 举行气氛紧张的会议。
 
@@ -1773,7 +1773,7 @@ Addison 在消息中解释说他们真的陷入了困境，需要一些建议。
 添加另一个杯子（代表另一个服务器或虚拟机）没有任何作用，
 因为新杯子会包含与第一个相同数量的水。  
 
-![图 3-1：一个满杯代表接近容量极限的大型单体应用](images/figure-0024.png)
+![图 3-1：一个满杯代表接近容量极限的大型单体应用](../raw/software-architecture-2021/images/figure-0024.png)
 
 > 图 3-1：一个满杯代表接近容量极限的大型单体应用。
 
@@ -1785,7 +1785,7 @@ Addison 在消息中解释说他们真的陷入了困境，需要一些建议。
 一半的水现在可以倒入新的空杯，提供 50% 更多的容量，如图 3-2 所示。
 水杯类比是向业务利益相关者和 C 级高管解释架构模块化（单体应用的拆分）的绝佳方式，他们不可避免地要为架构重构工作买单。  
 
-![图 3-2：两个半满杯代表已拆分的应用，有充足的容量用于增长](images/figure-0025.png)
+![图 3-2：两个半满杯代表已拆分的应用，有充足的容量用于增长](../raw/software-architecture-2021/images/figure-0025.png)
 
 > 图 3-2：两个半满杯代表已拆分的应用，有充足的容量用于增长。
 
@@ -1817,7 +1817,7 @@ Addison 在消息中解释说他们真的陷入了困境，需要一些建议。
 如图 3-3 所示，为支持当今市场中的敏捷性、上市速度并最终实现竞争优势，
 五个关键架构特征是可用性（容错）、可扩展性、可部署性、可测试性和可维护性。  
 
-![图 3-3：模块化的驱动因素及其关系](images/figure-0026.png)
+![图 3-3：模块化的驱动因素及其关系](../raw/software-architecture-2021/images/figure-0026.png)
 
 > 图 3-3：模块化的驱动因素及其关系。
 
@@ -1871,7 +1871,7 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 即向客户愿望清单中的商品添加过期日期。请注意，在图 3-4 中，
 新需求的变更范围是应用级别的，因为变更传播到应用中的所有层。  
 
-![图 3-4：在单体分层架构中，变更是应用级别的](images/figure-0027.png)
+![图 3-4：在单体分层架构中，变更是应用级别的](../raw/software-architecture-2021/images/figure-0027.png)
 
 > 图 3-4：在单体分层架构中，变更是应用级别的。
 
@@ -1892,11 +1892,11 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 转向更高的架构模块化，如微服务架构，如图 3-6 所示，
 将新需求置于*功能级别*的变更范围，将变更隔离到负责愿望清单功能的特定服务。  
 
-![图 3-5：在基于服务的架构中，变更是领域级别的](images/figure-0028.png)
+![图 3-5：在基于服务的架构中，变更是领域级别的](../raw/software-architecture-2021/images/figure-0028.png)
 
 > 图 3-5：在基于服务的架构中，变更是领域级别的。
 
-![图 3-6：在微服务架构中，变更是功能级别的](images/figure-0029.png)
+![图 3-6：在微服务架构中，变更是功能级别的](../raw/software-architecture-2021/images/figure-0029.png)
 
 > 图 3-6：在微服务架构中，变更是功能级别的。
 
@@ -1924,7 +1924,7 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 因为对 Service A 变更的测试范围现在包括 Service B 和 Service C，
 因此影响测试的容易程度和测试的完整性。  
 
-![图 3-7：当服务相互通信时，测试范围增加](images/figure-0030.png)
+![图 3-7：当服务相互通信时，测试范围增加](../raw/software-architecture-2021/images/figure-0030.png)
 
 > 图 3-7：当服务相互通信时，测试范围增加。
 
@@ -1956,11 +1956,11 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 定义为系统在显著高的瞬时和不稳定的用户负载峰值期间保持响应的能力。
 图 3-8 说明了可扩展性和弹性之间的区别。  
 
-![图 3-8(a)：可扩展性与弹性不同——可扩展性](images/figure-0031.png)
+![图 3-8(a)：可扩展性与弹性不同——可扩展性](../raw/software-architecture-2021/images/figure-0031.png)
 
 > 图 3-8(a)：可扩展性与弹性不同——可扩展性。
 
-![图 3-8(b)：可扩展性与弹性不同——弹性](images/figure-0032.png)
+![图 3-8(b)：可扩展性与弹性不同——弹性](../raw/software-architecture-2021/images/figure-0032.png)
 
 > 图 3-8(b)：可扩展性与弹性不同——弹性。
 
@@ -1994,7 +1994,7 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 对可扩展性和弹性的负面影响就越大。因此，当需要高水平的可扩展性和弹性时，
 保持服务之间的同步通信最小化很重要。  
 
-![图 3-9：可扩展性和弹性随模块化而改善](images/figure-0033.png)
+![图 3-9：可扩展性和弹性随模块化而改善](../raw/software-architecture-2021/images/figure-0033.png)
 
 > 图 3-9：可扩展性和弹性随模块化而改善。
 
@@ -2018,7 +2018,7 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 
 ### 9 月 30 日，星期四，12:01
 
-![插图 3-2：Addison 和 Austen 创建业务案例](images/figure-0034.png)
+![插图 3-2：Addison 和 Austen 创建业务案例](../raw/software-architecture-2021/images/figure-0034.png)
 
 > 插图 3-2：Addison 和 Austen 将 Sysops Squad 的问题与模块化驱动因素匹配，以创建业务案例。
 
@@ -2148,7 +2148,7 @@ Addison 和 Austen 与 Sysops Squad 问题工单系统的业务赞助商会面�
 
 ## 10 月 4 日，星期一，10:04
 
-![插图 4-1：Addison 和 Austen 讨论如何开始拆分应用](images/figure-0035.png)
+![插图 4-1：Addison 和 Austen 讨论如何开始拆分应用](../raw/software-architecture-2021/images/figure-0035.png)
 
 > 插图 4-1：Addison 和 Austen 讨论拆分 Sysops Squad 应用的起步方法。
 
@@ -2211,7 +2211,7 @@ Addison 和 Austen 看着 Logan。"但我们怎么知道该用哪一个？"
 如果源代码文件的结构方式将类似的功能组合在定义良好（甚至松散定义）的组件中，
 那么基于组件的分解方法就是正确的选择。  
 
-![图 4-1：选择分解方法的决策树](images/figure-0036.png)
+![图 4-1：选择分解方法的决策树](../raw/software-architecture-2021/images/figure-0036.png)
 
 > 图 4-1：选择分解方法的决策树。
 
@@ -2252,7 +2252,7 @@ Edward Yourdon 和 Larry Constantine 出版了《结构化设计：
 在这个例子中，Eclipse 插件提供了 JDepend 输出的可视化，
 包括每个包的耦合分析，以及一些在下节中突出的聚合度量。  
 
-![图 4-2：JDepend 在 Eclipse 中的耦合关系分析视图](images/figure-0037.png)
+![图 4-2：JDepend 在 Eclipse 中的耦合关系分析视图](../raw/software-architecture-2021/images/figure-0037.png)
 
 > 图 4-2：JDepend 在 Eclipse 中的耦合关系分析视图。
 
@@ -2304,7 +2304,7 @@ $$ D=|A+I-1| $$
 落在该理想线附近的组件展示了这两种竞争关注点的健康组合。例如，绘制特定组件允许开发人员
 计算与主序列的距离度量，如图 4-3 所示。
 
-![图 4-3：特定组件的归一化主序列距离](images/figure-0038.png)
+![图 4-3：特定组件的归一化主序列距离](../raw/software-architecture-2021/images/figure-0038.png)
 
 > 图 4-3：特定组件的归一化主序列距离。
 
@@ -2313,7 +2313,7 @@ $$ D=|A+I-1| $$
 过于抽象的代码变得难以使用。相反，落入左下角的代码进入*痛苦区*：
 实现过多而抽象不足的代码变得脆弱且难以维护，如图 4-4 所示。
 
-![图 4-4：无用区与痛苦区](images/figure-0039.png)
+![图 4-4：无用区与痛苦区](../raw/software-architecture-2021/images/figure-0039.png)
 
 > 图 4-4：无用区与痛苦区。
 
@@ -2347,7 +2347,7 @@ $$ D=|A+I-1| $$
 目录结构 penultimate/ss/ticket/assign 表示一个名为 Ticket Assign 的组件，  
 其命名空间为 penultimate.ss.ticket.assign。
 
-![图 4-5：代码库的目录结构成为组件的命名空间](images/figure-0040.png)
+![图 4-5：代码库的目录结构成为组件的命名空间](../raw/software-architecture-2021/images/figure-0040.png)
 
 > 图 4-5：代码库的目录结构成为组件的命名空间。
 
@@ -2404,14 +2404,14 @@ $$ D=|A+I-1| $$
 通常，架构师在考虑重构代码库时，  
 想到的是提取部分代码，如图 4-6 所示。
 
-![图 4-6：提取系统的一部分](images/figure-0043.png)
+![图 4-6：提取系统的一部分](../raw/software-architecture-2021/images/figure-0043.png)
 
 > 图 4-6：提取系统的一部分。
 
 然而，隔离系统某部分的另一种思路  
 是删除不再需要的部分，如图 4-7 所示。
 
-![图 4-7：删除不需要的部分是隔离系统部分的另一种方式](images/figure-0044.png)
+![图 4-7：删除不需要的部分是隔离系统部分的另一种方式](../raw/software-architecture-2021/images/figure-0044.png)
 
 > 图 4-7：删除不需要的部分是隔离系统部分的另一种方式。
 
@@ -2428,7 +2428,7 @@ $$ D=|A+I-1| $$
 提取与删除之间的差异启发了战术 forking 模式。  
 在这种分解方式中，系统起初是一个单体应用，如图 4-8 所示。
 
-![图 4-8：重构之前，单体应用包含多个部分](images/figure-0045.png)
+![图 4-8：重构之前，单体应用包含多个部分](../raw/software-architecture-2021/images/figure-0045.png)
 
 > 图 4-8：重构之前，单体应用包含多个部分。
 
@@ -2442,7 +2442,7 @@ $$ D=|A+I-1| $$
 战术 forking 的第一步是克隆整个单体应用，  
 并给每个团队一份完整代码库的副本，如图 4-9 所示。
 
-![图 4-9：第一步克隆单体应用](images/figure-0046.png)
+![图 4-9：第一步克隆单体应用](../raw/software-architecture-2021/images/figure-0046.png)
 
 > 图 4-9：第一步克隆单体应用。
 
@@ -2460,7 +2460,7 @@ $$ D=|A+I-1| $$
 团队开始隔离目标部分，如图 4-10 所示。  
 然后每个团队继续逐步消除不需要的代码。
 
-![图 4-10：团队不断重构以移除不需要的代码](images/figure-0047.png)
+![图 4-10：团队不断重构以移除不需要的代码](../raw/software-architecture-2021/images/figure-0047.png)
 
 > 图 4-10：团队不断重构以移除不需要的代码。
 
@@ -2468,7 +2468,7 @@ $$ D=|A+I-1| $$
 团队已将原来的单体应用拆分为两部分，  
 并保留了每部分中行为的粗粒度结构，如图 4-11 所示。
 
-![图 4-11：战术 forking 的最终状态产生两个服务](images/figure-0048.png)
+![图 4-11：战术 forking 的最终状态产生两个服务](../raw/software-architecture-2021/images/figure-0048.png)
 
 > 图 4-11：战术 forking 的最终状态产生两个服务。
 
@@ -2506,7 +2506,7 @@ $$ D=|A+I-1| $$
 
 ### 10 月 29 日，星期五，10:01
 
-![插图 4-2：Addison 和 Austen 选择分解方式](images/figure-0049.png)
+![插图 4-2：Addison 和 Austen 选择分解方式](../raw/software-architecture-2021/images/figure-0049.png)
 
 > 插图 4-2：Addison 和 Austen 选择分解方式。
 
@@ -2599,7 +2599,7 @@ Addison 为这个决定写了一份 ADR，
 
 ## 11 月 1 日，星期一，11:53
 
-![插图 5-1：Addison 和 Austen 向 Logan 请教分解模式](images/figure-0050.png)
+![插图 5-1：Addison 和 Austen 向 Logan 请教分解模式](../raw/software-architecture-2021/images/figure-0050.png)
 
 > 插图 5-1：Addison 和 Austen 向 Logan 请教分解模式。
 
@@ -2681,7 +2681,7 @@ Addison 和 Austen 选择了基于组件的分解方式，
   移动到独立部署的领域服务，  
   从物理上拆分单体架构。
 
-![图 5-1：基于组件的分解模式的流程与用法](images/figure-0051.png)
+![图 5-1：基于组件的分解模式的流程与用法](../raw/software-architecture-2021/images/figure-0051.png)
 
 > 图 5-1：基于组件的分解模式的流程与用法。
 
@@ -3012,7 +3012,7 @@ FOREACH component,size IN component_size_map {
 
 #### 11 月 2 日，星期二，09:12
 
-![插图 5-2：Addison 分析组件大小](images/figure-0052.png)
+![插图 5-2：Addison 分析组件大小](../raw/software-architecture-2021/images/figure-0052.png)
 
 > 插图 5-2：Addison 分析组件大小。
 
@@ -3057,7 +3057,7 @@ Addison 注意到，
 由于 Reporting 组件明显大于其他组件（如图 5-2 所示），  
 Addison 选择拆分这个组件以减小其整体大小。
 
-![图 5-2：Reporting 组件太大，应该拆分](images/figure-0053.png)
+![图 5-2：Reporting 组件太大，应该拆分](../raw/software-architecture-2021/images/figure-0053.png)
 
 > 图 5-2：Reporting 组件太大，应该拆分。
 
@@ -3084,7 +3084,7 @@ Sydney 是被分配到这个架构故事的 Sysops Squad 开发人员之一，
 每个组件代表一个功能报表领域，  
 如图 5-3 所示。
 
-![图 5-3：大的 Reporting 组件被拆分为更小的报表组件](images/figure-0054.png)
+![图 5-3：大的 Reporting 组件被拆分为更小的报表组件](../raw/software-architecture-2021/images/figure-0054.png)
 
 > 图 5-3：大的 Reporting 组件被拆分为更小的报表组件。
 
@@ -3301,7 +3301,7 @@ IF common_source_file_list NOT EMPTY {
 
 #### 11 月 5 日，星期五，10:34
 
-![插图 5-3：Addison 收集公共组件](images/figure-0055.png)
+![插图 5-3：Addison 收集公共组件](../raw/software-architecture-2021/images/figure-0055.png)
 
 > 插图 5-3：Addison 收集公共组件。
 
@@ -3325,7 +3325,7 @@ Addison 注意到有三个组件都与通知 Sysops Squad 客户有关，
 它们都向客户发送信息。  
 图 5-4 展示了 Sysops Squad 应用中这些公共的通知组件。
 
-![图 5-4：通知功能在整个应用中重复出现](images/figure-0056.png)
+![图 5-4：通知功能在整个应用中重复出现](../raw/software-architecture-2021/images/figure-0056.png)
 
 > 图 5-4：通知功能在整个应用中重复出现。
 
@@ -3387,7 +3387,7 @@ Addison 写了一个架构故事，
 创建了一个单一的客户通知组件，  
 如图 5-5 所示。
 
-![图 5-5：通知功能被整合到一个名为 Notification 的新组件中](images/figure-0057.png)
+![图 5-5：通知功能被整合到一个名为 Notification 的新组件中](../raw/software-architecture-2021/images/figure-0057.png)
 
 > 图 5-5：通知功能被整合到一个名为 Notification 的新组件中。
 
@@ -3513,7 +3513,7 @@ ss.survey 会被视为根命名空间，
 以强调应用中"山丘"的概念，  
 并强调命名空间相互*堆叠*的概念。
 
-![图 5-6：组件、根命名空间和孤儿类（C 方框表示源代码）](images/figure-0058.png)
+![图 5-6：组件、根命名空间和孤儿类（C 方框表示源代码）](../raw/software-architecture-2021/images/figure-0058.png)
 
 > 图 5-6：组件、根命名空间和孤儿类（C 方框表示源代码）。
 
@@ -3538,7 +3538,7 @@ ss.survey.template、ss.login、ss.ticket.assign 和 ss.ticket.route。
 （.survey 现在是该命名空间的叶节点）。  
 这种扁平化方案如图 5-7 所示。
 
-![图 5-7：通过将调查模板代码移入 .survey 命名空间来扁平化 Survey](images/figure-0059.png)
+![图 5-7：通过将调查模板代码移入 .survey 命名空间来扁平化 Survey](../raw/software-architecture-2021/images/figure-0059.png)
 
 > 图 5-7：通过将调查模板代码移入 .survey 命名空间来扁平化 Survey。
 
@@ -3555,7 +3555,7 @@ ss.survey.template、ss.login、ss.ticket.assign 和 ss.ticket.route。
 以及处理从客户收到的调查的 `ss.survey.process`。  
 这种形式的扁平化如图 5-8 所示。
 
-![图 5-8：通过将孤儿类移动到新的叶节点（组件）来扁平化 Survey](images/figure-0060.png)
+![图 5-8：通过将孤儿类移动到新的叶节点（组件）来扁平化 Survey](../raw/software-architecture-2021/images/figure-0060.png)
 
 > 图 5-8：通过将孤儿类移动到新的叶节点（组件）来扁平化 Survey。
 
@@ -3571,7 +3571,7 @@ ss.survey.template、ss.login、ss.ticket.assign 和 ss.ticket.route。
 但公共代码（如接口、抽象类、公共工具）  
 驻留在根命名空间 ss.survey 中。
 
-![图 5-9：.survey 中的共享代码被视为孤儿类，应该被移动](images/figure-0061.png)
+![图 5-9：.survey 中的共享代码被视为孤儿类，应该被移动](../raw/software-architecture-2021/images/figure-0061.png)
 
 > 图 5-9：.survey 中的共享代码被视为孤儿类，应该被移动。
 
@@ -3582,7 +3582,7 @@ ss.survey 中的共享类仍会被视为孤儿类，
 从而移除 ss.survey 子领域中的所有孤儿类，  
 如图 5-10 所示。
 
-![图 5-10：共享的调查代码被移动到它自己的组件中](images/figure-0062.png)
+![图 5-10：共享的调查代码被移动到它自己的组件中](../raw/software-architecture-2021/images/figure-0062.png)
 
 > 图 5-10：共享的调查代码被移动到它自己的组件中。
 
@@ -3648,7 +3648,7 @@ FOREACH component IN component_list {
 
 #### 11 月 10 日，星期三，11:10
 
-![插图 5-4：Addison 扁平化组件](images/figure-0063.png)
+![插图 5-4：Addison 扁平化组件](../raw/software-architecture-2021/images/figure-0063.png)
 
 > 插图 5-4：Addison 扁平化组件。
 
@@ -3657,7 +3657,7 @@ Addison 分析了表 5-7 中的结果，
 观察到 Survey 和 Ticket 组件包含孤儿类。  
 Addison 在表 5-9 和图 5-11 中突出显示了这些组件。
 
-![图 5-11：Survey 和 Ticket 组件包含孤儿类，应该被扁平化](images/figure-0064.png)
+![图 5-11：Survey 和 Ticket 组件包含孤儿类，应该被扁平化](../raw/software-architecture-2021/images/figure-0064.png)
 
 > 图 5-11：Survey 和 Ticket 组件包含孤儿类，应该被扁平化。
 
@@ -3733,7 +3733,7 @@ Addison 创建了一个架构故事，
 Addison 观察到不再存在"山丘"（组件堆叠在组件之上）或孤儿类，  
 所有组件都只包含在相应命名空间的叶节点中。
 
-![图 5-12：Survey 组件被扁平化为单个组件，而 Ticket 组件被向上提升并扁平化，形成 Ticket 子领域](images/figure-0065.png)
+![图 5-12：Survey 组件被扁平化为单个组件，而 Ticket 组件被向上提升并扁平化，形成 Ticket 子领域](../raw/software-architecture-2021/images/figure-0065.png)
 
 > 图 5-12：Survey 组件被扁平化为单个组件，而 Ticket 组件被向上提升并扁平化，形成 Ticket 子领域。
 
@@ -3855,7 +3855,7 @@ Survey 组件对 Notification 组件有传出依赖，
 这使得该应用成为拆分的良好候选，  
 因为各组件在功能上相互独立。
 
-![图 5-13：组件依赖极少的单体应用拆分工作量较小（高尔夫球级别）](images/figure-0066.png)
+![图 5-13：组件依赖极少的单体应用拆分工作量较小（高尔夫球级别）](../raw/software-architecture-2021/images/figure-0066.png)
 
 > 图 5-13：组件依赖极少的单体应用拆分工作量较小（高尔夫球级别）。
 
@@ -3873,7 +3873,7 @@ Survey 组件对 Notification 组件有传出依赖，
 这张图的左侧耦合水平最高，  
 而右侧看起来拆分起来要可行得多。
 
-![图 5-14：组件依赖很多的单体应用拆分工作量较大（篮球级别）](images/figure-0067.png)
+![图 5-14：组件依赖很多的单体应用拆分工作量较大（篮球级别）](../raw/software-architecture-2021/images/figure-0067.png)
 
 > 图 5-14：组件依赖很多的单体应用拆分工作量较大（篮球级别）。
 
@@ -3888,7 +3888,7 @@ Survey 组件对 Notification 组件有传出依赖，
 在这种情况下，  
 架构师应该转身朝相反方向跑得越远越好！
 
-![图 5-15：组件依赖过多的单体应用不可行拆分（客机级别）](images/figure-0068.png)
+![图 5-15：组件依赖过多的单体应用不可行拆分（客机级别）](../raw/software-architecture-2021/images/figure-0068.png)
 
 > 图 5-15：组件依赖过多的单体应用不可行拆分（客机级别）。
 
@@ -4021,7 +4021,7 @@ public void ticket_maintenance_cannot_access_expert_profile() {
 
 #### 11 月 15 日，星期一，09:45
 
-![插图 5-5：Addison 分析组件依赖](images/figure-0069.png)
+![插图 5-5：Addison 分析组件依赖](../raw/software-architecture-2021/images/figure-0069.png)
 
 > 插图 5-5：Addison 分析组件依赖。
 
@@ -4033,7 +4033,7 @@ Addison 使用 IDE 插件
 起初，Addison 感到有些沮丧，  
 因为图 5-16 显示 Sysops Squad 应用组件之间存在大量依赖。
 
-![图 5-16：Sysops Squad 应用中的组件依赖](images/figure-0070.png)
+![图 5-16：Sysops Squad 应用中的组件依赖](../raw/software-architecture-2021/images/figure-0070.png)
 
 > 图 5-16：Sysops Squad 应用中的组件依赖。
 
@@ -4051,7 +4051,7 @@ Addison 意识到，
 以便更清楚地查看应用核心功能之间的依赖，  
 如图 5-17 所示。
 
-![图 5-17：不含共享库依赖的 Sysops Squad 应用组件依赖](images/figure-0071.png)
+![图 5-17：不含共享库依赖的 Sysops Squad 应用组件依赖](../raw/software-architecture-2021/images/figure-0071.png)
 
 > 图 5-17：不含共享库依赖的 Sysops Squad 应用组件依赖。
 
@@ -4098,7 +4098,7 @@ Sysops Squad 应用看起来是
 该命名空间末尾的 .MonthlyBilling  
 指 Payment 组件中包含的一个类文件。
 
-![图 5-18：通过命名空间节点识别组件领域](images/figure-0072.png)
+![图 5-18：通过命名空间节点识别组件领域](../raw/software-architecture-2021/images/figure-0072.png)
 
 > 图 5-18：通过命名空间节点识别组件领域。
 
@@ -4180,7 +4180,7 @@ public void restrict_domains() {
 
 #### 11 月 18 日，星期四，13:15
 
-![插图 5-6：Addison 和 Austen 与 Parker 确定领域](images/figure-0073.png)
+![插图 5-6：Addison 和 Austen 与 Parker 确定领域](../raw/software-architecture-2021/images/figure-0073.png)
 
 > 插图 5-6：Addison 和 Austen 与 Parker 确定领域。
 
@@ -4218,7 +4218,7 @@ Addison 接着查看了
 表 5-12 中的各个组件命名空间，  
 并确定了需要进行的组件领域重构。
 
-![图 5-19：Sysops Squad 应用中识别出的五个领域（以加深的边框标出）](images/figure-0074.png)
+![图 5-19：Sysops Squad 应用中识别出的五个领域（以加深的边框标出）](../raw/software-architecture-2021/images/figure-0074.png)
 
 > 图 5-19：Sysops Squad 应用中识别出的五个领域（以加深的边框标出）。
 
@@ -4320,7 +4320,7 @@ Addison 意识到他们现在已经准备好
 但图 5-20 所示的基本拓扑  
 是迁移单体应用的良好起点。
 
-![图 5-20：基于服务的架构的基本拓扑](images/figure-0075.png)
+![图 5-20：基于服务的架构的基本拓扑](../raw/software-architecture-2021/images/figure-0075.png)
 
 > 图 5-20：基于服务的架构的基本拓扑。
 
@@ -4343,7 +4343,7 @@ Reporting 组件领域
 是如何从单体应用中提取出来，  
 形成自己独立部署的 Reporting 服务的。
 
-![图 5-21：组件领域被移动到外部领域服务](images/figure-0076.png)
+![图 5-21：组件领域被移动到外部领域服务](../raw/software-architecture-2021/images/figure-0076.png)
 
 > 图 5-21：组件领域被移动到外部领域服务。
 
@@ -4397,7 +4397,7 @@ public void restrict_domain_within_ticket_service() {
 
 #### 11 月 23 日，星期二，09:04
 
-![插图 5-7：团队制定领域服务迁移计划](images/figure-0077.png)
+![插图 5-7：团队制定领域服务迁移计划](../raw/software-architecture-2021/images/figure-0077.png)
 
 > 插图 5-7：团队制定领域服务迁移计划。
 
@@ -4415,7 +4415,7 @@ Addison 和 Austen 与 Sysops Squad 开发团队密切合作，
 注意前一个模式中识别出的每个领域  
 现在如何成为一个独立部署的服务。
 
-![图 5-22：独立部署的领域服务生成分布式的 Sysops Squad 应用](images/figure-0078.png)
+![图 5-22：独立部署的领域服务生成分布式的 Sysops Squad 应用](../raw/software-architecture-2021/images/figure-0078.png)
 
 > 图 5-22：独立部署的领域服务生成分布式的 Sysops Squad 应用。
 
@@ -4435,7 +4435,7 @@ Addison 和 Austen 与 Sysops Squad 开发团队密切合作，
 
 ## 10 月 7 日，星期四，08:55
 
-![插图 6-1：Addison 和 Austen 讨论拆分 Sysops Squad 数据库](images/figure-0079.png)
+![插图 6-1：Addison 和 Austen 讨论拆分 Sysops Squad 数据库](../raw/software-architecture-2021/images/figure-0079.png)
 
 > 插图 6-1：Addison 和 Austen 讨论拆分 Sysops Squad 数据库。
 
@@ -4507,7 +4507,7 @@ key-value、columnar、NewSQL 和 cloud native——
 在这两种驱动力量之间寻求平衡，并分析每种力量的 trade-off，
 是正确把握数据粒度的关键。
 
-![图 6-1：在什么情况下应该分解单体数据库？](images/figure-0080.png)
+![图 6-1：在什么情况下应该分解单体数据库？](../raw/software-architecture-2021/images/figure-0080.png)
 
 > 图 6-1：在什么情况下应该分解单体数据库？
 
@@ -4564,7 +4564,7 @@ architecture quantum
 想象一下，仅仅因为一次破坏性数据库变更，
 就要协调 42 个独立部署的服务！
 
-![图 6-2：受数据库变更影响的服务必须与数据库一起部署](images/figure-0081.png)
+![图 6-2：受数据库变更影响的服务必须与数据库一起部署](../raw/software-architecture-2021/images/figure-0081.png)
 
 > 图 6-2：受数据库变更影响的服务必须与数据库一起部署。
 
@@ -4574,7 +4574,7 @@ architecture quantum
 如图 6-3 所示，这些服务在*生产环境中*将变得不可用，
 直到它们被修改、测试并重新部署。
 
-![图 6-3：受数据库变更影响但被遗忘的服务将继续失败，直到被重新部署](images/figure-0082.png)
+![图 6-3：受数据库变更影响但被遗忘的服务将继续失败，直到被重新部署](../raw/software-architecture-2021/images/figure-0082.png)
 
 > 图 6-3：受数据库变更影响但被遗忘的服务将继续失败，直到被重新部署。
 
@@ -4593,7 +4593,7 @@ bounded context 概念来自 Eric Evans 的开创性著作《domain-driven desig
 如图 6-4 所示，围绕服务及其相应数据形成的良好 bounded context 有助于控制变更，
 因为变更仅限于该 bounded context 内的那些服务。
 
-![图 6-4：数据库变更仅隔离在关联 bounded context 内的那些服务中](images/figure-0083.png)
+![图 6-4：数据库变更仅隔离在关联 bounded context 内的那些服务中](../raw/software-architecture-2021/images/figure-0083.png)
 
 > 图 6-4：数据库变更仅隔离在关联 bounded context 内的那些服务中。
 
@@ -4617,7 +4617,7 @@ bounded context 的一个重要方面，
 请注意，在图 6-5 中，Service D 通过某种契约（如 JSON、XML，甚至可能是对象）
 发送 Service C 请求的数据。
 
-![图 6-5：服务调用的契约使调用者与底层数据库 schema 解耦](images/figure-0084.png)
+![图 6-5：服务调用的契约使调用者与底层数据库 schema 解耦](../raw/software-architecture-2021/images/figure-0084.png)
 
 > 图 6-5：服务调用的契约使调用者与底层数据库 schema 解耦。
 
@@ -4689,7 +4689,7 @@ Service C 对 Database D 的破坏性变更保持了解耦。
 连接数可能很快饱和，
 特别是随着服务或服务实例数量的增加。
 
-![图 6-6：多个服务实例会迅速使数据库连接饱和](images/figure-0085.png)
+![图 6-6：多个服务实例会迅速使数据库连接饱和](../raw/software-architecture-2021/images/figure-0085.png)
 
 > 图 6-6：多个服务实例会迅速使数据库连接饱和。
 
@@ -4818,7 +4818,7 @@ Service C 只有 15 个连接，Service E 只有 14 个连接，
 而且在吞吐量和数据库容量方面也是如此。
 为了使分布式系统能够扩展，系统的*所有*部分都需要扩展——包括数据库。
 
-![图 6-7：当服务扩展时，数据库也必须扩展](images/figure-0086.png)
+![图 6-7：当服务扩展时，数据库也必须扩展](../raw/software-architecture-2021/images/figure-0086.png)
 
 > 图 6-7：当服务扩展时，数据库也必须扩展。
 
@@ -4853,7 +4853,7 @@ Service C 只有 15 个连接，Service E 只有 14 个连接，
 如图 6-8 所示，每个数据库需要的连接数更少，
 因此在服务扩展时提供更好的数据库可扩展性和性能。
 
-![图 6-8：拆分数据库提供更好的数据库可扩展性](images/figure-0087.png)
+![图 6-8：拆分数据库提供更好的数据库可扩展性](../raw/software-architecture-2021/images/figure-0087.png)
 
 > 图 6-8：拆分数据库提供更好的数据库可扩展性。
 
@@ -4874,7 +4874,7 @@ Service C 只有 15 个连接，Service E 只有 14 个连接，
 整体容错能力很低，
 因为如果数据库宕机，所有服务都变得不可用。
 
-![图 6-9：如果数据库宕机，所有服务都变得不可用](images/figure-0088.png)
+![图 6-9：如果数据库宕机，所有服务都变得不可用](../raw/software-architecture-2021/images/figure-0088.png)
 
 > 图 6-9：如果数据库宕机，所有服务都变得不可用。
 
@@ -4883,7 +4883,7 @@ Service C 只有 15 个连接，Service E 只有 14 个连接，
 拆分数据可以消除系统中的单点故障，如图 6-10 所示。
 这确保了在数据库崩溃的情况下，系统的某些部分仍然可以运行。
 
-![图 6-10：拆分数据库实现更好的容错](images/figure-0089.png)
+![图 6-10：拆分数据库实现更好的容错](../raw/software-architecture-2021/images/figure-0089.png)
 
 > 图 6-10：拆分数据库实现更好的容错。
 
@@ -4907,7 +4907,7 @@ architecture quantum 有助于在何时拆分数据库方面提供指导，
 它们并没有与其他服务形成独立的 quantum。
 因此，所有五个服务与数据库一起形成一个单一的 architecture quantum。
 
-![图 6-11：数据库是 architecture quantum 的一部分](images/figure-0090.png)
+![图 6-11：数据库是 architecture quantum 的一部分](../raw/software-architecture-2021/images/figure-0090.png)
 
 > 图 6-11：数据库是 architecture quantum 的一部分。
 
@@ -4918,7 +4918,7 @@ architecture quantum 有助于在何时拆分数据库方面提供指导，
 Service A 和 Service B 以及相应的数据，
 现在与 Service C、D 和 E 形成的 quantum 是独立的 quantum。
 
-![图 6-12：拆分数据库形成两个 architecture quanta](images/figure-0091.png)
+![图 6-12：拆分数据库形成两个 architecture quanta](../raw/software-architecture-2021/images/figure-0091.png)
 
 > 图 6-12：拆分数据库形成两个 architecture quanta。
 
@@ -4964,7 +4964,7 @@ Service A 和 Service B 以及相应的数据，
 foreign key、触发器、视图和存储过程等构件将表绑定在一起，
 使得拆分数据变得困难；参见图 6-13。
 
-![图 6-13：foreign key（FK）、触发器和视图在数据之间创建紧密耦合的关系](images/figure-0092.png)
+![图 6-13：foreign key（FK）、触发器和视图在数据之间创建紧密耦合的关系](../raw/software-architecture-2021/images/figure-0092.png)
 
 > 图 6-13：foreign key（FK）、触发器和视图在数据之间创建紧密耦合的关系。
 
@@ -4980,7 +4980,7 @@ foreign key、触发器、视图和存储过程等构件将表绑定在一起，
 然而，如图 6-14 所示，当将数据移动到另一个 schema 或数据库以形成 bounded context 时，
 这些构件必须被移除。
 
-![图 6-14：拆分数据时必须移除数据构件](images/figure-0093.png)
+![图 6-14：拆分数据时必须移除数据构件](../raw/software-architecture-2021/images/figure-0093.png)
 
 > 图 6-14：拆分数据时必须移除数据构件。
 
@@ -5006,7 +5006,7 @@ foreign key、触发器、视图和存储过程等构件将表绑定在一起，
 这些更新可以在 ACID 事务中完成，
 并作为单个工作单元提交或回滚。
 
-![图 6-15：当数据在一起时，存在单个事务工作单元](images/figure-0094.png)
+![图 6-15：当数据在一起时，存在单个事务工作单元](../raw/software-architecture-2021/images/figure-0094.png)
 
 > 图 6-15：当数据在一起时，存在单个事务工作单元。
 
@@ -5017,7 +5017,7 @@ foreign key、触发器、视图和存储过程等构件将表绑定在一起，
 但由于错误条件，在其他表中不能提交，
 从而导致数据一致性和完整性问题。
 
-![图 6-16：当数据被拆分时，不存在单个工作单元事务](images/figure-0095.png)
+![图 6-16：当数据被拆分时，不存在单个工作单元事务](../raw/software-architecture-2021/images/figure-0095.png)
 
 > 图 6-16：当数据被拆分时，不存在单个工作单元事务。
 
@@ -5029,7 +5029,7 @@ foreign key、触发器、视图和存储过程等构件将表绑定在一起，
 
 ### 11 月 15 日，星期一，15:55
 
-![插图 6-2：Addison 和 Devon 向 Dana 展示证据](images/figure-0096.png)
+![插图 6-2：Addison 和 Devon 向 Dana 展示证据](../raw/software-architecture-2021/images/figure-0096.png)
 
 > 插图 6-2：Addison 和 Devon 向 Dana 展示证据。
 
@@ -5118,7 +5118,7 @@ Dana 花了一些时间查看这些数字。"你同意这些数字吗，Addison�
 作为将数据有条不紊地迁移到独立 schema，
 并最终迁移到不同物理数据库的载体。
 
-![图 6-17：分解单体数据库的五步流程](images/figure-0097.png)
+![图 6-17：分解单体数据库的五步流程](../raw/software-architecture-2021/images/figure-0097.png)
 
 > 图 6-17：分解单体数据库的五步流程。
 
@@ -5169,7 +5169,7 @@ ticket 和 ticket_type 表属于 Ticketing data domain，等等。
 足球的每个白色六边形包含一组领域相关的表，
 以及所有耦合构件（如 foreign key、视图、存储过程等）。
 
-![图 6-18：六边形中的数据库对象属于一个 data domain](images/figure-0098.png)
+![图 6-18：六边形中的数据库对象属于一个 data domain](../raw/software-architecture-2021/images/figure-0098.png)
 
 > 图 6-18：六边形中的数据库对象属于一个 data domain。
 
@@ -5190,7 +5190,7 @@ ticket 和 ticket_type 表属于 Ticketing data domain，等等。
  Evolutionary Database Design*（Addison-Wesley）
 中的重构模式，安全且迭代地移除这些数据依赖。
 
-![图 6-19：属于各 data domain 的表被提取出来，以及需要被打破的连接](images/figure-0099.png)
+![图 6-19：属于各 data domain 的表被提取出来，以及需要被打破的连接](../raw/software-architecture-2021/images/figure-0099.png)
 
 > 图 6-19：属于各 data domain 的表被提取出来，以及需要被打破的连接。
 
@@ -5258,7 +5258,7 @@ Solutions*
 如[数据分解驱动因素](#数据分解的驱动因素)中所讨论的，
 数据库中的这种紧密耦合使变更管理变得非常困难。
 
-![图 6-20：多个服务使用同一个数据库，访问读或写所需的所有表](images/figure-0100.png)
+![图 6-20：多个服务使用同一个数据库，访问读或写所需的所有表](../raw/software-architecture-2021/images/figure-0100.png)
 
 > 图 6-20：多个服务使用同一个数据库，访问读或写所需的所有表。
 
@@ -5280,7 +5280,7 @@ schema 是数据库对象的逻辑空间，
 如图 6-21 所示，我们为每个 data domain 创建了 schema，
 并将表移动到它们所属的 schema 中。
 
-![图 6-21：服务根据其 data domain 需求使用主 schema](images/figure-0101.png)
+![图 6-21：服务根据其 data domain 需求使用主 schema](../raw/software-architecture-2021/images/figure-0101.png)
 
 > 图 6-21：服务根据其 data domain 需求使用主 schema。
 
@@ -5367,7 +5367,7 @@ ON ( history.assigned_to_sysops_user_id = agent.sysops_user_id )
 没有跨 schema 访问；
 在[步骤 2：将表分配到 data domain](#步骤-2将表分配到-data-domain)中创建的所有 synonym 都被移除。
 
-![图 6-22：将跨 schema 对象访问移至服务，远离直接的跨 schema 访问](images/figure-0102.png)
+![图 6-22：将跨 schema 对象访问移至服务，远离直接的跨 schema 访问](../raw/software-architecture-2021/images/figure-0102.png)
 
 > 图 6-22：将跨 schema 对象访问移至服务，远离直接的跨 schema 访问。
 
@@ -5432,7 +5432,7 @@ ON ( history.assigned_to_sysops_user_id = agent.sysops_user_id )
 其中数据库团队设置多个数据库服务器，
 以便每个 data domain 有一个数据库服务器。
 
-![图 6-23：将 schema（data domain）复制到各自的数据库服务器](images/figure-0104.png)
+![图 6-23：将 schema（data domain）复制到各自的数据库服务器](../raw/software-architecture-2021/images/figure-0104.png)
 
 > 图 6-23：将 schema（data domain）复制到各自的数据库服务器。
 
@@ -5444,7 +5444,7 @@ ON ( history.assigned_to_sysops_user_id = agent.sysops_user_id )
 并从旧数据库服务器中移除 schema。
 最终状态如图 6-24 所示。
 
-![图 6-24：每个 data domain 拥有独立的数据库服务器](images/figure-0105.png)
+![图 6-24：每个 data domain 拥有独立的数据库服务器](../raw/software-architecture-2021/images/figure-0105.png)
 
 > 图 6-24：每个 data domain 拥有独立的数据库服务器。
 
@@ -5932,7 +5932,7 @@ CAP 定理的概念在[表拆分技术](#表拆分技术)中有更详细的讨�
 节点按关系组织，
 并允许通过沿特定边遍历来分析连接的数据。
 
-![图 6-29：在图数据库中，边的方向在查询时具有重要意义](images/figure-0106.png)
+![图 6-29：在图数据库中，边的方向在查询时具有重要意义](../raw/software-architecture-2021/images/figure-0106.png)
 
 > 图 6-29：在图数据库中，边的方向在查询时具有重要意义。
 
@@ -6284,7 +6284,7 @@ Timescale 基于 PostgreSQL，
 
 ### 12 月 16 日，星期四，16:05
 
-![插图 6-3：Devon 和 Dana 讨论 Survey data domain 的数据库类型](images/figure-0107.png)
+![插图 6-3：Devon 和 Dana 讨论 Survey data domain 的数据库类型](../raw/software-architecture-2021/images/figure-0107.png)
 
 > 插图 6-3：Devon 和 Dana 讨论 Survey data domain 的数据库类型。
 
@@ -6370,7 +6370,7 @@ Devon 和 Skyler 知道文档数据库对于客户调查数据来说会是一个
 每个客户调查由两个主要表组成——一个 Survey 表和一个 Question 表，
 两者之间是一对多关系。
 
-![图 6-34：sysops 调查 data domain 中的表和关系](images/figure-0108.png)
+![图 6-34：sysops 调查 data domain 中的表和关系](../raw/software-architecture-2021/images/figure-0108.png)
 
 > 图 6-34：sysops 调查 data domain 中的表和关系。
 
@@ -6401,7 +6401,7 @@ Devon 向团队展示了单聚合选项，如图 6-36 和对应的代码清单�
 可以通过一次 get 操作从数据库中检索，使 Skyler 和开发团队的其他人
 更容易处理数据。
 
-![图 6-36：使用单聚合的调查模型](images/figure-0109.png)
+![图 6-36：使用单聚合的调查模型](../raw/software-architecture-2021/images/figure-0109.png)
 
 > 图 6-36：使用单聚合的调查模型。
 
@@ -6443,7 +6443,7 @@ Devon 解释说，另一种聚合方式是拆分调查和问题模型，
 使问题可以以独立的方式操作，如图 6-37 和对应的代码清单示例 6-4 所示。
 这将允许同一个问题在多个调查中使用，但比单聚合更难渲染和检索。
 
-![图 6-37：使用多聚合和引用的调查模型](images/figure-0110.png)
+![图 6-37：使用多聚合和引用的调查模型](../raw/software-architecture-2021/images/figure-0110.png)
 
 > 图 6-37：使用多聚合和引用的调查模型。
 
@@ -6511,7 +6511,7 @@ Addison 创建了一个 ADR 来记录此决策的理由：
 
 ## 10 月 14 日，星期四，13:33
 
-![插图 7-1：Addison 和 Austen 讨论服务粒度](images/figure-0111.png)
+![插图 7-1：Addison 和 Austen 讨论服务粒度](../raw/software-architecture-2021/images/figure-0111.png)
 
 > 插图 7-1：Addison 和 Austen 讨论服务粒度。
 
@@ -6652,7 +6652,7 @@ Addison 和 Austen 建议的方案根本不符合微服务模型。"
 许多开发团队犯的一个常见错误是过于关注粒度分解驱动因素而忽略粒度整合驱动因素。
 为服务达到适当粒度水平的秘诀是在这两种对立力量之间实现平衡。
 
-![图 7-1：服务粒度取决于分解驱动因素和整合驱动因素之间的平衡](images/figure-0112.png)
+![图 7-1：服务粒度取决于分解驱动因素和整合驱动因素之间的平衡](../raw/software-architecture-2021/images/figure-0112.png)
 
 > 图 7-1：服务粒度取决于分解驱动因素和整合驱动因素之间的平衡。
 
@@ -6713,7 +6713,7 @@ Addison 和 Austen 建议的方案根本不符合微服务模型。"
 由于"单一目的"留给了个人意见和解释，
 因此很难知道是否应该拆分这个服务。
 
-![图 7-2：具有相对较强内聚的服务仅凭功能不足以成为分解的候选](images/figure-0113.png)
+![图 7-2：具有相对较强内聚的服务仅凭功能不足以成为分解的候选](../raw/software-architecture-2021/images/figure-0113.png)
 
 > 图 7-2：具有相对较强内聚的服务仅凭功能不足以成为分解的候选。
 
@@ -6725,7 +6725,7 @@ Addison 和 Austen 建议的方案根本不符合微服务模型。"
 因此可能应该被拆分为三个独立的服务，
 如图 7-3 所示。
 
-![图 7-3：具有相对较弱内聚的服务是分解的良好候选](images/figure-0114.png)
+![图 7-3：具有相对较弱内聚的服务是分解的良好候选](../raw/software-architecture-2021/images/figure-0114.png)
 
 > 图 7-3：具有相对较弱内聚的服务是分解的良好候选。
 
@@ -6791,7 +6791,7 @@ SMS 和电子邮件功能不可用。
 部署风险更低，
 并且在部署邮政信件变更期间不会中断 SMS 和电子邮件功能。
 
-![图 7-4：服务中高代码变更的区域是分解的良好候选](images/figure-0115.png)
+![图 7-4：服务中高代码变更的区域是分解的良好候选](../raw/software-architecture-2021/images/figure-0115.png)
 
 > 图 7-4：服务中高代码变更的区域是分解的良好候选。
 
@@ -6816,7 +6816,7 @@ SMS 和电子邮件功能不可用。
 如图 7-5 所示，
 允许每个服务独立扩展以满足其不同的吞吐量需求。
 
-![图 7-5：不同的可扩展性和吞吐量需求是良好的分解驱动因素](images/figure-0116.png)
+![图 7-5：不同的可扩展性和吞吐量需求是良好的分解驱动因素](../raw/software-architecture-2021/images/figure-0116.png)
 
 > 图 7-5：不同的可扩展性和吞吐量需求是良好的分解驱动因素。
 
@@ -6854,7 +6854,7 @@ SMS 通知和邮政信件通知有什么共同点，
 除了向客户发送通知的手段外？
 这个组合服务的合适自描述名称是什么？
 
-![图 7-6：容错和服务可用性是良好的分解驱动因素](images/figure-0117.png)
+![图 7-6：容错和服务可用性是良好的分解驱动因素](../raw/software-architecture-2021/images/figure-0117.png)
 
 > 图 7-6：容错和服务可用性是良好的分解驱动因素。
 
@@ -6899,7 +6899,7 @@ SMS 通知和邮政信件通知有什么共同点，
 如姓名、地址等）
 和客户信用卡维护（添加、删除和更新信用卡信息）。
 
-![图 7-7：安全和数据访问是良好的分解驱动因素](images/figure-0118.png)
+![图 7-7：安全和数据访问是良好的分解驱动因素](../raw/software-architecture-2021/images/figure-0118.png)
 
 > 图 7-7：安全和数据访问是良好的分解驱动因素。
 
@@ -6939,7 +6939,7 @@ SMS 通知和邮政信件通知有什么共同点，
 （信用卡处理、礼品卡处理和 PayPal 交易处理），
 如图 7-8 所示。
 
-![图 7-8：计划的可扩充性是良好的分解驱动因素](images/figure-0119.png)
+![图 7-8：计划的可扩充性是良好的分解驱动因素](../raw/software-architecture-2021/images/figure-0119.png)
 
 > 图 7-8：计划的可扩充性是良好的分解驱动因素。
 
@@ -7016,7 +7016,7 @@ SMS 通知和邮政信件通知有什么共同点，
 但考虑注册新客户的操作，
 如图 7-10 所示。
 
-![图 7-9：具有原子操作的独立服务具有更好的安全访问控制](images/figure-0120.png)
+![图 7-9：具有原子操作的独立服务具有更好的安全访问控制](../raw/software-architecture-2021/images/figure-0120.png)
 
 > 图 7-9：具有原子操作的独立服务具有更好的安全访问控制。
 
@@ -7038,11 +7038,11 @@ SMS 通知和邮政信件通知有什么共同点，
 这些服务应该合并为单一服务，
 如图 7-11 所示。
 
-![图 7-10：具有组合操作的独立服务不支持数据库（ACID）事务](images/figure-0121.png)
+![图 7-10：具有组合操作的独立服务不支持数据库（ACID）事务](../raw/software-architecture-2021/images/figure-0121.png)
 
 > 图 7-10：具有组合操作的独立服务不支持数据库（ACID）事务。
 
-![图 7-11：单一服务支持数据库（ACID）事务](images/figure-0122.png)
+![图 7-11：单一服务支持数据库（ACID）事务](../raw/software-architecture-2021/images/figure-0122.png)
 
 > 图 7-11：单一服务支持数据库（ACID）事务。
 
@@ -7068,7 +7068,7 @@ SMS 通知和邮政信件通知有什么共同点，
 所有其他服务因与服务 C 的传递依赖而变得不可操作，
 造成整体容错、可用性和可靠性问题。
 
-![图 7-12：过多的工作流影响容错](images/figure-0123.png)
+![图 7-12：过多的工作流影响容错](../raw/software-architecture-2021/images/figure-0123.png)
 
 > 图 7-12：过多的工作流影响容错。
 
@@ -7094,7 +7094,7 @@ SMS 通知和邮政信件通知有什么共同点，
 将所有这些服务合并为单一服务将消除延迟，
 从而提高整体性能和响应性。
 
-![图 7-13：过多的工作流影响整体性能和响应性](images/figure-0124.png)
+![图 7-13：过多的工作流影响整体性能和响应性](../raw/software-architecture-2021/images/figure-0124.png)
 
 > 图 7-13：过多的工作流影响整体性能和响应性。
 
@@ -7134,7 +7134,7 @@ SMS 通知和邮政信件通知有什么共同点，
 注意图 7-14 中服务 A、B 和 C 已经提交了部分客户数据，
 但服务 D 失败了。
 
-![图 7-14：过多的工作流影响可靠性和数据完整性](images/figure-0125.png)
+![图 7-14：过多的工作流影响可靠性和数据完整性](../raw/software-architecture-2021/images/figure-0125.png)
 
 > 图 7-14：过多的工作流影响可靠性和数据完整性。
 
@@ -7177,7 +7177,7 @@ Ruby 环境中的 GEM 或 .NET 环境中的 DLL，
 可能明智地将这五个服务合并为单一服务，
 以避免多次部署以及基于使用不同版本库而导致服务功能不同步。
 
-![图 7-15：共享代码的变更需要所有服务的协调变更](images/figure-0126.png)
+![图 7-15：共享代码的变更需要所有服务的协调变更](../raw/software-architecture-2021/images/figure-0126.png)
 
 > 图 7-15：共享代码的变更需要所有服务的协调变更。
 
@@ -7237,7 +7237,7 @@ Ruby 环境中的 GEM 或 .NET 环境中的 DLL，
 其中 owner 意味着写入（和相应的读取），
 access 意味着对该函数不拥有的表的只读访问。
 
-![图 7-16：合并服务的数据库表关系](images/figure-0127.png)
+![图 7-16：合并服务的数据库表关系](../raw/software-architecture-2021/images/figure-0127.png)
 
 > 图 7-16：合并服务的数据库表关系。
 
@@ -7280,7 +7280,7 @@ access 意味着对该函数不拥有的表的只读访问。
 导致这些服务之间来回的 interservice 通信，
 如图 7-17 底部所示。
 
-![图 7-17：数据库表关系影响服务粒度](images/figure-0128.png)
+![图 7-17：数据库表关系影响服务粒度](../raw/software-architecture-2021/images/figure-0128.png)
 
 > 图 7-17：数据库表关系影响服务粒度。
 
@@ -7380,7 +7380,7 @@ access 意味着对该函数不拥有的表的只读访问。
 
 ### 10 月 25 日，星期一，11:08
 
-![插图 7-2：Sysops Squad 工单分配场景](images/figure-0129.png)
+![插图 7-2：Sysops Squad 工单分配场景](../raw/software-architecture-2021/images/figure-0129.png)
 
 > 插图 7-2：Sysops Squad 工单分配场景。
 
@@ -7401,13 +7401,13 @@ Sysops Squad 开发团队在决定这两个组件
 开发团队咨询了 Addison（Sysops Squad 架构师之一）
 以帮助决定应该选择哪个方案。
 
-![图 7-18(a)：工单分配和路由的选项](images/figure-0130.png)
+![图 7-18(a)：工单分配和路由的选项](../raw/software-architecture-2021/images/figure-0130.png)
 
 > 图 7-18(a)：工单分配和路由的选项。
 
 #### 对比
 
-![图 7-18(b)：工单分配和路由选项对比](images/figure-0131.png)
+![图 7-18(b)：工单分配和路由选项对比](../raw/software-architecture-2021/images/figure-0131.png)
 
 > 图 7-18(b)：工单分配和路由选项对比。
 
@@ -7558,7 +7558,7 @@ Addison 为此决策编写了以下 ADR：
 
 ### 1 月 14 日，星期五，13:15
 
-![插图 7-3：客户注册讨论场景](images/figure-0132.png)
+![插图 7-3：客户注册讨论场景](../raw/software-architecture-2021/images/figure-0132.png)
 
 > 插图 7-3：客户注册讨论场景。
 
@@ -7581,7 +7581,7 @@ Skyler 在 PCI 和 PII 数据方面有先前经验，
 和一个包含信用卡和密码信息的独立客户安全服务）。
 这三个选项如图 7-19 所示。
 
-![图 7-19：客户注册的选项](images/figure-0133.png)
+![图 7-19：客户注册的选项](../raw/software-architecture-2021/images/figure-0133.png)
 
 > 图 7-19：客户注册的选项。
 
@@ -7772,7 +7772,7 @@ Austen 决定客户相关功能将通过单一合并的领域服务
 
 ## 2 月 2 日，星期三，15:15
 
-![插图 8-1：Skyler 和 Taylen 争论 shared library 与 shared service](images/figure-0134.png)
+![插图 8-1：Skyler 和 Taylen 争论 shared library 与 shared service](../raw/software-architecture-2021/images/figure-0134.png)
 
 > 插图 8-1：Skyler 和 Taylen 争论 shared library 与 shared service。
 
@@ -7823,7 +7823,7 @@ Taylen 对 Skyler 在共享代码方面的做法感到不满，走到 Skyler 的
 只需简单地导入或自动注入共享类文件即可。然而，在分布式架构中，如图 8-1 所示，
 事情变得复杂一些，因为会出现如何处理共享功能的问题。
 
-![图 8-1：代码重用是分布式架构中的一个难点](images/figure-0135.png)
+![图 8-1：代码重用是分布式架构中的一个难点](../raw/software-architecture-2021/images/figure-0135.png)
 
 > 图 8-1：代码重用是分布式架构中的一个难点。
 
@@ -7857,7 +7857,7 @@ shared service 和 service mesh 中的 sidecar。
 代码复制在当时似乎是减少代码共享的好方法，
 但在实践中它很快就分崩离析了。
 
-![图 8-2：代码复制技术——每个服务维护自己的 shared library 副本](images/figure-0136.png)
+![图 8-2：代码复制技术——每个服务维护自己的 shared library 副本](../raw/software-architecture-2021/images/figure-0136.png)
 
 > 图 8-2：代码复制技术——每个服务维护自己的 shared library 副本。
 
@@ -7896,7 +7896,7 @@ shared library 是一个外部工件（如 JAR 文件、DLL 等），
 虽然 shared library 技术看似简单直接，但它也有其复杂性和 trade-off，
 其中最重要的是 shared library 的粒度和版本控制。
 
-![图 8-3：shared library 技术——公共代码在编译时被整合和共享](images/figure-0137.png)
+![图 8-3：shared library 技术——公共代码在编译时被整合和共享](../raw/software-architecture-2021/images/figure-0137.png)
 
 > 图 8-3：shared library 技术——公共代码在编译时被整合和共享。
 
@@ -7911,7 +7911,7 @@ shared library 是一个外部工件（如 JAR 文件、DLL 等），
 因为 shared library 的版本弃用。这迫使所有使用该库的服务进行不必要的重新测试和重新部署，
 从而显著增加了 shared library 变更的整体测试范围。
 
-![图 8-4：粗粒度 shared library 的变更影响多个服务，但保持较低依赖](images/figure-0138.png)
+![图 8-4：粗粒度 shared library 的变更影响多个服务，但保持较低依赖](../raw/software-architecture-2021/images/figure-0138.png)
 
 > 图 8-4：粗粒度 shared library 的变更影响多个服务，但保持较低依赖。
 
@@ -7920,7 +7920,7 @@ shared library 是一个外部工件（如 JAR 文件、DLL 等），
 但不幸的是在依赖管理方面造成了混乱。如图 8-5 所示，共享类 C7 的变更仅影响服务 D 和服务 E，
 但管理 shared library 和服务之间的依赖矩阵很快开始看起来像一团分布式大泥球（或某些人所说的分布式单体）。
 
-![图 8-5：细粒度 shared library 的变更影响更少的服务，但增加了依赖](images/figure-0139.png)
+![图 8-5：细粒度 shared library 的变更影响更少的服务，但增加了依赖](../raw/software-architecture-2021/images/figure-0139.png)
 
 > 图 8-5：细粒度 shared library 的变更影响更少的服务，但增加了依赖。
 
@@ -8016,7 +8016,7 @@ shared library 技术适用于共享代码变更为低到中等的同构环境�
 *shared service*技术，如图 8-6 所示，
 通过将共享功能放在单独部署的服务中来避免重用。
 
-![图 8-6：shared service 技术——公共功能在运行时通过单独的服务提供](images/figure-0140.png)
+![图 8-6：shared service 技术——公共功能在运行时通过单独的服务提供](../raw/software-architecture-2021/images/figure-0140.png)
 
 > 图 8-6：shared service 技术——公共功能在运行时通过单独的服务提供。
 
@@ -8039,7 +8039,7 @@ Choose"和 Martin Fowler 的文章"Designed Inheritance"），
 更改共享功能只需修改包含在单独服务中的共享代码（如折扣计算器），
 重新部署服务，然后——变更现在对所有服务可用，无需重新测试和重新部署任何需要该共享功能的其他服务。
 
-![图 8-7：共享功能变更仅隔离在 shared service 中](images/figure-0141.png)
+![图 8-7：共享功能变更仅隔离在 shared service 中](../raw/software-architecture-2021/images/figure-0141.png)
 
 > 图 8-7：共享功能变更仅隔离在 shared service 中。
 
@@ -8048,7 +8048,7 @@ Choose"和 Martin Fowler 的文章"Designed Inheritance"），
 而不是 shared library 技术的*基于编译*的变更。因此，
 shared service 中的"简单"变更可能有效地使整个系统瘫痪，如图 8-8 所示。
 
-![图 8-8：shared service 的变更可能在运行时破坏其他服务](images/figure-0142.png)
+![图 8-8：shared service 的变更可能在运行时破坏其他服务](../raw/software-architecture-2021/images/figure-0142.png)
 
 > 图 8-8：shared service 的变更可能在运行时破坏其他服务。
 
@@ -8091,7 +8091,7 @@ API 端点版本控制的另一个问题是，
 因此性能会因网络延迟（以及安全延迟，假设 shared service 的端点是安全的）
 而受到影响。这种 trade-off，如图 8-9 所示，在访问共享代码时使用 shared library 技术是不存在的。
 
-![图 8-9：shared service 引入网络和安全延迟](images/figure-0143.png)
+![图 8-9：shared service 引入网络和安全延迟](../raw/software-architecture-2021/images/figure-0143.png)
 
 > 图 8-9：shared service 引入网络和安全延迟。
 
@@ -8109,7 +8109,7 @@ shared service 必须随着使用 shared service 的服务扩展而扩展。这�
 shared library 技术没有这个问题，
 因为共享功能在编译时包含在服务中。
 
-![图 8-10：shared service 必须随着依赖服务的扩展而扩展](images/figure-0144.png)
+![图 8-10：shared service 必须随着依赖服务的扩展而扩展](../raw/software-architecture-2021/images/figure-0144.png)
 
 > 图 8-10：shared service 必须随着依赖服务的扩展而扩展。
 
@@ -8121,7 +8121,7 @@ shared library 技术没有这个问题，
 直到 shared service 可用。shared library 技术没有这个问题，
 因为共享功能在编译时包含在服务中，因此通过标准方法或函数调用访问。
 
-![图 8-11：shared service 引入容错问题](images/figure-0145.png)
+![图 8-11：shared service 引入容错问题](../raw/software-architecture-2021/images/figure-0145.png)
 
 > 图 8-11：shared service 引入容错问题。
 
@@ -8173,7 +8173,7 @@ shared service 技术适用于高度多语言环境（具有多种异构语言�
 过去几年在微服务生态系统中出现的常见解决方案以一种优雅的方式解决了这个问题，即使用 sidecar 模式。
 此模式基于 Alistair Cockburn 定义的更早的架构模式，称为*六边形架构*，如图 8-12 所示。
 
-![图 8-12：六边形模式将领域逻辑与技术耦合分离](images/figure-0146.png)
+![图 8-12：六边形模式将领域逻辑与技术耦合分离](../raw/software-architecture-2021/images/figure-0146.png)
 
 > 图 8-12：六边形模式将领域逻辑与技术耦合分离。
 
@@ -8186,7 +8186,7 @@ shared service 技术适用于高度多语言环境（具有多种异构语言�
 *sidecar 模式*利用与六边形架构相同的概念，将领域逻辑与技术（基础设施）逻辑解耦。
 例如，考虑两个微服务，如图 8-13 所示。
 
-![图 8-13：两个共享相同运维能力的微服务](images/figure-0147.png)
+![图 8-13：两个共享相同运维能力的微服务](../raw/software-architecture-2021/images/figure-0147.png)
 
 > 图 8-13：两个共享相同运维能力的微服务。
 
@@ -8196,7 +8196,7 @@ shared service 技术适用于高度多语言环境（具有多种异构语言�
 其实现要么是跨团队的共享责任，要么由集中的基础设施组管理。
 如果架构师可以假设每个服务都包含 sidecar，它通过服务平面形成一致的运维接口，如图 8-14 所示。
 
-![图 8-14：当每个微服务包含一个公共组件时，架构师可以在它们之间建立链接以实现一致控制](images/figure-0148.png)
+![图 8-14：当每个微服务包含一个公共组件时，架构师可以在它们之间建立链接以实现一致控制](../raw/software-architecture-2021/images/figure-0148.png)
 
 > 图 8-14：当每个微服务包含一个公共组件时，架构师可以在它们之间建立链接以实现一致控制。
 
@@ -8206,7 +8206,7 @@ shared service 技术适用于高度多语言环境（具有多种异构语言�
 
 拥有网格允许架构师和 DevOps 创建仪表板、控制运维特性（如扩展）以及许多其他能力。
 
-![图 8-15：service mesh 是服务之间的运维链接](images/figure-0149.png)
+![图 8-15：service mesh 是服务之间的运维链接](../raw/software-architecture-2021/images/figure-0149.png)
 
 > 图 8-15：service mesh 是服务之间的运维链接。
 
@@ -8253,7 +8253,7 @@ sidecar 模式和 service mesh 提供了一种干净的方式来在分布式架�
 
 ### 2 月 10 日，星期四，10:34
 
-![插图 8-2：Sydney 和 Taylen 讨论共享消息分发库](images/figure-0150.png)
+![插图 8-2：Sydney 和 Taylen 讨论共享消息分发库](../raw/software-architecture-2021/images/figure-0150.png)
 
 > 插图 8-2：Sydney 和 Taylen 讨论共享消息分发库。
 
@@ -8367,14 +8367,14 @@ Sydney 回答："嗯，这意味着每个团队自动拥有该库，不必通过
 
 考虑一个保险公司的场景，如图 8-16 所示。
 
-![图 8-16：大型保险公司中每个领域都有自己对客户的视图](images/figure-0151.png)
+![图 8-16：大型保险公司中每个领域都有自己对客户的视图](../raw/software-architecture-2021/images/figure-0151.png)
 
 > 图 8-16：大型保险公司中每个领域都有自己对客户的视图。
 
 公司中的每个部门都关心客户的某些方面。多年前，架构师被指示要留意这种共性；一旦发现，
 目标是将组织对客户的视图整合到一个单一服务中，如图 8-17 所示。
 
-![图 8-17：统一到一个集中的 Customer 服务](images/figure-0152.png)
+![图 8-17：统一到一个集中的 Customer 服务](../raw/software-architecture-2021/images/figure-0152.png)
 
 > 图 8-17：统一到一个集中的 Customer 服务。
 
@@ -8415,7 +8415,7 @@ API 可以被设计为与调用者相当松散地耦合，允许实现细节的�
 
 ### 2 月 8 日，星期二，12:50
 
-![插图 8-3：Sydney 和 Taylen 讨论共享数据库逻辑](images/figure-0154.png)
+![插图 8-3：Sydney 和 Taylen 讨论共享数据库逻辑](../raw/software-architecture-2021/images/figure-0154.png)
 
 > 插图 8-3：Sydney 和 Taylen 讨论共享数据库逻辑。
 
@@ -8425,14 +8425,14 @@ API 可以被设计为与调用者相当松散地耦合，允许实现细节的�
 
 Taylen 想要创建一个共享数据服务，该服务将包含公共数据库逻辑，从而形成一个数据库抽象层，如图 8-18 所示。
 
-![图 8-18：使用共享工单数据服务作为 Sysops Squad 工单服务的公共数据库逻辑的选项](images/figure-0155.png)
+![图 8-18：使用共享工单数据服务作为 Sysops Squad 工单服务的公共数据库逻辑的选项](../raw/software-architecture-2021/images/figure-0155.png)
 
 > 图 8-18：使用共享工单数据服务作为 Sysops Squad 工单服务的公共数据库逻辑的选项。
 
 Skyler 讨厌这个想法，并希望使用一个 shared library（DLL），
 每个服务将其作为构建和部署的一部分包含，如图 8-19 所示。
 
-![图 8-19：使用 shared library 作为 Sysops Squad 工单服务的公共数据库逻辑的选项](images/figure-0156.png)
+![图 8-19：使用 shared library 作为 Sysops Squad 工单服务的公共数据库逻辑的选项](../raw/software-architecture-2021/images/figure-0156.png)
 
 > 图 8-19：使用 shared library 作为 Sysops Squad 工单服务的公共数据库逻辑的选项。
 
@@ -8527,7 +8527,7 @@ Addison 为这个架构决策写了一份 ADR：
 
 12 月 10 日，星期五，09:12
 
-![插图 9-1：Addison 和 Sydney 讨论数据所有权](images/figure-0157.png)
+![插图 9-1：Addison 和 Sydney 讨论数据所有权](../raw/software-architecture-2021/images/figure-0157.png)
 
 > 插图 9-1：Addison 和 Sydney 讨论数据所有权。
 
@@ -8580,7 +8580,7 @@ Sysops Squad 开发团队与 Sysops Squad 架构师 Addison 一起，
 一个 Wishlist 服务，管理所有客户愿望清单；一个 Catalog 服务，
 维护产品目录；一个 Inventory 服务，维护产品目录中所有产品的库存和补货功能。
 
-![图 9-1：数据被拆分后，表必须分配给拥有它们的服务](images/figure-0159.png)
+![图 9-1：数据被拆分后，表必须分配给拥有它们的服务](../raw/software-architecture-2021/images/figure-0159.png)
 
 > 图 9-1：数据被拆分后，表必须分配给拥有它们的服务。
 
@@ -8604,7 +8604,7 @@ Catalog 服务写入 Audit 表和 Product 表，
 Wishlist 表成为 Wishlist 服务 bounded context 的一部分。
 这种图表技术是指示表所有权以及服务与其对应数据之间形成的 bounded context 的有效方式。
 
-![图 9-2：在单一所有权中，写入表的服务成为表所有者](images/figure-0160.png)
+![图 9-2：在单一所有权中，写入表的服务成为表所有者](../raw/software-architecture-2021/images/figure-0160.png)
 
 > 图 9-2：在单一所有权中，写入表的服务成为表所有者。
 
@@ -8639,7 +8639,7 @@ Catalog 服务和 Inventory 服务不需要等待审计记录写入表。
 使队列持久化（意味着消息由代理存储在磁盘上）在服务或代理故障时提供保证传递，
 并有助于确保没有消息丢失。
 
-![图 9-3：公共所有权使用专用服务所有者](images/figure-0161.png)
+![图 9-3：公共所有权使用专用服务所有者](../raw/software-architecture-2021/images/figure-0161.png)
 
 > 图 9-3：公共所有权使用专用服务所有者。
 
@@ -8658,7 +8658,7 @@ Catalog 服务和 Inventory 服务不需要等待审计记录写入表。
 Catalog 服务将新产品插入表中，移除不再提供的产品，并更新静态产品信息的变化，
 而 Inventory 服务负责读取和更新每个产品的当前库存，因为产品被查询、销售或退回。
 
-![图 9-4：当同一领域内的多个服务对同一个表执行写操作时，发生联合所有权](images/figure-0162.png)
+![图 9-4：当同一领域内的多个服务对同一个表执行写操作时，发生联合所有权](../raw/software-architecture-2021/images/figure-0162.png)
 
 > 图 9-4：当同一领域内的多个服务对同一个表执行写操作时，发生联合所有权。
 
@@ -8697,7 +8697,7 @@ ALTER TABLE Product DROP COLUMN inv_cnt;
 而 Inventory 服务拥有 Inventory 表中的数据。然而，如图 9-5 所示，当创建或移除产品时，
 此技术需要 Catalog 服务和 Inventory 服务之间的通信，以确保两个表之间的数据保持一致。
 
-![图 9-5：可以通过拆分共享表来解决联合所有权](images/figure-0163.png)
+![图 9-5：可以通过拆分共享表来解决联合所有权](../raw/software-architecture-2021/images/figure-0163.png)
 
 > 图 9-5：可以通过拆分共享表来解决联合所有权。
 
@@ -8745,7 +8745,7 @@ Catalog 服务在创建新产品时是否需要确认相应的 Inventory 记录�
 这种图表技术清楚地表明，该表不由任何服务拥有，也不属于任何服务的 bounded context，
 而是在更广泛的 bounded context 中在它们之间共享。
 
-![图 9-6：在联合所有权中，服务可以通过使用数据领域技术（共享模式）共享数据](images/figure-0164.png)
+![图 9-6：在联合所有权中，服务可以通过使用数据领域技术（共享模式）共享数据](../raw/software-architecture-2021/images/figure-0164.png)
 
 > 图 9-6：在联合所有权中，服务可以通过使用数据领域技术（共享模式）共享数据。
 
@@ -8801,7 +8801,7 @@ Inventory 服务负责检索和更新产品库存计数，以及知道库存过�
 由于 Catalog 服务对产品信息执行大部分 CRUD 操作，Catalog 服务将被分配为表的唯一所有者。
 这意味着 Inventory 服务必须与 Catalog 服务通信以检索或更新库存计数，因为它不拥有该表。
 
-![图 9-7：由于领域优先级，表所有权分配给 Catalog 服务](images/figure-0166.png)
+![图 9-7：由于领域优先级，表所有权分配给 Catalog 服务](../raw/software-architecture-2021/images/figure-0166.png)
 
 > 图 9-7：由于领域优先级，表所有权分配给 Catalog 服务。
 
@@ -8823,7 +8823,7 @@ Inventory 服务必须通过某种远程访问协议将库存更新发送到 Cat
 使用此选项，频繁的库存计数更新可以使用直接数据库调用而不是远程访问协议，
 因此使库存操作更快更可靠。此外，最易变的数据（库存计数）保持高度一致。
 
-![图 9-8：由于运维特性优先级，表所有权分配给 Inventory 服务](images/figure-0167.png)
+![图 9-8：由于运维特性优先级，表所有权分配给 Inventory 服务](../raw/software-architecture-2021/images/figure-0167.png)
 
 > 图 9-8：由于运维特性优先级，表所有权分配给 Inventory 服务。
 
@@ -8855,7 +8855,7 @@ Inventory 服务必须通过某种远程访问协议将库存更新发送到 Cat
 *服务整合技术*通过将多个表所有者（服务）合并为单个整合服务来解决服务依赖并解决联合所有权，
 从而将联合所有权转变为单一所有权场景（见图 9-9）。
 
-![图 9-9：通过合并服务解决表所有权](images/figure-0168.png)
+![图 9-9：通过合并服务解决表所有权](../raw/software-architecture-2021/images/figure-0168.png)
 
 > 图 9-9：通过合并服务解决表所有权。
 
@@ -8895,7 +8895,7 @@ Inventory 服务必须通过某种远程访问协议将库存更新发送到 Cat
 
 一旦表所有权分配给服务，架构师必须通过分析业务工作流及其相应的事务需求来验证表所有权分配。
 
-![图 9-10：使用委托技术进行联合所有权的结果数据所有权](images/figure-0169.png)
+![图 9-10：使用委托技术进行联合所有权的结果数据所有权](../raw/software-architecture-2021/images/figure-0169.png)
 
 > 图 9-10：使用委托技术进行联合所有权的结果数据所有权。
 
@@ -8933,7 +8933,7 @@ ACID 事务范围之外的任何其他服务都无法访问新插入的信息，
 此信息被发送到单个 Customer 服务，如图 9-11 所示，
 然后该服务执行与客户注册业务请求相关的所有数据库活动。
 
-![图 9-11：使用 ACID 事务，账单插入错误导致其他表插入回滚](images/figure-0170.png)
+![图 9-11：使用 ACID 事务，账单插入错误导致其他表插入回滚](../raw/software-architecture-2021/images/figure-0170.png)
 
 > 图 9-11：使用 ACID 事务，账单插入错误导致其他表插入回滚。
 
@@ -8950,7 +8950,7 @@ ACID 事务范围之外的任何其他服务都无法访问新插入的信息，
 注意在图 9-12 中，相同的客户注册请求（由代表客户发出请求的笔记本电脑图像表示）
 现在分布在三个单独部署的服务中——客户资料服务、支持合同服务和账单支付服务。
 
-![图 9-12：分布式事务不支持 ACID 属性](images/figure-0171.png)
+![图 9-12：分布式事务不支持 ACID 属性](../raw/software-architecture-2021/images/figure-0171.png)
 
 > 图 9-12：分布式事务不支持 ACID 属性。
 
@@ -9005,7 +9005,7 @@ BASE 描述分布式事务的属性：基本可用性、软状态和最终一致
 以及向客户收取支持计划费用的账单支付服务。
 注意图中客户 123 是 Sysops Squad 服务的订阅者，因此在每个服务拥有的相应表中都有数据。
 
-![图 9-13：客户 123 是 Sysops Squad 应用程序中的订阅者](images/figure-0172.png)
+![图 9-13：客户 123 是 Sysops Squad 应用程序中的订阅者](../raw/software-architecture-2021/images/figure-0172.png)
 
 > 图 9-13：客户 123 是 Sysops Squad 应用程序中的订阅者。
 
@@ -9014,7 +9014,7 @@ BASE 描述分布式事务的属性：基本可用性、软状态和最终一致
 从资料表中移除客户，并向客户返回确认，表示他们已成功取消订阅，将不再被收费。然而，
 该客户的数据仍然存在于支持合同服务拥有的合同表和账单支付服务拥有的账单表中。
 
-![图 9-14：客户取消订阅支持计划后数据不同步](images/figure-0173.png)
+![图 9-14：客户取消订阅支持计划后数据不同步](../raw/software-architecture-2021/images/figure-0173.png)
 
 > 图 9-14：客户取消订阅支持计划后数据不同步。
 
@@ -9044,7 +9044,7 @@ BASE 描述分布式事务的属性：基本可用性、软状态和最终一致
 此模式对整体响应性有利，因为最终用户不必等待整个业务事务完成（在这种情况下，
 取消订阅支持计划）。但不幸的是，这种最终一致性模式存在一些严重的 trade-off。
 
-![图 9-15：后台同步模式使用外部进程确保数据一致性](images/figure-0174.png)
+![图 9-15：后台同步模式使用外部进程确保数据一致性](../raw/software-architecture-2021/images/figure-0174.png)
 
 > 图 9-15：后台同步模式使用外部进程确保数据一致性。
 
@@ -9052,7 +9052,7 @@ BASE 描述分布式事务的属性：基本可用性、软状态和最终一致
 从而破坏了数据和每个服务之间的 bounded context。注意在图 9-16 中，
 后台批处理同步进程必须对相应服务拥有的每个表具有写访问权限，这意味着所有表实际上在服务和后台同步进程之间共享所有权。
 
-![图 9-16：后台同步模式与数据源耦合，因此破坏了 bounded context 和数据所有权](images/figure-0175.png)
+![图 9-16：后台同步模式与数据源耦合，因此破坏了 bounded context 和数据所有权](../raw/software-architecture-2021/images/figure-0175.png)
 
 > 图 9-16：后台同步模式与数据源耦合，因此破坏了 bounded context 和数据所有权。
 
@@ -9108,7 +9108,7 @@ BASE 描述分布式事务的属性：基本可用性、软状态和最终一致
 如图 9-17 所示，指定一个服务承担 orchestrator 角色，
 除了其其他职责，在这种情况下是客户资料服务。
 
-![图 9-17：客户资料服务承担分布式事务的 orchestrator 角色](images/figure-0176.png)
+![图 9-17：客户资料服务承担分布式事务的 orchestrator 角色](../raw/software-architecture-2021/images/figure-0176.png)
 
 > 图 9-17：客户资料服务承担分布式事务的 orchestrator 角色。
 
@@ -9121,7 +9121,7 @@ BASE 描述分布式事务的属性：基本可用性、软状态和最终一致
 
 我们将使用这种单独的编排服务方法来描述这种最终一致性模式如何工作以及与此模式相应的 trade-off。
 
-![图 9-18：专用编排服务承担分布式事务的 orchestrator 角色](images/figure-0177.png)
+![图 9-18：专用编排服务承担分布式事务的 orchestrator 角色](../raw/software-architecture-2021/images/figure-0177.png)
 
 > 图 9-18：专用编排服务承担分布式事务的 orchestrator 角色。
 
@@ -9160,7 +9160,7 @@ orchestrator 唯一的真正选择是尝试撤销分布式事务——换句话�
 并将合同表中的 `remove_date` 列设回零。这将要求 orchestrator 拥有重新插入客户所需的所有信息，
 并且创建新客户时不会发生副作用（例如初始化账单信息或支持合同）。
 
-![图 9-19：使用编排的基于请求的模式时，错误条件很难处理](images/figure-0178.png)
+![图 9-19：使用编排的基于请求的模式时，错误条件很难处理](../raw/software-architecture-2021/images/figure-0178.png)
 
 > 图 9-19：使用编排的基于请求的模式时，错误条件很难处理。
 
@@ -9198,7 +9198,7 @@ orchestrator 唯一的真正选择是尝试撤销分布式事务——换句话�
 大约在同一时间，支持合同和账单支付服务都接收到取消订阅事件，
 并执行取消订阅客户所需的任何功能，使所有数据源最终一致。
 
-![图 9-20：基于事件的模式使用异步发布-订阅消息传递或事件流来实现最终一致性](images/figure-0179.png)
+![图 9-20：基于事件的模式使用异步发布-订阅消息传递或事件流来实现最终一致性](../raw/software-architecture-2021/images/figure-0179.png)
 
 > 图 9-20：基于事件的模式使用异步发布-订阅消息传递或事件流来实现最终一致性。
 
@@ -9236,7 +9236,7 @@ AmazonMQ 等）的实现，响应事件的服务必须设置为持久订阅者�
 
 ### 1 月 18 日，星期二，09:14
 
-![插图 9-2：Sydney 和 Addison 讨论数据所有权](images/figure-0180.png)
+![插图 9-2：Sydney 和 Addison 讨论数据所有权](../raw/software-architecture-2021/images/figure-0180.png)
 
 > 插图 9-2：Sydney 和 Addison 讨论数据所有权。
 
@@ -9313,7 +9313,7 @@ Addison 和 Sydney 同意调查服务将拥有调查表，
 并在表通知调查服务启动调查流程时使用委托技术传递数据，如图 9-21 所示。
 Addison 为这个决策写了一份架构决策记录。
 
-![图 9-21：调查服务使用委托技术拥有数据](images/figure-0181.png)
+![图 9-21：调查服务使用委托技术拥有数据](../raw/software-architecture-2021/images/figure-0181.png)
 
 > 图 9-21：调查服务使用委托技术拥有数据。
 
@@ -9343,7 +9343,7 @@ Addison 为这个决策写了一份架构决策记录。
 
 1 月 3 日，星期一，12:43
 
-![插图 10-1：Sydney 和 Addison 讨论数据访问](images/figure-0182.png)
+![插图 10-1：Sydney 和 Addison 讨论数据访问](../raw/software-architecture-2021/images/figure-0182.png)
 
 > 插图 10-1：Sydney 和 Addison 讨论数据访问。
 
@@ -9392,7 +9392,7 @@ Catalog 服务负责维护公司销售的所有物品，并包括物品 ID、物
 因此，架构师必须使用本章概述的数据访问模式之一，
 以确保 Wishlist 服务可以从 Catalog 服务获取产品描述。
 
-![图 10-1：Wishlist 服务需要物品描述，但无法访问包含数据的产品表](images/figure-0183.png)
+![图 10-1：Wishlist 服务需要物品描述，但无法访问包含数据的产品表](../raw/software-architecture-2021/images/figure-0183.png)
 
 > 图 10-1：Wishlist 服务需要物品描述，但无法访问包含数据的产品表。
 
@@ -9415,7 +9415,7 @@ Catalog 服务必须进行额外的数据库调用来检索物品描述。
 这可能增加大约 10 毫秒到 50 毫秒的额外处理时间。把所有这些加起来，延迟可能高达一秒，
 仅仅为了获取物品描述。
 
-![图 10-2：服务间通信数据访问模式](images/figure-0184.png)
+![图 10-2：服务间通信数据访问模式](../raw/software-architecture-2021/images/figure-0184.png)
 
 > 图 10-2：服务间通信数据访问模式。
 
@@ -9445,7 +9445,7 @@ Catalog 服务必须进行额外的数据库调用来检索物品描述。
 `item_desc` 列被添加到 Wishlist 表，
 使该数据对 Wishlist 服务可用，无需向 Catalog 服务请求数据。
 
-![图 10-3：使用列模式复制数据访问模式，数据被复制到其他表](images/figure-0185.png)
+![图 10-3：使用列模式复制数据访问模式，数据被复制到其他表](../raw/software-architecture-2021/images/figure-0185.png)
 
 > 图 10-3：使用列模式复制数据访问模式，数据被复制到其他表。
 
@@ -9492,7 +9492,7 @@ Catalog 服务必须以某种方式让 Wishlist 服务（以及任何其他复�
 使用此缓存模型（如图 10-4 所示），内存数据不在缓存之间同步，这意味着每个服务都有自己特定于该服务的独特数据。
 虽然此缓存模型确实有助于增加每个服务内的响应性和可扩展性，但由于服务之间缺乏缓存同步，它对于在服务之间共享数据没有用处。
 
-![图 10-4：使用单一内存缓存，每个服务包含自己的独特数据](images/figure-0186.png)
+![图 10-4：使用单一内存缓存，每个服务包含自己的独特数据](../raw/software-architecture-2021/images/figure-0186.png)
 
 > 图 10-4：使用单一内存缓存，每个服务包含自己的独特数据。
 
@@ -9511,7 +9511,7 @@ Catalog 服务必须以某种方式让 Wishlist 服务（以及任何其他复�
 最后，由于对集中式分布式缓存的访问是通过远程调用进行的，
 网络延迟增加了数据的额外检索时间，从而影响整体响应性，与内存复制缓存相比。
 
-![图 10-5：分布式缓存位于服务外部](images/figure-0187.png)
+![图 10-5：分布式缓存位于服务外部](../raw/software-architecture-2021/images/figure-0187.png)
 
 > 图 10-5：分布式缓存位于服务外部。
 
@@ -9519,7 +9519,7 @@ Catalog 服务必须以某种方式让 Wishlist 服务（以及任何其他复�
 允许相同的数据在多个服务之间共享。注意在图 10-6 中，没有外部缓存依赖。每个缓存实例相互通信，
 以便当对缓存进行更新时，该更新立即（在幕后）异步传播到使用相同缓存的其他服务。
 
-![图 10-6：使用复制缓存，每个服务包含相同的内存数据](images/figure-0188.png)
+![图 10-6：使用复制缓存，每个服务包含相同的内存数据](../raw/software-architecture-2021/images/figure-0188.png)
 
 > 图 10-6：使用复制缓存，每个服务包含相同的内存数据。
 
@@ -9532,7 +9532,7 @@ Apache Ignite 和 Oracle Coherence。
 Catalog 服务拥有产品描述的内存缓存（意味着它是唯一可以修改缓存的服务），
 而 Wishlist 服务包含相同缓存的只读内存副本。
 
-![图 10-7：复制缓存数据访问模式](images/figure-0189.png)
+![图 10-7：复制缓存数据访问模式](../raw/software-architecture-2021/images/figure-0189.png)
 
 > 图 10-7：复制缓存数据访问模式。
 
@@ -9609,7 +9609,7 @@ Wishlist 和 Product 表不再由任何服务拥有，而是在它们之间共�
 形成更广泛的 bounded context。使用此模式，
 在 Wishlist 服务中获取产品描述只需在两个表之间进行简单的 SQL 连接。
 
-![图 10-8：数据领域数据访问模式](images/figure-0190.png)
+![图 10-8：数据领域数据访问模式](../raw/software-architecture-2021/images/figure-0190.png)
 
 > 图 10-8：数据领域数据访问模式。
 
@@ -9651,7 +9651,7 @@ Wishlist 服务对数据领域中的所有数据具有完全访问权限。
 
 ### 3 月 3 日，星期四，14:59
 
-![插图 10-2：Logan 解释数据访问方法](images/figure-0191.png)
+![插图 10-2：Logan 解释数据访问方法](../raw/software-architecture-2021/images/figure-0191.png)
 
 > 插图 10-2：Logan 解释数据访问方法。
 
@@ -9759,7 +9759,7 @@ Addison 创建了一份 ADR 概述并证明此决定的合理性。
 
 2 月 15 日，星期二，14:34
 
-![插图 11-1：Austen 和 Logan 讨论通信模式](images/figure-0192.png)
+![插图 11-1：Austen 和 Logan 讨论通信模式](../raw/software-architecture-2021/images/figure-0192.png)
 
 > 插图 11-1：Austen 和 Logan 讨论通信模式。
 
@@ -9786,7 +9786,7 @@ Addison 创建了一份 ADR 概述并证明此决定的合理性。
 
 在第 2 章中，我们在考虑分布式架构中的交互模型时确定了三个耦合力：通信、一致性和协调，如图 11-1 所示。
 
-![图 11-1：动态 quantum 耦合的维度](images/figure-0193.png)
+![图 11-1：动态 quantum 耦合的维度](../raw/software-architecture-2021/images/figure-0193.png)
 
 > 图 11-1：动态 quantum 耦合的维度。
 
@@ -9795,11 +9795,11 @@ Addison 创建了一份 ADR 概述并证明此决定的合理性。
 分布式架构中存在两种基本的协调模式：
 orchestration 和 choreography。两种风格之间的基本拓扑差异如图 11-2 所示。
 
-![图 11-2(a)：orchestration —— 使用 orchestrator](images/figure-0194.png)
+![图 11-2(a)：orchestration —— 使用 orchestrator](../raw/software-architecture-2021/images/figure-0194.png)
 
 > 图 11-2(a)：orchestration —— 使用 orchestrator。
 
-![图 11-2(b)：choreography —— 不使用 orchestrator](images/figure-0195.png)
+![图 11-2(b)：choreography —— 不使用 orchestrator](../raw/software-architecture-2021/images/figure-0195.png)
 
 > 图 11-2(b)：choreography —— 不使用 orchestrator。
 
@@ -9818,7 +9818,7 @@ orchestrator 组件通常不包含除其所中介的工作流之外的任何领�
 微服务架构风格的主要目标之一是解耦，使用像 ESB 这样的全局组件会创建不希望的耦合点。
 因此，微服务倾向于为每个工作流配备一个 orchestrator。
 
-![图 11-3：分布式微服务中的 orchestration](images/figure-0196.png)
+![图 11-3：分布式微服务中的 orchestration](../raw/software-architecture-2021/images/figure-0196.png)
 
 > 图 11-3：分布式微服务中的 orchestration。
 
@@ -9836,13 +9836,13 @@ orchestrator 然后调用电子邮件服务通知用户成功的电子产品订�
 
 如果世界只包含快乐路径，软件架构将很容易。然而，软件架构的主要难题之一是错误条件和路径。
 
-![图 11-4：使用 orchestrator 购买电子设备的"快乐路径"工作流（注意虚线表示不太时间敏感的异步调用）](images/figure-0197.png)
+![图 11-4：使用 orchestrator 购买电子设备的"快乐路径"工作流（注意虚线表示不太时间敏感的异步调用）](../raw/software-architecture-2021/images/figure-0197.png)
 
 > 图 11-4：使用 orchestrator 购买电子设备的"快乐路径"工作流（注意虚线表示不太时间敏感的异步调用）。
 
 考虑电子产品购买的两种潜在错误场景。首先，如果客户的支付方式被拒绝会发生什么？此错误场景出现在图 11-5 中。
 
-![图 11-5：支付被拒绝的错误条件](images/figure-0198.png)
+![图 11-5：支付被拒绝的错误条件](../raw/software-architecture-2021/images/figure-0198.png)
 
 > 图 11-5：支付被拒绝的错误条件。
 
@@ -9858,7 +9858,7 @@ orchestrator 更新订单放置服务的状态，该服务仍然认为这是一�
 
 在第二个错误场景中，工作流已经进展得更远：当履行服务报告缺货时会发生什么？此错误场景出现在图 11-6 中。
 
-![图 11-6：当物品缺货时，orchestrator 必须纠正状态](images/figure-0199.png)
+![图 11-6：当物品缺货时，orchestrator 必须纠正状态](../raw/software-architecture-2021/images/figure-0199.png)
 
 > 图 11-6：当物品缺货时，orchestrator 必须纠正状态。
 
@@ -9931,7 +9931,7 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 图 11-4 描述了客户从 Penultimate Electronics 购买电子产品的编排工作流；
 以 choreography 通信风格建模的相同工作流出现在图 11-7 中。
 
-![图 11-7：使用 choreography 购买电子产品](images/figure-0200.png)
+![图 11-7：使用 choreography 购买电子产品](../raw/software-architecture-2021/images/figure-0200.png)
 
 > 图 11-7：使用 choreography 购买电子产品。
 
@@ -9945,7 +9945,7 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 
 如前一节所述，我们涵盖两种潜在的错误场景。第一个是支付失败，如图 11-8 所示。
 
-![图 11-8：choreography 中的支付错误](images/figure-0201.png)
+![图 11-8：choreography 中的支付错误](../raw/software-architecture-2021/images/figure-0201.png)
 
 > 图 11-8：choreography 中的支付错误。
 
@@ -9955,7 +9955,7 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 
 然而，考虑由产品缺货的另一个错误场景带来的日益增加的复杂性，如图 11-9 所示。
 
-![图 11-9：管理产品缺货的工作流错误条件](images/figure-0202.png)
+![图 11-9：管理产品缺货的工作流错误条件](../raw/software-architecture-2021/images/figure-0202.png)
 
 > 图 11-9：管理产品缺货的工作流错误条件。
 
@@ -9971,7 +9971,7 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 不断向 choreography 解决方案添加更多复杂性。在图 11-10 中，
 每个错误场景迫使领域服务相互交互，添加了快乐路径不需要的通信链接。
 
-![图 11-10：choreography 中的错误条件通常会添加通信链接](images/figure-0203.png)
+![图 11-10：choreography 中的错误条件通常会添加通信链接](../raw/software-architecture-2021/images/figure-0203.png)
 
 > 图 11-10：choreography 中的错误条件通常会添加通信链接。
 
@@ -9986,7 +9986,7 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 
 这里有一个常见的例子。考虑标准的分层单体架构与更现代的模块化单体风格，如图 11-11 所示。
 
-![图 11-11：架构中的技术分区与领域分区](images/figure-0204.png)
+![图 11-11：架构中的技术分区与领域分区](../raw/software-architecture-2021/images/figure-0204.png)
 
 > 图 11-11：架构中的技术分区与领域分区。
 
@@ -9995,7 +9995,7 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 
 两种拓扑都是组织代码库的逻辑方式。然而，考虑像目录结账这样的领域概念在每个架构中的位置，如图 11-12 所示。
 
-![图 11-12：目录结账在技术分区架构中跨实现层分布](images/figure-0205.png)
+![图 11-12：目录结账在技术分区架构中跨实现层分布](../raw/software-architecture-2021/images/figure-0205.png)
 
 > 图 11-12：目录结账在技术分区架构中跨实现层分布。
 
@@ -10029,7 +10029,7 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 在这种情况下是订单放置服务。如果该服务包含关于订单和工作流状态的信息，
 某些领域服务必须具有通信链接以查询和更新订单状态，如图 11-13 所示。
 
-![图 11-13：在 choreography 中，前端控制器是一个领域服务，除了领域行为外还拥有工作流状态](images/figure-0207.png)
+![图 11-13：在 choreography 中，前端控制器是一个领域服务，除了领域行为外还拥有工作流状态](../raw/software-architecture-2021/images/figure-0207.png)
 
 > 图 11-13：在 choreography 中，前端控制器是一个领域服务，除了领域行为外还拥有工作流状态。
 
@@ -10151,7 +10151,7 @@ choreography 有许多好和坏的 trade-off，通常是对立的，总结在表
 
 然而，随着工作流复杂性的增加，对 orchestrator 的需求按比例上升，如图 11-14 所示。
 
-![图 11-14：随着工作流复杂性的增加，orchestration 变得更加有用](images/figure-0208.png)
+![图 11-14：随着工作流复杂性的增加，orchestration 变得更加有用](../raw/software-architecture-2021/images/figure-0208.png)
 
 > 图 11-14：随着工作流复杂性的增加，orchestration 变得更加有用。
 
@@ -10176,7 +10176,7 @@ choreography 有许多好和坏的 trade-off，通常是对立的，总结在表
 
 ### 3 月 15 日，星期四，11:00
 
-![插图 11-2：Addison、Austen 和 Logan 讨论工作流选项](images/figure-0209.png)
+![插图 11-2：Addison、Austen 和 Logan 讨论工作流选项](../raw/software-architecture-2021/images/figure-0209.png)
 
 > 插图 11-2：Addison、Austen 和 Logan 讨论工作流选项。
 
@@ -10209,13 +10209,13 @@ Addison 和 Austen 准时到达 Logan 的办公室，带着一个演示文稿和
 
 "是的。Choreography 的图见图 11-15。"
 
-![图 11-15：建模为 choreography 的主要工单流](images/figure-0210.png)
+![图 11-15：建模为 choreography 的主要工单流](../raw/software-architecture-2021/images/figure-0210.png)
 
 > 图 11-15：建模为 choreography 的主要工单流。
 
 "...以及 orchestration 的模型见图 11-16。"
 
-![图 11-16：建模为 orchestration 的主要工单工作流](images/figure-0211.png)
+![图 11-16：建模为 orchestration 的主要工单工作流](../raw/software-architecture-2021/images/figure-0211.png)
 
 > 图 11-16：建模为 orchestration 的主要工单工作流。
 
@@ -10308,7 +10308,7 @@ Austen 插话："trade-off！"
 
 3 月 31 日，星期四，16:55
 
-![插图 12-1：Austen 和 Logan 讨论 saga 模式](images/figure-0212.png)
+![插图 12-1：Austen 和 Logan 讨论 saga 模式](../raw/software-architecture-2021/images/figure-0212.png)
 
 > 插图 12-1：Austen 和 Logan 讨论 saga 模式。
 
@@ -10370,7 +10370,7 @@ saga 发出一系列补偿更新以撤销在 saga 期间所做的先前更改。
 我们称之为*同构图*。这些图以最通用的方式显示服务之间的交互，
 以实现我们以最简单的形式展示架构概念的目标。在每个图中，我们使用图 12-1 中所示的通用符号集。
 
-![图 12-1：ISO 架构交互图图例](images/figure-0213.png)
+![图 12-1：ISO 架构交互图图例](../raw/software-architecture-2021/images/figure-0213.png)
 
 > 图 12-1：ISO 架构交互图图例。
 
@@ -10382,7 +10382,7 @@ saga 发出一系列补偿更新以撤销在 saga 期间所做的先前更改。
 这种通信类型是许多架构师理解的"传统"saga 模式，
 也因其协调类型称为*编排的 Saga*。其维度关系出现在图 12-2 中。
 
-![图 12-2：Epic Saga 模式的动态耦合（通信、一致性、协调）关系](images/figure-0214.png)
+![图 12-2：Epic Saga 模式的动态耦合（通信、一致性、协调）关系](../raw/software-architecture-2021/images/figure-0214.png)
 
 > 图 12-2：Epic Saga 模式的动态耦合（通信、一致性、协调）关系。
 
@@ -10392,7 +10392,7 @@ saga 发出一系列补偿更新以撤销在 saga 期间所做的先前更改。
 
 Epic Saga 模式的同构表示出现在图 12-3 中。
 
-![图 12-3：Epic Saga 模式的同构通信图示](images/figure-0215.png)
+![图 12-3：Epic Saga 模式的同构通信图示](../raw/software-architecture-2021/images/figure-0215.png)
 
 > 图 12-3：Epic Saga 模式的同构通信图示。
 
@@ -10414,7 +10414,7 @@ Epic Saga 模式的同构表示出现在图 12-3 中。
 
 compensating transaction 模式分配一个服务来监控请求的事务完整性，如图 12-4 所示。
 
-![图 12-4：使用 compensating transaction 的成功编排事务 Epic Saga](images/figure-0216.png)
+![图 12-4：使用 compensating transaction 的成功编排事务 Epic Saga](../raw/software-architecture-2021/images/figure-0216.png)
 
 > 图 12-4：使用 compensating transaction 的成功编排事务 Epic Saga。
 
@@ -10422,7 +10422,7 @@ compensating transaction 模式分配一个服务来监控请求的事务完整�
 在 compensating transaction 框架中，mediator 监控调用的成功，
 如果一个或多个请求失败，则向其他服务发出补偿调用，如图 12-5 所示。
 
-![图 12-5：当发生错误时，mediator 必须向其他服务发送补偿请求](images/figure-0217.png)
+![图 12-5：当发生错误时，mediator 必须向其他服务发送补偿请求](../raw/software-architecture-2021/images/figure-0217.png)
 
 > 图 12-5：当发生错误时，mediator 必须向其他服务发送补偿请求。
 
@@ -10491,7 +10491,7 @@ Orchestration 创建了一个瓶颈，特别是当它还必须协调事务原子
 Phone Tag Saga 模式改变了 Epic Saga 的一个维度，
 将协调从编排改为 choreographed；此更改如图 12-6 所示。
 
-![图 12-6：Phone Tag Saga 模式使用松散耦合的通信](images/figure-0218.png)
+![图 12-6：Phone Tag Saga 模式使用松散耦合的通信](../raw/software-architecture-2021/images/figure-0218.png)
 
 > 图 12-6：Phone Tag Saga 模式使用松散耦合的通信。
 
@@ -10500,7 +10500,7 @@ Phone Tag Saga 模式改变了 Epic Saga 的一个维度，
 直到最后一个版本被最后一个人说出来。在图 12-6 中，choreography 优先于 orchestration，
 创建了图 12-7 中所示的结构通信的相应变化。
 
-![图 12-7：由于缺乏编排，每个参与者必须协调状态](images/figure-0219.png)
+![图 12-7：由于缺乏编排，每个参与者必须协调状态](../raw/software-architecture-2021/images/figure-0219.png)
 
 > 图 12-7：由于缺乏编排，每个参与者必须协调状态。
 
@@ -10587,7 +10587,7 @@ Phone Tag Saga 模式更适合没有许多常见错误条件的简单工作流�
 典型的童话故事提供具有易于理解情节的快乐故事，因此命名为*Fairy Tale Saga*，
 它使用同步通信、最终一致性和编排，如图 12-8 所示。
 
-![图 12-8：Fairy Tale Saga 说明了最终一致性](images/figure-0220.png)
+![图 12-8：Fairy Tale Saga 说明了最终一致性](../raw/software-architecture-2021/images/figure-0220.png)
 
 > 图 12-8：Fairy Tale Saga 说明了最终一致性。
 
@@ -10595,7 +10595,7 @@ Phone Tag Saga 模式更适合没有许多常见错误条件的简单工作流�
 如果服务暂时不可用，最终一致性允许缓存更改直到服务恢复。
 Fairy Tale Saga 的通信结构如图 12-9 所示。
 
-![图 12-9：Fairy Tale Saga 交互的同构图示](images/figure-0221.png)
+![图 12-9：Fairy Tale Saga 交互的同构图示](../raw/software-architecture-2021/images/figure-0221.png)
 
 > 图 12-9：Fairy Tale Saga 交互的同构图示。
 
@@ -10654,13 +10654,13 @@ Fairy Tale Saga 的评分出现在表 12-4 中。
 此模式避免中央 mediator，将工作流责任完全放在参与的领域服务上，
 如图 12-10 所示。
 
-![图 12-10：Time Travel Saga 模式使用三种解耦技术中的两种](images/figure-0222.png)
+![图 12-10：Time Travel Saga 模式使用三种解耦技术中的两种](../raw/software-architecture-2021/images/figure-0222.png)
 
 > 图 12-10：Time Travel Saga 模式使用三种解耦技术中的两种。
 
 结构拓扑说明了缺乏编排，如图 12-11 所示。
 
-![图 12-11：没有编排，复杂工作流变得难以管理](images/figure-0223.png)
+![图 12-11：没有编排，复杂工作流变得难以管理](../raw/software-architecture-2021/images/figure-0223.png)
 
 > 图 12-11：没有编排，复杂工作流变得难以管理。
 
@@ -10728,13 +10728,13 @@ Time Travel Saga 模式提供了通往更复杂但最终更可扩展的 Antholog
 
 *Fantasy Fiction Saga* 使用*原子一致性*、*异步通信*和*编排协调*，如图 12-12 所示。
 
-![图 12-12：异步通信使此模式中的事务性变得困难](images/figure-0224.png)
+![图 12-12：异步通信使此模式中的事务性变得困难](../raw/software-architecture-2021/images/figure-0224.png)
 
 > 图 12-12：异步通信使此模式中的事务性变得困难。
 
 图 12-13 中所示的结构表示开始显示此模式的一些困难。
 
-![图 12-13：Fantasy Fiction Saga 模式牵强，因为异步通信的事务协调带来困难](images/figure-0225.png)
+![图 12-13：Fantasy Fiction Saga 模式牵强，因为异步通信的事务协调带来困难](../raw/software-architecture-2021/images/figure-0225.png)
 
 > 图 12-13：Fantasy Fiction Saga 模式牵强，因为异步通信的事务协调带来困难。
 
@@ -10799,14 +10799,14 @@ Fantasy Fiction Saga 模式的评分出现在表 12-6 中。
 其中一个模式必须是最糟糕的可能组合；它是恰当命名的*Horror Story* 模式，特征为*异步*通信、
 *原子*一致性和*choreographed* 协调，如图 12-14 所示。
 
-![图 12-14：最困难的组合：在异步和 choreographed 时实现事务性](images/figure-0226.png)
+![图 12-14：最困难的组合：在异步和 choreographed 时实现事务性](../raw/software-architecture-2021/images/figure-0226.png)
 
 > 图 12-14：最困难的组合：在异步和 choreographed 时实现事务性。
 
 为什么这个组合如此可怕？它结合了围绕一致性（原子）的最严格耦合与两种最松散的耦合风格，异步和 choreography。
 此模式的结构通信出现在图 12-15 中。
 
-![图 12-15：Horror Story 模式](images/figure-0227.png)
+![图 12-15：Horror Story 模式](../raw/software-architecture-2021/images/figure-0227.png)
 
 > 图 12-15：由于所需的事务性且缺乏 mediator，此模式需要大量的服务间通信。
 
@@ -10866,7 +10866,7 @@ Horror Story 模式的 trade-off 出现在表 12-7 中。
 因此使其成为更容易实现的模式：异步通信和最终一致性。
 Parallel Saga 模式的维度图出现在图 12-16 中。
 
-![图 12-16：Parallel Saga 模式提供比传统 saga 更好的性能改进](images/figure-0228.png)
+![图 12-16：Parallel Saga 模式提供比传统 saga 更好的性能改进](../raw/software-architecture-2021/images/figure-0228.png)
 
 > 图 12-16：Parallel Saga 模式提供比传统 saga 更好的性能改进。
 
@@ -10875,7 +10875,7 @@ Epic Saga 模式中最困难的目标围绕事务和同步通信，两者都导�
 
 Parallel Saga 的同构表示出现在图 12-17 中。
 
-![图 12-17：每个服务拥有自己的事务性；mediator 协调请求和响应](images/figure-0229.png)
+![图 12-17：每个服务拥有自己的事务性；mediator 协调请求和响应](../raw/software-architecture-2021/images/figure-0229.png)
 
 > 图 12-17：每个服务拥有自己的事务性；mediator 协调请求和响应。
 
@@ -10938,13 +10938,13 @@ Anthology Saga 模式提供了与传统 Epic Saga 模式完全相反的特性集
 最终一致性和 choreographed 协调，提供了所有这些模式中最少耦合的范例。
 Anthology Saga 模式的维度视图出现在图 12-18 中。
 
-![图 12-18：Anthology Saga 模式提供 Epic Saga 的相反极端，因此是最少耦合的模式](images/figure-0230.png)
+![图 12-18：Anthology Saga 模式提供 Epic Saga 的相反极端，因此是最少耦合的模式](../raw/software-architecture-2021/images/figure-0230.png)
 
 > 图 12-18：Anthology Saga 模式提供 Epic Saga 的相反极端，因此是最少耦合的模式。
 
 Anthology 模式使用消息队列在没有编排的情况下向其他领域服务发送异步消息，如图 12-19 所示。
 
-![图 12-19：缺乏编排、最终一致性和异步性使此模式高度解耦，但对协调构成挑战](images/figure-0231.png)
+![图 12-19：缺乏编排、最终一致性和异步性使此模式高度解耦，但对协调构成挑战](../raw/software-architecture-2021/images/figure-0231.png)
 
 > 图 12-19：缺乏编排、最终一致性和异步性使此模式高度解耦，但对协调构成挑战。
 
@@ -11006,7 +11006,7 @@ Anthology Saga 模式非常适合具有简单或不频繁错误条件的极高�
 并通过重试或某种自动化或手动纠正操作最终纠正错误条件。为了说明这种方法，
 考虑图 12-20 中所示的工单完成示例的 Fairy Tale Saga 实现。
 
-![图 12-20：Fairy Tale Saga 导致更好的响应性，但使数据源彼此不同步，直到它们可以被纠正](images/figure-0232.png)
+![图 12-20：Fairy Tale Saga 导致更好的响应性，但使数据源彼此不同步，直到它们可以被纠正](../raw/software-architecture-2021/images/figure-0232.png)
 
 > 图 12-20：Fairy Tale Saga 导致更好的响应性，但使数据源彼此不同步，直到它们可以被纠正。
 
@@ -11038,7 +11038,7 @@ Anthology Saga 模式非常适合具有简单或不频繁错误条件的极高�
 事务性 saga 以指示 saga 入口点的 START 节点开始，
 并以指示 saga 出口点的 CLOSED 节点终止。
 
-![图 12-21：创建新问题工单的状态图](images/figure-0233.png)
+![图 12-21：创建新问题工单的状态图](../raw/software-architecture-2021/images/figure-0233.png)
 
 > 图 12-21：创建新问题工单的状态图。
 
@@ -11226,7 +11226,7 @@ Transaction.NEW_TICKET）。这种自定义工具并不复杂，
 
 ### 4 月 5 日，星期二，09:44
 
-![插图 12-2：Addison、Austen 和 Logan 讨论事务性](images/figure-0234.png)
+![插图 12-2：Addison、Austen 和 Logan 讨论事务性](../raw/software-architecture-2021/images/figure-0234.png)
 
 > 插图 12-2：Addison、Austen 和 Logan 讨论事务性。
 
@@ -11239,7 +11239,7 @@ Sysops Squad 专家完成工作并使用专家移动设备上的移动应用程�
 我想谈谈 Epic Saga 模式和补偿更新的问题。我创建了一个图表来说明此工作流，如图 12-22 所示。
 每个人都能看到吗？"
 
-![图 12-22：Epic Saga 要求工单状态更新和调查发送在一个同步原子操作中](images/figure-0235.png)
+![图 12-22：Epic Saga 要求工单状态更新和调查发送在一个同步原子操作中](../raw/software-architecture-2021/images/figure-0235.png)
 
 > 图 12-22：Epic Saga 要求工单状态更新和调查发送在一个同步原子操作中。
 
@@ -11286,7 +11286,7 @@ Austen 思考了一会儿。"但这不是单体中工作流的一部分吗？如
 作为将工单标记为完成的原始更新的一部分，工单服务异步将工单信息发送到队列（图中的步骤 4），
 由分析服务处理（步骤 5）。然而，当向工单服务发出补偿更新时（步骤 7），工单信息已经在步骤 5 中被分析服务处理了。"
 
-![图 12-23：Epic Saga 需要补偿，但可能发生副作用](images/figure-0236.png)
+![图 12-23：Epic Saga 需要补偿，但可能发生副作用](../raw/software-architecture-2021/images/figure-0236.png)
 
 > 图 12-23：Epic Saga 需要补偿，但可能发生副作用。
 
@@ -11307,7 +11307,7 @@ Logan 微笑。"关于补偿更新的另一个问题是补偿失败。
 在步骤 7 中向工单服务发出补偿更新，将状态从完成改回进行中。然而，在这种情况下，
 工单服务在尝试更改工单状态时生成错误（步骤 8）。"
 
-![图 12-24：Epic Saga 中的补偿更新可能失败，导致不一致性和对补偿失败时应采取什么行动的困惑](images/figure-0237.png)
+![图 12-24：Epic Saga 中的补偿更新可能失败，导致不一致性和对补偿失败时应采取什么行动的困惑](../raw/software-architecture-2021/images/figure-0237.png)
 
 > 图 12-24：Epic Saga 中的补偿更新可能失败，导致不一致性和对补偿失败时应采取什么行动的困惑。
 
@@ -11379,7 +11379,7 @@ Logan 说："正确。让我们哲学一下。概念上，
 
 4 月 15 日，星期五，12:01
 
-![插图 12-3：Addison 和 Sydney 讨论契约](images/figure-0238.png)
+![插图 12-3：Addison 和 Sydney 讨论契约](../raw/software-architecture-2021/images/figure-0238.png)
 
 > 插图 12-3：Addison 和 Sydney 讨论契约。
 
@@ -11402,7 +11402,7 @@ Addison 在自助餐厅与 Sydney 吃午餐时聊天，
 如果追求视觉三维隐喻，这些横切力量作为一个额外的维度，
 就像时间与三个物理维度正交一样。
 
-![图 13-1：分布式架构中消息传递力量的三维交集空间](images/figure-0239.png)
+![图 13-1：分布式架构中消息传递力量的三维交集空间](../raw/software-architecture-2021/images/figure-0239.png)
 
 > 图 13-1：分布式架构中消息传递力量的三维交集空间。
 
@@ -11434,7 +11434,7 @@ SOAP、REST、gRPC、XMLRPC 以及许多其他缩写的字母汤。
 像软件架构中的许多事物一样，契约不存在于二元中，而是存在于一个广泛的光谱上，从严格到松散。
 图 13-2 说明了这个光谱，使用示例契约类型。
 
-![图 13-2：从严格到松散的契约类型光谱](images/figure-0240.png)
+![图 13-2：从严格到松散的契约类型光谱](../raw/software-architecture-2021/images/figure-0240.png)
 
 > 图 13-2：从严格到松散的契约类型光谱。
 
@@ -11611,7 +11611,7 @@ Customer Profile 包含除名称之外的大量客户信息。
 
 考虑两个具有独立事务性的微服务，它们必须共享领域信息，如*客户地址*，如图 13-3 所示。
 
-![图 13-3：两个必须共享客户领域信息的服务](images/figure-0241.png)
+![图 13-3：两个必须共享客户领域信息的服务](../raw/software-architecture-2021/images/figure-0241.png)
 
 > 图 13-3：两个必须共享客户领域信息的服务。
 
@@ -11623,7 +11623,7 @@ Customer Profile 包含除名称之外的大量客户信息。
 考虑替代方法，其中每个服务有自己的 Customer 内部表示，
 集成使用名称-值对将信息从一个服务传递到另一个，如图 13-4 所示。
 
-![图 13-4：具有自己内部语义表示的微服务可以在简单消息中传递值](images/figure-0242.png)
+![图 13-4：具有自己内部语义表示的微服务可以在简单消息中传递值](../raw/software-architecture-2021/images/figure-0242.png)
 
 > 图 13-4：具有自己内部语义表示的微服务可以在简单消息中传递值。
 
@@ -11651,7 +11651,7 @@ Customer Profile 包含除名称之外的大量客户信息。
 提供者将其包含在其构建中，并始终保持契约测试绿色。契约封装了消费者从提供者那里需要的信息。
 这可能适用于提供者必须遵守的互锁请求网络，如图 13-5 所示。
 
-![图 13-5：消费者驱动契约允许提供者和消费者通过自动化架构治理保持同步](images/figure-0243.png)
+![图 13-5：消费者驱动契约允许提供者和消费者通过自动化架构治理保持同步](../raw/software-architecture-2021/images/figure-0243.png)
 
 > 图 13-5：消费者驱动契约允许提供者和消费者通过自动化架构治理保持同步。
 
@@ -11704,7 +11704,7 @@ Customer Profile 包含除名称之外的大量客户信息。
 它描述了在服务之间传递大型数据结构，但每个服务只与数据结构的一小部分交互。
 考虑图 13-6 中所示的四个服务的例子。
 
-![图 13-6：四个服务之间的 stamp 耦合](images/figure-0244.png)
+![图 13-6：四个服务之间的 stamp 耦合](../raw/software-architecture-2021/images/figure-0244.png)
 
 > 图 13-6：四个服务之间的 stamp 耦合。
 
@@ -11721,7 +11721,7 @@ Customer Profile 包含除名称之外的大量客户信息。
 回到我们的 Wishlist 和 Profile 服务，
 考虑将两者与严格契约结合 stamp 耦合绑定在一起，如图 13-7 所示。
 
-![图 13-7：Wishlist 服务与 Profile 服务 stamp 耦合](images/figure-0245.png)
+![图 13-7：Wishlist 服务与 Profile 服务 stamp 耦合](../raw/software-architecture-2021/images/figure-0245.png)
 
 > 图 13-7：Wishlist 服务与 Profile 服务 stamp 耦合。
 
@@ -11760,7 +11760,7 @@ Stamp 耦合在过度使用时可能产生问题，包括由耦合太紧到带�
 架构师可以使用 stamp 耦合在服务之间管理工作流状态，将领域知识和工作流状态作为契约的一部分传递，
 如图 13-8 所示。
 
-![图 13-8：使用 stamp 耦合进行工作流管理](images/figure-0246.png)
+![图 13-8：使用 stamp 耦合进行工作流管理](../raw/software-architecture-2021/images/figure-0246.png)
 
 > 图 13-8：使用 stamp 耦合进行工作流管理。
 
@@ -11789,7 +11789,7 @@ Stamp 耦合在过度使用时可能产生问题，包括由耦合太紧到带�
 
 ### 5 月 10 日，星期二，10:10
 
-![插图 13-1：Sydney 和 Addison 讨论工单契约](images/figure-0247.png)
+![插图 13-1：Sydney 和 Addison 讨论工单契约](../raw/software-architecture-2021/images/figure-0247.png)
 
 > 插图 13-1：Sydney 和 Addison 讨论工单契约。
 
@@ -11798,7 +11798,7 @@ Sydney 和 Addison 在自助餐厅边喝咖啡边讨论工单管理工作流中�
 Addison 说："让我们看看正在讨论的工作流，工单管理工作流。我已经草拟了我们应该使用的契约类型，想让你看看，
 确保我没有遗漏什么。它如图 13-9 所示。"
 
-![图 13-9：工单管理工作流中协作者之间的契约类型](images/figure-0248.png)
+![图 13-9：工单管理工作流中协作者之间的契约类型](../raw/software-architecture-2021/images/figure-0248.png)
 
 > 图 13-9：工单管理工作流中协作者之间的契约类型。
 
@@ -11838,7 +11838,7 @@ Sysops Squad 专家使用的移动应用程序必须通过公共应用商店部�
 
 5 月 31 日，星期二，13:23
 
-![插图 14-1：Logan 和 Dana 讨论分析数据](images/figure-0249.png)
+![插图 14-1：Logan 和 Dana 讨论分析数据](../raw/software-architecture-2021/images/figure-0249.png)
 
 > 插图 14-1：Logan 和 Dana 讨论分析数据。
 
@@ -11995,7 +11995,7 @@ DBA 和数据科学家必须协调数据更改和演变，迫使生态系统截�
 
 5 月 31 日，星期二，13:33
 
-![插图 14-2：Logan 和 Dana 讨论 data lake](images/figure-0250.png)
+![插图 14-2：Logan 和 Dana 讨论 data lake](../raw/software-architecture-2021/images/figure-0250.png)
 
 > 插图 14-2：Logan 和 Dana 讨论 data lake。
 
@@ -12101,7 +12101,7 @@ data lake 模式将数据完整性测试、数据质量和其他质量问题推�
 
 5 月 31 日，星期二，14:43
 
-![插图 14-3：Logan 和 Dana 讨论 data mesh](images/figure-0251.png)
+![插图 14-3：Logan 和 Dana 讨论 data mesh](../raw/software-architecture-2021/images/figure-0251.png)
 
 > 插图 14-3：Logan 和 Dana 讨论 data mesh。
 
@@ -12170,7 +12170,7 @@ data mesh 的核心原则覆盖了现代分布式架构，如微服务。正如�
 团队构建一个*data product quantum*（DPQ），
 与服务相邻但耦合，如图 14-1 所示。
 
-![图 14-1：data product quantum 的结构](images/figure-0252.png)
+![图 14-1：data product quantum 的结构](../raw/software-architecture-2021/images/figure-0252.png)
 
 > 图 14-1：data product quantum 的结构。
 
@@ -12190,7 +12190,7 @@ data mesh 的核心原则覆盖了现代分布式架构，如微服务。正如�
 
 每个也为分析和商业智能做出贡献的领域都包含一个 DPQ，如图 14-2 所示。
 
-![图 14-2：data product quantum 充当服务的独立但高度耦合的附属](images/figure-0253.png)
+![图 14-2：data product quantum 充当服务的独立但高度耦合的附属](../raw/software-architecture-2021/images/figure-0253.png)
 
 > 图 14-2：data product quantum 充当服务的独立但高度耦合的附属。
 
@@ -12254,7 +12254,7 @@ data mesh 是软件开发生态系统中持续增量演变的杰出例子；新�
 
 ### 6 月 10 日，星期五，09:55
 
-![插图 14-4：Logan、Dana 和 Addison 讨论 data mesh](images/figure-0254.png)
+![插图 14-4：Logan、Dana 和 Addison 讨论 data mesh](../raw/software-architecture-2021/images/figure-0254.png)
 
 > 插图 14-4：Logan、Dana 和 Addison 讨论 data mesh。
 
@@ -12270,7 +12270,7 @@ Logan、Dana 和 Addison 在大会议室见面，那里通常有之前会议留�
 领域团队负责运行和维护其服务的 DPQ 协作 quantum。我们才刚刚开始。我们正在逐步构建能力，因为我们识别需求。
 我有一张图 14-3 中的工单管理领域图片。"
 
-![图 14-3：工单管理领域，包括两个带有自己 DPQ 的服务，以及一个工单 DPQ](images/figure-0255.png)
+![图 14-3：工单管理领域，包括两个带有自己 DPQ 的服务，以及一个工单 DPQ](../raw/software-architecture-2021/images/figure-0255.png)
 
 > 图 14-3：工单管理领域，包括两个带有自己 DPQ 的服务，以及一个工单 DPQ。
 
@@ -12302,7 +12302,7 @@ Logan 回答："与数据科学家合作，我们已经确定了我们需要聚�
 工单和维护领域中的 DPQ 聚合的数据训练的 ML 模型。专家供应 DPQ 将提供每日推荐数据，随着关于工单、
 调查和专家资料的新数据可用。整体设计看起来像图 14-4。"
 
-![图 14-4：实现专家供应 DPQ](images/figure-0256.png)
+![图 14-4：实现专家供应 DPQ](../raw/software-architecture-2021/images/figure-0256.png)
 
 > 图 14-4：实现专家供应 DPQ。
 
@@ -12346,7 +12346,7 @@ Logan 回答："与数据科学家合作，我们已经确定了我们需要聚�
 
 6 月 10 日，星期一，10:01
 
-![插图 15-1：Sysops Squad 回顾会议](images/figure-0257.png)
+![插图 15-1：Sysops Squad 回顾会议](../raw/software-architecture-2021/images/figure-0257.png)
 
 > 插图 15-1：Sysops Squad 回顾会议。
 
@@ -12540,7 +12540,7 @@ Logan 回答："与数据科学家合作，我们已经确定了我们需要聚�
 
 MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图 15-1 所示。
 
-![图 15-1：MECE 清单是相互排斥和集体穷尽的](images/figure-0258.png)
+![图 15-1：MECE 清单是相互排斥和集体穷尽的](../raw/software-architecture-2021/images/figure-0258.png)
 
 > 图 15-1：MECE 清单是相互排斥和集体穷尽的。
 
@@ -12556,21 +12556,21 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 例如，也许架构师正在尝试决定是否在分布式架构中使用 shared service 或 shared library 来提供公共功能，
 如图 15-2 所示。
 
-![图 15-2：在分布式架构中决定 shared service 还是 shared library](images/figure-0259.png)
+![图 15-2：在分布式架构中决定 shared service 还是 shared library](../raw/software-architecture-2021/images/figure-0259.png)
 
 > 图 15-2：在分布式架构中决定 shared service 还是 shared library。
 
 面对此决策的架构师将开始研究两种可能的解决方案，既通过研究发现的一般特征，也通过来自其组织内的实验数据。
 该发现过程的结果导致 trade-off 矩阵，如图 15-3 所示。
 
-![图 15-3：两种解决方案的 trade-off 分析](images/figure-0260.png)
+![图 15-3：两种解决方案的 trade-off 分析](../raw/software-architecture-2021/images/figure-0260.png)
 
 > 图 15-3：两种解决方案的 trade-off 分析。
 
 架构师似乎有理由选择 shared library 方法，因为矩阵清楚地支持该解决方案...总体而言。然而，
 此决策体现了脱离上下文问题——当问题的额外上下文变得清晰时，决策标准会改变，如图 15-4 所示。
 
-![图 15-4：基于额外上下文的决策转变](images/figure-0261.png)
+![图 15-4：基于额外上下文的决策转变](../raw/software-architecture-2021/images/figure-0261.png)
 
 > 图 15-4：基于额外上下文的决策转变。
 
@@ -12592,7 +12592,7 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 
 例如，考虑架构师关于是创建单一支付服务还是为每种支付类型创建单独服务的决策，如图 15-5 所示。
 
-![图 15-5：选择单一支付服务还是每种支付类型一个服务](images/figure-0262.png)
+![图 15-5：选择单一支付服务还是每种支付类型一个服务](../raw/software-architecture-2021/images/figure-0262.png)
 
 > 图 15-5：选择单一支付服务还是每种支付类型一个服务。
 
@@ -12601,7 +12601,7 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 
 例如，考虑第一个场景，如图 15-6 所示，更新信用卡处理服务。
 
-![图 15-6：场景 1：更新信用卡处理服务](images/figure-0263.png)
+![图 15-6：场景 1：更新信用卡处理服务](../raw/software-architecture-2021/images/figure-0263.png)
 
 > 图 15-6：场景 1：更新信用卡处理服务。
 
@@ -12611,7 +12611,7 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 
 在第二个场景中，架构师建模当系统添加新支付类型时会发生什么，如图 15-7 所示。
 
-![图 15-7：场景 2：添加支付类型](images/figure-0264.png)
+![图 15-7：场景 2：添加支付类型](../raw/software-architecture-2021/images/figure-0264.png)
 
 > 图 15-7：场景 2：添加支付类型。
 
@@ -12620,7 +12620,7 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 
 然而，与许多情况一样，更复杂的工作流突出了架构的困难部分，如图 15-8 中的第三个场景所示。
 
-![图 15-8：场景 3：使用多种支付类型](images/figure-0265.png)
+![图 15-8：场景 3：使用多种支付类型](../raw/software-architecture-2021/images/figure-0265.png)
 
 > 图 15-8：场景 3：使用多种支付类型。
 
@@ -12647,11 +12647,11 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 
 考虑架构师在微服务架构中可能面临的常见问题，关于同步或异步通信的选择，如图 15-9 所示。
 
-![图 15-9(a)：决定通信类型——同步](images/figure-0266.png)
+![图 15-9(a)：决定通信类型——同步](../raw/software-architecture-2021/images/figure-0266.png)
 
 > 图 15-9(a)：决定通信类型——同步。
 
-![图 15-9(b)：决定通信类型——异步](images/figure-0268.png)
+![图 15-9(b)：决定通信类型——异步](../raw/software-architecture-2021/images/figure-0268.png)
 
 > 图 15-9(b)：决定通信类型——异步。
 
@@ -12687,7 +12687,7 @@ trade-off 总是最终回来使事情复杂化。
 
 例如，考虑一个架构师过去在某种方法上取得了成功，并成为其传教者，如图 15-10 所示。
 
-![图 15-10：一个认为自己找到了银弹的架构师传教者](images/figure-0269.png)
+![图 15-10：一个认为自己找到了银弹的架构师传教者](../raw/software-architecture-2021/images/figure-0269.png)
 
 > 图 15-10：一个认为自己找到了银弹的架构师传教者。
 
@@ -12705,7 +12705,7 @@ trade-off 总是最终回来使事情复杂化。
 为了发现这个特定问题的 trade-off，架构师应该使用两种拓扑建模可能的领域场景。
 将出价历史添加到现有发布-订阅设计出现在图 15-11 中。
 
-![图 15-11：场景 1：将出价历史添加到现有主题](images/figure-0270.png)
+![图 15-11：场景 1：将出价历史添加到现有主题](../raw/software-architecture-2021/images/figure-0270.png)
 
 > 图 15-11：场景 1：将出价历史添加到现有主题。
 
@@ -12721,7 +12721,7 @@ trade-off 总是最终回来使事情复杂化。
 为了缓解这些缺点，架构师应该建模替代解决方案，
 看看它是否解决了前面的问题（并且不引入新的棘手问题）。个别队列版本出现在图 15-12 中。
 
-![图 15-12：使用个别队列捕获出价信息](images/figure-0271.png)
+![图 15-12：使用个别队列捕获出价信息](../raw/software-architecture-2021/images/figure-0271.png)
 
 > 图 15-12：使用个别队列捕获出价信息。
 
@@ -12772,7 +12772,7 @@ trade-off 总是最终回来使事情复杂化。
 
 ### 6 月 20 日，星期一，16:55
 
-![插图 15-2：Addison 和 Austen 反思](images/figure-0273.png)
+![插图 15-2：Addison 和 Austen 反思](../raw/software-architecture-2021/images/figure-0273.png)
 
 > 插图 15-2：Addison 和 Austen 反思。
 

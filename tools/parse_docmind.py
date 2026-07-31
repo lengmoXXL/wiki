@@ -197,7 +197,7 @@ def main() -> int:
         raw_dir.mkdir(exist_ok=True)
         output_dir.mkdir(exist_ok=True)
 
-        # Only overwrite raw.md and images/raw/, preserve content_zh.md and images/
+        # Only overwrite raw.md and images/raw/, preserving selected images in images/
         target_raw = output_dir / "raw.md"
         target_images_raw = output_dir / "images" / "raw"
         if target_raw.exists():
