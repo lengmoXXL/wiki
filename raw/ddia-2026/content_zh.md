@@ -6667,8 +6667,8 @@ SSTable 段文件的不可变特性十分有用。
   以便稍后用新数据覆写它们）。
   例如，Postgres 采用堆文件方法 [44]。  
 
-- 两者之间的折中方案是覆盖索引（covering index），
-  也称为包含列的索引（index with included columns）。
+- 两者之间的折中方案是覆盖索引，
+  也称为包含列的索引。
   除了把完整行存储在堆或主键聚簇索引中之外，
   它还会在索引内存储表的某些列 [45]。
   这样一来，有些查询只使用索引就能得到答案，
@@ -7955,7 +7955,7 @@ Protocol Buffers 和 Avro。
 以及如何支持新旧数据和代码需要共存的系统。
 随后，我们将讨论这些格式如何用于数据存储和通信：
 包括数据库、Web 服务、
-REST API、远程过程调用（RPC）、
+REST API、RPC、
 工作流引擎，以及 Actor 和消息队列等事件驱动系统。  
 
 ![图 5-1：旧代码丢失未知字段](images/figure-0044.png)
@@ -11134,8 +11134,8 @@ Dynamo 风格的数据库通常针对能够容忍最终一致性的用例进行�
   就可能无法形成法定人数。
   一些无主数据库提供配置选项，
   允许任何可访问的副本接受写入，
-  即使它并不是该键通常使用的副本之一（Riak 和 Dynamo 称之为*宽松法定人数*（sloppy quorum）
-  [45]；Cassandra 和 ScyllaDB 称之为*一致性级别 ANY*（consistency level ANY））。
+  即使它并不是该键通常使用的副本之一（Riak 和 Dynamo 称之为*宽松法定人数*
+  [45]；Cassandra 和 ScyllaDB 称之为*一致性级别 ANY*）。
   无法保证后续读取能看到写入的值，
   但根据应用程序的不同，
   这仍可能比写入失败更好。
@@ -16196,7 +16196,7 @@ PDU［配电单元］故障、
 
 > [!NOTE]
 > 我们对 TCP 的大部分论述也适用于较新的替代方案 QUIC，
-> 以及 WebRTC 使用的流控制传输协议（SCTP）、
+> 以及 WebRTC 使用的 Stream Control Transmission Protocol（SCTP）、
 > BitTorrent 的 uTP 协议和其他传输协议。
 > 有关它与 UDP 的比较，
 > 请参见边栏“TCP 与 UDP”。
@@ -16446,7 +16446,7 @@ TCP 连接建立后，还可以用它发送多个请求和响应。
 > [!NOTE]
 > **TCP 与 UDP**
 >
-> 一些对延迟敏感的应用程序（如视频会议和 IP 语音（VoIP））
+> 一些对延迟敏感的应用程序（如视频会议和 Voice over IP（VoIP））
 > 使用 UDP 而非 TCP。
 > 这一选择是在可靠性与延迟变化之间进行权衡：
 > 由于 UDP 不执行流量控制，
@@ -16617,7 +16617,7 @@ Linux 的流量控制器（TC）
 因此，超时时间没有“正确”的取值——必须通过实验来确定。  
 
 互联网服务提供商之间的对等互联协议，
-以及通过边界网关协议（BGP）
+以及通过 Border Gateway Protocol（BGP）
 建立路由的方式，比典型的 IP 数据包路由更接近电路交换。
 在这一层面，可以购买专用带宽。
 尽管如此，互联网路由是在网络层面运作的，
@@ -16661,7 +16661,7 @@ Linux 的流量控制器（TC）
 因此每台机器都有自己的时间概念，
 相比其他机器可能稍快或稍慢。
 时钟可以在一定程度上同步；
-最常用的机制是网络时间协议（NTP），
+最常用的机制是 Network Time Protocol（NTP），
 它允许计算机根据一组服务器报告的时间来调整时钟 [39]。
 这些服务器又从更准确的时间源（如 GPS 接收器）获取时间。  
 
@@ -16804,7 +16804,7 @@ Linux 的流量控制器（TC）
 并帮助检测市场操纵 [57]。  
 
 使用特殊硬件（GPS 接收器和/或原子钟）、
-精确时间协议（PTP），
+Precision Time Protocol（PTP），
 并进行谨慎的部署和监控，
 就能达到这样的准确度 [58, 59]。
 单纯依赖 GPS 可能有风险，
@@ -21414,7 +21414,7 @@ Dagster 和 Prefect 等更通用的解决方案取代；
 后者支持种类繁多的批处理框架和云数据仓库。  
 
 云计算已经无处不在。批处理存储层正在从 HDFS（Hadoop Distributed File System）、
-GlusterFS 和 CephFS 等分布式文件系统（DFS）
+GlusterFS 和 CephFS 等 distributed file system（DFS）
 转向 S3 等对象存储系统。
 BigQuery 和 Snowflake 等可扩展云数据仓库正在模糊数据仓库与批处理之间的界限。  
 
@@ -21605,7 +21605,7 @@ Unix 工具的一个局限是它们只能在单台机器上运行。对于大到
 
 - 决定进程何时运行以及如何为其分配 CPU 资源的调度器
 
-- 一系列 Unix 程序，其标准输入和标准输出（stdin 和 stdout）通过管道连接在一起
+- 一系列 Unix 程序，其 stdin 和 stdout 通过管道连接在一起
 
 分布式数据处理框架中也存在同样的组件。
 事实上，你可以把这些框架看作分布式操作系统；
@@ -21622,7 +21622,7 @@ Unix 工具的一个局限是它们只能在单台机器上运行。对于大到
 
 - 文件系统层封装了块 API，把大文件拆分成块，并跟踪 inode、目录和文件等文件元数据。例如，Linux 上两种常见的实现是 ext4 和 XFS。
 
-- 最后，操作系统通过一个称为虚拟文件系统（VFS）
+- 最后，操作系统通过一个称为 virtual file system（VFS）
   的公共 API 向应用程序公开不同的文件系统。
   无论底层采用何种文件系统，
   VFS 都让应用程序能够以标准方式进行读写。
@@ -21682,8 +21682,8 @@ Tigris、Backblaze B2 等众多存储系统广泛采用。
 一些 DFS 实现了符合 POSIX 的文件系统，
 在操作系统的 VFS 看来，
 它们与其他文件系统无异。
-用户空间文件系统（FUSE）
-或网络文件系统（NFS）
+Filesystem in Userspace（FUSE）
+或 Network File System（NFS）
 协议常用于集成 VFS。
 NFS 也许是最广为人知的分布式文件系统协议。
 该协议最初是为了让多个客户端能够读写单台服务器上的数据而开发的。
@@ -21697,8 +21697,8 @@ NFS 客户端仍然连接到单个端点，
 > **分布式文件系统与网络存储**
 >
 > 分布式文件系统基于*无共享*原则（参见[共享内存、共享磁盘与无共享架构](#共享内存共享磁盘与无共享架构)），
-> 这与网络附加存储（NAS）
-> 和存储区域网络（SAN）
+> 这与 network-attached storage（NAS）
+> 和 storage area network（SAN）
 > 架构的共享磁盘方法形成对比。
 > 共享磁盘存储由集中式存储设备实现，
 > 通常使用定制硬件和光纤通道等专用网络基础设施。
@@ -21847,7 +21847,7 @@ Kubernetes 和 Hadoop YARN（Yet Another Resource Negotiator，
 这可以防止任务在未经许可的情况下访问数据，
 也可以防止任务因过度使用资源而对节点上其他任务的性能产生负面影响。  
 
-## 资源管理器  
+### 资源管理器
 
 编排器的资源管理器存储每个节点的元数据，
 包括可用硬件（CPU、
@@ -21859,7 +21859,7 @@ GPU、内存、磁盘等）、
 YARN 使用 ZooKeeper，
 而 Kubernetes 使用 etcd 来存储集群状态（参见[协调服务](#协调服务)）。  
 
-## 调度器  
+#### 调度器
 
 编排器通常有一个集中式调度器子系统，
 用于接收启动、停止作业或检查作业状态的请求。
@@ -21880,7 +21880,7 @@ YARN 使用 ZooKeeper，
 > YARN 将其子调度器称为 ApplicationMaster，
 > 而 Kubernetes 将其称为 operator。
 
-### 资源分配  
+#### 资源分配
 
 调度器在作业编排中扮演着格外具有挑战性的角色。
 它们必须设法在需求相互竞争的作业之间，
@@ -21928,8 +21928,8 @@ YARN 使用 ZooKeeper，
 计算最优解都会慢得令人无法接受 [14, 15]。  
 
 因此在实践中，调度器使用启发式方法做出并非最优但还算合理的决策。
-常用的算法有多种，包括先进先出（FIFO）、
-主导资源公平性（DRF）、
+常用的算法有多种，包括 first-in first-out（FIFO）、
+dominant resource fairness（DRF）、
 优先级队列、基于容量或配额的调度，
 以及各种装箱算法。这些算法的细节超出了本书的讨论范围，
 但它们是一个引人入胜的研究领域。  
@@ -21940,7 +21940,7 @@ YARN 使用 ZooKeeper，
 分布式批处理也会出现同样的模式：
 一个作业的输出常常需要成为一个或多个其他作业的输入，
 而每个作业也可能有多个由其他作业产生的输入。
-这称为作业的工作流或有向无环图（DAG）。  
+这称为作业的工作流或 directed acyclic graph（DAG）。
 
 > [!NOTE]
 > 在[持久化执行与工作流](#持久化执行与工作流)中，
@@ -22226,7 +22226,7 @@ Nephele [23] 等研究系统；与 MapReduce 模型相比，它有以下几个�
 批处理器需要能够对 PB 级数据集进行排序，
 而这些数据集太大，无法装入单台机器。
 因此，它们需要一种输入和输出均被分片的分布式排序算法。
-这种算法称为混洗（shuffle）。  
+这种算法称为混洗。
 
 > [!NOTE]
 > **混洗并非随机**
@@ -22556,7 +22556,7 @@ Trino 或 DuckDB 查询的形式运行，
 ### 分析  
 
 在[事务处理系统与分析系统](#事务处理系统与分析系统)中，
-我们看到分析查询（OLAP）
+我们看到 OLAP 分析查询
 通常会扫描大量记录，并执行分组和聚合。
 此类工作负载可以与其他批处理工作负载一起在批处理系统中运行。
 分析师编写 SQL 查询，
@@ -22595,7 +22595,7 @@ Presto 及许多其他最终通过执行批处理作业来查询数据的系统�
 
 ### 机器学习  
 
-机器学习（ML）频繁使用批处理。数据科学家、机器学习工程师和 AI 工程师使用批处理框架研究数据模式、
+ML 频繁使用批处理。数据科学家、机器学习工程师和 AI 工程师使用批处理框架研究数据模式、
 转换数据并训练机器学习模型。常见用途包括：  
 
 #### 特征工程  
@@ -22621,8 +22621,7 @@ Presto 及许多其他最终通过执行批处理作业来查询数据的系统�
 并不断重复，直到满足某个条件——例如，
 直到没有更多边可供遍历，或者某项指标收敛。
 
-批量同步并行（bulk synchronous parallel，
-BSP）计算模型 [40] 已成为图批处理的常用模型；
+bulk synchronous parallel（BSP）计算模型 [40] 已成为图批处理的常用模型；
 Apache Giraph [20]、
 Spark 的 GraphX API 和 Flink 的 Gelly API [41] 等都实现了该模型。
 它也称为 Pregel 模型，
@@ -22719,7 +22718,7 @@ Venice [45] 等派生数据存储，
 许多数据系统都提供批量导入工具，
 例如 TiDB 的 Lightning 和 Apache Pinot 的 Hadoop 导入作业。
 RocksDB 也提供 API，
-用于从批处理作业批量导入排序字符串表（Sorted String Table，SST）文件。
+用于从批处理作业批量导入 Sorted String Table（SST）文件。
 
 以批处理方式构建数据库并批量导入数据速度非常快，
 也更便于系统在数据集版本之间进行原子切换。
@@ -23299,8 +23298,7 @@ m3、m5 的顺序处理消息。
 允许消息重新排序的代理还可以继续推进，
 但会把资源浪费在永远无法得到确认的消息上。
 
-死信队列（dead letter queue，
-DLQ）用于处理这个问题。
+死信队列，即 dead letter queue（DLQ），用于处理这个问题。
 消息不会留在当前队列中无限重试，
 而是被移到另一个队列中，
 以解除对消费者的阻塞 [17, 18]。
@@ -23369,7 +23367,7 @@ Unix 工具 tail 的 -f 选项用于监视文件中新追加的数据，
 ![图 12-3：日志代理的分区](images/figure-0148.png)
 > 图 12-3：生产者通过把消息追加到主题分区文件来发送消息，消费者则顺序读取这些文件。
 
-在每个分片（Kafka 称之为*分区*）
+在每个分片——Kafka 称之为*分区*——
 内部，代理为每条消息分配一个单调递增的序列号，
 即*偏移量*（图 12-3 方框内的数字就是消息偏移量）。
 这种序列号是合理的，
@@ -23561,7 +23559,7 @@ Confluent Freight 和 Bufstream 等其他系统则将所有数据都存储在对
 
 一种方法是将事件流用作存储数据的记录系统（参见[记录系统与派生数据](#记录系统与派生数据)）。
 这正是事件溯源中发生的事情，
-我们在[事件溯源与命令查询职责分离（CQRS）](#事件溯源与命令查询职责分离cqrs)中讨论过它。
+我们在[事件溯源与命令查询职责分离](#事件溯源与命令查询职责分离cqrs)中讨论过它。
 与其采用通过更新和删除来改变的数据模型存储数据，
 不如把每次状态变化建模为不可变事件，
 并将其写入仅追加日志。
@@ -23749,7 +23747,7 @@ pgcapture 则为 PostgreSQL 提供同样的功能。
 这样才能知道快照处理完毕后应从何处开始应用变更。
 有些 CDC 工具集成了这种快照功能，
 另一些则将其留作手动操作。
-Debezium 使用 Netflix 的 DBLog 水位线（watermark）算法来提供增量快照 [30, 31]。  
+Debezium 使用 Netflix 的 DBLog watermark 算法来提供增量快照 [30, 31]。
 
 ## 日志压缩  
 
@@ -23836,7 +23834,7 @@ CDC 与事件溯源相比如何？与 CDC 类似，事件溯源也将应用状�
 哪一种更好取决于具体情况。
 对于尚未采用事件溯源的应用而言，
 引入事件溯源是一项重大变更；
-它有许多优缺点，我们已在[事件溯源与命令查询职责分离（CQRS）](#事件溯源与命令查询职责分离cqrs)中讨论过。
+它有许多优缺点，我们已在[事件溯源与命令查询职责分离](#事件溯源与命令查询职责分离cqrs)中讨论过。
 相比之下，只需很少的改动即可将 CDC 添加到现有数据库；
 写入数据库的应用甚至可能不知道 CDC 正在运行。  
 
@@ -24003,7 +24001,7 @@ $$ \begin{array}{r l r}{\left|s t a t e(n o w)=\displaystyle\int\limits_{t=0}^{n
 一旦读取方都已切换到新系统，
 而旧系统不再需要，就可以直接将其关闭并回收其资源 [42, 43]。
 
-我们在[事件溯源与命令查询职责分离（CQRS）](#事件溯源与命令查询职责分离cqrs)中已经遇到过这种思路：
+我们在[事件溯源与命令查询职责分离](#事件溯源与命令查询职责分离cqrs)中已经遇到过这种思路：
 先以一种针对写入优化的形式写入数据，
 然后根据需要将其转换成不同的读优化表示。
 这个过程并不一定需要事件溯源；
@@ -24078,9 +24076,9 @@ Git、Mercurial 和 Fossil 等版本控制系统也依靠不可变数据来保�
 表明先前的数据应视为已删除，
 并不足够——你实际上希望改写历史，
 假装这些数据从未写入过。
-例如，Datomic 将此功能称为切除（excision）
+例如，Datomic 将此功能称为 excision
 [47]，Fossil 版本控制系统中也有一个类似的概念，
-称为排斥（shunning）[48]。
+称为 shunning [48]。
 
 真正删除数据出人意料地困难 [49]，
 因为副本可能存在于许多地方。
@@ -24103,7 +24101,7 @@ Git、Mercurial 和 Fossil 等版本控制系统也依靠不可变数据来保�
 要么完全不处理，而无法只处理其中一部分。
 为每一个数据项分别存储密钥会变得过于繁琐，
 因为密钥存储最终会和主数据存储一样庞大。
-更复杂的方案，如可穿刺加密（puncturable encryption）
+更复杂的方案，如 puncturable encryption
 [51]，能够有选择地撤销密钥的解密能力，但尚未得到广泛应用。
 
 总的来说，删除更多是“让数据更难被检索”，
@@ -24132,8 +24130,8 @@ Git、Mercurial 和 Fossil 等版本控制系统也依靠不可变数据来保�
 
 本章余下部分将讨论选项 3：
 处理流以产生其他派生流。
-像这样处理流的一段代码称为算子（operator）
-或作业（job）。它与第 11 章讨论的 Unix 进程和 MapReduce 作业密切相关，
+像这样处理流的一段代码称为算子
+或作业。它与第 11 章讨论的 Unix 进程和 MapReduce 作业密切相关，
 数据流模式也很相似：流处理器以只读方式消费输入流，
 并以仅追加方式将输出写到另一个位置。
 
@@ -24169,8 +24167,7 @@ Git、Mercurial 和 Fossil 等版本控制系统也依靠不可变数据来保�
 
 ### 复杂事件处理
 
-复杂事件处理（complex event processing，
-CEP）是一种在 20 世纪 90 年代发展起来的事件流分析方法，
+complex event processing（CEP）是一种在 20 世纪 90 年代发展起来的事件流分析方法，
 尤其适合需要搜索特定事件模式的应用 [52]。
 正如正则表达式可以在字符串中搜索特定的字符模式一样，
 CEP 允许你指定规则，
@@ -24288,8 +24285,7 @@ Kafka Streams 和 Confluent 的 ksqlDB 基于 Kafka 对日志压缩的支持，
 > 定制解决方案在少数情况下可行，
 > 但许多 SQL 查询无法轻松或高效地转换成增量计算。
 >
-> 增量视图维护（incremental view maintenance，
-> IVM）是对上述问题更通用的解决方案。
+> incremental view maintenance（IVM）是对上述问题更通用的解决方案。
 > IVM 技术将以 SQL 或其他语言编写的查询转换成能够执行增量计算的算子。
 > IVM 算法不会处理整个数据集，
 > 而只重新计算和更新发生变化的数据 [38, 59, 60]。
@@ -24495,7 +24491,7 @@ A 和 B 都会发出描述其所处理请求的事件，
 
 #### 滚动窗口  
 
-滚动窗口（tumbling window）
+滚动窗口
 的长度固定，每个事件恰好属于一个窗口。
 例如，如果使用一分钟的滚动窗口，
 那么时间戳从 10:03:00 到 10:03:59 的所有事件会被归入一个窗口，
@@ -24506,7 +24502,7 @@ A 和 B 都会发出描述其所处理请求的事件，
 
 #### 跳跃窗口  
 
-跳跃窗口（hopping window）
+跳跃窗口
 的长度也是固定的，但相邻窗口之间存在重叠，
 以实现平滑效果。例如，
 窗口长度为五分钟、跳跃步长为一分钟时，
@@ -24517,7 +24513,7 @@ A 和 B 都会发出描述其所处理请求的事件，
 
 #### 滑动窗口  
 
-滑动窗口（sliding window）
+滑动窗口
 包含彼此发生时间间隔不超过某个特定时长的所有事件。
 例如，一个五分钟的滑动窗口会覆盖发生在 10:03:39 和 10:08:12 的事件，
 因为它们之间相隔不到五分钟（请注意，
@@ -24529,7 +24525,7 @@ A 和 B 都会发出描述其所处理请求的事件，
 #### 会话窗口  
 
 与其他类型的窗口不同，
-会话窗口（session window）
+会话窗口
 没有固定的持续时间。它把同一用户在时间上相近的所有事件归为一组，
 并在用户一段时间没有活动时（例如，
 30 分钟内没有发生任何事件）
@@ -24622,7 +24618,7 @@ A 和 B 都会发出描述其所处理请求的事件，
 
 另一种方法是把数据库的一个副本加载到流处理器中，
 这样就可以在本地查询，
-无需网络往返。这种技术称为哈希连接（hash join），
+无需网络往返。这种技术称为哈希连接，
 因为如果数据库的本地副本足够小，
 它可以是内存中的哈希表；
 否则也可以是本地磁盘上的索引。  
@@ -24998,7 +24994,7 @@ Kermarrec. “发布/订阅的多种面貌。” 《ACM Computing Surveys》， 
 
 [4] Don Carney, Ugur Cetintemel, Mitch Cherniack, Christian Convey, Sangdon
 Lee, Greg Seidman, Michael Stonebraker, Nesime Tatbul, and Stan Zdonik. “监控流——
-一类新的数据管理应用。” 第 28 届超大型数据库国际会议（VLDB）， 2002 年 8 月。
+一类新的数据管理应用。” 第 28 届 International Conference on Very Large Data Bases（VLDB）， 2002 年 8 月。
 doi:10.1016/B978-155860869-6/50027-5  
 
 [5] Matthew Sackman. “施加背压。”wellquite.org，2016 年 5 月。存档于 perma.cc/3KCZ-RUFY  
@@ -25030,7 +25026,7 @@ grafana.com，
 [12] Jim N. Gray. “队列就是数据库。”微软研究院技术报告 MSR-TR-95-56，1995 年 12 月。存档于 arxiv.org  
 
 [13] Mark Hapner, Rich Burridge, Rahul Sharma, Joseph Fialli, Kate Stout, and
-Nigel Deakin. “JSR-343 Java 消息服务（JMS） 2.0 规范。”*jms-spec.java.net*， 2013 年 3 月。
+Nigel Deakin. “JSR-343 Java Message Service（JMS） 2.0 Specification。”*jms-spec.java.net*， 2013 年 3 月。
 存档于 *perma.cc/E4YG-46TA*  
 
 [14] Sanjay Aiyagari, Matthew Arrott, Mark Atwell, Jason Brome, Alan Conway,
@@ -25058,7 +25054,7 @@ Kafka Streams 中的死信队列。”
 
 [20] Jay Kreps, Neha Narkhede, and Jun Rao. “Kafka：
 用于日志处理的分布式消息系统。”
-第 6 届网络与数据库交汇国际研讨会（NetDB），
+第 6 届 International Workshop on Networking Meets Databases（NetDB），
 2011 年 6 月。存档于 perma.cc/CSW7-TCQ5  
 
 [21] Jay Kreps. “Apache Kafka 基准测试：
@@ -25072,7 +25068,7 @@ engineering.linkedin.com，
 
 [23] Philippe Dobbelaere and Kyumars Sheykh Esmaili. “Kafka 与 RabbitMQ：
 两种业界参考发布/订阅实现的比较研究。”
-第 11 届 ACM 分布式与基于事件的系统国际会议（DEBS），
+第 11 届 ACM International Conference on Distributed and Event-Based Systems（DEBS），
 2017 年 6 月。doi:10.1145/3093742.3093908  
 
 [24] Kate Holterhoff. “消息队列为何经久不衰：
@@ -25146,7 +25142,7 @@ martin.kleppmann.com，
 2011 年 3 月。存档于 perma.cc/9EGX-P38N  
 
 [41] Pat Helland. “不可变性改变一切。”
-第 7 届创新数据系统研究双年会（CIDR），
+第 7 届 Biennial Conference on Innovative Data Systems Research（CIDR），
 2015 年 1 月。存档于 perma.cc/33WX-3669  
 
 [42] Martin Kleppmann. *Making Sense of Stream Processing*. 报告，
@@ -25207,7 +25203,7 @@ complexevents.com，
 2009 年 12 月。doi:10.1145/1661785.1667562  
 
 [55] Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier.
-“HyperLogLog： 一种近乎最优的基数估计算法分析。” 算法分析会议（AofA）， 2007 年 6 月。
+“HyperLogLog： 一种近乎最优的基数估计算法分析。” Conference on Analysis of Algorithms（AofA）， 2007 年 6 月。
 doi:10.46298/dmtcs.3545  
 
 [56] Jay Kreps. “质疑 Lambda 架构。”oreilly.com，2014 年 7 月。存档于 perma.cc/2WY5-HC8Y  
@@ -25225,7 +25221,7 @@ oreilly.com，
 2023 年 11 月。存档于 *perma.cc/LM74-XDEL*  
 
 [60] Frank McSherry, Derek G. Murray, Rebecca Isaacs, and Michael Isard.
-“差分数据流。” 第 6 届创新数据系统研究双年会（CIDR）， 2013 年 1 月。存档于 perma.cc/T83W-ZBR2  
+“差分数据流。” 第 6 届 Biennial Conference on Innovative Data Systems Research（CIDR）， 2013 年 1 月。存档于 perma.cc/T83W-ZBR2
 
 [61] Andy Hattemer. “数据库中的增量计算。”
 *materialize.com*，
@@ -25263,7 +25259,7 @@ learn.microsoft.com，
 [69] Rajagopal Ananthanarayanan, Venkatesh Basker, Sumit Das, Ashish Gupta,
 Haifeng Jiang, Tianhao Qiu, Alexey Reznichenko, Deomid Ryabkov, Manpreet
 Singh, and Shivakumar Venkataraman. “Photon： 连续数据流的容错可扩展连接。” ACM
-数据管理国际会议（SIGMOD）， 2013 年 6 月。doi:10.1145/2463676.2465272  
+ACM International Conference on Management of Data（SIGMOD）， 2013 年 6 月。doi:10.1145/2463676.2465272
 
 [70] Ben Kirwin. “实现不可能之事：
 Kafka 中的恰好一次消息传递模式。”
@@ -25271,7 +25267,7 @@ ben.kirw.in，
 2014 年 11 月。存档于 perma.cc/A5QL-QRX7  
 
 [71] Pat Helland. “外部数据与内部数据。”
-第 2 届创新数据系统研究双年会（CIDR），
+第 2 届 Biennial Conference on Innovative Data Systems Research（CIDR），
 2005 年 1 月。存档于 perma.cc/K9AH-LQPS  
 
 [72] Ralph Kimball and Margy Ross. *The Data Warehouse Toolkit: The Definitive
@@ -25283,7 +25279,7 @@ Guide to Dimensional Modeling*， 第 3 版。John Wiley & Sons，2013。ISBN:
 x.com，2016 年 10 月。存档于 perma.cc/7DT9-TDG2  
 
 [74] Matei Zaharia, Tathagata Das, Haoyuan Li, Scott Shenker, and Ion Stoica.
-“离散化流： 大型集群上高效且容错的流处理模型。” 第 4 届 USENIX 云计算热点会议（HotCloud）， 2012 年 6 月。  
+“离散化流： 大型集群上高效且容错的流处理模型。” 第 4 届 USENIX Conference in Hot Topics in Cloud Computing（HotCloud）， 2012 年 6 月。
 
 [75] Kostas Tzoumas, Stephan Ewen, and Robert Metzger. “使用 Apache Flink 实现高吞吐量、
 低延迟和恰好一次的流处理。”
@@ -26302,7 +26298,7 @@ Storm 的分布式 RPC 功能支持这种使用模式。
 很可能比用流处理器自行实现更简单。
 不过，把查询视为流，为实现那些规模大到触及传统现成解决方案极限的应用提供了一种选择。
 
-### 追求正确性
+## 追求正确性
 
 对于只读取数据的无状态服务，
 出了问题并不是什么大事；
@@ -26387,7 +26383,7 @@ Storm 的分布式 RPC 功能支持这种使用模式。
 你可能需要维护额外的元数据（例如更新过某个值的操作 ID 集合），
 还要确保从一个节点故障切换到另一个节点时进行屏蔽防护（见[分布式锁与租约](#分布式锁与租约)）。
 
-## 重复抑制
+### 重复抑制
 
 除了流处理之外，许多地方也存在抑制重复的相同需求模式。
 例如，TCP 利用数据包的序列号在接收端恢复正确顺序，
@@ -26449,7 +26445,7 @@ COMMIT;
 重试是一个独立请求；从数据库的角度看，
 它是一个独立事务。常规的去重机制帮不上忙。
 
-### 唯一标识请求
+#### 唯一标识请求
 
 要让一个跨越多跳网络通信的请求具有幂等性，仅依赖数据库提供的事务机制是不够的。你需要考虑请求的端到端流转过程。
 
@@ -26535,7 +26531,7 @@ COMMIT;
 HTTP 请求就会经常遭到破坏。
 我们只需记住，底层可靠性功能本身不足以保证端到端正确性。
 
-## 在数据系统中运用端到端思维
+### 在数据系统中运用端到端思维
 
 这让我们回到最初的论点：
 应用使用了提供较强安全属性（例如可串行化事务）
@@ -26566,7 +26562,7 @@ TCP 中的底层可靠性机制相当有效，
 出于这些原因，值得探索这样的容错抽象：既能轻松提供应用特定的端到端正确性属性，
 又能在大规模分布式环境中保持良好的性能和运维特性。
 
-### 强制实施约束
+#### 强制实施约束
 
 让我们结合拆分数据库的相关思想来思考正确性。我们看到，借助从客户端一路传递到记录写入的数据库的请求 ID，
 可以实现端到端重复抑制。那么其他类型的约束呢？
@@ -26585,7 +26581,7 @@ TCP 中的底层可靠性机制相当有效，
 或者会议室不存在时间重叠的预订。
 强制保证唯一性的技术通常也可以用于这类约束。
 
-## 唯一性约束需要共识
+### 唯一性约束需要共识
 
 在第 10 章中，我们看到，
 在分布式环境中实施唯一性约束需要共识。
@@ -26610,7 +26606,7 @@ Raft 等共识算法解决了当前主节点发生故障（或者由于网络问
 
 然而，异步多主节点复制并不可行，因为不同的主节点可能并发接受相互冲突的写入，使这些值不再唯一。如果希望立即拒绝任何违反约束的写入，同步协调就不可避免 [45]。
 
-### 基于日志的消息传递中的唯一性
+#### 基于日志的消息传递中的唯一性
 
 共享日志可确保所有消费者以相同的顺序看到消息（即全序广播保证；
 正如我们在[共识的多种面貌](#共识的多种面貌)中所确定的那样，
@@ -26643,7 +26639,7 @@ Raft 等共识算法解决了当前主节点发生故障（或者由于网络问
 冲突的定义可能取决于具体应用，
 但流处理器可以使用任意逻辑来验证请求。
 
-### 多分片请求处理
+#### 多分片请求处理
 
 当涉及多个分片时，如何在满足约束的同时确保操作以原子方式执行，
 会变得更加有趣。在示例 13-2 中，

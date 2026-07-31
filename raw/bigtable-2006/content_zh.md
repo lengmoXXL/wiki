@@ -124,7 +124,7 @@ Bigtable 按行键的字典序维护数据。
 
 ### 列族
 
-列键被组织成称为*列族（column family）*的集合，
+列键被组织成称为*列族*的集合，
 列族是访问控制的基本单位。
 同一列族中存储的数据通常属于同一类型，
 我们也会把同一列族中的数据一同压缩。
@@ -514,20 +514,20 @@ SSTable 和 memtable 都是按字典序排列的数据结构，
 当其大小达到阈值时，当前 memtable 会被冻结，
 系统创建新的 memtable，
 并把冻结的 memtable 转换为 SSTable 后写入 GFS。
-这个*小型压实（minor compaction）*过程有两个目的：
+这个*小型压实*过程有两个目的：
 减少 tablet 服务器的内存占用；
 如果服务器死亡，减少恢复期间必须从提交日志读取的数据量。
 压实期间，传入的读写操作仍可继续执行。
 
 每次小型压实都会创建一个新的 SSTable。
 如果不加限制，读操作可能需要合并任意数量 SSTable 中的更新。
-为此，我们在后台定期执行*合并压实（merging compaction）*，
+为此，我们在后台定期执行*合并压实*，
 限制这类文件的数量。
 合并压实读取若干 SSTable 和 memtable 的内容，
 并写出一个新的 SSTable。
 压实完成后，输入的 SSTable 和 memtable 即可丢弃。
 
-把所有 SSTable 重写成恰好一个 SSTable 的合并压实称为*主压实（major compaction）*。
+把所有 SSTable 重写成恰好一个 SSTable 的合并压实称为*主压实*。
 非主压实生成的 SSTable 可以包含特殊删除条目，
 用来屏蔽仍然存活的旧 SSTable 中已删除的数据。
 主压实生成的 SSTable 则不包含删除信息或已删除数据。
@@ -600,9 +600,9 @@ Webtable 的页面元数据（如语言和校验和）
 ### 用缓存提高读取性能
 
 为提高读取性能，tablet 服务器使用两级缓存。
-扫描缓存（Scan Cache）
+扫描缓存
 是较高层缓存，用于缓存 SSTable 接口返回给 tablet 服务器代码的键值对。
-数据块缓存（Block Cache）
+数据块缓存
 是较低层缓存，用于缓存从 GFS 读取的 SSTable 数据块。
 扫描缓存最适合反复读取同一数据的应用。
 数据块缓存适合读取位置邻近于最近所读数据的应用，
@@ -1106,7 +1106,7 @@ AT&T 的 Daytona 数据库 [19] 也把数据纵向和横向分区到平面文件
 locality group 不支持 Ailamaki [2] 所述的 CPU 缓存级优化。
 
 Bigtable 使用 memtable 和 SSTable 存储 tablet 更新的方式，
-类似日志结构合并树（Log-Structured Merge Tree）
+类似日志结构合并树
 [26] 存储索引数据更新的方式。
 两种系统都会先在内存中缓冲有序数据，
 再将其写入磁盘；

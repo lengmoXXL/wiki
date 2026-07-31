@@ -158,7 +158,7 @@ GFS 提供人们熟悉的文件系统接口，
 通过路径名标识。系统支持创建、
 删除、打开、关闭、读取和写入文件等常规操作。  
 
-此外，GFS 还提供*快照（snapshot）*和*记录追加（record append）*操作。
+此外，GFS 还提供*快照*和*记录追加*操作。
 快照能够以很低的成本创建文件或目录树的副本。
 记录追加允许多个客户端并发向同一文件追加数据，
 同时保证每个客户端单次追加的原子性。
@@ -170,14 +170,14 @@ GFS 提供人们熟悉的文件系统接口，
 
 ### 2.3 架构  
 
-如图 1 所示，一个 GFS 集群由一台主节点（master）和多台 chunkserver 组成，
+如图 1 所示，一个 GFS 集群由一台主节点和多台 chunkserver 组成，
 并由多个客户端访问。它们通常都是运行用户级服务器进程的通用 Linux 机器。
 只要机器资源允许，并且能够接受运行可能不稳定的应用代码所导致的可靠性下降，
 就可以很容易地在同一台机器上同时运行 chunkserver 和客户端。  
 
 文件被划分成固定大小的 chunk。
 每个 chunk 由主节点在创建 chunk 时分配的、
-不可变且全局唯一的 64 位 chunk 句柄（chunk handle）标识。
+不可变且全局唯一的 64 位 chunk 句柄标识。
 chunkserver 把 chunk 作为 Linux 文件存储在本地磁盘上，
 并按照 chunk 句柄和字节范围读取或写入 chunk 数据。
 为保证可靠性，每个 chunk 都复制到多台 chunkserver。
@@ -188,8 +188,8 @@ chunkserver 把 chunk 作为 Linux 文件存储在本地磁盘上，
 包括命名空间、访问控制信息、
 文件到 chunk 的映射以及 chunk 的当前位置。
 它还控制整个系统范围内的活动，
-例如 chunk 租约（lease）管理、孤立 chunk 的垃圾回收以及 chunk 在 chunkserver 之间的迁移。
-主节点通过定期与每台 chunkserver 交换*心跳（HeartBeat）*消息来下达指令并收集其状态。  
+例如 chunk 租约管理、孤立 chunk 的垃圾回收以及 chunk 在 chunkserver 之间的迁移。
+主节点通过定期与每台 chunkserver 交换*心跳*消息来下达指令并收集其状态。
 
 链接到每个应用程序中的 GFS 客户端代码实现文件系统 API，
 并代表应用程序与主节点和 chunkserver 通信，
