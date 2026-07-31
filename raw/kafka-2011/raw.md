@@ -93,7 +93,7 @@ for (message : streams[0]) {
 
 The overall architecture of Kafka is shown in Figure 1. Since Kafka is distributed in nature, an Kafka cluster typically consists of multiple brokers. To balance load, a topic is divided into multiple partitions and each broker stores one or more of those partitions. Multiple producers and consumers can publish and retrieve messages at the same time. In Section 3.1, we describe the layout of a single partition on a broker and a few design choices that we selected to make accessing a partition efficient. In Section 3.2, we describe how the producer and the consumer interact with multiple brokers in a distributed setting. We discuss the delivery guarantees of Kafka in Section 3.3.  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 >Figure 1. Kafka Architecture  
 
@@ -107,7 +107,7 @@ Unlike typical messaging systems, a message stored in Kafka doesn't have an expl
 
 A consumer always consumes messages from a particular partition sequentially. If the consumer acknowledges a particular message offset, it implies that the consumer has received all messages prior to that offset in the partition. Under the covers, the consumer is issuing asynchronous pull requests to the broker to have a buffer of data ready for the application to consume. Each pull request contains the offset of the message from which the consumption begins and an acceptable number of bytes to fetch. Each broker keeps in memory a sorted list of offsets, including the offset of the first message in every segment file. The broker locates the segment file where the requested message resides by searching the offset list, and sends the data back to the consumer. After a consumer receives a message, it computes the offset of the next message to consume and uses it in the next pull request. The layout of an Kafka log and the in-memory index is depicted in Figure 2. Each box shows the offset of a message.  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 >Figure 2. Kafka log  
 
@@ -188,7 +188,7 @@ In the future, we plan to add built-in replication in Kafka to
 
 In this section, we describe how we use Kafka at LinkedIn. Figure 3 shows a simplified version of our deployment. We have one Kafka cluster co-located with each datacenter where our user-facing services run. The frontend services generate various kinds of log data and publish it to the local Kafka brokers in batches. We rely on a hardware load-balancer to distribute the publish requests to the set of Kafka brokers evenly. The online consumers of Kafka run in services within the same datacenter.  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 >Figure 3. Kafka Deployment  
 
@@ -214,7 +214,7 @@ We ran our experiments on 2 Linux machines, each with 8 2GHz cores, 16GB of memo
 **Producer Test:** We configured the broker in all systems to asynchronously flush messages to its persistence store. For each system, we ran a single producer to publish a total of 10 million messages, each of 200 bytes. We configured the Kafka producer to send messages in batches of size 1 and 50. ActiveMQ and RabbitMQ don't seem to have an easy way to batch messages and we assume that it used a batch size of 1. The results are shown in Figure 4. The x-axis represents the amount of data sent to the broker over time in MB, and the y-axis corresponds to the producer throughput in messages per second. On average, Kafka can publish messages at the rate of 50,000 and 400,000 messages per second for batch size of 1 and 50, respectively. These numbers are orders of magnitude higher than that of ActiveMQ, and at least
 2 times higher than RabbitMQ.  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 >Figure 4. Producer Performance  
 
@@ -226,7 +226,7 @@ Second, Kafka has a more efficient storage format. On average, each message had 
 
 On average, Kafka consumed 22,000 messages per second, more than 4 times that of ActiveMQ and RabbitMQ. We can think of several reasons. First, since Kafka has a more efficient storage format, fewer bytes were transferred from the broker to the  
 
-![figure](images/raw/figure-0005.png)
+![figure](images/figure-0005.png)
 
 >Figure 5. Consumer Performance  
 

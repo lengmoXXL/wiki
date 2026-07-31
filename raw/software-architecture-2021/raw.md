@@ -561,7 +561,7 @@ Shows commands or other text that should be typed literally by the user.
 
 Shows text that should be replaced with user-supplied values or by values determined by context.  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 This element signifies a tip or suggestion.  
 
@@ -580,7 +580,7 @@ If you feel your use of code examples falls outside fair use or the permission g
 
 ## O'Reilly Online Learning  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 For more than 40 years, O'Reilly Media has provided technology and business training, knowledge, and insight to help companies succeed.  
 
@@ -666,7 +666,7 @@ There is no single development, in either technology or management technique, wh
 
 Because virtually every problem presents novel challenges, the real job of an architect lies in their ability to objectively determine and assess the set of trade-offs on either side of a consequential decision to resolve it as well as possible. The authors don't talk about "best solutions" (in this book or in the real world) because "best" implies that an architect has managed to maximize all the possible competing factors within the design. Instead, our tongue-in-cheek advice is as follows:  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 Don't try to find the *best* design in software architecture; instead, strive for the *least worst* combination of trade-offs.  
 
@@ -798,7 +798,7 @@ One common architect goal is to maintain good internal structural integrity in t
 
 However, arbitrarily importing classes or components among one another spells disaster for modularity. For example, Figure 1-1 illustrates a particularly damaging anti-pattern that architects aspire to avoid.  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 >Figure 1-1. Cyclic dependencies between components  
 
@@ -832,7 +832,7 @@ for architects, yet has little impact on day-to-day coding.
 
 Example 1-1 shows a very low-level, code-centric fitness function. Many popular code hygiene tools (such as SonarQube) implement many common fitness functions in a turnkey manner. However, architects may also want to validate the macro structure of the architecture as well as the micro. When designing a layered architecture such as the one in Figure 1-2, the architect defines the layers to ensure separation of concerns.  
 
-![figure](images/raw/figure-0005.png)
+![figure](images/figure-0005.png)
 
 >Figure 1-2. Traditional layered architecture  
 
@@ -1020,7 +1020,7 @@ If something isn't done soon, Penultimate Electronics will be forced to abandon 
 
 The monolithic system for the Sysops Squad application handles ticket management, operational reporting, customer registration, and billing, as well as general administrative functions such as user maintenance, login, and expert skills and profile maintenance. Figure 1-3 and the corresponding Table 1-1 illustrate and describe the components of the existing monolithic application (the ss. part of the namespace specifies the Sysops Squad application context).  
 
-![figure](images/raw/figure-0006.png)
+![figure](images/figure-0006.png)
 
 >Figure 1-3. Components within the existing Sysops Squad application  
 
@@ -1053,7 +1053,7 @@ These components will be used in subsequent chapters to illustrate various techn
 
 The Sysops Squad application with its various components listed in Table 1-1 uses a single schema in the database to host all its tables and related database code. The database is used to persist customers, users, contracts, billing, payments, knowledge base, and customer surveys; the tables are listed in Table 1-2, and the ER model is illustrated in Figure 1-4.  
 
-![figure](images/raw/figure-0007.png)
+![figure](images/figure-0007.png)
 
 >Tables in the Sysops database
 (columns and views omitted for brevity)  
@@ -1110,7 +1110,7 @@ Data and transactions have become increasingly important in architecture, drivin
 
 Wednesday, November 3, 13:00  
 
-![figure](images/raw/figure-0008.png)
+![figure](images/figure-0008.png)
 
 Logan, the lead architect for Penultimate Electronics, interrupted a small group of archi-tects in the cafeteria, discussing distributed architectures. “Austen, are you wearing a castagain?”  
 
@@ -1150,7 +1150,7 @@ As we've said before, "Software architecture" is the stuff you can't Google answ
 
 This book focuses on how architects can perform trade-off analysis for any number of scenarios unique to their situation. As in many things in architecture, the advice is simple; the hard parts lie in the details, particularly how difficult parts become entangled, making it difficult to see and understand the individual parts, as illustrated in Figure 2-1.  
 
-![figure](images/raw/figure-0009.png)
+![figure](images/figure-0009.png)
 
 >Figure 2-1. A braid entangles hair, making the individual strands hard to identify  
 
@@ -1233,7 +1233,7 @@ An architecture quantum is, in part, a measure of static coupling, and the measu
 
 Any of the monolithic architecture styles will necessarily have a quantum of one, asillustrated in Figure 2-2.  
 
-![figure](images/raw/figure-0010.png)
+![figure](images/figure-0010.png)
 
 >Figure 2-2. Monolithic architectures always have a quantum of one  
 
@@ -1242,7 +1242,7 @@ a single coupling point (typically, a database) that makes its quantum measure o
 
 Distributed architectures often feature decoupling at the component level; consider the next set of architecture styles, starting with the service-based architecture shown in Figure 2-3.  
 
-![figure](images/raw/figure-0011.png)
+![figure](images/figure-0011.png)
 
 >Figure 2-3. Architecture quantum for a service-based architecture  
 
@@ -1258,7 +1258,7 @@ So far, the static coupling measurement of architecture quantum has evaluated al
 
 Even though this style represents a distributed architecture, two coupling points push it toward a single architecture quantum: the database, as common with the previous monolithic architectures, but also the Request Orchestator itself—any holistic coupling point necessary for the architecture to function forms an architecture quantum around it.  
 
-![figure](images/raw/figure-0012.png)
+![figure](images/figure-0012.png)
 
 >Figure 2-4. A mediated EDA has a single architecture quantum  
 
@@ -1266,7 +1266,7 @@ Broker event-driven architectures (without a central mediator) are less coupled,
 
 This broker-style event driven architecture (without a central mediator) is nevertheless a single architecture quantum because all the services utilize a single relational database, which acts as a common coupling point. The question answered by the static analysis for an architecture quantum is, "Is this dependent of the architecture necessary to bootstrap this service?" Even in the case of an event-driven architecture where some of the services don't access the database, if they rely on services that do access the database, then they become part of the static coupling of the architecture quantum.  
 
-![figure](images/raw/figure-0013.png)
+![figure](images/figure-0013.png)
 
 >Figure 2-5. Even a distributed architecture such as broker-style event-driven architecture can be a single quantum  
 
@@ -1276,13 +1276,13 @@ The architects designed this event-driven system with two data stores, and no st
 
 The static coupling measure of an architecture quantum assesses the coupling dependencies between architectural and operational components. Thus, the operating system, data store, message broker, container orchestration, and all other operational dependencies form the static coupling points of an architecture quantum, using the strictest possible contracts, operational dependencies (more about the role of contracts in architecture quanta in Chapter 13).  
 
-![figure](images/raw/figure-0014.png)
+![figure](images/figure-0014.png)
 
 >Figure 2-6. An event-driven architecture with multiple quanta  
 
 The microservices architecture style features highly decoupled services, including data dependencies. Architects in these architectures favor high degrees of decoupling and take care not to create coupling points between services, allowing each individualservice to each form its own quanta, as shown in Figure 2-7.  
 
-![figure](images/raw/figure-0015.png)
+![figure](images/figure-0015.png)
 
 >Figure 2-7. Microservices may f orm their own quanta  
 
@@ -1290,7 +1290,7 @@ Each service (acting as a bounded context) may have its own set of architecture 
 
 However, if the system is tightly coupled to a user interface, the architecture forms a single architecture quantum, as illustrated in Figure 2-8.  
 
-![figure](images/raw/figure-0016.png)
+![figure](images/figure-0016.png)
 
 >Figure 2-8. A tightly coupled user interface can reduce a microservices architecture quantum to one  
 
@@ -1302,7 +1302,7 @@ Architects design user interfaces utilizing asynchronicity that doesn't create c
 communication between components, typically using events. Such an architecture is
 illustrated in Figure 2-9.  
 
-![figure](images/raw/figure-0017.png)
+![figure](images/figure-0017.png)
 
 >Figure 2-9. In a micro-frontend architecture, each service + user interface component forms an architecture quantum  
 
@@ -1314,7 +1314,7 @@ The static coupling of a system provides valuable insight, even in complex syste
 
 Static coupling is only one-half of the forces at play in distributed architectures. The other is dynamic coupling.  
 
-![figure](images/raw/figure-0018.png)
+![figure](images/figure-0018.png)
 
 >Figure 2-10. A shared database forms a coupling point between two systems, creating a single quantum  
 
@@ -1342,7 +1342,7 @@ When two services communicate with each other, one of the fundamental questions 
 
 Synchronous communication requires the requestor to wait for the response from the receiver, as shown in Figure 2-11.  
 
-![figure](images/raw/figure-0019.png)
+![figure](images/figure-0019.png)
 
 >Figure 2-11. A synchronous call waits for a result from the receiver  
 
@@ -1350,7 +1350,7 @@ The calling service makes a call (using one of a number of protocols that suppor
 
 Asynchronous communication occurs between two services when the caller posts a message to the receiver (usually via a mechanism such as a message queue) and, once the caller gets acknowledgment that the message will be processed, it returns to work. If the request required a response value, the receiver can use a reply queue to (asynchronously) notify the caller of the result, which is illustrated in Figure 2-12.  
 
-![figure](images/raw/figure-0020.png)
+![figure](images/figure-0020.png)
 
 >Figure 2-12. Asynchronous communication allows parallel processing  
 
@@ -1374,7 +1374,7 @@ Thinking about these forces as related to each other forms a three-dimensional s
 
 Each force in play during service communication appears as a dimension. For a particular decision, an architect could graph the position in space representing the strength of these forces.  
 
-![figure](images/raw/figure-0021.png)
+![figure](images/figure-0021.png)
 
 >Figure 2-13. The dimensions of dynamic quantum coupling  
 
@@ -1401,7 +1401,7 @@ In the remaining chapters in Part I, we focus on static coupling and understandi
 
 Tuesday, November 23, 14:32  
 
-![figure](images/raw/figure-0022.png)
+![figure](images/figure-0022.png)
 
 Austen came to Addison’s office wearing an uncharacteristic cross expression. “Hey,Addison, can I bother you for a minute?”  
 
@@ -1469,7 +1469,7 @@ Austen smirked. “I didn’t know there was going to be a test. Let’s see...s
 
 ### Tuesday, September 21 09:33  
 
-![figure](images/raw/figure-0023.png)
+![figure](images/figure-0023.png)
 
 It was the same conference room they had been in a hundred times before, but today the atmosphere was different. Very different. As people gathered, no small talk wasexchanged. Only silence. The sort of dead silence that you could cut with a knife. Yes,that was indeed an appropriate cliche given the topic of the meeting.  
 
@@ -1525,7 +1525,7 @@ Consider the increased number of mergers and acquisitions happening in today's m
 
 Large monolithic (single deployment) systems generally do not provide the level of scalability, agility, and extensibility required to support most mergers and acquisitions. The capacity for additional machine resources (threads, memory, and CPU) fills up very quickly. To illustrate this point, consider the water glass shown in Figure 3-1. The glass represents the server (or virtual machine), and the water represents the application. As monolithic applications grow to handle increased consumer demand and user load (whether from mergers, acquisitions, or company growth), they begin to consume more and more resources. As more water is added to the glass (representing the growing monolithic application), the glass begins to fill up. Adding another glass (represented as another server or virtual machine) does nothing, because the new glass would contain the same amount of water as the first one.  
 
-![figure](images/raw/figure-0024.png)
+![figure](images/figure-0024.png)
 
 >Figure 3-1. A f ull glass representing a large monolithic application close to capacity  
 
@@ -1533,7 +1533,7 @@ One aspect of architectural modularity is breaking large monolithic applications
 
 By adding another empty glass to our water glass example and breaking the water (application) into two separate parts, half the water can now be poured into the new empty glass, providing 50% more capacity, as shown in Figure 3-2. The water glass analogy is a great way of explaining architectural modularity(the breaking up of monolithic applications) to business stakeholders and C-level executives, who willinevitably be paying for the architecture-refactoring effort.  
 
-![figure](images/raw/figure-0025.png)
+![figure](images/figure-0025.png)
 
 >Figure 3-2. Two half-f ull glasses representing an application broken apart with plenty of capacity f or growth  
 
@@ -1553,7 +1553,7 @@ Competitive advantage is achieved through speed-to-market combined with scalabil
 
 Businesses must be agile to survive in today's fast-paced and ever-changing volatile market, meaning the underlying architectures must be agile as well. As illustrated in Figure 3-3, the five key architectural characteristics to support agility, speed-to-market, and, ultimately, competitive advantage in today's marketplace are availability (fault tolerance), scalability, deployability, testability, maintainability.  
 
-![figure](images/raw/figure-0026.png)
+![figure](images/figure-0026.png)
 
 >Figure 3-3. The drivers for modularity and the relationships among them  
 
@@ -1593,7 +1593,7 @@ Within the context of architecture, we are defining a component as an architectu
 
 Large monolithic architectures generally have low levels of maintainability due to the technical partitioning of functionality into layers, the tight coupling between components, and weak component cohesion from a domain perspective. For example, consider a new requirement within a traditional monolithic layered architecture to add an expiration date to items contained in a customer's wish list (items in a list to maybe purchase at a later time). Notice in Figure 3-4 that the change scope of the new requirement is at an application level since the change is propagated to all of the layers within the application.  
 
-![figure](images/raw/figure-0027.png)
+![figure](images/figure-0027.png)
 
 >Figure 3-4. With monolithic layered architectures, change is at an application level  
 
@@ -1609,11 +1609,11 @@ Since the Wishlist domain is spread throughout the entire architecture, it becom
 
 Moving to even more architectural modularity such as a microservices architecture, as illustrated in Figure 3-6, places the new requirement at a *function-level* change scope, isolating the change to a specific service responsible for the wish listfunctionality.  
 
-![figure](images/raw/figure-0028.png)
+![figure](images/figure-0028.png)
 
 >Figure 3-5. With service-based architectures, change is at a domain level  
 
-![figure](images/raw/figure-0029.png)
+![figure](images/figure-0029.png)
 
 >Figure 3-6. With microservices architectures, change is at a f unction level  
 
@@ -1629,7 +1629,7 @@ While architectural modularity generally improves testability, it can sometimes 
 
 Making a change to Service A limits the testing scope to only that service, since Service B and Service C are not coupled to Service A. However, as communication increases among these services, as shown at the bottom of Figure 3-7, testability declines rapidly because the testing scope for a change to Service A now includes Service B and Service C, therefore impacting both the ease of testing and the completeness of testing.  
 
-![figure](images/raw/figure-0030.png)
+![figure](images/figure-0030.png)
 
 >Figure 3-7. Testing scope is increased as services communicate with one another  
 
@@ -1649,9 +1649,9 @@ This scenario leads to what is commonly referred to as the "big ball of distribu
 
 Scalability is defined as the ability of a system to remain responsive as user load gradually increases over time. Related to scalability is elasticity, which is defined as the ability of a system to remain responsive during significantly high instantaneous and erratic spikes in user load. Figure 3-8 illustrates the differences between scalability and elasticity.  
 
-![figure](images/raw/figure-0031.png)
+![figure](images/figure-0031.png)
 
-![figure](images/raw/figure-0032.png)
+![figure](images/figure-0032.png)
 
 >Figure 3-8. Scalability is different from elasticity  
 
@@ -1665,7 +1665,7 @@ Notice that scalability and elasticity rate relatively low with the monolithic l
 
 Like testability and deployability, the more services communicate with one other to complete a single business transaction, the greater the negative impact on scalability and elasticity. For this reason, it is important to keep synchronous communication among services to a minimum when requiring high levels of scalability and elasticity.  
 
-![figure](images/raw/figure-0033.png)
+![figure](images/figure-0033.png)
 
 >Figure 3-9. Scalability and elasticity improve with modularity  
 
@@ -1682,7 +1682,7 @@ fault tolerance in a system. By breaking apart the system into multiple deployme
 
 Thursday, September 30, 12:01  
 
-![figure](images/raw/figure-0034.png)
+![figure](images/figure-0034.png)
 
 Armed with a better understanding of what is meant by architectural modularity and the corresponding drivers for breaking apart a system, Addison and Austen met to discuss the Sysops Squad issues and try to match them to modularity drivers in order to build asolid business justification to present to the business sponsors.  
 
@@ -1770,7 +1770,7 @@ Addison and Austen met with the business sponsors for the Sysops Squad problem t
 
 ## Monday, October 4, 10:04  
 
-![figure](images/raw/figure-0035.png)
+![figure](images/figure-0035.png)
 
 Now that Addison and Austen had the go-ahead to move to a distributed architecture and break apart the monolithic Sysops Squad application, they needed to determine thebest approach for how to get started.  
 
@@ -1810,7 +1810,7 @@ Which approach is most effective? The answer to this question is, of course, *it
 As the flowchart in Figure 4-1 illustrates, the first step in an architecture decomposition effort is to first determine whether the codebase is even decomposable. We cover this topic in detail in the next section. If the codebase is decomposable, the next step is to determine if the source code is largely an unstructured mess with no clearly definable components. If that's the case, then tactical forking (see "Tactical Forking" on page 73) is probably the right approach. However, if the source code files are structured in a way that combines like functionality within well-defined (or even loosely defined) components, then a component-based decomposition approach (see
 "Component-Based Decomposition" on page 71) is the way to go.  
 
-![figure](images/raw/figure-0036.png)
+![figure](images/figure-0036.png)
 
 >Figure 4-1. The decision tree for selecting a decomposition approach  
 
@@ -1834,7 +1834,7 @@ Virtually every platform has tools that allow architects to analyze the coupling
 
 In this example, the Eclipse plug-in provides a visualization of the output of JDepend, which includes coupling analysis per package, along with some aggregate metrics highlighted in the next section.  
 
-![figure](images/raw/figure-0037.png)
+![figure](images/figure-0037.png)
 
 >Figure 4-2. JDepend in Eclipse analysis view of coupling relationships  
 
@@ -1878,7 +1878,7 @@ In the equation, A = abstractness and I = instability.
 
 The distance-from-the-main-sequence metric imagines an ideal relationship between abstractness and instability; components that fall near this idealized line exhibit a healthy mixture of these two competing concerns. For example, graphing a particular component allows developers to calculate the distance-from-the-main-sequence metric, illustrated in Figure 4-3.  
 
-![figure](images/raw/figure-0038.png)
+![figure](images/figure-0038.png)
 
 >Figure 4-3. Normalized distance from the main sequence for a particular component  
 
@@ -1888,7 +1888,7 @@ Tools exist in many platforms to provide these measures, which assist architects
 
 What does the distance-from-the-main-sequence metric tell architects looking to restructure applications? Just as in construction projects, moving a large structure that has a poor foundation presents risks. Similarly, if an architect aspires to restructure an application, improving the internal structure will make it easier to move the entity.  
 
-![figure](images/raw/figure-0039.png)
+![figure](images/figure-0039.png)
 
 >Figure 4-4. Zones of uselessness and pain  
 
@@ -1900,11 +1900,11 @@ Following the flowchart in Figure 4-1, once an architect decides that the codeba
 
 It has been our experience that most of the difficulty and complexity involved with migrating monolithic applications to highly distributed architecture like microservices comes from poorly defined architectural components. Here we define a component as a building block of the application that has a well-defined role and responsibility in the system and a well-defined set of operations. Components in most applications are manifested through namespaces or directory structures and are implemented through component files (or source files). For example, in Figure 4-5, the directory structure penultimate/ss/ticket/assign would represent a component called Ticket Assign with the namespace penultimate.ss.ticket.assign.  
 
-![figure](images/raw/figure-0040.png)
+![figure](images/figure-0040.png)
 
 >Figure 4-5. The directory structure of a codebase becomes the namespace of the component  
 
-![figure](images/raw/figure-0041.png)
+![figure](images/figure-0041.png)
 
 When breaking monolithic applications into distributed architectures, build services from components, not individual classes.  
 
@@ -1922,7 +1922,7 @@ Moving to a service-based architecture is suitable as a final target or as a ste
 
 • The move to service-based architecture is a *technical one*, meaning it generally doesn't involve business stakeholders and doesn't require any change to the organization structure of the IT department nor the testing and deployment environments.  
 
-![figure](images/raw/figure-0042.png)
+![figure](images/figure-0042.png)
 
 When migrating monolithic applications to microservices, consider moving to a service-based architecture first as a stepping-stone to microservices.  
 
@@ -1934,13 +1934,13 @@ The *tactical forking* pattern was named by Fausto De La Torre as a pragmatic ap
 
 Generally, when architects think about restructuring a codebase, they think of extracting pieces, as illustrated in Figure 4-6.  
 
-![figure](images/raw/figure-0043.png)
+![figure](images/figure-0043.png)
 
 >Figure 4-6. Extracting a part of a system  
 
 However, another way to think of isolating one part of a system involves deleting the parts no longer needed, as illustrated in Figure 4-7.  
 
-![figure](images/raw/figure-0044.png)
+![figure](images/figure-0044.png)
 
 >Figure 4-7. Deleting what's not wanted is another way to isolate parts of a system  
 
@@ -1948,7 +1948,7 @@ In Figure 4-6, developers have to constantly deal with the exuberant strands of 
 
 The difference between extraction and deletion inspires the tactical forking pattern.For this decomposition approach, the system starts as a single monolithic application,as shown in Figure 4-8.  
 
-![figure](images/raw/figure-0045.png)
+![figure](images/figure-0045.png)
 
 >Figure 4-8. Bef ore restructuring, a monolith includes several parts  
 
@@ -1956,7 +1956,7 @@ This system consists of several domain behaviors(identified in the figure as sim
 
 The first step in tactical forking involves cloning the entire monolith, and giving each team a copy of the entire codebase, as illustrated in Figure 4-9.  
 
-![figure](images/raw/figure-0046.png)
+![figure](images/figure-0046.png)
 
 >Figure 4-9. Step one clones the monolith  
 
@@ -1964,13 +1964,13 @@ Each team receives a copy of the entire codebase, and they start deleting (as il
 
 As the pattern continues to progress, teams begin to isolate the target portions, as shown in Figure 4-10. Then each team continues the gradual elimination of unwanted code.  
 
-![figure](images/raw/figure-0047.png)
+![figure](images/figure-0047.png)
 
 >Figure 4-10. Teams constantly refactor to remove unwanted code  
 
 At the completion of the tactical forking pattern, teams have split the original monolithic application into two parts, preserving the coarse-grained structure of the behavior in each part, as illustrated in Figure 4-11.  
 
-![figure](images/raw/figure-0048.png)
+![figure](images/figure-0048.png)
 
 >Figure 4-11. The end state of tactical forking features two services  
 
@@ -2000,7 +2000,7 @@ The name of this pattern is apt (as all good pattern names should be)—it provi
 
 Friday, October 29, 10:01  
 
-![figure](images/raw/figure-0049.png)
+![figure](images/figure-0049.png)
 
 Now that Addison and Austen understood both approaches, they met in the main conference room to analyze the Sysops Squad application using the abstractness and instability metrics to determine which approach would be the most appropriate given their situation.  
 
@@ -2046,7 +2046,7 @@ This approach allows the developers on the team to work collaboratively to ident
 
 Monday, November 1, 11:53  
 
-![figure](images/raw/figure-0050.png)
+![figure](images/figure-0050.png)
 
 Addison and Austen chose to use the component-based decomposition approach, but were unsure about the details of each decomposition pattern. They tried to research this approach, but did not find much on the internet about it. Once again, they met with Logan in the conference room for advice on what these patterns are all about and howto use them.  
 
@@ -2094,7 +2094,7 @@ Used to physically break apart a monolithic architecture by moving logical
 domains within the monolithic application to separately deployed domain
 services.  
 
-![figure](images/raw/figure-0051.png)
+![figure](images/figure-0051.png)
 
 >Figure 5-1. Component-based decomposition pattern flow and usage  
 
@@ -2265,7 +2265,7 @@ FOREACH component,size IN component_size_map {
 
 Tuesday, November 2, 09:12  
 
-![figure](images/raw/figure-0052.png)
+![figure](images/figure-0052.png)
 
 After the discussion with Logan(the lead architect) about component-based decompo-sition patterns, Addison decided to apply the Identify and Size Components pattern to identify all of the components in the Sysops Squad ticketing application and calculate the size of each component based on the total number of statements in eachcomponent.  
 
@@ -2296,7 +2296,7 @@ Addison gathered all the necessary component information and put this informatio
 
 Addison noticed that most of the components listed in Table 5-2 are about the same size, with theexception of the Reporting component(ss.reporting) which consisted of 33% of the codebase.Since the Reporting component was significantly larger than the other components(illustrated inFigure 5-2), Addison chose to break this component apart to reduce its overall size.  
 
-![figure](images/raw/figure-0053.png)
+![figure](images/figure-0053.png)
 
 >Figure 5-2. The Reporting component is too big and should be broken apart  
 
@@ -2310,7 +2310,7 @@ After doing some analysis, Addison found that the reporting component contained 
 
 Addison also identified common(shared) code that all reporting categories used, such as commonutilities, calculators, shared data queries, report distribution, and shared data formatters. Addison cre-ated an architecture story(see “Architecture Stories” on page 84) for this refactoring and explained it to the development team. Sydney, one of the Sysops Squad developers assigned the architecturestory, refactored the code to break apart the single Reporting component into four separate compo-nents—a Reporting Shared component containing the common code and three other components (Ticket Reports, Expert Reports, and Financial Reports), each representing a functional reportingarea, as illustrated in Figure 5-3.  
 
-![figure](images/raw/figure-0054.png)
+![figure](images/figure-0054.png)
 
 >Figure 5-3. The large Reporting component broken into smaller reporting components  
 
@@ -2453,7 +2453,7 @@ IF common_source_file_list NOT EMPTY {
 
 Friday, November 5, 10:34  
 
-![figure](images/raw/figure-0055.png)
+![figure](images/figure-0055.png)
 
 Having identified and sized the components in the Sysops Squad application, Addison applied the Gather Common Domain Components pattern to see if any common functionality existed between components. From the list of components in Table 5-3, Addison noticed there were three components all related to notifying a Sysops Squad customer, and listed these in Table 5-4.  
 
@@ -2469,7 +2469,7 @@ While each of these notification components had a different context for notifyin
 
 Noticing that the source code contained in these components was also very similar, Addison consulted with Austen (the other Sysops Squad architect). Austen liked the idea of a single notification component, but was concerned about impacting the overall level of coupling between components. Addison agreed that this might be an issue and investigated this trade-off further.  
 
-![figure](images/raw/figure-0056.png)
+![figure](images/figure-0056.png)
 
 >Figure 5-4. Notification f unctionality is duplicated throughout the application  
 
@@ -2497,7 +2497,7 @@ Addison and Austen both realized how important it was to analyze the coupling le
 
 Addison wrote an architecture story to combine all of the notification functionality into a single namespace representing a common Notification component. Sydney, assigned to the architecturestory, refactored the source code, creating a single component for customer notification, as illustra-ted in Figure 5-5.  
 
-![figure](images/raw/figure-0057.png)
+![figure](images/figure-0057.png)
 
 >Figure 5-5. Notification f unctionality is consolidated into a new single component called Notification  
 
@@ -2564,7 +2564,7 @@ Classes contained within a root namespace, and hence have no definable component
 
 These definitions are illustrated in Figure 5-6, where the box with a C represents source code contained within that namespace. This diagram (and all others like it) are purposely drawn from the bottom up to emphasize the notion of *hills* in the application, as well as emphasize the notion of namespaces *building upon* each other.  
 
-![figure](images/raw/figure-0058.png)
+![figure](images/figure-0058.png)
 
 >Figure 5-6. Components, root namespaces, and orphaned classes (C box denotes source code)  
 
@@ -2572,13 +2572,13 @@ Notice that since both `ss.survey` and `ss.ticket` are extended through other na
 
 The Flatten Components decomposition pattern is used to move orphaned classes to create well-defined components that exist only as leaf nodes of a directory or namespace, creating well-defined subdomains (root namespaces) in the process. We refer to the *flattening* of components as the breaking down (or building up) of namespaces within an application to remove orphaned classes. For example, one way of flattening the `ss.survey` root namespace in Figure 5-6 and remove orphaned classes is to move the source code contained in the `ss.survey.templates` namespace down to the `ss.survey` namespace, thereby making `ss.survey` a single component (.survey is now the leaf node of that namespace). This flattening option is illustrated in Figure 5-7.  
 
-![figure](images/raw/figure-0059.png)
+![figure](images/figure-0059.png)
 
 >Figure 5-7. Survey is flattened by moving the survey template code into the .survey namespace  
 
 Alternatively, flattening could also be applied by taking the source code in `ss.survey` and applying functional decomposition or domain-driven design to identify separate functional areas within the root namespace, thus forming components from those functional areas. For example, suppose the functionality within the `ss.survey` namespace creates and sends a survey to a customer, and then processes a completed survey received from the customer. Two components could be created from the `ss.survey` namespace: `ss.survey.create`, which creates and sends the survey, and `ss.survey.process`, which processes a survey received from a customer. This form of flattening is illustrated in Figure 5-8.  
 
-![figure](images/raw/figure-0060.png)
+![figure](images/figure-0060.png)
 
 >Figure 5-8. Survey is flattened by moving the orphaned classes to new leaf nodes
 (components)  
@@ -2587,13 +2587,13 @@ Regardless of the direction of flattening, make sure source code files reside on
 
 Another common scenario where orphaned source code might reside in a root namespace is when code is shared by other components within that namespace. Consider the example in Figure 5-9 where customer survey functionality resides in three components (ss.survey.templates, ss.survey.create, and ss.survey.process), but common code (such as interfaces, abstract classes, common utilities) resides in the root namespace ss.survey.  
 
-![figure](images/raw/figure-0061.png)
+![figure](images/figure-0061.png)
 
 >Figure 5-9. Shared code in .survey is considered orphaned classes and should be moved  
 
 The shared classes in ss.survey would still be considered orphaned classes, even though they represent shared code. Applying the Flatten Components pattern would move those shared orphaned classes to a new component called ss.survey.shared, therefore removing all orphaned classes from the ss.survey subdomain, as illustrated in Figure 5-10.  
 
-![figure](images/raw/figure-0062.png)
+![figure](images/figure-0062.png)
 
 >Figure 5-10. Shared survey code is moved into its own component  
 
@@ -2629,11 +2629,11 @@ FOREACH component IN component_list {
 
 Wednesday, November 10, 11:10  
 
-![figure](images/raw/figure-0063.png)
+![figure](images/figure-0063.png)
 
 After applying the "Gather Common Domain Components Pattern" on page 94, Addison analyzed the results in Table 5-7 and observed that the Survey and Ticket components contained orphaned classes. Addison highlighted these components in Table 5-9 and in Figure 5-11.  
 
-![figure](images/raw/figure-0064.png)
+![figure](images/figure-0064.png)
 
 >Figure 5-11. The Survey and Ticket components contain orphaned classes and should be flattened  
 
@@ -2679,7 +2679,7 @@ Addison then considered the survey functionality. Working with Sydney, Addison f
 
 After applying the Flatten Components pattern(illustrated in Figure 5-12), Addison observed thatthere were no “hills”(component upon component) or orphaned classes and that all of the compo-nents were contained only in the leaf nodes of the corresponding namespace.  
 
-![figure](images/raw/figure-0065.png)
+![figure](images/figure-0065.png)
 
 >Figure 5-12. The Survey component was flattened into a single component, whereas the Ticket component was raised up and flattened, creating a Ticket subdomain  
 
@@ -2751,7 +2751,7 @@ Several tools are available that can assist in applying this pattern and visuali
 
 For example, consider the dependency diagram shown in Figure 5-13, where the boxes represent components (not classes), and the lines represent coupling points between the components. Notice there is only a single dependency between the components in this diagram, making this application a good candidate for breaking apart since the components are functionally independent from one another.  
 
-![figure](images/raw/figure-0066.png)
+![figure](images/figure-0066.png)
 
 >Figure 5-13. A monolithic application with minimal component dependencies takes less effort to break apart (golf ball sizing)  
 
@@ -2765,7 +2765,7 @@ With a dependency diagram like Figure 5-13, the answers to the three key questio
 
 Now look at the dependency diagram shown in Figure 5-14. Unfortunately, this diagram is typical of the dependencies between components in most business applications. Notice in particular how the lefthand side of this diagram has the highest level of coupling, whereas the righthand side looks much more feasible to break apart.  
 
-![figure](images/raw/figure-0067.png)
+![figure](images/figure-0067.png)
 
 >Figure 5-14. A monolithic application with a high number of component dependencies takes more effort to break apart (basketball sizing)  
 
@@ -2779,7 +2779,7 @@ With this level of tight coupling between components, the answers to the three k
 
 Finally, consider the dependency diagram illustrated in Figure 5-15. In this case, the architect should turn around and run in the opposite direction as fast as they can!  
 
-![figure](images/raw/figure-0068.png)
+![figure](images/figure-0068.png)
 
 >Figure 5-15. A monolithic application with too many component dependencies is not feasible to break apart (airliner sizing)  
 
@@ -2852,17 +2852,17 @@ public void ticket_maintenance_cannot_access_expert_profile() {
 
 Monday, November 15, 09:45  
 
-![figure](images/raw/figure-0069.png)
+![figure](images/figure-0069.png)
 
 After reading about the Determine Component Dependencies pattern, Addison wondered what the Sysops Squad application dependency matrix looked like and whether it was feasible to even break the application apart. Addison used an IDE plug-in to generate a component dependency diagram of the current Sysops Squad application. Initially, Addison felt a bit discouraged because Figure 5-16 showed a lot of dependencies between the Sysops Squad application components.  
 
-![figure](images/raw/figure-0070.png)
+![figure](images/figure-0070.png)
 
 >Figure 5-16. Component dependencies in the Sysops Squad application  
 
 However, after further analysis, Addison saw that the Notification component had the most depen-dencies, which was not surprising given that it’s a shared component. However, Addison also saw lots of dependencies within the Ticketing and Reporting components. Both of these domain areashave a specific component for shared code(interfaces, helper classes, entity classes, and so on). Real-izing that both the ticketing and reporting shared code contains mostly compile-based class refer-ences and would likely be implemented as shared libraries rather than services, Addison filtered out these components to get a better view of the dependencies between the core functionality of theapplication, which is illustrated in Figure 5-17.  
 
-![figure](images/raw/figure-0071.png)
+![figure](images/figure-0071.png)
 
 >Figure 5-17. Component dependencies in the Sysops Squad application without shared library dependencies  
 
@@ -2882,7 +2882,7 @@ Creating component domains is an effective way of determining what will eventual
 
 Component domains are physically manifested in an application through component namespaces (or directories). Because namespace nodes are hierarchical in nature, they become an excellent way of representing the domains and subdomains of functionality. This technique is illustrated in Figure 5-18, where the second node in the namespace (.customer) refers to the domain, the third node represents a subdomain under the customer domain (.billing), and the leaf node (.payment) refers to the component. The .MonthlyBilling at the end of this namespace refers to a class file contained within the Payment component.  
 
-![figure](images/raw/figure-0072.png)
+![figure](images/figure-0072.png)
 
 >Figure 5-18. Component domains are identified through the namespace nodes  
 
@@ -2932,7 +2932,7 @@ public void restrict_domains() {
 
 Thursday, November 18, 13:15  
 
-![figure](images/raw/figure-0073.png)
+![figure](images/figure-0073.png)
 
 Addison and Austen consulted with Parker, the Sysops Squad product owner, and together they identified five main domains within the application: a Ticketing domain (ss.ticket) containing all ticket-related functionality, including ticket processing, customer surveys, and knowledge base (KB) functionality; a Reporting domain (ss reporting) containing all reporting functionality; a Customer domain (ss.customer) containing customer profile, billing, and support contracts; an Admin domain (ss.admin) containing maintenance of users and Sysops Squad experts; and finally, a  
 
@@ -2944,7 +2944,7 @@ The exercise Addison did in diagramming and grouping the components was an impor
 
 Satisfied that all of the components fit nicely into these domains, Addison then looked at the various component namespaces in Table 5-12 after applying the "Flatten Components Pattern" on page 101 and identified the component domain refactoring that needed to take place.  
 
-![figure](images/raw/figure-0074.png)
+![figure](images/figure-0074.png)
 
 >Figure 5-19. The five domains identified(with darkened borders) within the Sysops Squad application  
 
@@ -3008,7 +3008,7 @@ The previous "Create Component Domains Pattern" on page 120 forms well-defined c
 
 In its simplest form, service-based architecture consists of a user interface that remotely accesses coarse-grained domain services, all sharing a single monolithic database. Although there are many topologies within service-based architecture (such as breaking up the user interface, breaking up the database, adding an API gateway, and so on), the basic topology shown in Figure 5-20 is a good starting point for migrating a monolithic application.  
 
-![figure](images/raw/figure-0075.png)
+![figure](images/figure-0075.png)
 
 >Figure 5-20. The basic topology for a service-based architecture  
 
@@ -3016,7 +3016,7 @@ In addition to the benefits mentioned in "Component-Based Decomposition" on page
 
 Figure 5-21 illustrates how the *Create Domain Services* pattern works. Notice in the diagram how the Reporting component domain defined in the "Create Component Domains Pattern" on page 120 is extracted from of the monolithic application, forming its own separately deployed Reporting service.  
 
-![figure](images/raw/figure-0076.png)
+![figure](images/figure-0076.png)
 
 >Figure 5-21. Component domains are moved to external domain services  
 
@@ -3041,7 +3041,7 @@ public void restrict_domain_within_ticket_service() {
 
 Tuesday, November 23, 09:04  
 
-![figure](images/raw/figure-0077.png)
+![figure](images/figure-0077.png)
 
 Addison and Austen worked closely with the Sysops Squad development team to develop a migration plan to stage the migration from component domains to domain services. They realized this effort not only required the code within each component domain to be extracted from the monolith and moved to a new project workspace, but also for the user interface to now remotely access the functionality within that domain.  
 
@@ -3050,7 +3050,7 @@ Working from the component domains identified previously in Figure 5-19, the tea
 ture, as shown in Figure 5-22. Notice how each domain area identified in the previous pattern now
 becomes a separately deployed service.  
 
-![figure](images/raw/figure-0078.png)
+![figure](images/figure-0078.png)
 
 >Figure 5-22. Separately deployed domain services result in a distributed Sysops Squad application  
 
@@ -3062,7 +3062,7 @@ It has been our experience that “seat-of-the-pants” migration efforts rarely
 
 ## Thursday, October 7, 08:55  
 
-![figure](images/raw/figure-0079.png)
+![figure](images/figure-0079.png)
 
 Now that the Sysops Squad application was successfully broken into separately deployed domain services, Addison and Austen both realized that it was time to start thinking about breaking apart the monolithic Sysops Squad database. Addison agreed to start this effort, while Austen began to work on enhancing the CI/CD deployment pipeline. Addison met with Dana, the Sysops Squad data architect, and also Devon, oneof the DBAs supporting the Penultimate Electronics databases.  
 
@@ -3095,7 +3095,7 @@ In this chapter, we explore some of the drivers for decomposing data and show te
 Breaking apart a monolithic database can be a daunting task, and as such it's important to understand if (and when) a database should be decomposed, as illustrated in Figure 6-1. Architects can justify a data decomposition effort by understanding and analyzing *data disintegrators* (drivers that justify breaking apart data) and *data integrators* (drivers that justify keeping data together). Striving for a balance between these two driving forces and analyzing the trade-offs of each is the key to getting data
 granularity right.  
 
-![figure](images/raw/figure-0080.png)
+![figure](images/figure-0080.png)
 
 >Figure 6-1. Under what circumstances should a monolithic database be decomposed?  
 
@@ -3139,13 +3139,13 @@ One of the primary data disintegration drivers is controlling changes in the dat
 
 As illustrated in Figure 6-2, when breaking changes occur to a database, multiple services must be updated, tested, and deployed together with the database changes. This coordination can quickly become both difficult and error prone as the number of separately deployed services sharing the same database increases. Imagine trying to coordinate 42 separately deployed services for a single breaking database change!  
 
-![figure](images/raw/figure-0081.png)
+![figure](images/figure-0081.png)
 
 >Figure 6-2. Services impacted by the database change must be deployed together with the database  
 
 Coordinating changes to multiple distributed services for a shared database change is only half the story. The real danger of changing a shared database in any distributed architecture is forgetting about services that access the table just changed. As illustrated in Figure 6-3, those services become nonoperational *in production* until they can be changed, tested, and redeployed.  
 
-![figure](images/raw/figure-0082.png)
+![figure](images/figure-0082.png)
 
 >Figure 6-3. Services impacted by a database change but forgotten will continue to fail until redeployed  
 
@@ -3155,7 +3155,7 @@ Breaking apart a database into well-defined bounded contexts significantly helps
 
 Most typically, bounded contexts are formed around services and the data the services owns. By "own" we mean a service that writes to the database (as opposed to having read-only access to the data). We discuss distributed data ownership in more detail in Chapter 9.  
 
-![figure](images/raw/figure-0083.png)
+![figure](images/figure-0083.png)
 
 >Figure 6-4. Database changes are isolated to only those services within the associated bounded context  
 
@@ -3165,7 +3165,7 @@ One important aspect of a bounded context related to the scenario between Servic
 
 The advantage of the bounded context is that the data sent to Service C can be a different contract than the schema for Database D. This means that a breaking change to some table in Database D impacts only Service D and not necessarily the contract of the data sent to Service C. In other words, Service C is abstracted from the actual schema structure of Database D.  
 
-![figure](images/raw/figure-0084.png)
+![figure](images/figure-0084.png)
 
 >Figure 6-5. The contract from a service call abstracts the caller from the underlying data-base schema  
 
@@ -3205,7 +3205,7 @@ Service D would have to be modified to accommodate this change because it is wit
 
 Establishing a connection to a database is an expensive operation. A database connection pool is often used not only to increase performance, but also to limit the number of concurrent connections an application is allowed to use. In monolithic applications, the database connection pool is usually owned by the application (or application server). However, in distributed architectures, each service—or more specifically, each service instance—typically has its own connection pool. As illustrated in Figure 6-6, when multiple services share the same database, the number of connections can quickly become saturated, particularly as the number of services or service instances increase.  
 
-![figure](images/raw/figure-0085.png)
+![figure](images/figure-0085.png)
 
 >Figure 6-6. Database connections can quickly get saturated with multiple service instances  
 
@@ -3286,7 +3286,7 @@ One of the many advantages of a distributed architecture is scalability—the ab
 
 As illustrated in Figure 6-7, service scalability can put a tremendous strain on the database, not only in terms of database connections (as discussed in the prior section), but also on throughput and database capacity. In order for a distributed system to scale, *all* parts of the system need to scale—including the database.  
 
-![figure](images/raw/figure-0086.png)
+![figure](images/figure-0086.png)
 
 >Figure 6-7. The database must also scale when services scale  
 
@@ -3309,7 +3309,7 @@ Notice that even though the connection quota is distributed to match the 100 dat
 
 Breaking data into separate data domains or even a database-per-service, as illustrated in Figure 6-8, requires fewer connections to each database, hence providing better database scalability and performance as the services scale.  
 
-![figure](images/raw/figure-0087.png)
+![figure](images/figure-0087.png)
 
 >Figure 6-8. Breaking apart the database provides better database scalability  
 
@@ -3319,13 +3319,13 @@ In addition to database connections, another factor to consider with respect to 
 
 When multiple services share the same database, the overall system becomes less fault tolerant because the database becomes a single point of failure (SPOF). Here, we are defining fault tolerance as the ability of some parts of the system to continue uninterrupted when a service or database fails. Notice in Figure 6-9 that when sharing a single database, overall fault tolerance is low because if the database goes down, all services become nonoperational.  
 
-![figure](images/raw/figure-0088.png)
+![figure](images/figure-0088.png)
 
 >Figure 6-9. If the database goes down, all services become nonoperational  
 
 Fault tolerance is another driver for considering breaking apart data. If fault tolerance is required for certain parts of the system, breaking apart the data can remove the single point of failure in the system, as shown in Figure 6-10. This ensures that some parts of the system are still operational in the event of a database crash.  
 
-![figure](images/raw/figure-0089.png)
+![figure](images/figure-0089.png)
 
 >Figure 6-10. Breaking apart the database achieves better fault tolerance  
 
@@ -3337,13 +3337,13 @@ Recall from Chapter 2 that an architectural quantum is defined as an independent
 
 Consider the services in Figure 6-11, where Service A and Service B require different architectural characteristics than the other services. Notice in the diagram that although Service A and Service B are grouped together, they do not form a separate quantum from the other services because of a single shared database. Thus, all fiveservices, along with the database, form a single architectural quantum.  
 
-![figure](images/raw/figure-0090.png)
+![figure](images/figure-0090.png)
 
 >Figure 6-11. The database is part of the architectural quantum  
 
 Because the database is included in the f unctional cohesion part of the architecture quantum definition, it is necessary to break apart the data so that each resulting part can be in its own quantum. Notice in Figure 6-12 that since the database is broken apart, Service A and Service B, along with the corresponding data, are now a separatequantum from the one formed with services C, D, and E.  
 
-![figure](images/raw/figure-0091.png)
+![figure](images/figure-0091.png)
 
 >Figure 6-12. Breaking up the database forms two architectural quanta  
 
@@ -3375,13 +3375,13 @@ Like components within an architecture, database tables can be coupled as well, 
 
 Imagine walking up to your DBA or data architect and telling them that since the database must be broken apart to support tightly formed bounded contexts within a microservices ecosystem, every foreign key and view in the database needs to be removed! That's not a likely (or even feasible) scenario, yet that is precisely what would need to happen to support a database-per-service pattern in microservices.  
 
-![figure](images/raw/figure-0092.png)
+![figure](images/figure-0092.png)
 
 >Figure 6-13. Foreign keys (FK), triggers, and views create tightly coupled relationships between data  
 
 These artifacts are necessary in most relational databases to support data consistency and data integrity. In addition to these physical artifacts, data may also be logically related, such as a problem ticket table and its corresponding problem ticket status table. However, as illustrated in Figure 6-14, these artifacts must be removed when moving data to another schema or database to form bounded contexts.  
 
-![figure](images/raw/figure-0093.png)
+![figure](images/figure-0093.png)
 
 >Figure 6-14. Data artifacts must be removed when breaking apart data  
 
@@ -3393,13 +3393,13 @@ The relationship between data, either logical or physical, is a data integration
 
 Another data integrator is that of database transactions, something we discuss in detail in "Distributed Transactions" on page 263. As shown in Figure 6-15, when a single service does multiple database write actions to separate tables in the same database or schema, those updates can be done within an Atomicity, Consistency, Isolation, Durability (ACID) transaction and either committed or rolled back as a single unit of work.  
 
-![figure](images/raw/figure-0094.png)
+![figure](images/figure-0094.png)
 
 >Figure 6-15. A single transactional unit of work exists when the data is together  
 
 However, when data is broken apart into either separate schemas or databases, as illustrated in Figure 6-16, a single transactional unit of work no longer exists because of the remote calls between services. This means that an insert or update can be committed in one table, but not in the other tables because of error conditions, resulting in data consistency and integrity issues.  
 
-![figure](images/raw/figure-0095.png)
+![figure](images/figure-0095.png)
 
 >Figure 6-16. Single unit of work transactions don't exist when data is broken apart  
 
@@ -3409,7 +3409,7 @@ While we dive into the details of distributed transaction management and transac
 
 Monday, November 15, 15:55  
 
-![figure](images/raw/figure-0096.png)
+![figure](images/figure-0096.png)
 
 Armed with their justifications, Addison and Devon met to convince Dana that it wasnecessary to break apart the monolithic Sysops Squad database.  
 
@@ -3453,7 +3453,7 @@ Dana took a moment to look over the numbers. “Do you agree with these numbers,
 
 Decomposing a monolithic database is hard, and requires an architect to collaborate closely with the database team to safely and effectively break apart the data. One particularly effective technique for breaking apart data is to leverage what is known as the *five-step process*. As illustrated in Figure 6-17, this evolutionary and iterative process leverages the concept of a data domain as a vehicle for methodically migrating data into separate schemas, and consequently different physical databases.  
 
-![figure](images/raw/figure-0097.png)
+![figure](images/figure-0097.png)
 
 >Figure 6-17. Five-step process for decomposing a monolithic database  
 
@@ -3492,7 +3492,7 @@ Table 6-5 lists six data domains within the Sysops Squad application: Customer, 
 
 One way to conceptually think about data domains is to think about the database as a soccer ball, where each white hexagon represents a separate data domain. As illustrated in Figure 6-18, each white hexagon of the soccer ball contains a collection of domain-related tables along with all of the coupling artifacts (such as foreign keys, views, stored procedures, and so on).  
 
-![figure](images/raw/figure-0098.png)
+![figure](images/figure-0098.png)
 
 >Figure 6-18. Database objects in a hexagon belong in a data domain  
 
@@ -3500,7 +3500,7 @@ Visualizing the database this way allows the architect and database team to clea
 
 When extracting a data domain, these cross-domain dependencies must be removed. This means removing foreign-key constraints, views, triggers, functions, and stored procedures between data domains. Database teams can leverage the refactoring patterns found in the book *Refactoring Databases: Evolutionary Database Design*, by Scott Ambler and Pramod Sadalage (Addison-Wesley), to safely and iteratively remove these data dependencies.  
 
-![figure](images/raw/figure-0099.png)
+![figure](images/figure-0099.png)
 
 >Figure 6-19. Tables belonging to data domains, extracted out, and connections that need to be broken  
 
@@ -3544,7 +3544,7 @@ Once architects and database teams understand the concept of a data domain, they
 
 As illustrated in Figure 6-20, all services have access to all data in the database. This practice, known as the shared database integration style described by Gregor Hohpe and Bobby Woolf in their book *Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions* (Addison-Wesley), creates a tight coupling between data and the services accessing that data. As discussed in "Data Decomposition Drivers" on page 132, this tight coupling in the database makes change management very difficult.  
 
-![figure](images/raw/figure-0100.png)
+![figure](images/figure-0100.png)
 
 >Figure 6-20. Multiple services use the same database, accessing all the tables necessary for read or write purposes  
 
@@ -3556,7 +3556,7 @@ The next step is to group tables along a specific bounded context, assigning tab
 
 As illustrated in Figure 6-21, we have created schemas for each data domain and moved tables to the schemas to which they belong.  
 
-![figure](images/raw/figure-0101.png)
+![figure](images/figure-0101.png)
 
 >Figure 6-21. Services use the primary schema according to their data domain needs  
 
@@ -3604,11 +3604,11 @@ In this step, the database connection logic within each service is refactored to
 
 Notice that the database configuration has been changed so that all data access is done strictly via services and their connected schemas. In this example, Service C communicates with Service D and not with SchemaD. There is no cross-schema access; all synonyms created in "Step 2: Assign Tables to Data Domains" on page 156 are removed.  
 
-![figure](images/raw/figure-0102.png)
+![figure](images/figure-0102.png)
 
 >Figure 6-22. Move the cross-schema object access to the services, away from direct cross-schema access  
 
-![figure](images/raw/figure-0103.png)
+![figure](images/figure-0103.png)
 
 When data from other domains is needed, do not reach into their databases. Instead, access it using the service that owns the data domain.  
 
@@ -3644,7 +3644,7 @@ Using the replicate option, teams first set up database servers for each data do
 
 Figure 6-23 shows an example of the replication option, where the database team sets up multiple database servers so that there is one database server for each data domain.  
 
-![figure](images/raw/figure-0104.png)
+![figure](images/figure-0104.png)
 
 >Figure 6-23. Replicate schemas (data domains) to their own database servers  
 
@@ -3652,7 +3652,7 @@ Figure 6-23 shows an example of the replication option, where the database team 
 
 Once the schemas are fully replicated, the service connections can be switched. The last step in getting the data domains and services to act as their own independent deployable units is to remove the connection to the old database servers and remove the schemas from the old database servers as well. The final state is seen in Figure 6-24.  
 
-![figure](images/raw/figure-0105.png)
+![figure](images/figure-0105.png)
 
 >Figure 6-24. Independent database servers for each data domain  
 
@@ -3912,7 +3912,7 @@ All NoSQL databases are designed to understand aggregate orientation. Having agg
 
 Unlike relational databases, where relations are implied based on references, graph databases use nodes to store entities and their properties. These nodes are connected with edges, also known as relationships, which are explicit objects. Nodes are organized by relationships and allow for analysis of the connected data by traversing along specific edges.  
 
-![figure](images/raw/figure-0106.png)
+![figure](images/figure-0106.png)
 
 >Figure 6-29. In graph databases, direction of the edge has significance when querying  
 
@@ -4122,7 +4122,7 @@ In summary of all the database types discussed in this section, Table 6-6 shows 
 
 Thursday, December 16, 16:05  
 
-![figure](images/raw/figure-0107.png)
+![figure](images/figure-0107.png)
 
 Now that the team had formed data domains from the monolithic Sysops Squad data-base, Devon noticed that the Survey data domain would be a great candidate formigrating from a traditional relational database to a document database using JSON.However, Dana, the head of data architecture, didn’t agree and wanted to keep thetables as relational.  
 
@@ -4176,7 +4176,7 @@ Devon and Skyler knew that a document database would be a much better solution f
 
 With the business justification established, Devon, Skyler, and Addison convinced Dana to use a document database. Now the team had to figure out the optimal structure for the customer survey data. The existing relational database tables are illustrated in Figure 6-34. Each customer survey consisted of two primary tables—a Survey table and a Question table, with a one-to-many relation-ship between the two tables.  
 
-![figure](images/raw/figure-0108.png)
+![figure](images/figure-0108.png)
 
 >Figure 6-34. Tables and relationships in the sysops survey data domain  
 
@@ -4202,7 +4202,7 @@ An example of the data contained in each table is shown Figure 6-35, where the Q
 
 Devon showed the team that with the single aggregate option, as shown in Figure 6-36, with the corresponding source code listing in Example 6-3, both the survey data and all related question data were stored as one document. Therefore, the entire customer survey could be retrieved from the database by using a single get operation, making it easy for Skyler and others on the developmentteam to work with the data.  
 
-![figure](images/raw/figure-0109.png)
+![figure](images/figure-0109.png)
 
 >Figure 6-36. Survey model with single aggregate  
 
@@ -4241,7 +4241,7 @@ json
 
 Skyler explained that another way to think about aggregates was to split the survey and question model so that the questions could be operated on in an independent fashion, as shown in Figure 6-37, with the corresponding source code listing in Example 6-4. This would allow the same question to be used in multiple surveys, but would be harder to render and retrieve than the single aggregate.  
 
-![figure](images/raw/figure-0110.png)
+![figure](images/figure-0110.png)
 
 >Figure 6-37. Survey model with multiple aggregates with references  
 
@@ -4300,7 +4300,7 @@ Survey functionality will need to be shut down during the data migration from th
 
 ### Thursday, October 14, 13:33  
 
-![figure](images/raw/figure-0111.png)
+![figure](images/figure-0111.png)
 
 As the migration effort got underway, both Addison and Austen started getting over-whelmed with all of the decisions involved with breaking apart the domain services pre-viously identified. The development team also had its own opinions, which madedecision making for service granularity even more difficult.  
 
@@ -4362,7 +4362,7 @@ Another metric to determine service granularity is to measure and track the numb
 
 Two opposing forces for service granularity are granularity disintegrators and granularity integrators. These opposing forces are illustrated in Figure 7-1. Granularity disintegrators address the question "When should I consider breaking apart a service into smaller parts?", whereas Granularity integrators address the question "When should I consider putting services back together?" One common mistake many development teams make is focusing too much on granularity disintegrators while ignoring granularity integrators. The secret of arriving at the appropriate level of granularity for a service is achieving an equilibrium between these two opposing forces.  
 
-![figure](images/raw/figure-0112.png)
+![figure](images/figure-0112.png)
 
 >Figure 7-1. Service granularity depends on a balance of disintegrators and integrators  
 
@@ -4402,13 +4402,13 @@ The service scope and function is the first and most common driver for breaking 
 
 Consider a typical Notification Service that does three things: notifies a customer through SMS (Short Message Service), email, or a printed postal letter that is mailed to the customer. Although it is very tempting to break this service into three separate single-purpose services (one for SMS, one for email, and one for postal letters) as illustrated in Figure 7-2, this alone is not enough to justify breaking the service apart because it already has relatively strong cohesion—all of these functions relate to one thing, notifying the customer. Because "single purpose" is left for individual opinion and interpretation, it is difficult to know whether to break apart this service or not.  
 
-![figure](images/raw/figure-0113.png)
+![figure](images/figure-0113.png)
 
 >Figure 7-2. A service with relatively strong cohesion is not a good candidate for disintegration based on functionality alone  
 
 Now consider a single service that manages the customer profile information, customer preferences, and also customer comments made on the website. Unlike the previous Notification Service example, this service has relatively weak cohesion because these three functions relate to a broader scope—customer. This service is possibly doing too much, and hence should probably be broken into three separate services, as illustrated in Figure 7-3.  
 
-![figure](images/raw/figure-0114.png)
+![figure](images/figure-0114.png)
 
 >Figure 7-3. A service with relatively weak cohesion is a good candidate for disintegration  
 
@@ -4428,7 +4428,7 @@ Code volatility--the rate at which the source code changes—is another good dri
 
 Notice that the postal letter functionality changes weekly (on average), whereas the SMS and email functionality rarely changes. As a single service, any change to the postal letter code would require the developer to test and redeploy the entire service, including SMS and email functionality. Depending on the deployment environment, this also might mean SMS and email functionality would not be available when the postal letter changes are deployed. Thus, as a single service, testing scope is increased and deployment risk is high. However, by breaking this service into two separate services (Electronic Notification and Postal Letter Notification), as illustrated in Figure 7-4, frequent changes are now isolated into a single, smaller service. This in turn means that the testing scope is significantly reduced, deployment risk is lower, and SMS and email functionality is not disrupted during a deployment of postal letter changes.  
 
-![figure](images/raw/figure-0115.png)
+![figure](images/figure-0115.png)
 
 >Figure 7-4. An area of high code change in a service is a good candidate for disintegration  
 
@@ -4444,7 +4444,7 @@ Another driver for breaking up a service into separate smaller ones is *scalabil
 
 Notice the extreme variation between sending out SMS notifications and postal letter notifications. As a single service, email and postal letter functionality must unnecessarily scale to meet the demands of SMS notifications, impacting cost and also elasticity in terms of mean time to startup (MTTS). Breaking the Notification Service into three separate services (SMS, Email, and Letter), as illustrated in Figure 7-5, allows each of these services to scale independently to meet their varying demands of throughput.  
 
-![figure](images/raw/figure-0116.png)
+![figure](images/figure-0116.png)
 
 >Figure 7-5. Differing scalability and throughput needs is a good disintegration driver  
 
@@ -4466,7 +4466,7 @@ notification and Postal Letter notification have in common other than a notifica
 means to the customer? What would be an appropriate self-descriptive name of that
 combined service?  
 
-![figure](images/raw/figure-0117.png)
+![figure](images/figure-0117.png)
 
 >Figure 7-6. Fault tolerance and service availability are good disintegration drivers  
 
@@ -4488,7 +4488,7 @@ A common pitfall when securing sensitive data is to think only in terms of the s
 
 Consider the example illustrated in Figure 7-7 that describes a Customer Profile Service containing two main functions: customer profile maintenance for adding, changing, or deleting basic profile information (name, address, and so on); and customer credit card maintenance for adding, removing, and updating credit card information.  
 
-![figure](images/raw/figure-0118.png)
+![figure](images/figure-0118.png)
 
 >Figure 7-7. Security and data access are good disintegration drivers  
 
@@ -4506,7 +4506,7 @@ Now that the single payment service is broken into separate services by payment 
 
 Our advice is to apply this driver only if it is known ahead of time that additional consolidated contextual functionality is planned, desired, or part of the normal domain. For example, with notification, it is doubtful the means of notification would continually expand beyond the basic notification means (SMS, email, or letter). However, with payment processing, it is highly likely that additional payment types would be added in the future, and therefore separate services for each payment type would be warranted. Since it is often difficult to sometimes "guess" whether (and when) contextual functionality might expand (such as additional payment methods), our advice is to wait on this driver as a primary means of justifying a granularly disintegration until a pattern can be established or confirmation of continued extensibility can be confirmed.  
 
-![figure](images/raw/figure-0119.png)
+![figure](images/figure-0119.png)
 
 >Figure 7-8. Planned extensibility is a good disintegration driver  
 
@@ -4530,11 +4530,11 @@ Most monolithic systems and course-grained domain services using relational data
 
 Notice that having two separate services provides a good level of security access control to password information since access is at a service level rather than at a request level. Access to operations such as changing a password, resetting a password, and accessing a customer's password for sign-in can all be restricted to a single service (and hence the access can be restricted to that single service). However, while this may be a good disintegration driver, consider the operation of registering a new customer, as illustrated in Figure 7-10.  
 
-![figure](images/raw/figure-0120.png)
+![figure](images/figure-0120.png)
 
 >Figure 7-9. Separate services with atomic operations have better security access control  
 
-![figure](images/raw/figure-0121.png)
+![figure](images/figure-0121.png)
 
 >Figure 7-10. Separate services with combined operations do not support database (ACID) transactions  
 
@@ -4542,7 +4542,7 @@ When registering a new customer, both profile and encrypted password information
 
 While separating the services provides better security access control to the password information, the trade-off is that there is no ACID transaction for actions such as registering a new customer or unsubscribing (deleting) a customer from the system. If the password service fails during either of these operations, data is left in an inconsistent state, resulting in complex error handling (which is also error prone) to reverse the original profile insert or take other corrective action (see "Transactional Saga Patterns" on page 324 for the details of eventual consistency and error handling within distributed transactions). Thus, if having a single-unit-of-work ACID transaction is required from a business perspective, these services should be consolidated into a single service, as illustrated in Figure 7-11.  
 
-![figure](images/raw/figure-0122.png)
+![figure](images/figure-0122.png)
 
 >Figure 7-11. A single service supports database (ACID) transactions  
 
@@ -4552,7 +4552,7 @@ Another common granularity integrator is *workflow* and *choreography*--services
 
 Issues with overall fault tolerance is the first impact of too much synchronous inter-service communication. Consider the diagram in Figure 7-12: Service A communicates with services B and C, Service B communicates with Service C, Service D communicates with Service E, and finally Service E communicates with Service C. In this case, if Service C goes down, all other services become nonoperational because of a transitive dependency with Service C, creating an issue with overall fault tolerance, availability, and reliability.  
 
-![figure](images/raw/figure-0123.png)
+![figure](images/figure-0123.png)
 
 >Figure 7-12. Too much workflow impacts fault tolerance  
 
@@ -4560,7 +4560,7 @@ Interestingly enough, fault tolerance is one of the granularity disintegration d
 
 Overall performance and responsiveness is another driver for granularity integration (putting services back together). Consider the scenario in Figure 7-13: a large customer service is split into five separate services (services A through E). While each of these services has its own collection of cohesive atomic requests, retrieving all of the customer information collectively from a single API request into a single user interface screen involves five separate hops when using choreography (see Chapter 11 for an alternative solution to this problem using orchestration). Assuming 300 ms in network and security latency per request, this single request would incur an additional 1500 ms just in latency alone! Consolidating all of these services into a single service would remove the latency, therefore increasing overall performance and responsiveness.  
 
-![figure](images/raw/figure-0124.png)
+![figure](images/figure-0124.png)
 
 >Figure 7-13. Too much workflow impacts overall performance and responsiveness  
 
@@ -4570,7 +4570,7 @@ The other performance consideration is with regard to the criticality of the req
 
 Overall reliability and data integrity are also impacted with increased service communication. Consider the example in Figure 7-14: customer information is separated into five separate customer services. In this case, adding a new customer to the system involves the coordination of all five customer services. However, as explained in a previous section, each of these services has its own database transaction. Notice in Figure 7-14 that services A, B, and C have all committed part of the customer data, but Service D fails.  
 
-![figure](images/raw/figure-0125.png)
+![figure](images/figure-0125.png)
 
 >Figure 7-14. Too much workflow impacts reliability and data integrity  
 
@@ -4585,7 +4585,7 @@ ices back together).
 
 Consider the set of five services shown in Figure 7-15. While there may have been a good disintegrator driver for breaking apart these services, they all share a common codebase of domain functionality (as opposed to common utilities or infrastructure functionality). If a change occurs in the shared library, this would eventually necessitate a change in the corresponding services using that shared library. We say *eventually* because versioning can sometimes be used with shared libraries to provide agility and backward compatibility (see Chapter 8). As such, all of these separately deployed services would have to be changed, tested, and deployed together. In these cases, it might be wise to consolidate these five services into a single service to avoid multiple deployments, as well as having the service functionality be out of sync based on the use of different versions of a library.  
 
-![figure](images/raw/figure-0126.png)
+![figure](images/figure-0126.png)
 
 >Figure 7-15. A change in shared code requires a coordinated change to all services  
 
@@ -4614,7 +4614,7 @@ Another trade-off in the balance between granularity disintegrators and integrat
 
 Consider the example in Figure 7-16: a single consolidated service has three functions (A, B, and C) and corresponding data table relationships. The solid lines pointing to the tables represent writes to the tables (hence data ownership), and the dotted lines pointing away from the tables represent read-only access to the table. Performing a mapping operation between the functions and the tables reveals the results shown in Table 7-1, where owner implies writes (and corresponding reads) and access implies read-only access to a table not owned by that function.  
 
-![figure](images/raw/figure-0127.png)
+![figure](images/figure-0127.png)
 
 >Figure 7-16. The database table relationships of a consolidated service  
 
@@ -4632,7 +4632,7 @@ Notice at the top of Figure 7-17 that Service A owns tables 1, 2, 4, and 6 as pa
 
 To better understand the bounded context and why Service C cannot simply access table 3, say Service B (which owns table 3) decides to make a change to its business rules that requires a column to be removed from table 3. Doing so would break Service C and any other services using table 3. This is why the bounded context concept is so important in highly distributed architectures like microservices. To resolve this issue, Service B would have to ask Service C for its data, and Service C would have to ask Service B for its data, resulting in back-and-forth interservice communication between these services, as illustrated at the bottom of Figure 7-17.  
 
-![figure](images/raw/figure-0128.png)
+![figure](images/figure-0128.png)
 
 >Figure 7-17. Database table relationships impact service granularity  
 
@@ -4688,17 +4688,17 @@ Architects can use the drivers in these tables to form trade-off statements that
 
 Monday, October 25 11:08  
 
-![figure](images/raw/figure-0129.png)
+![figure](images/figure-0129.png)
 
 Once a trouble ticket has been created by a customer and accepted by the system, it must be assigned to a Sysops Squad expert based on their skill set, location, and availability. Ticket assignment involves two main components—a Ticket Assignment component that determines which consultant should be assigned the job, and the Ticket Routing component that locates the Sysops Squad expert, forwards the ticket to the expert's mobile device (via a custom Sysops Squad mobile app), and notifies the expert via an SMS text message that a new ticket has been assigned.  
 
 The Sysops Squad development team was having trouble deciding whether these two components (assignment and routing) should be implemented as a single consolidated service or two separate services, as illustrated in Figure 7-18. The development team consulted with Addison (one of the Sysops Squad architects) to help decide which option it should go with.  
 
-![figure](images/raw/figure-0130.png)
+![figure](images/figure-0130.png)
 
 #### VS.  
 
-![figure](images/raw/figure-0131.png)
+![figure](images/figure-0131.png)
 
 >Figure 7-18. Options f or ticket assignment and routing  
 
@@ -4770,7 +4770,7 @@ Changes to the assignment algorithm(which occur on a regular basis) and changes 
 
 Friday January 14, 13:15  
 
-![figure](images/raw/figure-0132.png)
+![figure](images/figure-0132.png)
 
 Customers must register with the system to gain access to the Sysops Squad supportplan. During registration, customers must provide profile information(name, address,business name if applicable, and so on), credit card information(which is billed on amonthly basis), password and security question information, and a list of products pur-chased they would like to have covered under the Sysops Squad support plan.  
 
@@ -4778,7 +4778,7 @@ Some members of the development team insisted that this should be a single conso
 
 of the team disagreed and thought that there should be a separate service for each of these func-tions(a Profile service, Credit Card service, Password service, and a Supported Product service). Sky-ler, having prior experience in PCI and PII data, thought that the credit card and password information should be a separate service from the rest, and hence only two services(a Profile service containing profile and product information and a separate Customer Secure service containingcredit card and password information). These three options are illustrated in Figure 7-19.  
 
-![figure](images/raw/figure-0133.png)
+![figure](images/figure-0133.png)
 
 >Figure 7-19. Options f or customer registration  
 
@@ -4872,7 +4872,7 @@ Part I was about *structure*; Part II is about *communication*. Once an architec
 
 ### Wednesday, February 2, 15:15  
 
-![figure](images/raw/figure-0134.png)
+![figure](images/figure-0134.png)
 
 As the development team members worked on breaking apart the domain services,they started running into disagreements about what to do with all the shared code and shared functionality. Taylen, upset with what Skyler was doing with regard to the sharedcode, walked over to Skyler’s desk.  
 
@@ -4908,7 +4908,7 @@ As the development team members worked on breaking apart the domain services,the
 
 Code reuse is a normal part of software development. Common business domain functionality, such as formatters, calculators, validators, and auditing, are typically shared across multiple components, as is common infrastructure functionality, such as security, logging, and metrics gathering. In most monolithic architectures, code reuse is rarely given a second thought—it's a matter of simply importing or auto-injecting shared class files. However, in distributed architectures, as shown in Figure 8-1, things get a bit more complicated, as questions arise about how to deal with shared functionality.  
 
-![figure](images/raw/figure-0135.png)
+![figure](images/figure-0135.png)
 
 >Figure 8-1. Code reuse is a hard part of distributed architecture  
 
@@ -4920,7 +4920,7 @@ While developers should try to limit the amount of code reuse within distributed
 
 In code replication, shared code is copied into each service (or more specifically, each service source code repository), as shown in Figure 8-2, thereby avoiding code sharing altogether. While it might sound crazy, this technique became popular in the early days of microservices when a lot of confusion and misunderstanding arose about the bounded context concept, hence the drive to create a "share nothing architecture." In theory, code replication seemed like a good approach at that time to reduce code sharing, but in practice it quickly fell apart.  
 
-![figure](images/raw/figure-0136.png)
+![figure](images/figure-0136.png)
 
 >Figure 8-2. With replication, shared functionality is copied into each service  
 
@@ -4979,7 +4979,7 @@ When migrating from a monolithic architecture to a distributed one, we've also f
 
 One of the most common techniques for sharing code is to use a shared library. A shared library is an external artifact (such as a JAR file, DLL, and so on) containing source code that is used by multiple services which is typically bound to the service at compile time (see Figure 8-3). Although the shared library technique seems simple and straightforward, it has its share of complexities and trade-offs, not the least of which is shared library granularity and versioning.  
 
-![figure](images/raw/figure-0137.png)
+![figure](images/figure-0137.png)
 
 >Figure 8-3. With the shared library technique, common code is consolidated and shared at compile time  
 
@@ -4989,13 +4989,13 @@ Similar to service granularity (discussed in Chapter 7), there are trade-offs as
 
 Consider the coarse-grained shared library illustrated in Figure 8-4. Note that while the dependency management is relatively straightforward (each service uses the single shared library), change control is not. If a change occurs to any of the class files in the coarse-grained shared library, *every* service, whether it cares about the change or not, must eventually adopt the change because of a version deprecation of the shared library. This forces unnecessary retesting and redeployment of all the services using that library, therefore significantly increasing the overall testing scope of a shared library change.  
 
-![figure](images/raw/figure-0138.png)
+![figure](images/figure-0138.png)
 
 >Figure 8-4. Changes to coarse-grained shared libraries impact multiple services but keep dependencies low  
 
 Breaking shared code into smaller functionality-based shared libraries (such as security, formatters, annotations, calculators, and so on) is better for change control and overall maintainability, but unfortunately creates a mess in terms of dependency management. As shown in Figure 8-5, a change in shared class C7 impacts only Service D and Service E, but managing the dependency matrix between shared libraries and services quickly starts looking like a big ball of distributed mud (or what some people refer to as a distributed monolith).  
 
-![figure](images/raw/figure-0139.png)
+![figure](images/figure-0139.png)
 
 >Figure 8-5. Changes to fine-grained shared libraries impact fewer services but increase dependencies  
 
@@ -5046,7 +5046,7 @@ The shared library technique is a good approach for homogeneous environments whe
 
 The primary alternative to using a shared library for common functionality is to use a shared service instead. The *shared service* technique, illustrated in Figure 8-6, avoids reuse by placing shared functionality in a separately deployed service.  
 
-![figure](images/raw/figure-0140.png)
+![figure](images/figure-0140.png)
 
 >Figure 8-6. With the shared service technique, common functionality is made available at runtime through separate services  
 
@@ -5058,13 +5058,13 @@ Back in the day, shared services were a common approach to address shared functi
 
 Changing shared functionality using the shared service technique turns out to be a double-edged sword. As illustrated in Figure 8-7, changing shared functionality is simply a matter of modifying the shared code contained in a separate service (such as a discount calculator), redeploying the service, and voila—the changes are now available to all services, without having to retest and redeploy any other service needing that shared functionality.  
 
-![figure](images/raw/figure-0141.png)
+![figure](images/figure-0141.png)
 
 >Figure 8-7. Shared functionality changes are isolated to only the shared service  
 
 If only life were that simple! The problem, of course, is that a change to a shared service is a *runtime* change, as opposed to a *compile-based* change with the shared library technique. As a result, a "simple" change in a shared service can effectively bring down an entire system, as illustrated in Figure 8-8.  
 
-![figure](images/raw/figure-0142.png)
+![figure](images/figure-0142.png)
 
 >Figure 8-8. Changes to a shared service can break other services at runtime  
 
@@ -5093,7 +5093,7 @@ The bottom line is that with the shared service technique, changes to a shared s
 
 Because services requiring the shared functionality must make an interservice call to a shared service, performance is impacted because of network latency (and security latency, assuming the endpoints to the shared service are secure). This trade-off, shown in Figure 8-9, does not exist with the shared library technique when accessing shared code.  
 
-![figure](images/raw/figure-0143.png)
+![figure](images/figure-0143.png)
 
 >Figure 8-9. Shared service introduces network and security latency  
 
@@ -5103,7 +5103,7 @@ Use of gRPC can help mitigate some of the performance issues by significantly re
 
 Another drawback of the shared service technique is that the shared service must scale as services using the shared service scale. This can sometimes be a mess to manage, particularly with multiple services concurrently accessing the same shared service. However, as illustrated in Figure 8-10, the shared library technique does not have this issue because the shared functionality is contained within the service at compile time.  
 
-![figure](images/raw/figure-0144.png)
+![figure](images/figure-0144.png)
 
 >Figure 8-10. Shared services must scale as dependent services scale  
 
@@ -5111,7 +5111,7 @@ Another drawback of the shared service technique is that the shared service must
 
 While fault-tolerance issues can usually be mitigated through multiple instances of a service, nevertheless it is a trade-off to consider when using the shared service technique. As illustrated in Figure 8-11, if the shared service becomes unavailable, services requiring the shared functionality are rendered nonoperational until the shared service is available. The shared library technique does not have this issue since the shared functionality is contained in the service at compile time, and therefore accessed through standard method or function calls.  
 
-![figure](images/raw/figure-0145.png)
+![figure](images/figure-0145.png)
 
 >Figure 8-11. Shared services introduce f ault-tolerance issues  
 
@@ -5145,19 +5145,19 @@ The common solution that has emerged in the microservices ecosystem over the las
 
 In this Hexagonal pattern, what we would now call the domain logic resides in the center of the hexagon, which is surrounded by ports and adaptors to other parts of the ecosystem (in fact, this pattern is alternately known as the *Ports and Adaptors Pattern*). While predating microservices by a number of years, this pattern has similarities to modern microservices, with one significant difference: data fidelity. The hexagonal architecture treated the database as just another adaptor that can be plugged in, but one of the insights from DDD suggests that data schemas and transactionality should be inside the interior—like microservices.  
 
-![figure](images/raw/figure-0146.png)
+![figure](images/figure-0146.png)
 
 >Figure 8-12. The Hexagonal pattern separated domain logic from technical coupling  
 
 The *Sidecar pattern* leverages the same concept as hexagonal architecture in that it decouples the domain logic from the technical (infrastructure) logic. For example, consider two microservices, as shown in Figure 8-13.  
 
-![figure](images/raw/figure-0147.png)
+![figure](images/figure-0147.png)
 
 >Figure 8-13. Two microservices that share the same operational capabilities  
 
 Here, each service includes a split between operational concerns (the larger components toward the bottom of the service) and domain concerns, pictured in the boxes toward the top of the service labeled "domain." If architects desire consistency in operational capabilities, the separable parts go into a sidecar component, metaphorically named for the sidecar that attaches to motorcycles, whose implementation is either a shared responsibility across teams or managed by a centralized infrastructure group. If architects can assume that every service includes the sidecar, it forms a consistent operational interface across services, typically attached via a service plane, shown in Figure 8-14.  
 
-![figure](images/raw/figure-0148.png)
+![figure](images/figure-0148.png)
 
 >Figure 8-14. When each microservice includes a common component, architects can establish links between them for consistent control  
 
@@ -5167,7 +5167,7 @@ Having a mesh allows architects and DevOps to create dashboards, control operati
 
 The Sidecar pattern allows governance groups like enterprise architects a reasonable restraint over too many polyglot environments: one of the advantages of microservices is a reliance on integration rather than a common platform, allowing teams to choose the correct level of complexity and capabilities on a service-by-service basis. However, as the number of platforms proliferates, unified governance becomes more difficult. Therefore, teams often use the consistency of the service mesh as a driver to support infrastructure and other cross-cutting concerns across multiple heterogeneous platforms. For example, without a service mesh, if enterprise architects want to unify around a common monitoring solution, then teams must build a sidecar per platform that supports that solution.  
 
-![figure](images/raw/figure-0149.png)
+![figure](images/figure-0149.png)
 
 >Figure 8-15. A service mesh is an operational link among services  
 
@@ -5197,7 +5197,7 @@ The Sidecar pattern and service mesh offer a clean way to spread some sort of cr
 
 Thursday, February 10, 10:34  
 
-![figure](images/raw/figure-0150.png)
+![figure](images/figure-0150.png)
 
 Sydney peeped into Taylen's office on a foggy morning. "Hey, are you using the shared
 Message Dispatch library?"  
@@ -5291,13 +5291,13 @@ The danger of too much reuse was one of the lessons many architects learned from
 
 Consider the scenario from an insurance company, illustrated in Figure 8-16.  
 
-![figure](images/raw/figure-0151.png)
+![figure](images/figure-0151.png)
 
 >Figure 8-16. Each domain within a large insurance company has a view of the customer  
 
 Each division in the company has some aspect of customers it cares about. Years ago, architects were instructed to keep an eye out for this type of commonality; once discovered, the goal was to consolidate the organizational view of customer into a single service, shown in Figure 8-17.  
 
-![figure](images/raw/figure-0152.png)
+![figure](images/figure-0152.png)
 
 >Figure 8-17. Unifying on a centralized Customer service  
 
@@ -5311,7 +5311,7 @@ Observing that some reuse causes brittleness begs the question about how that ki
 of reuse differs from the kinds we clearly benefit from. Consider things that everyone
 successfully reuses: operating systems, open source frameworks and libraries, and so on. What distinguishes those from assets that project teams build? The answer is *slow rate of change*. We benefit from technical coupling, like operating systems and external frameworks, because they have a well-understood rate of change and update cadence. Internal domain capabilities or quick-changing technical frameworks make terrible coupling targets.  
 
-![figure](images/raw/figure-0153.png)
+![figure](images/figure-0153.png)
 
 Reuse is derived via abstraction but operationalized by slow rate of
 change.  
@@ -5326,19 +5326,19 @@ Slow rate of change drives this reasoning. As we discuss in Chapter 13, an API c
 
 Tuesday, February 8, 12:50  
 
-![figure](images/raw/figure-0154.png)
+![figure](images/figure-0154.png)
 
 With Addison's approval, the development team had decided to split the core ticketing functionality into three separate services: a customer-facing Ticket Creation service, a Ticket Assignment service, and a Ticket Completion service. However, all three services used common database logic (queries and updates) and shared a set of database tables in the ticketing data domain.  
 
  Taylen wanted to create a shared data service that would contain the common database logic, thus forming a database abstraction layer, as shown in Figure 8-18.  
 
-![figure](images/raw/figure-0155.png)
+![figure](images/figure-0155.png)
 
 >Figure 8-18. Option using a shared Ticket Data service f or common database logic f or the Sysops Squad ticketing services  
 
 Skyler hated the idea and wanted to use a single shared library(DLL) that each service wouldinclude as part of the build and deployment, as illustrated in Figure 8-19.  
 
-![figure](images/raw/figure-0156.png)
+![figure](images/figure-0156.png)
 
 >Figure 8-19. Option using a shared library f or common database logic f or the Sysops Squad ticketing services  
 
@@ -5414,7 +5414,7 @@ Service instances will need to manage their own database connection pool.
 
 ## Friday, December 10 09:12  
 
-![figure](images/raw/figure-0157.png)
+![figure](images/figure-0157.png)
 
 While the database team worked on decomposing the monolithic Sysops Squad data-base, the Sysops Squad development team, along with Addison, the Sysops Squad archi-tect, started to work on forming bounded contexts between the services and the data,assigning table ownership to services in the process.  
 
@@ -5446,7 +5446,7 @@ After breaking apart data within a distributed architecture, an architect must d
 
 The general rule of thumb for assigning table ownership states that services that perform write operations to a table own that table. While this general rule of thumb works well for single ownership (only one service ever writes to a table), it gets messy when teams have joint ownership (multiple services do writes to the same table) or even worse, common ownership (most or all services write to the table).  
 
-![figure](images/raw/figure-0158.png)
+![figure](images/figure-0158.png)
 
 The general rule of thumb for data ownership is that the service
 that performs write operations to a table is the owner of that table.
@@ -5454,7 +5454,7 @@ However, joint ownership makes this simple rule complex!
 
 To illustrate some of the complexities with data ownership, consider the example illustrated in Figure 9-1 showing three services: a Wishlist Service that manages all of the customer wish lists, a Catalog Service that maintains the product catalog, and an Inventory Service that maintains the inventory and restocking functionality for all products in the product catalog.  
 
-![figure](images/raw/figure-0159.png)
+![figure](images/figure-0159.png)
 
 >Figure 9-1. Once data is broken apart, tables must be assigned to services that own them  
 
@@ -5468,7 +5468,7 @@ Single table ownership occurs when only one service writes to a table. This is t
 
 In this scenario, it is clear that the Wishlist Service should be the owner of the Wish-list table (regardless of other services that need read-only access to the Wishlist table), see Figure 9-2. Notice that on the right side of this diagram, the Wishlist table becomes part of the bounded context of the Wishlist Service. This diagramming technique is an effective way to indicate table ownership and the bounded context formed between the service and its corresponding data.  
 
-![figure](images/raw/figure-0160.png)
+![figure](images/figure-0160.png)
 
 >Figure 9-2. With single ownership, the service that writes to the table becomes the table owner  
 
@@ -5486,7 +5486,7 @@ If no information or acknowledgment is needed by services sending the data, serv
 
 Coming back to the Audit table example, notice in Figure 9-3 that the architect created a new Audit Service and assigned it ownership of the Audit table, meaning it is the only service that performs read or write actions on the table. In this example, since no return information is needed, the architect used asynchronous fire-and-forget messaging with a persistent queue so that the Wishlist Service, Catalog Service, and Inventory Service don't need to wait for the audit record to be written to the table. Making the queue persistent (meaning the message is stored on disk by the broker) provides guaranteed delivery in the event of a service or broker failure and helps ensure that no messages are lost.  
 
-![figure](images/raw/figure-0161.png)
+![figure](images/figure-0161.png)
 
 >Figure 9-3. Common ownership uses a dedicated service owner  
 
@@ -5499,7 +5499,7 @@ One of the more common (and complex) scenarios involving data ownership is joint
 
 Figure 9-4 shows the isolated joint ownership example from Figure 9-1. The Catalog Service inserts new products into the table, removes products no longer offered, and updates static product information as it changes, whereas the Inventory Service is responsible for reading and updating the current inventory for each product as products are queried, sold, or returned.  
 
-![figure](images/raw/figure-0162.png)
+![figure](images/figure-0162.png)
 
 >Figure 9-4. Joint ownership occurs when multiple services within the same domain perform write operations on the same table  
 
@@ -5530,7 +5530,7 @@ ALTER TABLE Product DROP COLUMN inv_cnt;
 
 Splitting the database table moves the joint ownership to a single table ownership scenario: the Catalog Service owns the data in the Product table, and the Inventory Service owns the data in the Inventory table. However, as shown in Figure 9-5, this technique requires communication between the Catalog Service and Inventory Service when products are created or removed to ensure the data remains consistent between the two tables.  
 
-![figure](images/raw/figure-0163.png)
+![figure](images/figure-0163.png)
 
 >Figure 9-5. Joint ownership can be addressed by breaking apart the shared table  
 
@@ -5560,13 +5560,13 @@ Another technique for joint ownership is to create a shared *data domain*. This 
 
 Notice that Figure 9-6 looks close to the original diagram in Figure 9-4 with one noticeable difference—the data domain diagram has the Product table in a separate box outside the context of each owning service. This diagramming technique makes it clear that the table is not owned by or part of the bounded context of either service, but rather shared between them in a broader bounded context.  
 
-![figure](images/raw/figure-0164.png)
+![figure](images/figure-0164.png)
 
 >Figure 9-6. With joint ownership, services can share data by using the data domain technique (shared schema)  
 
 While data sharing is generally discouraged in distributed architectures (particularly with microservices), it does resolve some of the performance, availability, and data consistency issues found in other joint ownership techniques. Because the services are not dependent on each other, the Catalog Service can create or remove products without needing to coordinate with the Inventory Service, and the Inventory Service can adjust inventory without needing the Catalog Service. Both services become completely independent from each other.  
 
-![figure](images/raw/figure-0165.png)
+![figure](images/figure-0165.png)
 
 When choosing the data domain technique, always reevaluate why separate services are needed since the data is common to each of the services. Justifications might include scalability differences, fault-tolerance needs, throughput differences, or isolating code volatility (see Chapter 7).  
 
@@ -5597,7 +5597,7 @@ To illustrate these two options and the corresponding trade-offs associated with
 
 With the primary domain priority option, the service that performs most of the CRUD operations on the main entity becomes the owner of the table. As illustrated in Figure 9-7, since the Catalog Service performs most of the CRUD operations on product information, the Catalog Service would be assigned as the single owner of the table. This means that the Inventory service must communicate with the Catalog Service to retrieve or update inventory counts since it doesn't own the table.  
 
-![figure](images/raw/figure-0166.png)
+![figure](images/figure-0166.png)
 
 >Figure 9-7. Table ownership is assigned to the Catalog service because of domain priority  
 
@@ -5609,7 +5609,7 @@ With the operational characteristics priority option, the ownership roles would 
 
 With this option, frequent updates to inventory counts can use direct database calls rather than remote access protocols, therefore making inventory operations much faster and more reliable. In addition, the most volatile data (inventory count) is kept highly consistent.  
 
-![figure](images/raw/figure-0167.png)
+![figure](images/figure-0167.png)
 
 >Figure 9-8. Table ownership is assigned to the Inventory Service because of operational characteristics priority  
 
@@ -5634,7 +5634,7 @@ Regardless of which service is assigned as the delegate (sole table owner), the 
 
 The delegate approach discussed in the prior section highlights the primary issue associated with joint ownership—service dependency. The *service consolidation technique* resolves service dependency and addresses joint ownership by combining multiple table owners (services) into a single consolidated service, thus moving joint ownership into a single ownership scenario (see Figure 9-9).  
 
-![figure](images/raw/figure-0168.png)
+![figure](images/figure-0168.png)
 
 >Figure 9-9. Table ownership is resolved by combining services  
 
@@ -5663,7 +5663,7 @@ Figure 9-10 shows the resulting table ownership assignments from Figure 9-1 afte
 
 Once table ownership has been assigned to services, an architect must then validate the table ownership assignments by analyzing business workflows and their corresponding transaction requirements.  
 
-![figure](images/raw/figure-0169.png)
+![figure](images/figure-0169.png)
 
 >Figure 9-10. Resulting data ownership using delegate technique for joint ownership  
 
@@ -5683,7 +5683,7 @@ Durability means that once a successful response from a transaction commit occur
 
 To illustrate an ACID transaction, suppose a customer registering for the Sysops Squad application enters all of their profile information, the electronic products they want covered under the support plan, and their billing information on a single user interface screen. This information is then sent to the single Customer Service, as shown in Figure 9-11, which then performs all of the database activity associated with the customer registration business request.  
 
-![figure](images/raw/figure-0170.png)
+![figure](images/figure-0170.png)
 
 >Figure 9-11. With ACID transactions, an error on the billing insert causes a rollback to the other table inserts  
 
@@ -5693,7 +5693,7 @@ Note that ACID transactions can exist within the context of each service in a di
 
 Distributed transactions occur when an atomic business request containing multiple database updates is performed by separately deployed remote services. Notice in Figure 9-12 that the same request for a new customer registration (denoted by the laptop image representing the customer making the request) is now spread across three separately deployed services—a Customer Profile Service, a Support Contract Service, and a Billing Payment Service.  
 
-![figure](images/raw/figure-0171.png)
+![figure](images/figure-0171.png)
 
 >Figure 9-12. Distributed transactions do not support ACID properties  
 
@@ -5726,13 +5726,13 @@ To better describe each pattern and illustrate how they work, consider again the
 
 Figure 9-13. In this example, three separate services are involved in the customer registration process: a Customer Profile Service that maintains basic profile information, a Support Contract Service that maintains products covered under the Sysops Squad repair plan for each customer, and a Billing Payment Service that charges the customer for the support plan. Notice in the figure that customer 123 is a subscriber to the Sysops Squad service, and therefore has data in each of the corresponding tables owned by each service.  
 
-![figure](images/raw/figure-0172.png)
+![figure](images/figure-0172.png)
 
 >Figure 9-13. Customer 123 is a subscriber in the Sysops Squad application  
 
 Customer 123 decides they are no longer interested in the Sysops Squad support plan, so they unsubscribe from the service. As shown in Figure 9-14, the Customer Profile Service receives this request from the user interface, removes the customer from the Profile table, and returns a confirmation to the customer that they are successfully unsubscribed and will no longer be billed. However, data for that customer still exists in the Contract table owned by the Support Contract Service and the Billing table owned by the Billing Payment Service.  
 
-![figure](images/raw/figure-0173.png)
+![figure](images/figure-0173.png)
 
 >Figure 9-14. Data is out of sync after the customer unsubscribes from the support plan  
 
@@ -5750,7 +5750,7 @@ Figure 9-15 illustrates the use of the background synchronization pattern for th
 
 This pattern is good for overall responsiveness because the end user doesn't have to wait for the entire business transaction to complete (in this case, unsubscribing from the support plan). But, unfortunately, some serious trade-offs with this eventual consistency pattern.  
 
-![figure](images/raw/figure-0174.png)
+![figure](images/figure-0174.png)
 
 >Figure 9-15. The background synchronization pattern uses an external process to ensure data consistency  
 
@@ -5760,7 +5760,7 @@ This shared data ownership between the services and the background synchronizati
 
 In addition to difficulties with change control, problems occur with regard to duplicated business logic as. In looking at Figure 9-15, it might seem fairly straightforward that the background process would simply perform a DELETE operation on all rows in the Contract and Billing tables containing customer 123. However, certain business rules may exist within these services for the particular operation.  
 
-![figure](images/raw/figure-0175.png)
+![figure](images/figure-0175.png)
 
 >Figure 9-16. The background synchronization pattern is coupled to the data sources, therefore breaking the bounded context and data ownership  
 
@@ -5792,7 +5792,7 @@ Unlike the previous background synchronization pattern or the event-based patter
 
 One way to implement this pattern is to designate one of the primary services (assuming there is one) to manage the distributed transaction. This technique, illustrated in Figure 9-17, designates one of the services to take on the role as orchestrator in addition to its other responsibilities, which in this case is the Customer Profile Service.  
 
-![figure](images/raw/figure-0176.png)
+![figure](images/figure-0176.png)
 
 >Figure 9-17. The Customer Profile Service takes on the role of an orchestrator for the distributed transaction  
 
@@ -5803,7 +5803,7 @@ The approach we generally prefer when using the orchestrated request-based patte
 We will use this separate orchestration service approach to describe how this eventual
 consistency pattern works and the corresponding trade-offs with this pattern.  
 
-![figure](images/raw/figure-0177.png)
+![figure](images/figure-0177.png)
 
 >Figure 9-18. A dedicated orchestration service takes on the role of an orchestrator for the distributed transaction  
 
@@ -5825,7 +5825,7 @@ Besides responsiveness, the other trade-off with this pattern is complex error h
 
 This real-world scenario creates a messy situation for the orchestrator. Because this is the eventual consistency pattern used, there is no other means to correct the data and get things back in sync (therefore negating options 3 and 4 in the preceding list). In this case, the only real option for the orchestrator is to try to reverse the distributed transaction—in other words, issue a *compensating update* to reinsert the customer in the Profile table and set the `remove_date` column in the Contract table back to zero. This would require the orchestrator to have all of the necessary information to reinsert the customer, and that no side effects occur when creating a new customer (such as initializing the billing information or support contracts).  
 
-![figure](images/raw/figure-0178.png)
+![figure](images/figure-0178.png)
 
 >Figure 9-19. Error conditions are very hard to address when using the orchestrated
 request-based pattern  
@@ -5852,7 +5852,7 @@ The eventual consistency time is usually short for achieving data consistency be
 
 Figure 9-20 illustrates how the event-based pattern for eventual consistency works. Notice that the customer issues the unsubscribe request to the Customer Profile Service at 11:23:00. The Customer Profile Service receives the request, removes the customer from the Profile table, publishes a message to a message topic or event stream, and returns information one second later letting the customer know they were successfully unsubscribed. At around the same time this happens, both the Support Contract and Billing Payment Services receive the unsubscribe event and perform whatever functionality is needed to unsubscribe the customer, making all the data sources eventually consistent.  
 
-![figure](images/raw/figure-0179.png)
+![figure](images/figure-0179.png)
 
 >Figure 9-20. The event-based pattern uses asynchronous publish-and-subscribe messaging or event streams to achieve eventual consistency  
 
@@ -5878,7 +5878,7 @@ Table 9-7 lists the trade-offs for the event-based pattern for eventual consiste
 
 Tuesday, January 18, 09:14  
 
-![figure](images/raw/figure-0180.png)
+![figure](images/figure-0180.png)
 
 After talking with Dana and learning about data ownership and distributed transactionmanagement, Sydney and Addison quickly realized that breaking apart data and assign-ing data ownership to form tight bounded contexts wasn’t possible without both teamscollaborating on the solution.  
 
@@ -5934,7 +5934,7 @@ Now that Sydney and Addison better understood table ownership and how to form bo
 
 Addison and Sydney agreed that the Survey Service would own the Survey table, and would use the delegation technique to pass data when the table notifies the Survey Service to kick off the surveyprocess as illustrated in Figure 9-21. Addison wrote an architecture decision record for this decision.  
 
-![figure](images/raw/figure-0181.png)
+![figure](images/figure-0181.png)
 
 >Figure 9-21. Survey Service owns the data using the delegation technique  
 
@@ -5960,7 +5960,7 @@ In the monolithic system, the ticket completion inserted the survey record as pa
 
 ### Monday, January 3, 12:43  
 
-![figure](images/raw/figure-0182.png)
+![figure](images/figure-0182.png)
 
 “Now that we’ve assigned ownership of the expert profile table to the User ManagementService,” said Sydney, “how should the Ticket Assignment Service get to the expert loca-tion and skills data? As I said before, with the number of reads it does to the database, it’sreally not feasible to make a remote call every time it needs to query the table.”  
 
@@ -5988,7 +5988,7 @@ Each of these data access patterns has its share of advantages and disadvantages
 
 In this example, when a request is made from a customer to display in their wish list, both the item ID and the item description (item_desc) are returned to the customer. However, the Wishlist Service does not have the item description in its table; that data is owned by the Catalog Service in a tightly formed bounded context providing change control and data ownership. Therefore, the architect must use one of the data access patterns outlined in this chapter to ensure the Wishlist Service can obtain the product descriptions from the Catalog Service.  
 
-![figure](images/raw/figure-0183.png)
+![figure](images/figure-0183.png)
 
 >Figure 10-1. Wishlist Service needs item descriptions but doesn't have access to the product table containing the data  
 
@@ -6001,7 +6001,7 @@ As with most things in software architecture, all is not as it seems. While simp
 Notice that for every request to get a customer wish list, the Wishlist Service must make a remote call to the Catalog Service to get the item descriptions. The first issue that occurs with this pattern is slower performance due to network latency, security latency, and data latency. Network latency is the packet transmission time to and from a service (usually somewhere between 30 ms and 300 ms). Security latency occurs when the endpoint to the target service requires additional authorization to perform the request. Security latency can vary greatly depending on the level of security on the endpoint being accessed, but could be anywhere between 20 ms and 400 ms for most systems. Data latency describes the situation where multiple database calls need to be made to retrieve the necessary information to pass back to the end user. In this case, rather than a single SQL table join statement, an additional database call must be made by the Catalog Service to retrieve the item description. This might add anywhere from 10 ms to 50 ms additional processing time. Add all of that up, and the
 latency could be up to one second just to get the item descriptions.  
 
-![figure](images/raw/figure-0184.png)
+![figure](images/figure-0184.png)
 
 >Figure 10-2. Interservice communication data access pattern  
 
@@ -6024,7 +6024,7 @@ Table 10-1 summarizes the trade-offs associated with the interservice communicat
 
 With the *Column Schema Replication pattern*, columns are replicated across tables, therefore replicating the data and making it available to other bounded contexts. As shown in Figure 10-3, the `item_desc` column is added to the Wishlist table, making that data available to the Wishlist Service without having to ask the Catalog Service for the data.  
 
-![figure](images/raw/figure-0185.png)
+![figure](images/figure-0185.png)
 
 >Figure 10-3. With the Column Schema Replication data access pattern, data is replicated to other tables  
 
@@ -6055,7 +6055,7 @@ Most developers and architects think of caching as a technique for increasing ov
 
 To better understand the replicated caching model, it's useful to compare it to other caching models to see the differences between them. The *single in-memory* caching model is the simplest form of caching, where each service has its own internal in-memory cache. With this caching model (illustrated in Figure 10-4), in-memory data is not synchronized between the caches, meaning each service has its own unique data specific to that service. While this caching model does help increase responsiveness and scalability within each service, it's not useful for sharing data between services because of the lack of cache synchronization between the services.  
 
-![figure](images/raw/figure-0186.png)
+![figure](images/figure-0186.png)
 
 >Figure 10-4. With a single in-memory cache, each service contains its own unique data  
 
@@ -6067,13 +6067,13 @@ Because the cache data is centralized and shared, the distributed cache model al
 
 Lastly, since access to the centralized distributed cache is through a remote call, network latency adds additional retrieval time for the data, thus impacting overall responsiveness as compared to an in-memory replicated cache.  
 
-![figure](images/raw/figure-0187.png)
+![figure](images/figure-0187.png)
 
 >Figure 10-5. A distributed cache is external from the services  
 
 With replicated caching, each service has its own in-memory data that is kept in sync between the services, allowing the same data to be shared across multiple services. Notice in Figure 10-6 that there is no external cache dependency. Each cache instance communicates with another so that when an update is made to a cache, that update is immediately (behind the scenes) asynchronously propagated to other services using the same cache.  
 
-![figure](images/raw/figure-0188.png)
+![figure](images/figure-0188.png)
 
 >Figure 10-6. With a replicated cache, each service contains the same in-memory data  
 
@@ -6084,7 +6084,7 @@ Wishlist Service and Catalog Service example. In Figure 10-7, the Catalog Servic
 owns an in-memory cache of product descriptions (meaning it is the only service that
 can modify the cache), and the Wishlist Service contains a read-only in-memory replica of the same cache.  
 
-![figure](images/raw/figure-0189.png)
+![figure](images/figure-0189.png)
 
 >Figure 10-7. Replicated caching data access pattern  
 
@@ -6122,7 +6122,7 @@ Consider the Wishlist Service and Catalog Service problem again, where the Wishl
 
 Figure 10-8 illustrates the use of this data access pattern. Notice that the Wishlist and Product tables are no longer owned by either service, but rather shared between them, forming a broader bounded context. With this pattern, gaining access to the product descriptions in the Wishlist Service is a matter of a simple SQL join between the two tables.  
 
-![figure](images/raw/figure-0190.png)
+![figure](images/figure-0190.png)
 
 >Figure 10-8. Data domain data access pattern  
 
@@ -6152,7 +6152,7 @@ Another disadvantage of this pattern is that it can possibly open up security is
 
 Thursday, March 3, 14:59  
 
-![figure](images/raw/figure-0191.png)
+![figure](images/figure-0191.png)
 
 Logan explained the various methods for data access within a distributed architecture, and also outlined the corresponding trade-offs of each technique. Addison, Sydney, and Taylen then had to come to a decision about which technique to use.  
 
@@ -6236,7 +6236,7 @@ Licensing costs for the caching product would be required for this option.
 
 Tuesday, February 15, 14:34  
 
-![figure](images/raw/figure-0192.png)
+![figure](images/figure-0192.png)
 
 Austen bolted into Logan's office just after lunch. "I've been looking at the new architecture designs, and I want to help out. Do you need me to write up some ADRs or help with some spikes? I'd be happy to write up the ADR that states that we're only going to use choreography in the new architecture to keep things decoupled."  
 
@@ -6252,7 +6252,7 @@ As part of our ongoing analysis of the trade-offs associated with modern distrib
 
 In Chapter 2, we identified three coupling forces when considering interaction models in distributed architectures: communication, consistency, and coordination, shown in Figure 11-1.  
 
-![figure](images/raw/figure-0193.png)
+![figure](images/figure-0193.png)
 
 >Figure 11-1. The dimensions of dynamic quantum coupling  
 
@@ -6263,9 +6263,9 @@ Two fundamental coordination patterns exist in distributed architectures: orches
 Orchestration is distinguished by the use of an orchestrator, whereas a choreographed
 solution does not use one.  
 
-![figure](images/raw/figure-0194.png)
+![figure](images/figure-0194.png)
 
-![figure](images/raw/figure-0195.png)
+![figure](images/figure-0195.png)
 
 >Figure 11-2. Orchestration versus choreography in distributed architectures  
 
@@ -6276,7 +6276,7 @@ The *orchestration pattern* uses an *orchestrator* (sometimes called a *mediator
 In this example, services A-D are domain services, each responsible for its own bounded context, data, and behavior. The Orchestrator component generally doesn't include any domain behavior outside of the workflow it mediates. Notice that microservices architectures have an orchestrator per workflow, *not* a global orchestrator such as an *enterprise service bus* (ESB). One of the primary goals of the microservices architecture style is decoupling, and using a global component such as an ESB creates an undesirable coupling point. Thus, microservices tend to have an orchestrator per
 workflow.  
 
-![figure](images/raw/figure-0196.png)
+![figure](images/figure-0196.png)
 
 >Figure 11-3. Orchestration among distributed microservices  
 
@@ -6286,7 +6286,7 @@ This system passes the Place Order request to the Order Placement Orchestrator, 
 
 If the world consisted of only happy paths, software architecture would be easy. However, one of the primary hard parts of software architecture is error conditions and pathways.  
 
-![figure](images/raw/figure-0197.png)
+![figure](images/figure-0197.png)
 
 >Figure 11-4. A "happy path" workflow using an orchestrator to purchase electronic equipment (note the asynchronous calls denoted by dotted lines for less time-sensitive calls)  
 
@@ -6296,13 +6296,13 @@ Here, the Order Placement Orchestrator updates the order via the Order Placement
 
 Notice in this example we're allowing each service to maintain its own transactional state, modeling our "Fairy Tale Saga$^{(\text{seco})}$ Pattern" on page 333. One of the hardest parts of modern architectures is managing transactions, which we cover in Chapter 12.  
 
-![figure](images/raw/figure-0198.png)
+![figure](images/figure-0198.png)
 
 >Figure 11-5. Payment rejected error condition  
 
 In the second error scenario, the workflow has progressed further along: what happens when the Fulfillment Service reports a back order? This error scenario appears in Figure 11-6.  
 
-![figure](images/raw/figure-0199.png)
+![figure](images/figure-0199.png)
 
 >Figure 11-6. When an item is back-ordered, the orchestrator must rectify the state  
 
@@ -6369,13 +6369,13 @@ In this workflow, the initiating request goes to the first service in the chain 
 
 At first glance, the choreography solution seems simpler—fewer services (no orchestrator), and a simple chain of events/commands (messages). However, as with many issues in software architecture, the difficulties lie not with the default paths but rather with boundary and error conditions.  
 
-![figure](images/raw/figure-0200.png)
+![figure](images/figure-0200.png)
 
 >Figure 11-7. Purchasing electronics using choreography  
 
 As in the previous section, we cover two potential error scenarios. The first results from failed payment, as illustrated in Figure 11-8.  
 
-![figure](images/raw/figure-0201.png)
+![figure](images/figure-0201.png)
 
 >Figure 11-8. Error in payment in choreography  
 
@@ -6383,7 +6383,7 @@ Rather than send a message intended for the Fulfillment Service, the Payment ser
 
 However, consider the increasing complexity imposed by the other error scenario for a product back order, shown in Figure 11-9.  
 
-![figure](images/raw/figure-0202.png)
+![figure](images/figure-0202.png)
 
 >Figure 11-9. Managing the workflow error condition of product backlog  
 
@@ -6391,7 +6391,7 @@ Many steps of this workflow have already completed before the event (out of stoc
 
 The example shown in Figure 11-9 illustrates the dependency between complex workflows and mediators. While the initial workflow in choreography illustrated in Figure 11-7 seemed simpler than Figure 11-4, the error case (and others) keeps adding more complexity to the choreographed solution. In Figure 11-10, each error scenario forces domain services to interact with each other, adding communication links that weren't necessary for the happy path.  
 
-![figure](images/raw/figure-0203.png)
+![figure](images/figure-0203.png)
 
 >Figure 11-10. Error conditions in choreography typically add communication links  
 
@@ -6403,13 +6403,13 @@ Here is a common example. Consider the standard layered monolithic architecture 
 
 The architecture on the left represents the traditional layered architecture, separated by *technical* capabilities such as persistence, business rules, and so on. On the right, the same solution appears, but separated by *domain* concerns such as Catalog Check out and Update Inventory rather than technical capabilities.  
 
-![figure](images/raw/figure-0204.png)
+![figure](images/figure-0204.png)
 
 >Figure 11-11. Technical versus domain partitioning in architecture  
 
 Both topologies are logical ways to organize a codebase. However, consider where domain concepts such as Catalog Checkout reside within each architecture, illustrated in Figure 11-12.  
 
-![figure](images/raw/figure-0205.png)
+![figure](images/figure-0205.png)
 
 >Figure 11-12. Catalog Checkout is smeared across implementation layers in a technically partitioned architecture  
 
@@ -6419,7 +6419,7 @@ Sometimes the extra complexity is warranted. For example, many layered architect
 
 The major lesson of the last decade of architecture design is to model the semantics of the workflow as closely as possible with the implementation.  
 
-![figure](images/raw/figure-0206.png)
+![figure](images/figure-0206.png)
 
 An architect can never reduce semantic coupling via
 implementation, but they can make it worse.  
@@ -6432,7 +6432,7 @@ Most workflows include transient state about the status of the workflow: what el
 
 First, the *Front Controller pattern* places the responsibility for state on the first called service in the chain of responsibility, which in this case is Order Placement Service. If that service contains information about both orders and the state of the workflow, some of the domain services must have a communication link to query and update the order state, as illustrated in Figure 11-13.  
 
-![figure](images/raw/figure-0207.png)
+![figure](images/figure-0207.png)
 
 >Figure 11-13. In choreography, a Front Controller is a domain service that owns workflow state in addition to domain behavior  
 
@@ -6537,7 +6537,7 @@ In addition, the more semantic complexity contained in a workflow, the more util
 
 Ultimately, the sweet spot for choreography lies with workflows that need responsiveness and scalability, and either don't have complex error scenarios or they are infrequent. This communication style allows for high throughput; it is used by the dynamic coupling patterns "Phone Tag Saga $ ^{(sac)} $  Pattern" on page 330, "Time Travel Saga $ ^{(sec)} $  Pattern" on page 336, and "Anthology Saga $ ^{(aec)} $  Pattern" on page 349. However, it can also lead to extremely difficult implementations when other forces are mixed in, leading to the "Horror Story $ ^{(aac)} $  Pattern" on page 343.  
 
-![figure](images/raw/figure-0208.png)
+![figure](images/figure-0208.png)
 
 >Figure 11-14. As the complexity of the workflow rises, orchestration becomes more useful  
 
@@ -6549,7 +6549,7 @@ Coordination is one of the primary forces that create complexity for architects 
 
 Thursday, March 15, 11:00  
 
-![figure](images/raw/figure-0209.png)
+![figure](images/figure-0209.png)
 
 Addison and Austen arrived at Logan’s office right on time, armed with a presentationand ritual coffee urn from the kitchen.  
 
@@ -6583,13 +6583,13 @@ Background operations
 
 “Yes. The drawing for choreography is in Figure 11-15.”  
 
-![figure](images/raw/figure-0210.png)
+![figure](images/figure-0210.png)
 
 >Figure 11-15. Primary ticket flow modeled as choreography  
 
 “...and the model for orchestration is in Figure 11-16.”  
 
-![figure](images/raw/figure-0211.png)
+![figure](images/figure-0211.png)
 
 >Figure 11-16. Primary ticket workflow modeled as orchestration  
 
@@ -6674,7 +6674,7 @@ Ticketing workflow might have scalability issues around a single orchestrator, w
 
 ## Thursday, March 31, 16:55  
 
-![figure](images/raw/figure-0212.png)
+![figure](images/figure-0212.png)
 
 Austen showed up at Logan's office late on a windy Thursday afternoon. "Addison just sent me over here to ask you about some horror story?"  
 
@@ -6718,7 +6718,7 @@ While architects will utilize some of the patterns more than others, they all ha
 
 We illustrate each possible communication combination with both a three-dimensional representation of the intersection of the three forces in space along with an example workflow using generic distributed services, which we refer to as *isomorphic diagrams*. These diagrams show interactions between services in the most generic way, toward our goal of showing architect concepts in the simplest form. In each of these diagrams, we use the set of generic symbols shown in Figure 12-1.  
 
-![figure](images/raw/figure-0213.png)
+![figure](images/figure-0213.png)
 
 >Figure 12-1. Legend for ISO architecture interaction diagrams  
 
@@ -6730,13 +6730,13 @@ This type of communication is the "traditional" saga pattern as many architects 
 
 This pattern utilizes *synchronous* communication, *atomic* consistency, and *orchestrated* coordination. The architect's goal when choosing this pattern mimics the behavior of monolithic systems—in fact, if a monolithic system were added to this diagram in Figure 12-2, it would be the origin (0, 0, 0), lacking distribution entirely. Thus, this communication style is most familiar with architects and developers of traditional transactional systems.  
 
-![figure](images/raw/figure-0214.png)
+![figure](images/figure-0214.png)
 
 >Figure 12-2. The Epic Saga(sao) pattern’s dynamic coupling(communication, consistency,coordination) relationships  
 
 The isomorphic representation of the Epic Saga(sao) pattern appears in Figure 12-3.  
 
-![figure](images/raw/figure-0215.png)
+![figure](images/figure-0215.png)
 
 >Figure 12-3. The isomorphic communication illustration of the Epic Saga(sao) pattern  
 
@@ -6748,13 +6748,13 @@ Consider a common implementation of the Epic Saga$^{(\text{sao})}$ pattern, util
 
 A compensating transaction pattern assigns a service to monitor the transactional completeness of a request, as shown in Figure 12-4.  
 
-![figure](images/raw/figure-0216.png)
+![figure](images/figure-0216.png)
 
 >Figure 12-4. A successful orchestrated transactional Epic Saga using a compensating transaction  
 
 However, as with many things in architecture, the error conditions cause the difficulties. In a compensating transaction framework, the mediator monitors the success of calls, and issues compensating calls to other services if one or more of the requests fail, as shown in Figure 12-5.  
 
-![figure](images/raw/figure-0217.png)
+![figure](images/figure-0217.png)
 
 >Figure 12-5. When an error occurs, a mediator must send compensating requests to other services  
 
@@ -6805,13 +6805,13 @@ Fortunately, architects need not default to patterns that, while seemingly famil
 
 The Phone Tag Saga $ ^{(sac)} $  pattern changes one of the dimensions of the Epic Saga $ ^{(sao)} $ , changing coordination from orchestrated to choreographed; this change is illustrated in Figure 12-6.  
 
-![figure](images/raw/figure-0218.png)
+![figure](images/figure-0218.png)
 
 >Figure 12-6. The Phone Tag pattern utilizes loosely coupled communication  
 
 The pattern name is *Phone Tag* because it resembles a well-known children's game known as *Telephone* in North America: children form a circle, and one person whispers a secret to the next person, who passes it along to the next, until the final version is spoken by the last person. In Figure 12-6, choreography is favored over orchestration, creating the corresponding change in the structural communication shown in Figure 12-7.  
 
-![figure](images/raw/figure-0219.png)
+![figure](images/figure-0219.png)
 
 >Figure 12-7. Because of a lack of orchestration, each participant must coordinate status  
 
@@ -6867,7 +6867,7 @@ The Phone Tag Saga $ ^{(sac)} $  pattern is better for simple workflows that don
 
 Typical fairy tales provide happy stories with easy-to-follow plots, thus the name *Fairy Tale Saga*($^{seq}$), which utilizes synchronous communication, eventual consistency, and orchestration, as shown in Figure 12-8.  
 
-![figure](images/raw/figure-0220.png)
+![figure](images/figure-0220.png)
 
 >Figure 12-8. The Fairy Tale Saga $ ^{(seio)} $  illustrates eventual consistency  
 
@@ -6875,7 +6875,7 @@ This communication pattern relaxes the difficult atomic requirement, providing m
 
 In this pattern, an orchestrator exists to coordinate request, response, and error handling. However, the orchestrator isn't responsible for managing transactions, which each domain service retains responsibility for (for examples of common workflows, see Chapter 11). Thus the orchestrator can manage compensating calls, but without the requirement of occurring within an active transaction.  
 
-![figure](images/raw/figure-0221.png)
+![figure](images/figure-0221.png)
 
 >Figure 12-9. Isomorphic illustration of a Fairy Tale interaction  
 
@@ -6921,11 +6921,11 @@ If an architect can take advantage of eventual consistency, this pattern is quit
 
 The *Time Travel Saga*($^{sec}$) pattern features synchronous communication, and eventual consistency, but choreographed workflow. In other words, this pattern avoids a central mediator, placing the workflow responsibilities entirely on the participating domain services, as illustrated in Figure 12-10.  
 
-![figure](images/raw/figure-0222.png)
+![figure](images/figure-0222.png)
 
 >Figure 12-10. The Time Travel Saga(sec) pattern uses two of three decoupling techniquesThe structural topology illustrates the lack of orchestration, shown in Figure 12-11.  
 
-![figure](images/raw/figure-0223.png)
+![figure](images/figure-0223.png)
 
 >Figure 12-11. Complex workflows become difficult to manage without orchestration  
 
@@ -6978,7 +6978,7 @@ The Time Travel Saga$^{(\text{sec})}$ pattern provides an on-ramp to the more co
 
 The *Fantasy Fiction Saga* $ ^{(aao)} $  uses *atomic consistency*, *asynchronous communication*, and *orchestrated coordination*, as shown in Figure 12-12.  
 
-![figure](images/raw/figure-0224.png)
+![figure](images/figure-0224.png)
 
 >Figure 12-12. Asynchronous communication makes transactionality difficult in this pattern  
 
@@ -6989,7 +6989,7 @@ Just because a combination of architectural forces exists doesn't mean it forms 
 
 >Fantasy Fiction Story  
 
-![figure](images/raw/figure-0225.png)
+![figure](images/figure-0225.png)
 
 >Figure 12-13. The Fantasy Fiction Saga(aao) pattern is f ar-f etched because transaction coordination f or asynchronous communication presents difficulties  
 
@@ -7040,7 +7040,7 @@ This pattern is unfortunately more popular than it should be, mostly from the mi
 
 One of the patterns must be the worst possible combination; it is the aptly named *Horror Story*<sup>(aac)</sup> *pattern*, characterized by *asynchronous* communication, *atomic* consistency, and *choreographed* coordination, illustrated in Figure 12-14.  
 
-![figure](images/raw/figure-0226.png)
+![figure](images/figure-0226.png)
 
 >Figure 12-14. The most difficult combination: achieving transactionality while asynchronous and choreographed  
 
@@ -7048,7 +7048,7 @@ Why is this combination so horrible? It combines the most stringent coupling aro
 
 ## Horror Story  
 
-![figure](images/raw/figure-0227.png)
+![figure](images/figure-0227.png)
 
 >Figure 12-15. This pattern requires a lot of interservice communication because of required transactionality and the lack of a mediator  
 
@@ -7098,7 +7098,7 @@ The aptly named Horror Story$^{(\text{aac})}$ pattern is often the result of a w
 
 The Parallel Saga $ ^{(aeo)} $  pattern is named after the “traditional” Epic Saga $ ^{(sao)} $  pattern with two key differences that ease restrictions and therefore make it an easier pattern to implement: asynchronous communication and eventual consistency. The dimensional diagram of the Parallel Saga $ ^{(aeo)} $  pattern appears in Figure 12-16.  
 
-![figure](images/raw/figure-0228.png)
+![figure](images/figure-0228.png)
 
 >Figure 12-16. Parallel Saga $ ^{(aeo)} $  offers performance improvements over traditional sagas  
 
@@ -7108,7 +7108,7 @@ The isomorphic representation of Parallel Saga $ ^{(aeo)} $  appears in Figure 1
 
 This pattern uses a mediator, making it suitable for complex workflows. However, it uses asynchronous communication, allowing for better responsiveness and parallel execution. Consistency in the pattern lies with the domain services, which may require some synchronization of shared data, either in the background or driven via the mediator. As in other architectural problems that require coordination, a mediator becomes quite useful.  
 
-![figure](images/raw/figure-0229.png)
+![figure](images/figure-0229.png)
 
 >Figure 12-17. Each service owns its own transactionality; the mediator coordinates request and response  
 
@@ -7154,7 +7154,7 @@ Overall, the Parallel Saga$^{(\text{aeo})}$ pattern offers an attractive set of 
 
 The Anthology Saga $ ^{(aec)} $  pattern provides the exact opposite set of characteristics to the traditional Epic Saga $ ^{(sao)} $  pattern: it utilizes asynchronous communication, eventual consistency, and choreographed coordination, providing the least coupled exemplar among all these patterns. The dimensional view of the Anthology Saga $ ^{(aec)} $  pattern appears in Figure 12-18.  
 
-![figure](images/raw/figure-0230.png)
+![figure](images/figure-0230.png)
 
 >Figure 12-18. The Anthology Saga$^{(aec)}$ pattern offers the opposite extremes of the Epic Saga, and is therefore the least coupled pattern  
 
@@ -7163,7 +7163,7 @@ domain services without orchestration, as illustrated in Figure 12-19.
 
 As you can see, each service maintains its own transactional integrity, and no orchestrator exists, forcing each domain service to include more context about the work-flows they participate in, including error handling and other coordination strategies.  
 
-![figure](images/raw/figure-0231.png)
+![figure](images/figure-0231.png)
 
 >Figure 12-19. Lack of orchestration, eventual consistency, and asynchronicity make this pattern highly decoupled but a challenge for coordination  
 
@@ -7213,7 +7213,7 @@ Architects can implement the patterns described in this section in a variety of 
 
 State management and eventual consistency leverage *finite state machines* (see “Saga State Machines” on page 352) to always know the current state of the transactional saga, and to also eventually correct the error condition through retries or some sort of automated or manual corrective action. To illustrate this approach, consider the Fairy Tale Saga$^{\text{(seo)}}$ implementation of the ticket completion example illustrated in Figure 12-20.  
 
-![figure](images/raw/figure-0232.png)
+![figure](images/figure-0232.png)
 
 >Figure 12-20. The Fairy Tale Saga leads to better responsiveness, but leaves data sources out of sync with one another until they can be corrected  
 
@@ -7242,7 +7242,7 @@ new problem ticket created by a customer in the Sysops Squad system:
 
 The various states that can exist within this transactional saga, as well as the corresponding transition actions, are illustrated in Figure 12-21. Notice that the transactional saga begins with the START node indicating the saga entry point, and terminates with the CLOSED node indicating the saga exit point.  
 
-![figure](images/raw/figure-0233.png)
+![figure](images/figure-0233.png)
 
 >Figure 12-21. State diagram for creating a new problem ticket  
 
@@ -7382,7 +7382,7 @@ A custom code-walking tool can look at each class file in the application contex
 
 Tuesday, April 5, 09:44  
 
-![figure](images/raw/figure-0234.png)
+![figure](images/figure-0234.png)
 
 Addison and Austen met first thing with Logan to hash out the issues around transac-
 tionality in the new microservices architecture in the longish conference room.  
@@ -7392,7 +7392,7 @@ Logan began, "I know that not everyone is on the same page about how what you've
 device. I want to talk about the Epic Saga pattern and the issues around compensating updates. I've
 created a diagram to illustrate this workflow in Figure 12-22 Can everyone see it?"  
 
-![figure](images/raw/figure-0235.png)
+![figure](images/figure-0235.png)
 
 >Figure 12-22. The epic saga requires the ticket status to be updated and survey to be sent in one synchronous atomic operation  
 
@@ -7430,7 +7430,7 @@ Austen pondered a moment. “But wasn’t that part of the workflow in the monol
 
 “Right,” Logan said. “This is the issue with atomic distributed transactions—the end user is unneces-sarily semantically coupled to the business process. But notice that Figure 12-23 also illustrates the issue with the lack of transaction isolation within a distributed transaction. Notice that as part of the original update to mark the ticket as complete, the Ticket Service asynchronously sent the ticketinformation to a queue(step 4 in the diagram) to be processed by the Analytics Service(step 5).However, when the compensating update is issued to the Ticket Service(step 7), the ticket informa-tion has already been processed by the Analytics Service in step 5.”  
 
-![figure](images/raw/figure-0236.png)
+![figure](images/figure-0236.png)
 
 >Figure 12-23. Epic Saga(sao) requires compensation, but side effects can occur  
 
@@ -7442,7 +7442,7 @@ Austen interrupted, “Another issue?”
 
 Logan smiled. “Another issue regarding compensating updates is compensation failures. Keeping with the same Epic Saga example for completing a ticket, notice in Figure 12-24 that in step 7 acompensating update is issued to the Ticket Service to change the state from completed back to in-progress. However, in this case, the Ticket Service generates an error when trying to change the stateof the ticket(step 8).”  
 
-![figure](images/raw/figure-0237.png)
+![figure](images/figure-0237.png)
 
 >Figure 12-24. Compensating updates within an Epic Saga can fail, leading to inconsistency and confusion about what action to take in the event of a compensation failure  
 
@@ -7491,7 +7491,7 @@ Logan said, “Correct. Let’s get philosophical for a moment. Conceptually, tr
 
 Friday, April 15, 12:01  
 
-![figure](images/raw/figure-0238.png)
+![figure](images/figure-0238.png)
 
 Addison met with Sydney over lunch in the cafeteria to chat about coordination between the Ticket Orchestrator and the services it integrated with for the ticket management workflow.  
 
@@ -7505,7 +7505,7 @@ In Chapter 2, we began discussing the intersection of three important forces—c
 
 However much an architecture can discern a relationship like this one, some forces cut across the conceptual space and affect all of the other dimensions equally. If pursuing the visual three-dimensional metaphor, these cross-cutting forces act as an additional dimension, much as time is orthogonal to the three physical dimensions.  
 
-![figure](images/raw/figure-0239.png)
+![figure](images/figure-0239.png)
 
 >Figure 13-1. Three-dimensional intersecting space for messaging forces in distributed architectures  
 
@@ -7532,7 +7532,7 @@ This chapter illustrates the effects of contracts on many parts of architecture,
 
 Like many things in software architecture, contracts don't exist within a binary but rather on a broad spectrum, from strict to loose. Figure 13-2 illustrates this spectrum, using example contract types.  
 
-![figure](images/raw/figure-0240.png)
+![figure](images/figure-0240.png)
 
 >Figure 13-2. The spectrum of contract types, from strict to loose  
 
@@ -7690,7 +7690,7 @@ Architects must constantly make decisions about how services interact with one a
 
 Consider two microservices with independent transactionality that must share domain information such as *Customer Address*, shown in Figure 13-3.  
 
-![figure](images/raw/figure-0241.png)
+![figure](images/figure-0241.png)
 
 >Figure 13-3. Two services that must share domain information about the customer  
 
@@ -7700,7 +7700,7 @@ Consider the alternative approach, where each service has its own internal repre
 
 Here, each service has its own bounded-context definition of Customer. When passing information, the architect utilizes name-value pairs in JSON to pass the relevant information in a loose contract.  
 
-![figure](images/raw/figure-0242.png)
+![figure](images/figure-0242.png)
 
 >Figure 13-4. Microservices with their own internal semantic representation can pass values in simple messages  
 
@@ -7714,7 +7714,7 @@ A common problem in microservices architectures is the seemingly contradictory g
 
 In many architecture integration scenarios, a service decides what information to emit to other integration partners (a push model—the service provider pushes a con-tract to consumers). The concept of a consumer-driven contract inverses that relationship into a *pull* model; here, the consumer puts together a contract for the items they need from the provider, and passes the contract to the provider, who includes it in their build and keeps the contract test green at all times. The contract encapsulates the information the consumer needs from the provider. This may work for a network of interlocking requests that the Provider must honor, as illustrated in Figure 13-5.  
 
-![figure](images/raw/figure-0243.png)
+![figure](images/figure-0243.png)
 
 >Figure 13-5. Consumer-driven contracts allow the provider and consumers to stay in sync via automated architectural governance  
 
@@ -7762,7 +7762,7 @@ The architect's best solution for this trade-off comes down to team maturity and
 
 A common pattern and sometimes anti-pattern in distributed architectures is stamp coupling, which describes passing a large data structure between services, but each service interacts with only a small part of the data structure. Consider the example of four services shown in Figure 13-6.  
 
-![figure](images/raw/figure-0244.png)
+![figure](images/figure-0244.png)
 
 >Figure 13-6. Stamp coupling between four services  
 
@@ -7776,7 +7776,7 @@ Going back to our Wishlist and Profile Services, consider tying the two together
 
 In this example, even though the Wishlist Service needs only the name (accessed via a unique ID), the architect has coupled Profile's entire data structure as the contract, perhaps in a misguided effort for future proofing. However, the negative side effect of too much coupling in contracts is brittleness. If Profile changes a field that Wishlist doesn't care about, such as state, it still breaks the contract.  
 
-![figure](images/raw/figure-0245.png)
+![figure](images/figure-0245.png)
 
 >Figure 13-7. The Wishlist Service is stamp coupled to the Profile Service  
 
@@ -7796,7 +7796,7 @@ In Chapter 12, we covered a number of dynamic quantum communication patterns, in
 
 Architects can use stamp coupling to manage the workflow state between services, passing both domain knowledge and workflow state as part of the contract, as illustrated in Figure 13-8.  
 
-![figure](images/raw/figure-0246.png)
+![figure](images/figure-0246.png)
 
 >Figure 13-8. Using stamp coupling for workflow management  
 
@@ -7817,7 +7817,7 @@ Using stamp coupling to manage workflow does create higher coupling between serv
 
 Tuesday, May 10, 10:10  
 
-![figure](images/raw/figure-0247.png)
+![figure](images/figure-0247.png)
 
 Sydney and Addison met again in the cafeteria over coffee to discuss the contracts inthe ticket management workflow.  
 
@@ -7829,7 +7829,7 @@ Sydney said, “All those decisions make sense—but what about the contract bet
 
 “Good catch—nominally, we would like the contract with the mobile application to match ticket assignment. However, we deploy the mobile application through a public app store, and their approval process sometimes takes a long time. If we keep the contracts looser, we gain flexibilityand slower rate of change.”  
 
-![figure](images/raw/figure-0248.png)
+![figure](images/figure-0248.png)
 
 >Figure 13-9. Types of contracts between collaborators in the ticket management workflow  
 
@@ -7857,7 +7857,7 @@ More logic to validate contracts must reside in the orchestrator and mobile appl
 
 ### Tuesday, May 31, 13:23  
 
-![figure](images/raw/figure-0249.png)
+![figure](images/figure-0249.png)
 
 Logan and Dana (the data architect) were standing outside the big conference room,
 chatting after the weekly status meeting.  
@@ -7967,7 +7967,7 @@ Table 14-1 shows the trade-offs for the data warehouse pattern.
 
 Tuesday, May 31, 13:33  
 
-![figure](images/raw/figure-0250.png)
+![figure](images/figure-0250.png)
 
 “We looked at creating a data warehouse, but realized that it fit better with older, mono-lithic kinds of architectures than modern distributed ones,” said Logan. “Plus, we have aton more machine learning cases now that we need to support.”  
 
@@ -8044,7 +8044,7 @@ Because of both technical partitioning and the batch-like nature, solutions may 
 
 Tuesday, May 31, 14:43  
 
-![figure](images/raw/figure-0251.png)
+![figure](images/figure-0251.png)
 
 “OK, so we can’t use the data lake either!” exclaimed Dana. “What now?”  
 
@@ -8085,7 +8085,7 @@ Data mesh is a wide-ranging topic, fully covered in the book *Data Mesh* by Zham
 
 The core tenet of the data mesh overlays modern distributed architectures such as microservices. Just as in the *service mesh*, teams build a *data product quantum* (DPQ) adjacent but coupled to their service, as illustrated in Figure 14-1.  
 
-![figure](images/raw/figure-0252.png)
+![figure](images/figure-0252.png)
 
 >Figure 14-1. Structure of a data product quantum  
 
@@ -8110,7 +8110,7 @@ A custom-made DPQ to serve a particular requirement, which may encompass analyti
 
 Each domain that also contributes to analysis and business intelligence includes aDPQ, as illustrated in Figure 14-2.  
 
-![figure](images/raw/figure-0253.png)
+![figure](images/figure-0253.png)
 
 >Figure 14-2. The data product quantum acts as a separate but highly coupled adjunct to a service  
 
@@ -8157,7 +8157,7 @@ Data mesh is an outstanding example of the constant incremental evolution that o
 
 Friday, June 10, 09:55  
 
-![figure](images/raw/figure-0254.png)
+![figure](images/figure-0254.png)
 
 Logan, Dana, and Addison met in the big conference room, which often had leftover snacks (or, this early in the day, breakfast) from previous meetings.  
 
@@ -8167,7 +8167,7 @@ Logan, Dana, and Addison met in the big conference room, which often had leftove
 
 “Each new service we’ve implemented includes a DPQ. The domain team is responsible for runningand maintaining the DQP cooperative quantum for their service. We’ve only just started. We’re grad-ually building out the capabilities as we identify the needs. I have a picture of the Ticket Manage-ment Domain in Figure 14-3.”  
 
-![figure](images/raw/figure-0255.png)
+![figure](images/figure-0255.png)
 
 >Figure 14-3. Ticket Management Domain, including two services with their own DPQs,with a Tickets DPQ  
 
@@ -8185,7 +8185,7 @@ Logan replied, “In collaboration with the data scientists, we have determined 
 
 “Awesome,” said Addison. “Perhaps we should create a new DPQ named something like Experts Sup-ply DPQ, which takes asynchronous inputs from those three DPQs? Its first product can be calledsupply recommendations, which uses an ML model trained using data aggregated from DPQs in sur-veys, tickets, and maintenance domains. The Experts Supply DPQ will provide daily recommenda-tions data, as new data becomes available about tickets, surveys and expert profiles. The overalldesign looks like Figure 14-4.”  
 
-![figure](images/raw/figure-0256.png)
+![figure](images/figure-0256.png)
 
 >Figure 14-4. Implementing the Experts Supply DPQ  
 
@@ -8225,7 +8225,7 @@ Consumer-driven contract fitness function for Ticket DPQ and Expert Supply DPQ. 
 
 ## Monday, June 10, 10:01  
 
-![figure](images/raw/figure-0257.png)
+![figure](images/figure-0257.png)
 
 The conference room somehow seemed more brightly lit than it did on that fateful day in September when the business sponsors of the Sysops Squad were about to pull the plug on the entire support contract business line. People in the conference room were chatting with each other before the meeting started, creating an energy not seen in theconference room for a long, long time.  
 
@@ -8388,7 +8388,7 @@ This suggests that you've covered all the possibilities in the decision space, a
 
 The goal of a MECE list is to cover a category space completely, with no holes or overlaps, as shown pictorially in Figure 15-1.  
 
-![figure](images/raw/figure-0258.png)
+![figure](images/figure-0258.png)
 
 >Figure 15-1. A MECE list is mutually exclusive and collectively exhaustive  
 
@@ -8400,19 +8400,19 @@ When assessing trade-offs, architects must make sure to keep the decision in con
 
 For example, perhaps an architect is trying to decide whether to use a shared service or shared library for common functionality within a distributed architecture, as illustrated in Figure 15-2.  
 
-![figure](images/raw/figure-0259.png)
+![figure](images/figure-0259.png)
 
 >Figure 15-2. Deciding between shared service or library in a distributed architecture  
 
 The architect facing this decision will begin to study the two possible solutions, both via general characteristics discovered through research and via experimental datafrom within their organization. The results of that discovery process lead to a trade-off matrix such as the one shown in Figure 15-3.  
 
-![figure](images/raw/figure-0260.png)
+![figure](images/figure-0260.png)
 
 >Figure 15-3. Trade-off analysis f or two solutions  
 
 The architect seems justified in choosing the shared library approach, as the matrix clearly favors that solution...overall. However, this decision exemplifies the out-of-context problem—when the extra context for the problem becomes clear, the decision criteria changes, as illustrated in Figure 15-4.  
 
-![figure](images/raw/figure-0261.png)
+![figure](images/figure-0261.png)
 
 >Figure 15-4. Shifting decision based on additional context  
 
@@ -8428,7 +8428,7 @@ Architects shouldn't make decisions in a vacuum, without relevant drivers that a
 
 For example, consider this decision by an architect as to whether to create a single payment service or a separate service for each payment type, as illustrated in Figure 15-5.  
 
-![figure](images/raw/figure-0262.png)
+![figure](images/figure-0262.png)
 
 >Figure 15-5. Choosing between a single payment service or one per payment type  
 
@@ -8441,13 +8441,13 @@ card processing service.
 
 In this scenario, having separate services provides better *maintainability*, *testability*, and *deployability*, all based on quantum-level isolation of the services. However, the downside of separate services is often duplicated code to prevent static quantum coupling between the services, which damages the benefit of having separate services.  
 
-![figure](images/raw/figure-0263.png)
+![figure](images/figure-0263.png)
 
 >Figure 15-6. Scenario 1: update credit card processing service  
 
 In the second scenario, the architect models what happens when the system adds a new payment type, as shown in Figure 15-7.  
 
-![figure](images/raw/figure-0264.png)
+![figure](images/figure-0264.png)
 
 >Figure 15-7. Scenario 2: adding a payment type  
 
@@ -8457,7 +8457,7 @@ However, as in many cases, more complex workflows highlight the difficult parts 
 
 In this scenario, the architect starts gaining insight into the real trade-offs involved in this decision. Utilizing separate services requires coordination for this workflow, best handled by an orchestrater. However, as we discussed in Chapter 11, moving to an orchestrator likely impacts performance negatively and makes data consistency more of a challenge. The architect could avoid the orchestrator, but the workflow logic must reside somewhere—remember, semantic coupling can only be increased via implementation, never decreased.  
 
-![figure](images/raw/figure-0265.png)
+![figure](images/figure-0265.png)
 
 >Figure 15-8. Scenario 3: using multiple types for payment  
 
@@ -8473,11 +8473,11 @@ Rather than show all the information they have gathered, an architect should red
 
 Consider the common problem an architect might face in a microservices architecture about the choice of synchronous or asynchronous communication, illustrated in Figure 15-9.  
 
-![figure](images/raw/figure-0266.png)
+![figure](images/figure-0266.png)
 
-![figure](images/raw/figure-0267.png)
+![figure](images/figure-0267.png)
 
-![figure](images/raw/figure-0268.png)
+![figure](images/figure-0268.png)
 
 >Figure 15-9. Deciding between communication types  
 
@@ -8507,7 +8507,7 @@ An architect should also be wary of any tool or technique that promises any shoc
 
 For example, consider an architect who has had success in the past with a particular approach and becomes an evangelist for it, as illustrated in Figure 15-10.  
 
-![figure](images/raw/figure-0269.png)
+![figure](images/figure-0269.png)
 
 >Figure 15-10. An architect evangelist who thinks they have found a silver bullet  
 
@@ -8519,7 +8519,7 @@ In the example shown in Figure 15-10, an existing system uses a single topic to 
 
 To discover the trade-offs for this specific problem, the architect should model likely domain scenarios using the two topologies. Adding bid history to the existing publish-and-subscribe design appears in Figure 15-11.  
 
-![figure](images/raw/figure-0270.png)
+![figure](images/figure-0270.png)
 
 >Figure 15-11. Scenario 1: Adding bid history to the existing topic  
 
@@ -8527,7 +8527,7 @@ While this solution works, it has issues. First, what if the teams need differen
 
 To mitigate these shortcomings, the architect should model the alternative solution to see if it addresses the preceding problems (and doesn't introduce new intractable ones). The individual queue version appears in Figure 15-12.  
 
-![figure](images/raw/figure-0271.png)
+![figure](images/figure-0271.png)
 
 >Figure 15-12. Using individual queues to capture bid inf ormation  
 
@@ -8557,7 +8557,7 @@ Instead, the architect pointed out that it was a trade-off, gently explaining th
 
 Rather than be forced into taking the opposing position, instead the architect forced a real-world trade-off analysis, not based on generic solutions. The architect agreed to try the Monorepo approach but also gather metrics to make sure that the negative aspects of the solution didn't manifest. For example, one of the damaging anti-patterns they wanted to avoid was accidental coupling between two projects because of repository proximity, so the architect and team built a series of fitness functions to ensure that, while technically possible to create a coupling point, the fitness function prevented it.  
 
-![figure](images/raw/figure-0272.png)
+![figure](images/figure-0272.png)
 
 Don't allow others to force you into evangelizing something—bring it back to trade-offs.  
 
@@ -8567,7 +8567,7 @@ We advise architects to avoid evangelizing and to try to become the objective ar
 
 Monday, June 20, 16:55  
 
-![figure](images/raw/figure-0273.png)
+![figure](images/figure-0273.png)
 
 “OK, I think I finally get it. We can’t really rely on generic advice for our architecture—it’s too different from all the others. We have to do the hard work of trade-off analysisconstantly.”  
 

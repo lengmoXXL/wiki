@@ -863,21 +863,21 @@ Constant width
 
 Used for program listings, as well as within paragraphs to refer to program elements such as variable or function names, databases, data types, environment variables, statements, and keywords.  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 This element signifies a tip or suggestion.  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 This element signifies a general note.  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 This element indicates a warning or caution.  
 
 ## O'Reilly Online Learning  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 For more than 40 years, O'Reilly Media has provided technology and business training, knowledge, and insight to help companies succeed.  
 
@@ -953,7 +953,7 @@ Microservices are small and purpose-built to fulfill the business requirements o
 
 In its simplest form, an event-driven microservice is a purpose-built service that consumes and/or produces events. Figure 1-1 shows a simple example of a microservice that consumes events from two input streams, processes and reacts to them, and produces its results to an output stream.  
 
-![figure](images/raw/figure-0005.png)
+![figure](images/figure-0005.png)
 
 >Figure 1-1. A simple two-input, one-output event-driven microservice, with its own internal state store  
 
@@ -971,7 +971,7 @@ The microservice is entirely responsible for:
 
 • Integrating with monitoring solutions  
 
-![figure](images/raw/figure-0006.png)
+![figure](images/figure-0006.png)
 
 Consumer microservices consume and process events from one or more input event streams, whereas producer microservices produce events to event streams for other services to consume. It is common for an event-driven microservice to be both.  
 
@@ -1033,7 +1033,7 @@ The logical boundaries, including the inputs, outputs, events, requirements, pro
 
 Figure 1-2 shows an example of these concepts illustrated as a box diagram.  
 
-![figure](images/raw/figure-0007.png)
+![figure](images/figure-0007.png)
 
 >Figure 1-2. Domains, subdomains, bounded contexts, and microservices  
 
@@ -1047,13 +1047,13 @@ In contrast, creating microservices that provide general technical capabilities 
 
 The main issue with technological alignment is that it distributes the responsibility of fulfilling the business function across *multiple teams and services*. Because no single team is solely responsible for implementing a solution, each service becomes coupled to another across both team and API boundaries, making changes difficult and expensive. A seemingly innocent change, a bug, or a failed service can have serious ripple effects to the business-serving capabilities of all services that use the technical system. Eliminating cross-cutting technological and team dependencies will reduce a microservice's sensitivity to change, letting you focus your efforts on solving business problems, not coupling problems.  
 
-![figure](images/raw/figure-0008.png)
+![figure](images/figure-0008.png)
 
 Technologically aligned services still have their uses for serving non-functional requirements, like authentication, authorization, logging, and monitoring use cases. Do not develop your own solutions for each and every microservice.  
 
 Figure 1-3 shows two scenarios: sole ownership on the left and cross-cutting ownership on the right. With sole ownership, the team is fully organized around the two independent business requirements (bounded contexts) and has complete control over its application code and the data storage layer. On the right, the teams have been organized via technical requirements, where the application layer is managed separate from the data layer. This creates explicit dependencies between the teams, as well as implicit dependencies between the business requirements.  
 
-![figure](images/raw/figure-0009.png)
+![figure](images/figure-0009.png)
 
 >Figure 1-3. Alignment on business contexts versus on technological contexts  
 
@@ -1071,7 +1071,7 @@ An organization's teams, systems, and people all must *communicate* with one ano
 
 The *business communication structure* (see Figure 1-4) embodies communication between teams and departments, each driven by the major requirements and responsibilities assigned to it. For example, engineering produces software products, sales sells to customers, and support ensures that customers and clients are satisfied. The organization of teams and the provisioning of their goals, from the major business units down to the work of the individual contributor, fall under this structure.  
 
-![figure](images/raw/figure-0010.png)
+![figure](images/figure-0010.png)
 
 >Figure 1-4. Sample business communication structure  
 
@@ -1079,7 +1079,7 @@ The *business communication structure* (see Figure 1-4) embodies communication b
 
 The *implementation communication structure* (see Figure 1-5) is the data and logic that builds up a solution to solve a business problem. It formalizes business processes and data structures *into code* so that business operations can be performed quickly and efficiently. An implementation communication structure is the hardened code, data, and APIs that make up a computerized solution.  
 
-![figure](images/raw/figure-0011.png)
+![figure](images/figure-0011.png)
 
 >Figure 1-5. Sample implementation communication structure  
 
@@ -1094,7 +1094,7 @@ This is the communication structure that enables businesses to access *data* fro
 The unfortunate truth is that the data communication structure of an organization is usually neglected and left as an afterthought. It's most commonly found as a haphazard bolted-on interface to the service itself, relying on it to play double duty as both the implementation communication structure (serving business use cases) and also providing data communications. New services are often left to their own devices to figure out how to get their own data, or else they may simply wrap it into the same
 implementation, regardless of whether it *should* be in there.  
 
-![figure](images/raw/figure-0012.png)
+![figure](images/figure-0012.png)
 
 >Figure 1-6. Sample ad hoc data communication structure  
 
@@ -1123,7 +1123,7 @@ ways:
 
 These two properties act as a carrot and a stick. The latter provides the carrot, luring you to keep everything in one safe store. The former acts as a stick, forcing you to confront and deal with data access problems *before* you can even get started on building your service.  
 
-![figure](images/raw/figure-0013.png)
+![figure](images/figure-0013.png)
 
 If you find that it is too hard to access data in your organization or that your products are scope-creeping because all the data is located in a single implementation, you're likely encountering the lack of data communication structure. This problem will grow as your organization grows, develops new products, and increasingly needs to access commonly used domain data.  
 
@@ -1214,7 +1214,7 @@ Event streams contain core events central to the operation of the business. Thou
 
 Given that data is freely accessible through event streams, you can now mix and match events to build up your own data models. You can freely choose the technologies you need to support your own business use cases, building microservices that map neatly to the bounded context of the problem space.  
 
-![figure](images/raw/figure-0014.png)
+![figure](images/figure-0014.png)
 
 You don't have to share *all* the data as event streams, but only the data that other teams require. Just as a monolith restricts access to its own internal data model, so too does an event-driven microservice.  
 
@@ -1284,7 +1284,7 @@ Services hosting web and mobile experiences are by and large powered by request-
 
 The experience factor is also quite important, especially as many developers in today's market tend to be much more experienced with request-response, monolithic-style coding. This makes acquiring talent for request-response systems easier, in general, than acquiring talent for asynchronous event-driven development.  
 
-![figure](images/raw/figure-0015.png)
+![figure](images/figure-0015.png)
 
 A company's architecture could only rarely, if ever, be based entirely on event-driven microservices. Hybrid architectures are certainly the norm, where synchronous, asynchronous, request-response, and event-driven solutions operate side-by-side as the problem space requires.  
 
@@ -1353,7 +1353,7 @@ You can retain all events in your stream for as long as necessary. There is no f
 
 Figure 2-1 shows an event stream with three partitions. New events have just been appended to partition 0 (offset 5) and partition 1 (offset 7). The microservice consuming these events has two instances. Instance 0 is consuming only partition 0, whereas instance 1 is consuming both partition 1 and partition 2.  
 
-![figure](images/raw/figure-0016.png)
+![figure](images/figure-0016.png)
 
 >Figure 2-1. An event stream with two microservice instances consuming from three partitions  
 
@@ -1369,7 +1369,7 @@ A channel is an ephemeral substrate for communicating a message between oneprodu
 
 Figure 2-2 shows a single producer sending messages to the ephemeral channel within the event broker. The ephemeral messages are then passed on to the currently subscribed consumers. In this figure, consumer 0 obtains messages 7 and 8, but consumer 1 does not because it is newly subscribed and has no access to historicaldata. Instead, consumer 1 will receive only message 9 and any subsequent messages.  
 
-![figure](images/raw/figure-0017.png)
+![figure](images/figure-0017.png)
 
 >Figure 2-2. An ephemeral message-passing broker f orwarding messages  
 
@@ -1389,7 +1389,7 @@ One common use of a queue is as a work queue. The producer publishes records rep
 
 Figure 2-3 shows two subscribers consuming records from a queue in a round-robin manner. Note that the queue contains records currently being processed (dashed lines) and those yet to be processed (solid lines).  
 
-![figure](images/raw/figure-0018.png)
+![figure](images/figure-0018.png)
 
 >Figure 2-3. A queue with two subscribers, each processing a subset of events  
 
@@ -1403,13 +1403,13 @@ If multiple independent consumers (e.g., microservice applications) each need ac
 
 Modern queue brokers provide a *publish-subscribe* mechanism that allows for loose coupling between a producer and its interested consumers. Instead of publishing directly to each and every queue that may need the record, the producer sends its message to an *exchange* hosted on the broker. The exchange then routes a *copy* of the record to each subscribing queue that is registered at the time the exchange receives the record. Figure 2-4 shows an example of this behavior.  
 
-![figure](images/raw/figure-0019.png)
+![figure](images/figure-0019.png)
 
 >Figure 2-4. An exchange distributing records to each subscribed queue  
 
 The producer service publishes its records to the exchange, which in turn provides a copy to each of the Alpha and Beta queues.  
 
-![figure](images/raw/figure-0020.png)
+![figure](images/figure-0020.png)
 
 Modern queue brokers may also support replayability and infinite retention of records via durable append-only logs—effectively the same as an event stream. For example, both Solace and RabbitMQ Streams allow for individual consumers to replay queued records as though they were event streams.  
 
@@ -1536,7 +1536,7 @@ A key enables the producer to partition the records deterministically, with all 
 
 Data locality is a guarantee to the consumers that all data of a given key will be in just a single partition. In turn, consumers can easily divide up the work on a per-partition basis, knowing that any key-based work they perform will rely on reading only asingle partition, and not all the events from all partitions.  
 
-![figure](images/raw/figure-0021.png)
+![figure](images/figure-0021.png)
 
 >Figure 2-8. The traffic camera events are partitioned by the license plate key  
 
@@ -1568,7 +1568,7 @@ You may also notice that the datetime field has been updated to represent when t
 
 Similarly to how *keyed events* each go to the same partition, the same is true for *entity events*. Figure 2-11 shows an event stream with two events for the FAST 321—one when it was red (the oldest event), and one while it is blue (the latest event, appended to the tail of the stream).  
 
-![figure](images/raw/figure-0022.png)
+![figure](images/figure-0022.png)
 
 >Figure 2-11. The producer appends a full entity event whenever an entity is created, updated, or deleted  
 
@@ -1580,7 +1580,7 @@ There is more to event design than what has been covered in this chapter so far,
 
 Repartitioning is when a service reads events from one stream and writes them to a new stream with a different key, a different key-to-partition mapping strategy, and/or a different partition count. Repartitioning is a key component of event-driven microservices, as it lets you join, group, and aggregate data from streams of varying partition counts, partition strategies, and differing keys. Figure 2-12 shows a micro-service reading from an event stream with two partitions and writing the same data back to a four-partition output stream.  
 
-![figure](images/raw/figure-0023.png)
+![figure](images/figure-0023.png)
 
 >Figure 2-12. Repartitioning a stream from two to four partitions  
 
@@ -1592,7 +1592,7 @@ Two event streams are copartitioned when they have the same key, the same key-to
 
 Microservice instance 0 is assigned partition 0 from both copartitioned streams, while instance 1 is assigned partition 1 from both streams. All events with the key of A are routed to instance 0, while all events of key D are routed to instance 1.  
 
-![figure](images/raw/figure-0024.png)
+![figure](images/figure-0024.png)
 
 >Figure 2-13. Copartitioned event streams Alpha and Beta consumed by two microservice instances  
 
@@ -1604,7 +1604,7 @@ The keyed event plays an important role in aggregations, since all the data of t
 
 An aggregation may be as simple as a sum, as shown in Figure 2-14; for example,summing up the traffic infraction tickets that have been issued to the owner of aspeeding sports car, and computing the total of the amount owed.  
 
-![figure](images/raw/figure-0025.png)
+![figure](images/figure-0025.png)
 
 >Figure 2-14. Aggregating the keyed events of the red-light camera fines  
 
@@ -1614,19 +1614,19 @@ Aggregations may also be more complex, incorporating multiple input streams,mult
 
 A materialization is a projection of a stream into a table. You materialize a table by applying entity events, in order, from an entity event stream. Each entity event is upserted into the table, such that the most recently read event for a given key is represented. This is illustrated in Figure 2-15, where FAST 321 and SJFH 372 bothhave the newest values in their materialized table.  
 
-![figure](images/raw/figure-0026.png)
+![figure](images/figure-0026.png)
 
 >Figure 2-15. Materializing an event stream into a table  
 
 You can also convert a table into a stream of entity events by publishing each updateto the event stream.  
 
-![figure](images/raw/figure-0027.png)
+![figure](images/figure-0027.png)
 
 Stream-table duality is the principle that a stream can be represented by a table, and a table can be represented as a stream. It is fundamental to the sharing of state between event-driven microservices, without any direct coupling between producer and consumer services.  
 
 In the same way, you can have a table record all updates and in doing so produce a stream of data representing the table's state over time. In the following example, BB is upserted twice, while DD is upserted just once. The output stream in Figure 2-16 shows three upsert events representing these operations.  
 
-![figure](images/raw/figure-0028.png)
+![figure](images/figure-0028.png)
 
 >Figure 2-16. Generating an event stream from the changes applied to a table  
 
@@ -1643,7 +1643,7 @@ Secondly, tombstones enable compaction. Compaction is an event broker process th
 stream offsets are maintained such that no changes are required by the consumers.
 Figure 2-17 illustrates the logical compaction of an event stream in the event broker.  
 
-![figure](images/raw/figure-0029.png)
+![figure](images/figure-0029.png)
 
 >Figure 2-17. After compaction, only the most recent record is kept for a given key, while all earlier records of the same key are deleted  
 
@@ -1665,7 +1665,7 @@ Offsets remain unchanged before, during, and after compaction. Compaction will i
 
 A consumer reading from the start of a compacted topic can *materialize* exactly the same table as a consumer that has been running since the beginning.  
 
-![figure](images/raw/figure-0030.png)
+![figure](images/figure-0030.png)
 
 While you may be able to find tools that allow you to delete records from an event stream manually, be very careful. Manually deleting records can lead to unexpected results, particularly if you have consumers that have already read the data. Simply deleting the records won't fix the consumers' derived state. Prevention of bad data is essential, and is covered more in Chapter 18.  
 
@@ -1675,7 +1675,7 @@ Stream-table duality and materialization allow services to communicate state bet
 
 The kappa architecture was first presented in 2014 by Jay Kreps, cocreator of Apache Kafka and cofounder of Confluent. The kappa architecture relies on event streams as the sole record for both current and historical data. Consumers simply start consuming from the start of the stream to get a full picture of everything that has happened since inception, eventually reaching the head of the stream and the latest events, as per Figure 2-18.  
 
-![figure](images/raw/figure-0031.png)
+![figure](images/figure-0031.png)
 
 >Figure 2-18. Kappa architecture, with each service building its state from just an event stream  
 
@@ -1757,7 +1757,7 @@ The historical repository contains the results of aggregations, materializations
 
 Figure 2-19 shows a simplified implementation of the lambda architecture. The producer writes new data to both the event stream and the historical data store.  
 
-![figure](images/raw/figure-0032.png)
+![figure](images/figure-0032.png)
 
 >Figure 2-19. Lambda architecture, writing to both the stream and the historical data table at the same time  
 
@@ -1767,7 +1767,7 @@ The problem is that your stream and historical data set will diverge, meaning th
 
 In the second version of lambda architecture, the historical data is populated directlyfrom the initial event stream, as shown in Figure 2-20.  
 
-![figure](images/raw/figure-0033.png)
+![figure](images/figure-0033.png)
 
 >Figure 2-20. Historical lambda data build f rom the event stream  
 
@@ -1921,7 +1921,7 @@ Chapter 1 briefly introduced the main benefits of event-driven microservices. In
 
 Event-driven means that the events drive the business logic, just as water from a stream turns the water wheel of a mill (see Figure 3-1). Event-driven applications, be they micro or macro, typically do work only when there are events coming through it (or a timer expires—also an event). Otherwise, they sit idle until there are new events to process.  
 
-![figure](images/raw/figure-0034.png)
+![figure](images/figure-0034.png)
 
 >Figure 3-1. The water stream powers the wheel, as event streams power the microservice (Source: Laxey Wheel, wikimedia)  
 
@@ -1929,7 +1929,7 @@ The consumer microservice reads events from the stream. Each consumer is respons
 
 The *consumer group* allows for multiple consumers to be viewed as the same logical entity and enables horizontal scaling of message consumption. When a new consumer instance joins a consumer group, partitions are typically automatically redistributed among the active instances in a process known as *rebalancing*. Instances will receive events only from the partitions assigned to them. State, especially *local state*, may also require rebalancing (this is discussed further in Chapter 8).  
 
-![figure](images/raw/figure-0035.png)
+![figure](images/figure-0035.png)
 
 >Figure 3-2. Consumer groups and their per-partition offsets  
 
@@ -2006,7 +2006,7 @@ while True:
 
 Next, the code creates a simple state store (3). You will likely want to use something other than an in-memory dictionary, but this is a simple example and you could swap this for an RDBMS, a fully managed key-value store, or some other durable state store.  
 
-![figure](images/raw/figure-0036.png)
+![figure](images/figure-0036.png)
 
 Choose the state store that's most suitable for your microservice's use case. Some are best served with high-performance key-value stores, while other use cases are best served via RDBMS, graph, or document, for example.  
 
@@ -2026,7 +2026,7 @@ A key differentiator of stream-processing frameworks from the basic producer/con
 
 Flink and Spark (and others like them) use their own proprietary processing clusters to manage state, scaling, durability, and the routing of data internally. Kafka Streams, on the other hand, relies on just the Kafka cluster to provide durable storage for application state, provide topic repartitioning, and provide application scaling functionality.  
 
-![figure](images/raw/figure-0037.png)
+![figure](images/figure-0037.png)
 
 Stream-processing frameworks tend to use MapReduce programming (a form of functional programming), where you declare the transforms for the data using functions like map, reduce, aggregate, join, and filter.  
 
@@ -2109,11 +2109,11 @@ Streaming SQL queries like this one result in long-running processes that contin
 
 Streaming SQL is not standardized, and it depends heavily on the frameworks you choose to build your microservices. It requires a robust lower-level set of APIs to function beyond just toy examples. The Flink project, for example, in Figure 3-3, has several layers of APIs, each of which depends on the ones below it.  
 
-![figure](images/raw/figure-0038.png)
+![figure](images/figure-0038.png)
 
 >Figure 3-3. The four levels of Flink APIs (Source: Apache Flink documentation)  
 
-![figure](images/raw/figure-0039.png)
+![figure](images/figure-0039.png)
 
 Keep on the lookout for opportunities to use streaming SQL within
 your event-driven architectures. It can save you a ton of time and
@@ -2127,7 +2127,7 @@ Legacy applications typically aren’t written with event-driven processing in m
 
 The legacy application is basically a rigid structure that you’re unlikely to be able to change. But you can still integrate it into your overarching event-driven architecturethrough the use of connectors, as shown in Figure 3-4.  
 
-![figure](images/raw/figure-0040.png)
+![figure](images/figure-0040.png)
 
 >Figure 3-4. Producing and consuming event streams with connectors  
 
@@ -2143,7 +2143,7 @@ You're likely to find the term topology in many event-driven microservice books,
 
 A microservice topology is the event-driven business logic internal to a single micro-service. It defines the data-driven operations that the service performs on events, including transformation, storage, and the production of new events. You can represent the topology as an image, as shown in Figure 3-5.  
 
-![figure](images/raw/figure-0041.png)
+![figure](images/figure-0041.png)
 
 >Figure 3-5. A simple microservice topology  
 
@@ -2153,13 +2153,13 @@ This microservice topology image illustrates a service ingesting events from eve
 
 A business topology is like a microservice topology, but zoomed out one level further. It is the set of microservices, event streams, and APIs that fulfill complex business functions. It is an arbitrary grouping of services and may represent the services owned by a single team or department or those that fulfill a superset of complex business functionality. The business communication structures compose the business topology (see "Business Communication Structures" on page 9). Microservices implement the business bounded contexts, and event streams provide the data communication mechanism for sharing cross-context domain data.  
 
-![figure](images/raw/figure-0042.png)
+![figure](images/figure-0042.png)
 
 A *microservice topology* details the inner workings of a single microservice. A *business topology*, on the other hand, details the relationships *between* services.  
 
 Figure 3-6 shows a business topology with three independent microservices and event streams. Note that the business topology does not detail the inner workings of a microservice.  
 
-![figure](images/raw/figure-0043.png)
+![figure](images/figure-0043.png)
 
 >Figure 3-6. A simple business topology  
 
@@ -2251,7 +2251,7 @@ Containers' shared operating system approach does have some trade-offs. Containe
 
 Virtual machines (VMs) address some of the shortcomings of containers, though they aren't nearly as common for microservice deployments. Traditional VMs provide full isolation with a self-contained OS and virtualized hardware specified for each instance. Although this alternative provides higher security than containers, it has historically been much more expensive. Each VM has higher overhead costs compared to containers, with slower startup times and larger system footprints.  
 
-![figure](images/raw/figure-0044.png)
+![figure](images/figure-0044.png)
 
 Google's gVisor, Amazon's Firecracker, and Kata Containers are examples of popular frameworks for running lightweight virtual machines.  
 
@@ -2270,7 +2270,7 @@ Each microservice should be deployed as a single unit. For many microservices, a
 
 VM management is supported by a number of implementations, but is currently more limited than container management. Kubernetes and Docker Engine support Google's gVisor and Kata Containers, while Amazon's platform supports AWS Firecracker. The lines between containers and VMs will continue to blur as development continues. Make sure that the CMS you select will handle the containers and VMs that you require of it.  
 
-![figure](images/raw/figure-0045.png)
+![figure](images/figure-0045.png)
 
 Rich sets of resources are available for Kubernetes, Docker, Mesos, Amazon ECS, and Nomad. The information they provide goes far beyond what I can present here. I encourage you to look into these materials for more information.  
 
@@ -2348,7 +2348,7 @@ Event-driven microservices rely heavily on reliable and well-defined data. In th
 
 # Schemas and Data Contracts  
 
-![figure](images/raw/figure-0046.png)
+![figure](images/figure-0046.png)
 
 An earlier version of this chapter previously appeared in *Building an Event-Driven Data Mesh* (O'Reilly, 2023).  
 
@@ -2356,7 +2356,7 @@ Schemas are essential for getting an event-driven architecture off the ground. A
 
 Data contracts, which are covered in more detail in the second half of this chapter, rely on schemas as a fundamental component. They also incorporate further aspects, such as ownership, service-level agreements, encryption, data evolution rules, and more.  
 
-![figure](images/raw/figure-0047.png)
+![figure](images/figure-0047.png)
 
 Use schemas! While technically optional, they're effectively essential for making event-driven architectures that actually work.  
 
@@ -2370,13 +2370,13 @@ Serialization is the process of converting an event object in the application's 
 
 Figure 4-1 shows a producer converting an object into a sequence of bytes that is then written to an event stream. Note that the schema is also attached to the serialized event, written together into the event stream. The consumer relies on the schema to deserialize the event from a sequence of bytes back into an object or struct that the consumer understands. There are some tricks we can use to avoid sending a schema with every event, which we'll look at later in this chapter.  
 
-![figure](images/raw/figure-0048.png)
+![figure](images/figure-0048.png)
 
 >Figure 4-1. Producer serializing the event object into bytes and writing it to the event stream  
 
 On the other end of the event stream, a consumer reverses this process and deserializes the byte sequence into an object. It requires the schema to convert the sequence of bytes into an object that is legible by the consumer process. Figure 4-2 illustrates the process of consuming, deserializing, and converting the data into a representation that can be processed by the consumer's business logic code.  
 
-![figure](images/raw/figure-0049.png)
+![figure](images/figure-0049.png)
 
 >Figure 4-2. A consumer reading f rom the event stream and deserializing the bytes back into an event representation  
 
@@ -2386,7 +2386,7 @@ Schemas provide structure and definition. They’re synonymous with the definiti
 
 A failure to use schemas leaves data interpretation up to your consumers. If youonly have one consumer, then it may work(though it is not advisable). In reality,the most important data in your organization will have many consumers, all across different business units, each using their own preferred programming languages and databases. Figure 4-3 shows just two streams consumed by five services, resulting inten unique interpretations of data.  
 
-![figure](images/raw/figure-0050.png)
+![figure](images/figure-0050.png)
 
 >Figure 4-3. Two event streams with five consumers will have ten unique interpretations of the data  
 
@@ -2402,11 +2402,11 @@ The event schema details the id, name, and height of a person, along with their 
 
 Figure 4-4 shows two clients: a Java producer that writes to the event stream and a C++ consumer that reads the events out of the stream and into its own memory space. The producer can use the Protobuf code generator for Java to automatically create classes and client code for the Person schema. The consumer can similarlygenerate its own structs and client code using the C++ code generator.  
 
-![figure](images/raw/figure-0051.png)
+![figure](images/figure-0051.png)
 
 >Figure 4-4. The producer to event stream to consumer workflow of an event serialized with a schema  
 
-![figure](images/raw/figure-0052.png)
+![figure](images/figure-0052.png)
 
 Both Avro and Protobuf have many code generators that support
 a wide variety of languages. You can find support and code gen-
@@ -2482,7 +2482,7 @@ microservices at scale. The next question is: what schema technology should you 
 
 While there are many schema technologies that you could use to build your event streams, a few stand above the rest. In terms of features, commonality, community development, ease of use, and supportive tooling, Google's Protobuf and Apache Avro are your two best choices. JSON Schema is somewhat popular for those who favor JSON, but please do not confuse it with the antipattern mess that is schemaless JSON (more on this in a bit).  
 
-![figure](images/raw/figure-0053.png)
+![figure](images/figure-0053.png)
 
 Martin Kleppmann has written an excellent breakdown and analysis of JSON, XML, Protobuf, Thrift, and Avro in Chapter 4 of *Designing Data-Intensive Applications* (O'Reilly, 2017). Consider giving it a read if you would like to learn more about how these schema technologies work under the hood.  
 
@@ -2599,7 +2599,7 @@ The next and final schema technology that we’ll look at in this chapter is JSO
 
 The JSON Schema format allows you to annotate and validate JSON documents.Unlike Avro and Protobuf, you can use JSON documents without a schema. A schemaless JSON means that there is really no definition of what should and shouldnot be in the schema nor of any typing or defaults.  
 
-![figure](images/raw/figure-0054.png)
+![figure](images/figure-0054.png)
 
 Don’t use schemaless JSON. It is not suitable for event streams asit leaves too much room for error, misinterpretation, missing fields,and missing data.  
 
@@ -2725,7 +2725,7 @@ You would need to modify the Version 1 schema to add a default value *before* yo
 
 The term *default value* can be a bit misleading. Unlike a relational database table, where the default value is populated at *write time*, these default values are used at *read time*. Furthermore, the default value is applied only if the record itself does not contain the field. To further our previous example: if you try to convert a record written with schema Version 2 to schema Version 1, the converter will notice that the field `foobar` does not exist in the original event. Thus, it will set `foobar="DEFAULT_VALUE_STRING"` upon creating the converted Version 1 record instead of throwing an exception.  
 
-![figure](images/raw/figure-0055.png)
+![figure](images/figure-0055.png)
 
 Avro, JSON Schema, and Protobuf v2 each enable custom default values. This can be a powerful option for ensuring that records remain compatible through multiple changes. Developers often use default values to flag the fact that data is missing due to a compatibility conversion (e.g., DEFAULT_VALUE_STRING) and not because the payload was actually received with foobar=null.  
 
@@ -2743,7 +2743,7 @@ When an event can be converted both immediately forward and immediately backward
 
 When an event can be converted both forward and backward to any other version in the event stream. This is the strongest guarantee, and it means that every single schema evolution is fully compatible with previous schemas. A Version 3 schema would be able to be converted to Version 2 and Version 1, and vice versa.  
 
-![figure](images/raw/figure-0056.png)
+![figure](images/figure-0056.png)
 
 Full-transitive compatibility is the best place to start. It provides the strongest guarantees for consumers and ensures that they need to update their code only when business use cases change and not because the schema was broken. While you can loosen the compatibility level later, it's extremely difficult to tighten it back up.  
 
@@ -2755,7 +2755,7 @@ Chapter 3 briefly discussed service contracts as a mechanism for formalizing the
 
 A data contract is the compact between a producer of data, and all services past, present, and future that consume and use that data. Data contracts, as a concept, have featured in multiple architectures and systems of thinking, including data mesh, data lakes, and data warehouses. Conceptually they're mostly the same, answering the key question of "what are the guarantees relating to this specific data?"  
 
-![figure](images/raw/figure-0057.png)
+![figure](images/figure-0057.png)
 
 Not all event streams require a data contract. Event streams that belong to clusters of tightly coupled microservices, such as in the case of a highly orchestrated workflow, may forgo establishing a data contract. In these cases, the producer and consumer are often owned by the same team, and no other service(s) consume or use the data.  
 
@@ -2886,7 +2886,7 @@ Release the new event stream(s) alongside the existing ones, such that consumers
 
 Mark the original User stream as *deprecated* to block new consumer registration, and instead redirect prospective consumers to use the latest version, User_v2. Both User and User_v2 will coexist for the duration of the migration timeline.  
 
-![figure](images/raw/figure-0058.png)
+![figure](images/figure-0058.png)
 
 Make sure you have a hard date cutoff for migrating existing consumers to new streams. Send lots of warning messages and emails indicating the cutoff. If you do not, there's a good chance you'll never get your consumers to complete the migration, often due to lack of resources and competing priorities.  
 
@@ -2900,7 +2900,7 @@ A schema registry can provide a solution for these needs, among others, and it i
 
 A schema registry is a service that allows us to register schemas in association with their event streams. One of the main roles of the schema registry is to reduce the number of bytes sent over the network. Back in "A Brief Introduction to Serialization and Deserialization" on page 72, we saw that the basic serialization process appends a full copy of the schema to each event record, which results in a significant amount of duplicated data sent over the network. Figure 4-5 shows a producer writing events with a full copy of each schema, reducing throughput, increasing data replication costs, and increasing the load on consumers.  
 
-![figure](images/raw/figure-0059.png)
+![figure](images/figure-0059.png)
 
 >Figure 4-5. Each serialized event is published to the event stream with the entire schema, resulting in excess network utilization and storage overhead  
 
@@ -2908,7 +2908,7 @@ A schema registry can absolve you of the need to write the schema with each even
 
 Figure 4-6 shows the entire end-to-end process. Instead of serializing the schema along with the event, the producer service queries the schema registry (1), registers the schema (2), then replaces the schema with a short unique ID (3 and 4). This event is then produced to the event stream (5). The process is performed in reverse on the consumer side: the event is read from the stream (6), and the schema registry is queried using the unique ID (7 and 8). Once the schema is obtained (9), the record can then be deserialized (10 and 11) for processing by the consumer's business logic.  
 
-![figure](images/raw/figure-0060.png)
+![figure](images/figure-0060.png)
 
 >Figure 4-6. Leveraging a schema registry in an event-driven producer/consumer
 workflow  
@@ -2936,7 +2936,7 @@ The schema registry provides a minimal form of automatically updated documentati
 
 A consumer can download schemas to generate class definitions and test events for their unit tests.  
 
-![figure](images/raw/figure-0061.png)
+![figure](images/figure-0061.png)
 
 You can write a custom registration script to evaluate the schema during the registration process. A simple and common check is to verify that every value in a schema has a "doc" string of nonzero length to ensure that there is *some* documentation for each field. Another option is to scan for personally identifiable information (PII) patterns and request an additional verification step if something suspicious is found. Similarly, you can automatically generate class definitions and run validation tests prior to deployment.  
 
@@ -2966,7 +2966,7 @@ You can also use *format-preserving encryption* to maintain the format of the ev
 
 Format-preserving encryption is particularly useful for applying encryption to data after the schema has already been negotiated—for example, in legacy event streams. You won't need to renegotiate the schemas as the encrypted types remain the same as the unencrypted types. In contrast, using non-format-preserving encryption often results in malformation, such as converting a long bank account ID into a 64-character string or encrypting a complex nested object into an array of hashed bytes.  
 
-![figure](images/raw/figure-0062.png)
+![figure](images/figure-0062.png)
 
 Field-level encryption permits finer-grained access controls and independent per-field decryption capabilities. Consumers can request decryption keys for only the data they need, reducing the surface area risk for leaking sensitive data.  
 
@@ -2996,7 +2996,7 @@ In the next chapter, we’ll take a look at leveraging what we’ve learned with
 
 # Designing Events  
 
-![figure](images/raw/figure-0063.png)
+![figure](images/figure-0063.png)
 
 An earlier version of this chapter previously appeared in Buildingan Event-Driven Data Mesh(O’Reilly, 2023).  
 
@@ -3008,7 +3008,7 @@ There are two main types of events that underpin all event design: the state eve
 
 Figure 5-1 shows a simple square wave in steady state, periodically altering from one state to another based on a delta. Similar to this square wave, we model our events toeither capture the state itself or the edge that transitions from one state to another.  
 
-![figure](images/raw/figure-0064.png)
+![figure](images/figure-0064.png)
 
 >Figure 5-1. State and delta during a change  
 
@@ -3067,7 +3067,7 @@ Infer changes from state
 
 Consumers can infer all field changes by comparing the current state event to the previous state event for a given key. The service can react accordingly wheneverany fields change, as shown in Figure 5-2.  
 
-![figure](images/raw/figure-0065.png)
+![figure](images/figure-0065.png)
 
 >Figure 5-2. Two state events allow you to infer what has changed by comparing the newer event to the older event  
 
@@ -3153,7 +3153,7 @@ In the end you’ll have to ensure that you write a secondary tombstone event af
 
 Figure 5-3 illustrates the two events that you would see written to the event stream.The first contains the before/after data(with the after being null), while the secondevent is a tombstone that enables compaction and deletes the old data.  
 
-![figure](images/raw/figure-0066.png)
+![figure](images/figure-0066.png)
 
 >Figure 5-3. Publishing a tombstone after the bef ore/after deletion to enable event-stream compaction  
 
@@ -3188,7 +3188,7 @@ Some limitations to the CRUD model may make event sourcing an attractive alterna
 
 But the CRUD model also has several distinct advantages. Though it depends largely on the database, most CRUD implementations offer strong read-after-write consistency. It's also fairly intuitive and simple to use, with lots of tools and frameworks supporting it. For many software developers, this is the first model of maintaining state that they encounter. Figure 5-4 shows a series of CRUD events (one create, two updates) applying changes to the refrigerator state. The state is completely mutable, and only the updated state is retained after a create or update command is applied.  
 
-![figure](images/raw/figure-0067.png)
+![figure](images/figure-0067.png)
 
 >Figure 5-4. Using CRUD commands to update the contents of the refrigerator, reflected in the database  
 
@@ -3210,7 +3210,7 @@ The domain aggregator (2) is separate from the process that writes the new domai
 
 One of the main drawbacks of event sourcing is that it is an eventually consistent system, which may be a significant obstacle for some use cases. There will always be some delay between writing the event to the log and seeing the materialized result in the state. And because multiple concurrent clients can each write events about the same entity, it becomes difficult to attribute any specific modification in final state to the delta your client just appended. This can make it unsuitable in applications that require strong consistency.  
 
-![figure](images/raw/figure-0068.png)
+![figure](images/figure-0068.png)
 
 >Figure 5-5. Building up the contents of a refrigerator using event sourcing  
 
@@ -3230,7 +3230,7 @@ In reality, the actual set of delta events necessary for your domain is undoubte
 
 Let’s take a look at an example. Figure 5-6 shows a simple set of ecommerce events forconstructing the contents of a shopping cart.  
 
-![figure](images/raw/figure-0069.png)
+![figure](images/figure-0069.png)
 
 >Figure 5-6. Shopping cart delta events, used to construct the current state of the shopping cart  
 
@@ -3240,13 +3240,13 @@ Figure 5-7 shows this new ItemQuantityUpdated event stream published to the worl
 
 One of the common reasons that people(incorrectly) choose to use delta events for cross-domain communication is that they don’t believe that other consumers should be required to maintain state to trigger on specific changes. The near-infinite range of possible deltas makes this untenable, but it’s a trap that many don’t recognize untilthey’re firmly in its grasp.  
 
-![figure](images/raw/figure-0070.png)
+![figure](images/figure-0070.png)
 
 >Figure 5-7. New updated event changes the way the shopping cart delta events are interpreted  
 
 A simple expansion of the shopping cart domain to incorporate features such as coupons, shipping estimates, and subscriptions increases the amount of information that a consumer must account for, as shown in Figure 5-8.  
 
-![figure](images/raw/figure-0071.png)
+![figure](images/figure-0071.png)
 
 >Figure 5-8. The delta events defining the shopping cart sprawl as new business functionality is added  
 
@@ -3261,7 +3261,7 @@ worry about correctly aggregating the current state.
 
 Figure 5-9 shows two consumers, each of which has replicated the logic from the producer for building up the aggregate state. Consumers are responsible for identifying, understanding, and correctly applying the add, remove, and update domain events to generate the appropriate final state of the aggregate. The complexity of the domain is paramount; very simple domains may be able to account for this, but any domain of meaningful complexity will find this solution untenable.  
 
-![figure](images/raw/figure-0072.png)
+![figure](images/figure-0072.png)
 
 >Figure 5-9. The logic to interpret delta events to build state is copied into multiple locations  
 
@@ -3289,13 +3289,13 @@ Now contrast it with the state model, where the state domain can change as neede
 
 The fourth problem with deltas revolves around the ownership and location of business logic. For example, a consumer may need to know when a package has been shipped so that it can send out an email to the intended recipient notifying them that it's on its way. The business logic for determining that the package has shipped must necessarily live in the producer, as in Figure 5-10.  
 
-![figure](images/raw/figure-0073.png)
+![figure](images/figure-0073.png)
 
 >Figure 5-10. Consumer business requirements are pushed into the business logic of the producer, which results in very tight coupling; in this case, consumer A wants to know only when a package is shipped, but not when the package has any other status  
 
 Relying on the producer to compute consumer-specific business logic quickly becomes untenable with the growing scope of business use cases. Each new business requirement that relies on state transition will similarly need to place its business logic within the producer service(see Figure 5-11) to generate events whenever that “edge” happens. This is prohibitively difficult to scale and manage, let alone trackownership and dependencies.  
 
-![figure](images/raw/figure-0074.png)
+![figure](images/figure-0074.png)
 
 >Figure 5-11. There are many possible deltas f or domains of even modest complexity, and the producer service is unf ortunately required to handle them all in this model  
 
@@ -3311,7 +3311,7 @@ A final factor is that a single system is seldom able to provide all of the info
 
 Even if we convinced the advertising team to produce userSawAdvertisementThree Times and userReturnedItemAfterTelephoneComplaint events, the consumer would still need to store it in its own state store and await the matching purchase from the payments service. Even the most complex and convoluted event definition cannot account for handling data that resides entirely in another domain. The consumermust still be able to maintain state, despite our best efforts to avoid it.  
 
-![figure](images/raw/figure-0075.png)
+![figure](images/figure-0075.png)
 
 >Figure 5-12. Delta event triggering logic specific to consumer A is pushed upstream to both the advertising and payments service, resulting in very tight coupling across multiple services  
 
@@ -3323,13 +3323,13 @@ The fifth and final point against delta events is based on the difficulty of mai
 
 Each delta event is essential for aggregating the final state. And there may not only be a single event stream to deal with, but multiple delta streams relating to different deltas within the domain. Figure 5-13 shows an example of three simple shopping cart delta events that have grown very large over the past 10 years—so large that a new consumer might take, say, three weeks of nonstop processing to make it throughthe volume of data, just to catch up to the current state.  
 
-![figure](images/raw/figure-0076.png)
+![figure](images/figure-0076.png)
 
 >Figure 5-13. There are simply too many delta events in this stream f or a new consumer to reasonably consume  
 
 While purging old data is certainly one solution, another solution that I have seen attempted is to offload older events into a large side state store, which can be sideloaded into a new consumer. The idea here is that the consumer can load all of these events in parallel, booting up far more quickly. The problem is that the order in which these events are applied can matter, and just moving the events to a nonstreaming system only to stream them back into new consumers is a bit nonsensical. So the next solution is to build a snapshot of the state at that point intime based on all of the delta events. This is shown in Figure 5-14.  
 
-![figure](images/raw/figure-0077.png)
+![figure](images/figure-0077.png)
 
 >Figure 5-14. Loading the old events into a bootstrapping side store requires aggregating into a state model  
 
@@ -3337,7 +3337,7 @@ There is a bit of irony here. In the attempt to avoid creating a publicly usable
 
 Figure 5-15 shows that we have now come full circle, back to the very lambda architectures that we had been trying to avoid, along with all its operational complexity and inherent problems.  
 
-![figure](images/raw/figure-0078.png)
+![figure](images/figure-0078.png)
 
 >Figure 5-15. This brings us back around to the lambda architecture involving both delta events, aggregated state, and the need to handle both batch and streaming Do not let this section on delta problems sour you on their usage. They do have their place in event-driven microservices, as do state events. It's just a matter of knowing when and where to use them, and being aware of the pitfalls and hazards you may encounter along the way.  
 
@@ -3364,7 +3364,7 @@ The second (2) and third (3) bounded contexts each consume from the state stream
 
 Finally, the fourth (4) bounded context consumes from the third (3) bounded context's state stream. It also uses deltas internally to communicate between its two services. Perhaps these delta streams are using multiple event types per stream, and perhaps they're also using side state stores to provide snapshots of state. It doesn't really matter to the outside world, however, as these are concerns solely for the developers of the applications within bounded context four (4).  
 
-![figure](images/raw/figure-0079.png)
+![figure](images/figure-0079.png)
 
 >Figure 5-16. State and delta event type usage across an organization  
 
@@ -3374,7 +3374,7 @@ Having covered both deltas and state, it's now time to complicate things just a 
 
 Hybrid events are a mixture of state and delta. It's best to think of these as state events that may contain a bit of information about *why* or *how* something happened. Let's look at an example for clarity.  
 
-![figure](images/raw/figure-0080.png)
+![figure](images/figure-0080.png)
 
 Exposing “how” or “why” something has occurred with a hybrid event may lead to tight consumer coupling on the producer system’s business logic. Proceed with caution.  
 
@@ -3496,7 +3496,7 @@ It's important to note that crypto-shredding simply makes the data cryptographic
 
 Consumers of the encrypted events can contact the KMS and request access to the decryption keys. Provided they have the correct permissions, the KMS passes them back the decryption keys to allow them to decrypt the data themselves.  
 
-![figure](images/raw/figure-0081.png)
+![figure](images/figure-0081.png)
 
 Ensure that your consumers maintain the same level of encryption as the source stream when storing event data to its private data store. Microservice owners are responsible for securing their own data, which means it's best to avoid storing sensitive data unless it's absolutely necessary for your service.  
 
@@ -3553,13 +3553,13 @@ A number of patterns and frameworks exist for sourcing and sinking event data. F
 
 Data liberation is the identification and publication of cross-domain data sets to their corresponding event streams and is part of a migration strategy for event-driven architectures. Cross-domain data sets include any data stored in one data store that is required by other systems. Point-to-point dependencies between existing services and data stores often highlight the cross-domain data that should be liberated, as shownin Figure 6-1, where three dependent services are querying the legacy system directly.  
 
-![figure](images/raw/figure-0082.png)
+![figure](images/figure-0082.png)
 
 >Figure 6-1. Point-to-point dependencies, accessing data directly f rom the underlying service  
 
 Data liberation enforces two primary features of event-driven architecture: the single source of truth and the elimination of direct coupling between systems. Systems no longer couple directly to the underlying data stores or application APIs, but instead couple solely on the event streams. The post-liberation workflow is shown inFigure 6-2.  
 
-![figure](images/raw/figure-0083.png)
+![figure](images/figure-0083.png)
 
 >Figure 6-2. Post-data-liberation workflow  
 
@@ -3567,7 +3567,7 @@ Data liberation enforces two primary features of event-driven architecture: the 
 
 The dual write antipattern is when a service writes data to two data stores independently of each other. Figure 6-3 illustrates a service writing a block of data to both a state store and an event stream in an event broker. The service cannot use a simple transaction to commit the data as both services are fully independent of each other. Committing data to one service may succeed with the commit to the other subsequently failing.  
 
-![figure](images/raw/figure-0084.png)
+![figure](images/figure-0084.png)
 
 >Figure 6-3. A service cannot write to an independent data store and an independent event stream in a single atomic transaction  
 
@@ -3618,7 +3618,7 @@ Not all data stores implement an immutable logging of changes, and of those that
 
 Figure 6-4 shows a MySQL database publishing updates to its binary log. A Kafka Connect service, running a Debezium connector, consumes and parses that binary log and converts each database update to its own discrete event. Next, an event router emits each event to a specific event stream in Kafka, depending on the source table of that event. Downstream consumers are now able to access the database content by consuming the relevant event streams from Kafka.  
 
-![figure](images/raw/figure-0085.png)
+![figure](images/figure-0085.png)
 
 >Figure 6-4. The end-to-end workflow of a change-data capture solution using Debezium and Kafka Connect to source MySQL data into Kafka events  
 
@@ -3701,7 +3701,7 @@ Valid data model changes in the source data store, such as altering a data set o
 
 With query-based data liberation you query the data store, get the results, convert them into events, and write them to the event stream. You can write your own code to do this for you, or you can rely on the likes of Kafka Connect or Debezium, as mentioned previously. Given the wealth of connectors available today, I recommend that you start with a purpose-built framework instead of trying to rebuild your own.  
 
-![figure](images/raw/figure-0086.png)
+![figure](images/figure-0086.png)
 
 Query-based data liberation doesn't use the underlying data store log. Both snapshots and incremental iterations are consumed entirely via the data store query API.  
 
@@ -3753,7 +3753,7 @@ Specific queries can be executed more frequently to meet tighter SLAs (service-l
 
 Relational databases can provide isolation from the internal data model by using views or materialized views of the underlying data. This technique can be used to hide domain model information that should not be exposed outside of the data store.  
 
-![figure](images/raw/figure-0087.png)
+![figure](images/figure-0087.png)
 
 Remember that the liberated data will be the single source of truth.
 Consider whether any concealed or omitted data should instead be
@@ -3799,7 +3799,7 @@ Consider a transaction that writes to two tables, with one table referencing the
 
 A transactional outbox table is a dedicated database table that acts as a buffer for data to be written to the event stream. When you update your internal domain model, you select only the data that you want to expose to the outside world and write it to theoutbox. Then, a separate asynchronous process, such as a dedicated CDC connector,consumes the data from the outbox and writes it to the event stream. Figure 6-5shows the end-to-end workflow.  
 
-![figure](images/raw/figure-0088.png)
+![figure](images/figure-0088.png)
 
 >Figure 6-5. The end-to-end workflow of an outbox table and connector solution  
 
@@ -3872,7 +3872,7 @@ This example code first (1) updates the EcomItem price to 1299.99. Next (2), it 
 
 There are two things to note about this SQL table definition. One, it's using NOT NULL for each of the mandatory fields expected in our event. Inserting a new event into the outbox will fail unless all constraints are met. Two, the Datetime field uses the default CURRENT_TIMESTAMP if it is not provided by the application's code. You may use this timestamp as part of the schema for your event, or you may use it to populate the event's metadata to indicate when the event was created.  
 
-![figure](images/raw/figure-0089.png)
+![figure](images/figure-0089.png)
 
 Ensure that the transactional outbox table schema and the event
 schema are compatible. The fields of one schema should map
@@ -3896,7 +3896,7 @@ The inclusion of outbox tables introduces additional load on the data store and 
 
 An outbox table need not map 1:1 with the internal domain. In fact, one of the major benefits of the outbox is that the data store client can isolate the internal data model from downstream consumers. The internal data model may use several highly normalized tables that are optimized for relational operations but are largely unsuitable for consumption by downstream consumers. Even simple domains may comprise multiple tables, which if exposed as independent streams would require reconstruction for usage by downstream consumers. It can quickly become extremely expensive in terms of operational overhead, as multiple downstream teams will have to reconstruct the domain model and deal with handling relational data in event streams.  
 
-![figure](images/raw/figure-0090.png)
+![figure](images/figure-0090.png)
 
 Exposing the internal data model to downstream consumers is an antipattern. Downstream consumers should only access data formatted with public-facing data contracts, as described in Chapter 4.  
 
@@ -3916,7 +3916,7 @@ Schema serialization (and therefore, validation) can also be built into the tran
 
 Serializing prior to committing the transaction to the outbox table provides the strongest guarantee of data consistency. A serialization failure will cause the transaction to fail and roll back any changes made to the internal tables, ensuring that the outbox table and internal tables stay in sync. This process is shown in Figure 6-6. A successful validation will see the event serialized and ready for event-stream publishing. The main advantage of this approach is that data inconsistencies between the internal state and the output event stream are significantly reduced. The event-stream data is treated as a first-class citizen, and publishing correct data is considered just as important as maintaining consistent internal state.  
 
-![figure](images/raw/figure-0091.png)
+![figure](images/figure-0091.png)
 
 >Figure 6-6. Serializing change-data before writing to the outbox table  
 
@@ -3935,7 +3935,7 @@ One (often major) drawback of serializing before publishing is that performance 
 
 Alternatively, the downstream publisher can serialize the data after the event has been written to the outbox table, as is shown in Figure 6-8.  
 
-![figure](images/raw/figure-0092.png)
+![figure](images/figure-0092.png)
 
 >Figure 6-8. Serializing change-data after writing to the outbox table, as part of the publishing process  
 
@@ -3961,7 +3961,7 @@ A failure to serialize indicates that the data of the event does not comply with
 
 In reality, you will typically end up with a large number of unserializable events in your outbox. You will most likely need to manually intervene to try to salvage some of the data, but resolving the issue will be time-consuming and difficult and may even require downtime to prevent additional issues. This is compounded by the fact that *some* events may indeed be compatible and have already been published, leading to possible incorrect ordering of events in output streams.  
 
-![figure](images/raw/figure-0093.png)
+![figure](images/figure-0093.png)
 
 Before-the-fact serialization provides a stronger guarantee against incompatible data than after-the-fact and prevents propagation of events that violate their data contract. The trade-off is that this implementation will also prevent the business process from completing should serialization fail, as the transaction must be rolled back.  
 
@@ -4011,7 +4011,7 @@ The performance impact to the business workflow may be nontrivial, particularly 
 
 The performance impact to the data store may be nontrivial, especially when a significant quantity of records are being written, read, and deleted from the outbox.  
 
-![figure](images/raw/figure-0094.png)
+![figure](images/figure-0094.png)
 
 You must balance performance impacts against other costs. For instance, some organizations simply emit events by parsing change-data capture logs and leave it up to downstream teams to clean up the events after the fact. This incurs its own set of expenses in the form of computing costs for processing and standardizing the events, as well as human-labor costs in the form of resolving incompatible schemas and attending to the effects of strong coupling to internal data models. Costs saved at the producer side are often dwarfed by the expenses incurred at the consumer side.  
 
@@ -4023,7 +4023,7 @@ You can capture row-level changes to an audit table by using an AFTER trigger. F
 
 Consider the example shown in Figure 6-10. User data is upserted to a user table, with a trigger capturing the events as they occur. Note that the trigger is also capturing the time at which the insertion occurred as well as an auto-incrementing sequence ID for the event publisher process to use.  
 
-![figure](images/raw/figure-0095.png)
+![figure](images/figure-0095.png)
 
 >Figure 6-10. Using a trigger to capture changes to a user table  
 
@@ -4031,19 +4031,19 @@ You generally cannot validate the change-data with the event schema during the e
 
 Figure 6-11 shows a continuation of the previous example. After-the-fact validation and serialization is performed on the change-data, with successfully validated data produced to the output event stream. Unsuccessful data would need to be error-handled according to business requirements, but would likely require human intervention.  
 
-![figure](images/raw/figure-0096.png)
+![figure](images/figure-0096.png)
 
 >Figure 6-11. After-the-fact validation and production to the output event stream  
 
 The change-data capture table schema is the bridge between the internal table schema and the output event-stream schema. Compatibility among all three is essential for ensuring that data can be produced to the output event stream. Because output schema validation is typically not performed during trigger execution, it is best to keep the change-data table in sync with the format of the output event schema.  
 
-![figure](images/raw/figure-0097.png)
+![figure](images/figure-0097.png)
 
 Compare the format of the output event schema with the change-data table during testing. This can expose incompatibilities beforeproduction deployment.  
 
 Triggers can work great in many legacy systems. Legacy systems tend to use, by definition, old technology; triggers have existed for a very long time and may very well be able to provide the necessary change-data capture mechanism. The access and load patterns tend to be well defined and stable, such that the impact of adding triggering can be accurately estimated. Finally, although schema validation is unlikely to occur during the triggering process itself, it may be equally unlikely that the schemas themselves are going to change, simply due to the legacy nature of the system. After-the-fact validation is only an issue if schemas are expected to changefrequently.  
 
-![figure](images/raw/figure-0098.png)
+![figure](images/figure-0098.png)
 
 Avoid the use of triggers whenever possible. Instead, use more modern functionality for generating or accessing change-data, such as a designated CDC system. You should not underestimate theoverhead performance and management complexity of a trigger-based solution, particularly when many dozens or hundreds oftables and data models are involved.  
 
@@ -4083,7 +4083,7 @@ The quantity of triggers required scales linearly with the number of data sets t
 
 Schema enforcement for the output event occurs only after the record has been published to the outbox table. This can lead to unpublished events in the outbox table.  
 
-![figure](images/raw/figure-0099.png)
+![figure](images/figure-0099.png)
 
 Some databases allow for triggers to be executed with languages
 that can validate compatibility with output event schemas during
@@ -4095,7 +4095,7 @@ the risk of downstream schema incompatibilities.
 
 Integrating data definition changes can be difficult in a data liberation framework. Data migrations are a common operation for many relational database applications and need to be supported by capture. Data definition changes for a relational database can include adding, deleting, and renaming columns; changing the column type; and adding or removing defaults. While all of these operations are valid data set changes, they can create issues for the production of data to liberated event streams.  
 
-![figure](images/raw/figure-0100.png)
+![figure](images/figure-0100.png)
 
 Data definition is the formal description of the data set. For example, a table in a relational database is defined using a data definition language (DDL). The resultant table, columns, names, types, and indices are all part of its data definition.  
 
@@ -4120,7 +4120,7 @@ Add the integration tests to the deployment pipeline to ensure that no code is d
 
 The reality is that you're bridging a schema from one independent system (the data store) to another independent system (the event broker). This step will always be a bit precarious, particularly because team boundaries tend to align on this very same system gap.  
 
-![figure](images/raw/figure-0101.png)
+![figure](images/figure-0101.png)
 
 A big benefit of the outbox table pattern is that the code that populates the outbox resides inside the same codebase as the main application. Any breaking changes to the code that populates the outbox will result in compilation and testing errors, letting you take action before breaking anything in production.  
 
@@ -4132,7 +4132,7 @@ However, legacy systems do not rebuild their data sets from these liberated even
 
 This involves changing your application to first write to the event stream, and then read back the data that it just wrote to build its internal state, as is illustrated inFigure 6-12.  
 
-![figure](images/raw/figure-0102.png)
+![figure](images/figure-0102.png)
 
 >Figure 6-12. Publish to stream bef ore materializing  
 
@@ -4169,7 +4169,7 @@ There is an opportunity for compromise here. You can rely on data liberation pat
 
 Instead, the fundamental goal is to keep the internal data set synchronized with the external event stream through strictly controlled publishing of event data. The event stream will be eventually consistent with the internal data set of the legacy application, as shown in Figure 6-13.  
 
-![figure](images/raw/figure-0103.png)
+![figure](images/figure-0103.png)
 
 >Figure 6-13. Liberating and materializing state between two services  
 
@@ -4195,7 +4195,7 @@ You can fall into two main traps when using a centralized framework. First, the 
 
 The second issue is a bit more pervasive, especially in an organization where event-driven principles are only partially adopted. Systems can become too reliant upon frameworks and connectors to do their event-driven work for them. Once data has been liberated from the internal state stores and published to event streams, the organization may become complacent about moving onward into native event-driven microservices. Teams can become overly reliant upon the connector framework for sourcing and sinking data, and choose not to refactor their applications or develop new event-driven services. In this scenario they instead prefer to just requisition new sources and sinks as necessary, leaving their entire underlying application completely ignorant to events.  
 
-![figure](images/raw/figure-0104.png)
+![figure](images/figure-0104.png)
 
 CDC tools are *not* the final destination in moving to an event-driven architecture, but instead are primarily meant to help bootstrap the process. The real value of the event broker as the data communication layer is in providing a robust, reliable, and truthful source of event data decoupled from the implementation layers, and the broker is only as good as the quality and reliability of its data.  
 
@@ -4225,7 +4225,7 @@ While liberating data to event streams is a key foundation to building event-dri
 
 ## Denormalization and Eventification  
 
-![figure](images/raw/figure-0105.png)
+![figure](images/figure-0105.png)
 
 Portions of this chapter previously appeared in *Building an Event-Driven Data Mesh* (O'Reilly, 2023).  
 
@@ -4265,7 +4265,7 @@ Merchant.premium_partner specifies if the merchant has signed on and paid for th
 
 Due to the relational nature of these streams, each consumer service will need to do the same foreign-key joins of Item to Merchant to get the data into a proper format for its business use cases. Figure 7-1 shows a small subset of consumers that each need to consume and join each event stream.  
 
-![figure](images/raw/figure-0106.png)
+![figure](images/figure-0106.png)
 
 >Figure 7-1. Each consumer has to join the same data to determine premium partner status  
 
@@ -4307,7 +4307,7 @@ You can implement the eventification pattern for use in event-driven microservic
 
 Let’s take a look at each of these in turn.  
 
-![figure](images/raw/figure-0107.png)
+![figure](images/figure-0107.png)
 
 Some companies choose to denormalize their data in their data lake, a process that is both slow and expensive. Additionally, it forces the consumers to be responsible for denormalizing and standardizing the data, which often causes significant problems indata quality.  
 
@@ -4376,7 +4376,7 @@ However, it's not always possible to build an outbox table into a database, let 
 
 Eventification outside the source database requires a purpose-built microservice or stream SQL application. For example, Figure 7-2 shows a high-level overview of a dedicated eventification service joining Item and Merchant data together to form a single enriched stream for downstream use.  
 
-![figure](images/raw/figure-0108.png)
+![figure](images/figure-0108.png)
 
 >Figure 7-2. Eventification within a dedicated service using CDC event streams  
 
@@ -4394,13 +4394,13 @@ INNER JOIN Merchant
 
 ON Item.merchant_id = Merchant.id  
 
-![figure](images/raw/figure-0109.png)
+![figure](images/figure-0109.png)
 
 You can also choose to use *windowing* to limit the size of the materialized data sets and improve performance.  
 
 SQL eventification services make it easy to resolve table-table streaming joins and denormalization of entities. SQL is very common, easy to learn, and easy to read. And since a key aspect of eventification is simple denormalization, it becomes very easy to see if someone has loaded some business logic into the query. Remember, the main purpose of eventification is just to make it easier on consumers to use the data; we're *not* executing any complex business logic, filters, or other application-specific logic.  
 
-![figure](images/raw/figure-0110.png)
+![figure](images/figure-0110.png)
 
 You may also need to contend with out-of-order data, just like any other event-driven service. Flink uses a watermarking system as described in Chapter 9. Consult your documentation for other streaming SQL frameworks.  
 
@@ -4430,7 +4430,7 @@ Let's consider an extension of our ecommerce example. Item has a primary-key rel
 
 Every time the inventory changes, say, due to a sale, a return, or a received shipment, the inventory domain can emit a new state event with the updated inventory. For products that change extremely frequently (think a Black Friday "door crasher" sale), you could end up with a veritable barrage of inventory events.  
 
-![figure](images/raw/figure-0111.png)
+![figure](images/figure-0111.png)
 
 The Inventory producer can choose to emit inventory updates periodically, perhaps every 5 or 30 seconds. This can reduce the frequency of updates, at the expense of increasing the latency between updates.  
 
@@ -4444,7 +4444,7 @@ As a general rule, avoid joining in data that *changes frequently* or is *large*
 
 Figure 7-3 provides a visualization of the final state of the Enriched_Items eventification service. The most commonly used data is joined into the enriched result. Reviews are omitted from enrichment due to the large size of the data, while Inventory is similarly omitted due to its high-frequency updates.  
 
-![figure](images/raw/figure-0112.png)
+![figure](images/figure-0112.png)
 
 >Figure 7-3. Eventification of Item with commonly used data joined into the enriched result  
 
@@ -4583,7 +4583,7 @@ Consider an example. Suppose there is a stream of user data coming in from a web
 
 Say that the consuming microservice requires that all data belonging to a particular user id is contained within the same partition, regardless of how the source event stream is partitioned. In this case, the service assigns the key to the id and writes it to a new event stream with a partition count of 3, as shown in Figure 8-1.  
 
-![figure](images/raw/figure-0113.png)
+![figure](images/figure-0113.png)
 
 >Figure 8-1. Repartitioning an event stream  
 
@@ -4593,7 +4593,7 @@ Here are a few of things to observe from this example:
 
 • Repartitioning data is primarily a function for ensuring sufficient parallelization and for key locality, but not for increasing throughput. For example, an event stream with two partitions that is repartitioned into a new steam with 1,000 partitions will still be limited to the throughput of the two-partition input stream.  
 
-![figure](images/raw/figure-0114.png)
+![figure](images/figure-0114.png)
 
 If the order of data in an event stream is extremely important, then it's best to generate it *in order* and in the same partition. The event stream in this example could simply be keyed by id from the start, and written in the actual order of occurrence.  
 
@@ -4609,7 +4609,7 @@ The joining of these streams, is shown in Figure 8-2.
 
 Both streams have the same partition count and have had their events partitioned using the same partition assignor. Note that the key distribution of each partition matches the distribution of the other stream and that each join is performed by its own consumer instance. The next section covers how partitions are assigned to a microservice instance to leverage copartitioned streams, as was done in this join example.  
 
-![figure](images/raw/figure-0115.png)
+![figure](images/figure-0115.png)
 
 >Figure 8-2. Copartitioned user event and user entity streams  
 
@@ -4625,19 +4625,19 @@ As a brief example, consider a service that consumes from three streams, two of 
 
 Figure 8-3 shows two consumer instances, each with its own set of assigned partitions. C0 has two sets of copartitioned partitions compared to one for C1, since assignment both began and ended on C0.  
 
-![figure](images/raw/figure-0116.png)
+![figure](images/figure-0116.png)
 
 >Figure 8-3. A round-robin partition assignment f or two consumer instances and three streams  
 
 >Additional consumer instances added to the consumer group cause a rebalance.Figure 8-4 shows the effects of adding two more consumer instances.  
 
-![figure](images/raw/figure-0117.png)
+![figure](images/figure-0117.png)
 
 >Figure 8-4. Round-robin partition assignments f or f our consumer instances and three streams  
 
 C2 is now assigned the copartitioned P2s, as well as stream A’s P2. C3, on the other hand, only has partition P3 from stream A because there are no additional partitions to assign. Adding any further instances will not result in any additional parallelizationwhen consuming as an event stream.  
 
-![figure](images/raw/figure-0118.png)
+![figure](images/figure-0118.png)
 
 The exact mechanisms of consumer group membership, partition assignments, and rebalancing all rely heavily on your event broker and the processing framework choices. Check the documentation to ensure you have a proper understanding and test it to make sure it behaves as expected before moving to production.  
 
@@ -4649,7 +4649,7 @@ themselves.
 
 Let's start with an example to anchor the exploration of state. Consider Figure 8-5, a service built to package up customer orders based on the inventory available.  
 
-![figure](images/raw/figure-0119.png)
+![figure](images/figure-0119.png)
 
 >Figure 8-5. A shipment packaging service loading state to either an internal or external state store  
 
@@ -4675,11 +4675,11 @@ Internal state stores are typically volatile, and restarting the microservice wi
 
 A changelog is a record of all changes made to the data of the state store. It is the stream in the table-stream duality, with the table of state transformed into a stream of individual events. As a permanent copy of the state maintained outside of the microservice instance, the changelog can be used to rebuild state, as shown inFigure 8-6, and serves as a checkpoint.  
 
-![figure](images/raw/figure-0120.png)
+![figure](images/figure-0120.png)
 
 Changelogs optimize the task of rebuilding failed services because they store the results of previous processing, allowing a recoveringprocessor to avoid reprocessing all input events.  
 
-![figure](images/raw/figure-0121.png)
+![figure](images/figure-0121.png)
 
 >Figure 8-6. A state store with changelogging enabled  
 
@@ -4689,7 +4689,7 @@ Changelog streams are stored in the event broker just like any other stream, tho
 
 During restoration, the newly created application instance loads the data from theassociated changelog partitions, as shown in Figure 8-7.  
 
-![figure](images/raw/figure-0122.png)
+![figure](images/figure-0122.png)
 
 >Figure 8-7. Restoring the application's state store from a single changelog partition  
 
@@ -4705,7 +4705,7 @@ In this example, we've decided to load the entire state of inventory into each m
 
 Global state stores are typically not used to drive event-driven logic, but rather as the means for providing data lookups.  
 
-![figure](images/raw/figure-0123.png)
+![figure](images/figure-0123.png)
 
 >Figure 8-8. Global materialized state and nonglobal materialized state  
 
@@ -4751,7 +4751,7 @@ While it is most common to materialize only a single partition per microservice 
 
 To simplify this example, let's assume that each order is only for one product and that both inventory and product streams are keyed on productId. In other words, they're copartitioned, and packaging up an order from P0 (partition 0) only requires data from Inventory - P0. Figure 8-9 shows what a standard three-instance deployment would look like, with each copartitioned data set located in a single instance.  
 
-![figure](images/raw/figure-0124.png)
+![figure](images/figure-0124.png)
 
 >Figure 8-9. Joining orders with inventory, with one partition per instance  
 
@@ -4760,7 +4760,7 @@ sumer instance, reload the state from the changelog, and then resume processing.
 
 Figure 8-10 shows a three-instance microservice deployment with an internal state store replication factor of 2. Each of the orders and inventory partitions are materialized twice, once as the primary and once as a replica. Each instance must manage its replicas just as it would its primaries, except that the replicas do not drive any logic.  
 
-![figure](images/raw/figure-0125.png)
+![figure](images/figure-0125.png)
 
 >Figure 8-10. Joining orders with inventory, with one hot replica of each partition collocated in another microservice instance  
 
@@ -4768,13 +4768,13 @@ When an instance is terminated, the consumer group leader eventually rebalances 
 
 In Figure 8-11, instance 1 has terminated, and the remaining microservice instances rebalance their partition assignments. Instance 0 takes over the workload that instance 1 used to do, as it contains the hot P1 replicas.  
 
-![figure](images/raw/figure-0126.png)
+![figure](images/figure-0126.png)
 
 >Figure 8-11. Partition assignment rebalancing due to instance 1 termination  
 
 Once processing has resumed, new hot replicas must be built from the changelog to maintain the minimum replica count. In this case, you may see instance 2 building a hot replica for P1, while instance 1 builds a hot replica for P2. However, if the original instance 1 comes back online, they'll redistribute their workloads back to the original configuration once it has rebuilt its internal state.  
 
-![figure](images/raw/figure-0127.png)
+![figure](images/figure-0127.png)
 
 This section only addresses hot failovers in general. For specifics, read your processing framework's documentation to get a better understanding of the hot partition failover and failback mechanisms. Copartitioning relies on keying strategies specific to the processing framework, including those covered in Chapters 12 and 13.  
 
@@ -4789,7 +4789,7 @@ When a newly created microservice instance joins the consumer group, any statefu
 
 If no changelog is maintained, the microservice instance can rebuild its state stores from the input streams. It must consume all of its input events from the very beginning of its assigned event-stream partitions. Each event must be consumed and processed in strict incrementing order, its state updated, and any subsequent output events produced.  
 
-![figure](images/raw/figure-0128.png)
+![figure](images/figure-0128.png)
 
 Consider the impact of events produced during a full reprocessing.
 Downstream consumers may need to process these idempotently
@@ -4812,7 +4812,7 @@ all other microservice implementations. A failure to do so can result in very ti
 coupling between services, making it very difficult to refactor your microservice's
 internal data model.  
 
-![figure](images/raw/figure-0129.png)
+![figure](images/figure-0129.png)
 
 Do not share direct state access with other microservices! Instead,
 all microservices must materialize their own copy of state. This
@@ -4829,7 +4829,7 @@ There are several advantages to using external state storage.
 
 Unlike internal state stores, external state stores can provide access to all materialized data for each microservice instance. A single materialized data set eliminates the need for partition locality when you are performing lookups, relational queries on foreign keys, and geospatial queries among a large number of elements. However, each microservice instance remains responsible for materializing and processing its own assigned partitions.  
 
-![figure](images/raw/figure-0130.png)
+![figure](images/figure-0130.png)
 
 Use state stores with strong read-after-write guarantees to eliminate
 inconsistent results when using multiple instances.  
@@ -4850,7 +4850,7 @@ There are several drawbacks to using external state storage.
 
 External state stores are managed and scaled independently of the microservice business logic solution. One of the risks of an external data store is that the microservice owner is now on the hook for ensuring that it is maintained and scaled appropriately. Each team must implement proper resource allocation, scaling policies, and system monitoring to ensure that its data service is suitable and resilient for the microservice's load. Managed data services provided by the organization's capabilities team or by a third-party cloud platform vendor can help distribute some of this responsibility.  
 
-![figure](images/raw/figure-0131.png)
+![figure](images/figure-0131.png)
 
 Each team must fully manage the external state stores for its microservices. Do not delegate responsibility of external state store management to its own team, as this introduces a technical cross-team dependency. Compose a list of acceptable external data services with guides on how to properly manage and scale them. This will alleviate each team from having to independently discover and implement its own management solutions.  
 
@@ -4886,7 +4886,7 @@ Rewinding the consumer offsets to rebuild from the start of the stream is one op
 
 External state stores typically do not rely on using broker-stored changelogs to record and restore state, though there is no rule preventing this. Just like when rebuilding from source streams, you must create a fresh copy of the state store. If rebuilding from changelogs, the microservice consumer instances must ensure they rebuild theentire state as stored in the changelog before resuming processing.  
 
-![figure](images/raw/figure-0132.png)
+![figure](images/figure-0132.png)
 
 Rebuilding external state stores from source event streams or changelogs can be prohibitively time-consuming due to network latency overhead. Make sure you can still meet the microserviceSLAs in such a scenario.  
 
@@ -4904,7 +4904,7 @@ If the stored state is not idempotent and any duplicate events are not acceptabl
 
 New business requirements sometimes require a change to the state store models of a service. You may need to add new information to existing events, perform some extra join steps with another materialized table, or otherwise store newly derived business data. In the vast majority of cases, it is far better to rebuild the external state storethan to try to migrate your data.  
 
-![figure](images/raw/figure-0133.png)
+![figure](images/figure-0133.png)
 
 Data migrations are very risky, and should be avoided whenever possible. The migrated data may be inconsistent with what is actually written in the original source of truth from the input stream, resulting in inconsistent output. It can be very difficult to track down these errors, and any time or money saved via a data migration is often accounted for tenfold in trying to fix the unintended consequences.  
 
@@ -4918,7 +4918,7 @@ logic executes on the historical data.
 
 Finally, once you have verified that everything is operational with the newly migrated service, you can delete the old state store and any changelogs or snapshots.  
 
-![figure](images/raw/figure-0134.png)
+![figure](images/figure-0134.png)
 
 If your application is critically reliant upon a source of input data,
 you must ensure that it remains readily available for reprocessing.
@@ -4927,7 +4927,7 @@ protected accordingly.
 
 As an example, consider a scenario where a company starts to offer international shipping. Previously, it may only have shipped nationally and not have bothered to collect the country information of its customers. Now, it collects the country information during signup, as its packaging service may need that information to best select a shipper for its goods. Figure 8-12 shows how the packaging microservice can account for the new country data.  
 
-![figure](images/raw/figure-0135.png)
+![figure](images/figure-0135.png)
 
 >Figure 8-12. The packaging microservice rebuilding its external state store, to make business decisions off the newly added Country field  
 
@@ -4949,7 +4949,7 @@ Not all event brokers may support transactions or idempotent production. In some
 
 The inventory accounting service is responsible for issuing an event when the inventory of any given item is low. The microservice must piece together the current inventory available for each product based on a chain of additions and subtractions made over time. Selling items to customers, losing items to damage, and losing items to theft are all events that reduce inventory. Receiving shipments, accepting customer returns, and finding lost inventory in the warehouse would be events that increase inventory. These events are shown in the same event stream for simplicity in this example, as illustrated in Figure 8-13.  
 
-![figure](images/raw/figure-0136.png)
+![figure](images/figure-0136.png)
 
 >Figure 8-13. A simple inventory accounting service  
 
@@ -4963,7 +4963,7 @@ This service benefits greatly from effectively once semantics as it is entirely 
 
 Effectively once processing can be facilitated by any event broker that supports transactions. Transactions ensure that output events, changelog events, and consumer offset output events are committed atomically to the event broker, as shown in Figure 8-14.  
 
-![figure](images/raw/figure-0137.png)
+![figure](images/figure-0137.png)
 
 >Figure 8-14. Committing offsets, changelogs, and event production with client-broker transactions  
 
@@ -4971,13 +4971,13 @@ The atomic transaction between the producer client and the event broker will pub
 
 Event-stream consumers typically abstain from processing events that are in uncommitted transactions. It's a bit academic really, as there are vanishingly few scenarios where you want the guarantees of a transaction, but don't care if the transaction is actually committed! The consumer, however, must respect offset order, and so it'll wait for the pending transactions to commit or abort.  
 
-![figure](images/raw/figure-0138.png)
+![figure](images/figure-0138.png)
 
 >Figure 8-15. Failed commit for a client-broker transaction  
 
 In the case that the producer suffers a fatal exception during a transaction, its replacement instance can simply be rebuilt by restoring from the changelogs, as shown in Figure 8-16. The consumer group offsets of the input event streams are also reset according to the last known good position stored in the offset event stream.  
 
-![figure](images/raw/figure-0139.png)
+![figure](images/figure-0139.png)
 
 >Figure 8-16. Restoring the state from the broker using changelogs and previous offsets  
 
@@ -4990,7 +4990,7 @@ identified and filtered out.
 
 Second, state and offset management need to be updated in a *local transaction* to ensure that the event processing is applied only once to the system state. By following this strategy, clients can be assured that the internal state generated by their processor is consistent with the logical narrative of the input event streams. Let's take a look at these steps in more detail.  
 
-![figure](images/raw/figure-0140.png)
+![figure](images/figure-0140.png)
 
 It is better to use an event broker and client that support idempotent writes than it is to try to solve deduplication after the fact. The former method scales well to all consumer applications, whereas the latter is expensive and difficult to scale as each consumer must implement safeguards.  
 
@@ -5006,7 +5006,7 @@ Producer crashes immediately after writing, before updating its own consumer off
 
 In this case, the producer will have successfully written its events, but will *not* have updated its consumer offsets yet. This means that when the producer comes back up, it will repeat the work that it had previously done, creating logically identical copies of the events but with new timestamps. If processing is deterministic, then the events will have the same data. New offsets will also be assigned, making it difficult to tell that they are in fact duplicates.  
 
-![figure](images/raw/figure-0141.png)
+![figure](images/figure-0141.png)
 
 Idempotent production can mitigate failures due to crashes and retries between the client and the broker. It cannot mitigate duplicates introduced through faulty business logic.  
 
@@ -5026,7 +5026,7 @@ This hash function is often based on the properties of the internal event data, 
 
 One factor these examples have in common is that each ID is composed of elements with a very high cardinality (that is, uniqueness). This significantly reduces the chances of duplicates between the IDs. The deduplication ID (dedupe ID) can either be generated with the event or be generated by the consumer upon consumption. Your best option is to generate the ID with the event, as all consumers can benefit from it and you can freely change the logic that generates it.  
 
-![figure](images/raw/figure-0142.png)
+![figure](images/figure-0142.png)
 
 Guarding against duplicate events produced without a key is extremely challenging, as there is no guarantee of partition locality. Produce events with a key, respect partition locality, and use idempotent writes whenever possible.  
 
@@ -5036,7 +5036,7 @@ Any effectively once consumer must either identify and discard duplicates, perfo
 
 Perfect deduplication requires that each consumer indefinitely maintain a lookup of each dedupe ID already processed, but time and space requirements can become prohibitively expensive if an attempt is made to guard against too large a range. In practice, deduplication is generally performed only for a specific rolling time-windowor offset-window as a best-effort attempt.  
 
-![figure](images/raw/figure-0143.png)
+![figure](images/figure-0143.png)
 
 Keep deduplication stores small by using time-to-live(TTL), a maximum cache size, and periodic deletions. The specific settings needed will vary depending on the sensitivity of your application toduplicates and the impact of duplicates occurring.  
 
@@ -5044,11 +5044,11 @@ Deduplication should be attempted only within a single event-stream partition, a
 
 Figure 8-17 shows a deduplication store in action. In this figure you can see the workflow that an event goes through before being passed off to the actual business logic. In this example the TTL is arbitrarily set to 8,000 seconds, but in practicewould need to be established based on business requirements.  
 
-![figure](images/raw/figure-0144.png)
+![figure](images/figure-0144.png)
 
 >Figure 8-17. Deduplication using persisted state  
 
-![figure](images/raw/figure-0145.png)
+![figure](images/figure-0145.png)
 
 A maximum cache size is used in the deduplication store to limitthe number of events maintained, particularly during reprocessing.  
 
@@ -5062,15 +5062,15 @@ In the case of a service failure, such as a timeout when committing to the data 
 
 By keeping the official record of offsets synchronized with the state in the data store, you have a consistent record of state that the service can recover from. This process is illustrated in Figures 8-18, 8-19, and 8-20.  
 
-![figure](images/raw/figure-0146.png)
+![figure](images/figure-0146.png)
 
 >Figure 8-18. Normal transactional processing of events  
 
-![figure](images/raw/figure-0147.png)
+![figure](images/figure-0147.png)
 
 >Figure 8-19. Failure occurs in transactional processing  
 
-![figure](images/raw/figure-0148.png)
+![figure](images/figure-0148.png)
 
 >Figure 8-20. Recovery of offsets during state restoration process  
 
@@ -5100,7 +5100,7 @@ Here are the three main questions addressed in this chapter:
 
 We can answer these questions by examining timestamps, event scheduling, watermarks, and stream times, and how they contribute to deterministic processing. Bugs, errors, and changes in business logic will also necessitate reprocessing, making deterministic results important. This chapter also explores how out-of-order and late-arriving events can occur, strategies for handling them, and mitigating their impact on our workflows.  
 
-![figure](images/raw/figure-0149.png)
+![figure](images/figure-0149.png)
 
 This chapter is fairly information-dense despite my best efforts to find a simple and concise way to explain the key concepts. There are a number of sections where I will refer you to further resources to explore on your own, as the details often go beyond the scope of this book.  
 
@@ -5138,7 +5138,7 @@ The time in which the event is ingested by the consumer. This can be set to thee
 
 The wall-clock time at which the event has been processed by the consumer.  
 
-![figure](images/raw/figure-0150.png)
+![figure](images/figure-0150.png)
 
 >Figure 9-1. The different kinds of timestamps in an event-driven architecture  
 
@@ -5163,13 +5163,13 @@ Timestamps provide a way to process events distributed across multiple event str
 
 For example, a bank must ensure that both deposit and withdrawal event streams are processed in the correct temporal order. It keeps a stateful running tally of withdrawals and deposits, applying an overdraft penalty when a client's account balance drops below $0. For this example, the bank has its deposits in one event stream and its withdrawals in another stream, as shown in Figure 9-2.  
 
-![figure](images/raw/figure-0151.png)
+![figure](images/figure-0151.png)
 
 >Figure 9-2. In which order should events be processed?  
 
 A naive approach to consuming and processing records, perhaps a round-robin processor, might process the $10 deposit first, the $25 withdrawal second (incurring a negative balance and overdraft penalties), and the $20 deposit third. This is incorrect, however, and does not represent the temporal order in which the events occurred. This example makes clear that you must consider the event's timestamp when consuming and processing events. The next section discusses this in greater detail.  
 
-![figure](images/raw/figure-0152.png)
+![figure](images/figure-0152.png)
 
 The consumer application requires copartitioned event streams (see "Copartitioning Event Streams" on page 34) so that the deposits and withdrawals for a given key go to the same stream. In the case that they do not have the same partition count or partition key, then they will need to be repartitioned and/or rekeyed (see "Repartitioning Event Streams" on page 33).  
 
@@ -5177,13 +5177,13 @@ The consumer application requires copartitioned event streams (see "Copartitioni
 
 Deterministic processing requires that events be processed consistently, such that the results can be reproduced at a later date. Event scheduling is the process of selecting the next events to process when consuming from multiple input partitions. For an immutable log-based event stream, records are consumed in an offset-based order. However, as Figure 9-2 demonstrates, the processing order of events must be interleaved based on the *event time* provided in the record, regardless of which input partition it comes from, to ensure correct results.  
 
-![figure](images/raw/figure-0153.png)
+![figure](images/figure-0153.png)
 
 The most common event-scheduling implementation selects and dispatches the event with the oldest timestamp from all assigned input partitions to the downstream processing topology.  
 
 Event scheduling is a feature of many stream-processing frameworks, but is typically absent from basic consumer implementations. You will need to determine if it is required for your microservice implementation.  
 
-![figure](images/raw/figure-0154.png)
+![figure](images/figure-0154.png)
 
 Your microservice will need event scheduling if the order in which
 events are consumed and processed matters to the business logic.  
@@ -5216,13 +5216,13 @@ Watermarking is used to track the progress of event time through a processing to
 
 A watermark is a specialized *event* created and propagated internally along the event-driven topology. It is injected into the topology by the processing framework itself, and signals to the topology nodes that it passes through that all events of time $t$ and prior have been processed. Upon receiving a watermark, the node then updates its own internal event time and propagates the watermark downstream to the next nodes. This process is shown in Figure 9-3, with the watermark illustrated as a thin dotted line.  
 
-![figure](images/raw/figure-0155.png)
+![figure](images/figure-0155.png)
 
 >Figure 9-3. Watermark propagation between nodes in a simple topology  
 
 In this figure, the consumer node has the highest watermark time because it's consuming from the source event stream. The consumer node periodically generates new watermarks when a period of wall-clock or event time has elapsed, or when it has consumed a given number of events. It has just generated Watermark(24) and put it into the internal stream leading to the filter topology stage. Watermark(20) is sandwiched between the events with timestamps 22 and 20. Once the map stage processes the event with timestamp 20, it will then process the Watermark(20) event and update its own internal watermark from $t=10$ to $t=20$.  
 
-![figure](images/raw/figure-0156.png)
+![figure](images/figure-0156.png)
 
 This chapter only touches on watermarks to give you an understanding of how they're used for deterministic processing. If you would like to dig deeper into watermarks, consider Chapters 2 and 3 of the excellent book *Streaming Systems*, by Tyler Akidau, Slava Chernyak, and Reuven Lax (O'Reilly, 2018).  
 
@@ -5230,7 +5230,7 @@ This chapter only touches on watermarks to give you an understanding of how they
 
 Watermarks are particularly useful for coordinating event time between multiple independent consumer instances. Figure 9-4 shows a simple processing topology of two consumer instances. Each consumer instance consumes events from its own assigned partition, applies a `groupByKey` function, followed by an `aggregate` function. This requires a `shuffle`, where all events with the same key are sent to a single downstream aggregate instance. In this case, events from instance 0 and instance 1 are sent to each other based on the key to ensure all events of the same key are in the same partition.  
 
-![figure](images/raw/figure-0157.png)
+![figure](images/figure-0157.png)
 
 >Figure 9-4. Watermark propagation between nodes in a topology with multiple processors  
 
@@ -5258,7 +5258,7 @@ Any events consumed and processed with a lower stream time than the highest valu
 
 Figure 9-5 shows an example of stream time. The consumer node maintains a single stream time based on the highest event-time value it has received. The stream time iscurrently set to 20 since that was the event time of the most recently processed event.The next event to be processed is the smallest value of the two input buffers—in this case, it’s the event with event time 30. The event is dispatched down to the processingtopology, and the stream time will be updated to 30.  
 
-![figure](images/raw/figure-0158.png)
+![figure](images/figure-0158.png)
 
 >Figure 9-5. Stream time when consuming f rom multiple input streams  
 
@@ -5268,7 +5268,7 @@ Consider again the same two-instance consumer example from Figure 9-4, but this 
 
 Figure 9-6 shows a Kafka Streams application using a repartition stream to shuffle all events of the same key to the same partition. The application is performing a groupByKey followed by an aggregate, requiring all data of the same key go to thesame instance.  
 
-![figure](images/raw/figure-0159.png)
+![figure](images/figure-0159.png)
 
 >Figure 9-6. Shuffling events via a repartition event stream  
 
@@ -5276,7 +5276,7 @@ Events keyed on A and B are repartitioned into “Repartition stream—P1,” wh
 
 The subtopologies simply indicate separate *time boundaries*, each with its own *stream time*. Because events may be received out of order due to the reshuffling, it's important to consider the impact that wildly divergent timestamps may have on your event-stream correctness. Since stream time is largely limited to Kafka Streams, you would do well to explore the documentation surrounding stream time and topologies.  
 
-![figure](images/raw/figure-0160.png)
+![figure](images/figure-0160.png)
 
 Watermarking strategies can also use repartition event streams.
 Apache Samza offers a standalone mode that is similar to Kafka
@@ -5286,7 +5286,7 @@ Streams, but uses watermarking instead of stream time.
 
 In an ideal world, all events are produced without issue and available to the consumer with zero latency. Unfortunately for all of us living in the real world, this is never the case, so we must plan to accommodate out-of-order events. An event is said to be out of order if its timestamp isn't equal to or greater than the events ahead of it in the event stream. In Figure 9-7, event F is out of order because its timestamp is lower than G's, just as event H is out of order as its timestamp is lower than I's.  
 
-![figure](images/raw/figure-0161.png)
+![figure](images/figure-0161.png)
 
 >Figure 9-7. Out-of-order events in an event-stream partition  
 
@@ -5296,7 +5296,7 @@ For unbounded data sets, such as those in ever-updating event streams, the devel
 
 Consider the previous example of the bank account. A deposit followed by an immediate withdrawal must be processed in the correct order lest an overdraft charge be incorrectly applied, regardless of the ordering of events or how late they may be. To mitigate this, the application logic may need to maintain state to handle out-of-order data for a time period specified by the business, such as a one-hour grace window.  
 
-![figure](images/raw/figure-0162.png)
+![figure](images/figure-0162.png)
 
 Events from a single partition should always be processed according to their offset order, regardless of their timestamp. This can lead to out-of-order events.  
 
@@ -5314,7 +5314,7 @@ The event $t'$ is considered late when it arrives after the watermark $W(t)$. It
 
 The event $t'$ is considered late when it arrives *after* the stream time has been incremented past $t'$. It is up to each operator in the subtopology how to handle this event.  
 
-![figure](images/raw/figure-0163.png)
+![figure](images/figure-0163.png)
 
 An event is late only when it has missed a deadline specific to the
 consumer.  
@@ -5331,19 +5331,19 @@ The most obvious, of course, is when events are sourced from out-of-order data.T
 
 Multiple producers writing to multiple output partitions can introduce out-of-orderevents. Repartitioning an existing event stream is one way in which this can happen.Figure 9-8 shows the repartitioning of two partitions by two consumer instances.In this scenario the source events indicate which product the user has interacted with. For instance, Harry has interacted with products ID12 and ID77. Say that a data analyst needs to rekey these events on the user ID, such that they can perform session-based analysis of the user’s engagements. The resultant output streams mayend up with some out-of-order events.  
 
-![figure](images/raw/figure-0164.png)
+![figure](images/figure-0164.png)
 
 >Figure 9-8. Shuffling events via a repartition event stream  
 
 Note that each instance maintains its own internal stream time and that there is no synchronization between the two instances. This can cause a time skew that producesout-of-order events, as shown in Figure 9-9.  
 
-![figure](images/raw/figure-0165.png)
+![figure](images/figure-0165.png)
 
 >Figure 9-9. Shuffling events via a repartition stream, resulting in out-of-order events  
 
 Instance 0 was only slightly ahead of instance 1 in stream time, but because of their independent stream times, the events of time t= 90 and t= 95 are considered out of order in the repartitioned event stream. This issue is exacerbated by unbalanced partition sizes, unequal processing rates, and large backlogs of events. The impact here is that the previously in-order event data is now out of order, and thus as a consumer you cannot depend on having consistently incrementing time in each ofyour event streams.  
 
-![figure](images/raw/figure-0166.png)
+![figure](images/figure-0166.png)
 
 A single-threaded producer will not create out-of-order events in normal operation unless it is sourcing its data from an out-of-ordersource.  
 
@@ -5355,7 +5355,7 @@ Late events are predominantly the concern of time-based business logic, such as 
 
 Windowing means grouping events together by time. This is particularly useful for events with the same key, where you want to see what happened with events of that key in that period of time. There are three main types of event windows, but again, besure to check your stream-processing framework for more information.  
 
-![figure](images/raw/figure-0167.png)
+![figure](images/figure-0167.png)
 
 You can create windows using either event time or processing time, though event-time windowing typically has more businessapplications.  
 
@@ -5363,7 +5363,7 @@ You can create windows using either event time or processing time, though event-
 
 A tumbling window is a window of a fixed size. Previous and subsequent windows do not overlap. Figure 9-10 shows three tumbling windows, each aligned on t, t+ 1, and so on. This sort of windowing can help answer questions such as, “When is the peakhour for product usage?”  
 
-![figure](images/raw/figure-0168.png)
+![figure](images/figure-0168.png)
 
 >Figure 9-10. Tumbling windows  
 
@@ -5371,7 +5371,7 @@ A tumbling window is a window of a fixed size. Previous and subsequent windows d
 
 A sliding window has a fixed window size and incremental step known as the window slide. It must reflect only the aggregation of events currently in the window. A sliding window can help answer questions such as, “How many users clicked on my product in the past hour?” Figure 9-11 shows an example of the sliding window, including thesize of the window and the amount that it slides forward.  
 
-![figure](images/raw/figure-0169.png)
+![figure](images/figure-0169.png)
 
 >Figure 9-11. Sliding windows  
 
@@ -5379,7 +5379,7 @@ A sliding window has a fixed window size and incremental step known as the windo
 
 A session window is a dynamically sized window. It is terminated based on a timeout due to inactivity, with a new session started for any activity happening after the timeout. Figure 9-12 shows an example of session windows, with a session gap due to inactivity for user C. This sort of window can help answer questions such as, “Whatdoes a user look at in a given browsing session?”  
 
-![figure](images/raw/figure-0170.png)
+![figure](images/figure-0170.png)
 
 >Figure 9-12. Session windows  
 
@@ -5454,19 +5454,19 @@ An event may be late during near-real-time processing (watermark or stream time 
 
 In this scenario, records are created in timestamp order but can’t be published until a later time(see Figure 9-13). During normal operation, producers send their events as they occur, and consumers consume them in near–real time. This scenario is tricky toidentify when it’s happening and can go unnoticed even in retrospect.  
 
-![figure](images/raw/figure-0171.png)
+![figure](images/figure-0171.png)
 
 >Figure 9-13. Normal operation prior to producer/broker connection outage  
 
 Say a producer has several records ready to send but is unable to connect to the event broker. The records are timestamped with the local time that the event occurred. The producer will retry a number of times and either eventually succeed or give up andfail(ideally a noisy failure so the faulty connection can be identified and rectified).Figure 9-14 shows this scenario. The consumer continues to read events from stream A and updates its watermark/stream time accordingly. But upon consuming from stream B, the consumer ends up with no new events, so it can only conclude that nonew data is available. It remains unaware of the upstream producer outage.  
 
-![figure](images/raw/figure-0172.png)
+![figure](images/figure-0172.png)
 
 >Figure 9-14. Temporary producer/broker connection outage  
 
 Eventually the producer will be able to write records to the event stream. These events are published in the correct event-time order that they actually occurred, but because of the wall-clock delay, near-real-time consumers will have marked them as late andtreat them as such. This is shown in Figure 9-15.  
 
-![figure](images/raw/figure-0173.png)
+![figure](images/figure-0173.png)
 
 >Figure 9-15. The producer is able to reconnect and publish its temporarily delayed events, while the consumer has already incremented its event time  
 
@@ -5524,7 +5524,7 @@ Choreography is most commonly implemented via events. Services publish their bus
 
 For example, Figure 10-1 shows a choreographed workflow in which service A produces events that drive service B, which in turn produces events that drive service C. The workflow is defined by its bounded context, just as microservices are defined by their bounded contexts (see "Introduction to Domain-Driven Design and Bounded Contexts" on page 6).  
 
-![figure](images/raw/figure-0174.png)
+![figure](images/figure-0174.png)
 
 >Figure 10-1. A simple event-driven choreographed workflow within a single bounded context  
 
@@ -5532,13 +5532,13 @@ The output stream emitted by service C is available for any other consumers to r
 
 However, choreography doesn't *necessarily* require a well-defined bounded context. In fact, many choreographed workflows are the result of organic growth and the iterative addition of new event streams and new microservices. At some point, after a few iterations of building new services and streams, you may notice that a choreographed architecture has emerged on its own.  
 
-![figure](images/raw/figure-0175.png)
+![figure](images/figure-0175.png)
 
 Choreography provides very loose coupling between services, and is commonly used to connect microservices owned by different teams and in different parts of the organization.  
 
 It can be challenging to find where a choreographed workflow starts and where it ends, particularly as it crosses team boundaries. Ownership of the workflow is distributed to the participating teams, and it can be difficult to debug the workflows that cross many different boundaries.  
 
-![figure](images/raw/figure-0176.png)
+![figure](images/figure-0176.png)
 
 Despite its shortcomings, choreography remains the most common form of coupling in an event-driven architecture, as it is usually easy to extend and typically requires no modifications to any other services. But in some cases you may need to modify other services, particularly when the ordering of steps in the workflow must change.  
 
@@ -5546,7 +5546,7 @@ Despite its shortcomings, choreography remains the most common form of coupling 
 
 While choreography allows for simple addition of new steps at the end of the work-flow, it may be problematic to insert steps into the middle or to change the order of the workflow. Looking back to Figure 10-1, say that the workflow needs to be rearranged such that the business actions in service C must be performed before those in service B. The new ordering is shown in Figure 10-2.  
 
-![figure](images/raw/figure-0177.png)
+![figure](images/figure-0177.png)
 
 >Figure 10-2. Business changes to the simple event-driven choreographed workflow  
 
@@ -5554,7 +5554,7 @@ You must edit both services C and B to respectively consume from event streams 1
 
 The relationships between the services may also be difficult to understand outside the context of the workflow, a challenge that is exacerbated as the quantity of services in the workflow increases. Choreographed workflows can be brittle, particularly when more complex business functions cross microservice boundaries.  
 
-![figure](images/raw/figure-0178.png)
+![figure](images/figure-0178.png)
 
 Restrict access to intermediate event streams inside your workflow
 that you don't want other services to couple on. It will make it
@@ -5574,7 +5574,7 @@ Third, you're going to need to create a centralized state store to monitor the p
 
 Figure 10-3 shows an example of a monitoring apparatus added to the original choreography example. The solid line shows the monitoring service reading and materializing data from the event streams, while the dashed lines represent health checks (such as heartbeats) on the services themselves.  
 
-![figure](images/raw/figure-0179.png)
+![figure](images/figure-0179.png)
 
 >Figure 10-3. Monitoring a choreographed workflow through event streams and services  
 
@@ -5596,7 +5596,7 @@ The orchestration pattern relies on the centralization of logic in a single micr
 
 The orchestrator keeps track of which parts of the workflow have been completed, which are in process, and which have yet to be started. It keeps track of the commands sent to the subordinate services as well as the responses from those services. Orchestrators can use event streams to send commands and receive responses, but they may also use direct request-response by using protocols such as HTTP or RPC.  
 
-![figure](images/raw/figure-0180.png)
+![figure](images/figure-0180.png)
 
 The orchestrator awaits responses from the instructed microservices and handles the results according to the workflow logic. In contrast, choreographed workflows have no centralized coordination.  
 
@@ -5606,7 +5606,7 @@ Consider a payment microservice in which a customer placed an order, entered the
 
 The orchestrator has no say in how payments are processed, including how manyattempts to make, as that is part of the bounded context of the payment microservice.The only thing the orchestrator needs to know is whether the payment has completely succeeded or if it has completely failed. From there, it may act accordingly based onthe workflow logic.  
 
-![figure](images/raw/figure-0181.png)
+![figure](images/figure-0181.png)
 
 Ensure the orchestrator’s bounded context is limited strictly to workflow logic and that it contains minimal business fulfillment logic. The orchestrator contains only the workflow logic, while theservices under orchestration contain the bulk of the business logic.  
 
@@ -5616,7 +5616,7 @@ Let’s look at a simple example that illustrates the responsibilities of the or
 
 Figure 10-4 shows an orchestration version of the architecture from Figure 10-1.  
 
-![figure](images/raw/figure-0182.png)
+![figure](images/figure-0182.png)
 
 >Figure 10-4. An orchestrated workflow using event streams to communicate with its dependent services  
 
@@ -5638,7 +5638,7 @@ while(true){Event[] events= consumer.consume(streams)for(Event event: events){if
 
 Orchestrated workflows are typically easier to change as all the workflow logic is in a single logical place, assuming that operations in each microservice are independent of one another. If, for example, service A must complete its work before service B, then you realistically can’t change that ordering—you need the results from one to feed into the next. Otherwise, it’s fairly easy to edit the code, test it, and deploy it in just one service. You will, however, need to be careful that you don’t corrupt in-progressworkflow events by changing their processing workflow mid-completion.  
 
-![figure](images/raw/figure-0183.png)
+![figure](images/figure-0183.png)
 
 Consider using queues as part of your orchestration framework.The subservient microservices can easily process each queue in parallel, relying on the queuing semantics to enable retries andscaling.  
 
@@ -5648,7 +5648,7 @@ The orchestrator can also use request-response calls to the subordinate services
 
 The topology shown in Figure 10-5 is nearly identical to the one in Figure 10-4,aside from substitution of direct calls. The orchestrator makes a request to service A,then awaits a response before moving on to repeat the process with service B. The request-response communication may be synchronous and blocking, but it may alsobe asynchronous, relying on futures and promises.  
 
-![figure](images/raw/figure-0184.png)
+![figure](images/figure-0184.png)
 
 >Figure 10-5. An orchestrated workflow using request-response to communicate with its dependent services  
 
@@ -5696,7 +5696,7 @@ The orchestration pattern provides a robust and resilient centralized workflow m
 
 A *distributed* transaction, also known as a *saga*, is a transaction that spans two or more data stores that are fully independent of one another. Each microservice is responsible for processing its portion of the transaction to its own data store, as well as reversing that processing in the case that the transaction is aborted.  
 
-![figure](images/raw/figure-0185.png)
+![figure](images/figure-0185.png)
 
 Sagas can be challenging to implement successfully. It is best to avoid them unless absolutely necessary, as they can add significant risk and complexity to a workflow. They require addressing a host of concerns, including synchronization work between systems, rollbacks, managing transient instance failures, and network failures.  
 
@@ -5712,7 +5712,7 @@ Sagas via choreography can be a complex affair, as each service now needs to be 
 
 Let's take a look at an example. Continuing with the previous choreographed work-flow example (Figure 10-1), consider the series of microservices A, B, C in Figure 10-6.  
 
-![figure](images/raw/figure-0186.png)
+![figure](images/figure-0186.png)
 
 >Figure 10-6. Choreographed saga pattern using event streams for inter-service communication  
 
@@ -5720,13 +5720,13 @@ Notice that each service reads from a saga stream and writes to an instruction s
 
 The steps of a successful transactional workflow are shown in Figure 10-7. Service A instructs service B to do work (its portion of the transaction), which in turn does the same to service C. Service C then commits its local transaction successfully, and propagates the commit instruction to service B, which commits and sends the same to service A. Ultimately, the output transaction completes and the result is written to the output stream by service A.  
 
-![figure](images/raw/figure-0187.png)
+![figure](images/figure-0187.png)
 
 >Figure 10-7. Choreographed saga pattern showing the steps of a successful transaction  
 
 A failure at any step in the A→B→C service chain aborts the transaction and begins the rollback. Figure 10-8 shows a local commit failure in service C, which requires service B and service A to then abort their share of the transaction. Ultimately, service A emits the failed results of the transaction to the output stream, continuing on its processing from its input streams.  
 
-![figure](images/raw/figure-0188.png)
+![figure](images/figure-0188.png)
 
 >Figure 10-8. Choreographed saga pattern showing a rollback caused by a failed local
 commit  
@@ -5737,7 +5737,7 @@ dedicated system to monitor the workflow, as shown back in Figure 10-3.
 
 Implementing modifications to a choreographed saga are similarly as challenging as those described in "Modifying a Choreographed Workflow" on page 223. Changing the order of operations can be difficult and generally requires you to halt new processing and complete all ongoing processing before swapping any ordering around. Adding new steps on to the end (say, a service D after service C) remains much easier.  
 
-![figure](images/raw/figure-0189.png)
+![figure](images/figure-0189.png)
 
 You can also implement a *lift and shift* approach, where you swap out the entire bounded context for a new implementation using the same consumer group offsets for the input streams.  
 
@@ -5749,7 +5749,7 @@ Orchestrated sagas build on the orchestrator model with the addition of logic to
 
 A simple two-stage orchestrated transaction topology is shown in Figure 10-9. Note that this particular example is using both event-streaming and request-response to communicate with its dependent microservices.  
 
-![figure](images/raw/figure-0190.png)
+![figure](images/figure-0190.png)
 
 >Figure 10-9. Orchestrated saga pattern using event streams and request-response communication  
 
@@ -5759,7 +5759,7 @@ You can also add integration for other signals such as timeouts and human intera
 
 Figure 10-10 shows a rollback initiated by a failure in the final service in the transactional chain. SaaS endpoint B has failed to commit its data, and has reported its failure to commit (1) back to the orchestrator service.  
 
-![figure](images/raw/figure-0191.png)
+![figure](images/figure-0191.png)
 
 >Figure 10-10. An orchestrated transaction rolling back due to a failed SaaS endpoint result  
 
@@ -5769,7 +5769,7 @@ Once the transaction has been rolled back, it is up to the orchestrator to decid
 
 The worst-case scenario is that your transaction cannot complete nor can it be rolled back. Perhaps, as per the last example, service A proves unable to roll back its own commits and subsequently throws its own errors. In this case it's generally best to halt all processing and sort it out as an incident. While a transaction should always be able to cleanly complete or cleanly fail and roll back, software bugs do happen, as do long-lasting failures for the transactional data stores underpinning your microservices. Did I mention that distributed transactions can be challenging?  
 
-![figure](images/raw/figure-0192.png)
+![figure](images/figure-0192.png)
 
 Just as each microservice is fully responsible for its own state
 changes, it is also responsible for ensuring that its state is consistent
@@ -5790,7 +5790,7 @@ Later, at the warehouse, a shipping agent goes to find the ordered items to send
 
 If your workflow follows a strict saga pattern, then you'd need to reverse all the actions taken so far. The money would be returned to the payment provider, the order would be canceled, the stock would be updated, and the customer alerted. While technically correct, this could lead to other challenges. Perhaps the rest of the customer's order could be fulfilled—do you then cancel that part too? Or do a partial refund and just ship some of the content?  
 
-![figure](images/raw/figure-0193.png)
+![figure](images/figure-0193.png)
 
 Remember that you can build workflows that rely on human inter-
 vention to resolve problems. A kind message delivered to your
@@ -5875,7 +5875,7 @@ Say that getGreeting was interrupted and failed after saying Hello but before sa
 
 Embedding the DEE code within your microservice code tends to be appealing because you can pick and choose when and where to use it. The integration with the DEE is just plain old code like any other SDK. You can continue to use the tools and IDEs they're familiar with, while benefiting from the injection of durable execution code where it suits their needs.  
 
-![figure](images/raw/figure-0194.png)
+![figure](images/figure-0194.png)
 
 Durable execution engines are most useful for durably executing business logic triggered from a nonrepeatable source, such as a direct request made by another service over HTTP or RPC. While your service can easily reprocess events from a stream, it can't reprocess requests from other services that it has already failed and returned. You'll usually find DEE most useful in powering microservices that must reliably respond to non-event-driven inputs.  
 
@@ -5907,7 +5907,7 @@ Tracking which functions and direct call APIs have already been invoked or calle
 
 Everything needed to orchestrate the service's progress and restore it to its last state is contained within the append-only log. The exact format varies across frameworks, as do the guarantees that they provide. Consult the framework documentation accordingly.  
 
-![figure](images/raw/figure-0195.png)
+![figure](images/figure-0195.png)
 
 While durable execution engines can help prevent duplicate work, duplicate function calls, and other wasteful reprocessing, they can't remove race conditions. It's possible that your service may make a request to another service and fail to record the request to the durable execution engine before it crashes. It's important that you keep your operations and requests idempotent.  
 
@@ -5944,7 +5944,7 @@ You're going to need extra resources to run your DEE above and beyond those that
 
 For many use cases, a durable execution engine might be overkill and introduce unnecessary complexity. They're really best suited for complex, long-running, and stateful workflows, particularly those that don't have reliable and retriable triggers. Since your service can simply retry a failed workflow by re-consuming the input event streams, you may find durable execution engines to be unnecessary. But, once you start mixing in direct requests via HTTP or RPC to other services, you may find that the reliability and durability that it brings proves to be essential.  
 
-![figure](images/raw/figure-0196.png)
+![figure](images/figure-0196.png)
 
 You may find other types of durable execution useful for your
 orchestration, such as the durable function orchestrators (see "Dura-
@@ -5990,7 +5990,7 @@ In some scenarios, it's not possible to safely modify the legacy codebase to pro
 
 Consider an ecommerce store frontend that displays all the inventory and product data it has available. Previously, the frontend service would source all of its data by synchronizing with a read-only subordinate data store using a scheduled batch job, as in Figure 11-1.  
 
-![figure](images/raw/figure-0197.png)
+![figure](images/figure-0197.png)
 
 >Figure 11-1. Copying data from one monolith to another using a scheduled batch process  
 
@@ -5999,7 +5999,7 @@ consume from the other. In this case, the consumer needs data from both streams.
 
 A sidecar implementation has one service that sinks the data from both streams into the data store, using a BPC to consume and upsert the data into the associated data set, as in Figure 11-2. In return, the frontend system gains access to a near–real time data feed of product updates, without having to change any of the system code.  
 
-![figure](images/raw/figure-0198.png)
+![figure](images/figure-0198.png)
 
 >Figure 11-2. Using the sidecar to upsert data into the frontend data store  
 
@@ -6032,13 +6032,13 @@ The prices must be set according to regions and formats.
 
 Each of these event streams acts as a driver of logic. When a new event comes in on any of these streams, it is first materialized in its proper table and subsequently used to look up every other table to see if the other events are present. Figure 11-3illustrates this example.  
 
-![figure](images/raw/figure-0199.png)
+![figure](images/figure-0199.png)
 
 >Figure 11-3. Gating the readiness of a book  
 
 In this example, the book ending with ISBN 0010 will already have been published to the output book event stream. Meanwhile, the book ending with ISBN 0011 is currently waiting for cover art to be available and has not been published to theoutput stream.  
 
-![figure](images/raw/figure-0200.png)
+![figure](images/figure-0200.png)
 
 Explicit approval from a human being may also be required inthe gating pattern. This is covered in more detail in “Example:Newspaper Publishing Workflow(Approval Pattern)” on page 351.  
 
@@ -6070,7 +6070,7 @@ The partition assignor can reassign the input partitions to a single processor i
 
 During the day, additional processing instances can be brought online to handle the increased event load. The query rate of the data store will also increase in this particular scenario, but caching, partitioning, and batching can help keep the load lighter than the linear increase in processing requirements.  
 
-![figure](images/raw/figure-0201.png)
+![figure](images/figure-0201.png)
 
 Cloud service providers typically offer high-performance key-value storage that accommodates independent read/write scaling, while simultaneously keeping costs proportional to your read/write access patterns.  
 
@@ -6090,7 +6090,7 @@ Streaming frameworks provide full-featured support for primary-key joins, foreig
 
 These chapters aren't meant to compare the technologies, but rather to provide a generalized overview of how these frameworks work and to showcase their capabilities. For the purposes of evaluating heavyweight frameworks, this chapter covers aspects of Apache Spark, Apache Flink, and the Apache Beam model as examples of the sorts of technology and operations commonly provided.  
 
-![figure](images/raw/figure-0202.png)
+![figure](images/figure-0202.png)
 
 The first edition of this book also discussed Apache Storm and
 Apache Heron. They have been removed for the second edition, as
@@ -6209,7 +6209,7 @@ The List<String> adEngagements collection stores the results of which AdViews ar
 
 The code from Example 12-3 is mapped to the multistage workflow executed under the hood of the heavyweight framework. Figure 12-1 illustrates the stages and operations. Note that there are two instances for processing the events, resulting in data shuffling between some stages.  
 
-![figure](images/raw/figure-0203.png)
+![figure](images/figure-0203.png)
 
 >Figure 12-1. Session processing topology from user Clicks and AdViews  
 
@@ -6225,13 +6225,13 @@ The keyBy operator, in conjunction with the downstream window and process operat
 
 Processing the session windows results in a list of adIDs, with both a view and a click, per user. Each of these key-value pairs is then bundled into a record and written to the AdEngagements output event stream (with an uppercase name to avoid confusion).  
 
-![figure](images/raw/figure-0204.png)
+![figure](images/figure-0204.png)
 
 Streaming frameworks provide many additional controls over windowing and time-based aggregations. This can include retaining sessions and windows that have closed for a period of time, so that late-arriving events can be applied and an update emitted to the output stream.  
 
 Next, Figure 12-2 illustrates the effects of scaling down to just a single degree of parallelism. Assuming no dynamic scaling, you would need to halt the stream processor before restoring it from a checkpoint with the new parallelism setting. Upon startup, the service reads the stateful keyed data back from the last known good checkpoint and restores the operator state to the assigned partitions. Once state is restored, the service can resume normal stream processing.  
 
-![figure](images/raw/figure-0205.png)
+![figure](images/figure-0205.png)
 
 >Figure 12-2. Restoring the application with just a single processing instance  
 
@@ -6258,7 +6258,7 @@ A heavyweight stream-processing *cluster* is a grouping of dedicated processing 
 
 The tasks themselves are automatically generated based on the topology of the stream-processing application. They connect directly to the event broker and consume and produce to and from event streams. Figure 12-3 shows a rough breakdown of how this works.  
 
-![figure](images/raw/figure-0206.png)
+![figure](images/figure-0206.png)
 
 >Figure 12-3. A generic view of a heavyweight stream-processing framework using ZooKeeper for consensus management  
 
@@ -6266,7 +6266,7 @@ A job is a stream-processing application that uses the framework's software deve
 
 This figure also shows Apache ZooKeeper, which plays a supporting role for this streaming cluster. ZooKeeper provides highly reliable distributed coordination for determining which resource manager is in charge. Heavyweight frameworks are designed to be highly available and resilient to one or more failures, be it a worker node, resource manager, or ZooKeeper node. Upon failure of a resource manager, ZooKeeper helps decide which of the remaining resource managers is the new leader to ensure continuity of operations.  
 
-![figure](images/raw/figure-0207.png)
+![figure](images/figure-0207.png)
 
 ZooKeeper has historically been a major component in providing
 coordination of distributed heavyweight frameworks. Newer frame-
@@ -6277,7 +6277,7 @@ Upon submission to a cluster, a stream-processing application is broken down int
 
 Figure 12-4 shows the process of submitting a job to the cluster via resource manager 1, which in turn is translated into tasks for processing by the executors. These long-running tasks establish connections to the event broker and begin to consumeevents from the event stream.  
 
-![figure](images/raw/figure-0208.png)
+![figure](images/figure-0208.png)
 
 >Figure 12-4. Submitting a stream-processing j ob to read f rom an event stream  
 
@@ -6310,7 +6310,7 @@ A wide range of streaming frameworks have emerged over the past few decades, tho
 Further, many stream frameworks focus heavily on time-based aggregations, with examples, blog posts, and advertisements emphasizing time-series analysis and aggregations based on limited window sizes. Some careful digging reveals that the leading frameworks provide a global window, which allows for the materialization of event streams into tables with indefinite retention. From here, you can implement your own custom join features, though I find that these are still far less well documented and exhibited than they should be, considering their importance in handling event
 streams at scale in an organization.  
 
-![figure](images/raw/figure-0209.png)
+![figure](images/figure-0209.png)
 
 If you're investigating other streaming frameworks, check to see
 how (or if) they handle joins. If there is no support, it's a good
@@ -6330,7 +6330,7 @@ The first and simplest way to manage a cluster is to just pay someone to do it f
 
 Confluent, founded by the cocreators of Apache Kafka, offers a fully managed and serverless Flink SQL alongside a Kafka offering. Amazon offers managed Flink and Spark services; Google, Databricks, and Microsoft offer their own bundling of Spark; and Google offers Dataflow, its own implementation of an Apache Beam runner. There are, of course, many other options, but you will have to research them for yourself.  
 
-![figure](images/raw/figure-0210.png)
+![figure](images/figure-0210.png)
 
 Note that not all managed services are created equally. Some are entirely serverless, while others require varying degrees of hands-on maintenance and monitoring. The general trend seems to be continually moving toward a full serverless-style approach, where the entire physical cluster is invisible to you as a subscriber. This may or may not be acceptable depending on your security, performance, and data isolation needs. Be sure that you understand what is and is not offered by these service providers, as they may not include the same features of an independently operated cluster.  
 
@@ -6340,7 +6340,7 @@ Heavyweight frameworks historically have their own dedicated clusters composed o
 
 Running your own cluster is a challenge, but this isn't to say that you shouldn't do it. Rather, you simply need to be prepared. This book doesn't go into depth on this subject because it's highly related to the streaming technologies you choose, and their relationship with the other technologies you already have.  
 
-![figure](images/raw/figure-0211.png)
+![figure](images/figure-0211.png)
 
 "How hard could it be?" is a popular sentiment when setting up your own heavyweight streaming framework. It can be very easy to get a basic proof of concept working, but hardening it into a reliable production-ready service can be very challenging and expensive.  
 
@@ -6353,7 +6353,7 @@ A cluster can also be created in conjunction with the CMS. One mode of operation
 Deploying the heavyweight cluster using the CMS has many benefits. The resource managers, worker nodes, and ZooKeeper (if applicable) are brought up within their own container or virtual machines. These containers are managed and monitored like any other container, providing visibility into failures as well as the means to
 automatically restart these instances.  
 
-![figure](images/raw/figure-0212.png)
+![figure](images/figure-0212.png)
 
 You can enforce static assignment of resource managers and any other services that you require to be highly available, to prevent the CMS from shuffling them around as it scales the underlying compute resources. This prevents excessive alerts from the cluster monitor about missing resource managers.  
 
@@ -6363,11 +6363,11 @@ Historically, the heavyweight cluster has been responsible for assigning and man
 
 Spark and Flink enable you to directly leverage Kubernetes for scalable application deployment beyond their original dedicated cluster configuration, where each application has its own set of dedicated worker nodes. For example, Apache Flink enables applications to run independently within their own isolated session cluster using Kubernetes. Apache Spark offers a similar option, allowing Kubernetes to play the role of the resource manager and maintain isolated worker resources for each application. A basic overview of how this works is shown in Figure 12-5.  
 
-![figure](images/raw/figure-0213.png)
+![figure](images/figure-0213.png)
 
 >Figure 12-5. Single job deployed on and managed by Kubernetes cluster  
 
-![figure](images/raw/figure-0214.png)
+![figure](images/figure-0214.png)
 
 This deployment mode is nearly identical to how you would deploy non-heavyweight microservices and merges lightweight and BPCdeployment strategies.  
 
@@ -6444,7 +6444,7 @@ The checkpointing mechanism synchronously records both the operator and keyed st
 
 >Figure 12-6. A checkpoint with operator and key state  
 
-![figure](images/raw/figure-0215.png)
+![figure](images/figure-0215.png)
 
 Restoring from a checkpointed state is functionally equivalent to using snapshots to restore external state stores, as covered in "Recovery using snapshots or checkpoints" on page 188.  
 
@@ -6454,13 +6454,13 @@ The state associated with the application task must be completely loaded from th
 
 The maximum parallelism of a heavyweight application is typically constrained by the input stream partition counts. It can read data into its framework only as quickly as it can iterate through the input streams, particularly as it processes the data in the order that it is written. Because heavyweight processing frameworks are particularly well suited for processing massive amounts of user-generated data, it is quite common to see cyclical patterns with significant computational requirements during the day and very few in the middle of the night. An example of a daily cyclical pattern is shown in Figure 12-7.  
 
-![figure](images/raw/figure-0216.png)
+![figure](images/figure-0216.png)
 
 >Figure 12-7. Sample of daily cyclical data volume  
 
 Applications that process such data benefit greatly from the ability to scale up with increasing demand and down with decreasing demand. Proper scaling can ensure that the application has sufficient capacity to process all events in a timely manner, without wasting resources by overprovisioning. Ideally, the latency between when an event is received and when it is fully processed should be minimized, though many applications are not that sensitive to temporarily increased latency.  
 
-![figure](images/raw/figure-0217.png)
+![figure](images/figure-0217.png)
 
 Scaling an application is separate from scaling a cluster. All scaling discussed here assumes that there are sufficient cluster resources to increase parallelism for the application. Refer to your framework's documentation for scaling of cluster resources.  
 
@@ -6480,7 +6480,7 @@ But why must the application be paused, checkpointed, and restarted to scale up 
 
 Figure 12-8 shows a regular shuffle, where each downstream reduce operation sources its shuffled events from the upstream groupByKey operations. If one of the instances were abruptly terminated, the reduce nodes would no longer know where to source the shuffled events from, leading to a fatal exception. Thus, you need to pause the application, let the shuffles complete, and checkpoint the state to maintain an accurate accounting of the application's progress.  
 
-![figure](images/raw/figure-0218.png)
+![figure](images/figure-0218.png)
 
 >Figure 12-8. Logical representation of a shuffle  
 
@@ -6496,13 +6496,13 @@ The exact mechanism of scaling while running varies from framework to framework.
 
 The ESS receives the shuffled events from the upstream tasks and stores them for consumption by the downstream tasks, as shown in Figure 12-9. The downstream consumers access the events by asking the ESS for the data that is assigned to them.  
 
-![figure](images/raw/figure-0219.png)
+![figure](images/figure-0219.png)
 
 >Figure 12-9. Logical representation of a shuffle using an external shuffle service  
 
 Task instances can be scaled down on demand since the downstream operations are no longer dependent on a specific upstream instance. The shuffled data remains within the ESS, and a scaled-down service, as shown in Figure 12-10, can resume processing. In this example, instance 0 is the only remaining processor and takes on both partitions, while the downstream operations seamlessly continue processing viathe interface with the ESS.  
 
-![figure](images/raw/figure-0220.png)
+![figure](images/figure-0220.png)
 
 >Figure 12-10. Downscaled application using an external shuffle service(note instance 1is gone)  
 
@@ -6522,7 +6522,7 @@ Heavyweight clusters are designed to be highly tolerant to the inevitable failur
 
 In the case of a worker node failure, the tasks that were being executed on that node are moved to another available worker. Any required internal state is reloaded from the most recent checkpoint along with the partition assignments. Resource-manager failures should be transparent to applications already being executed, but depending on your cluster's configuration you may be unable to deploy new jobs during a resource-manager outage. High-availability mode backed by ZooKeeper (or similar technology) can mitigate the loss of a resource manager.  
 
-![figure](images/raw/figure-0221.png)
+![figure](images/figure-0221.png)
 
 Make sure you have proper monitoring and alerting for your
 resource manager and worker nodes. While a single cluster node
@@ -6556,7 +6556,7 @@ Software service providers may offer these platforms as a service, though the op
 
 Lastly, the popularity of a framework will inform your decision. Apache Flink is one of the leading streaming frameworks, and has seen significant growth and adoption since the first version of this book was released. Spark's structured streaming is also quite popular for building streaming applications. Apache Beam is also popular, but primarily as a means of running on Google's Dataflow. It hasn't seen the same adoption and usage growth that Spark and Flink have.  
 
-![figure](images/raw/figure-0222.png)
+![figure](images/figure-0222.png)
 
 Keep in mind that a heavyweight streaming framework may not be a suitable choice for implementing your event-driven microservice. Verify that it is the correct solution for your problem space before committing to it.  
 
@@ -6584,7 +6584,7 @@ First, let’s look at an example.
 
 Consider an example where you’ve set up a connector to pull both the brand andproduct data from your ecommerce database, as shown in Figure 13-1.  
 
-![figure](images/raw/figure-0223.png)
+![figure](images/figure-0223.png)
 
 >Figure 13-1. Creating brand and product event streams f rom a database source via connectors  
 
@@ -6665,7 +6665,7 @@ Data of the same key must be local to a given processing instance for any key-ba
 
 The internal event stream acts as an external shuffle service similar to that described in heavyweight frameworks (see "Scaling an Application While It Is Running" on page 272). Figure 13-2 illustrates the basic lightweight model, including an internal event stream used to shuffle data between instances.  
 
-![figure](images/raw/figure-0224.png)
+![figure](images/figure-0224.png)
 
 >Figure 13-2. Internal event streams for repartitioning and shuffling data  
 
@@ -6674,7 +6674,7 @@ The microservice instances both write to and read from the internal stream for
 repartitioning and shuffling the events. Each repartition stage uses its own dedicated
 internal stream.  
 
-![figure](images/raw/figure-0225.png)
+![figure](images/figure-0225.png)
 
 Internal streams are private and are not used by any other micro-service. Do not couple microservices together on internal streams.  
 
@@ -6684,7 +6684,7 @@ Relying on internal event streams for event shuffling enables the lightweight ap
 
 In-memory and disk-based key-value stores are the most common form of state store for the lightweight framework, particularly since the entire domain-specific language (DSL) of lightweight frameworks is based on manipulating and storing keys and values. Lightweight frameworks, by default, use internal state stores backed by changelog streams stored in the event broker (see more in "Materializing State to an Internal State Store" on page 176).  
 
-![figure](images/raw/figure-0226.png)
+![figure](images/figure-0226.png)
 
 Since every lightweight application is fully independent of the others, one application could request to run on instances with very high-performance local disk, while another could request to run on instances with extremely large, albeit perhaps much slower, hard-disk drives.  
 
@@ -6696,7 +6696,7 @@ Scaling a microservice and recovering from an instance failure are very similar 
 
 One of the main benefits of the lightweight framework model is that applications can scale dynamically. There is no need to restart an application just to change parallelism, though there may be a delay in processing due to consumer group rebalancing and rematerialization of state from the changelog. Figure 13-3 illustrates the process of scaling up an application. The assigned input partitions are rebalanced (including any internal streams) and the state is restored from the changelogs prior to continuation of work.  
 
-![figure](images/raw/figure-0227.png)
+![figure](images/figure-0227.png)
 
 >Figure 13-3. Scaling up a lightweight microservice  
 
@@ -6744,7 +6744,7 @@ SQL is most commonly associated with table-based operations, and for good reason
 
 Figure 14-1 shows an example of a streaming SQL query, where all events with a value less than or equal to 5 are filtered out. The remaining events are returned by the SQL query into the next stage, which can include either another SQL query, a table materialization, or even writing out to another event stream.  
 
-![figure](images/raw/figure-0228.png)
+![figure](images/figure-0228.png)
 
 >Figure 14-1. A simple SQL query filtering out events with a value less than or equal to 5  
 
@@ -6770,7 +6770,7 @@ These do not require a primary key. Append-only tables insert every record, main
 
 A slightly more advanced type that does not necessarily appear in all streaming frameworks. A retraction table supports inserts, updates, and deletions, but with the entire row acting as a key. For example, you insert a row into the table via a +I["Gary", 123] event, but remove it using a +D["Gary", 123] event. Retraction tables primarily reflect the results of upstream computations, such as when emitting events from a Flink dynamic table.  
 
-![figure](images/raw/figure-0229.png)
+![figure](images/figure-0229.png)
 
 Check your documentation to ensure your streaming SQL frame-work supports both append-only and upsert tables, at the least. Some frameworks are limited to only supporting append-only tables, which will significantly limit your processing options.  
 
@@ -6802,13 +6802,13 @@ CREATE TABLE Photographs (
 
 The streaming framework that underpins the SQL interface interprets this table declaration. It first creates a Photographs table by registering the table declaration metadata into a *metadata catalog*, allowing other streaming SQL engines to also query the data. The table uses the **upsert-kafka connector for Flink** to generate the materialized table, where new events are upserted into the table (any old values of the same key are overwritten).  
 
-![figure](images/raw/figure-0230.png)
+![figure](images/figure-0230.png)
 
 The primary key in the Photographs table is set to NOT ENFORCED because it does not own the data. The enforcement of the key is the responsibility of the producer service that is writing to the Photographs topic.  
 
 Metadata catalog compatibility may vary from streaming SQL engine to streaming SQL engine. Flink provides support for several catalog types, including both JDBC-based and Apache Hive, a common catalog implementation. Meanwhile, Apache Spark provides both in-memory (local) catalog and Hive support. If you're running streaming SQL jobs in production, you're likely to need either Hive or a Hive-compatible catalog for maintaining durable metadata, to allow your queries to see all available tables.  
 
-![figure](images/raw/figure-0231.png)
+![figure](images/figure-0231.png)
 
 Hive is a relatively older service provided as part of the Apache
 Hadoop project. While you may not end up using Hive in your
@@ -6949,7 +6949,7 @@ Scala, and R.
 
 You can download and share notebooks just like any other file.  
 
-![figure](images/raw/figure-0232.png)
+![figure](images/figure-0232.png)
 
 Notebooks are not just for SQL. You can write many types of event-driven microservices inside a notebook using non-SQL languages.  
 
@@ -6974,7 +6974,7 @@ Notebooks are not well suited for unit and integration testing. For business-cri
 It can be challenging to promote and roll back notebooks between environments,
 as well as manage the associated permissions.  
 
-![figure](images/raw/figure-0233.png)
+![figure](images/figure-0233.png)
 
 Notebooks are best used for exploration and analysis. For production use cases, create a dedicated microservice and port over the notebook code.  
 
@@ -6984,7 +6984,7 @@ There are also some notebook-like options with stripped down functionality, whic
 
 A SQL gateway is a service that enables multiple clients to execute their SQL code concurrently and remotely. The client submits the job to the gateway, where it is then executed within its own session. Multiple independent sessions can run within the service, relying on the processing cluster for executing the streaming operations. Figure 14-2 shows two clients connecting to the gateway, one to submit a job and the other to get the status of an existing job.  
 
-![figure](images/raw/figure-0234.png)
+![figure](images/figure-0234.png)
 
 >Figure 14-2. A SQL gateway for submitting, running, and evaluating jobs  
 
@@ -6998,7 +6998,7 @@ SQL can also provide powerful sidecar capabilities (see "Integration with Existi
 
 Figure 14-3 shows an example of a hybrid application, where a dedicated SQL query materializes and joins the streams together. The Enriched_Photos topic created earlier in this project is joined with a Cameras topic to bring in information relating to the camera used to take the photograph. This combined event is then written to a new topic for dedicated usage by the downstream microservice.  
 
-![figure](images/raw/figure-0235.png)
+![figure](images/figure-0235.png)
 
 >Figure 14-3. A SQL sidecar for performing operations that may not be possible for the microservice's framework  
 
@@ -7006,7 +7006,7 @@ Notice that the output event stream is named Private_Stream_F2AZ—a private pla
 
 A SQL sidecar can give you the best of both worlds, allowing you to use whatever libraries, languages, and frameworks that are compatible with basic event consumption and production, while harnessing powerful stream-processing frameworks. Joins, windowing, aggregations, and complex event-driven state machines are offloaded to the SQL engine, while the remaining business logic can reside inside the microservice.  
 
-![figure](images/raw/figure-0236.png)
+![figure](images/figure-0236.png)
 
 When terminating the microservice, ensure that the SQL job is also terminated so that no zombie processes remain. It is important to keep the SQL query and microservice components tightly coupled throughout their life cycle.  
 
@@ -7130,7 +7130,7 @@ You can create multiple mappings from event streams to functions, such that a fu
 
 Once the triggers, metadata, and policies are established, the function is ready to process incoming events. When a new event arrives in its input event stream, the function will be started by the FaaS framework, get passed a batch of events, and begin processing. Upon completion, the function will terminate and wait for more events to come in. This is a typical implementation of the event-stream listenerpattern, which is discussed more in “Starting Functions with Triggers” on page 302.  
 
-![figure](images/raw/figure-0237.png)
+![figure](images/figure-0237.png)
 
 Each function-based microservice implementation must have its own independent consumer group, just as with other non-FaaSmicroservices.  
 
@@ -7189,7 +7189,7 @@ Triggers tell a function to start up and begin processing. Supported triggers va
 
 Functions can be triggered when an event is produced into an event stream. The *event-stream listener trigger* isolates event consumption behind a predefined consumer, reducing the amount of overhead code that a developer must write. Events are injected directly into the function as an array of events if consuming from a stream, or as a cluster of unordered events if consuming from a queue. The generalized structure of this approach is shown in Figure 15-1.  
 
-![figure](images/raw/figure-0238.png)
+![figure](images/figure-0238.png)
 
 >Figure 15-1. Integrated event-stream listener with FaaS framework  
 
@@ -7197,7 +7197,7 @@ FaaS frameworks from Google, Microsoft, and Amazon provide this type of trigger 
 
 Connector frameworks, like that of Kafka Connect, can provide you with the means to trigger functions if the FaaS framework doesn't natively support it. Since Kafka Connect runs outside of the FaaS framework, you would end up with an event-stream listener as per Figure 15-2.  
 
-![figure](images/raw/figure-0239.png)
+![figure](images/figure-0239.png)
 
 >Figure 15-2. External event-stream listener application with Kafka Connect  
 
@@ -7229,7 +7229,7 @@ public int myEventFunction(Event[] events, Context context) {
 
 ```  
 
-![figure](images/raw/figure-0240.png)
+![figure](images/figure-0240.png)
 
 Much like a containerized microservice, triggers for the event-stream listener pattern can be configured to start processing events from a stream's latest offsets, earliest offsets, or anywhere in between.  
 
@@ -7284,7 +7284,7 @@ batch sizes, and is made worse by overly aggressive scaling policies. Institutin
 step-based scaling policy or using a hysteresis loop can provide sufficient scaling
 responsiveness without excessive rebalancing.  
 
-![figure](images/raw/figure-0241.png)
+![figure](images/figure-0241.png)
 
 Be careful about thrashing triggers and scaling policy. Frequent rebalancing of partition assignments can be expensive for event brokers and result in low throughput.  
 
@@ -7294,7 +7294,7 @@ Given the short lifespan of functions, most stateful FaaS-based solutions requir
 
 Although previous local state *may* be available if a function restarts in a warm state, this is by no means guaranteed. Functions connect to external state stores exactly as any other client would—by creating a connection to the state store and using the corresponding API. Any state must be persisted and retrieved explicitly by the function.  
 
-![figure](images/raw/figure-0242.png)
+![figure](images/figure-0242.png)
 
 Be sure to use strict access controls for your function's state stores,
 such that nothing outside of its bounded context is allowed access.  
@@ -7311,7 +7311,7 @@ Functions are often used to execute other functions and may also be used for bot
 
 One option is to connect functions via an event stream. One function writes its output to a stream, where other downstream functions trigger off of the new event production, spin up, and do their own work. A bounded context may be made up of many functions and many internal event streams, with varying triggering and scaling logic for each function definition. Each function processes its input streams at its own rate, consuming events, performing work, and producing output events and side effects accordingly. An example of this design is shown in Figure 15-3.  
 
-![figure](images/raw/figure-0243.png)
+![figure](images/figure-0243.png)
 
 >Figure 15-3. Multifunction event-driven FaaS topology representing a single microservice  
 
@@ -7329,7 +7329,7 @@ In the direct-call pattern, a function directly calls other functions from its o
 
 Asynchronous direct calls lead to a choreography-based FaaS solution. One function simply invokes the next one based on its business logic, leaving it up to that function and the FaaS framework to handle the next steps, including any failures or errors. An asynchronous direct-call function topology is a simple way to chain function calls together. Figure 15-4 illustrates an example.  
 
-![figure](images/raw/figure-0244.png)
+![figure](images/figure-0244.png)
 
 >Figure 15-4. Choreographed asynchronous function calls within a bounded context  
 
@@ -7384,7 +7384,7 @@ Synchronous function calls allow your function to invoke other functions and awa
 
 In the following example, new events arriving in an event stream trigger an orchestration function. The function starts up and begins processing the input batch of events, dispatching events sequentially for each function. Figure 15-5 shows an example of function-based orchestration within a single bounded context, with the orchestrator communicating first with function A and then with function B.  
 
-![figure](images/raw/figure-0245.png)
+![figure](images/figure-0245.png)
 
 >Figure 15-5. Orchestrated synchronous function calls within a bounded context  
 
@@ -7440,7 +7440,7 @@ If a function is unable to process its assigned batch of events during its execu
 
 • Decrease the maximum batch size of events processed by the function.  
 
-![figure](images/raw/figure-0246.png)
+![figure](images/figure-0246.png)
 
 Functions that establish their own connections to the event broker and manage the consumption of events can also periodically commit offsets during execution, ensuring partial completion of the batch. This does not work when the function is passed the batch of consumed events, as it has no way to update the consumer offsets during processing.  
 
@@ -7532,7 +7532,7 @@ Example 15-1. An example of Amazon States Language using a choice state
 
 This is a fairly simple example pulled directly from Amazon's State Language home-page. Figure 15-6 shows the graph structure generated from the source code.  
 
-![figure](images/raw/figure-0247.png)
+![figure](images/figure-0247.png)
 
 >Figure 15-6. The directed acyclic graph of the AWS workflow specification example  
 
@@ -7542,13 +7542,13 @@ One thing that's notable about this workflow is that it's fairly verbose—there
 
 Figure 15-7 shows a more involved example, which checks stock prices, requests human approval, and then either issues a buy or a sell (in the case that the price is favorable).  
 
-![figure](images/raw/figure-0248.png)
+![figure](images/figure-0248.png)
 
 >Figure 15-7. Example of AWS Step Function workflow(Source: AWS)  
 
 In this case, the AWS backend is responsible for executing the functions, maintaining state, and retrying logic when it fails. It’s also responsible for restoring the state in the case of a failure, using the redrive functionality to restore function state to what it was right before the crash. Figure 15-8 shows the logical stages of the step functionthrough three invocations with two failures.  
 
-![figure](images/raw/figure-0249.png)
+![figure](images/figure-0249.png)
 
 >Figure 15-8. Executing the AWS Step Function workflow, relying on durable f unction orchestration to restore state f or f ailed invocations  
 
@@ -7631,7 +7631,7 @@ In the next chapter we'll take a look at eventual consistency—in particular, w
 
 ## Eventual Consistency  
 
-![figure](images/raw/figure-0250.png)
+![figure](images/figure-0250.png)
 
 An earlier version of this chapter previously appeared in Buildingan Event-Driven Data Mesh(O’Reilly, 2023).  
 
@@ -7683,13 +7683,13 @@ Each event-driven processing instance effectively exists in its own time bubble,
 
 Take Figure 16-1, which shows two independent consumers reading from a single event stream. Each service is fully independent in processing the events, applying business logic, and saving the data in state.  
 
-![figure](images/raw/figure-0251.png)
+![figure](images/figure-0251.png)
 
 >Figure 16-1. The basic problem with eventual consistency  
 
 The results that each service provides to the outside world, be it by request-response API, an output event stream, or other means, are very unlikely to be precisely synced with similarly materialized data in another service. This is where discrepancies and confusing results can creep in. Consumer 2 at time t=900 asks consumer 1 at t=220 for its copy of the sunflower data. Having never even heard of sunflowers, all consumer 1 can do is reply with Error, not found.  
 
-![figure](images/raw/figure-0252.png)
+![figure](images/figure-0252.png)
 
 In addition to using offsets or incrementing event IDs, you may choose to use the event time, representing when the event occurred, to account for convergence. In cases where events are created via CDC, event time is typically defined as the time the data was created in the source database.  
 
@@ -7703,7 +7703,7 @@ Figure 16-2 shows a set of synchronous services on the left residing in a single
 
 Meanwhile, the services on the right are sourced from event streams. In this example, notice that there is a time lag of 7 hours for the truck lookup service, as it has fallen behind in materializing its incoming events. If the driver service asks the truck service to provide a new truck for assignment, it may not have any available, despite new trucks having been published to the event stream. The service must *catch up*; otherwise, it'll give nondeterministic results.  
 
-![figure](images/raw/figure-0253.png)
+![figure](images/figure-0253.png)
 
 >Figure 16-2. The internal time of a service is determined by the union of its input offsets  
 
@@ -7711,7 +7711,7 @@ Structuring the driver and truck services to require synchronous communication w
 
 It may also seem tempting to require the registration of all drivers and trucks in a single atomic event. In fact, this is a good technique to use when possible, as it enforces a consistency within the event itself. However, it's not necessarily always possible for all business use cases. There are many professional drivers who do not own their own truck and there are companies that lease trucks but do not provide drivers. Each must be registered independently.  
 
-![figure](images/raw/figure-0254.png)
+![figure](images/figure-0254.png)
 
 System times are largely synchronized to within milliseconds, thanks in large part to frequent synchronizations with Network Time Protocol servers (see "Synchronizing Distributed Time-stamps" on page 201). If you require perfect time alignment between two events, you should refactor your domain to put the critical time-sensitive data into the same singular event. Otherwise, you'll have to plan to handle eventual consistency.  
 
@@ -7719,7 +7719,7 @@ While a lagging service is one source of convergence issues, a second source is 
 
 Let's do away with lag, latency, and processing time and just pretend for a moment that you have a service that can instantly consume and materialize any number of events, from any number of streams. In the case of Figure 16-3, we have a flower pot builder service that is consuming and joining data from two streams to determine what's the best soil to put in the pot for each flower type.  
 
-![figure](images/raw/figure-0255.png)
+![figure](images/figure-0255.png)
 
 >Figure 16-3. The data in the source event streams hasn't yet converged  
 
@@ -7831,7 +7831,7 @@ in event-driven microservices, and you'll often encounter them in scenarios such
 
 Event-driven patterns still play a large role in this domain, and integrating them with request-response solutions will help you leverage the best features of both.  
 
-![figure](images/raw/figure-0256.png)
+![figure](images/figure-0256.png)
 
 For the purposes of this chapter, the term *request-response services* refers to services that communicate with each other directly through calling each other's API. Two services communicating via HTTP is a prime example of request-response communication. Communication may be synchronous (the calling service waits) or asynchronous (the calling service does other work while awaiting a callback).  
 
@@ -7879,7 +7879,7 @@ ShowTrailer= 3;}// The type of mediaMedia mediaType= 4;}
 
 The client encodes the data into a Protobuf format, serializes it, and sends it to thebackend server, as shown in Figure 17-1.  
 
-![figure](images/raw/figure-0257.png)
+![figure](images/figure-0257.png)
 
 >Figure 17-1. Serializing the MediaClick data in the client  
 
@@ -7887,7 +7887,7 @@ The client does all the work of generating the event, populating the Protobuf sc
 
 But what about in the case where you want to send an event from an environment where restrictions are more significant, such as an embedding in a browser or a tiny microcontroller? It is often not possible to package up the necessary libraries to generate the Protobuf(or Avro, or JSON Schema) due to resource constraints. In thiscase, you can serialize the data in the backend server, as shown in Figure 17-2.  
 
-![figure](images/raw/figure-0258.png)
+![figure](images/figure-0258.png)
 
 >Figure 17-2. Serializing the MediaClick data in the backend server  
 
@@ -7910,7 +7910,7 @@ The backend server parses and encodes this plain-text payload into the associate
 Protobuf schema represented by schemaId = 623. This is a very brittle process, as
 any deviations in the plain-text format may break the parser logic.  
 
-![figure](images/raw/figure-0259.png)
+![figure](images/figure-0259.png)
 
 Plain-text events with an accompanying schemaId are very useful when sending metrics and measurements from endpoints where every single byte matters, such as web pages and services in low-connectivity regions. Server-side serialization is very useful for circumstances where it's unreasonably expensive, difficult, or simply not possible to serialize on the client side.  
 
@@ -8052,7 +8052,7 @@ If your microservice must wait for a reply and it is processing from an event st
 
 Once your microservice receives a response, it can parse the data and continue onwith its business logic. A generalized example of this process is shown in Figure 17-3.  
 
-![figure](images/raw/figure-0260.png)
+![figure](images/figure-0260.png)
 
 >Figure 17-3. Integrating request-response APIs into event-driven workflows  
 
@@ -8090,7 +8090,7 @@ This approach is broken down into two major sections. The first is in serving st
 
 Figure 17-4 shows a microservice serving client requests from data stored within its internal state store. The client’s request is delivered to a load balancer that routes therequest onto one of the underlying microservice instances.  
 
-![figure](images/raw/figure-0261.png)
+![figure](images/figure-0261.png)
 
 >Figure 17-4. Overview of an EDM with a REST API serving content to a client  
 
@@ -8100,7 +8100,7 @@ You may also need multiple microservice instances to handle the volume of event-
 
 Figure 17-5 shows a client making a request that is then forwarded to another instance.  
 
-![figure](images/raw/figure-0262.png)
+![figure](images/figure-0262.png)
 
 >Figure 17-5. Using partition assignments to determine the location of the materialized state for a given key  
 
@@ -8116,7 +8116,7 @@ A microservice instance within a consumer group knows its partition assignments 
 
 Figure 17-6 illustrates using the properties of the partitioner assignment to route aREST GET request.  
 
-![figure](images/raw/figure-0263.png)
+![figure](images/figure-0263.png)
 
 >Figure 17-6. Workflow illustrating the rerouting of a request to the correct instance  
 
@@ -8128,13 +8128,13 @@ success rate= 1/(number of instances)
 
 In fact, for a very large amount of instances, almost all requests will result in a miss followed by a redirect, increasing the latency of the response and load on the application. Fortunately, a smart load balancer can perform the routing logic bef oresending the initial request to the microservices, as demonstrated in Figure 17-7.  
 
-![figure](images/raw/figure-0264.png)
+![figure](images/figure-0264.png)
 
 >Figure 17-7. Using the load balancer to correctly forward requests based on consumer group ownership and partitioner logic  
 
 The smart load balancer applies the partitioner logic to obtain the partition ID, compares it against its internal table of consumer group assignments, and then forwards the request accordingly. Partition assignments will need to be inferred from the internal repartition streams or the changelog streams for a given state store. This approach *does* entangle the logic of your application with the load balancer, such that renaming state stores or changing the topology will cause the forwarding to fail. It's best if any smart load balancers are part of the single deployable and testing process of your microservice so that you can catch these errors prior to production deployment.  
 
-![figure](images/raw/figure-0265.png)
+![figure](images/figure-0265.png)
 
 Using a smart load balancer is just a best effort attempt to reduce latency. Due to race conditions and dynamic rebalancing of internal state stores, each microservice instance must still be able to redirect incorrectly forwarded requests.  
 
@@ -8149,7 +8149,7 @@ each shard in parallel, and return just the results from the correct shard.
 
 Secondly, consumer group rebalances don't require the microservice to rebuild internal state stores since the data is stored outside of the instances. External state enables easy instance scaling with zero-downtime options that can be difficult to provide using internal state stores. It also lets you scale your request serving capacity separately from your data store capacity.  
 
-![figure](images/raw/figure-0266.png)
+![figure](images/figure-0266.png)
 
 Ensure that state is accessed via the request-response API of the microservice and *not* directly from the state store. Failure to do so introduces inappropriate coupling and makes changes difficult and risky.  
 
@@ -8157,7 +8157,7 @@ Ensure that state is accessed via the request-response API of the microservice a
 
 In an all-in-one microservice, each instance consumes and processes events from its input event streams and materializes the data to the external state store. It also provides the request-response API for serving data back to the requesting client. Figure 17-8 shows an example of an all-in-one microservice processing data, storing it, and serving REST API requests.  
 
-![figure](images/raw/figure-0267.png)
+![figure](images/figure-0267.png)
 
 >Figure 17-8. An all-in-one microservice serving from external state store; note that either instance could serve the request With the all-in-one microservice, both event-stream processing and request-response serving capacity scale by instance count, just as when using internal state stores.  
 
@@ -8171,11 +8171,11 @@ Alternatively, you can also split up your microservices into separate functions.
 
 In the Composite Service pattern, the request-response API is completely separate from the event-driven microservice that materializes the state to the external state store. While they remain logically independent, they share a single bounded context and remain tightly coupled. This pattern is exemplified in Figure 17-9, where microservice A serves REST requests while microservice B processes the event streams.  
 
-![figure](images/raw/figure-0268.png)
+![figure](images/figure-0268.png)
 
 >Figure 17-9. A composite microservice composed of separate dedicated microservices—one for serving requests, the other for processing events  
 
-![figure](images/raw/figure-0269.png)
+![figure](images/figure-0269.png)
 
 While this pattern has two microservices operating on a single data store, there's still just a single bounded context. These two microservices are treated as a single *composite service*. They reside within the same code repository, and are tested, built, and deployed together.  
 
@@ -8193,7 +8193,7 @@ One way to handle requests is the way you would with any non–event-driven serv
 
 Your microservice may also perform a mix of these operations, turning only some requests into events while others are fulfilled immediately. Figure 17-10 illustrates these two options, which will be expanded upon shortly in “Example: NewspaperPublishing Workflow(Approval Pattern)” on page 351.  
 
-![figure](images/raw/figure-0270.png)
+![figure](images/figure-0270.png)
 
 >Figure 17-10. Handling requests directly versus turning them into events first  
 
@@ -8213,7 +8213,7 @@ You must ensure that the service behavior manages user expectations. In a synchr
 
 You can use certain asynchronous UI techniques to help manage your users' expectations. For example, you can update the UI to indicate that their request has been sent, while simultaneously discouraging them from performing any more actions until it has completed. Airline booking and automobile rental websites often display a *making reservation, please wait* message with a spinning wheel symbol, blanking out the rest of the web page from user input. This informs users that the backend service is processing the event and that they can't do anything else until it completes.  
 
-![figure](images/raw/figure-0271.png)
+![figure](images/figure-0271.png)
 
 Research and implement best practices for asynchronous UIs when handling user input as events. Proper UI design prepares the user to expect asynchronous results.  
 
@@ -8225,7 +8225,7 @@ There are no hard-and-fast rules dictating when you must update the UI. The busi
 
 • What is the performance/experience impact of pushing a UI update?  
 
-![figure](images/raw/figure-0272.png)
+![figure](images/figure-0272.png)
 
 Intermittent network failures can introduce duplicate requests and duplicate events. Ensure that your consumers can handle duplicates idempotently, as covered in “Generating duplicate events” on page 194.  
 
@@ -8240,7 +8240,7 @@ A graphical user interface (GUI) allows the newspaper designers to arrange and p
 
 The newspaper designer is responsible for placing the articles and advertisements according to the layout template. The newspaper editor is responsible for ensuring that the newspaper is cohesive, that the articles are ordered by estimated importance to the reader, and that the advertisements are placed according to the contracts. The newspaper editor must approve the designer's work before sending the newspaper off to the printer, though they can also reject it and send it back for redesign. Figure 17-11 illustrates this workflow.  
 
-![figure](images/raw/figure-0273.png)
+![figure](images/figure-0273.png)
 
 >Figure 17-11. Workflow for populating a newspaper, with gating based on approval by
 editor and advertiser  
@@ -8249,7 +8249,7 @@ Both the editor and the advertiser can reject the proposed layout, though the ad
 
 The design and the approval of the newspaper are two separate bounded contexts, each concerned with its own business functionality. This can be mirrored by two microservices, as shown in Figure 17-12. For simplicity's sake, the figure omits accounts, account management, authentication, and login details.  
 
-![figure](images/raw/figure-0274.png)
+![figure](images/figure-0274.png)
 
 >Figure 17-12. Newspaper design and approval workflow as microservices  
 
@@ -8272,7 +8272,7 @@ Value: {
     - String id // ID of the ad or article
 }  
 
-![figure](images/raw/figure-0275.png)
+![figure](images/figure-0275.png)
 
 The PDF can be stored in an external file store if it's too large to store in the event. Access is provided via the universal resource identifier (URI). Note that you'll have to manage permissions yourself.  
 
@@ -8281,7 +8281,7 @@ interaction into events.
 
 You can use whatever frameworks and data stores you want to build this microservice. You may choose to leverage a monolithic framework that supports request-response patterns out of the box, and only introduce an event-stream producer when writing to the output stream.  
 
-![figure](images/raw/figure-0276.png)
+![figure](images/figure-0276.png)
 
 There is a risk that the populated newspaper stream may get out of sync with the state within the newspaper populator microservice. See "Data Liberation Patterns" on page 130 for details on atomic production from a monolith, particularly using the outbox table pattern or change-data capture logs.  
 
@@ -8354,7 +8354,7 @@ tiser rejections
 
 A mock-up of the new microservice layout is shown in Figure 17-13.  
 
-![figure](images/raw/figure-0277.png)
+![figure](images/figure-0277.png)
 
 >Figure 17-13. Independent advertiser and editor approval services  
 
@@ -8389,7 +8389,7 @@ Micro frontends are a popular choice for integrating event-driven microservices 
 
 Figure 17-14 illustrates three main approaches to organizing customer-facing content. In both of the monolithic and microservice backend approaches, the frontend and backend services are owned and operated by separate teams powering a single frontend layer. In contrast, a micro frontend's approach aligns implementations on the business concerns, including the data store, the backend, and the frontend.  
 
-![figure](images/raw/figure-0278.png)
+![figure](images/figure-0278.png)
 
 >Figure 17-14. Three main approaches to organizing products and teams for customer-facing content  
 
@@ -8413,19 +8413,19 @@ An experience is something you'll never forget! claim the makers of the applicat
 
 The first version of this application has a single service that materializes both the experience entities and customer reviews into a single endpoint. Users can input their city name to see a list of available experiences in their area. Once they select an option, the experience information along with any associated reviews are displayed, as in the simple mockup in Figure 17-15.  
 
-![figure](images/raw/figure-0279.png)
+![figure](images/figure-0279.png)
 
 >Figure 17-15. Experiences search and review application, GUI mockup version 1 with monolithic frontend  
 
 In the first version of the application, data is stored in a basic key-value state store that offers only limited searching capabilities. Searching based on the user's geolocation is not yet available, though it is something your users have been requesting. Additionally, it would be a good idea for version 2 to split off reviews into their own microservice, as they have sufficiently distinct business responsibilities to form their own bounded context. Finally, you should create the product micro frontend to stitch these two products together and act as the aggregation layer for each business service. Each of these three micro frontends may be owned and managed by their own team, or the same team, though the separation of concerns allows for scaling ownership just as in backend microservices. A new mockup of the GUI showing the separated frontend responsibilities is shown in Figure 17-16.  
 
-![figure](images/raw/figure-0280.png)
+![figure](images/figure-0280.png)
 
 >Figure 17-16. Experiences search and review application, GUI mockup version 2 with micro frontends  
 
 Now the product boundary encapsulates both the search and review micro frontends and contains all the logic necessary to stitch these two services together. It does not, however, contain any business logic pertaining to these services. This updated UI also illustrates how the micro frontend's responsibilities have changed, as it must now support geolocation search functionality. The user's address is transposed into latitude and longitude coordinates (lat-lon), which can be used to compute the distance to nearby experiences. Meanwhile, the review micro frontend's responsibilities remain the same, but it is freed of its coupling to the search service. Figure 17-17 shows how this migration into micro frontends could look.  
 
-![figure](images/raw/figure-0281.png)
+![figure](images/figure-0281.png)
 
 >Figure 17-17. The flexibility of micro frontends paired with backend event-driven microservices  
 
@@ -8433,7 +8433,7 @@ There are a few notable points about this figure. First, as discussed earlier in
 
 If the reviews were kept internal to version 1's data store, you would instead have to look into liberating them for version 2's use (Chapter 6) and then come up with a migration plan for its long-term storage in an event stream.  
 
-![figure](images/raw/figure-0282.png)
+![figure](images/figure-0282.png)
 
 The ability to materialize and consume any stream of business events, however the service needs them, is what makes event-driven microservice backends pair so effectively with micro frontends.  
 
@@ -8519,7 +8519,7 @@ We’ll examine eight types of bad data, each with its own causes and impacts. A
 
 The data is simply indecipherable, as shown in Figure 18-1. The consumer is unable to make any sense of whatever the event may have been. Data corruption is relatively rare, but may be caused by faulty serializers that convert data objects into a plainarray of bytes.  
 
-![figure](images/raw/figure-0283.png)
+![figure](images/figure-0283.png)
 
 >Figure 18-1. Corrupted event data, likely due to f aulty serializers  
 
@@ -8527,7 +8527,7 @@ The data is simply indecipherable, as shown in Figure 18-1. The consumer is unab
 
 Someone has decided to send their events with no schema, as shown in Figure 18-2.How do you know what’s good data and what’s bad data, if there are no types, names,requirements, limitations, or structure? It becomes impossible to tell without a formaldefinition.  
 
-![figure](images/raw/figure-0284.png)
+![figure](images/figure-0284.png)
 
 >Figure 18-2. An event sent without a schema, f orcing interpretation down onto the consumer  
 
@@ -8535,7 +8535,7 @@ Someone has decided to send their events with no schema, as shown in Figure 18-2
 
 Your event’s purported schema can’t be applied to the data. Consider Figure 18-3.  
 
-![figure](images/raw/figure-0285.png)
+![figure](images/figure-0285.png)
 
 >Figure 18-3. An event sent with a SchemaId that doesn’t match the schema registry  
 
@@ -8545,7 +8545,7 @@ In this example, you’re using the Confluent Schema Registry, but your event’
 
 This type of bad data uses a schema as shown in Figure 18-4, but the consumercannot convert the data into a suitable form.  
 
-![figure](images/raw/figure-0286.png)
+![figure](images/figure-0286.png)
 
 >Figure 18-4. The event the consumer receives cannot be converted to the consumer’s schema  
 
@@ -8555,7 +8555,7 @@ The event is technically deserializable, but can’t be converted to the schema 
 
 Your event has a field with a value that should never be—for example, an array of integers for first_name or a null in a field declared as non-nullable as in Figure 18-5.  
 
-![figure](images/raw/figure-0287.png)
+![figure](images/figure-0287.png)
 
 >Figure 18-5. The event contains data that violates the consumer's understanding of the data, resulting in an exception  
 
@@ -8574,7 +8574,7 @@ can contribute to this scenario.
 
 Figure 18-6 shows an event with a negative cost. What is the consumer supposed to do with an order where the cost is negative? This could be a case of a bug that slipped through into production, a semantic change in the event schema definition, or a sign of something more serious. But since it doesn't meet the consumer's expectations, from their perspective it's just bad data.  
 
-![figure](images/raw/figure-0288.png)
+![figure](images/figure-0288.png)
 
 >Figure 18-6. Data that logically adheres to the schema types, but in unexpected ranges  
 
@@ -8598,7 +8598,7 @@ good state. This can result in a set of duplicate output events, including:
 
 • An ecommerce order with its own unique order_id, as per Figure 18-7. It may cause a duplicate order to be shipped (and billed) to a customer.  
 
-![figure](images/raw/figure-0289.png)
+![figure](images/figure-0289.png)
 
 >Figure 18-7. An extra event incorrectly produced to the event stream  
 
@@ -8613,7 +8613,7 @@ Now that we’ve covered the main types of bad data you’re likely to see, it�
 
 Prevention is the number one approach to eliminating bad data. It’s far easier toprevent bad data from getting into your streams than it is to try to fix the data later.  
 
-![figure](images/raw/figure-0290.png)
+![figure](images/figure-0290.png)
 
 It cannot be overstated how important prevention is for fixing bad data problems. It takes far less effort and cost to invest inprevention than any other strategy.  
 
@@ -8661,19 +8661,19 @@ As a refresher, state events contain the entire statement of fact for a given en
 
 Delta events describe the change between one state and another. They contain information that requires the consumer to aggregate a sequence of events to generate the current state. Figure 18-8 shows an example of the two main event types.  
 
-![figure](images/raw/figure-0291.png)
+![figure](images/figure-0291.png)
 
 >Figure 18-8. State shows the entire state of the entity, whereas deltas just show the changes  
 
 State events enable event-carried state transfer(ECST). They can materialize the stateevents into their own services and data stores, according to their own business needs.Figure 18-9 shows a basic materialization.  
 
-![figure](images/raw/figure-0292.png)
+![figure](images/figure-0292.png)
 
 >Figure 18-9. Materializing an event stream made of state events into a table  
 
 In Figure 18-10, a new state event with key A is published to the stream, andsubsequently upserted into the materialized table in the consumer microservice.  
 
-![figure](images/raw/figure-0293.png)
+![figure](images/figure-0293.png)
 
 >Figure 18-10. Overwriting data of a specific key with the newest version of the state event  
 
@@ -8687,13 +8687,13 @@ Your consumers still must deal with any incorrect side effects from the earlier 
 
 Connectors (introduced in Chapter 6) are the most common way to bootstrap events from a database. Updates made to a registered database's table rows (create, update, delete) are emitted to a Kafka topic as discrete state events. With connectors, you just need to fix the data in your source database, as shown in Figure 18-11. The change-data connector takes the data from the database log, packages it into events, and publishes it to the compacted output topic.  
 
-![figure](images/raw/figure-0294.png)
+![figure](images/figure-0294.png)
 
 >Figure 18-11. Fix the bad data at the database source and propagate it to the compacted state topic  
 
 Similarly, a Kafka Streams application, as shown in Figure 18-12, can rely on compacted state topics as its input. The developer writing the service knows that it'll always get the eventually correct state event for a given record. In turn, it will publish its own corrected events downstream as required.  
 
-![figure](images/raw/figure-0295.png)
+![figure](images/figure-0295.png)
 
 >Figure 18-12. Fix the bad data in the compacted source topic and propagate it to the downstream compacted state topic  
 
@@ -8701,7 +8701,7 @@ If the service itself receives bad data (say, a bad schema evolution, or even co
 
 Finally, consider an FTP directory where external business partners drop their documents containing information about their business. For example, say they drop a daily batch-based export of their total product inventory, so that your business can display the current stock to the customer. Figure 18-13 shows a simple batch-based workflow that responds to new files being added to the FTP directory.  
 
-![figure](images/raw/figure-0296.png)
+![figure](images/figure-0296.png)
 
 >Figure 18-13. Bad data dropped into an FTP directory by a careless business partner  
 
@@ -8709,7 +8709,7 @@ You probably aren't going to run a full-time streaming job just to wait for upda
 
 It's possible your business partner isn't able to commit to using a well-defined schema. In this case, you're likely to encounter frequent break-fix work, sometimes requiring them to re-create the data file, other times requiring you to update your parsing logic. A lack of strong schema is quite frustrating to work with, and despite your best efforts may result in a chronic source of bad data.  
 
-![figure](images/raw/figure-0297.png)
+![figure](images/figure-0297.png)
 
 Try to get external partners to comply with a basic schema definition. You may need to provide them software SDKs or validation tools to make it easier for them, but it will help you in the long run to reduce your sources of bad data and subsequent break-fix work.  
 
@@ -8725,7 +8725,7 @@ Your options for fixing and mitigating bad data with deltas is much more limited
 
 • Rewind, rebuild, and retry by filtering the bad data out of the stream and restoring the consumers from either their snapshots or from the source eventstream(s). Note that this option is very labor-intensive and also very error-prone,and is covered more in the next section.  
 
-![figure](images/raw/figure-0298.png)
+![figure](images/figure-0298.png)
 
 Delta events have no mechanism for purging data from the event stream under legal obligations, such as the right to be forgotten under GDPR. You must be very careful to ensure that the data you write to the delta stream contains no sensitive information underthe legal obligations of your business.  
 
@@ -8753,7 +8753,7 @@ First, figure out what caused the bad data. Say someone deployed a new logging c
 
 If your parser/producer uses schemas and data quality checks, then you could have shunted the bad data to a DLQ. You would have protected your consumers from the bad data, but delayed their progress. Repairing the data in this case is simply a matter of updating your parser to accommodate the new log format and reprocessing the logfiles. The parser produces correct events, sufficient schema and data quality, and your consumers can pick up where they left off(though they still need to contendwith the fact that the data is late).  
 
-![figure](images/raw/figure-0299.png)
+![figure](images/figure-0299.png)
 
 Prevention is key. Well-defined schemas and data quality checks would have prevented bad data from being written to the event stream.  
 
@@ -8932,7 +8932,7 @@ A quota is a maximum cap on the event broker throughput for a given client (e.g.
 
 In general, you want to ensure at the very least that your entire cluster won't be saturated by one service's I/O requests. You can simply limit how many resources a consumer or producer can use, resulting in it being throttled.  
 
-![figure](images/raw/figure-0300.png)
+![figure](images/figure-0300.png)
 
 Establish a maximum global quota of 25% for your event broker.
 This will prevent any single service from taking more than that
@@ -8973,7 +8973,7 @@ service.
 
 Access permissions to a given event stream should be granted only by the team that owns the producing microservice, a restriction you can enforce by using the microservice-to-team assignment system. Permissions usually fall into these common categories (depending, of course, on the event broker): READ, WRITE, CREATE, DELETE, MODIFY, and DESCRIBE.  
 
-![figure](images/raw/figure-0301.png)
+![figure](images/figure-0301.png)
 
 Establishing permissions requires the ability to identify individual producer and consumer services. Ensure that you enable and enforce identification for your event broker and services as soon as possible, preferably from day one. Adding identification after the fact is extremely painful, as it requires updating and reviewing every single service that connects to the event broker.  
 
@@ -9004,7 +9004,7 @@ One issue that can arise, particularly as you scale your service count, is that 
 
 The purpose of a notification system is simply to alert consumers when their input schemas are about to evolve. Access control lists and role-based access controls are a great way to determine which microservice consumes from which event stream and, by association, which schemas it depends on. The permissions graph provides information about the teams that own the potentially impacted services.  
 
-![figure](images/raw/figure-0302.png)
+![figure](images/figure-0302.png)
 
 You can also use webhooks from your Git repository to provide an alert whenever a schema file is modified as part of a pull request.  
 
@@ -9050,7 +9050,7 @@ It's important to note that while this tool should be self-serve, in no way shou
 
 Consumer lag is one of the best indicators for scaling an event-driven microservice. You can monitor for lag by using a tool that periodically computes and reports the consumer group lag. Though the mechanism may vary between broker implementations, the definition of lag is the same: the difference in event count between the most recent event and the last processed event for a given microservice consumer group.  
 
-![figure](images/raw/figure-0303.png)
+![figure](images/figure-0303.png)
 
 Ensure that you also have monitoring in place to verify that the
 lag isn't caused by microservice errors. For example, if the micro-
@@ -9085,7 +9085,7 @@ Here is a typical microservice creation process:
 
 Your colleagues will complete this process many times over, so streamlining it will save time and effort in the long run. Automating this workflow also enables you to integrate up-to-date templates and code generators, ensuring that new projects include the latest supported code and tools.  
 
-![figure](images/raw/figure-0304.png)
+![figure](images/figure-0304.png)
 
 If you choose not to streamline the microservice creation project, you'll find that most people will just copy and paste an existing microservice's code into a new repo and attempt to update all the configurations and settings. This is a very error-prone process, and can lead to permission errors, malconfigured services, and repetitive break-fix work.  
 
@@ -9176,7 +9176,7 @@ A business owner could look at this overlay and ask themselves, "Does this imple
 
 Figure 19-1 shows a topology with 25 microservices, overlaid with the ownership of four teams. For purposes of clarity, each arrow represents the production of data to an event stream as well as consumption by the consuming process. Thus, microservice 3 is consuming a stream of data from microservice 4.  
 
-![figure](images/raw/figure-0305.png)
+![figure](images/figure-0305.png)
 
 >Figure 19-1. Topology map of service connections  
 
@@ -9195,7 +9195,7 @@ Let’s see what happens if we reduce the number of inter-team connections and t
 
 more apparent now that microservice 1 may also be assigned to team 4 to further reduce the cross-boundary communication. This result is shown in Figure 19-2 andTable 19-3.  
 
-![figure](images/raw/figure-0306.png)
+![figure](images/figure-0306.png)
 
 >Figure 19-2. Topology map of service connections after reassignment of microservices  
 
@@ -9296,7 +9296,7 @@ Finally, you would also want to test for null-pointer exceptions(NPEs), particul
 
 You’ll want to make sure that your function does what it’s supposed to do, and doesn’t do what it shouldn’t do. Your unit tests should provide you security to know that codechanges made to your functions don’t violate the expected outputs for given inputs.  
 
-![figure](images/raw/figure-0307.png)
+![figure](images/figure-0307.png)
 
 It’s very important that you test around boundary conditions. You want to make sure that any changes made to your code fail the unittests if they break the initial constraints.  
 
@@ -9505,7 +9505,7 @@ This is just one example of how to test the schema evolution with a shell script
 
 Integration testing of microservices is primarily focused on emulating the event-stream inputs and direct request inputs (if applicable) to the microservice. Tests can vary from simple smoke tests to test suites that iterate across hundreds (or thousands) of input/output combinations. The goal of integration testing is to ensure that your microservice performs as expected against its input data and that it accordingly produces events and provides query responses as expected.  
 
-![figure](images/raw/figure-0308.png)
+![figure](images/figure-0308.png)
 
 Integration may include more than one microservice under test, particularly when they are tightly coupled within a single bounded context. Keep in mind that the more services you add to an integration test, the more complex it becomes, and the more likely you are to accidentally omit some test cases.  
 
@@ -9668,7 +9668,7 @@ This testing option provides additional features over the topology testing metho
 
 • Inject faults and problems to validate exception handling.  
 
-![figure](images/raw/figure-0309.png)
+![figure](images/figure-0309.png)
 
 This specific testing option works only because the Kafka event broker and the Confluent Schema Registry are both Java applications, and can be configured to run alongside another Java application. You can't mix and match implementations from other languages, which limits its usefulness to only other Java (and Scala and Kotlin) applications.  
 
@@ -9706,7 +9706,7 @@ You may also choose to manage and create the containers completely *outside* you
 
 For event brokers, Apache Kafka and Apache Pulsar, and Confluent Platform all provide off-the-shelf Docker containers that you can use for your testing.  
 
-![figure](images/raw/figure-0310.png)
+![figure](images/figure-0310.png)
 
 You can set your testing scripts to use specific software versions so that your test environment matches your production environment. You can also choose to run your tests against newer versions of your dependencies, to see if you'll have problems with updating in the future.  
 
@@ -9714,7 +9714,7 @@ You can also install and configure all of your dependencies in just one containe
 
 A lightweight processing framework example is shown in Figure 20-1, with the schema registry, event broker, and necessary topics created internally to the container. The microservice instance runs external to the container and simply references the addresses of the broker and schema registry from its testing config file.  
 
-![figure](images/raw/figure-0311.png)
+![figure](images/figure-0311.png)
 
 >Figure 20-1. Lightweight microservice using containerized testing dependencies for local integration testing  
 
@@ -9730,12 +9730,12 @@ Applications using FaaS and SaaS platforms can leverage local testing libraries 
 
 Establishing an integration testing environment for heavyweight framework applications is similar to the process of establishing one for any other open source software you choose to host yourself. Each requires that the framework be installed and configured, with the application submitting the processing job directly to the framework. With heavyweight frameworks, a typical single-container installation will just need to run the resource manager and worker instances side-by-side along with the event broker and any other dependencies. With the heavyweight framework set up, you simply need to submit the processing job to the resource manager and await test output on the output event streams. An example is illustrated in Figure 20-2, where the entire set of dependencies has been containerized for easy distribution among developers.  
 
-![figure](images/raw/figure-0312.png)
+![figure](images/figure-0312.png)
 
 >Figure 20-2. Heavyweight microservice using containerized testing dependencies for local
 integration testing  
 
-![figure](images/raw/figure-0313.png)
+![figure](images/figure-0313.png)
 
 Keep your your testing, development, staging, and production environments separate from one another. Use access controls to prevent your services from accidentally contaminating other services' event streams.  
 
@@ -9757,7 +9757,7 @@ Connecting to fully remote cloud services assumes a few prerequisites. Your serv
 
 Accomplishing these prerequisites makes up the vast majority of the work. The two most challenging parts include properly cleaning up after your service once the tests are finished, while at the same time avoiding breaking someone else's test environment. Credentials and strict permissions go a long way toward making this possible.  
 
-![figure](images/raw/figure-0314.png)
+![figure](images/figure-0314.png)
 
 Invest in service accounts, credentials, and permissions for your multitenant test environments. It will make testing much easier, safer, and more reliable, eliminate break-fix work, and lets you test the permission configurations necessary to deploy to production.  
 
@@ -9777,7 +9777,7 @@ Let's take a look at each of these options in more detail.
 
 The next issue in a newly brought-up environment is that it lacks both event streams and events, which your script will need to populate before it can start the tests. One benefit of using scripted integration testing is that it regularly exercises creating and deleting new brokers and compute environments. Any special data or configurations that your service relies on must be codified in the scripts themselves. In other words, carefully crafted event data that's critical to your testing is preserved entirely in your test code, not in a customized test environment.  
 
-![figure](images/raw/figure-0315.png)
+![figure](images/figure-0315.png)
 
 Mirror the production event streams' partition counts in your test environment, to ensure that any copartitioning and repartitioning logic is adequately tested.  
 
@@ -9787,7 +9787,7 @@ Once you've generated the event streams, the next step is to populate them with 
 
 One option is to copy events from the production cluster over to the testing cluster. This is where the replication tooling described in "Multicluster Deployments and Event-Stream Replication" on page 394 comes into play, letting you use the exact same tooling for populating a testing environment. You can replicate specific event streams, events, offset ranges, time ranges, and anything else you may need from production into your testing environment.  
 
-![figure](images/raw/figure-0316.png)
+![figure](images/figure-0316.png)
 
 Consider the load on the production services before you replicate the data. You may need to throttle throughput to ensure that production isn't negatively affected, particularly when copying large amounts of data.  
 
@@ -9873,7 +9873,7 @@ The disadvantages include:
 
 • The created data is still not fully accurate when compared to the production distribution. For example, production data may have a serious disparity in datavolume due to key distribution that doesn’t show up in mock data.  
 
-![figure](images/raw/figure-0317.png)
+![figure](images/figure-0317.png)
 
 Some teams find success in a hybrid approach—a small but carefully curated set of entity events that are core to the business, and programmatic generation for the remaining sets of less commonly used data.  
 
@@ -9902,7 +9902,7 @@ notable disadvantages:
 
 • It may inaccurately represent the range of events found in production.  
 
-![figure](images/raw/figure-0318.png)
+![figure](images/figure-0318.png)
 
 This strategy is the worst of the options in terms of usability, as the event broker eventually becomes a dumping ground of confusing event streams and broken data.  
 
@@ -9993,7 +9993,7 @@ Deployments may require that other services change their APIs or data models, su
 
 Breaking schema changes may be inevitable in some circumstances, requiring the creation of new event streams and a renegotiation of the data contract with downstream consumers. Ensure that these discussions happen before any deployment and that a migration plan for consumers is in place.  
 
-![figure](images/raw/figure-0319.png)
+![figure](images/figure-0319.png)
 
 It's important to make your microservices independently deployable. If a microservice deployment regularly requires other microservices to synchronize their own deployments, it is an indicator that their bounded contexts may be ill-defined and should be reviewed. The exception is when you have a few tightly coupled services within the same bounded context that are built to be codependent, though these are typically all owned by the same team.  
 
@@ -10013,7 +10013,7 @@ Continuous delivery is the practice of keeping your codebase deployable. Microse
 
 Continuous deployment is the automated deployment of the build. In an end-to-end continuous deployment, a committed code change propagates through the CI pipeline, reaches a deliverable state, and is automatically deployed to production according to the deployment configuration. This contributes to a tight development loop with a short turnaround time, as committed changes quickly enter production.  
 
-![figure](images/raw/figure-0320.png)
+![figure](images/figure-0320.png)
 
 Continuous deployment is difficult to do in practice. Stateful services are particularly challenging, as deployments may require rebuilding state stores and reprocessing event streams. Always consider the impact of your deployment when choosing whether to use automatic or manual deployments.  
 
@@ -10029,7 +10029,7 @@ Having covered the principles of deployments, it's time to turn our attention to
 
 The basic full-stop deployment pattern is the basis of all other patterns, and this section outlines the steps involved, as illustrated in Figure 21-1. You may certainly add other steps to your pipeline depending on your services requirements, though the steps listed in this section tend to be common for all microservices.  
 
-![figure](images/raw/figure-0321.png)
+![figure](images/figure-0321.png)
 
 >Figure 21-1. A CI pipeline showcasing the difference between continuous delivery and continuous deployment  
 
@@ -10041,7 +10041,7 @@ The most common trigger to kick off the CI pipeline is when you commit code into
 
 This step validates that the committed code passes all the unit and integration tests. Integration tests may require their own transient environments populated with data to perform more complex tests, as covered in "Local Integration Testing" on page 409.  
 
-![figure](images/raw/figure-0322.png)
+![figure](images/figure-0322.png)
 
 Independent integration testing environments enable you to run tests in isolation from one another. You can avoid common multitenancy issues such as resource contention, contaminated data sources, and versioning mismatches.  
 
@@ -10054,7 +10054,7 @@ a. Event stream validation: Verify the existence and configuration of input even
 
 b. Schema validation: Verify that both the input and output schemas follow schema evolution rules. You can validate your schema changes against the schema registry to ensure that restrictions aren't violated.  
 
-![figure](images/raw/figure-0323.png)
+![figure](images/figure-0323.png)
 
 Store the event schemas your code is written against in your microservice's repository. After validating schema evolution compatibility, you can then use a code generators to turn the schemas into structs/classes for your microservice code.  
 
@@ -10070,7 +10070,7 @@ b. *Deploy*: Perform the actual deployment. Deploy the containerized code and st
 
 Validate that the microservice is operating normally, that consumer lag is returning to normal, that there are no logging errors, and that endpoints are working as expected.  
 
-![figure](images/raw/figure-0324.png)
+![figure](images/figure-0324.png)
 
 Consider the impacts to all dependent services, including SLAs,
 downtime, stream processing catch-up time, output event load,
@@ -10098,7 +10098,7 @@ As long as you can meet the prerequisites, this deployment pattern works well wh
 
 • You're deploying bug fixes for issues that do not require rewinding and reprocessing events.  
 
-![figure](images/raw/figure-0325.png)
+![figure](images/figure-0325.png)
 
 Inadvertently altering the internal microservice topology is one of the most common mistakes people make when trying to use this deployment pattern. Doing so is a breaking change and will require a full application reset instead of a rolling update.  
 
@@ -10118,7 +10118,7 @@ We will explore several variants of this pattern.
 
 This variant is the simplest option for the producer, as they just update their schema to produce the new events, and redeploy the service. Only new events are made with the breaking schema change, while any events in the output stream remain under their original schema. Figure 21-2 shows this relatively simple outcome of a post-deployment breaking schema change.  
 
-![figure](images/raw/figure-0326.png)
+![figure](images/figure-0326.png)
 
 >Figure 21-2. Producing the breaking schema events to the same output stream  
 
@@ -10128,13 +10128,13 @@ It's important to note that there has been no reprocessing or reconstruction of 
 
 The second variant has the microservice produce the new breaking events to its own dedicated output event stream, as shown in Figure 21-3.  
 
-![figure](images/raw/figure-0327.png)
+![figure](images/figure-0327.png)
 
 >Figure 21-3. Producing the breaking schema events just to the new output event stream  
 
 This variant causes a breaking change to all existing consumers. Every downstream consumer must be notified of the impending change, and coordinate its own updates with that of the new output stream. It is a *big bang* change, and it can be risky if you don't test the producer and consumer changes beforehand.  
 
-![figure](images/raw/figure-0328.png)
+![figure](images/figure-0328.png)
 
 It is *essential* that the producer microservice owners extensively test and validate the new schema before deploying it. If it fails to create events with the new schema, or if the consumers cannot read and process the events, then you'll find yourself with multiple service outages.  
 
@@ -10146,7 +10146,7 @@ The biggest risk with this variant is that you may have consumers that don't not
 
 Writing the old and new events to their own respective streams is one way to avoid depriving data from consumers who have yet to migrate, as shown in Figure 21-4. It’simportant to note that this variant may not be possible in all use cases!  
 
-![figure](images/raw/figure-0329.png)
+![figure](images/figure-0329.png)
 
 >Figure 21-4. Producing both old schema and new breaking schema events to their respective output streams  
 
@@ -10164,23 +10164,23 @@ The downstream services can continue consuming two different event definitions w
 
 The major benefit of this variant is that downstream consumers must manuallyswap over to the new event stream to gain access to the new breaking schema data.Swapping over is a very deliberate process and guards against silent failures and poordeserialization and decodings that are a possibility with variant 1.  
 
-![figure](images/raw/figure-0330.png)
+![figure](images/figure-0330.png)
 
 One of the main risks of migrating to a new stream is that the migration is never finished, and similar-yet-different data streams remain in use indefinitely. Additionally, new services created during the migration may inadvertently register themselves as consumers on the old stream instead of the new one. Use metadata tagging (see "Event Stream and Microservice Metadata Tagging" on page 386) to mark streams as deprecated and keep migration windows small.  
 
 This pattern works best when the breaking change is relatively minor and where the producer can write the data in both the old and new formats without sacrificing integrity. For example, changing a field from an Integer to String is a breaking change, but it can be accommodated with both schemas. The String type is a superset of the Integer type, so it should be trivial for the microservice to continue outputting records for both old and new.  
 
-![figure](images/raw/figure-0331.png)
+![figure](images/figure-0331.png)
 
 Avoid prolonged dual production of old and new schemas. It is a *temporary* solution that may become permanent if you do not follow a tight schedule of event-stream deprecation, consumer migration, and eventual data deletion (or archiving).  
 
 You can also use a second microservice to produce the new records under the new schema, while the old records remain coupled to the old version, as shown in Figure 21-5.  
 
-![figure](images/raw/figure-0332.png)
+![figure](images/figure-0332.png)
 
 >Figure 21-5. Using two dedicated services to produce both old schema and new breaking schema events to their respective output streams  
 
-![figure](images/raw/figure-0333.png)
+![figure](images/figure-0333.png)
 
 The offsets in the new output stream most likely won't match the offsets of the old output stream. Late-arriving events and repartitioning can change output stream order while intermittent failures can lead to duplicate events.  
 
@@ -10192,7 +10192,7 @@ The answers to these questions vary, but rest on the answer to a singular founda
 
 One key concern when dealing with breaking schema changes is whether to re-create the historical data within the new stream. In many cases, it's sufficient to follow the your preferred variant as described in "The Breaking Schema Change Pattern" on page 431, and just write the new data into the new format. This is particularly true for event streams that are time-limited (e.g., 24 hours' worth of data) or where the historical data isn't important.  
 
-![figure](images/raw/figure-0334.png)
+![figure](images/figure-0334.png)
 
 It is possible that the entity or event schema has changed so much that the old and new formats cannot be maintained concurrently. This is more common than it may seem, particularly when a business updates its business model, expands its product offerings, or takes on new customers.  
 
@@ -10214,7 +10214,7 @@ Be ever mindful that rebuilding the events with the new schema is only part of t
 
 The biggest risk of this deployment plan is that consumers may fail in their migration to the new event stream, but be unable to gracefully fall back to the old source of data as they would using the eventual migration strategy. Integration testing (preferably using programmatically generated environments and source data) can reduce this risk by providing an environment in which to completely exercise the migration process. You can create and register the producer and the consumers together in the test environment to validate the migration prior to performing it in production.  
 
-![figure](images/raw/figure-0335.png)
+![figure](images/figure-0335.png)
 
 Synchronized migrations tend to be uncommon in practice. Core business entities usually have very stable domain models, but when major breaking changes occur, a synchronous migration may be unavoidable.  
 
@@ -10225,7 +10225,7 @@ downtime while deploying new functionality. This pattern is predominantly used i
 request-response microservice deployments, as it allows for request handling to con-
 tinue while the service is updated. An example of this pattern is shown in Figure 21-6.  
 
-![figure](images/raw/figure-0336.png)
+![figure](images/figure-0336.png)
 
 >Figure 21-6. Blue-green deployment pattern  
 
@@ -10235,7 +10235,7 @@ The router handles traffic in front of the services, routing some requests to th
 
 At this point, depending on the sensitivity of your application and the need to provide a quick fallback, the green instances can be turned off or left to idle until sufficient time without incident has passed. In the case that an error occurs during the cooldown period, the router can quickly reroute the traffic back to the green instances to restore your service-level objectives.  
 
-![figure](images/raw/figure-0337.png)
+![figure](images/figure-0337.png)
 
 You must integrate monitoring and alerting—including resource
 usage metrics, consumer group lag, autoscaling triggers, and sys-
@@ -10243,7 +10243,7 @@ tem alerts—as part of the blue-green deployment pattern.
 
 The blue-green deployment pattern works well for microservices that require minimal downtime, particularly those that power customer experiences or provide around-the-clock services. However, when powered by event streams, you'll need to be cautious about issues that may arise from asynchronous materializations and computations and multiple consumer group management.  
 
-![figure](images/raw/figure-0338.png)
+![figure](images/figure-0338.png)
 
 Be cautious about using the blue-green deployment to write to a common output stream. The two independent microservice instances may overwrite each other's work or create duplicate events. In this scenario, you may find it better to use either the rolling update pattern or the basic full-stop deployment pattern instead.  
 
@@ -10346,7 +10346,7 @@ Once your event streams are up and running, it's time to populate them with busi
 for moving toward an event-driven architecture. Data liberation decouples the pro-
 duction and ownership of data from the accessing of it by downstream consumers.  
 
-![figure](images/raw/figure-0339.png)
+![figure](images/figure-0339.png)
 
 Having your data readily available in event streams allows for services to be built by *composition*. A new service needs only to subscribe to the event streams of interest via the event broker, rather than directly connecting to each service that would otherwise provide the data.  
 
@@ -12587,7 +12587,7 @@ While the yellow-cheeked tit's conservation status is listed as of Least Concern
 
 The cover illustration is by Karen Montgomery, based on a black and white engraving from *Pictorial Museum of Animated Nature*. The series design is by Edie Freedman, Ellie Volckhausen, and Karen Montgomery. The cover fonts are Gilroy Semibold and Guardian Sans. The text font is Adobe Minion Pro; the heading font is Adobe Myriad Condensed; and the code font is Dalton Maag's Ubuntu Mono.  
 
-![figure](images/raw/figure-0340.png)
+![figure](images/figure-0340.png)
 
 O'REILLY\(^{®}\)  
 
@@ -12599,4 +12599,4 @@ Interactive learning | Certification preparation
 
 Try the O'Reilly learning platform free for 10 days.  
 
-![figure](images/raw/figure-0341.png)
+![figure](images/figure-0341.png)

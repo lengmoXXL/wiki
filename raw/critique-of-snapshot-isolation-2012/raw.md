@@ -71,7 +71,7 @@ Snapshot isolation guarantees that the snapshot from which a transaction reads i
 
 >\(\underline{\text{1 http://hbase.apache.org}}\)  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 >Figure 1. An example run under snapshot isolation guarantee. $write(r, v)$ writes value $v$ into data item $r$, and $read(r)$ returns the value in data item $r$. Transaction $txn_n$ observes the commits of transaction $txn_o$ since $txn_o$ commits before $txn_n$ starts. It, however, does not read the writes of transaction $txn_c$, as it is not committed at the time $txn_n$ start timestamp is assigned. Transactions $txn_n$ and $txn_c$ have both spatial and temporal overlap and at least one of them must abort.  
 
@@ -181,7 +181,7 @@ under write-snapshot isolation if the following holds:
 
 1. RW-spatial overlap: \(txnj\) writes into row r and \(txni\) reads from row r;  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 >Figure 2. An example run under write-snapshot isolation guarantee. $write(r, v)$ writes value $v$ into data item $r$, and $read(r)$ returns the value in data item $r$. Transaction $txn_n$ observes the commits of transaction $txn_o$ since $txn_o$ commits before $txn_n$ starts. It, however, does not read the writes of transaction $txn_c$ as it is not committed at the time $txn_n$ start timestamp is assigned. Transactions $txn_n$ and $txn_c$ have both rw-spatial and rw-temporal overlap and at least one of them must abort. Although transactions $txn_n$ and $txn_c$ have rw-temporal overlap, they do not have read-write conflict since $txn_c$ does not write into row $r$ that is in the read set of $txn_n$. Similarly, $txn_n$ and $txn_c$ do not have conflict because they do not have rw-temporal overlap.  
 
@@ -210,11 +210,11 @@ Here we prove that write-snapshot isolation is serializable. To this aim, we nee
 
 >3 Megastore achieves this performance by sacrificing serializability. It partitions the data store, and provides limited consistency guarantees across partitions. See Section 7 for further details.  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 >Figure 3. Each read-only transaction run under write-snapshot isolation is equivalent to a shorter transaction with the same start timestamp. This is because the read operations are serviced from a snapshot of the database, and the real time of performing the read does not affect the return value.  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 >Figure 4. Each write transaction run under write-snapshot isolation is equivalent to a shorter transaction with the same commit timestamp. This is because the read set of a write transaction is not modified by any transaction with rw-temporal overlap.  
 
@@ -330,7 +330,7 @@ Here we run the system with one client and break down the latency of different o
 
 Each random read and write into HBase takes 38.8 ms and 1.13 ms on average, respectively. The writes are in general less expensive since they usually include only writing into memory and appending into a write-ahead log. Random reads, on the other hand, might inflict the cost of loading an  
 
-![figure](images/raw/figure-0005.png)
+![figure](images/figure-0005.png)
 
 >Figure 5. Overhead on the status oracle.  
 
@@ -345,7 +345,7 @@ As Figure 5 depicts, by increasing the load on the status oracle, the throughput
 
 >6 Note that the complex workload is different from the write-only workload, for which we reported the throughput of 50K TPS in our previous work [20]. Moreover, the reported performance is for one status oracle implemented on a simple dual-core machine. To get a higher throughput, one could partition the database and use a status oracle for each partition.  
 
-![figure](images/raw/figure-0006.png)
+![figure](images/figure-0006.png)
 
 >Figure 6. Performance with normal distribution.  
 
@@ -353,7 +353,7 @@ As Figure 5 depicts, by increasing the load on the status oracle, the throughput
 
 To compare the overhead of supporting snapshot isolation and write-snapshot isolation, we increase the number of clients from 5 to 10, 20, 40, 80, 160, 320, 640, and plot the average latency vs. the average throughput in Figure 6. The throughput indicates the concurrency level and the difference between the latencies of the two isolation levels compares their relative overhead. The client runs one transaction at a time, where each transaction updates $n$ rows, randomly selected with a uniform distribution on 20M rows. The uniform distribution of rows evenly distributes the load on all the data servers. Therefore, the probability of accessing the same row by two transactions is low and the abort rate will be close to zero. Since almost no transaction is aborted by either write-snapshot isolation or snapshot isolation, the results of this experiments emphasis the overhead of checking the conflicts in write-snapshot isolation and snapshot iso-  
 
-![figure](images/raw/figure-0007.png)
+![figure](images/figure-0007.png)
 
 >Figure 7. Performance with zipfian distribution.  
 
@@ -370,11 +370,11 @@ Figure 7 depicts the performance under zipfian distribution. Because with this d
 
 Figure 8 plots the average abort rate vs. the average throughput for zipfian distribution. The abort rate linearly increases with the increase of throughput, up to 20% in write-snapshot isolation. Although the abort rate in write-snapshot isolation is slightly higher than in snapshot isolation, the difference is negligible. This shows that both snapshot isolation  
 
-![figure](images/raw/figure-0008.png)
+![figure](images/figure-0008.png)
 
 >Figure 8. Abort rate with zipfian distribution.  
 
-![figure](images/raw/figure-0009.png)
+![figure](images/figure-0009.png)
 
 >Figure 9. Performance with zipfianLatest distribution.  
 
@@ -386,7 +386,7 @@ Figure 9 depicts the performance under zipfianLatest dis-tribution. The performa
 
 Here we review the related work in literature. First, wecontrast our work with related research in isolation levels.Then, we review the recent implementations of snapshot  
 
-![figure](images/raw/figure-0010.png)
+![figure](images/figure-0010.png)
 
 >Figure 10. Abort rate with zipfianLatest distribution.  
 

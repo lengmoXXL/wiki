@@ -221,7 +221,7 @@ to an arbitrary baseline). The rate seen by our automatic
 detector is gradually increasing, but we do not know if this
 reflects a change in the underlying rate.  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 >Figure 1: Reported CEE rates (normalized)  
 

@@ -82,7 +82,7 @@ All the four failure modes described above have the potential to lead to SDC wit
 
 Facebook infrastructure is made up of hundreds of thousands of servers and has billions of users accessing our applications. With billions of users accessing the Facebook family of applications, the infrastructure receives billions of requests per day. With billions of user queries, image uploads, and media content, the processing required for these applications needs to be fast, reliable, and secure. We utilize fundamental concepts within distributed systems to partition our applications and optimize each of the said partitions. A typical application can require anywhere between tens of machines to hundreds of thousands of machines based on the complexity, resource profile and computing needs of the application. One such partition is our querying infrastructure. This querying infrastructure is used to fetch and execute SQL and SQL like queries (Presto, Hive, Spark) [5], [6] across multiple datasets.  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 >Figure 1: High Level Spark Architecture  
 
@@ -105,7 +105,7 @@ For example, a Wordcount application, trying to count the number of occurrences 
 
 Like wordcount, compression is a technique which is used to reduce the storage footprint of datastores and can make use of the spark architecture. There are multiple algorithms for compression. In this paper we will not be going into details of the algorithms. Interested readers can review the following papers for details and comparison of compression algorithms [30], [12], [25]. Files are usually compressed when they are not being read and decompressed when a request is made for reading the file. In a large infrastructure, millions of compression and decompression operations are performed every day. In this example, we are mainly focusing on the decompression aspect of files. We have a database, where the files are compressed and stored within a data store. Upon request, multiple sets of these files are sent to the decompression pipeline. Before a decompression is performed, file size is checked to see if the file size is greater than 0. A valid compressed file with contents would have a non-zero size. Figure 2 shows the manifestation of corruptions and interlink to the database pictorially.  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 >Figure 2: Application level silent data corruption  
 
@@ -235,7 +235,7 @@ process, we obtain the faulty instruction within the defective CPU.
 
 ### 5.3 Assembly Level Test Case  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 >Figure 3: High Level Debug Flow  
 

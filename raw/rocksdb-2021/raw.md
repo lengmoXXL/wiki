@@ -111,7 +111,7 @@ Over the last decade, we have witnessed the proliferation of flash-based SSD for
 
 The high performance of the SSD, in many cases, also shifted the performance bottleneck from device I/O to the network for both of latency and throughput. It became more attractive for applications to design their architecture to store data on local SSDs rather than use a remote data storage service. This increased the demand for a key-value store engines that are embedded in applications.  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 >Figure 1: RocksDB LSM-tree using leveled compaction. Each white box is an SSTable.  
 
@@ -152,7 +152,7 @@ RocksDB supports multiple different types of compaction. Leveled Compaction was 
 
 Being able to configure the type of compaction allows RocksDB to serve a wide range of use cases. By using different compaction styles, RocksDB can be configured as read friendly, write friendly, or very write friendly for special cache workloads. However, application owners will need to consider trade-offs among the different metrics for their specific use case [2]. A lazier compaction algorithm improves write amplification and write throughput, but read performance suffers, while a more aggressive compaction sacrifices write performance but allows for faster reads. Services like logging or stream processing can use a write heavy setup while database services need a balanced approach. Table 3 depicts this flexibility by way of micro-benchmark results.  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 >Figure 2: Survey of write amplification and write rate across
 42 randomly sampled ZippyDB and MyRocks applications.  
@@ -200,7 +200,7 @@ An issue of concern sometimes raised is that SSDs have become so fast that softw
 
 Second, we find that any server with a high-end CPU has more than enough compute power to saturate one high-end SSD. RocksDB has never had an issue making full use of SSD performance in our environment. Of course, it is possible to configure a system that results in the CPU becoming a  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 >Figure 3: Resource utilization across four metrics. Each line represents a different deployment with a different workload. Measurements were taken over the course of one month. All numbers are the average across all hosts in the deployment. CPU and read bandwidth are for the highest hour during the month. Flash endurance and space utilization are average across the entire month.  
 
@@ -354,7 +354,7 @@ While the layers of protection described above prevent clients from being expose
 
 *Key-value integrity.* To address this problem, we are currently implementing per-key-value checksums to detect corruptions that occur above the file I/O layer. This checksum will be transferred along with the key/value wherever it is copied, although we will elide it from file data where alternative integrity protection already exists.  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 >Figure 4: Four Types of Checksums  
 

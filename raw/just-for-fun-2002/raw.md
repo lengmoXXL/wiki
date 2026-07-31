@@ -3,7 +3,7 @@
 The Story of an Accidental
 Revolutionary  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 “Entertaining . . .
 Insights into how the mind
@@ -18,7 +18,7 @@ and DAVID DIAMOND
 
 Just for FUN  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 # for FUN  
 

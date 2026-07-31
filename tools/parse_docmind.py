@@ -58,7 +58,7 @@ def main() -> int:
         pdf_path = temp_path / file_name
         pages_dir = temp_path / "pages"
         result_dir = temp_path / "result"
-        images_dir = result_dir / "images" / "raw"
+        images_dir = result_dir / "images"
         pages_dir.mkdir()
         images_dir.mkdir(parents=True)
 
@@ -197,21 +197,20 @@ def main() -> int:
         raw_dir.mkdir(exist_ok=True)
         output_dir.mkdir(exist_ok=True)
 
-        # Only overwrite raw.md and images/raw/, preserving selected images in images/
+        # Overwrite generated files only; translations live separately in tr/
         target_raw = output_dir / "raw.md"
-        target_images_raw = output_dir / "images" / "raw"
+        target_images = output_dir / "images"
         if target_raw.exists():
             target_raw.unlink()
-        if target_images_raw.exists():
-            shutil.rmtree(target_images_raw)
-        target_images_raw.parent.mkdir(exist_ok=True)
+        if target_images.exists():
+            shutil.rmtree(target_images)
 
         shutil.move(str(result_dir / "raw.md"), str(target_raw))
-        shutil.move(str(result_dir / "images" / "raw"), str(target_images_raw))
+        shutil.move(str(result_dir / "images"), str(target_images))
 
     print(f"Saved local results to {output_dir}")
     print(f"- Markdown: {output_dir / 'raw.md'}")
-    print(f"- Cropped figures: {output_dir / 'images' / 'raw'} ({figure_number})")
+    print(f"- Cropped figures: {output_dir / 'images'} ({figure_number})")
     return 0
 
 

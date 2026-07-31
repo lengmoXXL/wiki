@@ -27,7 +27,7 @@ A Bigtable is a sparse, distributed, persistent multi-dimensional sorted map. Th
 
 (row:string, column:string, time:int64) → string  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 >Figure 1: A slice of an example table that stores Web pages. The row name is a reversed URL. The contents column family contains the page contents, and the anchor column family contains the text of any anchors that reference the page. CNN's home page is referenced by both the Sports Illustrated and the MY-look home pages, so the row contains columns named anchor:cnnsi.com and anchor:my.look.ca. Each anchor cell has one version; the contents column has three versions, at timestamps $t_3$, $t_5$, and $t_6$.  
 
@@ -150,7 +150,7 @@ A Bigtable cluster stores a number of tables. Each table consists of a set of ta
 
 We use a three-level hierarchy analogous to that of a B$^{+}$-tree [10] to store tablet location information (Figure 4).  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 >Figure 4: Tablet location hierarchy.  
 
@@ -190,7 +190,7 @@ tablet that the master asked it to load.
 
 The persistent state of a tablet is stored in GFS, as illustrated in Figure 5. Updates are committed to a commit log that stores redo records. Of these updates, the recently committed ones are stored in memory in a sorted buffer called a memtable; the older updates are stored in a sequence of SSTables. To recover a tablet, a tablet server  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 >Figure 5: Tablet Representation  
 
@@ -298,7 +298,7 @@ the entire duration of the benchmark.
 | sequential writes|8547|3623|2451|1905|
 | scans|15385|10526|9524|7843|  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 >Figure 6: Number of 1000-byte values read/written per second. The table shows the rate per tablet server; the graph shows the aggregate rate.  
 

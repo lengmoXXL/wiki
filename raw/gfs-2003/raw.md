@@ -127,7 +127,7 @@ the master which chunkservers it should contact. It caches
 this information for a limited time and interacts with the
 chunkservers directly for many subsequent operations.  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 >Figure 1: GFS Architecture  
 
@@ -273,7 +273,7 @@ In Figure 2, we illustrate this process by following the control flow of a write
 2. The master replies with the identity of the primary and the locations of the other (secondary) replicas. The client caches this data for future mutations. It needs to contact the master again only when the primary becomes unreachable or replies that it no longer holds
 a lease.  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 >Figure 2: Write Control and Data Flow  
 
@@ -579,15 +579,15 @@ Table 3 shows read and write rates for various time periods. Both clusters had b
 
 The average write rate was less than 30 MB/s since the restart. When we took these measurements, B was in the middle of a burst of write activity generating about 100 MB/s of data, which produced a 300 MB/s network load because writes are propagated to three replicas.  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 >(a) Reads  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 >(b) Writes  
 
-![figure](images/raw/figure-0005.png)
+![figure](images/figure-0005.png)
 
 >(c) Record appends  
 

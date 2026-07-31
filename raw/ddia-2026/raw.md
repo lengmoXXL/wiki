@@ -2,7 +2,7 @@
 
 The Big Ideas Behind Reliable, Scalable,and Maintainable Systems  
 
-![figure](images/raw/figure-0001.png)
+![figure](images/figure-0001.png)
 
 "For the last decade, this has been the best book for understanding distributed systems, and the second edition makes it even better. It bridges the huge gap between distributed systems theory and practical engineering. I wish it had existed earlier so I could have saved myself a lot of mistakes."  
 
@@ -647,17 +647,17 @@ Constant width italic
 
 Shows text that should be replaced with user-supplied values or by values determined by context.  
 
-![figure](images/raw/figure-0002.png)
+![figure](images/figure-0002.png)
 
 This element signifies a general note.  
 
-![figure](images/raw/figure-0003.png)
+![figure](images/figure-0003.png)
 
 This element indicates a warning or caution.  
 
 ## O'Reilly Online Learning  
 
-![figure](images/raw/figure-0004.png)
+![figure](images/figure-0004.png)
 
 For more than 40 years, O'Reilly Media has provided technology and business training, knowledge, and insight to help companies succeed.  
 
@@ -777,7 +777,7 @@ with a supplier, paying an employee's salary, etc. As databases expanded into ar
 that didn't involve money changing hands, the term *transaction* nevertheless stuck,
 referring to a group of reads and writes that form a logical unit.  
 
-![figure](images/raw/figure-0005.png)
+![figure](images/figure-0005.png)
 
 Chapter 8 explores in detail what we mean by a transaction. This chapter uses the term loosely to refer to low-latency reads and writes.  
 
@@ -806,7 +806,7 @@ The reports that result from these types of queries are important for BI, helpin
 | Data represents|Latest state of data (current point in time)|History of events that happened over time|
 | Dataset size|Gigabytes to terabytes|Terabytes to petabytes|  
 
-![figure](images/raw/figure-0006.png)
+![figure](images/figure-0006.png)
 
 The meaning of online in OLAP is unclear; it probably indicates that queries are not just for predefined reports, but that analystsuse the OLAP system interactively for explorative queries.  
 
@@ -835,7 +835,7 @@ A data warehouse, by contrast, is a separate database that analysts can query to
 
 The data warehouse contains a read-only copy of the data from all the various OLTP systems in the company. Data is extracted from OLTP databases (using either a periodic data dump or a continuous stream of updates), transformed into an analysis-friendly schema, cleaned up, and then loaded into the data warehouse. This process of getting data into the data warehouse is known as *extract-transform-load* (ETL) and is illustrated in Figure 1-1. Sometimes the order of the *transform* and *load* steps is swapped (i.e., the transformation is done in the data warehouse, after loading), resulting in *ELT*.  
 
-![figure](images/raw/figure-0007.png)
+![figure](images/figure-0007.png)
 
 >Figure 1-1. A simplified outline of ETL into a data warehouse  
 
@@ -903,7 +903,7 @@ Ultimately, this is a question about business priorities. A common rule of thumb
 
 With software, two important decisions to be made are who builds the software and who deploys it. The spectrum of possibilities is illustrated in Figure 1-2. At one extreme is bespoke software that you write and run in-house; at the other extreme are widely used cloud services or SaaS products that are implemented and operated by an external vendor and that you access only through a web interface or API.  
 
-![figure](images/raw/figure-0008.png)
+![figure](images/figure-0008.png)
 
 >Figure 1-2. The spectrum of decisions on outsourcing software and its operations  
 
@@ -1300,7 +1300,7 @@ Let’s assume that users make a total of 500 million posts per day, or 5,800 po
 
 We keep all the data in a relational database, as shown in Figure 2-1. We have onetable for users, one table for posts, and one table for follow relationships.  
 
-![figure](images/raw/figure-0009.png)
+![figure](images/figure-0009.png)
 
 >Figure 2-1. A simple relational schema f or a social network in which users can f ollow one another  
 
@@ -1327,7 +1327,7 @@ Imagine that for each user, we store a data structure containing their home time
 
 The downside of this approach is that we now need to do more work every time a user makes a post, because the home timelines are derived data that needs to be updated. The process is illustrated in Figure 2-2. When one initial request results in several downstream requests being carried out, we use the term fan-out to describe the factor by which the number of requests increases.  
 
-![figure](images/raw/figure-0010.png)
+![figure](images/figure-0010.png)
 
 >Figure 2-2. Fan-out: delivering new posts to every follower of the user who made the post  
 
@@ -1357,7 +1357,7 @@ In the social network case study, “posts per second” and “timeline writes 
 
 Throughput and response time are often related. An example of such a relationship for an online service is sketched in Figure 2-3. The service has a low response time when request throughput is low, but response time increases as load increases. This is because of *queueing*: when a request arrives on a highly loaded system, the CPU is likely already in the process of handling an earlier request, and therefore the incoming request needs to wait until the earlier request has been completed. As throughput approaches the maximum that the hardware can handle, queueing delays increase sharply.  
 
-![figure](images/raw/figure-0011.png)
+![figure](images/figure-0011.png)
 
 >Figure 2-3. As the throughput of a service approaches its capacity, the response time increases dramatically because of queueing.  
 
@@ -1383,7 +1383,7 @@ In this section we will focus primarily on response times, and we will return to
 
 • Latency is a catchall term for time during which a request is not being actively processed—that is, during which it is latent. In particular, network latency or network delay refers to the time that a request and response spend travelingthrough the network.  
 
-![figure](images/raw/figure-0012.png)
+![figure](images/figure-0012.png)
 
 >Figure 2-4. Response time, service time, network latency, and queueing delay  
 
@@ -1397,7 +1397,7 @@ Queueing delays often account for a large part of the variability in response ti
 
 Because the response time varies from one request to the next, we need to think of it not as a single number, but as a *distribution* of values that we can measure. In Figure 2-5, each gray bar represents a request to a service, and its height shows how long that request took. Most requests are reasonably fast, but occasional *outliers* take much longer. Variation in network delay is also known as *jitter*.  
 
-![figure](images/raw/figure-0013.png)
+![figure](images/figure-0013.png)
 
 >Figure 2-5. Illustrating mean and percentiles: response times for a sample of 100 requests to a service  
 
@@ -1425,7 +1425,7 @@ A study by Yahoo conducted the following year compared click-through rates on fa
 
 High percentiles are especially important in backend services that are called multiple times as part of serving a single end-user request. Even if you make the calls inparallel, the request still needs to wait for the slowest of the parallel calls to complete.It takes just one slow call to make the entire end-user request slow, as illustrated in Figure 2-6. Even if only a small percentage of backend calls are slow, the chance of getting a slow call increases if an end-user request requires multiple backend calls, so a higher proportion of such end-user requests end up being slow(an effect known astail latency amplification[27]).  
 
-![figure](images/raw/figure-0014.png)
+![figure](images/figure-0014.png)
 
 >Figure 2-6. When several backend calls are needed to serve a request, just a single slow call can slow down the entire end-user request.  
 
@@ -1943,7 +1943,7 @@ The pros and cons of document and relational data have been debated extensively.
 
 Much application development today is done in object-oriented programming languages, which leads to a common criticism of the SQL data model: if data is stored in relational tables, an awkward translation layer is required between the objects in the application code and the database model of tables, rows, and columns. The disconnect between the models is sometimes called an *impedance mismatch*.  
 
-![figure](images/raw/figure-0015.png)
+![figure](images/figure-0015.png)
 
 The term *impedance mismatch* is borrowed from electronics. Every electric circuit has a certain impedance (resistance to alternating current) on its inputs and outputs. When you connect one circuit's output to another one's input, the power transfer across the connection is maximized if the output and input impedances of the two circuits match. An impedance mismatch can lead to signal reflections and other troubles.  
 
@@ -1979,7 +1979,7 @@ Another way of representing the same information, which is perhaps more natural 
 
 https://www.linkedin.com/in/barackobama/  
 
-![figure](images/raw/figure-0016.png)
+![figure](images/figure-0016.png)
 
 ## Barack Obama  
 
@@ -2009,7 +2009,7 @@ X: @barackobama
 
 users table  
 
-![figure](images/raw/figure-0017.png)
+![figure](images/figure-0017.png)
 
 >Figure 3-1. Using a relational schema to represent a LinkedIn profile  
 
@@ -2042,11 +2042,11 @@ The JSON representation has better locality than the multi-table schema in Figur
 
 The one-to-many relationships from the user profile to the user's positions, educational history, and contact information imply a tree structure in the data, and the JSON representation makes this tree structure explicit (see Figure 3-2).  
 
-![figure](images/raw/figure-0018.png)
+![figure](images/figure-0018.png)
 
 >Figure 3-2. One-to-many relationships forming a tree structure  
 
-![figure](images/raw/figure-0019.png)
+![figure](images/figure-0019.png)
 
 A one-to-many relationship is sometimes called one-to-few, since a résumé typically has a small number of positions [11, 12]. If you have a genuinely large number of related items—say, comments on a celebrity's social media post, of which there could be many thousands—embedding them all in the same document may be too unwieldy, so the relational approach in Figure 3-1 is preferable.  
 
@@ -2131,7 +2131,7 @@ While the positions and education tables in Figure 3-1 are examples of one-to-ma
 
 If we introduce entities for organizations and schools and reference them by ID from the résumé, then we also have many-to-many relationships (one person may have worked for several organizations, and an organization has several past or present employees). In a relational model, such a relationship is usually represented as an associative table, or join table, as shown in Figure 3-3: each position associates one user ID with one organization ID.  
 
-![figure](images/raw/figure-0020.png)
+![figure](images/figure-0020.png)
 
 >Figure 3-3. Many-to-many relationships in the relational model  
 
@@ -2162,7 +2162,7 @@ Example 3-2. A résumé that references organizations by ID
 
 Many-to-many relationships often need to be queried in "both directions"—for example, finding all the organizations that a particular person has worked for, and finding all the people who have worked at a particular organization. One way of enabling such queries is to store ID references on both sides, such that a résumé includes the ID of each organization where the person has worked, and the organization document includes the IDs of the résumés that mention that organization. This representation is denormalized, since the relationship is stored in two places, which could become inconsistent with each other.  
 
-![figure](images/raw/figure-0021.png)
+![figure](images/figure-0021.png)
 
 >Figure 3-4. Many-to-many relationships in the document model—the data within each dotted box can be grouped into one document  
 
@@ -2178,7 +2178,7 @@ Figure 3-5 shows an example of a star schema that might be found in the data war
 of a product). If we were analyzing website traffic rather than retail sales, each row
 might represent a page view or a click by a user.  
 
-![figure](images/raw/figure-0022.png)
+![figure](images/figure-0022.png)
 
 >Figure 3-5. A star schema for use in a data warehouse  
 
@@ -2293,7 +2293,7 @@ Document databases and relational databases started out as very different approa
 
 This convergence of the models is good news for application developers, because the relational model and the document model work best when you can combine both in the same database. Many document databases need relational-style references to other documents, and many relational databases have sections where schema flexibility is beneficial. Relational–document hybrids are a powerful combination.  
 
-![figure](images/raw/figure-0023.png)
+![figure](images/figure-0023.png)
 
 Codd's original description of the relational model [4] allowed something similar to JSON within a relational schema. He called it *nonsimple domains*. The idea was that a value in a row doesn't have to be a primitive datatype like a number or a string; it can also be a nested relation (table), so you can have an arbitrarily nested tree structure as a value. This construction is comparable to the JSON and XML support that was added to SQL over 30 years later.  
 
@@ -2335,7 +2335,7 @@ exist, such as Gremlin [39], but these will give us a representative overview.
 
 To illustrate these languages and models, this section uses Figure 3-6 as a running example. It could be taken from a social network or a genealogical database; it shows two people, Lucy from Idaho and Alain from Saint-Lô, France. They are married and living in London. Each person and each location is represented as a vertex, and the relationships between them are represented as edges. This example will help demonstrate some queries that are easy in graph databases but difficult in other data models.  
 
-![figure](images/raw/figure-0024.png)
+![figure](images/figure-0024.png)
 
 >Figure 3-6. Graph-structured data(boxes represent vertices, arrows represent edges)  
 
@@ -2396,7 +2396,7 @@ Some important aspects of this model are as follows:
 
 The edges table is like the many-to-many associative, or join, table we saw in "Many-to-One and Many-to-Many Relationships" on page 75, generalized to allow many types of relationship to be stored in the same table. There may also be indexes on the labels and the properties, allowing vertices or edges with certain properties to be found efficiently.  
 
-![figure](images/raw/figure-0025.png)
+![figure](images/figure-0025.png)
 
 A limitation of graph models is that an edge can associate only two vertices with each other, whereas a relational join table can represent three-way or even higher-degree relationships by having multiple foreign-key references on a single row. Such relationships can be represented in a graph by creating an additional vertex corresponding to each row of the join table and edges to/from thatvertex, or by using a hypergraph.  
 
@@ -2522,7 +2522,7 @@ The *triple store model* is mostly equivalent to the property graph model, using
 
 In a triple store, all information is stored in the form of very simple three-part statements: (subject, predicate, object). For example, in the triple (Jim, likes, bananas), Jim is the subject, likes is the predicate (verb), and bananas is the object.  
 
-![figure](images/raw/figure-0026.png)
+![figure](images/figure-0026.png)
 
 To be precise, databases that offer a triple-like data model often need to store additional metadata on each tuple. For example, AWS Neptune uses quads (4-tuples) by adding a graph ID to each triple [49]; Datomic uses 5-tuples, extending each triple with a transaction ID and a Boolean to indicate deletion [50]. Since these databases retain the basic subject-predicate-object structure explained here, this book nevertheless calls them triple stores.  
 
@@ -2827,7 +2827,7 @@ One possible way of applying the rules is thus (as illustrated in Figure 3-7):
 
 By repeated application of rules 1 and 2, the within_recursive virtual table can tell us all the locations in North America (or any other location) contained in our database.  
 
-![figure](images/raw/figure-0027.png)
+![figure](images/figure-0027.png)
 
 >Figure 3-7. Determining that Idaho is in North America, using the Datalog rules from Example 3-12  
 
@@ -2917,7 +2917,7 @@ Perhaps the simplest, fastest, and most expressive way of writing data is an eve
 
 Figure 3-8 shows an example that could be taken from a conference management system. A conference can be a complex business domain: not only can individual attendees register and pay by card, but companies can also order seats in bulk, pay by invoice, and then later assign the seats to individual people. A certain number of seats may be reserved for speakers, sponsors, volunteer helpers, and so on. Reservations may also be canceled, and the conference organizer might change the capacity of the event by moving it to a different room. With all this going on, simply calculating thenumber of available seats becomes a challenging query.  
 
-![figure](images/raw/figure-0028.png)
+![figure](images/figure-0028.png)
 
 >Figure 3-8. Using a log of immutable events as the source of truth and deriving materialized views from it  
 
@@ -3256,7 +3256,7 @@ $ cat database
 
 The db_set function has pretty good performance for something that is so simple, because appending to a file is generally very efficient. Similarly to what db_set does, many databases internally use a log, which is an append-only data file. Real databases have more issues to deal with (such as handling concurrent writes, reclaiming disk space so that the log doesn't grow forever, and handling partially written records when recovering from a crash), but the basic principle is the same. Logs are incredibly useful, and we will encounter them several times in this book.  
 
-![figure](images/raw/figure-0029.png)
+![figure](images/figure-0029.png)
 
 The word log is often used to refer to application logs, where an application outputs text that describes what's happening. In this book, log is used in the more general sense: an append-only sequence of records on disk. It doesn't have to be human-readable; it might be binary and intended only for internal use by the database system.  
 
@@ -3272,7 +3272,7 @@ This is an important trade-off in storage systems: well-chosen indexes speed up 
 
 To start, let's assume that you want to continue storing data in the append-only file written by db_set, and you just want to speed up reads. One way you could do this is by keeping a hash map in memory, mapping every key to the byte offset where the most recent value for that key can be found, as illustrated in Figure 4-1.  
 
-![figure](images/raw/figure-0030.png)
+![figure](images/figure-0030.png)
 
 >Figure 4-1. Storing a log of key-value pairs in a CSV-like format, indexed with an in-memory hash map  
 
@@ -3293,7 +3293,7 @@ ten; if you keep writing to the database, you might run out of disk space.
 
 In practice, hash tables are not used very often for database indexes. Instead, it is much more common to keep data in a structure that is sorted by key[3]. One example of such a structure is a Sorted Strings Table, or SSTable for short, as shown in Figure 4-2. This file format also stores key-value pairs, but it ensures that they aresorted by key, and each key appears only once in the file.  
 
-![figure](images/raw/figure-0031.png)
+![figure](images/figure-0031.png)
 
 >Figure 4-2. An SSTable with a sparse index, allowing queries to jump to the right block  
 
@@ -3321,7 +3321,7 @@ Merging segments works similarly to the *mergesort* algorithm [5]. The process i
 
 To ensure that the data in the memtable is not lost if the database crashes, the storage engine keeps a separate log on disk to which every write is immediately appended. This log is not sorted by key, but that doesn't matter, because its only purpose is to restore the memtable after a crash. Every time the memtable gets written out to an SSTable, the corresponding part of the log can be discarded.  
 
-![figure](images/raw/figure-0032.png)
+![figure](images/figure-0032.png)
 
 >Figure 4-3. Merging several SSTable segments, retaining only the most recent value f or each key  
 
@@ -3345,7 +3345,7 @@ When we want to know whether a key appears in the SSTable, we compute the same h
 
 Keys that exist in the SSTable:  
 
-![figure](images/raw/figure-0033.png)
+![figure](images/figure-0033.png)
 
 >Figure 4-4. A Bloom filter provides a f ast, probabilistic check on whether a particular keyexists in a particular SSTable.  
 
@@ -3395,7 +3395,7 @@ The log-structured indexes we saw earlier break the database into variable-size 
 
 Each page can be identified using a page number, which allows one page to refer to another—similar to a pointer, but on disk instead of in memory. If all the pages are stored in the same file, multiplying the page number by the page size gives us the byte offset in the file where the page is located. We can use these page references toconstruct a tree of pages, as illustrated in Figure 4-5.  
 
-![figure](images/raw/figure-0034.png)
+![figure](images/figure-0034.png)
 
 >Figure 4-5. Looking up key 251 by using a B-tree index. From the root page, we firstf ollow the ref erence to the page f or keys 200–300, then the page f or keys 250–270.  
 
@@ -3409,11 +3409,11 @@ If you want to update the value for an existing key in a B-tree, you search for 
 
 Before:  
 
-![figure](images/raw/figure-0035.png)
+![figure](images/figure-0035.png)
 
 After adding key 334:  
 
-![figure](images/raw/figure-0036.png)
+![figure](images/figure-0036.png)
 
 >Figure 4-6. Growing a B-tree by splitting a page on the boundary key 337. The parentpage is updated to ref erence both children.  
 
@@ -3601,7 +3601,7 @@ To process a query like the one in Example 4-1, you may have indexes on fact_sal
 
 The idea behind *column-oriented* (or *columnar*) storage is simple: instead of storing all the values from one row together, store all the values from each *column* together instead [56]. If each column is stored separately, a query needs to read and parse only those columns that are used in that query, which can save a lot of work. Figure 4-7 shows this principle using an expanded version of the fact table from Figure 3-5.  
 
-![figure](images/raw/figure-0037.png)
+![figure](images/figure-0037.png)
 
 Column storage is easiest to understand in a relational data model, but it applies equally to nonrelational data. For example, Parquet is a columnar storage format that supports a document data model [57] based on Google's Dremel [58] using a technique known as shredding or striping [59].  
 
@@ -3646,7 +3646,7 @@ Besides loading from disk only those columns that are required for a query, we c
 
 Take a look at the sequences of values for each column in Figure 4-7. There’s a fair amount of repetition, which is a good sign for compression. Depending on the data in the column, different compression techniques can be used[73]. One technique that isparticularly effective in data warehouses is bitmap encoding, illustrated in Figure 4-8.  
 
-![figure](images/raw/figure-0038.png)
+![figure](images/figure-0038.png)
 
 >Figure 4-8. Compressed, bitmap-indexed storage of a single column  
 
@@ -3666,7 +3666,7 @@ Load the bitmaps for product_sk = 30 and store_sk = 3, and calculate the bitwise
 
 Bitmaps can also be used to answer graph queries, such as finding all users of a social network who are followed by user X and who also follow user Y [75].  
 
-![figure](images/raw/figure-0039.png)
+![figure](images/figure-0039.png)
 
 Don't confuse column-oriented databases with the *wide-column* (also known as *column-family*) data model, in which a row can have thousands of columns, and there is no need for all the rows to have the same columns [9]. Despite the similarity in name, wide-column databases are row-oriented, since they store all values from a row together. Google Bigtable, Apache Accumulo, and HBase are examples of systems that use the wide-column model.  
 
@@ -3715,7 +3715,7 @@ For example, we could pass the product_sk column and the ID of a product (say, "
 a bitwise AND operator, as shown in Figure 4-9; the result would be a bitmap
 containing a 1 for all sales of bananas in a particular store.  
 
-![figure](images/raw/figure-0040.png)
+![figure](images/figure-0040.png)
 
 >Figure 4-9. A bitwise AND between two bitmaps lends itself to vectorization.  
 
@@ -3738,7 +3738,7 @@ When the underlying data changes, a materialized view needs to be updated accord
 
 Materialized aggregates are a type of materialized view that can be useful in data warehouses. As discussed earlier, data warehouse queries often involve an aggregate function, such as COUNT, SUM, AVG, MIN, or MAX in SQL. If the same aggregates are used by many queries, crunching through the raw data every time can be wasteful. Why not cache some of the counts or sums that queries use most often? A data cube (also known as an OLAP cube) does this by creating a grid of aggregates grouped by different dimensions [82]. Figure 4-10 shows an example.  
 
-![figure](images/raw/figure-0041.png)
+![figure](images/figure-0041.png)
 
 >Figure 4-10. Two dimensions of a data cube, aggregating data by summing  
 
@@ -3788,7 +3788,7 @@ Semantic search goes beyond synonyms and typos to try to understand documentconc
 
 To understand a document’s semantics—its meaning—semantic search indexes useembedding models to translate a text document into a vector of floating-point values,called a vector embedding. Often this is done using LLMs. The vector represents a point in a multidimensional space, and each floating-point value represents the document’s location along one dimension’s axis. Embedding models generate vector embeddings that are near each other(in this multidimensional space) when theembedding’s input documents are semantically similar.  
 
-![figure](images/raw/figure-0042.png)
+![figure](images/figure-0042.png)
 
 We saw the term vectorized processing in "Query Execution: Compilation and Vectorization" on page 142. Vectors in semantic search have a different meaning. In vectorized processing, the vector refers to a batch of bits that can be processed with specially optimized code. In embedding models, a vector is an array of floating-point numbers that represents a location in multidimensional space.  
 
@@ -3814,7 +3814,7 @@ The vector space is clustered into partitions(called centroids) of vectors to re
 
 HNSW indexes maintain multiple layers of the vector space, as illustrated in Figure 4-11. Each layer is represented as a graph, where nodes represent vectors and edges represent proximity to nearby vectors. A query starts by locating the nearest vector in the topmost layer, which has a small number of nodes. The query then moves to the same node in the layer below and follows the edges in that layer, which is more densely connected, looking for a vector that is closer to the query vector. The process continues until the last layer is reached. Like IVFindexes, HNSW indexes are approximate.  
 
-![figure](images/raw/figure-0043.png)
+![figure](images/figure-0043.png)
 
 >Figure 4-11. Searching f or the database entry that is closest to a given query vector in an HNSW index  
 
@@ -4098,7 +4098,7 @@ Another challenge with forward compatibility is illustrated in Figure 5-1. Say y
 
 In this chapter we will look at several formats for encoding data, including JSON, XML, Protocol Buffers, and Avro. In particular, we will look at how they handle schema changes and how they support systems that need old and new data and code to coexist. We will then discuss how those formats are used for data storage and communication: in databases, web services, REST APIs, remote procedure calls (RPCs), workflow engines, and event-driven systems such as actors and message queues.  
 
-![figure](images/raw/figure-0044.png)
+![figure](images/figure-0044.png)
 
 >Figure 5-1. When an older version of the application updates data previously written by a newer version of the application, data may be lost if you're not careful.  
 
@@ -4112,7 +4112,7 @@ Programs usually work with data in (at least) two representations:
 
 Thus, we need some kind of translation between the two representations. The translation from the in-memory representation to a byte sequence is called *encoding* (also known as *serialization* or *marshaling*), and the reverse is called *decoding* (aka *parsing*, *deserialization*, or *unmarshaling*).  
 
-![figure](images/raw/figure-0045.png)
+![figure](images/figure-0045.png)
 
 ## Terminology clash  
 
@@ -4203,7 +4203,7 @@ Some of these formats extend the set of datatypes (e.g., distinguishing integers
 
 Let's look at an example of MessagePack, a binary encoding for JSON. Figure 5-2 shows the byte sequence that you get if you encode the JSON document in Example 5-2 with MessagePack.  
 
-![figure](images/raw/figure-0046.png)
+![figure](images/figure-0046.png)
 
 >Figure 5-2. Our record (Example 5-2) encoded using MessagePack  
 
@@ -4240,7 +4240,7 @@ Protocol Buffers comes with a code generation tool that takes a schema definitio
 
 Encoding Example 5-2 using a Protocol Buffers encoder requires 33 bytes, as shown in Figure 5-3 [15]. As in Figure 5-2, each field has a type annotation (to indicate whether it is a string, integer, etc.) and, where required, a length indication (such as the length of a string). The strings that appear in the data (Martin, daydreaming, hacking) are encoded in ASCII (to be precise, UTF-8), as before.  
 
-![figure](images/raw/figure-0047.png)
+![figure](images/figure-0047.png)
 
 >Figure 5-3. Our record encoded using Protocol Buffers  
 
@@ -4284,7 +4284,7 @@ If you examine the byte sequence, you can see that nothing identifies fields or 
 
 To parse the binary data, you go through the fields in the order that they appear in the schema and use the schema to determine the datatype of each field. This means that the binary data can be decoded correctly only if the code reading the data is using the exact same schema as the code that wrote the data. Any mismatch in theschema between the reader and the writer would mean incorrectly decoded data.  
 
-![figure](images/raw/figure-0048.png)
+![figure](images/figure-0048.png)
 
 >Figure 5-4. Our record encoded using Avro  
 
@@ -4298,13 +4298,13 @@ To decode some data (read it from a file or database, receive it from the networ
 
 If the reader's and writer's schemas are the same, decoding is easy. If they are different, Avro resolves the differences by comparing the two and translating the data from the writer's schema into the reader's schema.  
 
-![figure](images/raw/figure-0049.png)
+![figure](images/figure-0049.png)
 
 >Figure 5-5. In Protocol Buffers, encoding and decoding can use different versions of a schema. In Avro, decoding uses two schemas: the writer's schema must be identical to the one used for encoding, but the reader's schema can be an older or newer version.  
 
 The Avro specification [17, 18] defines exactly how this resolution works. As illustrated in Figure 5-6, it's no problem if the writer's schema and the reader's schema have their fields in a different order, because the schema resolution matches up the fields by field name. If the code reading the data encounters a field that appears in the writer's schema but not in the reader's schema, it is ignored. If the code reading the data expects a certain field but the writer's schema does not contain a field of that name, it is filled in with a default value declared in the reader's schema.  
 
-![figure](images/raw/figure-0050.png)
+![figure](images/figure-0050.png)
 
 >Figure 5-6. An Avro reader resolving differences between the writer's schema and the reader's schema  
 
@@ -4563,13 +4563,13 @@ By definition, service-based architectures have multiple services that are all r
 
 Processing a single payment in our example requires many service calls. A payment processor service might invoke the fraud detection service to check for fraud, call the credit card service to debit the credit card, and call the banking service to deposit debited funds, as shown in Figure 5-7. We call this sequence of steps a workflow, and each step is a task. Workflows are typically defined as a graph of tasks. Workflow definitions may be written in a general-purpose programming language, a domain-specific language (DSL), or a markup language such as Business Process Execution Language (BPEL) [45].  
 
-![figure](images/raw/figure-0051.png)
+![figure](images/figure-0051.png)
 
 ### Tasks, activities, and functions  
 
 Different workflow engines use different names for tasks. Temporal, for example, uses the term *activity*. Others refer to tasks as *durable functions*. Though the names differ, the concepts are the same.  
 
-![figure](images/raw/figure-0052.png)
+![figure](images/figure-0052.png)
 
 >Figure 5-7. A workflow expressed using Business Process Model and Notation (BPMN),
 a graphical notation  
@@ -4616,7 +4616,7 @@ Frameworks like Temporal are not without their challenges. External services, su
 
 Similarly, because durable execution frameworks expect to replay all code deterministically (the same inputs produce the same outputs), nondeterministic code such as calling random number generators or system clocks is problematic [49]. Frameworks often provide their own deterministic implementations of such library functions, but you have to remember to use them. Some also provide static analysis tools, like Temporal's Workflow Check, to determine whether nondeterministic behavior has been introduced.  
 
-![figure](images/raw/figure-0053.png)
+![figure](images/figure-0053.png)
 
 Making code deterministic is a powerful idea but tricky to do robustly. We will return to this topic in Chapter 9.  
 
@@ -4860,7 +4860,7 @@ Every write to the database needs to be processed by every replica; otherwise, t
 
 3. When a client wants to read from the database, it can query either the leader or any of the followers. However, writes are accepted only by the leader(thefollowers are read-only from the client’s point of view).  
 
-![figure](images/raw/figure-0054.png)
+![figure](images/figure-0054.png)
 
 >Figure 6-1. Single-leader replication directs all writes to a designated leader, which sendsa stream of changes to the f ollower replicas.  
 
@@ -4869,7 +4869,7 @@ If the database is sharded(see Chapter 7), each shard has one leader. Different 
 Single-leader replication is very widely used. It’s a built-in feature of many relational databases, such as PostgreSQL, MySQL, Oracle Data Guard[3], and SQL Server’s Always On availability groups[4]. It is also used in some document databases(such as MongoDB and DynamoDB[5]), message brokers such as Kafka, replicated blockdevices such as DRBD, and some network filesystems. Many consensus algorithms—such as Raft, which is used for replication in CockroachDB[6], TiDB[7], etcd, and RabbitMQ quorum queues(among others)—are also based on a single leader and automatically elect a new leader if the old one fails (we will discuss consensus in more
 detail in Chapter 10).  
 
-![figure](images/raw/figure-0055.png)
+![figure](images/figure-0055.png)
 
 In older documents you may see the term *master-slave replication*. It means the same as leader-based replication, but the term should be avoided as it is widely considered offensive [8].  
 
@@ -4879,7 +4879,7 @@ An important detail of a replicated system is whether the replication happens *s
 
 Think about what happens in Figure 6-1, where the user of a website updates their profile image. At some point in time, the client sends the update request to the leader; shortly afterward, it is received by the leader. The leader then forwards the data change to the followers and notifies the client that the update was successful. Figure 6-2 shows one possible way the timings could work out.  
 
-![figure](images/raw/figure-0056.png)
+![figure](images/figure-0056.png)
 
 >Figure 6-2. Leader-based replication with one synchronous and one asynchronous follower  
 
@@ -5036,7 +5036,7 @@ In this *read-scaling* architecture, you can increase the capacity for serving r
 
 Unfortunately, an application reading from an *asynchronous* follower may see outdated information if the follower has fallen behind. This leads to apparent inconsistencies in the database; if you run the same query on the leader and a follower at the same time, you may get different results, because not all writes have been reflected in the follower. This inconsistency is a temporary state—if you stop writing to the database and wait a while, the followers will eventually catch up and become consistent with the leader. For that reason, this effect is known as *eventual consistency* [22].  
 
-![figure](images/raw/figure-0057.png)
+![figure](images/figure-0057.png)
 
 The term eventual consistency was coined by Douglas Terry et al. [23] and popularized by Werner Vogels [24], and it became the battle cry of many NoSQL projects. However, it's not only NoSQL databases that are eventually consistent; followers in an asynchronously replicated relational database have the same characteristics.  
 
@@ -5051,7 +5051,7 @@ Many applications let the user submit some data and then view what they have sub
 
 With asynchronous replication, a problem arises, as illustrated in Figure 6-3: if the user views the data shortly after making a write, the new data may not yet have reached the replica. To the user, it looks as though the data they submitted was lost, so they will be understandably unhappy.  
 
-![figure](images/raw/figure-0058.png)
+![figure](images/figure-0058.png)
 
 >Figure 6-3. Inconsistencies can arise when a user makes a write, followed by a read from a stale replica.  
 
@@ -5093,7 +5093,7 @@ One way of achieving monotonic reads is to make sure that each user always makes
 
 For example, the replica can be chosen based on a hash of the user ID rather than randomly. However, if that replica fails, the user's queries will need to be rerouted to another replica.  
 
-![figure](images/raw/figure-0059.png)
+![figure](images/figure-0059.png)
 
 >Figure 6-4. When a user first reads from a fresh replica, then from a stale replica, time appears to go backward.  
 
@@ -5115,7 +5115,7 @@ Now, imagine a third person is listening to this conversation through followers.
 
 To the observer, it sounds as though Mrs. Cake is answering the question before Mr. Poons has even asked it. Such psychic powers are impressive but very confusing [27].  
 
-![figure](images/raw/figure-0060.png)
+![figure](images/figure-0060.png)
 
 >Figure 6-5. If some shards are replicated slower than others, an observer may see theanswer bef ore they see the question.  
 
@@ -5157,7 +5157,7 @@ It rarely makes sense to use a multi-leader setup within a single region, becaus
 
 Imagine you have a database with replicas in several regions(perhaps so that you can tolerate the failure of an entire region, or perhaps for proximity with your users). This is known as a geographically distributed, geo-distributed, or geo-replicated setup. With single-leader replication, the leader has to be in one of the regions, and all writes mustgo through that region.  
 
-![figure](images/raw/figure-0061.png)
+![figure](images/figure-0061.png)
 
 >Figure 6-6. Multi-leader replication across multiple regions  
 
@@ -5192,15 +5192,15 @@ As multi-leader replication is a retrofitted feature in many databases, there ar
 
 A replication topology describes the communication paths along which writes are propagated from one node to another. If you have two leaders, as in Figure 6-6, only one topology is plausible: leader 1 must send all its writes to leader 2, and vice versa. With more than two leaders, various topologies are possible. Some examples are illustrated in Figure 6-7.  
 
-![figure](images/raw/figure-0062.png)
+![figure](images/figure-0062.png)
 
 >(a) Circular topology  
 
-![figure](images/raw/figure-0063.png)
+![figure](images/figure-0063.png)
 
 >(b) Star topology  
 
-![figure](images/raw/figure-0064.png)
+![figure](images/figure-0064.png)
 
 >(c) All-to-all topology  
 
@@ -5208,7 +5208,7 @@ A replication topology describes the communication paths along which writes are 
 
 The most general topology is all-to-all, shown in Figure 6-7(c), in which every leader sends its writes to every other leader. However, more restricted topologies are also used. For example, in the circular topology, shown in Figure 6-7(a), each node receives writes from one node and forwards those writes (plus any writes of its own) to one other node. The star topology, shown in Figure 6-7(b), is also popular; here, one designated root node forwards writes to all the other nodes. The star topology can be generalized to a tree.  
 
-![figure](images/raw/figure-0065.png)
+![figure](images/figure-0065.png)
 
 A star-shaped network topology is unrelated to a *star schema* (see "Stars and Snowflakes: Schemas for Analytics" on page 77), which describes the structure of a data model.  
 
@@ -5222,7 +5222,7 @@ However, all-to-all topologies can have issues too. In particular, some network 
 
 In Figure 6-8, client A inserts a row into a table on leader 1, and client B updates that row on leader 3. However, leader 2 may receive the writes in a different order. It may first receive the update(which, from its point of view, is an update to a row that does not exist in the database) and only later receive the corresponding insert(whichshould have preceded the update).  
 
-![figure](images/raw/figure-0066.png)
+![figure](images/figure-0066.png)
 
 >Figure 6-8. With multi-leader replication, writes may arrive in the wrong order at somereplicas.  
 
@@ -5274,11 +5274,11 @@ The biggest problem with multi-leader replication—both in a geo-distributed se
 
 For example, consider a wiki page that is simultaneously being edited by two users, as shown in Figure 6-9. User 1 changes the title of the page from A to B, and user 2 independently changes the title from A to C. Each user's change is successfully applied to their local leader. However, when the changes are asynchronously replicated, a conflict is detected. This problem does not occur in a single-leader database.  
 
-![figure](images/raw/figure-0067.png)
+![figure](images/figure-0067.png)
 
 >Figure 6-9. A write conflict caused by two leaders concurrently updating the same record  
 
-![figure](images/raw/figure-0068.png)
+![figure](images/figure-0068.png)
 
 We say that the two writes in Figure 6-9 are concurrent because neither was “aware” of the other at the time the write was originally made. It doesn’t matter whether the writes literally happened at the same time; indeed, if the writes were made while offline, they might have happened some time apart. What matters is whether one writeoccurred in a state where the other write had already taken effect.  
 
@@ -5323,7 +5323,7 @@ However, it also suffers from these problems:
 
 • If multiple nodes observe the conflict and concurrently resolve it, the conflict resolution process can itself introduce a new conflict. Those resolutions could even be inconsistent—for example, one node may merge B and C into B/C and another may merge them into C/B if you are not careful to order them consistently. When the conflict between B/C and C/B is merged, it may result inB/C/C/B or something similarly surprising.  
 
-![figure](images/raw/figure-0069.png)
+![figure](images/figure-0069.png)
 
 >Figure 6-10. An example of Amazon’s shopping cart anomaly: if conflicts are merged by taking the union of the set, deleted items may reappear  
 
@@ -5349,7 +5349,7 @@ Two families of algorithms are commonly used to implement automatic conflict res
 
 Figure 6-11 shows an example of how OT and a CRDT merge concurrent updates to a text. Assume you have two replicas that both start off with the text ice. One replica prepends the letter n to make nice, while concurrently the other replica appends an exclamation mark to make ice!.  
 
-![figure](images/raw/figure-0070.png)
+![figure](images/figure-0070.png)
 
 >Figure 6-11. How two concurrent insertions into a string are merged by OT and a CRDT, respectively  
 
@@ -5384,7 +5384,7 @@ The replication approaches we have discussed so far in this chapter—single-lea
 
 Some data storage systems take a different approach, abandoning the concept of a leader and allowing any replica to directly accept writes from clients. Some of the earliest replicated data systems were leaderless [1, 50], but the idea was mostly forgotten during the era of dominance of relational databases. It once again became a fashionable architecture for databases after Amazon used it for its in-house Dynamo system in 2007 [45]. Riak, Cassandra, and ScyllaDB are open source datastores with leaderless replication models inspired by Dynamo, so this kind of database is also known as *Dynamo-style*.  
 
-![figure](images/raw/figure-0071.png)
+![figure](images/figure-0071.png)
 
 The original Dynamo system architecture was described in a paper [45] but never released outside of Amazon. The similarly named DynamoDB, a more recent cloud database from Amazon, has a completely different architecture: it uses single-leader replication based on the Multi-Paxos consensus algorithm [5, 51].  
 
@@ -5396,7 +5396,7 @@ Imagine you have a database with three replicas, and one of the replicas is curr
 
 On the other hand, in a leaderless configuration, there is no such thing as failover,since all replicas are equal and there are no leaders. Figure 6-12 shows what happens.  
 
-![figure](images/raw/figure-0072.png)
+![figure](images/figure-0072.png)
 
 >Figure 6-12. Writing to a maj ority of replicas, reading f rom a maj ority, and f orwarding the latest value to a replica that was unavailable during the write  
 
@@ -5434,7 +5434,7 @@ More generally, if there are n replicas, every write must be confirmed by w node
 
 In Dynamo-style databases, the parameters n, w, and r are typically configurable. A common choice is to make n an odd number(commonly 3 or 5) and to set w= r =(n+ 1)/ 2(rounded up). However, you can vary the numbers as you see fit. For example, a workload with few writes and many reads may benefit from setting w= n and r= 1. This makes reads faster but has the disadvantage that just one failed nodecauses all database writes to fail.  
 
-![figure](images/raw/figure-0073.png)
+![figure](images/figure-0073.png)
 
 There may be more than n nodes in the cluster, but any given valueis stored on only n nodes. This allows the dataset to be sharded,supporting datasets that are larger than you can fit on one node.We will return to sharding in Chapter 7.  
 
@@ -5448,7 +5448,7 @@ The quorum condition, w+ r> n, allows the system to tolerate unavailable nodes a
 
 • With n= 5, w= 3, r= 3, we can tolerate two unavailable nodes. This case isillustrated in Figure 6-13.  
 
-![figure](images/raw/figure-0074.png)
+![figure](images/figure-0074.png)
 
 >Figure 6-13. If w+  r> n, at least one of the r replicas you read f rom must have seen themost recent successf ul write.  
 
@@ -5545,7 +5545,7 @@ If each node simply overwrote the value for a key whenever it received a write r
 
 To become eventually consistent, the replicas should converge toward the same value. For this, we can use any of the conflict resolution mechanisms we previously discussed in "Dealing with Conflicting Writes" on page 222, such as LWW (used by Cassandra and ScyllaDB), manual resolution, or CRDTs (used by Riak).  
 
-![figure](images/raw/figure-0075.png)
+![figure](images/figure-0075.png)
 
 >Figure 6-14. Concurrent writes in a Dynamo-style datastore: there is no well-defined ordering  
 
@@ -5590,7 +5590,7 @@ Note that the server can determine whether two operations are concurrent by look
 
 When a write includes the version number from a prior read, that tells us which previous state the write is based on. If you make a write without including a version number, it is concurrent with all other writes, so it will not overwrite anything—it will just be returned as one of the values on subsequent reads. Figure 6-15 shows this algorithm in action.  
 
-![figure](images/raw/figure-0076.png)
+![figure](images/figure-0076.png)
 
 >Figure 6-15. Capturing causal dependencies between two clients concurrently editing a shopping cart  
 
@@ -5608,7 +5608,7 @@ In this example, two clients are concurrently adding items to the same shopping 
 
 The dataflow between the operations in Figure 6-15 is illustrated graphically in Figure 6-16. The arrows indicate which operation happened before which other operation, in the sense that the later operation knew about or depended on the earlier one. In this example, the clients are never fully up-to-date with the data on the server, since there is always another operation going on concurrently. But old versions of the value do get overwritten eventually, and no writes are lost.  
 
-![figure](images/raw/figure-0077.png)
+![figure](images/figure-0077.png)
 
 >Figure 6-16. A graph of the causal dependencies in Figure 6-15  
 
@@ -5624,7 +5624,7 @@ Like the version numbers in Figure 6-15, version vectors are sent from the datab
 
 The version vector also ensures that it is safe to read from one replica and subsequently write back to another replica. Doing so may result in siblings being created, but no data is lost as long as siblings are merged correctly.  
 
-![figure](images/raw/figure-0078.png)
+![figure](images/figure-0078.png)
 
 ## Version vectors and vector clocks  
 
@@ -5842,7 +5842,7 @@ Sharding is usually combined with replication, so that copies of each shard are 
 
 A node may store more than one shard. If a single-leader replication model is used,the combination of sharding and replication can look like Figure 7-1, for example.Each shard’s leader is assigned to one node, and its followers are assigned to othernodes. Each node may be the leader for some shards and a follower for other shards,but each shard still has only one leader.  
 
-![figure](images/raw/figure-0079.png)
+![figure](images/figure-0079.png)
 
 >Figure 7-1. Combining replication and sharding: each node acts as leader for some shards and a follower for other shards  
 
@@ -5930,7 +5930,7 @@ To split the dataset into shards, we need an algorithm that takes as input the p
 
 One way of sharding is to assign a contiguous range of partition keys(from aminimum to a maximum) to each shard, like the volumes of a paper encyclopedia,as illustrated in Figure 7-2. In this example, an entry’s partition key is its title. If you want to look up the entry for a particular title, you can easily determine which shard contains that entry, and thus pick the correct book off the shelf, by finding thevolume whose key range contains the title you’re looking for.  
 
-![figure](images/raw/figure-0080.png)
+![figure](images/figure-0080.png)
 
 >Figure 7-2. A print encyclopedia is sharded by key range.  
 
@@ -5972,21 +5972,21 @@ The problem with the mod N approach is that if the number of nodes N changes,mos
 
 Before rebalancing (3 nodes):  
 
-![figure](images/raw/figure-0081.png)
+![figure](images/figure-0081.png)
 
-![figure](images/raw/figure-0082.png)
+![figure](images/figure-0082.png)
 
-![figure](images/raw/figure-0083.png)
+![figure](images/figure-0083.png)
 
 After rebalancing (4 nodes):  
 
-![figure](images/raw/figure-0084.png)
+![figure](images/figure-0084.png)
 
-![figure](images/raw/figure-0085.png)
+![figure](images/figure-0085.png)
 
-![figure](images/raw/figure-0086.png)
+![figure](images/figure-0086.png)
 
-![figure](images/raw/figure-0087.png)
+![figure](images/figure-0087.png)
 
 >Figure 7-3. Assigning keys to nodes by hashing the key and taking it modulo the number of nodes. Changing the number of nodes results in many keys moving f rom one node toanother.  
 
@@ -6000,7 +6000,7 @@ Now, if a node is added to the cluster, the system can reassign some of the shar
 
 In this model, only entire shards are moved between nodes, which is cheaper than splitting shards. The number of shards does not change, nor does the assignment of keys to shards. The only thing that changes is the assignment of shards to nodes. This reassignment is not immediate—it takes some time to transfer a large amount of data over the network—so the old assignment of shards is used for any reads and writesthat happen while the transfer is in progress.  
 
-![figure](images/raw/figure-0088.png)
+![figure](images/figure-0088.png)
 
 >Figure 7-4. Adding a new node to a database cluster with multiple shards per node  
 
@@ -6022,7 +6022,7 @@ If the required number of shards can't be predicted in advance, it's better to u
 
 Figure 7-5 shows an example using a 16-bit hash function that returns a number from 0 to $65,535 = 2^{16} - 1$ (in reality, the hash is usually 32 bits or more). Even if the input keys are very similar (e.g., consecutive timestamps), their hashes are uniformly distributed across that range. We can then assign a range of hash values to each shard—for example, values from 0 to 16,383 to shard 0, values from 16,384 to 32,767 to shard 1, and so on.  
 
-![figure](images/raw/figure-0089.png)
+![figure](images/figure-0089.png)
 
 >Figure 7-5. Assigning a contiguous range of hash values to each shard  
 
@@ -6036,7 +6036,7 @@ Data warehouses such as BigQuery, Snowflake, and Delta Lake support a similar in
 
 YugabyteDB and DynamoDB[17] use hash-range sharding, and it is an option in MongoDB. Cassandra and ScyllaDB use a variant of this approach that is illustratedin Figure 7-6.  
 
-![figure](images/raw/figure-0090.png)
+![figure](images/figure-0090.png)
 
 >Figure 7-6. Cassandra and ScyllaDB split the range of possible hash values(here 0–1024)into contiguous ranges with random boundaries and assign several ranges to each node.  
 
@@ -6100,7 +6100,7 @@ This means that request routing has to be aware of the assignment from keys to s
 
 3. Require that clients be aware of the sharding and the assignment of shards to nodes. In this case, a client can connect directly to the appropriate node, withoutany intermediary.  
 
-![figure](images/raw/figure-0091.png)
+![figure](images/figure-0091.png)
 
 >Figure 7-7. Three ways of routing a request to the right node  
 
@@ -6114,7 +6114,7 @@ Each case has some key problems:
 
 Many distributed data systems rely on a separate coordination service such as ZooKeeper or etcd to keep track of shard assignments, as illustrated in Figure 7-8. They use consensus algorithms (see Chapter 10) to provide fault tolerance and protection against split brain. Each node registers itself in ZooKeeper, and ZooKeeper maintains the authoritative mapping of shards to nodes. Other actors, such as the routing tier or the sharding-aware client, can subscribe to this information in ZooKeeper. Whenever a shard changes ownership, or a node is added or removed, ZooKeeper notifies the routing tier so that it can keep its routing information up-to-date.  
 
-![figure](images/raw/figure-0092.png)
+![figure](images/figure-0092.png)
 
 >Figure 7-8. Using ZooKeeper to keep track of the assignment of shards to nodes  
 
@@ -6144,11 +6144,11 @@ In the first indexing approach, each shard independently maintains its own secon
 
 For example, imagine you are operating a website for selling used cars. Each listing has a unique ID, and you use that ID as the partition key for sharding, as illustrated in Figure 7-9 (IDs 0 to 499 in shard 0, IDs 500 to 999 in shard 1, etc.). If you want to let users search for cars, allowing them to filter by color and by make, you need secondary indexes on color and make (in a document database these would be fields;in a relational database they would be columns). If you have declared the index, the database can perform the indexing automatically. For example, whenever a red car is added to the database, the database shard automatically adds its ID to the list of IDs for the index entry color:red. As discussed in Chapter 4, that list of IDs is also calleda postings list.  
 
-![figure](images/raw/figure-0093.png)
+![figure](images/figure-0093.png)
 
 >Figure 7-9. With local secondary indexes, each shard indexes only the records it contains.  
 
-![figure](images/raw/figure-0094.png)
+![figure](images/figure-0094.png)
 
 If your database supports only a key-value model, you might be tempted to implement a secondary index yourself by creating a mapping from values to IDs in application code. If you go down this route, you need to take great care to ensure that your indexes remain consistent with the underlying data. Race conditions and intermittent write failures(where some changes were saved but others weren’t) can very easily cause the data to go out of sync—see“The need for multi-object transactions” on page 287.  
 
@@ -6164,7 +6164,7 @@ Rather than each shard having its own local secondary index, we can construct a 
 
 Figure 7-10 illustrates what this could look like. The IDs of red cars from all shards appear under color:red in the index, but the index is sharded so that colors starting with the letters a to r appear in shard 0 and colors starting with s to z appear in shard 1. The index on the make of car is partitioned similarly(with the shard boundarybeing between f and h).  
 
-![figure](images/raw/figure-0095.png)
+![figure](images/figure-0095.png)
 
 >Figure 7-10. A global secondary index reflects data f rom all shards and is itself sharded by the indexed value  
 
@@ -6332,7 +6332,7 @@ The safety guarantees provided by transactions are often described by the well-k
 
 In practice, however, one database's implementation of ACID does not equal another's. For example, as we shall see, there is a lot of ambiguity around the meaning of *isolation* [10]. The high-level idea is sound, but the devil is in the details. Today, when a system claims to be "ACID compliant," it's unclear what guarantees you can actually expect. "ACID" has unfortunately become mostly a marketing term.  
 
-![figure](images/raw/figure-0096.png)
+![figure](images/figure-0096.png)
 
 Systems that do not meet the ACID criteria are sometimes called BASE, which stands for basically available, soft state, and eventual consistency [11]. This is even more vague than the definition of ACID. It seems that the only sensible definition of BASE is "not ACID" (i.e., it can mean almost anything you want).  
 
@@ -6378,7 +6378,7 @@ Most databases are accessed by several clients at the same time. That's no probl
 
 Figure 8-1 is a simple example of this kind of problem. Say you have two clients simultaneously incrementing a counter that is stored in a database. Each client needs to read the current value, add 1, and write the new value back (assuming that no increment operation is built into the database). In Figure 8-1, the counter should have increased from 42 to 44, because two increments happened, but it actually went to only 43 because of the race condition.  
 
-![figure](images/raw/figure-0097.png)
+![figure](images/figure-0097.png)
 
 >Figure 8-1. A race condition between two clients concurrently incrementing a counter  
 
@@ -6439,13 +6439,13 @@ However, you might find this query to be too slow if there are many emails and d
 In Figure 8-2, user 2 experiences an anomaly: the mailbox listing shows an unread message, but the counter shows zero unread messages because the counter increment has not yet happened. (If an incorrect counter in an email application seems too insignificant, think of a customer account balance instead of an unread counter and a payment transaction instead of an email.) Isolation would have prevented this issue by ensuring that user 2 sees either both the inserted email and the updated counter, or
 neither, but not an inconsistent halfway point.  
 
-![figure](images/raw/figure-0098.png)
+![figure](images/figure-0098.png)
 
 >Figure 8-2. Violating isolation: one transaction reads another transaction's uncommitted writes (a "dirty read")  
 
 Figure 8-3 illustrates the need for atomicity: if an error occurs somewhere over the course of the transaction, the contents of the mailbox and the unread counter might become out of sync. In an atomic transaction, if the update to the counter fails, the transaction is aborted and the email insertion is rolled back.  
 
-![figure](images/raw/figure-0099.png)
+![figure](images/figure-0099.png)
 
 >Figure 8-3. Atomicity ensures that if an error occurs, any prior writes from that transaction are undone, to avoid an inconsistent state.  
 
@@ -6470,7 +6470,7 @@ Each of those outcomes would be incredibly confusing, so storage engines almost 
 
 Some databases also provide more complex atomic operations, such as an increment operation, which removes the need for a read-modify-write cycle like that in Figure 8-1. Similarly popular is a *conditional write* operation, which allows a write to happen only if the value has not been concurrently changed by someone else (see "Conditional writes (compare-and-set)" on page 302), similarly to a compare-and-set or compare-and-swap (CAS) operation in shared-memory concurrency.  
 
-![figure](images/raw/figure-0100.png)
+![figure](images/figure-0100.png)
 
 Strictly speaking, the term *atomic increment* uses the word *atomic* in the sense of multithreaded programming. In the context of ACID, it should be called an *isolated* or *serializable* increment, but that's not the usual term.  
 
@@ -6525,7 +6525,7 @@ In practice, isolation is unfortunately not that simple. Serializable isolation 
 
 Concurrency bugs caused by weak transaction isolation and race conditions are not just a theoretical problem. They have caused substantial loss of money, including bankrupting a Bitcoin exchange [31, 32, 33, 34], led to investigation by financial auditors [35], and caused customer data to be corrupted [36]. A popular comment on revelations of such problems is "Use an ACID database if you're handling financial data!"—but that misses the point. Even many popular relational database systems (which are usually considered ACID) use weak isolation, so they wouldn't necessarily have prevented these bugs from occurring.  
 
-![figure](images/raw/figure-0101.png)
+![figure](images/figure-0101.png)
 
 Incidentally, much of the banking system relies on text files that are exchanged via secure FTP [37]. In this context, having an audit trail and some human-level fraud prevention measures is actually more important than ACID properties.  
 
@@ -6550,7 +6550,7 @@ Imagine a transaction has written some data to the database, but the transaction
 
 Transactions running at the read-committed isolation level must prevent dirty reads. This means that any writes by a transaction become visible to others only when that transaction commits (and then all its writes become visible at once). This is illustrated in Figure 8-4, where user 1 has set x = 3, but user 2's get x still returns the old value, 2, while user 1 has not yet committed.  
 
-![figure](images/raw/figure-0102.png)
+![figure](images/figure-0102.png)
 
 >Figure 8-4. No dirty reads: user 2 sees the new value for x only after user 1's transaction has committed  
 
@@ -6574,7 +6574,7 @@ By preventing dirty writes, this isolation level avoids some kinds of concurrenc
 
 • However, read-committed isolation does *not* prevent the race condition between two counter increments in Figure 8-1. In this case, the second write happens after the first transaction has committed, so it's not a dirty write. It's still incorrect, but for a different reason; in "Preventing Lost Updates" on page 299, we will discuss how to make such counter increments safe.  
 
-![figure](images/raw/figure-0103.png)
+![figure](images/figure-0103.png)
 
 >Figure 8-5. With dirty writes, conflicting writes f rom different transactions can be mixed up  
 
@@ -6604,11 +6604,11 @@ Say Aaliyah has $1,000 of savings at a bank, split across two accounts with $500
 
 This anomaly is called *read skew*, and it is an example of a *nonrepeatable read*: if Aaliyah were to read the balance of account 1 again at the end of the transaction, she would see a different value ($600) than she saw in her previous query. Read skew is considered acceptable under read-committed isolation: the account balances that Aaliyah saw were indeed committed at the time when she read them.  
 
-![figure](images/raw/figure-0104.png)
+![figure](images/figure-0104.png)
 
 >Figure 8-6. Read skew: Aaliyah observes the database in an inconsistent state  
 
-![figure](images/raw/figure-0105.png)
+![figure](images/figure-0105.png)
 
 The term *skew* is unfortunately overloaded. We previously used it in the sense of an *unbalanced workload with hot spots* (see “Skewed Workloads and Relieving Hot Spots” on page 263), whereas here it means a *timing anomaly*.  
 
@@ -6638,7 +6638,7 @@ To implement snapshot isolation, databases use a generalization of the mechanism
 
 Figure 8-7 illustrates how MVCC-based snapshot isolation is implemented in PostgreSQL [42, 44, 45] (other implementations are similar). When a transaction is started, it is given a unique, always-increasing transaction ID (txid). Whenever a transaction writes anything to the database, the data it writes is tagged with the transaction ID of the writer. (To be precise, transaction IDs in PostgreSQL are 32-bit integers, so they overflow after approximately 4 billion transactions. The vacuum process performs cleanup to ensure that overflow does not affect the data.)  
 
-![figure](images/raw/figure-0106.png)
+![figure](images/figure-0106.png)
 
 >Figure 8-7. Implementing snapshot isolation using multiversion concurrency control  
 
@@ -6796,7 +6796,7 @@ Now imagine that Aaliyah and Bryce are the two on-call doctors for a particular 
 
 In each transaction, your application first checks that two or more doctors are currently on call; if so, it assumes it's safe for one doctor to go off call. Since the database is using snapshot isolation, both checks return 2, so both transactions proceed to the next stage. Aaliyah updates her own record to take herself off call, and Bryce updates his own record likewise. Both transactions commit, and now no doctor is on call. Your requirement of having at least one doctor on call has been violated.  
 
-![figure](images/raw/figure-0107.png)
+![figure](images/figure-0107.png)
 
 >Figure 8-8. A write skew causing an application bug  
 
@@ -6954,7 +6954,7 @@ For this reason, systems with single-threaded serial transaction processing don'
 
 The difference between interactive transactions and stored procedures is illustrated in Figure 8-9. Provided that all data required by a transaction is in memory, the stored procedure can execute very quickly, without waiting for any network or disk I/O.  
 
-![figure](images/raw/figure-0108.png)
+![figure](images/figure-0108.png)
 
 >Figure 8-9. The difference between an interactive transaction and a stored procedure (using the example transaction of Figure 8-8)  
 
@@ -7008,7 +7008,7 @@ tion to stall all transaction processing.
 
 For around 30 years, only one algorithm was widely used for serializability in databases: two-phase locking (2PL), sometimes called strong strict two-phase locking (SS2PL) to distinguish it from other variants of 2PL.  
 
-![figure](images/raw/figure-0109.png)
+![figure](images/figure-0109.png)
 
 ### 2PL is not 2PC  
 
@@ -7144,7 +7144,7 @@ Recall that snapshot isolation is usually implemented by MVCC(see “Multiversio
 
 In Figure 8-10, transaction 43 sees Aaliyah as having on_call = true, because transaction 42 (which modified Aaliyah's on-call status) is uncommitted. However, by the time transaction 43 wants to commit, transaction 42 has already committed. This means that the write that was ignored when reading from the consistent snapshot has now taken effect, and transaction 43's premise is no longer true. Things get even more complicated when a writer inserts data that didn't exist before (see "Phantoms causing write skew" on page 307). We'll discuss detecting phantom writes for SSI next.  
 
-![figure](images/raw/figure-0110.png)
+![figure](images/figure-0110.png)
 
 >Figure 8-10. Detecting when a transaction reads outdated values from an MVCC snapshot  
 
@@ -7160,7 +7160,7 @@ In the context of 2PL, we discussed index-range locks (see “Index-range locks�
 
 In Figure 8-11, transactions 42 and 43 both search for on-call doctors during shift 1234. If there is an index on shift_id, the database can use the index entry 1234 to record the fact that transactions 42 and 43 read this data. (If there is no index, this information can be tracked at the table level.) This information needs to be kept for only a while; after a transaction has finished (committed or aborted), and all concurrent transactions have finished, the database can forget the data it read.  
 
-![figure](images/raw/figure-0111.png)
+![figure](images/figure-0111.png)
 
 >Figure 8-11. In serializable snapshot isolation, detecting when one transaction modifies another transaction's reads  
 
@@ -7204,7 +7204,7 @@ In a distributed transaction, determining whether a transaction has committed is
 
 • Some nodes may crash before the commit record is fully written and roll back the transaction on recovery, while others successfully commit it.  
 
-![figure](images/raw/figure-0112.png)
+![figure](images/figure-0112.png)
 
 >Figure 8-12. When a transaction involves multiple database nodes, it may commit on some and fail on others.  
 
@@ -7218,7 +7218,7 @@ Two-phase commit is an algorithm for achieving atomic transaction commit across 
 
 The basic flow of 2PC is illustrated in Figure 8-13. Instead of a single commit request, as with a single-node transaction, the commit/abort process in 2PC is split into two phases (hence the name).  
 
-![figure](images/raw/figure-0113.png)
+![figure](images/figure-0113.png)
 
 >Figure 8-13. A successful execution of 2PC  
 
@@ -7266,7 +7266,7 @@ Without hearing from the coordinator, a participant has no way of knowing whethe
 
 The only way 2PC can complete is by waiting for the coordinator to recover. This is why the coordinator must write its commit or abort decision to a transaction log on disk before sending commit or abort requests to participants: when the coordinator recovers, it determines the status of all in-doubt transactions by reading its transaction log. Any transactions that don't have a commit record in the coordinator's log are aborted. Thus, the commit point of 2PC comes down to a regular single-node atomic commit on the coordinator.  
 
-![figure](images/raw/figure-0114.png)
+![figure](images/figure-0114.png)
 
 >Figure 8-14. The coordinator crashes after participants vote yes. Database 1 does not know whether to commit or abort.  
 
@@ -7699,7 +7699,7 @@ The internet and most internal networks in datacenters (often Ethernet) are asyn
 
 • The remote node may have processed your request, but the response has been delayed and will be delivered later (perhaps the network or your own machine is overloaded).  
 
-![figure](images/raw/figure-0115.png)
+![figure](images/figure-0115.png)
 
 >Figure 9-1. If you send a request and don't get a response, it's not possible to distinguish whether (a) the request was lost, (b) the remote node is down, or (c) the response was lost.  
 
@@ -7711,7 +7711,7 @@ The usual way of handling this issue is a timeout: after some time, you give up 
 
 Network packets have a maximum size (generally a few kilobytes), but many applications need to send messages (requests, responses) that are too big to fit in one packet. These applications most often use TCP, the Transmission Control Protocol, to establish a connection that breaks large data streams into individual packets and puts them back together again on the receiving side.  
 
-![figure](images/raw/figure-0116.png)
+![figure](images/figure-0116.png)
 
 Most of what we say about TCP applies also to its more recent alternative, QUIC, as well as the Stream Control Transmission Protocol (SCTP) used in WebRTC, the BitTorrent uTP protocol, and other transport protocols. For a comparison to UDP, see "TCP Versus UDP" on page 354.  
 
@@ -7743,7 +7743,7 @@ We have been building computer networks for decades—one might hope that by now
 
 Even if network faults are rare in your environment, the fact that faults *can* occur means that your software needs to be able to handle them. Whenever any communication happens over a network, it may fail—there is no way around it.  
 
-![figure](images/raw/figure-0117.png)
+![figure](images/figure-0117.png)
 
 ### Network partitions  
 
@@ -7799,7 +7799,7 @@ When driving a car, travel times on road networks often vary most because of tra
 
 • As mentioned earlier, to avoid overloading the network, TCP limits the rate at which it sends data. This means additional queueing at the sender before the data even enters the network.  
 
-![figure](images/raw/figure-0118.png)
+![figure](images/figure-0118.png)
 
 >Figure 9-2. If several machines send network traffic to the same destination, its switch queue can fill up. Here, ports 1, 2, and 4 are all trying to send packets to port 3.  
 
@@ -7963,7 +7963,7 @@ Figure 9-3 illustrates a dangerous use of time-of-day clocks in a database with 
 
 Since the increment builds upon the earlier write of x= 1, we might expect that the write of x= 2 should have the greater timestamp of the two. Unfortunately, that is not what happens in Figure 9-3. The write x= 1 has a timestamp of 42.004 seconds, but the write x= 2 has a timestamp of 42.003 seconds. In other words, the write by clientB is causally later than the write by client A, but B’s write has an earlier timestamp.  
 
-![figure](images/raw/figure-0119.png)
+![figure](images/figure-0119.png)
 
 >Figure 9-3. Relying on timestamps f or ordering events can cause problems when time-of-day clocks are not perf ectly synchronized.  
 
@@ -8061,7 +8061,7 @@ As we've just discussed, in many programming languages and operating systems, th
 
 Some software runs in environments where a failure to respond within a specified time can cause serious damage. Computers that control the movements of aircraft, rockets, robots, cars, and other physical objects, for example, must respond quickly and predictably to their sensor inputs. In these so-called hard real-time systems, the software must respond by a specified deadline; failure to meet the deadline may cause a failure of the entire system.  
 
-![figure](images/raw/figure-0120.png)
+![figure](images/figure-0120.png)
 
 In embedded systems, *real-time* means that a system is carefully designed and tested to meet specified timing guarantees in all circumstances. This meaning is in contrast to the more vague use of the term *real-time* on the web, where it describes servers pushing data to clients and stream processing without hard response-time constraints (see Chapter 12).  
 
@@ -8134,13 +8134,13 @@ For example, Figure 9-4 shows a data corruption bug due to an incorrect implemen
 
 The problem is an example of what we discussed in "Process Pauses" on page 366. If the client holding the lease is paused for too long, its lease expires. Another client can then obtain a lease for the same file and start writing to the file. When the paused client comes back, it believes (incorrectly) that it still has a valid lease and continues writing to the file. We now have a split-brain situation: the clients' writes clash and corrupt the file.  
 
-![figure](images/raw/figure-0121.png)
+![figure](images/figure-0121.png)
 
 >Figure 9-4. An incorrect implementation of a distributed lock: client 1 believes that it still has a valid lease, even though it has expired, and thus corrupts a file in storage  
 
 Figure 9-5 shows a different problem that has similar consequences. In this example there is no process pause, only a crash by client 1. Just before client 1 crashes, it sends a write request to the storage service, but this request is delayed for a long time in the network.(Remember from “Network Faults in Practice” on page 350 that packets can sometimes be delayed by a minute or more.) By the time the write request arrives at the storage service, client 1’s lease has already timed out, allowing client 2 to acquire itand issue a write of its own. The result is corruption similar to that in Figure 9-4.  
 
-![figure](images/raw/figure-0122.png)
+![figure](images/figure-0122.png)
 
 >Figure 9-5. A message f rom a f ormer leaseholder might be delayed f or a long time andarrive after another node has taken over the lease.  
 
@@ -8152,13 +8152,13 @@ Some systems attempt to fence off zombies by shutting them down—for example, b
 
 A more robust fencing solution, which protects against both zombies and delayed requests, is illustrated in Figure 9-6.  
 
-![figure](images/raw/figure-0123.png)
+![figure](images/figure-0123.png)
 
 >Figure 9-6. Making access to storage safe by allowing writes only in the order of increasing fencing tokens  
 
 Let's assume that every time the lock service grants a lock or lease, it also returns a *fencing token*, which is a number that increases every time a lock is granted (e.g., incremented by the lock service). We can then require that every time a client sends a write request to the storage service, it must include its current fencing token.  
 
-![figure](images/raw/figure-0124.png)
+![figure](images/figure-0124.png)
 
 There are several alternative names for fencing tokens. In Chubby, Google's lock service, they are called *sequencers* [88], and in Kafka they are called *epoch numbers*. In consensus algorithms, which we will discuss in Chapter 10, the *ballot number* (Paxos) or *term number* (Raft) serves a similar purpose.  
 
@@ -8180,7 +8180,7 @@ As illustrated in Figure 9-7, you can put the writer’s fencing token in the mo
 
 In Figure 9-7, client 2 has a fencing token of 34, so all its timestamps starting with 34... are greater than any timestamps starting with 33... that are generated by client 1. Client 2 writes to a quorum of replicas, but it can’t reach replica 3. This means that when the zombie client 1 later tries to write, its write may succeed at replica 3 even though it is ignored by replicas 1 and 2. This is not a problem, since a subsequent quorum read will prefer the write from client 2 with the greater timestamp, and readrepair or anti-entropy will eventually overwrite the value written by client 1.  
 
-![figure](images/raw/figure-0125.png)
+![figure](images/figure-0125.png)
 
 >Figure 9-7. Using fencing tokens to protect writes to a leaderless replicated database  
 
@@ -8753,7 +8753,7 @@ In a linearizable system, as soon as one client successfully completes a write, 
 
 Figure 10-1 shows a nonlinearizable sports website [4]. Aaliyah and Bryce are sitting in the same room, both checking their phones to see the outcome of a game their favorite team is playing. Just after the final score is announced, Aaliyah refreshes the page, sees the winner announced, and excitedly tells Bryce about it. Bryce incredibly hits reload on his own phone, but his request goes to a database replica that is lagging, so his phone shows that the game is still ongoing.  
 
-![figure](images/raw/figure-0126.png)
+![figure](images/figure-0126.png)
 
 >Figure 10-1. This system is not linearizable, causing sports fans to be confused.  
 
@@ -8763,7 +8763,7 @@ If Aaliyah and Bryce had hit reload at the same time, it would have been less su
 
 To understand linearizability better, let’s look at more examples. Figure 10-2 shows three clients concurrently reading and writing the same object x in a linearizable database. In distributed systems theory, x is called a register—in practice, it could be one key in a key-value store, one row in a relational database, or one document in adocument database, for example.  
 
-![figure](images/raw/figure-0127.png)
+![figure](images/figure-0127.png)
 
 >Figure 10-2. If a read request is concurrent with a write request, it may return either theold or the new value.  
 
@@ -8789,7 +8789,7 @@ However, this is not yet sufficient to fully describe linearizability. If reads 
 
 To make the system linearizable, we need to add another constraint, illustrated inFigure 10-3.  
 
-![figure](images/raw/figure-0128.png)
+![figure](images/figure-0128.png)
 
 >Figure 10-3. After any one read has returned the new value, all f ollowing reads(on thesame or other clients) must also return the new value.  
 
@@ -8805,7 +8805,7 @@ Each operation in Figure 10-4 is marked with a vertical line (inside the bar for
 
 The requirement of linearizability is that the lines joining up the operation markers always move forward in time (from left to right), never backward. This requirement ensures the recency guarantee we discussed earlier: once a new value has been written or read, all subsequent reads see the value that was written, until it is overwritten again.  
 
-![figure](images/raw/figure-0129.png)
+![figure](images/figure-0129.png)
 
 >Figure 10-4. Visualizing the points in time at which the reads and writes appear to have taken effect—the final read by B is not linearizable  
 
@@ -8856,7 +8856,7 @@ Coordination services like Apache ZooKeeper [20] and etcd are often used to impl
 
 to implement linearizable operations in a fault-tolerant way (we'll discuss such algorithms later in this chapter). Many subtle details are involved in implementing leases and leader election correctly (e.g., the fencing issue in "Distributed Locks and Leases" on page 373), and libraries like Apache Curator help by providing higher-level recipes on top of ZooKeeper. However, a linearizable storage service is the basic foundation for these coordination tasks.  
 
-![figure](images/raw/figure-0130.png)
+![figure](images/figure-0130.png)
 
 Strictly speaking, ZooKeeper provides linearizable writes, but reads
 may be stale, since there is no guarantee that they are served from
@@ -8883,7 +8883,7 @@ There's an important detail to notice in Figure 10-1: if Aaliyah hadn't exclaime
 
 Similar situations can arise in computer systems. For example, say your website allows users to upload a video, and a background process transcodes the video to a lower quality that can be streamed on slow internet connections. The architecture and dataflow of this system are illustrated in Figure 10-5. The video transcoder needs to be explicitly instructed to perform a transcoding job, and this instruction is sent from the web server to the transcoder via a message queue (see Chapter 12). The web server doesn't place the entire video on the queue, since most message brokers are designed for small messages and a video may be many megabytes in size. Instead, the video is first written to a file storage service, and once the write is complete, the instruction to the transcoder is placed on the queue.  
 
-![figure](images/raw/figure-0131.png)
+![figure](images/figure-0131.png)
 
 >Figure 10-5. The web server and video transcoder communicate through both file storage and a message queue, opening the potential for race conditions.  
 
@@ -8932,7 +8932,7 @@ The quorum condition is met ($w + r > n$), but this execution is nevertheless no
 
 It is possible to make Dynamo-style quorums linearizable, at the cost of reduced performance. A reader must perform read repair synchronously (see "Catching up on missed writes" on page 231) before returning results to the application [26]. Additionally, before writing, a writer must read the latest state of a quorum of nodes to fetch the latest timestamp of any prior write and ensure that the new write has a greater timestamp[27, 28]. Riak, however, does not perform synchronous read repair because of the performance penalty. Cassandra does wait for read repair to complete on quorum reads[29], but it loses linearizability because of its use of time-of-dayclocks for timestamps.  
 
-![figure](images/raw/figure-0132.png)
+![figure](images/figure-0132.png)
 
 >Figure 10-6. A nonlinearizable execution, despite using a quorum  
 
@@ -8946,7 +8946,7 @@ We already discussed some use cases for different replication methods in Chapter
 
 Consider what happens if a network interruption occurs between the two regions.Let’s assume that the network within each region is working, and clients can reach their local regions, but the regions cannot connect to each other. This is known as anetwork partition.  
 
-![figure](images/raw/figure-0133.png)
+![figure](images/figure-0133.png)
 
 >Figure 10-7. A network interruption forcing a choice between linearizability and availability  
 
@@ -9010,7 +9010,7 @@ Another advantage of autoincrementing IDs is that the order of the IDs tells you
 
 This single-node ID generator is another example of a linearizable system. Each request to fetch the ID is an operation that atomically increments a counter and returns the old counter value (a fetch-and-add operation); linearizability ensures that if the posting of Aaliyah's message completes before Bryce's posting begins, then the ID of Bryce's message must be greater than Aaliyah's. The messages by Aaliyah and Caleb in Figure 10-8 are concurrent, so linearizability doesn't specify how their IDs must be ordered, as long as they are unique.  
 
-![figure](images/raw/figure-0134.png)
+![figure](images/figure-0134.png)
 
 >Figure 10-8. An ID generator that assigns autoincrementing integer IDs to messages in a chat application  
 
@@ -9076,7 +9076,7 @@ Although Lamport clocks provide a total ordering, they do *not* provide lineariz
 
 Figure 10-9 shows how a Lamport clock would work in the chat example from Figure 10-8. Each node has a unique identifier, which in Figure 10-9 is the name Aaliyah, Bryce, or Caleb, but which in practice could be a random UUID or something similar. Each node also keeps a count of the operations it has processed. A Lamport timestamp is then simply a pair of (counter, node ID). Two nodes may sometimes have the same counter value, but by including the node ID in the timestamp, each timestamp is made unique.  
 
-![figure](images/raw/figure-0135.png)
+![figure](images/figure-0135.png)
 
 >Figure 10-9. Lamport timestamps provide a total ordering consistent with causality.  
 
@@ -9114,7 +9114,7 @@ Although Lamport clocks and hybrid logical clocks provide useful ordering guaran
 
 Figure 10-10 shows how a nonlinearizable ID generator could cause problems. Imagine that on a social media website, user A wants to share an embarrassing photo privately with their friends. User A's account is initially public, but using their laptop, they change their account settings to private. They then use their phone to upload the photo. Since user A performed these updates in sequence, they might reasonably expect the photo upload to be subject to the new, restricted account permissions. However, as the figure shows, this is not necessarily the case.  
 
-![figure](images/raw/figure-0136.png)
+![figure](images/figure-0136.png)
 
 >Figure 10-10. User A first sets their account to private, then shares a photo. With a nonlinearizable ID generator, an unauthorized viewer may see the photo.  
 
@@ -9265,7 +9265,7 @@ If two nodes both read a log entry e, then prior to e they must have read exactl
 
 that value’s addition to the log.  
 
-![figure](images/raw/figure-0137.png)
+![figure](images/figure-0137.png)
 
 A shared log can be implemented using a total order broadcast protocol, also known as atomic broadcast or total order multicast protocol[28, 78, 79]. To add a value to the log, we “broadcast” it using the protocol, and when the protocol “delivers” it, the valuebecomes part of a log entry that can be read.  
 
@@ -9343,7 +9343,7 @@ A shared log is a good fit for database replication. If every log entry represen
 
 Similarly, a shared log can be used to implement serializable transactions. As discussed in "Actual Serial Execution" on page 309, if every log entry represents a deterministic transaction to be executed as a stored procedure, and if every node executes those transactions in the same order, the transactions will be serializable [83, 84].  
 
-![figure](images/raw/figure-0138.png)
+![figure](images/figure-0138.png)
 
 Sharded databases with a strong consistency model often maintain a separate log per shard, which improves scalability but limits the consistency guarantees(e.g., consistent snapshots, foreign-key references) they can offer across shards. Serializable transactionsacross shards are possible but require additional coordination[85].  
 
@@ -9746,7 +9746,7 @@ The boundary between online and batch processing systems is not always clear; a 
 
 system alone cannot do. ETL, as discussed in “Data Warehousing” on page 7, is an example of this.  
 
-![figure](images/raw/figure-0139.png)
+![figure](images/figure-0139.png)
 
 An alternative to batch processing is *stream processing*, in which the job doesn't finish running when it has processed the input, but instead continues watching the input and processes changes in the input shortly after they happen. We will turn to stream processing in Chapter 12.  
 
@@ -9956,7 +9956,7 @@ Orchestimators usually have a centralized scheduler subsystem, which receives re
 
 Though each orchestrator uses different terminology, you will find these components in nearly all orchestration systems.  
 
-![figure](images/raw/figure-0140.png)
+![figure](images/figure-0140.png)
 
 Scheduling decisions sometimes require application-specific schedulers that can take into account particular requirements, such as autoscaling read replicas when a certain query threshold is reached. The centralized scheduler and application-specific schedulers work together to determine how best to execute tasks. YARN refers to its subschedulers as *ApplicationMasters*, while Kubernetes calls them *operators*.  
 
@@ -9986,7 +9986,7 @@ In practice, schedulers therefore use heuristics to make nonoptimal but reasonab
 
 The Unix tools example in "Simple Log Analysis" on page 454 involved a chain of several commands, connected by Unix pipes. The same pattern arises in distributed batch processes: often the output from one job needs to become the input to one or more other jobs, and each job may have several inputs that are produced by other jobs. This is called a workflow or directed acyclic graph (DAG) of jobs.  
 
-![figure](images/raw/figure-0141.png)
+![figure](images/figure-0141.png)
 
 In "Durable Execution and Workflows" on page 187 we saw workflow engines that offer durable execution of a sequence of steps, typically performing RPCs. In the context of batch processing, "workflow" has a different meaning: it's a sequence of batch processes, each taking input data and producing output data, but normally not making RPCs to external services. Durable execution engines typically process less data per request than their batch processing counterparts, though the line is somewhat fuzzy.  
 
@@ -10090,7 +10090,7 @@ described here.
 
 As we've seen, both the Unix tools example at the beginning of the chapter and MapReduce are based on sorting. Batch processors need to be able to sort datasets petabytes in size, which are too large to fit on a single machine. They therefore require a distributed sorting algorithm where both the input and the output are sharded. Such an algorithm is called a shuffle.  
 
-![figure](images/raw/figure-0142.png)
+![figure](images/figure-0142.png)
 
 ### Shuffle is not random  
 
@@ -10100,7 +10100,7 @@ Shuffling is a foundational algorithm for batch processors, where it is used for
 
 Figure 11-1 shows the dataflow in a MapReduce job. We assume that the input to the job is sharded, and the shards are labeled m 1, m 2, and m 3. For example, each shard may be a separate file on HDFS or a separate object in an object store, and all the shards belonging to the same dataset are grouped into the same HDFS directory orhave the same key prefix in an object store bucket.  
 
-![figure](images/raw/figure-0143.png)
+![figure](images/figure-0143.png)
 
 >Figure 11-1. A MapReduce j ob with three mappers and three reducers  
 
@@ -10122,7 +10122,7 @@ Let’s look at how sorted data simplifies distributed joins and aggregations. W
 
 A typical example of a join in a batch job is illustrated in Figure 11-2. On the left is a log of events describing the things that logged-in users did on a website(known as activity events or clickstream data), and on the right is a database of users. Youcan think of this example as being part of a star schema(see “Stars and Snowflakes:Schemas for Analytics” on page 77); the log of events is the fact table, and the userdatabase is one of the dimensions.  
 
-![figure](images/raw/figure-0144.png)
+![figure](images/figure-0144.png)
 
 >Figure 11-2. A join between a log of user activity events and a database of user profiles  
 
@@ -10136,7 +10136,7 @@ The reducers can now perform the actual join logic easily. The first value is ex
 
 The next MapReduce job in the workflow can then calculate the distribution of viewer ages for each URL. To do so, the job first shuffles the data using the URL as the key. Once sorted, the reducers iterate over all the page views (with viewer birth date) for a single URL, keeping a counter for the number of views by each age group and incrementing the appropriate counter for each page view. This way, you can implement a group by operation and aggregation.  
 
-![figure](images/raw/figure-0145.png)
+![figure](images/figure-0145.png)
 
 >Figure 11-3. A sort-merge join on user ID; if the input datasets are sharded into multiple files, each could be processed with multiple mappers in parallel  
 
@@ -10530,7 +10530,7 @@ subscription*.)
 
 Each message is delivered to all the consumers. Fan-out allows several independent consumers to each "tune in" to the same broadcast of messages, without affecting one another—the streaming equivalent of having several batch jobs that read the same input file. (This feature is provided by topic subscriptions in JMS and exchange bindings in AMQP.)  
 
-![figure](images/raw/figure-0146.png)
+![figure](images/figure-0146.png)
 
 >Figure 12-1. (a) Load balancing shares the work of consuming a topic among consumers; (b) with fan-out, each message is delivered to multiple consumers.  
 
@@ -10544,7 +10544,7 @@ If the connection to a client is closed or times out without the broker receivin
 
 When combined with load balancing, this redelivery behavior has an interesting effect on the ordering of messages. In Figure 12-2, the consumers generally process messages in the order they were sent by producers. However, consumer 2 crashes while processing message m3, at the same time as consumer 1 is processing messagem4. The unacknowledged message m3 is subsequently redelivered to consumer 1,with the result that consumer 1 processes messages in the order m4, m3, m5. Thus,m3 and m4 are not delivered in the same order as they were sent by producer 1.  
 
-![figure](images/raw/figure-0147.png)
+![figure](images/figure-0147.png)
 
 >Figure 12-2. Consumer 2 crashes while processing m3, so it is redelivered to consumer 1at a later time.  
 
@@ -10574,7 +10574,7 @@ The same structure can be used to implement a message broker. A producer sends a
 
 To scale to higher throughput than a single disk can offer, the log can be sharded (in the sense of Chapter 7). Different shards can then be hosted on different machines, making each shard a separate log that can be read and written independently from other shards, and a topic can be defined as a group of shards that all carry messages of the same type. This approach is illustrated in Figure 12-3.  
 
-![figure](images/raw/figure-0148.png)
+![figure](images/figure-0148.png)
 
 >Figure 12-3. Producers send messages by appending them to a topic partition file, and consumers read these files sequentially.  
 
@@ -10661,7 +10661,7 @@ If periodic full database dumps are too slow, an alternative that is sometimes u
 
 However, dual writes have serious problems, one of which is a race condition illustrated in Figure 12-4. In this example, two clients concurrently want to update an item $X$. Client 1 wants to set the value to $A$, and client 2 wants to set it to $B$. Both clients first write the new value to the database, then write it to the search index. Because of unlucky timing, the requests are interleaved. The database first sees the write from client 1 setting the value to $A$, then the write from client 2 setting the value to $B$, so the final value in the database is $B$. The search index first sees the write from client 2, then client 1, so the final value in the search index is $A$. The two systems are now permanently inconsistent with each other, even though no error occurred.  
 
-![figure](images/raw/figure-0149.png)
+![figure](images/figure-0149.png)
 
 >Figure 12-4. In the database, X is first set to A and then to B, while at the search index the writes arrive in the opposite order.  
 
@@ -10685,7 +10685,7 @@ For example, you can capture the changes in a database and continually apply the
 
 Figure 12-5 shows how the concurrency problem of Figure 12-4 is solved with CDC. Even though the two requests to set $X$ to $A$ and $B$, respectively, arrive concurrently at the database, the database decides on the order in which to execute them and writes them to its replication log in that order. The search index picks them up and applies them in the same order. If you need the data in another system, such as a data warehouse, you can simply add it as another consumer of the CDC event stream.  
 
-![figure](images/raw/figure-0150.png)
+![figure](images/figure-0150.png)
 
 >Figure 12-5. Taking changes committed to a database and propagating them to downstream systems in the same order  
 
@@ -10713,7 +10713,7 @@ If you can keep only a limited amount of log history, you need to go through the
 
 We discussed log compaction previously in “Log-Structured Storage” on page 118, in the context of log-structured storage engines(see Figure 4-3 for an example). The principle is simple: the storage engine periodically looks for log records with the same key, throws away any duplicates, and keeps only the most recent update for each key. This can make log segments much smaller, so segments may also be merged as part of the compaction process, as shown in Figure 12-6. This process runs in thebackground.  
 
-![figure](images/raw/figure-0151.png)
+![figure](images/figure-0151.png)
 
 >Figure 12-6. In this log of key-value pairs, the key is the ID of a cat video(mew,purr, scratch, or yawn) and the value is the number of times it has been played; logcompaction retains only the most recent value f or each key.  
 
@@ -10975,7 +10975,7 @@ If it helps to have an analogy, consider the Star Wars movies. Episode IV was re
 
 Confusing event time and processing time leads to bad data. For example, say you have a stream processor that measures the rate of requests(counting the number of requests per second). If you redeploy the stream processor, it may be shut down for a minute and process the backlog of events when it comes back up. If you measure the rate based on the processing time, it will look as if there was a sudden anomalous spike of requests while processing the backlog, when in fact the real rate of requestswas steady(Figure 12-8).  
 
-![figure](images/raw/figure-0152.png)
+![figure](images/figure-0152.png)
 
 >Figure 12-8. Windowing by processing time introduces artif acts due to variations inprocessing rate.  
 
@@ -11091,7 +11091,7 @@ The join of the streams corresponds directly to the join of the tables in this q
 The timelines are effectively a cache of the result of the query, updated every time the
 underlying tables change.  
 
-![figure](images/raw/figure-0153.png)
+![figure](images/figure-0153.png)
 
 If you regard a stream as the derivative of a table, as in Figure 12-7, and regard a join as a product of two tables $u \cdot v$, something interesting happens: the stream of changes to the materialized join follows the product rule $(u \cdot v)' = u'v + uv'$. Any change of posts is joined with the current followers, and any change of follows is joined with the current posts [37].  
 
@@ -11648,7 +11648,7 @@ Most web applications today are deployed as stateless services, in which any use
 
 logic separate from state management (databases): not putting application logic in the database and not putting persistent state in the application [25]. As people in the functional programming community like to joke, “We believe in the separation of Church and state” [26].  
 
-![figure](images/raw/figure-0154.png)
+![figure](images/figure-0154.png)
 
 Explaining a joke usually ruins it, but here is an explanation anyway so that nobody feels left out. Church is a reference to the mathematician Alonzo Church, who created the lambda calculus, an early form of computation that is the basis for most functional programming languages. The lambda calculus has no mutable state (i.e., no variables that can be overwritten), so one could say that mutable state is separate from Church's work.  
 
@@ -11702,7 +11702,7 @@ Subscribing to a stream of changes, rather than querying the current state when 
 
 At an abstract level, the dataflow systems discussed in the previous section give you a process for creating derived datasets (such as search indexes, materialized views, and predictive models) and keeping them up-to-date. Let's call that process the *write path*. Whenever a piece of information is written to the system, it may go through multiple stages of batch and stream processing, and eventually every derived dataset is updated to incorporate the data that was written. Figure 13-1 shows an example of updating a search index.  
 
-![figure](images/raw/figure-0155.png)
+![figure](images/figure-0155.png)
 
 >Figure 13-1. In a search index, writes(document updates) meet reads(queries).  
 
@@ -11951,7 +11951,7 @@ In the traditional approach to databases, executing this transaction would requi
 
 However, equivalent correctness can be achieved without cross-shard transactions by using sharded logs and stream processors. Figure 13-2 shows an example of a payment transaction that needs to check whether the source account contains sufficient funds and, if so, atomically transfers an amount to a destination accountwhile deducting fees.  
 
-![figure](images/raw/figure-0156.png)
+![figure](images/figure-0156.png)
 
 >Figure 13-2. Checking whether a source account has enough money and atomically transf erring money to a destination account and a f ees account, using event logs and stream processors  
 
@@ -12598,7 +12598,7 @@ perma.cc/BL95-8W5M
 
 [50] Jez Humble. “It’s a cliché that people get into tech to ‘change the world.’ Sothen, you have to actually consider what the impact of your work is on the world.The idea that you can or should exclude societal and political discussions in tech isidiotic. It means you’re not doing your job.” x.com, April 2021. Archived at perma.cc/3NYS-MHLC  
 
-![figure](images/raw/figure-0157.png)
+![figure](images/figure-0157.png)
 
 The definitions in this glossary are short and simple, intended to convey the core idea but not the full subtleties of a term. For more detail, follow the references to the main text.  
 
@@ -19794,7 +19794,7 @@ Many of the animals on O'Reilly covers are endangered; all of them are important
 
 The cover illustration is by Monica Kamsvaag, based on an antique line engraving from Shaw's Zoology. The series design is by Edie Freedman, Ellie Volckhausen, and Karen Montgomery. The cover fonts are Gilroy Semibold and Guardian Sans. The text font is Adobe Minion Pro; the heading font is Adobe Myriad Condensed; and the code font is Dalton Maag's Ubuntu Mono.  
 
-![figure](images/raw/figure-0158.png)
+![figure](images/figure-0158.png)
 
 O'REILLY\(^{®}\)  
 
@@ -19806,4 +19806,4 @@ Interactive learning | Certification preparation | Verifiable skills
 
 Try the O'Reilly learning platform free for 10 days.  
 
-![figure](images/raw/figure-0159.png)
+![figure](images/figure-0159.png)
