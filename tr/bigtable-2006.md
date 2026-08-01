@@ -76,6 +76,7 @@ $$
 (row:string, column:string, time:int64) \rightarrow string
 $$
 
+<a id="fig-1"></a>
 ![图 1：存储网页的示例表切片](../raw/bigtable-2006/images/figure-0001.png)
 > 图 1：存储网页的示例表切片。
 > 行名是反转后的 URL。
@@ -93,7 +94,7 @@ $$
 假设我们希望保存大量网页及相关信息的副本，
 并让许多不同项目使用这些数据；
 将这张表称为 *Webtable*。
-如图 1 所示，在 Webtable 中，
+如[图 1](#fig-1)所示，在 Webtable 中，
 我们用 URL 作为行键，
 用网页的不同属性作为列名，
 并把网页内容存入 *`contents:`* 列，
@@ -142,7 +143,7 @@ Webtable 的一个示例列族是 `language`，
 `language` 族中只使用一个列键，
 用于保存各网页的语言 ID。
 另一个有用的列族是 `anchor`；
-如图 1 所示，该族中的每个列键代表一个锚点。
+如[图 1](#fig-1)所示，该族中的每个列键代表一个锚点。
 限定符是引用网站的名称，
 单元格内容是链接文本。
 
@@ -177,6 +178,7 @@ Operation op;
 Apply(&op, &r1);
 ```
 
+<a id="fig-2"></a>
 > 图 2：使用 RowMutation 抽象向 Bigtable 写入数据的 C++ 代码示例。
 > 该示例为 www.cnn.com 添加一个锚点并删除另一个锚点。
 
@@ -200,12 +202,12 @@ Bigtable API 提供创建和删除表及列族的函数，
 
 客户端应用可以在 Bigtable 中写入或删除值、
 查找单行中的值，或者迭代表中的一部分数据。
-图 2 展示了使用 `RowMutation` 抽象执行一系列更新的 C++ 代码。
+[图 2](#fig-2) 展示了使用 `RowMutation` 抽象执行一系列更新的 C++ 代码。
 为使示例简短，省略了无关细节。
 `Apply` 调用对 Webtable 执行一次原子变更：
 为 `www.cnn.com` 添加一个锚点，并删除另一个锚点。
 
-图 3 展示了使用 `Scanner` 抽象迭代特定行中所有锚点的 C++ 代码。
+[图 3](#fig-3) 展示了使用 `Scanner` 抽象迭代特定行中所有锚点的 C++ 代码。
 客户端可以迭代多个列族，
 并通过多种机制限制扫描产生的行、
 列和时间戳。
@@ -228,6 +230,7 @@ for (; !stream->Done(); stream->Next()) {
 }
 ```
 
+<a id="fig-3"></a>
 > 图 3：使用 Scanner 抽象从 Bigtable 读取数据的 C++ 代码示例。
 > 该示例扫描指定行中 anchor 列族的所有版本。
 
@@ -297,8 +300,8 @@ Chubby 客户端还可以在 Chubby 文件和目录上注册回调，
 
 Bigtable 使用 Chubby 完成多项任务：
 确保任一时刻最多只有一个活跃主服务器；
-存储 Bigtable 数据的引导位置（见第 5.1 节）；
-发现 tablet 服务器并最终确认其死亡（见第 5.2 节）；
+存储 Bigtable 数据的引导位置（见[第 5.1 节](#sec-5-1)）；
+发现 tablet 服务器并最终确认其死亡（见[第 5.2 节](#sec-5-2)）；
 存储 Bigtable 模式信息，
 即每张表的列族信息；
 以及存储访问控制列表。
@@ -341,10 +344,12 @@ Bigtable 客户端不依赖主服务器获取 tablet 位置信息，
 随着表不断增长，它会自动拆分成多个 tablet，
 默认情况下每个 tablet 约为 100～200 MB。
 
+<a id="sec-5-1"></a>
 ### 5.1 tablet 位置
 
-我们使用一个类似 B$^{+}$ 树 [10] 的三级层次结构存储 tablet 位置信息（见图 4）。
+我们使用一个类似 B$^{+}$ 树 [10] 的三级层次结构存储 tablet 位置信息（见[图 4](#fig-4)）。
 
+<a id="fig-4"></a>
 ![图 4：tablet 位置层次结构](../raw/bigtable-2006/images/figure-0002.png)
 > 图 4：tablet 位置的三级层次结构。
 > 第一级是 Chubby 中保存根 tablet 位置的文件，
@@ -388,6 +393,7 @@ tablet 位置保存在内存中，
 例如服务器何时开始为该 tablet 提供服务。
 这些信息有助于调试和性能分析。
 
+<a id="sec-5-2"></a>
 ### 5.2 tablet 分配
 
 每个 tablet 在任一时刻只分配给一台 tablet 服务器。
@@ -470,10 +476,12 @@ tablet 服务器把新 tablet 的信息写入 `METADATA` 表，
 tablet 服务器在 `METADATA` 表中找到的条目只涵盖主服务器要求加载的 tablet 的一部分，
 因此会把这次拆分通知主服务器。
 
+<a id="sec-5-3"></a>
 ### 5.3 tablet 服务
 
-如图 5 所示，tablet 的持久状态存储在 GFS 中。
+如[图 5](#fig-5)所示，tablet 的持久状态存储在 GFS 中。
 
+<a id="fig-5"></a>
 ![图 5：tablet 的表示方式](../raw/bigtable-2006/images/figure-0003.png)
 > 图 5：tablet 的持久化表示。
 > 更新先写入提交日志，
@@ -508,31 +516,31 @@ SSTable 和 memtable 都是按字典序排列的数据结构，
 
 拆分和合并 tablet 期间，传入的读写操作仍可继续执行。
 
-### 5.4 压实
+### 5.4 Compaction
 
 随着写操作执行，memtable 会不断增大。
 当其大小达到阈值时，当前 memtable 会被冻结，
 系统创建新的 memtable，
 并把冻结的 memtable 转换为 SSTable 后写入 GFS。
-这个*小型压实*过程有两个目的：
+这个*minor compaction*过程有两个目的：
 减少 tablet 服务器的内存占用；
 如果服务器死亡，减少恢复期间必须从提交日志读取的数据量。
-压实期间，传入的读写操作仍可继续执行。
+compaction 期间，传入的读写操作仍可继续执行。
 
-每次小型压实都会创建一个新的 SSTable。
+每次 minor compaction 都会创建一个新的 SSTable。
 如果不加限制，读操作可能需要合并任意数量 SSTable 中的更新。
-为此，我们在后台定期执行*合并压实*，
+为此，我们在后台定期执行*merging compaction*，
 限制这类文件的数量。
-合并压实读取若干 SSTable 和 memtable 的内容，
+merging compaction 读取若干 SSTable 和 memtable 的内容，
 并写出一个新的 SSTable。
-压实完成后，输入的 SSTable 和 memtable 即可丢弃。
+compaction 完成后，输入的 SSTable 和 memtable 即可丢弃。
 
-把所有 SSTable 重写成恰好一个 SSTable 的合并压实称为*主压实*。
-非主压实生成的 SSTable 可以包含特殊删除条目，
+把所有 SSTable 重写成恰好一个 SSTable 的 merging compaction 称为*major compaction*。
+non-major compaction 生成的 SSTable 可以包含特殊删除条目，
 用来屏蔽仍然存活的旧 SSTable 中已删除的数据。
-主压实生成的 SSTable 则不包含删除信息或已删除数据。
+major compaction 生成的 SSTable 则不包含删除信息或已删除数据。
 Bigtable 会循环遍历所有 tablet，
-定期对其执行主压实。
+定期对其执行 major compaction。
 这样既能回收已删除数据占用的资源，
 也能确保已删除数据及时从系统中消失；
 这对于存储敏感数据的服务很重要。
@@ -544,7 +552,7 @@ Bigtable 会循环遍历所有 tablet，
 本节更详细地介绍实现中的若干部分，
 以说明这些改进。
 
-### locality group
+### Locality groups
 
 客户端可以把多个列族归入一个 locality group。
 每个 tablet 都会为每个 locality group 生成一个单独的 SSTable。
@@ -610,7 +618,7 @@ Webtable 的页面元数据（如语言和校验和）
 
 ### 布隆过滤器
 
-如第 5.3 节所述，
+如[第 5.3 节](#sec-5-3)所述，
 一次读操作必须读取构成 tablet 状态的所有 SSTable。
 如果这些 SSTable 不在内存中，
 最终可能需要多次访问磁盘。
@@ -671,16 +679,16 @@ tablet 服务器死亡后，
 ### 加快 tablet 恢复
 
 如果主服务器把 tablet 从一台 tablet 服务器移到另一台，
-源 tablet 服务器会先对该 tablet 执行一次小型压实。
-压实减少了提交日志中尚未压实的状态，
+源 tablet 服务器会先对该 tablet 执行一次 minor compaction。
+compaction 减少了提交日志中尚未执行 compaction 的状态，
 从而缩短恢复时间。
 完成后，
 tablet 服务器停止为该 tablet 提供服务。
 在真正卸载 tablet 之前，
-它还会执行另一次通常很快的小型压实，
-以清除第一次压实期间到达、
-仍残留在日志中的未压实状态。
-第二次小型压实完成后，
+它还会执行另一次通常很快的 minor compaction，
+以清除第一次 compaction 期间到达、
+仍残留在日志中的未执行 compaction 状态。
+第二次 minor compaction 完成后，
 另一台 tablet 服务器便可加载该 tablet，
 而无需恢复任何日志条目。
 
@@ -758,6 +766,7 @@ $R$ 的取值使每项基准测试在每台 tablet 服务器上读写约 1 GB �
 | 顺序写入 | 8547 | 3623 | 2451 | 1905 |
 | 扫描 | 15385 | 10526 | 9524 | 7843 |
 
+<a id="fig-6"></a>
 ![图 6：每秒读写的 1000 字节值数量](../raw/bigtable-2006/images/figure-0004.png)
 > 图 6：每秒读写的 1000 字节值数量。
 > 表格显示每台 tablet 服务器的速率，
@@ -782,7 +791,7 @@ $R$ 的取值使每项基准测试在每台 tablet 服务器上读写约 1 GB �
 我们把每台 tablet 服务器的数据量从 1 GB 降至 100 MB，
 使其能轻松放入 tablet 服务器的可用内存。
 
-图 6 从两个角度展示了 Bigtable 读写 1000 字节值时的基准测试性能。
+[图 6](#fig-6) 从两个角度展示了 Bigtable 读写 1000 字节值时的基准测试性能。
 表格显示每台 tablet 服务器每秒执行的操作数，
 折线图显示每秒聚合操作数。
 
@@ -986,7 +995,7 @@ Google 运营着一组服务，
 限制特定客户端在共享表中的存储用量，
 从而在使用该系统存储每用户信息的不同产品团队之间提供一定隔离。
 
-## 9. 经验
+## 9. 经验教训
 
 在设计、实现、维护和支持 Bigtable 的过程中，
 我们积累了有用的经验，
