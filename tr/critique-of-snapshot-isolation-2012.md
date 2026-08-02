@@ -213,7 +213,7 @@ Percolator [24] 为每个列族增加两个额外的列：
 `write` 列维护提交时间戳。
 客户端运行 2PC 算法，
 在所有已修改的数据项上更新该列。
-`lock` 列提供供 2PC 算法使用的细粒度锁。
+`lock` 列提供细粒度锁，供 2PC 算法使用。
 在 2PC 的第一阶段，
 客户端写入数据并获取相应的锁。
 根据具体实现，如果一个事务试图写入已锁定的数据，
@@ -1000,7 +1000,7 @@ zipfianLatest 分布下的中止率增长得更快。
 理论上，可以通过验证依赖图，
 在运行时动态检测包括快照隔离在内的任何隔离级别所产生的异常 [1, 2]。
 然而，这些方法在实际实现中的开销极其高昂。
-Cahill 等人 [8] 找出了快照隔离不可串行化执行中会出现的一些粗粒度模式。
+Cahill 等人 [8] 找出了快照隔离不可串行化执行中会出现的一些细粒度模式。
 因此，与验证依赖图相比，
 验证这些模式的开销较低。
 不过，它会产生误报，并因不必要的中止进一步降低并发度。
@@ -1258,7 +1258,7 @@ i/o comparison study. ACM SIGMOD Record, 39(3): 5–10, 2011.
 [11] B. F. Cooper, A. Silberstein, E. Tam, R. Ramakrishnan, and R. Sears.
 Benchmarking cloud serving systems with ycsb. In SoCC'10, 2010.
 
-[12] T. P. P. Council. Tpc benchmark e standard specification version 1. 12. 0,
+[12] T. P. P. Council. Tpc benchmark e standard specification version 1.12.0,
 September 2010.
 
 [13] S. Das, D. Agrawal, and A. El Abbadi. Elastras: an elastic transactional
@@ -1283,7 +1283,7 @@ coordination for internet-scale systems. In Proceedings of the 2010 USENIX
 conference on USENIX annual technical conference, pages 11–11. USENIX
 Association, 2010.
 
-[19] S. Jorwekar, A. Fekete, K. Ramamirtham, and S. Sudarshan. Automating the
+[19] S. Jorwekar, A. Fekete, K. Ramamritham, and S. Sudarshan. Automating the
 detection of snapshot isolation anomalies. In Proceedings of the 33rd
 international conference on Very large data bases, pages 1263–1274. VLDB
 Endowment, 2007.
