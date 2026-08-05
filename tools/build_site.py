@@ -225,6 +225,14 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--border);
   border-radius: 12px;
 }
+/* 桌面浏览器下目录滚动条收窄，悬停时加宽便于拖拽 */
+#toc::-webkit-scrollbar { width: 4px; }
+#toc:hover::-webkit-scrollbar { width: 10px; }
+#toc::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+/* Firefox 不支持 ::-webkit-scrollbar，用标准属性收窄（最窄 thin） */
+@supports (-moz-appearance: none) {
+  #toc { scrollbar-width: thin; scrollbar-color: var(--muted) transparent; }
+}
 @media (max-width: 1100px) {
   .layout { grid-template-columns: minmax(0, 760px); }
   #toc-toggle { display: inline-flex; }
