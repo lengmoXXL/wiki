@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import hashlib
 import mimetypes
 import os
 import sys
@@ -38,18 +39,24 @@ def main() -> int:
     )
     bucket = oss2.Bucket(auth, OSS_ENDPOINT, OSS_BUCKET)
 
-    uploads = {}
+    local = {}
     for path in sorted(DIST_DIR.rglob("*")):
         if path.is_file():
             key = OSS_PREFIX + path.relative_to(DIST_DIR).as_posix()
-            uploads[key] = path
+            local[key] = path
 
-    existing = [
-        obj.key
-        for obj in oss2.ObjectIteratorV2(bucket, prefix=OSS_PREFIX)
-        if not obj.key.endswith("/")
-    ]
-    deletions = [key for key in existing if key not in uploads]
+    # ETag 即简单上传对象的内容 MD5，一次 list 调用取回，增量对比
+    remote = {}
+    for obj in oss2.ObjectIteratorV2(bucket, prefix=OSS_PREFIX):
+        if not obj.key.endswith("/"):
+            remote[obj.key] = obj.etag.strip('"').lower()
+
+    uploads = {}
+    for key, path in local.items():
+        md5 = hashlib.md5(path.read_bytes()).hexdigest()
+        if remote.get(key) != md5:
+            uploads[key] = path
+    deletions = [key for key in remote if key not in local]
 
     for key, path in uploads.items():
         print(f"upload {key} ({path.stat().st_size} bytes)")
@@ -63,11 +70,17 @@ def main() -> int:
     # 域名根路径 / 由静态托管映射到根 index.html；上传带 <base href="/blog/"> 的首页，
     # 使其从根路径访问时相对链接仍指向 /blog/ 下的文章和图片
     index = DIST_DIR / "index.html"
-    print("upload index.html (root)")
-    if not args.dry_run:
-        bucket.put_object_from_file(
-            "index.html", str(index), headers={"Content-Type": "text/html; charset=utf-8"}
-        )
+    index_md5 = hashlib.md5(index.read_bytes()).hexdigest()
+    try:
+        root_etag = bucket.head_object("index.html").etag.strip('"').lower()
+    except oss2.exceptions.NoSuchKey:
+        root_etag = None
+    if root_etag != index_md5:
+        print("upload index.html (root)")
+        if not args.dry_run:
+            bucket.put_object_from_file(
+                "index.html", str(index), headers={"Content-Type": "text/html; charset=utf-8"}
+            )
 
     for key in deletions:
         print(f"delete {key}")
