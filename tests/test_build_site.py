@@ -90,3 +90,9 @@ def test_toc_is_scrollable(dist):
     for name, html in article_pages(dist).items():
         assert "align-self" not in html, name
         assert "overscroll-behavior: contain" in html, name
+
+
+def test_nested_lists_render_nested(dist):
+    # mdx_truly_sane_lists：2/3 空格缩进的子列表必须渲染为嵌套 <ul>（默认渲染器会拉平）
+    html = (dist / "控制论与科学方法论-2025.html").read_text(encoding="utf-8")
+    assert re.search(r'<li><strong><a href="#第一章[^"]*">[^<]+</a></strong>\s*<ul>', html, re.S)

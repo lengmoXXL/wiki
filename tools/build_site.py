@@ -17,6 +17,8 @@ DIST_DIR = PROJECT_ROOT / "dist"
 MD_EXTENSIONS = [
     "tables",
     "footnotes",
+    # 按列表标记宽度识别嵌套（默认渲染器要求子列表缩进 4 空格，2/3 空格会被拉平）
+    "mdx_truly_sane_lists",
     "toc",
     "pymdownx.superfences",
     "pymdownx.highlight",
