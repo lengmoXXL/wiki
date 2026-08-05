@@ -4,3 +4,8 @@ alibabacloud-tea-util
 oss2
 Pillow
 python-dotenv
+markdown
+pymdown-extensions
+pygments
+pytest
+playwright

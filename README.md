@@ -222,3 +222,35 @@ O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
 git diff --check
 git diff
 ```
+
+## 5. 站点发布
+
+```bash
+python tools/build_site.py              # tr/*.md → dist/
+python tools/publish_site.py --dry-run  # 只打印将上传/删除的对象
+python tools/publish_site.py            # 同步 dist/ → oss://lengmo-asserts/blog/
+python -m pytest tests/                 # 测试
+```
+
+发布后访问 http://lengmoxxl.top/。
+
+## 6. 调试页面
+
+用无头 Chromium 实测 `dist/` 产物：
+
+```python
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+
+exe = str(Path.home() / ".cache/ms-playwright/chromium_headless_shell-1223"
+           "/chrome-headless-shell-linux64/chrome-headless-shell")  # 或 playwright install 后省略 executable_path
+with sync_playwright() as p:
+    b = p.chromium.launch(executable_path=exe)
+    page = b.new_page(viewport={"width": 800, "height": 1000}, has_touch=True)
+    page.goto(f"file://{Path('dist/ddia-2026.html').resolve()}")
+    page.click("#toc-toggle")
+    print(page.evaluate("() => getComputedStyle(document.getElementById('toc')).height"))
+    b.close()
+```
+
+`page.evaluate` 里读计算样式、几何属性，或直接改 `el.style` 对比验证。

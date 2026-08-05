@@ -3,3 +3,4 @@
 __pycache__/
 .pi-subagents/
 .cache/
+dist/
