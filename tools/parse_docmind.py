@@ -15,7 +15,7 @@ from PIL import Image
 from alibabacloud_docmind_api20220711 import models as docmind_models
 from alibabacloud_docmind_api20220711.client import Client as DocMindClient
 from alibabacloud_tea_openapi import models as open_api_models
-from alibabacloud_tea_util import models as util_models
+from darabonba.runtime import RuntimeOptions
 from dotenv import load_dotenv
 
 
@@ -83,19 +83,21 @@ def main() -> int:
 
         print(f"Submitting DocMind job (VLM enhancement: {VLM_ENHANCEMENT}) ...")
         with pdf_path.open("rb") as pdf_file:
-            response = client.submit_doc_parser_job_advance(
-                docmind_models.SubmitDocParserJobAdvanceRequest(
-                    file_name=pdf_path.name,
-                    file_name_extension=pdf_path.suffix.lstrip("."),
-                    file_url_object=pdf_file,
-                    formula_enhancement=True,
-                    output_format=["visualLayoutInfo"],
-                    llm_enhancement=VLM_ENHANCEMENT,
-                    enhancement_mode="VLM" if VLM_ENHANCEMENT else None,
-                ),
-                util_models.RuntimeOptions(),
+            request = docmind_models.SubmitDocParserJobAdvanceRequest(
+                file_name=pdf_path.name,
+                file_name_extension=pdf_path.suffix.lstrip("."),
+                file_url_object=pdf_file,
+                formula_enhancement=True,
+                output_format=["visualLayoutInfo"],
+                llm_enhancement=VLM_ENHANCEMENT,
             )
+            if VLM_ENHANCEMENT:
+                request.enhancement_mode = "VLM"
+            response = client.submit_doc_parser_job_advance(request, RuntimeOptions())
         job_id = response.body.data.id
+        if not job_id:
+            print("DocMind did not return a job ID", file=sys.stderr)
+            return 1
         print(f"Job ID: {job_id}")
 
         started_at = time.monotonic()
@@ -132,7 +134,7 @@ def main() -> int:
                     layout_step_size=layout_step_size,
                 )
             )
-            batch = response.body.data["layouts"]
+            batch = (response.body.data or {}).get("layouts")
             if not batch:
                 break
             layouts.extend(batch)
