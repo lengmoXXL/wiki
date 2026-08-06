@@ -32,12 +32,12 @@ def main() -> int:
     load_dotenv(PROJECT_ROOT / ".env")
 
     parser = argparse.ArgumentParser(
-        description="Download a PDF from OSS and parse it locally with Alibaba Cloud DocMind."
+        description="Download a document from OSS and parse it locally with Alibaba Cloud DocMind."
     )
     parser.add_argument(
         "file_path",
         metavar="OSS_PATH",
-        help="PDF path in the configured OSS bucket",
+        help="Document path in the configured OSS bucket",
     )
     args = parser.parse_args()
 
@@ -118,7 +118,8 @@ def main() -> int:
                 return 1
             time.sleep(POLL_INTERVAL_SECONDS)
 
-        page_records = status_data["OutputFormatResult"][0]["Pages"]
+        output_format_result = status_data.get("OutputFormatResult") or []
+        page_records = output_format_result[0]["Pages"] if output_format_result else []
 
         layouts = []
         layout_offset = 0

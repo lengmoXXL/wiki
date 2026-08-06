@@ -15,6 +15,7 @@
 - [Silent Data Corruptions at Scale](tr/slient-data-corruptions-at-scale-2021.md)：`oss://lengmo-asserts/papers/machine/slient-data-corruptions-at-scale-2021.pdf`
 - [Software Architecture: The Hard Parts](tr/software-architecture-2021.md)：`oss://lengmo-asserts/books/software-architecture-2021.pdf`
 - [控制论与科学方法论](tr/控制论与科学方法论-2025.md)：`oss://lengmo-asserts/books/控制论与科学方法论-2025.pdf`（中文原著，仅校对）
+- [若干重大决策与事件的回顾](tr/若干重大决策与事件的回顾-1991.md)：`oss://lengmo-asserts/books/若干重大决策与事件的回顾-1991.epub`（中文原著，仅校对）
 
 ## 1. 准备环境
 
@@ -32,9 +33,10 @@ ALIBABA_CLOUD_ACCESS_KEY_ID=...
 ALIBABA_CLOUD_ACCESS_KEY_SECRET=...
 ```
 
-## 2. PDF 转 Markdown
+## 2. 文档转 Markdown
 
-`tools/parse_docmind.py` 接收 OSS 对象 key。例如，转换 Kafka 论文：
+`tools/parse_docmind.py` 接收 DocMind 支持的 PDF、EPUB 等 OSS 对象 key。
+例如，转换 Kafka 论文：
 
 ```bash
 python tools/parse_docmind.py papers/distributed-systems/kafka-2011.pdf
