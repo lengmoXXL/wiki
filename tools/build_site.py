@@ -20,8 +20,8 @@ MD_EXTENSIONS = [
     # 按列表标记宽度识别嵌套（默认渲染器要求子列表缩进 4 空格，2/3 空格会被拉平）
     "mdx_truly_sane_lists",
     "toc",
+    "attr_list",
     "pymdownx.superfences",
-    "pymdownx.highlight",
     "pymdownx.arithmatex",
 ]
 # 译文保留原文的 GitHub 风格锚点链接（如 #acid-的含义），slugify 须保留中文
@@ -268,6 +268,7 @@ article > h1:first-child {
   letter-spacing: -0.01em;
 }
 h1, h2, h3, h4, h5, h6 { line-height: 1.4; margin: 1.8em 0 0.7em; scroll-margin-top: 68px; }
+article img[id] { scroll-margin-top: 68px; }
 h2 { padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 .headerlink { color: var(--muted); opacity: 0; font-size: 0.8em; }
 h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink,
