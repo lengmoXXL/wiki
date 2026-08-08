@@ -7,6 +7,7 @@
 - [Building Event-Driven Microservices](tr/build-event-driven-microservices-2025.md)：`oss://lengmo-asserts/books/build-event-driven-microservices-2025.pdf`
 - [Cores that don't count](tr/cores-dont-count-2021.md)：`oss://lengmo-asserts/papers/machine/cores-dont-count-2021.pdf`
 - [Designing Data-Intensive Applications](tr/ddia-2026.md)：`oss://lengmo-asserts/books/ddia-2026.pdf`
+- [Efficient Memory Management for Large Language Model Serving with PagedAttention](tr/llm-serving-2023.md)：`oss://lengmo-asserts/papers/llm/llm-serving-2023.pdf`
 - [The Google File System](tr/gfs-2003.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
 - [Just for Fun](tr/just-for-fun-2002.md)：`oss://lengmo-asserts/books/just-for-fun-2002.pdf`
 - [Kafka: a Distributed Messaging System for Log Processing](tr/kafka-2011.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
