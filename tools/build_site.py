@@ -382,6 +382,23 @@ __BODY__
   }, { passive: true });
   toTop.addEventListener("click", function () { scrollTo(0, 0); });
 
+  var progressKey = "progress:" + location.pathname;
+  if (!location.hash) {
+    var savedY = Number(localStorage.getItem(progressKey));
+    if (savedY) addEventListener("load", function () {
+      scrollTo({ top: savedY, behavior: "instant" });
+    });
+  }
+  var saveTimer;
+  function saveProgress() {
+    localStorage.setItem(progressKey, String(Math.round(scrollY)));
+  }
+  addEventListener("scroll", function () {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveProgress, 200);
+  }, { passive: true });
+  addEventListener("pagehide", saveProgress);
+
   var toc = document.getElementById("toc");
   var tocToggle = document.getElementById("toc-toggle");
   if (toc && tocToggle) {
