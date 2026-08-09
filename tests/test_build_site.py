@@ -62,6 +62,11 @@ def test_index_card_links_resolve(dist):
         assert (dist / unquote(href)).is_file(), href
 
 
+def test_index_external_links(dist):
+    index = (dist / "index.html").read_text(encoding="utf-8")
+    for title, url, _ in build_site.EXTERNAL_LINKS:
+        assert f'<a class="card external" href="{url}" target="_blank"' in index, title
+
 def test_theme_toggle_and_to_top_buttons(dist):
     for name, html in article_pages(dist).items():
         assert 'id="theme-toggle"' in html, name

@@ -35,6 +35,11 @@ MD_EXTENSION_CONFIGS = {
 IMAGE_RE = re.compile(r"!\[[^\]]*\]\(\.\./raw/([^)]+)\)")
 TITLE_RE = re.compile(r"^#\s+(.+?)\s*$", re.MULTILINE)
 
+# 首页"推荐阅读"外链：(标题, URL, 简介)，构建时渲染到首页底部
+EXTERNAL_LINKS = [
+    ("动手学深度学习", "https://zh.d2l.ai", "李沐等著，免费在线的深度学习入门书，理论与可运行代码并重"),
+]
+
 # 站点发布在域名 /blog/ 路径下；首页经由根路径访问时需用 <base> 修正相对链接
 SITE_BASE = "/blog/"
 
@@ -200,6 +205,10 @@ a:hover { text-decoration: underline; }
 }
 .card .card-title { font-size: 17px; font-weight: 600; line-height: 1.5; }
 .card .card-slug { margin-top: 8px; font-size: 13px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.card .card-desc { margin-top: 8px; font-size: 13.5px; color: var(--muted); }
+.ext-arrow { color: var(--muted); font-size: 0.85em; }
+.links-section { padding-top: 0; }
+.section-heading { grid-column: 1 / -1; margin: 0 0 4px; font-size: 20px; border: none; padding: 0; }
 
 .layout {
   max-width: 1080px;
@@ -436,6 +445,7 @@ INDEX_BODY = """<section class="hero">
 <section class="cards">
 __CARDS__
 </section>
+__LINKS__
 """
 
 
@@ -499,6 +509,20 @@ def build() -> None:
         f'<div class="card-slug">{html.escape(slug)}</div></a>'
         for slug, title in entries
     )
+    # 外链卡片用 card external 类，避免被当作本地文章链接
+    link_cards = "\n".join(
+        f'<a class="card external" href="{html.escape(url)}" target="_blank" rel="noopener">'
+        f'<div class="card-title">{html.escape(title)}<span class="ext-arrow"> ↗</span></div>'
+        f'<div class="card-desc">{html.escape(desc)}</div></a>'
+        for title, url, desc in EXTERNAL_LINKS
+    )
+    links = ""
+    if link_cards:
+        links = (
+            '<section class="cards links-section">'
+            '<h2 class="section-heading">推荐阅读</h2>'
+            f"{link_cards}</section>"
+        )
     index = (
         PAGE_TEMPLATE.replace("__PYGMENTS_LIGHT__", pygments_light)
         .replace("__PYGMENTS_DARK_SYSTEM__", dark_system)
@@ -511,7 +535,7 @@ def build() -> None:
             "__BODY__",
             INDEX_BODY.replace("__COUNT__", str(len(entries))).replace(
                 "__CARDS__", cards
-            ),
+            ).replace("__LINKS__", links),
         )
     )
     (DIST_DIR / "index.html").write_text(index, encoding="utf-8")
