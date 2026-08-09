@@ -1,4 +1,4 @@
-# 只是为了好玩
+# Just for Fun
 
 **一个意外革命者的故事**
 
@@ -15,7 +15,7 @@ Linux 创始人
 
 与 DAVID DIAMOND 合著
 
-只是为了好玩
+Just for Fun
 
 一个意外革命者的故事
 
