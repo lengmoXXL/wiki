@@ -120,7 +120,6 @@ a:hover { text-decoration: underline; }
   gap: 16px;
   font-size: 14px;
 }
-.topnav .brand { font-weight: 650; color: var(--fg); }
 .topnav .back { color: var(--muted); }
 .topnav .back:hover { color: var(--accent); text-decoration: none; }
 
@@ -358,7 +357,6 @@ window.MathJax = {
 </head>
 <body>
 <header class="topnav"><div class="topnav-inner">
-<span class="brand">译文集</span>
 __NAV_EXTRA__
 <button id="theme-toggle" class="icon-btn" type="button" aria-label="切换主题">
 <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
