@@ -2233,7 +2233,7 @@ if (fd == -1) {
 ```c
 #include <string.h>
 
-char * strerror(int errnum);
+char *strerror(int errnum);
 Returns pointer to error string corresponding to errnum
 ```
 
@@ -2286,7 +2286,7 @@ Returns pointer to error string corresponding to errnum
 程序清单 3-1：大多数程序示例所使用的头文件
 
 ```c
-#ifdef TLPI_HDR_H
+#ifndef TLPI_HDR_H
 #define TLPI_HDR_H        /* Prevent accidental double inclusion */
 
 #include <sys/types.h>    /* Type definitions used by many programs */
@@ -2318,7 +2318,7 @@ lib/tlpi_hdr.h
 程序清单 3-2：常用错误处理函数的声明
 
 ```c
-#ifdef ERROR_FUNCTIONS_H
+#ifndef ERROR_FUNCTIONS_H
 #define ERROR_FUNCTIONS_H
 
 void errMsg(const char *format, ...);
@@ -2358,7 +2358,7 @@ lib/error_functions.h
 
 void errMsg(const char *format, ...);
 void errExit(const char *format, ...);
-void errExitEN(int errno, const char *format, ...);
+void errExitEN(int errnum, const char *format, ...);
 ```
 
 函数 errMsg() 会在标准错误设备上打印消息。
@@ -2439,13 +2439,13 @@ void cmdLineErr(const char *format, ...);
 程序清单 3-3：为本书所有程序所使用的错误处理函数
 
 ```c
-#include <stdlib.h>
+#include <stdarg.h>
 #include "error_functions.h"
 #include "tlpi_hdr.h"
 #include "ename.c.inc" /* Defines ename and MAX_ENAME */
 
-#ifdef _GNU_
-_attribute_ ((noreturn))
+#ifdef __GNUC__
+__attribute__ ((noreturn))
 #endif
 static void
 terminate(Boolean useExit3)
@@ -2475,7 +2475,7 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
     vsnprintf(userMsg, BUF_SIZE, format, ap);
 
     if (useErr)
-        snprintf(errText, BUF_SIZE, "%s %s",
+        snprintf(errText, BUF_SIZE, " [%s %s]",
             (err > 0 && err <= MAX_ENAME) ?
             ename[err] : "?UNKNOWN?", strerror(err));
     else
@@ -2485,7 +2485,6 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
     if (flushStdout)
         fflush(stdout); /* Flush any pending stdout */
     fputs(buf, stderr);
-}
     fflush(stderr);          /* In case stderr is not line-buffered */
 }
 
@@ -2533,8 +2532,8 @@ fatal(const char *format, ...)
 
     va_start(argList, format);
     outputError(FALSE, 0, TRUE, format, argList);
-va_end(argList);
-terminate(TRUE);
+    va_end(argList);
+    terminate(TRUE);
 }
 
 void
@@ -2599,41 +2598,41 @@ EWOULDBLOCK 则发源于 BSD，由文件锁定（flock()）以及与套接字相
 程序清单 3-4：Linux 错误名（x86-32 版）
 
 ```c
-1b/ename.c.inc
+lib/ename.c.inc
 
 static char *ename[] = {
     /* 0 */ "",
     /* 1 */ "EPERM", "ENOENT", "ESRCH", "EINTR", "EIO", "ENXIO", "E2BIG",
     /* 8 */ "ENOEXEC", "EBADF", "ECHILD", "EAGAIN/EWOULDBLOCK", "ENOMEM",
-    /* 13 */ "EACCES", "EFAUL", "ENOTBLK", "EBUSY", "EEXIST", "EXDEV",
-    /* 19 */ "ENODEV", "ENOTDIR", "EISDIR", "EINVVAL", "ENFILE", "EMFILE",
-    /* 25 */ "ENOTTY", "ETXTBSY", "EFBIG", "ENOSPC", "ESPIPE", "ERofs",
+    /* 13 */ "EACCES", "EFAULT", "ENOTBLK", "EBUSY", "EEXIST", "EXDEV",
+    /* 19 */ "ENODEV", "ENOTDIR", "EISDIR", "EINVAL", "ENFILE", "EMFILE",
+    /* 25 */ "ENOTTY", "ETXTBSY", "EFBIG", "ENOSPC", "ESPIPE", "EROFS",
     /* 31 */ "EMLINK", "EPIPE", "EDOM", "ERANGE", "EDEADLK/EDEADLOCK",
     /* 36 */ "ENAMETOOLONG", "ENOLCK", "ENOSYS", "ENOTEMPTY", "ELOOP", "",
     /* 42 */ "ENOMSG", "EIDRM", "ECHRNG", "EL2NSYNC", "EL3HLT", "EL3RST",
     /* 48 */ "ELNRNG", "EUNATCH", "ENOCSI", "EL2HLT", "EBADE", "EBADR",
-    /* 54 */ "EXFULL", "ENOANO", "EBADRCO", "EBADSLT", "", "EBFONT", "ENOSTR",
+    /* 54 */ "EXFULL", "ENOANO", "EBADRQC", "EBADSLT", "", "EBFONT", "ENOSTR",
     /* 61 */ "ENODATA", "ETIME", "ENOSR", "ENONET", "ENOPKG", "EREMOTE",
     /* 67 */ "ENOLINK", "EADV", "ESRMNT", "ECOMM", "EPROTO", "EMULTIHOP",
     /* 73 */ "EDOTDOT", "EBADMSG", "EOVERFLOW", "ENOTUNIQ", "EBADFD",
     /* 78 */ "EREMCHG", "ELIBACC", "ELIBBAD", "ELIBSCN", "ELIBMAX",
     /* 83 */ "ELIBEXEC", "EILSEQ", "ERESTART", "ESTRPIPE", "EUSERS",
     /* 88 */ "ENOTSOCK", "EDESTADDRREQ", "EMSGSIZE", "EPROTOTYPE",
-    /* 92 */ "ENOPROTOOPT", "EPROTONOSUPPORT", "ESOCKETNOSUPPORT",
+    /* 92 */ "ENOPROTOOPT", "EPROTONOSUPPORT", "ESOCKTNOSUPPORT",
     /* 95 */ "EOPNOTSUP/ENOTSUP", "EPFNOSUPPORT", "EAFNOSUPPORT",
     /* 98 */ "EADDRINUSE", "EADDRNOTAVAIL", "ENETDOWN", "ENETUNREACH",
-    /* 102 */ "ENETRESET", "ECONNABORTED", "ECONREFSET", "ENOBufs", "EISCONN",
+    /* 102 */ "ENETRESET", "ECONNABORTED", "ECONNRESET", "ENOBUFS", "EISCONN",
     /* 107 */ "ENOTCONN", "ESHUTDOWN", "ETOOMANYREFS", "ETIMEDOUT",
     /* 111 */ "ECONNREFUSED", "EHOSTDOWN", "EHOSTUNREACH", "EALREADY",
     /* 115 */ "EINPROGRESS", "ESTALE", "EUCLEAN", "ENOTNAM", "ENAVAIL",
-    /* 120 */ "EISNAM", "EREMOTEO", "EDQUOT", "ENOMEDIUM", "EMEDIUMTYPE",
+    /* 120 */ "EISNAM", "EREMOTEIO", "EDQUOT", "ENOMEDIUM", "EMEDIUMTYPE",
     /* 125 */ "ECANCELLED", "ENOKEY", "EKEYEXPIRED", "EKEYREVOKED",
     /* 129 */ "EKEYREJECTED", "EOWNERDEAD", "ENOTRECOVERABLE", "ERFKILL"
 };
 
 #define MAX_ENAME 132
 
-1b/ename.c.inc
+lib/ename.c.inc
 ```
 
 ##### 解析数值型命令行参数的函数
@@ -2672,7 +2671,7 @@ Both return arg converted to numeric form
 ```c
 lib/get_num.h
 
-#ifdef GET_NUM_H
+#ifndef GET_NUM_H
 #define GET_NUM_H
 
 #define GN_NONNEG 01 /* Value must be >= 0 */
@@ -2700,21 +2699,20 @@ lib/get_num.c
 #include <errno.h>
 #include "get_num.h"
 static void
-gnFail(const char *fname, const char * msg, const char * arg, const char * name)
+gnFail(const char *fname, const char *msg, const char *arg, const char *name)
 {
-    fprintf(stderr, ">%s error", fname);
-}
-if (name != NULL)
-    fprintf(stderr, " (in %s)", name);
-fprintf(stderr, "%s\n", msg);
-if (arg != NULL && *arg != '\0')
-    fprintf(stderr, " offending text: %s\n", arg);
+    fprintf(stderr, "%s error", fname);
+    if (name != NULL)
+        fprintf(stderr, " (in %s)", name);
+    fprintf(stderr, ": %s\n", msg);
+    if (arg != NULL && *arg != '\0')
+        fprintf(stderr, " offending text: %s\n", arg);
 
-exit(EXIT_FAILURE);
+    exit(EXIT_FAILURE);
 }
 
 static long
-getNum(const char *fname, const char * arg, int flags, const char *name)
+getNum(const char *fname, const char *arg, int flags, const char *name)
 {
     long res;
     char *endptr;
@@ -2760,7 +2758,7 @@ getInt(const char *arg, int flags, const char *name)
 
     return (int) res;
 }
-___ lib/get_num.c
+lib/get_num.c
 ```
 
 ### 3.6 可移植性问题
@@ -3148,11 +3146,11 @@ shell 代表程序打开这 3 个文件描述符。
 或者采用 <unistd.h> 所定义的 POSIX 标准名称——此方法更为可取。
 
 虽然 stdin、stdout 和 stderr 变量在程序初始化时用于指代进程的标准输入、标准输出和标准错误，
-但是调用 fopen() 库函数可以使这些变量指代其他任何文件对象。
+但是调用 freopen() 库函数可以使这些变量指代其他任何文件对象。
 作为其操作的一部分，
-fopen() 可以在将流（stream）重新打开之际一并更换隐匿其中的文件描述符。
+freopen() 可以在将流（stream）重新打开之际一并更换隐匿其中的文件描述符。
 换言之，
-针对 stdout 调用 fopen() 函数后，
+针对 stdout 调用 freopen() 函数后，
 无法保证 stdout 变量值仍然为 1。
 
 下面介绍执行文件 I/O 操作的 4 个主要系统调用（编程语言和软件包通常会利用 I/O 函数库对它们进行间接调用）。
@@ -3199,7 +3197,7 @@ $ ./copy oldfile newfile
 #include <fcntl.h>
 #include "tlpi_hdr.h"
 
-#ifdef BUF_SIZE /* Allow "cc -D" to override definition */
+#ifndef BUF_SIZE /* Allow "cc -D" to override definition */
 #define BUF_SIZE 1024
 #endif
 
@@ -3212,7 +3210,6 @@ int main(int argc, char *argv[])
 
     if (argc != 3 || strcmp(argv[1], "--help") == 0)
         usageErr("%s old-file new-file\n", argv[0]);
-}
 ```
 
 ```c
@@ -3220,14 +3217,14 @@ int main(int argc, char *argv[])
 
 inputFd = open(argv[1], O_RDONLY);
 if (inputFd == -1)
-    exit("opening file %s", argv[1]);
+    errExit("opening file %s", argv[1]);
 
 openFlags = O_CREAT | O_WRONLY | O_TRUNC;
-filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP;
-S_IROTH | S_IWOTH; /* rw-rw-rw- */
+filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
+                S_IROTH | S_IWOTH; /* rw-rw-rw- */
 outputFd = open(argv[2], openFlags, filePerms);
 if (outputFd == -1)
-    exit("opening file %s", argv[2]);
+    errExit("opening file %s", argv[2]);
 
 /* Transfer data until we encounter end of input or an error */
 
@@ -3235,14 +3232,15 @@ while ((numRead = read(inputFd, buf, BUF_SIZE)) > 0)
     if (write(outputFd, buf, numRead) != numRead)
         fatal("couldn't write whole buffer");
 if (numRead == -1)
-    exit("read");
+    errExit("read");
 
 if (close(inputFd) == -1)
-    exit("close input");
+    errExit("close input");
 if (close(outputFd) == -1)
-    exit("close output");
+    errExit("close output");
 
 exit(EXIT_SUCCESS);
+}
 ```
 
 ### 4.2 通用 I/O
@@ -3340,17 +3338,17 @@ mode 的数据类型 mode_t 属于整数类型。）
 
 fd = open("startup", O_RDONLY);
 if (fd == -1)
-    exit("open");
+    errExit("open");
 
 /* Open new or existing file for reading and writing, truncating to zero
-bytes; file permissions read+write for owner, nothing for all others */
+   bytes; file permissions read+write for owner, nothing for all others */
 
 fd = open("myfile", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 if (fd == -1)
-    exit("open");
+    errExit("open");
 
 /* Open new or existing file for writing; writes should always
-append to end of file */
+   append to end of file */
 
 fd = open("w.log", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND,
         S_IRUSR | S_IWUSR);
@@ -3358,7 +3356,7 @@ fd = open("w.log", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND,
 
 ```c
 if (fd == -1)
-    exit("open");
+    errExit("open");
 ```
 
 #### open() 调用所返回的文件描述符数值
@@ -3372,11 +3370,11 @@ SUSv3 规定，
 
 ```c
 if (close(STDIN_FILENO) == -1)       /* Close file descriptor 0 */
-    exit("close");
+    errExit("close");
 
-    fd = open(pathname, O_RDONLY);
-    if (fd == -1)
-        exit("open");
+fd = open(pathname, O_RDONLY);
+if (fd == -1)
+    errExit("open");
 ```
 
 由于文件描述符 0 未用，
@@ -3770,7 +3768,7 @@ read() 调用就会结束。
 char buffer[MAX_READ];
 
 if (read(STDIN_FILENO, buffer, MAX_READ) == -1)
-    exit("read");
+    errExit("read");
 printf("The input data was: %s\n", buffer);
 ```
 
@@ -3795,7 +3793,7 @@ ssize_t numRead;
 
 numRead = read(STDIN_FILENO, buffer, MAX_READ);
 if (numRead == -1)
-    exit("read");
+    errExit("read");
 
 buffer[numRead] = '\0';
 printf("The input data was: %s\n", buffer);
@@ -3867,7 +3865,7 @@ Returns 0 on success, or -1 on error
 
 ```c
 if (close(fd) == -1)
-    exit("close");
+    errExit("close");
 ```
 
 上述代码能够捕获的错误有：企图关闭一个未打开的文件描述符，
@@ -4080,7 +4078,7 @@ glibc 库会利用其来实现 posix_fallocate() 函数的功能。
 ```c
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <CTYPE.h>
+#include <ctype.h>
 #include "tlpi_hdr.h"
 
 int main(int argc, char *argv[])
@@ -4092,70 +4090,66 @@ int main(int argc, char *argv[])
     ssize_t numRead, numWritten;
 
     if (argc < 3 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s file {r<length> | R<length> | w<string> | s<offset>}...\\n", argv[0]);
+        usageErr("%s file {r<length>|R<length>|w<string>|s<offset>}...\n", argv[0]);
 
     fd = open(argv[1], O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); /* rw-rw-rw- */
     if (fd == -1)
-        exit(EXIT_FAILURE);
+        errExit("open");
 
     for (ap = 2; ap < argc; ap++) {
         switch (argv[ap][0]) {
-            case 'r': /* Display bytes at current offset, as text */
-                case 'R': /* Display bytes at current offset, in hex */
-                    len = getLong(&argv[ap][1], GN_ANY_BASE, argv[ap]);
-                    buf = malloc(len);
-                    if (buf == NULL)
-                        exit(EXIT_FAILURE);
-                    numRead = read(fd, buf, len);
-                    if (numRead == -1)
-                        exit(EXIT_FAILURE);
-                    return 0;
-            }
-        }
-    }
-}
+        case 'r': /* Display bytes at current offset, as text */
+        case 'R': /* Display bytes at current offset, in hex */
+            len = getLong(&argv[ap][1], GN_ANY_BASE, argv[ap]);
+
+            buf = malloc(len);
+            if (buf == NULL)
+                errExit("malloc");
+
+            numRead = read(fd, buf, len);
+            if (numRead == -1)
 ```
 
 ```c
-errExit("read");
+            errExit("read");
 
-if (numRead == 0) {
-    printf("%s: end-of-file\n", argv[ap]);
-} else {
-    printf("%s: ", argv[ap]);
-    for (j = 0; j < numRead; j++) {
-        if (argv[ap][0] == 'r')
-            printf("%c", isprint((unsigned char) buf[j]) ?
-                    buf[j] : '?');
-        else
-            printf("%02x ", (unsigned int) buf[j]);
+            if (numRead == 0) {
+                printf("%s: end-of-file\n", argv[ap]);
+            } else {
+                printf("%s: ", argv[ap]);
+                for (j = 0; j < numRead; j++) {
+                    if (argv[ap][0] == 'r')
+                        printf("%c", isprint((unsigned char) buf[j]) ?
+                                buf[j] : '?');
+                    else
+                        printf("%02x ", (unsigned int) buf[j]);
+                }
+                printf("\n");
+            }
+
+            free(buf);
+            break;
+
+        case 'w': /* Write string at current offset */
+            numWritten = write(fd, &argv[ap][1], strlen(&argv[ap][1]));
+            if (numWritten == -1)
+                errExit("write");
+            printf("%s: wrote %ld bytes\n", argv[ap], (long) numWritten);
+            break;
+
+        case 's': /* Change file offset */
+            offset = getLong(&argv[ap][1], GN_ANY_BASE, argv[ap]);
+            if (lseek(fd, offset, SEEK_SET) == -1)
+                errExit("lseek");
+            printf("%s: seek succeeded\n", argv[ap]);
+            break;
+
+        default:
+            cmdLineErr("Argument must start with [rRws]: %s\n", argv[ap]);
+        }
     }
-    printf("\n");
-}
 
-free(buf);
-break;
-
-case 'w':  /* Write string at current offset */
-    numWritten = write(fd, &argv[ap][1], strlen(&argv[ap][1]));
-    if (numWritten == -1)
-        errExit("write");
-    printf("%s: wrote %ld bytes\n", argv[ap], (long) numWritten);
-    break;
-
-case 's':  /* Change file offset */
-    offset = getLong(&argv[ap][1], GN_ANY_BASE, argv[ap]);
-    if (lseek(fd, offset, SEEK_SET) == -1)
-        errExit("lseek");
-    printf("%s: seek succeeded\n", argv[ap]);
-    break;
-
-default:
-    cmdLineErr("Argument must start with [rRws]: %s\n", argv[ap]);
-}
-}
-
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -4336,17 +4330,18 @@ tee 命令会将其覆盖。
 ```c
 fd = open(argv[1], O_WRONLY); /* Open 1: check if file exists */
 if (fd != -1) { /* Open succeeded */
-    printf([PID %ld] File \ "%s\" already exists\n",
+    printf("[PID %ld] File \"%s\" already exists\n",
            (long) getpid(), argv[1]);
     close(fd);
 } else {
     if (errno != ENOENT) { /* Failed for unexpected reason */
-        exit("open");
+        errExit("open");
     } else {
         /* WINDOW FOR FAILURE */
         fd = open(argv[1], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-        if (fd == -1) exit("open");
-        printf([PID %ld] Created file \ "%s\" exclusively\n",
+        if (fd == -1)
+            errExit("open");
+        printf("[PID %ld] Created file \"%s\" exclusively\n",
            (long) getpid(), argv[1]); /* MAY NOT BE TRUE! */
     }
 }
@@ -4382,7 +4377,7 @@ if (fd != -1) { /* Open succeeded */
 在检查文件是否存在与创建文件这两个动作之间人为制造一个长时间的等待。
 
 ```c
-printf("[PID %ld] File \\%s\" doesn't exist yet\n", (long) getpid(), argv[1]);
+printf("[PID %ld] File \"%s\" doesn't exist yet\n", (long) getpid(), argv[1]);
 if (argc > 2) {
     sleep(5);
     printf("[PID %ld] Done sleeping\n", (long) getpid());
@@ -4486,8 +4481,7 @@ int flags, accessMode;
 
 flags = fcntl(fd, F_GETFL); /* Third argument is not required */
 if (flags == -1)
-    exit(EXIT_FAILURE);
-exit(EXIT_SUCCESS);
+    errExit("fcntl");
 ```
 
 在上述代码之后，
@@ -4553,10 +4547,10 @@ int flags;
 
 flags = fcntl(fd, F_GETFL);
 if (flags == -1)
-    exit("fcntl");
-flags |= 0_APPENDD;
+    errExit("fcntl");
+flags |= O_APPEND;
 if (fcntl(fd, F_SETFL, flags) == -1)
-    exit("fcntl");
+    errExit("fcntl");
 ```
 
 ### 5.4 文件描述符和打开文件之间的关系
@@ -4851,7 +4845,7 @@ SUSv3 并未论及 F_DUPFD_CLOEXEC 标志，
 ```c
 #include <unistd.h>
 
-ssize_tpread(int fd, void *buf, size_t count, off_t offset);
+ssize_t pread(int fd, void *buf, size_t count, off_t offset);
 Returns number of bytes read, 0 on EOF, or -1 on error
 
 ssize_t pwrite(int fd, const void *buf, size_t count, off_t offset);
@@ -4984,7 +4978,7 @@ readv() 所读取的数据仍将是连续的。
 
 ```c
 #include <sys/stat.h>
-#include <sys/uid.h>
+#include <sys/uio.h>
 #include <fcntl.h>
 #include "tlpi_hdr.h"
 
@@ -4994,7 +4988,7 @@ int main(int argc, char *argv[])
     struct iovec iov[3];
     struct stat myStruct; /* First buffer */
     int x; /* Second buffer */
-    #define STR_SIZE 100
+#define STR_SIZE 100
     char str[STR_SIZE]; /* Third buffer */
     ssize_t numRead, totRequired;
 
@@ -5003,35 +4997,35 @@ int main(int argc, char *argv[])
 
     fd = open(argv[1], O_RDONLY);
     if (fd == -1)
-        exit(EXIT("open"));
+        errExit("open");
 
     totRequired = 0;
 
     iov[0].iov_base = &myStruct;
     iov[0].iov_len = sizeof(struct stat);
-}
 ```
 
 ```c
-totRequired += iov[0].iov_len;
+    totRequired += iov[0].iov_len;
 
-iov[1].iov_base = &x;
-iov[1].iov_len = sizeof(x);
-totRequired += iov[1].iov_len;
+    iov[1].iov_base = &x;
+    iov[1].iov_len = sizeof(x);
+    totRequired += iov[1].iov_len;
 
-iov[2].iov_base = str;
-iov[2].iov_len = STR_SIZE;
-totRequired += iov[2].iov_len;
+    iov[2].iov_base = str;
+    iov[2].iov_len = STR_SIZE;
+    totRequired += iov[2].iov_len;
 
-numRead = readv(fd, iov, 3);
-if (numRead == -1)
-    exit(1);
-if (numRead < totRequired)
-    printf("Read fewer bytes than requested\n");
+    numRead = readv(fd, iov, 3);
+    if (numRead == -1)
+        errExit("readv");
+    if (numRead < totRequired)
+        printf("Read fewer bytes than requested\n");
 
-printf("total bytes requested: %ld; bytes read: %ld\n",
-       (long)totRequired, (long)numRead);
-exit(EXIT_SUCCESS);
+    printf("total bytes requested: %ld; bytes read: %ld\n",
+            (long) totRequired, (long) numRead);
+    exit(EXIT_SUCCESS);
+}
 ```
 
 #### 集中输出
@@ -5092,7 +5086,7 @@ Linux 2.6.30 版本新增了两个系统调用：preadv()、pwritev()，
 #define _BSD_SOURCE
 #include <sys/uio.h>
 
-ssize_tpreadv(int fd, const struct iovec *iov, int iovcnt, off_t offset);
+ssize_t preadv(int fd, const struct iovec *iov, int iovcnt, off_t offset);
     Returns number of bytes read, 0 on EOF, or -1 on error
 ssize_t pwritev(int fd, const struct iovec *iov, int iovcnt, off_t offset);
     Returns number of bytes written, or -1 on error
@@ -5282,7 +5276,7 @@ Alpha、IA-64）的长整型类型长度为 64 位，
 ```c
 fd = open64(name, O_CREAT | O_RDWR, mode);
 if (fd == -1)
-    exit("open");
+    errExit("open");
 ```
 
 调用 open64()，
@@ -5337,36 +5331,16 @@ int main(int argc, char *argv[])
 ```
 
 ```c
-if (fd == -1)
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1if (fd == -1)
-    exit(2);
-errExit("open64");
+    if (fd == -1)
+        errExit("open64");
 
-off = atoll(argv[2]);
-if (lseek64(fd, off, SEEK_SET) == -1)
-    errExit("lseek64");
+    off = atoll(argv[2]);
+    if (lseek64(fd, off, SEEK_SET) == -1)
+        errExit("lseek64");
 
-if (write(fd, "test", 4) == -1)
-    errExit("write");
-exit(EXIT_SUCCESS);
-
+    if (write(fd, "test", 4) == -1)
+        errExit("write");
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -5433,7 +5407,7 @@ LFS 扩展功能没有解决的问题之一是，
 据此，
 若要显示 off_t 类型的值，
 则先要将其强制转换为 long long 类型，
-然后使用 printf() 函数的 %ld 限定符显示，
+然后使用 printf() 函数的 %lld 限定符显示，
 如下所示：
 
 ```c
@@ -5441,7 +5415,7 @@ LFS 扩展功能没有解决的问题之一是，
 
 off_t offset; /* Will be 64 bits, the size of 'long long' */
 /* Other code assigning a value to 'offset' */
-printf("offset=%ld\n", (long long) offset);
+printf("offset=%lld\n", (long long) offset);
 ```
 
 在处理 stat 结构所使用的 blkcnt_t 数据类型时，
@@ -5567,23 +5541,23 @@ Returns file descriptor on success, or -1 on error
 打开临时文件不久，
 程序就会使用 unlink 系统调用（参见 18.3 节）将其删除。
 故而，
-mktemp() 函数的示例代码如下所示：
+mkstemp() 函数的示例代码如下所示：
 
 ```c
 int fd;
 char template[] = "/tmp/somestringXXXXXX";
 
-fd = mktemp(template);
+fd = mkstemp(template);
 if (fd == -1)
-    exit("mktemp");
+    errExit("mkstemp");
 printf("Generated filename was: %s\n", template);
 unlink(template);       /* Name disappears immediately, but the file
-is removed only after close() */
+                           is removed only after close() */
 
 /* Use file I/O system calls - read(), write(), and so on */
 
 if (close(fd) == -1)
-    exit("close");
+    errExit("close");
 ```
 
 使用 tmpnam()、tempnam() 和 mktemp() 函数也能生成唯一的文件名。
@@ -5888,8 +5862,8 @@ static int square(int x) /* Allocated in frame for square() */
 static void doCalc(int val) /* Allocated in frame for doCalc() */
 {
     printf("The square of %d is %d\n", val, square(val));
-    if (val < 1000) { /* Allocated in frame for doCalc() */
-        int t;
+    if (val < 1000) {
+        int t; /* Allocated in frame for doCalc() */
         t = val * val * val;
         printf("The cube of %d is %d\n", val, t);
     }
@@ -5954,7 +5928,7 @@ Linux，像多数现代内核一样，采用了虚拟内存管理技术。
 在 x86-32 中，页面大小为 4096 个字节。
 其他一些 Linux 实现使用的页面比 4096 个字节更大。
 例如，Alpha 使用的页面大小为 8192 个字节，IA-64 使用的页面大小是可变的，默认为 16384 个字节。
-程序可调用 sysconf(_SCPageSize) 来获取系统虚拟内存的页面大小，具体参见 11.2 节的描述。
+程序可调用 sysconf(_SC_PAGESIZE) 来获取系统虚拟内存的页面大小，具体参见 11.2 节的描述。
 
 为支持这一组织方式，内核需要为每个进程维护一张页表（page table）（见图 6-2）。
 该页表描述了每页在进程虚拟地址空间（virtual address space）中的位置（可为进程所用的所有虚拟内存页面的集合）。
@@ -6320,11 +6294,10 @@ environ = NULL;
 这也正是 clearenv() 库函数的工作内容。
 
 ```c
-c
 #define _BSD_SOURCE /* Or: #define _SVID_SOURCE */
 #include <stdlib.h>
 
-int clearenv(void)
+int clearenv(void);
 
 Returns 0 on success, or a nonzero on error
 ```
@@ -6367,7 +6340,6 @@ for (ep = environ; *ep != NULL; ep++)
 程序清单 6-4：修改进程环境
 
 ```c
-c
 #define _GNU_SOURCE     /* To get various declarations from <stdlib.h> */
 #include <stdlib.h>
 #include "tlpi_hdr.h"
@@ -6384,14 +6356,19 @@ main(int argc, char *argv[])
 
     for (j = 1; j < argc; j++)
         if (putenv(argv[j]) != 0)
-            exit(1);
-        exit(1);
+            errExit("putenv: %s", argv[j]);
+
     if (setenv("GREET", "Hello world", 0) == -1)
-        exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
+        errExit("setenv");
+
+    unsetenv("BYE");
+
+    for (ep = environ; *ep != NULL; ep++)
+        puts(*ep);
+
+    exit(EXIT_SUCCESS);
 }
+proc/modify_env.c
 ```
 
 ### 6.8 执行非局部跳转：setjmp()和longjmp()
@@ -6479,7 +6456,7 @@ We jumped back from f2()
 
 ```c
 #include <setjmp.h>
-#include "tlipi_hdr.h"
+#include "tlpi_hdr.h"
 
 static jmp_buf env;
 
@@ -6514,15 +6491,12 @@ main(int argc, char *argv[])
             printf("We jumped back from f2()\n");
             break;
     }
-}
-```
 
-```c
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
-```
 
 proc/longjmp.c
+```
 
 #### 对 setjmp() 函数的使用限制
 
@@ -6568,8 +6542,9 @@ SUSv3 规定，如果从嵌套的信号处理器（signal handler）（即信号
 这意味着 longjmp() 操作会致使经过优化的变量被赋以错误值。
 程序清单 6-6 中的程序行为就是其中一例。
 
+程序清单 6-6：编译器的优化和 longjmp() 函数相互作用的示例
+
 ```c
-c
 #include <stdio.h>
 #include <stdlib.h>
 #include <setjmp.h>
@@ -6606,6 +6581,7 @@ main(int argc, char *argv[])
 
     exit(EXIT_SUCCESS);
 }
+proc/setjmp_vars.c
 ```
 
 以常规方式编译程序清单 6-6 中的程序，输出结果符合预期。
@@ -6620,7 +6596,7 @@ After longjmp(): nvar=777 rvar=888 vvar=999
 然而，若以优化方式编译该程序，结果就有些出乎预料了。
 
 ```console
-$ cc -0 -o setjmp_vars setjmp_vars.c
+$ cc -O -o setjmp_vars setjmp_vars.c
 $ ./setjmp_vars
 Inside doJump(): nvar=777 rvar=888 vvar=999
 After longjmp(): nvar=111 rvar=222 vvar=999
@@ -6716,6 +6692,7 @@ setjmp() 函数和 longjmp() 函数提供了从函数某甲执行非局部跳转
 #include <unistd.h>
 
 int brk(void *end_data_segment);
+Returns 0 on success, or -1 on error
 void *sbrk(intptr_t increment);
 Returns previous program break on success, or (void *)-1 on error
 ```
@@ -6819,43 +6796,39 @@ int main(int argc, char *argv[])
         usageErr("%s num-allocs block-size [step [min [max]]]\n", argv[0]);
 
     numAllocs = getInt(argv[1], GN_GT_0, "num-allocs");
+    if (numAllocs > MAX_ALLOCS)
+        cmdLineErr("num-allocs > %d\n", MAX_ALLOCS);
+
+    blockSize = getInt(argv[2], GN_GT_0 | GN_ANY_BASE, "block-size");
+
+    freeStep = (argc > 3) ? getInt(argv[3], GN_GT_0, "step") : 1;
+    freeMin = (argc > 4) ? getInt(argv[4], GN_GT_0, "min") : 1;
+    freeMax = (argc > 5) ? getInt(argv[5], GN_GT_0, "max") : numAllocs;
+
+    if (freeMax > numAllocs)
+        cmdLineErr("free-max > num-allocs\n");
+
+    printf("Initial program break:      %10p\n", sbrk(0));
+
+    printf("Allocating %d*%d bytes\n", numAllocs, blockSize);
+    for (j = 0; j < numAllocs; j++) {
+        ptr[j] = malloc(blockSize);
+        if (ptr[j] == NULL)
+            errExit("malloc");
+    }
+
+    printf("Program break is now:      %10p\n", sbrk(0));
+
+    printf("Freeing blocks from %d to %d in steps of %d\n",
+               freeMin, freeMax, freeStep);
+    for (j = freeMin - 1; j < freeMax; j += freeStep)
+        free(ptr[j]);
+
+    printf("After free(), program break is: %10p\n", sbrk(0));
+    exit(EXIT_SUCCESS);
 }
-```
 
-```c
-c
-if (numAllocs > MAX_ALLOCS)
-    cmdLineErr("num-allocs > %d\n", MAX_ALLOCS);
-
- blockSize = getInt(argv[2], GN_GT_0 | GN_ANY_BASE, "block-size");
-
-freeStep = (argc > 3) ? getInt(argv[3], GN_GT_0, "step") : 1;
-freeMin = (argc > 4) ? getInt(argv[4], GN_GT_0, "min") : 1;
-freeMax = (argc > 5) ? getInt(argv[5], GN_GT_0, "max") : numAllocs;
-
-if (freeMax > numAllocs)
-    cmdLineErr("free-max > num-allocs\n");
-
-printf("Initial program break:      %10p\n", sbrk(0));
-
-printf("Allocating %d*%d bytes\n", numAllocs, blockSize);
-for (j = 0; j < numAllocs; j++) {
-    ptr[j] = malloc(blockSize);
-    if (ptr[j] == NULL)
-        exitExit("malloc");
-
-}
-printf("Program break is now:      %10p\n", sbrk(0));
-
-printf("Freeing blocks from %d to %d in steps of %d\n",
-           freeMin, freeMax, freeStep);
-for (j = freeMin - 1; j < freeMax; j += freeStep)
-    free(ptr[j]);
-
-printf("After free(), program break is: %10p\n", sbrk(0));
-exit(EXIT_SUCCESS);
-}
-___ memalloc/free_and_sbrk.c
+memalloc/free_and_sbrk.c
 ```
 
 用下面的命令行运行程序清单 7-1 的程序，将会分配 1000 个内存块，且每隔一个内存块释放一个内存块。
@@ -6890,7 +6863,7 @@ After free(), program break is: 0x8a13000
 在这里，命令行释放了已分配内存的最后 500 个内存块。
 
 ```console
-$. ./free_and_sbrk 1000 10240 1 500 1000
+$ ./free_and_sbrk 1000 10240 1 500 1000
 Initial program break:       0x804a6bc
 Allocating 1000*10240 bytes
 Program break is now:         0x8a13000
@@ -7032,7 +7005,7 @@ glibc 手册介绍了一系列非标准函数，可用于监测和控制 malloc 
 ```c
 #include <stdlib.h>
 
-void *alloc(size_t numitems, size_t size);
+void *calloc(size_t numitems, size_t size);
 Returns pointer to allocated memory on success, or NULL on error
 ```
 
@@ -7043,12 +7016,12 @@ Returns pointer to allocated memory on success, or NULL on error
 下面是 calloc() 的一个使用范例：
 
 ```c
-struct { /* Some field definitions */ } myStruct;
+struct myStruct { /* Some field definitions */ };
 struct myStruct *p;
 
 p = calloc(1000, sizeof(struct myStruct));
 if (p == NULL)
-    exit("calloc");
+    errExit("calloc");
 ```
 
 realloc() 函数用来调整（通常是增加）一块内存的大小，而此块内存应是之前由 malloc 包中函数所分配的。
@@ -7188,7 +7161,7 @@ func(x, alloca(size), z); /* WRONG! */
 
 ```c
 void *y;
-y = alloc(a(size));
+y = alloca(size);
 func(x, y, z);
 ```
 
@@ -7491,13 +7464,13 @@ SUSv3 并未就 group 结构中的 gr_passwd 字段做明确定义，但大多�
 users_groups/ugid_functions.c
 #include <pwd.h>
 #include <grp.h>
-#include < ctype.h>
+#include <ctype.h>
 #include "ugid_functions.h" /* Declares functions defined here */
 char * /* Return name corresponding to 'uid', or NULL on error */
 userNameFromId(uid_t uid)
 {
     struct passwd *pwd;
-    pwd = getpuid(uid);
+    pwd = getpwuid(uid);
     return (pwd == NULL) ? NULL : pwd->pw_name;
 }
 uid_t /* Return UID corresponding to 'name', or -1 on error */
@@ -7508,7 +7481,6 @@ userIdFromName(const char *name)
     char *endptr;
     if (name == NULL || *name == '\0') /* On NULL or empty string */
         return -1; /* return an error */
-}
 ```
 
 ```c
@@ -7613,7 +7585,7 @@ void endspent(void);
 ```c
 struct spwd {
     char *sp_namp;        /* Login name (username) */
-    char *sp_pwd;         /* Encrypted password */
+    char *sp_pwdp;        /* Encrypted password */
 
     /* Remaining fields support "password aging", an optional
     feature that forces users to regularly change their
@@ -7634,7 +7606,7 @@ struct spwd {
 
 ```c
 long sp_expire; /* Date when account expires */
-(unsigned long sp_flag; /* Reserved for future use */
+unsigned long sp_flag;  /* Reserved for future use */
 };
 ```
 
@@ -7753,7 +7725,7 @@ if (lnmax == -1)          /* If limit is indeterminate */
 
 username = malloc(lnmax);
 if (username == NULL)
-    exitExit("malloc");
+    errExit("malloc");
 
 printf("Username: ");
 fflush(stdout);
@@ -7899,7 +7871,7 @@ Turn on set-group-ID permission bit
 
 ```console
 # ls -l prog
--rw-r-sr-x 1 root root 302585 Jun 26 15:05 prog
+-rwsr-sr-x 1 root root 302585 Jun 26 15:05 prog
 ```
 
 当运行 set-user-ID 程序（即通过调用 exec() 将 set-user-ID 程序载入进程的内存中）时，内核会将进程的有效用户 ID 设置为可执行文件的用户 ID。
@@ -7935,7 +7907,7 @@ Password:
 # chown root check_password
 # chmod u+s check_password
 # ls -l check_password
--rwlr-xr-x  1 root  users  18150 Oct 28 10:49 check_password
+-rwsr-xr-x  1 root  users  18150 Oct 28 10:49 check_password
 # exit
 $ whoami
 mtk
@@ -8094,7 +8066,7 @@ Both return 0 on success, or -1 on error
 
 ```c
 if (setuid(getuid()) == -1)
-    exit("setuid");
+    errExit("setuid");
 ```
 
 set-user-ID 程序的属主如果不是 root 用户，可使用 setuid() 将有效用户 ID 在实际用户 ID 和保存 set-user-ID 之间来回切换，其理由已在 9.4 节中予以阐述。
@@ -8153,7 +8125,7 @@ setregid()系统调用对实际和有效组 ID 实现了类似功能。
 #include <unistd.h>
 
 int setreuid(uid_t ruid, uid_t euid);
-int setregid(gid_t rgid, gid_t euid);
+int setregid(gid_t rgid, gid_t egid);
 Both return 0 on success, or -1 on error
 ```
 
@@ -8297,7 +8269,7 @@ Returns number of group IDs placed in grouplist on success, or -1 on error
 调用程序必须负责为 grouplist 数组分配存储空间，并在 gidsetsize 参数中指定其长度。
 若调用成功，getgroups()会返回置于 grouplist 中的组 ID 数量。
 
-若进程属组的数量超出 gidsetsize，则 getgroups()将返回错误（错误号为 EINVALID）。
+若进程属组的数量超出 gidsetsize，则 getgroups()将返回错误（错误号为 EINVAL）。
 为了避免发生这种情况，可将 grouplist 数组的大小调整为常量 NGROUPS_MAX+1（考虑到可移植性，数组中可能包含了有效组 ID），该常量（定义于<limits.h>文件中）定义了进程属组的最大数量。
 因此，可声明 grouplist 如下：
 
@@ -8384,6 +8356,7 @@ initgroups()函数的主要用户是创建登录会话的程序——例如 logi
 程序清单 9-1：显示进程的所有用户 ID 和组 ID
 
 ```c
+proccred/idshow.c
 #define _GNU_SOURCE
 #include <unistd.h>
 #include <sys/fsuid.h>
@@ -8403,9 +8376,9 @@ main(int argc, char *argv[])
     char *p;
 
     if (getresuid(&ruid, &euid, &suid) == -1)
-        exit("getresuid");
+        errExit("getresuid");
     if (getresgid(&rgid, &egid, &sgid) == -1)
-        exit("getresgid");
+        errExit("getresgid");
 
     /* Attempts to change the file-system IDs are always ignored
      for unprivileged processes, but even so, the following
@@ -8416,41 +8389,42 @@ main(int argc, char *argv[])
 
     printf("UID: ");
     p = userNameFromId(ruid);
-    printf("real=%s (%ld); ", (p == NULL) ? ??? : p, (long) ruid);
+    printf("real=%s (%ld); ", (p == NULL) ? "???" : p, (long) ruid);
     p = userNameFromId(euid);
-    printf("eff=%s (%ld); ", (p == NULL) ? ??? : p, (long) euid);
+    printf("eff=%s (%ld); ", (p == NULL) ? "???" : p, (long) euid);
     p = userNameFromId(suid);
-    printf("saved=%s (%ld); ", (p == NULL) ? ??? : p, (long) suid);
+    printf("saved=%s (%ld); ", (p == NULL) ? "???" : p, (long) suid);
 ```
 
 ```c
 p = userNameFromId(fsuid);
-printf("fs=%s (%ld); ", (p == NULL) ? ??? : p, (long) fsuid);
+printf("fs=%s (%ld); ", (p == NULL) ? "???" : p, (long) fsuid);
 printf("\n");
 
 printf("GID: ");
 p = groupNameFromId(rgid);
-printf("real=%s (%ld); ", (p == NULL) ? ??? : p, (long) rgid);
+printf("real=%s (%ld); ", (p == NULL) ? "???" : p, (long) rgid);
 p = groupNameFromId(egid);
-printf("eff=%s (%ld); ", (p == NULL) ? ??? : p, (long) egid);
+printf("eff=%s (%ld); ", (p == NULL) ? "???" : p, (long) egid);
 p = groupNameFromId(sgid);
-printf("saved=%s (%ld); ", (p == NULL) ? ??? : p, (long) sgid);
+printf("saved=%s (%ld); ", (p == NULL) ? "???" : p, (long) sgid);
 p = groupNameFromId(fsgid);
-printf("fs=%s (%ld); ", (p == NULL) ? ??? : p, (long) fsgid);
+printf("fs=%s (%ld); ", (p == NULL) ? "???" : p, (long) fsgid);
 printf("\n");
 
 numGroups = getgroups(SG_SIZE, suppGroups);
 if (numGroups == -1)
-    exit(1);
+    errExit("getgroups");
 printf("Supplementary groups (%d): ", numGroups);
 for (j = 0; j < numGroups; j++) {
     p = groupNameFromId(suppGroups[j]);
-    printf("%s (%ld) ", (p == NULL) ? ??? : p, (long) suppGroups[j]);
+    printf("%s (%ld) ", (p == NULL) ? "???" : p, (long) suppGroups[j]);
 }
 printf("\n");
 
 exit(EXIT_SUCCESS);
 }
+proccred/idshow.c
 ```
 
 ### 9.8 总结
@@ -8678,7 +8652,7 @@ struct tm {
     int tm_yday; /* Day in the year (0-365; 1 Jan = 0) */
     int tm_isdst; /* Daylight saving time flag
         > 0: DST is in effect;
-        = 0: DST is not effect;
+        = 0: DST is not in effect;
         < 0: DST information not available */
 };
 ```
@@ -8790,17 +8764,16 @@ int main(int argc, char *argv[])
     printf(" (about %6.3f years)\n", t / SECONDS_IN_TROPICAL_YEAR);
 
     if (gettimeofday(&tv, NULL) == -1)
-        exit("gettimeofday");
+        errExit("gettimeofday");
     printf(" gettimeofday() returned %ld secs, %ld microsecs\n",
             (long)tv.tv_sec, (long)tv.tv_usec);
 
     gmp = gmtime(&t);
     if (gmp == NULL)
-        exit("gmtime");
+        errExit("gmtime");
 
     gm = *gmp; /* Save local copy, since *gmp may be modified
-by asctime() or gmtime */
-}
+by asctime() or gmtime() */
 ```
 
 ```c
@@ -8941,6 +8914,7 @@ currTime(const char *format)
     s = strftime(buf, BUF_SIZE, (format != NULL) ? format : "%c", tm);
     return (s == 0) ? NULL : buf;
 }
+time/curr_time.c
 ```
 
 ##### 将打印格式时间转换为分解时间
@@ -8996,7 +8970,7 @@ GNU C 库还提供有与 strptime() 功能类似的两个函数：getdate()（�
 以下 shell 会话日志显示了使用该程序的一些例子：
 
 ```console
-$ ./strftime "9:39:46pm 1 Feb 2011" "%I:%M:%S%p %d %b %Y"
+$ ./strtime "9:39:46pm 1 Feb 2011" "%I:%M:%S%p %d %b %Y"
 calendar time (seconds since Epoch): 1296592786
 strftime() yields: 21:39:46 Tuesday, 01 February 2011 CET
 ```
@@ -9004,16 +8978,19 @@ strftime() yields: 21:39:46 Tuesday, 01 February 2011 CET
 以下用法与之相似，只不过这次为 strftime() 明确指定了格式：
 
 ```console
-$ ./strftime "9:39:46pm 1 Feb 2011" "%I:%M:%S%p %d %b %Y" "%F %T"
+$ ./strtime "9:39:46pm 1 Feb 2011" "%I:%M:%S%p %d %b %Y" "%F %T"
 calendar time (seconds since Epoch): 1296592786
 strftime() yields: 2011-02-01 21:39:46
 ```
 
+程序清单 10-3：获取和转换日历时间
+
 ```c
+time/strtime.c
 #define _XOPEN_SOURCE
 #include <time.h>
 #include <locale.h>
-#include "tlti_hdr.h"
+#include "tlpi_hdr.h"
 
 #define SBUF_SIZE 1000
 
@@ -9028,7 +9005,7 @@ main(int argc, char *argv[])
         usageErr("%s input-date-time in-format [out-format]\n", argv[0]);
 
     if (setlocale(LC_ALL, "") == NULL)
-        exitExit("setlocale");   /* Use locale settings in conversions */
+        errExit("setlocale");   /* Use locale settings in conversions */
 
     memset(&tm, 0, sizeof(struct tm));        /* Initialize 'tm' */
     if (strptime(argv[1], argv[2], &tm) == NULL)
@@ -9039,9 +9016,9 @@ to determine if DST is in effect */
     printf("calendar time (seconds since Epoch): %ld\n", (long) mktime(&tm));
 
     ofmt = (argc > 3) ? argv[3] : "%H:%M:%S %A, %d %B %Y %Z";
-    if (strptime(sbuf, SBUF_SIZE, ofmt, &tm) == 0)
-        fatal("strptime returned 0");
-    printf("strptime() yields: %s\n", sbuf);
+    if (strftime(sbuf, SBUF_SIZE, ofmt, &tm) == 0)
+        fatal("strftime returned 0");
+    printf("strftime() yields: %s\n", sbuf);
 
     exit(EXIT_SUCCESS);
 }
@@ -9096,11 +9073,11 @@ standard time */
 ```console
 $ ./show_time
 ctime() of time() value is: Tue Feb 1 10:25:56 2011
-astime() of local time is: Tue Feb 1 10:25:56 2011
+asctime() of local time is: Tue Feb 1 10:25:56 2011
 strftime() of local time is: Tuesday, 01 Feb 2011, 10:25:56 CET
 $ TZ="Pacific/Auckland" ./show_time
 ctime() of time() value is: Tue Feb 1 22:26:19 2011
-astime() of local time is: Tue Feb 1 22:26:19 2011
+asctime() of local time is: Tue Feb 1 22:26:19 2011
 strftime() of local time is: Tuesday, 01 February 2011, 22:26:19 NZDT
 ```
 
@@ -9170,7 +9147,7 @@ std 和 dst 部分是用以标识标准和 DST 时区名称的字符串。
 以下将 TZ 定义为 Central Europe ，该时区的标准时间比 UTC 提前 1 小时，且 DST 始于 3 月的最后一个星期日，直至 10 月的最后一个星期日结束，提前 UTC 2 小时。
 
 ```text
-TZ="CET-1:00:00CEST-2:00:00,M3.5.0,M10.5.0
+TZ="CET-1:00:00CEST-2:00:00,M3.5.0,M10.5.0"
 ```
 
 此处省略了对 DST 转换时间的指定，因为默认其发生于 02:00:00。
@@ -9545,25 +9522,24 @@ displayProcessTimes(const char *msg)
 
     if (msg != NULL)
         printf("%s", msg);
-}
 ```
 
 ```c
 if (clockTicks == 0) { /* Fetch clock ticks on first call */
     clockTicks = sysconf(_SC_CLK_TCK);
     if (clockTicks == -1)
-        exitExit("sysconf");
+        errExit("sysconf");
 }
 
 clockTime = clock();
 if (clockTime == -1)
-    exitExit("clock");
+    errExit("clock");
 
 printf("        clock() returns: %ld clocks-per-sec (%.2f secs)\n",
        (long) clockTime, (double) clockTime / CLOCKS_PER_SEC);
 
 if (times(&t) == -1)
-    exitExit("times");
+    errExit("times");
 printf("        times() yields: user CPU=%.2f; system CPU: %.2f\n",
        (double) t.tms_utime / clockTicks,
        (double) t.tms_stime / clockTicks);
@@ -9759,13 +9735,13 @@ SUSv3 定义了相应的最小值 _POSIX_NGROUPS_MAX，其值为 8。
 | LOGIN_NAME_MAX | 9 | _SC_LOGIN_NAME_MAX | 登录名的最大长度（含终止空字符） |
 | OPEN_MAX | 20 | _SC_OPEN_MAX | 进程同时可打开的文件描述符的最大数量，比可用文件描述符的最大数量多 1 个（见 36.2 节） |
 | NGROUPS_MAX | 8 | _SC_NGROUPS_MAX | 进程所属辅助组 ID 数量的最大值（见 9.7.3 节） |
-| none | 1 | _SCPageSize | 一个虚拟内存页的大小（_SC_PAGE_SIZE 与其同义） |
+| none | 1 | _SC_PAGESIZE | 一个虚拟内存页的大小（_SC_PAGE_SIZE 与其同义） |
 | RTSIG_MAX | 8 | _SC_RTSIG_MAX | 单一实时信号的最大数量（见 22.8 节） |
 | SIGQUEUE_MAX | 32 | _SC_SIGQUEUE_MAX | 排队实时信号的最大数量（见 22.8 节） |
 | STREAM_MAX | 8 | _SC_STREAM_MAX | 同时可打开的 stdio 流的最大数量 |
 | NAME_MAX | 14 | _PC_NAME_MAX | 排除终止空字符外，文件名称可达的最大字节长度 |
 | PATH_MAX | 256 | _PC_PATH_MAX | 路径名称可达的最大字节长度，含尾部空字符 |
-| PIPE_BUF | 512 | _PCPIPE_BUF | 一次性（原子操作）写入管道或 FIFO 中的最大字节数（44.1 节） |
+| PIPE_BUF | 512 | _PC_PIPE_BUF | 一次性（原子操作）写入管道或 FIFO 中的最大字节数（44.1 节） |
 
 表 11-1 中的第一列给出了限制的名称，
 可将其作为常量定义于 <limits.h> 文件中，用于表示特定实现下的限制。
@@ -9780,7 +9756,7 @@ SUSv3 定义了相应的最小值 _POSIX_NGROUPS_MAX，其值为 8。
 
 - getdtablesize() 函数是确定进程文件描述符（OPEN_MAX）限制的备选方法，已遭弃用，
   该函数曾一度为 SUSv2 所定义（标记为 LEGACY），但 SUSv3 将其剔除。
-- getpagesize() 函数是确定系统页大小（__SC_PAGESIZE）的备选方法，已然废弃。
+- getpagesize() 函数是确定系统页大小（_SC_PAGESIZE）的备选方法，已然废弃。
   该函数一度曾为 SUSv2 所定义（标记为 LEGACY），但 SUSv3 将其剔除。
 - 定义于 <stdio.h> 文件中的常量 FOPEN_MAX，等同于常量 STREAM_MAX。
 - NAME_MAX 不包含终止空字符，而 PATH_MAX 则包括。
@@ -9826,7 +9802,7 @@ long sysconf(int name);
 
 若无法确定某一限制，则 sysconf() 返回 -1。
 若调用 sysconf() 函数时发生错误，也会返回 -1。
-（唯一指定的错误是 EINVALID，表示 name 无效。）
+（唯一指定的错误是 EINVAL，表示 name 无效。）
 为区别上述两种情况，必须在调用函数前将 errno 设置为 0，
 如果调用返回 -1，且调用后 errno 值不为 0，
 那么调用 sysconf() 函数时发生了错误。
@@ -9845,7 +9821,7 @@ _SC_ARG_MAX: 2097152
 _SC_LOGIN_NAME_MAX: 256
 _SC_OPEN_MAX: 1024
 _SC_NGROUPS_MAX: 65536
-_SCPageSize: 4096
+_SC_PAGESIZE: 4096
 _SC_RTSIG_MAX: 32
 ```
 
@@ -9877,7 +9853,7 @@ int main(int argc, char *argv[])
     sysconfPrint("_SC_LOGIN_NAME_MAX: ", _SC_LOGIN_NAME_MAX);
     sysconfPrint("_SC_OPEN_MAX: ", _SC_OPEN_MAX);
     sysconfPrint("_SC_NGROUPS_MAX: ", _SC_NGROUPS_MAX);
-    sysconfPrint("_SC_PAGESize: ", _SC_PAGESize);
+    sysconfPrint("_SC_PAGESIZE: ", _SC_PAGESIZE);
     sysconfPrint("_SC_RTSIG_MAX: ", _SC_RTSIG_MAX);
     exit(EXIT_SUCCESS);
 }
@@ -9934,7 +9910,7 @@ SUSv3 并不要求 pathconf() 和 fpathconf() 的返回值在进程的生命周�
 | --- | --- |
 | _PC_NAME_MAX | 针对目录，返回该目录下文件命名的最大长度，对于其他文件类型，则未作规定 |
 | _PC_PATH_MAX | 对于目录，返回该目录中相对路径名的最大长度，对于其他文件类型，则未作规定 |
-| _PCPIPE_BUF | 对于 FIFO 或者管道，返回一个应用于引用文件的值。对于目录，返回的值应用于在该目录下创建的一 FIFO。对于其他文件类型，则未作规定 |
+| _PC_PIPE_BUF | 对于 FIFO 或者管道，返回一个应用于引用文件的值。对于目录，返回的值应用于在该目录下创建的一 FIFO。对于其他文件类型，则未作规定 |
 
 程序清单 11-2 所示为针对由标准输入所指向的文件，
 使用 fpathconf() 函数获取各种限制。
@@ -9942,9 +9918,9 @@ SUSv3 并不要求 pathconf() 和 fpathconf() 的返回值在进程的生命周�
 
 ```console
 $ ./t_fpathconf < .
- PC_NAME_MAX: 255
- PC_PATH_MAX: 4096
- PCPIPE_BUF: 4096
+_PC_NAME_MAX: 255
+_PC_PATH_MAX: 4096
+_PC_PIPE_BUF: 4096
 ```
 
 程序清单 11-2：使用 fpathconf() 函数
@@ -9965,7 +9941,7 @@ fpathconfPrint(const char *msg, int fd, int name)
         if (errno == 0) /* Call succeeded, limit indeterminate */
             printf("%s (indeterminate)\n", msg);
         else /* Call failed */
-            exit(EXIT_SUCCESS);
+            errExit("fpathconf %s", msg);
     }
 }
 
@@ -9973,7 +9949,7 @@ int main(int argc, char *argv[])
 {
     fpathconfPrint("_PC_NAME_MAX: ", STDIN_FILENO, _PC_NAME_MAX);
     fpathconfPrint("_PC_PATH_MAX: ", STDIN_FILENO, _PC_PATH_MAX);
-    fpathconfPrint("_PCPIPE_BUF: ", STDIN_FILENO, _PCPIPE_BUF);
+    fpathconfPrint("_PC_PIPE_BUF: ", STDIN_FILENO, _PC_PIPE_BUF);
     exit(EXIT_SUCCESS);
 }
 ```
@@ -10172,7 +10148,7 @@ Groups:
 VmPeak: 852 kB
 VmSize: 724 kB
 VmLck: 0 kB
-VmHMM: 288 kB
+VmHWM: 288 kB
 VmRSS: 288 kB
 VmData: 148 kB
 VmStk: 88 kB
@@ -10184,7 +10160,7 @@ SigQ: 0/3067
 SigPnd: 0000000000000000
 ShdPnd: 0000000000000000
 SigBlk: 0000000000000000
-SigIgn: ffffffe5770d8fc
+SigIgn: fffffffe5770d8fc
 SigCgt: 00000000280b2603
 CapInh: 0000000000000000
 CapPrm: 0000000000000000
@@ -10192,10 +10168,10 @@ CapEff: 0000000000000000
 CapBnd: 0000000000000000
 Cpus_allowed: 1
 Cpus_allowed_list: 0
-Memis_allowed: 1
-Memis_allowed_list: 0
-voluntary_ctxt switches: 6998
-nonvoluntary_ctxt switches: 107
+Mems_allowed: 1
+Mems_allowed_list: 0
+voluntary_ctxt_switches: 6998
+nonvoluntary_ctxt_switches: 107
 Stack usage: 8 kB
 Name of command run by this process
 State of this process
@@ -10379,28 +10355,28 @@ int main(int argc, char *argv[])
     char line[MAX_LINE];
     ssize_t n;
 
-    fd = open("/proc/sys/kernel/pid_max", (argc > 1) ? 0_RDRW : 0_RONLY);
+    fd = open("/proc/sys/kernel/pid_max", (argc > 1) ? O_RDWR : O_RDONLY);
     if (fd == -1)
-        exit("open");
+        errExit("open");
 
-        n = read(fd, line, MAX_LINE);
-        if (n == -1)
-                exit("read");
+    n = read(fd, line, MAX_LINE);
+    if (n == -1)
+        errExit("read");
 
-        if (argc > 1)
-                printf("Old value: ");
-        printf("%.*.s", (int) n, line);
+    if (argc > 1)
+        printf("Old value: ");
+    printf("%.*s", (int) n, line);
 
-        if (argc > 1) {
-                if (write(fd, argv[1], strlen(argv[1])) != strlen(argv[1]))
-                        fatal("write() failed");
+    if (argc > 1) {
+        if (write(fd, argv[1], strlen(argv[1])) != strlen(argv[1]))
+            fatal("write() failed");
 
-                system("echo /proc/sys/kernel/pid_max now contains "
-                    "~cat /proc/sys/kernel/pid_max");
-        }
-        exit(EXIT_SUCCESS);
+        system("echo /proc/sys/kernel/pid_max now contains "
+               "`cat /proc/sys/kernel/pid_max`");
     }
-    sysinfo/procfs_pidmax.c
+
+    exit(EXIT_SUCCESS);
+}
 ```
 
 ### 12.2 系统标识：uname()
@@ -10422,12 +10398,12 @@ utsbuf 参数是一个指向 utsname 结构的指针，其定义如下：
 struct utsname {
     char sysname[_UTSNAME_LENGTH];      /* Implementation name */
     char nodename[_UTSNAME_LENGTH];     /* Node name on network */
-    char release[_UTSNAME_LENGTH];       /* Implementation release level */
-    char version[_UTSNAME_LENGTH];       /* Release version level */
-    char machine[_UTSNAME_LENGTH];       /* Hardware on which system
-is running */
+    char release[_UTSNAME_LENGTH];      /* Implementation release level */
+    char version[_UTSNAME_LENGTH];      /* Release version level */
+    char machine[_UTSNAME_LENGTH];      /* Hardware on which system
+                                           is running */
 #ifdef _GNU_SOURCE          /* Following is Linux-specific */
-    char domainname[_UTSNAME_LENGTH];  /* NIS domain name of host */
+    char domainname[_UTSNAME_LENGTH];   /* NIS domain name of host */
 #endif
 };
 ```
@@ -10466,7 +10442,7 @@ sethostname() 和 setdomainname() 系统调用在应用程序中鲜有使用。
 下面是运行该程序可能看到的输出信息：
 
 ```console
-$ ./t uname
+$ ./t_uname
 Node name:    tekapo
 System name:  Linux
 Release:      2.6.30-default
@@ -10478,8 +10454,6 @@ Domain name:
 程序清单 12-2：使用 uname()
 
 ```c
-sysinfo/t uname.c
-
 #define _GNU_SOURCE
 #include <sys/utsname.h>
 #include "tlpi_hdr.h"
@@ -10489,17 +10463,17 @@ int main(int argc, char *argv[])
     struct utsname uts;
 
     if (uname(&uts) == -1)
-        exit(EXIT_FAILURE);
+        errExit("uname");
 
-    printf("Node name: %s\n", uts.nodename);
+    printf("Node name:   %s\n", uts.nodename);
     printf("System name: %s\n", uts.sysname);
-    printf("Release: %s\n", uts.release);
-    printf("Version: %s\n", uts.version);
-    printf("Machine: %s\n", uts.machine);
+    printf("Release:     %s\n", uts.release);
+    printf("Version:     %s\n", uts.version);
+    printf("Machine:     %s\n", uts.machine);
 
-    #ifdef _GNU_SOURCE
-        printf("Domain name: %s\n", uts.domainname);
-    #endif
+#ifdef _GNU_SOURCE
+    printf("Domain name: %s\n", uts.domainname);
+#endif
 
     exit(EXIT_SUCCESS);
 }
@@ -10794,7 +10768,7 @@ stderr 默认属于这一类型，从而保证错误能立即输出。
 static char buf[BUF_SIZE];
 
 if (setvbuf(stdout, buf, _IOFBF, BUF_SIZE) != 0)
-    exit("setvbuf");
+    errExit("setvbuf");
 ```
 
 注意：setvbuf() 出错时返回非 0 值（而不一定是 -1）。
@@ -10915,7 +10889,8 @@ fsync() 系统调用将使缓冲数据和与打开文件描述符 fd 相关的�
 
 ```c
 #include <unistd.h>
-int fasync(int fd);
+
+int fsync(int fd);
 /* Returns 0 on success, or -1 on error */
 ```
 
@@ -10930,6 +10905,7 @@ fdatasync() 系统调用的运作类似于 fsync()，
 
 ```c
 #include <unistd.h>
+
 int fdatasync(int fd);
 /* Returns 0 on success, or -1 on error */
 ```
@@ -11086,7 +11062,7 @@ posix_fadvise() 系统调用允许进程就自身访问文件数据时可能采�
 #include <fcntl.h>
 
 int posix_fadvise(int fd, off_t offset, off_t len, int advice);
-    /* Returns 0 on success, or a positive error number on error */
+/* Returns 0 on success, or a positive error number on error */
 ```
 
 内核可以（但不必非要）根据 posix_fadvise() 所提供的信息来优化对缓冲区高速缓存的使用，
@@ -11178,7 +11154,7 @@ O_DIRECT 标志自内核 2.4.10 开始有效，并非所有 Linux 文件系统�
 绝大多数原生（native）文件系统都支持 O_DIRECT，
 但许多非 UNIX 文件系统（比如 VFAT）则不支持。
 对于所关注的文件系统，有必要进行相关测试
-（若文件系统不支持 O_DIRECT，则 open() 将失败并返回错误号 EINVALID）
+（若文件系统不支持 O_DIRECT，则 open() 将失败并返回错误号 EINVAL）
 或是阅读内核源码，以此来加以验证。
 
 若一进程以 O_DIRECT 标志打开某文件，
@@ -11197,7 +11173,7 @@ raw(8) 手册页描述了一个获取对磁盘设备进行原始访问的老技�
 - 数据传输的开始点，亦即文件和设备的偏移量，必须是块大小的整数倍。
 - 待传递数据的长度必须是块大小的整数倍。
 
-不遵守上述任一限制均将导致 EINVALID 错误。
+不遵守上述任一限制均将导致 EINVAL 错误。
 在上述列表中，块大小（block size）指设备的物理块大小（通常为 512 字节）。
 
 当执行直接 I/O 时，Linux 2.4 比 Linux 2.6 限制更为严格：
@@ -11261,33 +11237,32 @@ main(int argc, char *argv[])
 
     fd = open(argv[1], O_RDONLY | O_DIRECT);
     if (fd == -1)
-        exitExit("open");
+        errExit("open");
 
-/* memalign() allocates a block of memory aligned on an address that
-is a multiple of its first argument. The following expression
-ensures that 'buf' is aligned on a non-power-of-two multiple of
-'alignment'. We do this to ensure that if, for example, we ask
-for a 256-byte aligned buffer, then we don't accidentally get
-a buffer that is also aligned on a 512-byte boundary.
+    /* memalign() allocates a block of memory aligned on an address that
+       is a multiple of its first argument. The following expression
+       ensures that 'buf' is aligned on a non-power-of-two multiple of
+       'alignment'. We do this to ensure that if, for example, we ask
+       for a 256-byte aligned buffer, then we don't accidentally get
+       a buffer that is also aligned on a 512-byte boundary.
 
-The '(char *) cast is needed to allow pointer arithmetic (which
-is not possible on the 'void*' returned by memalign()). */
+       The '(char *)' cast is needed to allow pointer arithmetic (which
+       is not possible on the 'void *' returned by memalign()). */
 
-buf = (char *) memalign(alignment * 2, length + alignment) + alignment;
-if (buf == NULL)
+    buf = (char *) memalign(alignment * 2, length + alignment) + alignment;
+    if (buf == NULL)
+        errExit("memalign");
+
+    if (lseek(fd, offset, SEEK_SET) == -1)
+        errExit("lseek");
+
+    numRead = read(fd, buf, length);
+    if (numRead == -1)
+        errExit("read");
+    printf("Read %ld bytes\n", (long) numRead);
+
     exit(EXIT_SUCCESS);
-
-if (lseek(fd, offset, SEEK_SET) == -1)
-    exit(EXIT_SUCCESS);
-
-numRead = read(fd, buf, length);
-if (numRead == -1)
-    exit(EXIT_SUCCESS);
-printf("Read %ld bytes\n", (long) numRead);
-
-exit(EXIT_SUCCESS);
 }
-filebuff/direct_read.c
 ```
 
 ### 13.7 混合使用库函数和系统调用进行文件 I/O
@@ -11977,7 +11952,7 @@ Verify change
 # mkdir /demo
 # ./t_mount -f m /testfs /demo
 # cat /proc/mounts | grep sda12
-/dev/sda12 /demo ext3 ro 0
+/dev/sda12 /demo ext3 ro 0 0
 Verify change
 ```
 
@@ -11998,7 +11973,7 @@ usageError(const char *progName, const char *msg)
     #define fpe(str) fprintf(stderr, "    " str)  /* Shorter! */
     fpe("-t ftype        [e.g., 'ext2' or 'reiserfs']\n");
     fpe("-o data         [file system-dependent options,\n");
-    fpe("            e.g., 'bdsgroups' for ext2]\n");
+    fpe("            e.g., 'bsdgroups' for ext2]\n");
     fpe("-f mountflags   can include any of:\n");
     #define fpe2(str) fprintf(stderr, "    " str)
     fpe2("b - MS_BIND     create a bind mount\n");
@@ -12033,45 +12008,47 @@ main(int argc, char *argv[])
 ```
 
 ```c
-case 'o':
-    data = optarg;
-    break;
+        case 'o':
+            data = optarg;
+            break;
 
-case 't':
-    ftype = optarg;
-    break;
+        case 't':
+            ftype = optarg;
+            break;
 
-case 'f':
-    for (j = 0; j < strlen(optarg); j++) {
-        switch (optarg[j]) {
-            case 'b': flags |= MS_BIND; break;
-            case 'd': flags |= MS_DIRSYNC; break;
-            case 'l': flags |= MS_MANDLOCK; break;
-            case 'm': flags |= MS_MOVE; break;
-            case 'A': flags |= MS_NOATIME; break;
-            case 'V': flags |= MS_NODEV; break;
-            case 'D': flags |= MS_NODIRATIME; break;
-            case 'E': flags |= MS_NOEXEC; break;
-            case 'S': flags |= MS_NOSUID; break;
-            case 'r': flags |= MS_RDONLY; break;
-            case 'c': flags |= MS_REC; break;
-            case 'R': flags |= MS_REMOUNT; break;
-            case 's': flags |= MS_SYNCHRONOUS; break;
-            default: usageError(argv[0], NULL);
+        case 'f':
+            for (j = 0; j < strlen(optarg); j++) {
+                switch (optarg[j]) {
+                case 'b': flags |= MS_BIND; break;
+                case 'd': flags |= MS_DIRSYNC; break;
+                case 'l': flags |= MS_MANDLOCK; break;
+                case 'm': flags |= MS_MOVE; break;
+                case 'A': flags |= MS_NOATIME; break;
+                case 'V': flags |= MS_NODEV; break;
+                case 'D': flags |= MS_NODIRATIME; break;
+                case 'E': flags |= MS_NOEXEC; break;
+                case 'S': flags |= MS_NOSUID; break;
+                case 'r': flags |= MS_RDONLY; break;
+                case 'c': flags |= MS_REC; break;
+                case 'R': flags |= MS_REMOUNT; break;
+                case 's': flags |= MS_SYNCHRONOUS; break;
+                default: usageError(argv[0], NULL);
+                }
+            }
+            break;
+
+        default:
+            usageError(argv[0], NULL);
         }
     }
-    break;
 
-default:
-    usageError(argv[0], NULL);
-}
+    if (argc != optind + 2)
+        usageError(argv[0], "Wrong number of arguments\n");
 
-if (argc != optind + 2)
-    usageError(argv[0], "Wrong number of arguments\n");
+    if (mount(argv[optind], argv[optind + 1], ftype, flags, data) == -1)
+        errExit("mount");
 
-if (mount(argv[optind], argv[optind + 1], ftype, flags, data) == -1)
-    exit(1);
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 filesys/t_mount.c
 ```
@@ -12227,7 +12204,7 @@ $ su
 Password:
 # mount /dev/sda12 /testfs
 # mount -o noexec /dev/sda12 /demo
-# cat /proc mounts | grep sda12
+# cat /proc/mounts | grep sda12
 /dev/sda12 /testfs ext3 rw 0 0
 /dev/sda12 /demo ext3 rw,noexec 0 0
 # cp /bin/echo /testfs
@@ -12434,14 +12411,14 @@ struct statvfs {
     unsigned long f_bsize;      /* File-system block size (in bytes) */
     unsigned long f_frsize;     /* Fundamental file-system block size
 (in bytes) */
-    fcntl_t      f_blocks;     /* Total number of blocks in file
+    fsblkcnt_t    f_blocks;     /* Total number of blocks in file
 system (in units of 'f_frsize') */
-    fcntl_t      f_bfree;      /* Total number of free blocks */
-    fcntl_t      f_bavail;     /* Number of free blocks available to
+    fsblkcnt_t    f_bfree;      /* Total number of free blocks */
+    fsblkcnt_t    f_bavail;     /* Number of free blocks available to
 unprivileged process */
-    ffilcnt_t    f_files;      /* Total number of i-nodes */
-    ffilcnt_t    f_ffree;      /* Total number of free i-nodes */
-    ffilcnt_t    f_favail;     /* Number of i-nodes available to unprivileged
+    fsfilcnt_t    f_files;      /* Total number of i-nodes */
+    fsfilcnt_t    f_ffree;      /* Total number of free i-nodes */
+    fsfilcnt_t    f_favail;     /* Number of i-nodes available to unprivileged
 process (set to 'f_ffree' on Linux) */
     unsigned long f_fsid;       /* File-system ID */
     unsigned long f_flag;       /* Mount flags */
@@ -12564,7 +12541,7 @@ All return 0 on success, or -1 on error
 ```c
 struct stat {
     dev_t st_dev; /* IDs of device on which file resides */
-   ino_t st_ino; /* I-node number of file */
+    ino_t st_ino; /* I-node number of file */
     mode_t st_mode; /* File type and permissions */
     nlink_t st_nlink; /* Number of (hard) links to file */
     uid_t st_uid; /* User ID of file owner */
@@ -12729,7 +12706,7 @@ Last status change: Mon Jun 8 09:39:51 2011
 ```
 
 ```c
-#define _BSD_SOURCE   /* Get major() and minor() from <sys/types.h>*/
+#define _BSD_SOURCE   /* Get major() and minor() from <sys/types.h> */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>
@@ -12749,7 +12726,7 @@ displayStatInfo(const struct stat *sb)
         case S_IFLNK:      printf("symbolic (soft) link\n");  break;
         case S_IFIFO:      printf("FIFO or pipe\n");      break;
         case S_IFSOCK:     printf("socket\n");            break;
-        default:           printf("unknown file type?\n");
+        default:           printf("unknown file type?\n"); break;
     }
 
     printf("Device containing i-node: major=%ld  minor=%ld\n",
@@ -12758,7 +12735,7 @@ displayStatInfo(const struct stat *sb)
     printf("I-node number:       %ld\n", (long) sb->st_ino);
 
     printf("Mode:              %lo (%s)\n",
-           (unsigned long) sb->st_mode, filePerStr(sb->st_mode, 0));
+           (unsigned long) sb->st_mode, filePermStr(sb->st_mode, 0));
 
     if (sb->st_mode & (S_ISUID | S_ISGID | S_ISVTX))
         printf("    special bits set:   %s%s%s\n",
@@ -12772,17 +12749,19 @@ displayStatInfo(const struct stat *sb)
            (long) sb->st_uid, (long) sb->st_gid);
 
     if (S_ISCHR(sb->st_mode) || S_ISBLK(sb->st_mode))
-        printf("Device number (st_dev): major=%ld; minor=%ld\n",
-               (long) major(sb->st_dev), (long) minor(sb->st_dev));
+        printf("Device number (st_rdev): major=%ld; minor=%ld\n",
+               (long) major(sb->st_rdev), (long) minor(sb->st_rdev));
 
-    printf("File size:         %ld bytes\n", (long long) sb->st_size);
+    printf("File size:         %lld bytes\n", (long long) sb->st_size);
     printf("Optimal I/O block size: %ld bytes\n", (long) sb->st_blksize);
-    printf("512B blocks allocated: %ld\n", (long long) sb->st_blocks);
+    printf("512B blocks allocated: %lld\n", (long long) sb->st_blocks);
     printf("Last file access:    %s", ctime(&sb->st_atime));
     printf("Last file modification: %s", ctime(&sb->st_mtime));
     printf("Last status change:   %s", ctime(&sb->st_ctime));
 }
 ```
+
+程序清单 15-1：获取并解释文件的 stat 信息
 
 ```c
 int main(int argc, char *argv[])
@@ -12797,14 +12776,15 @@ int main(int argc, char *argv[])
     fname = statLink ? 2 : 1;
 
     if (fname >= argc || (argc > 1 && strcmp(argv[1], "--help") == 0))
-        usageErr("%s [-l] file\n", -1 = use lstat() instead of stat() \n", argv[0]);
+        usageErr("%s [-l] file\n"
+                "        -l = use lstat() instead of stat()\n", argv[0]);
 
     if (statLink) {
         if (lstat(argv[fname], &sb) == -1)
-            exit(EXIT_SUCCESS);
+            errExit("lstat");
     } else {
         if (stat(argv[fname], &sb) == -1)
-            exit(EXIT_SUCCESS);
+            errExit("stat");
     }
 
     displayStatInfo(&sb);
@@ -12919,11 +12899,11 @@ struct stat sb;
 struct utimbuf utb;
 
 if (stat(pathname, &sb) == -1)
-    exit("stat");
+    errExit("stat");
 utb.actime = sb.st_atime;        /* Leave access time unchanged */
 utb.modtime = sb.st_atime;
 if (utime(pathname, &utb) == -1)
-    exit("utime");
+    errExit("utime");
 ```
 
 只要调用 utime() 成功，总会将文件的上次状态更改时间置为当前时间。
@@ -13020,8 +13000,7 @@ times[0].tv_nsec = UTIME_NOW;
 times[1].tv_sec = 0;
 times[1].tv_nsec = UTIME_OMIT;
 if (utimensat(AT_FDCWD, "myfile", times, 0) == -1)
-    exit(1);
-}
+    errExit("utimensat");
 ```
 
 利用 utimensat() 和 futimens() 改变时间戳时所遵循的权限规则与旧有 API 函数相类似，utimensat(2) 手册页对此有详细讨论。
@@ -13029,7 +13008,7 @@ if (utimensat(AT_FDCWD, "myfile", times, 0) == -1)
 使用 futimens()库函数可更新打开文件描述符 fd 所指代文件的各个文件时间戳。
 
 ```c
-#include _GNU_SOURCE
+#define _GNU_SOURCE
 #include <sys/stat.h>
 
 int futimens(int fd, const struct timespec times[2]);
@@ -13142,14 +13121,14 @@ int main(int argc, char *argv[])
     uid_t uid;
     gid_t gid;
     int j;
-    Boolean errFind;
+    Boolean errFnd;
 
     if (argc < 3 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s owner group [%file...]\n"
-                "owner or group can be '-:', "
+        usageErr("%s owner group [file...]\n"
+                "owner or group can be '-', "
                 "meaning leave unchanged\n", argv[0]);
 
-    if (strcmp(argv[1], "-") == 0) { /* "--" == don't change owner */
+    if (strcmp(argv[1], "-") == 0) { /* "-" ==> don't change owner */
         uid = -1;
     } else { /* Turn user name into UID */
         uid = userIdFromName(argv[1]);
@@ -13157,7 +13136,7 @@ int main(int argc, char *argv[])
             fatal("No such user (%s)", argv[1]);
     }
 
-    if (strcmp(argv[2], "-") == 0) { /* "-." == don't change group */
+    if (strcmp(argv[2], "-") == 0) { /* "-" ==> don't change group */
         gid = -1;
     } else { /* Turn group name into GID */
         gid = groupIdFromName(argv[2]);
@@ -13167,15 +13146,15 @@ int main(int argc, char *argv[])
 
     /* Change ownership of all files named in remaining arguments */
 
-    errFind = FALSE;
+    errFnd = FALSE;
     for (j = 3; j < argc; j++) {
         if (chown(argv[j], uid, gid) == -1) {
             errMsg("chown: %s", argv[j]);
-            errFind = TRUE;
+            errFnd = TRUE;
         }
     }
 
-    exit(errFind ? EXIT_FAILURE : EXIT_SUCCESS);
+    exit(errFnd ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 ```
 
@@ -13243,12 +13222,10 @@ $ ls -l myscript.sh
 
 程序清单 15-3 声明的函数 filePermStr()，会针对给定的文件权限掩码返回一个静态分配的字符串，以 ls(1) 所采用的风格来表示该掩码。
 
-程序清单 15−3: file_perms.c 文件的头文件
+程序清单 15-3：file_perms.c 文件的头文件
 
 ```c
-files/file_perms.h
-
-#ifdef FILE_PERMS_H
+#ifndef FILE_PERMS_H
 #define FILE_PERMS_H
 
 #include <sys/types.h>
@@ -13268,11 +13245,10 @@ files/file_perms.h
 程序清单 15-4：将文件权限掩码转换为字符串
 
 ```c
-files/file_perms.c
 #include <sys/stat.h>
 #include <stdio.h>
 #include "file_perms.h" /* Interface for this implementation */
-#define STR_SIZE sizeof("rw xrwxrwx")
+#define STR_SIZE sizeof("rwxrwxrwx")
 char * /* Return ls(1)-style string for file permissions mask */
 filePermStr(mode_t perm, int flags)
 {
@@ -13280,21 +13256,22 @@ filePermStr(mode_t perm, int flags)
 ```
 
 ```c
-snprintf(str, STR_SIZE, "%c%c%c%c%c%c%c",
-    (perm & S_IRUSR) ? 'r' : '-', (perm & S_IWUSR) ? 'w' : '-', 
-    (perm & S_IXUSR) ?
-        ((perm & S_ISUID) && (flags & FP_SPECIAL)) ? 's' : 'x') :
-        ((perm & S_ISUID) && (flags & FP_SPECIAL)) ? 'S' : '-', 
-    (perm & S_IRGRP) ? 'r' : '-', (perm & S_IWGRP) ? 'w' : '-', 
-    (perm & S_IXGRP) ?
-        ((perm & S_ISGID) && (flags & FP_SPECIAL)) ? 's' : 'x') :
-        ((perm & S_ISGID) && (flags & FP_SPECIAL)) ? 'S' : '-', 
-    (perm & S_IROTH) ? 'r' : '-', (perm & S_IWOTH) ? 'w' : '-', 
-    (perm & S_XOTH) ?
-        ((perm & S_ISVTX) && (flags & FP_SPECIAL)) ? 't' : 'x') :
-        ((perm & S_ISVTX) && (flags & FP_SPECIAL)) ? 'T' : '-')));
+    snprintf(str, STR_SIZE, "%c%c%c%c%c%c%c%c%c",
+        (perm & S_IRUSR) ? 'r' : '-', (perm & S_IWUSR) ? 'w' : '-',
+        (perm & S_IXUSR) ?
+            (((perm & S_ISUID) && (flags & FP_SPECIAL)) ? 's' : 'x') :
+            (((perm & S_ISUID) && (flags & FP_SPECIAL)) ? 'S' : '-'),
+        (perm & S_IRGRP) ? 'r' : '-', (perm & S_IWGRP) ? 'w' : '-',
+        (perm & S_IXGRP) ?
+            (((perm & S_ISGID) && (flags & FP_SPECIAL)) ? 's' : 'x') :
+            (((perm & S_ISGID) && (flags & FP_SPECIAL)) ? 'S' : '-'),
+        (perm & S_IROTH) ? 'r' : '-', (perm & S_IWOTH) ? 'w' : '-',
+        (perm & S_IXOTH) ?
+            (((perm & S_ISVTX) && (flags & FP_SPECIAL)) ? 't' : 'x') :
+            (((perm & S_ISVTX) && (flags & FP_SPECIAL)) ? 'T' : '-'));
 
-return str;
+    return str;
+}
 files/file_perms.c
 ```
 
@@ -13530,43 +13507,45 @@ files/t_umask.c
 #define MYDIR "mydir"
 #define FILE_PERMS (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)
 #define DIR_PERMS (S_IRWXU | S_IRWXG | S_IRWXO)
-#define UMASK_SETTING (S_IWGRP | S_IWGRP | S_IWOTH | S_IWOTH)
+#define UMASK_SETTING (S_IWGRP | S_IXGRP | S_IWOTH | S_IXOTH)
 
 int main(int argc, char *argv[])
 {
 ```
 
 ```c
-int fd;
-struct stat sb;
-mode_t u;
+    int fd;
+    struct stat sb;
+    mode_t u;
 
-umask(UMASK_SETTING);
+    umask(UMASK_SETTING);
 
-fd = open(MYFILE, O_RDWR | O_CREAT | O_EXCL, FILE_PERMS);
-if (fd == -1)
-    exit("open-%s", MYFILE);
-if (mkdir(MYDIR, DIR_PERMS) == -1)
-    exit("mkdir-%s", MYDIR);
+    fd = open(MYFILE, O_RDWR | O_CREAT | O_EXCL, FILE_PERMS);
+    if (fd == -1)
+        errExit("open-%s", MYFILE);
+    if (mkdir(MYDIR, DIR_PERMS) == -1)
+        errExit("mkdir-%s", MYDIR);
 
-u = umask(0); /* Retrieves (and clears) umask value */
+    u = umask(0); /* Retrieves (and clears) umask value */
 
-if (stat(MYFILE, &sb) == -1)
-    exit("stat-%s", MYFILE);
-printf("Requested file perms: %s\n", filePermStr(FILE_PERMS, 0));
-printf("Process umask: %s\n", filePermStr(u, 0));
-printf("Actual file perms: %s\n\n", filePermStr(sb.st_mode, 0));
-if (stat(MYDIR, &sb) == -1)
-    exit("stat-%s", MYDIR);
-printf("Requested dir. perms: %s\n", filePermStr(DIR_PERMS, 0));
-printf("Process umask: %s\n", filePermStr(u, 0));
-printf("Actual dir. perms: %s\n", filePermStr(sb.st_mode, 0));
+    if (stat(MYFILE, &sb) == -1)
+        errExit("stat-%s", MYFILE);
+    printf("Requested file perms: %s\n", filePermStr(FILE_PERMS, 0));
+    printf("Process umask: %s\n", filePermStr(u, 0));
+    printf("Actual file perms: %s\n\n", filePermStr(sb.st_mode, 0));
 
-if (unlink(MYFILE) == -1)
-    errMsg("unlink-%s", MYFILE);
-if (rmdir(MYDIR) == -1)
-    errMsg("rmdir-%s", MYDIR);
-exit(EXIT_SUCCESS);
+    if (stat(MYDIR, &sb) == -1)
+        errExit("stat-%s", MYDIR);
+    printf("Requested dir. perms: %s\n", filePermStr(DIR_PERMS, 0));
+    printf("Process umask: %s\n", filePermStr(u, 0));
+    printf("Actual dir. perms: %s\n", filePermStr(sb.st_mode, 0));
+
+    if (unlink(MYFILE) == -1)
+        errMsg("unlink-%s", MYFILE);
+    if (rmdir(MYDIR) == -1)
+        errMsg("rmdir-%s", MYDIR);
+    exit(EXIT_SUCCESS);
+}
 
 files/t_umask.c
 ```
@@ -13600,7 +13579,7 @@ Both return 0 on success, or -1 on error
 
 ```c
 if (chmod("myfile", S_IRUSR | S_IRGRP | S_IROTH) == -1)
-    exit("chmod");
+    errExit("chmod");
 /* Or equivalently: chmod("myfile", 0444); */
 ```
 
@@ -13611,11 +13590,11 @@ struct stat sb;
 mode_t mode;
 
 if (stat("myfile", &sb) == -1)
-    exit("stat");
+    errExit("stat");
 mode = (sb.st_mode | S_IWUSR) & ~S_IROTH;
 /* owner-write on, other-read off, remaining bits unchanged */
 if (chmod("myfile", mode) == -1)
-    exit("chmod");
+    errExit("chmod");
 ```
 
 执行以上代码，等价于执行如下 shell 命令：
@@ -13638,7 +13617,7 @@ drwxrwxrwx 3 root root 4096 Jun 30 20:11 /test
 $ id
 uid=1000(mtk) gid=100(users) groups=100(users),101(staff),104(teach)
 $ cd /test
-$ cp ~/myprog.
+$ cp ~/myprog .
 $ ls -l myprog
 -rwxr-xr-x 1 mtk root 19684 Jun 30 20:43 myprog
 $ chmod g+s myprog
@@ -13663,11 +13642,11 @@ ext2 是首个支持 i 节点标志的 Linux 文件系统，有时人们也将�
 
 ```console
 $ lsattr myfile
------ myfile
+------------- myfile
 $ chattr +ai myfile
 $ lsattr myfile
------ia-- myfile
-Turn on Append Only andImmutable flags
+----ia------- myfile
+Turn on Append Only and Immutable flags
 ```
 
 在程序中，可利用 ioctl()系统调用来获取并修改 i 节点标志，本节稍后会加以详述。
@@ -13787,17 +13766,17 @@ Orlov 策略的灵感来自于 BSD 系统，是对 ext2 文件系统块分配策
 - FS_DIRSYNC_FL (chattr +D)标志只能应用于目录，故而也只能为新建于该目录下的子目录所继承。
 - 当将 FS_IMMUTABLE_FL (chattr +i) 标志应用于目录时，不会有创建于该目录下的文件或子目录继承此标志，因为该标志会阻止在此目录中添加任何新的条目。
 
-在程序中可以分别调用 ioctl()的 FS IOC_GETFLAGS 和 FS IOC_SETFLAGS 操作，来获取和修改 i 节点标志（这两个常量定义于<linux/fs.h>）。
+在程序中可以分别调用 ioctl()的 FS_IOC_GETFLAGS 和 FS_IOC_SETFLAGS 操作，来获取和修改 i 节点标志（这两个常量定义于<linux/fs.h>）。
 以下代码演示了如何为打开文件描述符 fd 所指代的文件设置 FS_NOATIME_FL 标志。
 
 ```c
 int attr;
 
-if (ioctl(fd, FS IOC_GETFLAGS, &attr) == -1) /* Fetch current flags */
-    exit("ioctl");
+if (ioctl(fd, FS_IOC_GETFLAGS, &attr) == -1) /* Fetch current flags */
+    errExit("ioctl");
 attr |= FS_NOATIME_FL;
-if (ioctl(fd, FS IOC_SETFLAGS, &attr) == -1) /* Update flags */
-    exit("ioctl");
+if (ioctl(fd, FS_IOC_SETFLAGS, &attr) == -1) /* Update flags */
+    errExit("ioctl");
 ```
 
 想改变文件的 i 节点标志，至少要满足下列两种条件之一：
@@ -13854,9 +13833,9 @@ c）要创建一个新文件，打开一个文件进行读操作，打开一个�
 ```console
 $ ls -ld dir file prog
 dr------ 2 mtk users 48 May 4 12:28 dir
--r-x------ 1 mtk users 19794 May 4 12:22 file
+-r-------- 1 mtk users 19794 May 4 12:22 file
 -r-x------ 1 mtk users 19336 May 4 12:21 prog
-$ chmod a+xX dir file prog
+$ chmod a+rX dir file prog
 $ ls -ld dir file prog
 dr-xr-xr-x 2 mtk users 48 May 4 12:28 dir
 -r--r--r-- 1 mtk users 19794 May 4 12:22 file
@@ -14003,7 +13982,7 @@ pattern 的默认值为“^user\.”。
 列出一个文件的所有 EA 值。
 
 ```console
-$ getfattr -m -file
+$ getfattr -m - file
 ```
 
 ### 16.2 扩展属性的实现细节
@@ -14182,7 +14161,7 @@ All return (nonnegative) size of EA value on success, or -1 on error
 ```c
 #include <sys/xattr.h>
 
-int removeattr(const char *pathname, const char *name);
+int removexattr(const char *pathname, const char *name);
 int lremovexattr(const char *pathname, const char *name);
 int fremovexattr(int fd, const char *name);
 All return 0 on success, or -1 on error
@@ -14262,13 +14241,13 @@ tfile:
 
 ```c
 #include <sys/xattr.h>
-#include "tlipi_hdr.h"
+#include "tlpi_hdr.h"
 
 #define XATTR_SIZE 10000
 
 static void usageError(char *progName)
 {
-    fprintf(stderr, "Usage: %s [-x] file...\\n", progName);
+    fprintf(stderr, "Usage: %s [-x] file...\n", progName);
     exit(EXIT_FAILURE);
 }
 
@@ -14287,37 +14266,35 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (optind >= argc + 2)
+    if (optind >= argc)
         usageError(argv[0]);
     for (j = optind; j < argc; j++) {
         listLen = listxattr(argv[j], list, XATTR_SIZE);
         if (listLen == -1)
-            exit("listxattr");
+            errExit("listxattr");
         printf("%s:\n", argv[j]);
-    }
 
-    /* Loop through all EA names, displaying name + value */
-    for (ns = 0; ns < listLen; ns += strlen(&list[ns]) + 1) {
-        printf(" name=%s", &list[ns]);
-        valueLen = getxattr(argv[j], &list[ns], value, XATTR_SIZE);
-        if (valueLen == -1) {
-            printf("couldn't get value");
-        } else if (!hexDisplay) {
-            printf("value=%.*s", (int)valueLen, value);
-        } else {
-            // Additional code for the last branch
-        }
-    }
-}
+        /* Loop through all EA names, displaying name + value */
+        for (ns = 0; ns < listLen; ns += strlen(&list[ns]) + 1) {
+            printf("        name=%s; ", &list[ns]);
+            valueLen = getxattr(argv[j], &list[ns], value, XATTR_SIZE);
+            if (valueLen == -1) {
+                printf("couldn't get value");
+            } else if (!hexDisplay) {
+                printf("value=%.*s", (int) valueLen, value);
+            } else {
 ```
 
 ```c
-printf("value=");
-for (k = 0; k < valueLen; k++)
-    printf("%02x ", (unsigned int) value[k]);
-printf("\n");
-printf("\n");
-exit(EXIT_SUCCESS);
+                printf("value=");
+                for (k = 0; k < valueLen; k++)
+                    printf("%02x ", (unsigned char) value[k]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+    exit(EXIT_SUCCESS);
 }
 xattr/xattr_view.c
 ```
@@ -14585,8 +14562,8 @@ tag-type:[tag-qualifier]: permissions
 对应于传统权限掩码 0650：
 
 ```text
-u::rw-,g::r-x,0::--
-u::rw,g::rx,0::-
+u::rw-,g::r-x,o::---
+u::rw,g::rx,o::-
 user::rw,group::rx,other::-
 ```
 
@@ -14615,16 +14592,11 @@ u::rw,u: paulh: rw,u: annabel: rw,g::r,g: teach: rw,m:: rwx,o::-
 假设与文件关联的 ACL 包含以下记录：
 
 ```text
-user::rwx
-user: paulh: r-x
-group:: r-x
-group: teach: --x
-other:: --x
-# ACL_USER_OBJ
-# ACL_USER
-# ACL_GROUP_OBJ
-# ACL_GROUP
-# ACL_OTHER
+user::rwx                # ACL_USER_OBJ
+user: paulh: r-x         # ACL_USER
+group:: r-x              # ACL_GROUP_OBJ
+group: teach: --x        # ACL_GROUP
+other:: --x              # ACL_OTHER
 ```
 
 若某程序针对该文件按以下方式调用 chmod()。
@@ -14650,16 +14622,11 @@ chmod(pathname, 0700); /* Set permissions to rwx------ */
   全部屏蔽）应用于标记类型为 ACL_USER、ACL_GROUP、ACL_GROUP_OBJ 以及 ACL_OTHER 的记录。
 
 ```text
-user::rwx
-user: paulh: ---
-group: ---
-group: teach:---
-other:---
-# ACL_USER_OBJ
-# ACL_USER
-# ACL_GROUP_OBJ
-# ACL_GROUP
-# ACL_OTHER
+user::rwx                # ACL_USER_OBJ
+user: paulh: ---         # ACL_USER
+group:: ---              # ACL_GROUP_OBJ
+group: teach: ---        # ACL_GROUP
+other:: ---              # ACL_OTHER
 ```
 
 这一方法的问题在于，
@@ -14667,7 +14634,7 @@ other:---
 因为如下调用（举例说明）不会将 ACL 中的 ACL_USER 和 ACL_GROUP 型记录恢复到其之前的状态：
 
 ```c
-chmod(pathname, 751);
+chmod(pathname, 0751);
 ```
 
 - 要避免这些问题，
@@ -14798,7 +14765,7 @@ $ ls -l tfile
 ```console
 $ setfacl -m m::x tfile
 $ getfacl --omit-header tfile
-user::rwX
+user::rwx
 user:paulh:r-x
 group::r-x
 group:teach:--x
@@ -14873,7 +14840,7 @@ user:paulh:r-x
 group::r-x
 group:teach:rwx
 mask::rwx
-other::--
+other::---
 setfacl generated ACL_MASK entry automatically
 ```
 
@@ -14908,7 +14875,7 @@ setfacl generated ACL_MASK entry automatically
 
 ```c
 open("sub/tfile", O_RDWR | O_CREAT,
-S_IRWXM | S_IXGRP | S_IXOTH); /* rwx--x--x */
+        S_IRWXU | S_IXGRP | S_IXOTH);   /* rwx--x--x */
 ```
 
 这一新文件的访问型 ACL 如下：
@@ -15340,79 +15307,81 @@ main(int argc, char *argv[])
 
     acl = acl_get_file(argv[optind], type);
     if (acl == NULL)
-        exit(EXIT_FAILURE);
+        errExit("acl_get_file");
 
     /* Walk through each entry in this ACL */
-}
 ```
 
 ```c
-c
-for (entryId = ACL_FIRST_ENTRY; ; entryId = ACL_NEXT_ENTRY) {
-    if (acl_get_entry(acl, entryId, &entry) != 1)
-        break; /* Exit on error or no more entries */
-/* Retrieve and display tag type */
-if (acl_get_tag_type(entry, &tag) == -1)
-    errExit("acl_get_tag_type");
+    for (entryId = ACL_FIRST_ENTRY; ; entryId = ACL_NEXT_ENTRY) {
+        if (acl_get_entry(acl, entryId, &entry) != 1)
+            break; /* Exit on error or no more entries */
 
-printf("%-12s", (tag == ACL_USER_OBJ) ? "user_obj" :
-                (tag == ACL_USER) ? "user" :
-                (tag == ACL_GROUP_OBJ) ? "group_obj" :
-                (tag == ACL_GROUP) ? "group" :
-                (tag == ACL_MASK) ? "mask" :
-                (tag == ACL_OTHER) ? "other" : "???");
-/* Retrieve and display optional tag qualifier */
-if (tag == ACL_USER) {
-    uidp = acl_get_qualifier(entry);
-    if (uidp == NULL)
-        errExit("acl_get_qualifier");
-    name = groupNameFromId(*uidp);
-    if (name == NULL)
-        printf("%-8d ", *uidp);
-    else
-        printf("%-8s ", name);
-    if (acl_free(uidp) == -1)
-        errExit("acl_free");
-} else if (tag == ACL_GROUP) {
-    gidp = acl_get_qualifier(entry);
-    if (gidp == NULL)
-        errExit("acl_get_qualifier");
-    name = groupNameFromId(*gidp);
-    if (name == NULL)
-        printf("%-8d ", *gidp);
-    else
-        printf("%-8s ", name);
-    if (acl_free(gidp) == -1)
-        errExit("acl_free");
-} else {
-    printf(""
-                );
-}
+        /* Retrieve and display tag type */
+        if (acl_get_tag_type(entry, &tag) == -1)
+            errExit("acl_get_tag_type");
 
-/* Retrieve and display permissions */
-if (acl_get_permset(entry, &permset) == -1)
-    errExit("acl_get_permset");
+        printf("%-12s", (tag == ACL_USER_OBJ) ? "user_obj" :
+                        (tag == ACL_USER) ? "user" :
+                        (tag == ACL_GROUP_OBJ) ? "group_obj" :
+                        (tag == ACL_GROUP) ? "group" :
+                        (tag == ACL_MASK) ? "mask" :
+                        (tag == ACL_OTHER) ? "other" : "???");
+        /* Retrieve and display optional tag qualifier */
+        if (tag == ACL_USER) {
+            uidp = acl_get_qualifier(entry);
+            if (uidp == NULL)
+                errExit("acl_get_qualifier");
+            name = userNameFromId(*uidp);
+            if (name == NULL)
+                printf("%-8d ", *uidp);
+            else
+                printf("%-8s ", name);
+            if (acl_free(uidp) == -1)
+                errExit("acl_free");
+        } else if (tag == ACL_GROUP) {
+            gidp = acl_get_qualifier(entry);
+            if (gidp == NULL)
+                errExit("acl_get_qualifier");
+            name = groupNameFromId(*gidp);
+            if (name == NULL)
+                printf("%-8d ", *gidp);
+            else
+                printf("%-8s ", name);
+            if (acl_free(gidp) == -1)
+                errExit("acl_free");
+        } else {
+            printf("         ");
+        }
 
-permVal = acl_get_perm(permset, ACL_READ);
-if (permVal == -1)
-    errExit("acl_get_perm - ACL_READ");
+        /* Retrieve and display permissions */
+        if (acl_get_permset(entry, &permset) == -1)
+            errExit("acl_get_permset");
+
+        permVal = acl_get_perm(permset, ACL_READ);
+        if (permVal == -1)
+            errExit("acl_get_perm - ACL_READ");
 ```
 
 ```c
-printf("%c", (permVal == 1) ? 'r' : '-');
-permVal = acl_get_perm(permset, ACL_WRITE);
-if (permVal == -1)
-    errExit("acl_get_perm - ACL_WRITE");
-printf("%c", (permVal == 1) ? 'w' : '-');
-permVal = acl_get_perm(permset, ACL_EXECUTE);
-if (permVal == -1)
-    errExit("acl_get_perm - ACL_EXECUTE");
-printf("%c", (permVal == 1) ? 'x' : '-');
-printf("\n");
-if (acl_free(acl) == -1)
-    errExit("acl_free");
-exit(EXIT_SUCCESS);
-ac1/ac1_view.c
+        printf("%c", (permVal == 1) ? 'r' : '-');
+        permVal = acl_get_perm(permset, ACL_WRITE);
+        if (permVal == -1)
+            errExit("acl_get_perm - ACL_WRITE");
+        printf("%c", (permVal == 1) ? 'w' : '-');
+        permVal = acl_get_perm(permset, ACL_EXECUTE);
+        if (permVal == -1)
+            errExit("acl_get_perm - ACL_EXECUTE");
+        printf("%c", (permVal == 1) ? 'x' : '-');
+        printf("\n");
+    }
+
+    if (acl_free(acl) == -1)
+        errExit("acl_free");
+
+    exit(EXIT_SUCCESS);
+}
+acl/acl_view.c
 ```
 
 ### 17.9 总结
@@ -15715,16 +15684,16 @@ ext2、ext3 及 ext4 采用这一技术，
 
 | 函 数 | 是否对链接解引用 | 备 注 |
 | --- | --- | --- |
-| access() | ● | UNIX 域套接字带有路径名 |
-| acct() | ● | UNIX 域套接字带有路径名 |
+| access() | ● |  |
+| acct() | ● |  |
 | bind() | ● | UNIX 域套接字带有路径名 |
-| chdir() | ● | UNIX 域套接字带有路径名 |
-| chmod() | ● | UNIX 域套接字带有路径名 |
-| chown() | ● | UNIX 域套接字带有路径名 |
-| chroot() | ● | UNIX 域套接字带有路径名 |
-| creat() | ● | UNIX 域套接字带有路径名 |
-| exec() | ● | UNIX 域套接字带有路径名 |
-| getxattr() | ● | UNIX 域套接字带有路径名 |
+| chdir() | ● |  |
+| chmod() | ● |  |
+| chown() | ● |  |
+| chroot() | ● |  |
+| creat() | ● |  |
+| exec() | ● |  |
+| getxattr() | ● |  |
 | lchown() |  | 参见 18.3 节 |
 | lgetxattr() |  | 参见 18.3 节 |
 | link() |  | 参见 18.3 节 |
@@ -15734,9 +15703,9 @@ ext2、ext3 及 ext4 采用这一技术，
 | lsetxattr() |  | 参见 18.3 节 |
 | lstat() |  | 参见 18.3 节 |
 | lutimes() |  | 参见 18.3 节 |
-| open() | ● | 参见 18.3 节 |
-| opendir() | ● | 除非指定了 O_NOFOLLOW 或者 O_EXCL |
-| pathconf() | ● | 除非指定了 O_NOFOLLOW 或者 O_EXCL |
+| open() | ● | 除非指定了 O_NOFOLLOW 或者 O_EXCL \| O_CREAT |
+| opendir() | ● |  |
+| pathconf() | ● |  |
 | pivot_root() | ● |  |
 | quotactl() | ● |  |
 | readlink() |  |  |
@@ -15909,27 +15878,27 @@ int main(int argc, char *argv[])
 
     fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);
     if (fd == -1)
-        exit("open");
+        errExit("open");
 
     if (unlink(argv[1]) == -1) /* Remove filename */
-        exit("unlink");
+        errExit("unlink");
 
     for (j = 0; j < numBlocks; j++) /* Write lots of junk to file */
         if (write(fd, buf, BUF_SIZE) != BUF_SIZE)
             fatal("partial/failed write");
 
-    snprintf(shellCmd, CMD_SIZE, "df -k `dirname %s`, argv[1]);
+    snprintf(shellCmd, CMD_SIZE, "df -k `dirname %s`", argv[1]);
     system(shellCmd); /* View space used in file system */
 
     if (close(fd) == -1) /* File is now destroyed */
-        exit("close");
-    printf("***** Closed file descriptor\n");
+        errExit("close");
+    printf("********** Closed file descriptor\n");
 
     system(shellCmd); /* Review space used in file system */
     exit(EXIT_SUCCESS);
 }
 
-dirs_links/t unlink.c
+dirs_links/t_unlink.c
 ```
 
 程序清单 18-1 中程序接受两个命令行参数。
@@ -15951,7 +15920,7 @@ dirs_links/t unlink.c
 $ ./t_unlink /tmp/tfile 1000000
   Filesystem       1K-blocks      Used Available Use% Mounted on
   /dev/sda10        5245020      3204044      2040976  62% /
-*****Closed file descriptor
+********** Closed file descriptor
   Filesystem       1K-blocks      Used Available Use% Mounted on
   /dev/sda10        5245020      2201128      3043892  42% /
 ```
@@ -16316,7 +16285,7 @@ next directory entry, or NULL on end-of-directory or error
 
 ```c
 struct dirent {
-   ino_t d_ino; /* File i-node number */
+    ino_t d_ino; /* File i-node number */
     char d_name[]; /* Null-terminated name of file */
 };
 ```
@@ -16362,7 +16331,6 @@ readdir() 将返回 NULL，
 可编码如下：
 
 ```c
-c
 errno = 0;
 direntp = readdir(dirp);
 if (direntp == NULL) {
@@ -16395,7 +16363,7 @@ closedir() 函数将由 dirp 指代、处于打开状态的目录流关闭，
 同时释放流所使用的资源。
 
 ```c
-#include < dirent.h>
+#include <dirent.h>
 
 int closedir(DIR *dirp);
 Returns 0 on success, or -1 on error
@@ -16413,7 +16381,7 @@ telldir() 和 seekdir()，
 dirfd() 函数返回与 dirp 目录流相关联的文件描述符。
 
 ```c
-#include < dirent.h>
+#include <dirent.h>
 
 int dirfd(DIR *dirp);
 Returns file descriptor on success, or -1 on error
@@ -16452,10 +16420,10 @@ sub/b
 程序清单 18-2：扫描一个目录
 
 ```c
-#include < dirent.h>
+#include <dirent.h>
 #include "tlpi_hdr.h"
 
-static void /* List all files in directory 'dirPath' */
+static void /* List all files in directory 'dirpath' */
 listFiles(const char *dirpath)
 {
     DIR *dirp;
@@ -16471,7 +16439,7 @@ listFiles(const char *dirpath)
     }
 
     /* For each entry in this directory, print directory + filename */
-    for (; ; ) {
+    for (;;) {
         errno = 0; /* To distinguish error from end-of-directory */
         dp = readdir(dirp);
         if (dp == NULL)
@@ -16484,22 +16452,21 @@ listFiles(const char *dirpath)
             printf("%s/", dirpath);
         printf("%s\n", dp->d_name);
     }
-}
 ```
 
 ```c
-c
-if (errno != 0)
-    exitExit("readdir");
+    if (errno != 0)
+        errExit("readdir");
 
-if (closedir(dirp) == -1)
-    errMsg("closedir");
+    if (closedir(dirp) == -1)
+        errMsg("closedir");
+}
 
 int
 main(int argc, char *argv[])
 {
     if (argc > 1 && strcmp(argv[1], "--help") == 0)
-        usageErr("%s [dir...] \n", argv[0]);
+        usageErr("%s [dir-path...]\n", argv[0]);
 
     if (argc == 1) /* No arguments - use current directory */
         listFiles(".");
@@ -16602,12 +16569,11 @@ nftw() 函数遍历由 dirpath 指定的目录树，
 并为目录树中的每个文件调用一次由程序员定义的 func 函数。
 
 ```c
-c
 #define _XOPEN_SOURCE 500
 #include <ftw.h>
 
 int nftw(const char *dirpath,
-         int (*func) (const char *pathname, const struct stat *statisf,
+         int (*func) (const char *pathname, const struct stat *statbuf,
                      int typeflag, struct FTW *ftwbuf),
          int nopenfd, int flags);
          Returns 0 after successful walk of entire tree, or -1 on error,
@@ -16751,7 +16717,6 @@ nftw() 会继续对树进行遍历，
 程序清单 18-3：使用 nftw() 遍历目录树
 
 ```c
-c
 #define _XOPEN_SOURCE 600      /* Get nftw() and S_IFSOCK declarations */
 #include <ftw.h>
 #include "tlpi_hdr.h"
@@ -16782,27 +16747,27 @@ dirTree(const char *pathname, const struct stat *sbuf, int type,
     case S_IFBLK:
         printf("b"); break;
     case S_IFLNK:
-        printf("1"); break;
+        printf("l"); break;
     case S_IFIFO:
         printf("p"); break;
     case S_IFSOCK:
         printf("s"); break;
     default:
         printf("?"); break;        /* Should never happen (on Linux) */
+    }
 
-    printf("%s ",        (type == FTW_D) ? "D" : (type == FTW_DNR) ? "DNR" :
-        (type == FTW_DP) ? "DP" : (type == FTW_F) ? "F" :
-        (type == FTW_SL) ? "SL" : (type == FTW_SLN) ? "SLN" :
-        (type == FTW_NS) ? "NS" : " ");
+    printf(" %s  ", (type == FTW_D) ? "D  " : (type == FTW_DNR) ? "DNR" :
+        (type == FTW_DP) ? "DP " : (type == FTW_F) ? "F  " :
+        (type == FTW_SL) ? "SL " : (type == FTW_SLN) ? "SLN" :
+        (type == FTW_NS) ? "NS " : "  ");
     if (type != FTW_NS)
         printf("%7ld ", (long) sbuf->st_ino);
     else
 ```
 
 ```c
-c
-        printf("       ");
-    printf("%s", 4 * ftwb->level, "");        /* Indent suitably */
+        printf("        ");
+    printf(" %*s", 4 * ftwb->level, "");        /* Indent suitably */
     printf("%s\n", &pathname[ftwb->base]);   /* Print basename */
     return 0;                         /* Tell nftw() to continue */
 }
@@ -16869,7 +16834,7 @@ d D 2327983 dir
 - F 2327984 a
 - F 2327985 b
 - F 2327984 s1
-1 SLN 2327987 ds1
+l SLN 2327987 dsl1
 d D 2327988 sub
 - F 2327989 x
 d DNR 2327994 sub2
@@ -16885,8 +16850,8 @@ d DNR 2327994 sub2
 $ ./nftw_dir_tree -p -d dir
 - F 2327984 a
 - F 2327985 b
-1 SL 2327986 s1
-1 SL 2327987 ds1
+l SL 2327986 s1
+l SL 2327987 dsl1
 - F 2327989 x
 d DP 2327988 sub
 d DNR 2327994 sub2
@@ -17028,10 +16993,10 @@ Returns 0 on success, or -1 on error
 ```c
 int fd;
 
-    fd = open(".", O_RDONLY);      /* Remember where we are */
-    chdir(somepath);              /* Go somewhere else */
-    fchdir(fd);                   /* Return to original directory */
-    close(fd);
+fd = open(".", O_RDONLY);           /* Remember where we are */
+chdir(somepath);                    /* Go somewhere else */
+fchdir(fd);                         /* Return to original directory */
+close(fd);
 ```
 
 使用 chdir() 达到同等效果的代码如下所示：
@@ -17078,7 +17043,6 @@ Linux 内核提供了一系列新的系统调用，
 这里就以 openat() 为例。
 
 ```c
-c
 #define _XOPEN_SOURCE 700    /* Or define _POSIX_C_SOURCE >= 200809 */
 #include <fcntl.h>
 
@@ -17161,7 +17125,6 @@ Solaris 9 及其更高版本也提供了一些表 18-2 所列接口的版本，
 而特权级（CAP_SYS_CHROOT）进程通过 chroot() 系统调用能够做到这一点。
 
 ```c
-c
 #define _BSD_SOURCE
 #include <unistd.h>
 
@@ -17247,12 +17210,10 @@ chroot() 系统调用从未被视为一个完全安全的监禁机制。
 ```c
 int fd;
 
-fd = open("/home/0_RDONLY); /* Jailed */
-chroot("/home/mtk"); /* Out of jail */
-fchdir(fd); /* Out of jail */
-chroot(".");
-
-/* Out of jail */
+fd = open("/home/mtk", O_RDONLY);
+chroot("/home/mtk");        /* Jailed */
+fchdir(fd);                 /* Out of jail */
+chroot(".");                /* Out of jail */
 ```
 
 为了防止这种可能性，
@@ -17316,12 +17277,10 @@ realpath: y --> /home/mtk/x
 程序清单 18-4：读取并解析一个符号链接
 
 ```c
-dirs_links/view_symlink.c
 #include <sys/stat.h>
-#include <limits.h>
+#include <limits.h>             /* For definition of PATH_MAX */
 #include "tlpi_hdr.h"
 
-/* For definition of PATH_MAX */
 #define BUF_SIZE PATH_MAX
 
 int
@@ -17337,20 +17296,20 @@ main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s pathname\n", argv[0]);
     if (lstat(argv[1], &statbuf) == -1)
-        exit("lstat");
+        errExit("lstat");
 
-    if (!IS_ISLNK(statbuf.st_mode))
+    if (!S_ISLNK(statbuf.st_mode))
         fatal("%s is not a symbolic link", argv[1]);
 
     numBytes = readlink(argv[1], buf, BUF_SIZE - 1);
     if (numBytes == -1)
-        exit("readlink");
+        errExit("readlink");
     buf[numBytes] = '\0'; /* Add terminating null byte */
-    printf("readlink: %s -> %s\n", argv[1], buf);
+    printf("readlink: %s --> %s\n", argv[1], buf);
 
     if (realpath(argv[1], buf) == NULL)
-        exit("realpath");
-    printf("realpath: %s -> %s\n", argv[1], buf);
+        errExit("realpath");
+    printf("realpath: %s --> %s\n", argv[1], buf);
 
     exit(EXIT_SUCCESS);
 }
@@ -17431,11 +17390,11 @@ int main(int argc, char *argv[])
     for (j = 1; j < argc; j++) {
         t1 = strdup(argv[j]);
         if (t1 == NULL)
-            exit("strdup");
+            errExit("strdup");
         t2 = strdup(argv[j]);
         if (t2 == NULL)
-            exit("strdup");
-        printf("%s ==>% s + %s\n", argv[j], dirname(t1), basename(t2));
+            errExit("strdup");
+        printf("%s ==> %s + %s\n", argv[j], dirname(t1), basename(t2));
         free(t1);
         free(t2);
     }
@@ -17540,7 +17499,7 @@ Make some changes to the source code
 mkdir("test", S_IRUSR | S_IWUSR | S_IXUSR);
 chdir("test");
 fd = open("myfile", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
- symlink("myfile", "../mylink");
+symlink("myfile", "../mylink");
 chmod("../mylink", S_IRUSR);
 ```
 
@@ -17688,9 +17647,9 @@ Returns file descriptor on success, or -1 on error
 （请参考图 19-1。）
 
 ```c
-#include <sys/notify.h>
+#include <sys/inotify.h>
 
-int notify_add_watch(int fd, const char *pathname, uint32_t mask);
+int inotify_add_watch(int fd, const char *pathname, uint32_t mask);
 Returns watch descriptor on success, or -1 on error
 ```
 
@@ -17728,7 +17687,7 @@ Returns watch descriptor on success, or -1 on error
 删除由 wd 所定义的监控项。
 
 ```c
-#include <sys/notify.h>
+#include <sys/inotify.h>
 
 int inotify_rm_watch(int fd, uint32_t wd);
 Returns 0 on success, or -1 on error
@@ -17957,16 +17916,16 @@ len 字段用于表示实际分配给 name 字段的字节数。
 程序清单 19-1：运用 inotify API
 
 ```c
-#include <sys/notify.h>
+#include <sys/inotify.h>
 #include <limits.h>
-#include "tli_p hdr.h"
+#include "tlpi_hdr.h"
 
-static void /* Display information from notify_event structure */
-displayNotifyEvent(struct notify_event *i)
+static void /* Display information from inotify_event structure */
+displayInotifyEvent(struct inotify_event *i)
 {
-    printf(" wd =%2d;", i->wd);
+    printf("    wd =%2d; ", i->wd);
     if (i->cookie > 0)
-        printf("cookie =%4d;", i->cookie);
+        printf("cookie =%4d; ", i->cookie);
 
     printf("mask = ");
     if (i->mask & IN_ACCESS)
@@ -18001,27 +17960,28 @@ displayNotifyEvent(struct notify_event *i)
         printf("IN_Q_OVERFLOW ");
     if (i->mask & IN_UNMOUNT)
         printf("IN_UNMOUNT ");
+    printf("\n");
 
     if (i->len > 0)
-        printf(" name = %s\n", i->name);
+        printf("        name = %s\n", i->name);
 }
 
-#define BUF_LEN (10 * (sizeof(struct notify_event) + NAME_MAX + 1))
+#define BUF_LEN (10 * (sizeof(struct inotify_event) + NAME_MAX + 1))
 
 int main(int argc, char *argv[])
 {
-    int notifyFd, wd, j;
+    int inotifyFd, wd, j;
     char buf[BUF_LEN];
     ssize_t numRead;
     char *p;
-    struct notify_event *event;
+    struct inotify_event *event;
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s pathname...\n", argv[0]);
 
-    notifyFd = notify_init(); /* Create notify instance */
-    if (notifyFd == -1)
-    errExit("inotify_init");
+    inotifyFd = inotify_init(); /* Create inotify instance */
+    if (inotifyFd == -1)
+        errExit("inotify_init");
 
     for (j = 1; j < argc; j++) {
         wd = inotify_add_watch(inotifyFd, argv[j], IN_ALL_EVENTS);
@@ -18031,8 +17991,8 @@ int main(int argc, char *argv[])
         printf("Watching %s using wd %d\n", argv[j], wd);
     }
 
-    for (;;) {
-        numRead = read(inotifyFd, buf, BUF_LEN); /* Read events forever */
+    for (;;) { /* Read events forever */
+        numRead = read(inotifyFd, buf, BUF_LEN);
         if (numRead == 0)
             fatal("read() from inotify fd returned 0!");
 
@@ -18135,7 +18095,7 @@ name = bbb
 ```console
 $ mkdir dir2/ddd
 Read 32 bytes from inotify fd
-wd = 1; mask = IN_CREATE IN_ISDIR
+wd = 2; mask = IN_CREATE IN_ISDIR
 name = ddd
 ```
 
@@ -18874,7 +18834,7 @@ signal() 函数虽然记录在 Linux 手册页的第 2 部分，
 ```c
 #include <signal.h>
 
-void (*signal(int sig, void (*handler)(int)) (int);
+void (*signal(int sig, void (*handler)(int)))(int);
 Returns previous signal disposition on success, or SIG_ERR on error
 ```
 
@@ -18912,12 +18872,12 @@ void (*oldHandler)(int);
 
 oldHandler = signal(SIGINT, newHandler);
 if (oldHandler == SIG_ERR)
-    exit("signal");
+    errExit("signal");
 
 /* Do something else here. During this time, if SIGINT is
 delivered, newHandler will be used to handle the signal. */
 if (signal(SIGINT, oldHandler) == SIG_ERR)
-    exit("signal");
+    errExit("signal");
 ```
 
 使用 signal()，
@@ -18982,6 +18942,8 @@ signal() 将返回 SIG_ERR。
 设计应力求简单。
 21.1 节将对这一点展开论述。
 
+程序清单 20-1：为 SIGINT 信号安装一个处理器程序
+
 ```c
 signals/ouch.c
 
@@ -19000,9 +18962,9 @@ main(int argc, char *argv[])
     int j;
 
     if (signal(SIGINT, sigHandler) == SIG_ERR)
-        exit("signal");
+        errExit("signal");
 
-    for (j = 0; j++ {
+    for (j = 0; ; j++) {
         printf("%d\n", j);
         sleep(3); /* Loop slowly... */
     }
@@ -19040,7 +19002,7 @@ Ouch! Signal handler is executed, and returns
 Type Control-C again
 Ouch!
 3
-Type Control- (the terminal quit character)
+Type Control-\ (the terminal quit character)
 Quit (core dumped)
 ```
 
@@ -19073,8 +19035,9 @@ Type Control-C again
 Caught SIGINT (2)
 and again
 Caught SIGINT (3)
-Type Control-\$
+Type Control-\
 Caught SIGQUIT - that's all folks!
+$
 ```
 
 程序清单 20-1 和程序清单 20-2 都在信号处理器程序中使用了 printf() 函数来显示消息。
@@ -19116,15 +19079,14 @@ main(int argc, char *argv[])
     /* Establish same handler for SIGINT and SIGQUIT */
 
     if (signal(SIGINT, sigHandler) == SIG_ERR)
-        exitExit("signal");
+        errExit("signal");
     if (signal(SIGQUIT, sigHandler) == SIG_ERR)
-        exitExit("signal");
+        errExit("signal");
 
-    for (;;)                    /* Loop forever, waiting for signals */
-        pause();                 /* Block until a signal is caught */
-    }
+    for (;;) /* Loop forever, waiting for signals */
+        pause(); /* Block until a signal is caught */
 }
- signals/intquit.c
+signals/intquit.c
 ```
 
 ### 20.5 发送信号：kill()
@@ -19352,7 +19314,7 @@ int main(int argc, char *argv[])
     int s, sig;
 
     if (argc != 3 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s sig-num pid\n", argv[0]);
+        usageErr("%s pid sig-num\n", argv[0]);
 
     sig = getInt(argv[2], 0, "sig-num");
 
@@ -19360,25 +19322,25 @@ int main(int argc, char *argv[])
 
     if (sig != 0) {
         if (s == -1)
-            exit("kill");
+            errExit("kill");
 
-    } else {
-        /* Null signal: process existence check */
+    } else { /* Null signal: process existence check */
         if (s == 0) {
-        printf("Process exists and we can send it a signal\n");
-    } else {
-        if (errno == EPERM)
-            printf("Process exists, but we don't have "
-                    "permission to send it a signal\n");
-        else if (errno == ESRCH)
-            printf("Process does not exist\n");
-        else
-            exit("kill");
+            printf("Process exists and we can send it a signal\n");
+        } else {
+            if (errno == EPERM)
+                printf("Process exists, but we don't have "
+                        "permission to send it a signal\n");
+            else if (errno == ESRCH)
+                printf("Process does not exist\n");
+            else
+                errExit("kill");
+        }
     }
+
+    exit(EXIT_SUCCESS);
 }
-exit(EXIT_SUCCESS);
-}
- signals/t_kill.c
+signals/t_kill.c
 ```
 
 killpg() 函数向某一进程组的所有成员发送一个信号。
@@ -19530,7 +19492,7 @@ GNU C 库还实现了 3 个非标准函数，
 #define _GNU_SOURCE
 #include <signal.h>
 
-int sigandset(sigset_t *set, sigset_t *left, sigset_t *right);
+int sigandset(sigset_t *dest, sigset_t *left, sigset_t *right);
 int sigorset(sigset_t *dest, sigset_t *left, sigset_t *right);
 
         Both return 0 on success, or -1 on error
@@ -19744,7 +19706,7 @@ sigprocmask() 函数既不会予以关注，
 ```c
 sigfillset(&blockSet);
 if (sigprocmask(SIG_BLOCK, &blockSet, NULL) == -1)
-    exit("sigprocmask");
+    errExit("sigprocmask");
 ```
 
 ### 20.11 处于等待状态的信号
@@ -19837,13 +19799,13 @@ int main(int argc, char *argv[])
 
     for (j = 0; j < numSigs; j++)
         if (kill(pid, sig) == -1)
-            exitExit("kill");
+            errExit("kill");
 
     /* If a fourth command-line argument was specified, send that signal */
 
     if (argc > 4)
         if (kill(pid, getInt(argv[4], 0, "sig-num-2")) == -1)
-            exitExit("kill");
+            errExit("kill");
 
     printf("%s: exiting\n", argv[0]);
     exit(EXIT_SUCCESS);
@@ -19947,7 +19909,7 @@ signals/sig_receiver.c
 
 static int sigCnt[NSIG]; /* Counts deliveries of each signal */
 static volatile sig_atomic_t gotSigint = 0;
-/* Set nonzero if SIGINT is delivered */
+    /* Set nonzero if SIGINT is delivered */
 static void
 ① handler(int sig)
 {
@@ -19967,9 +19929,9 @@ main(int argc, char *argv[])
 
     ② for (n = 1; n < NSIG; n++)
         (void) signal(n, handler);        /* Same handler for all signals */
-        /* If a sleep time was specified, temporarily block all signals,
-sleep (while another process sends us signals), and then
-display the mask of pending signals and unblock all signals */
+    /* If a sleep time was specified, temporarily block all signals,
+       sleep (while another process sends us signals), and then
+       display the mask of pending signals and unblock all signals */
     ③ if (argc > 1) {
         numSecs = getInt(argv[1], GN_GT_0, NULL);
         sigfillset(&blockingMask);
@@ -19990,13 +19952,13 @@ display the mask of pending signals and unblock all signals */
             errExit("sigprocmask");
     }
 
-    ④ while (!gotSigint)        /* Loop until SIGINT caught */
-    continue;
+    ④ while (!gotSigint) /* Loop until SIGINT caught */
+        continue;
 
     ⑤ for (n = 1; n < NSIG; n++)
         if (sigCnt[n] != 0)
             printf("%s: signal %d caught %d time%s\n", argv[0], n,
-sigCnt[n], (sigCnt[n] == 1) ? " " : "s");
+                    sigCnt[n], (sigCnt[n] == 1) ? "" : "s");
     exit(EXIT_SUCCESS);
 }
 ```
@@ -20413,14 +20375,14 @@ malloc() 函数族以及使用它们的其他库函数都是不可重入的。
 程序运行结果如下：
 
 ```console
-$ ./non_reentrant abc def
+$ ./nonreentrant abc def
 Repeatedly type Control-C to generate SIGINT
 Mismatch on call 109871 (mismatch=1 handled=1)
 Mismatch on call 128061 (mismatch=2 handled=2)
 Many lines of output removed
 Mismatch on call 727935 (mismatch=149 handled=156)
 Mismatch on call 729547 (mismatch=150 handled=157)
-Type Control- \ to generate SIGQUIT
+Type Control-\ to generate SIGQUIT
 Quit (core dumped)
 ```
 
@@ -20439,7 +20401,7 @@ signals/nonreentrant.c
 #include "tlpi_hdr.h"
 
 static char *str2;        /* Set from argv[2] */
-static int handled = 0;    /* Counts number of calls to handler */
+static volatile int handled = 0; /* Counts number of calls to handler */
 
 static void
 handler(int sig)
@@ -20463,13 +20425,13 @@ main(int argc, char *argv[])
 to another buffer */
 
     if (cr1 == NULL)
-        exitExit("strdup");
+        errExit("strdup");
 
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
     sa.sa_handler = handler;
     if (sigaction(SIGINT, &sa, NULL) == -1)
-        exitExit("sigaction");
+        errExit("sigaction");
 
     /* Repeatedly call crypt() using argv[1]. If interrupted by a
 signal handler, then the static storage returned by crypt()
@@ -20534,7 +20496,7 @@ SUSv4 对表 21-1 做了如下修改。
 | clock_gettime() (v2) | posix_trace_event() (v3) | sysconf() |
 | close() | pselect() (v3) | tcdrain() |
 | connect() (v3) | raise() (v2) | tcflow() |
-| creat() | read() | tcfflush() |
+| creat() | read() | tcflush() |
 | dup() | readlink() (v3) | tcgetattr() |
 | dup2() | recv() (v3) | tgetpgrp() |
 | execle() | recvfrom() (v3) | tcsendbreak() |
@@ -20837,9 +20799,9 @@ After jump from handler, signal mask is:
 ```console
 Type Control-C
 Received signal 2 (Interrupt), signal mask is:
-2 (Interrupt)
+    2 (Interrupt)
 After jump from handler, signal mask is:
-<empty signal set>
+    <empty signal set>
 Type Control-\ to kill the program
 Quit
 ```
@@ -20862,7 +20824,7 @@ siglongjmp() 将信号掩码恢复到调用 sigsetjmp() 时的值（即一个空
 而使用守卫变量也许会更简单一些。
 
 注意，
-在编写程序清单 21-2 程序时使用 #ifndef 是使其编码风格符合标准的最简单的手段。
+在编写程序清单 21-2 程序时使用 #ifdef 是使其编码风格符合标准的最简单的手段。
 特别是当无法用下面的运行时检查代码来取代 #ifndef 时。
 
 ```c
@@ -20884,17 +20846,16 @@ signals/sigmask_longjmp.c
 #define _GNU_SOURCE /* Get strsignal() declaration from <string.h> */
 #include <string.h>
 #include <setjmp.h>
-
 #include <signal.h>
-#include "signal_functions.h"        /* Declaration of printSigMask() */
+#include "signal_functions.h" /* Declaration of printSigMask() */
 #include "tlpi_hdr.h"
 
 static volatile sig_atomic_t canJump = 0;
-        /* Set to 1 once "env" buffer has been
-initialised by [sig]setjmp() */
+    /* Set to 1 once "env" buffer has been
+       initialized by [sig]setjmp() */
 
 #ifdef USE_SIGSETJMP
-static sigjmp_buf serv;
+static sigjmp_buf senv;
 #else
 static jmp_buf env;
 #endif
@@ -20902,52 +20863,51 @@ static jmp_buf env;
 static void
 handler(int sig)
 {
-        /* UNSAFE: This handler uses non-async-signal-safe functions
-(printf(), strsignal(), printSigMask(); see Section 21.1.2) */
+    /* UNSAFE: This handler uses non-async-signal-safe functions
+       (printf(), strsignal(), printSigMask(); see Section 21.1.2) */
 
-        printf("Received signal %d (%s), signal mask is:\n", sig,
-strsignal(sig));
-        printSigMask(stdout, NULL);
+    printf("Received signal %d (%s), signal mask is:\n", sig,
+            strsignal(sig));
+    printSigMask(stdout, NULL);
 
-        if (icanJump) {
-                printf("env' buffer not yet set, doing a simple return\n");
-                return;
-        }
+    if (!canJump) {
+        printf("'env' buffer not yet set, doing a simple return\n");
+        return;
+    }
 
 #ifdef USE_SIGSETJMP
-        siglongjmp(serv, 1);
+    siglongjmp(senv, 1);
 #else
-        longjmp(env, 1);
+    longjmp(env, 1);
 #endif
 }
 
 int
 main(int argc, char *argv[])
 {
-        struct sigaction sa;
+    struct sigaction sa;
 
-        printSigMask(stdout, "Signal mask at startup:\n");
+    printSigMask(stdout, "Signal mask at startup:\n");
 
-        sigemptyset(&sa.sa_mask);
-        sa.sa_flags = 0;
-        sa.sa_handler = handler;
-        if (sigaction(SIGINT, &sa, NULL) == -1)
-        exit("sigaction");
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sa.sa_handler = handler;
+    if (sigaction(SIGINT, &sa, NULL) == -1)
+        errExit("sigaction");
 
 #ifdef USE_SIGSETJMP
-        printf("Calling sigsetjmp()\n");
-        if (sigsetjmp(serv, 1) == 0)
+    printf("Calling sigsetjmp()\n");
+    if (sigsetjmp(senv, 1) == 0)
 #else
-        printf("Calling setjmp()\n");
-        if (setjmp(env) == 0)
+    printf("Calling setjmp()\n");
+    if (setjmp(env) == 0)
 #endif
-        canJump = 1;                    /* Executed after [sig]setjmp() */
-
-        else
+        canJump = 1; /* Executed after [sig]setjmp() */
+    else /* Executed after [sig]longjmp() */
         printSigMask(stdout, "After jump from handler, signal mask is:\n");
 
-for (;;) /* Wait for signals until killed */
-    pause();
+    for (;;) /* Wait for signals until killed */
+        pause();
 }
 signals/sigmask_longjmp.c
 ```
@@ -21118,12 +21078,12 @@ Top of handler stack near 0x804c860
 程序清单 21-3：使用 sigaltstack()
 
 ```c
--- signals/t_sigaltstack.c
+signals/t_sigaltstack.c
 
-#define _GNU_SOURCE        /* Get strsignal() declaration from <string.h> */
+#define _GNU_SOURCE /* Get strsignal() declaration from <string.h> */
 #include <string.h>
 #include <signal.h>
-#include "tli_hdr.h"
+#include "tlpi_hdr.h"
 
 static void
 sigsegvHandler(int sig)
@@ -21159,23 +21119,22 @@ main(int argc, char *argv[])
     /* Allocate alternate stack and inform kernel of its existence */
     sigstack.ss_sp = malloc(SIGSTKSZ);
     if (sigstack.ss_sp == NULL)
-        exit("malloc");
+        errExit("malloc");
     sigstack.ss_size = SIGSTKSZ;
     sigstack.ss_flags = 0;
     if (sigaltstack(&sigstack, NULL) == -1)
-        exit("sigaltstack");
-    printf("Alternate stack is at
-           %10p-%p\n",
+        errExit("sigaltstack");
+    printf("Alternate stack is at           %10p-%p\n",
            sigstack.ss_sp, (char *) sbrk(0) - 1);
 
     sa.sa_handler = sigsegvHandler;    /* Establish handler for SIGSEGV */
     sigemptyset(&sa.sa_mask);
 
-sa.sa_flags = SA_ONSTACK; /* Handler uses alternate stack */
-if (sigaction(SIGSEGV, &sa, NULL) == -1)
-    exit(EXIT("sigaction"));
+    sa.sa_flags = SA_ONSTACK; /* Handler uses alternate stack */
+    if (sigaction(SIGSEGV, &sa, NULL) == -1)
+        errExit("sigaction");
 
-overflowStack(1);
+    overflowStack(1);
 }
 signals/t_sigaltstack.c
 ```
@@ -21244,7 +21203,7 @@ act.sa_sigaction = handler;
 act.sa_flags = SA_SIGINFO;
 
 if (sigaction(SIGINT, &act, NULL) == -1)
-    exit("sigaction");
+    errExit("sigaction");
 ```
 
 至于使用 SA_SIGINFO 标志的完整例子，
@@ -21261,16 +21220,16 @@ typedef struct {
     int    si_signo;      /* Signal number */
     int    si_code;       /* Signal code */
     int    si_trapno;     /* Trap number for hardware-generated signal
-(canceled on most architectures) */
+                             (unused on most architectures) */
     union sigval si_value; /* Accompanying data from sigqueue() */
     pid_t  si_pid;         /* Process ID of sending process */
     uid_t  si_uid;        /* Real user ID of sender */
     int    si_errno;        /* Error number (generally unused) */
     void   *si_addr;       /* Address that generated signal
-(hardware-generated signals only) */
+                             (hardware-generated signals only) */
     int    si_overrun;     /* Overrun count (Linux 2.6, POSIX timers) */
     int    si_timerid;     /* (Kernel-internal) Timer ID
-(Linux 2.6, POSIX timers) */
+                             (Linux 2.6, POSIX timers) */
     long   si_band;        /* Band event (SIGPOLL/SIGIO) */
     int    si_fd;          /* File descriptor (SIGPOLL/SIGIO) */
     int    si_status;      /* Exit status or signal (SIGCHLD) */
@@ -21530,12 +21489,10 @@ glibc 手册页提供了关于这些函数的深入信息。
 
 ```c
 while ((cnt = read(fd, buf, BUF_SIZE)) == -1 && errno == EINTR)
-    continue;
-/* Do nothing loop body */
+    continue; /* Do nothing loop body */
 
-if (cnt == -1)
-    /* read() failed with other than EINTR */
-    exit(EXIT("read"));
+if (cnt == -1) /* read() failed with other than EINTR */
+    errExit("read");
 ```
 
 如果需要频繁使用上述代码，
@@ -21550,9 +21507,8 @@ if (cnt == -1)
 
 ```c
 NO_EINTR(cnt = read(fd, buf, BUF_SIZE));
-if (cnt == -1)
-    /* read() failed with other than EINTR */
-    exit(EXIT("read"));
+if (cnt == -1) /* read() failed with other than EINTR */
+    errExit("read");
 ```
 
 GNU C 库提供了一个（非标准）宏，
@@ -22257,12 +22213,11 @@ signal() 曾具有各种不同的语义。
 程序清单 22-1：signal()的实现之一
 
 ```c
-signals/signal.c
 #include <signal.h>
 
 typedef void (*sighandler_t)(int);
 
- sighandler_t
+sighandler_t
 signal(int sig, sighandler_t handler)
 {
     struct sigaction newDisp, prevDisp;
@@ -22303,7 +22258,7 @@ glibc 库则利用 sigaction() 实现了 signal() 库函数，
 #define _GNU_SOURCE
 #include <signal.h>
 
-void (*sysv_signal(int sig, void (*handler)(int)) (int);
+void (*sysv_signal(int sig, void (*handler)(int)))(int);
     Returns previous signal disposition on success, or SIG_ERR on error
 ```
 
@@ -22486,7 +22441,6 @@ sigqueue() 不能通过将 pid 指定为负值而向整个进程组发送信号�
 #include <signal.h>
 #include "tlpi_hdr.h"
 
-signals/t_sigqueue.c
 int
 main(int argc, char *argv[])
 {
@@ -22497,11 +22451,11 @@ main(int argc, char *argv[])
         usageErr("%s pid sig-num data [num-sigs]\n", argv[0]);
 
     /* Display our PID and UID, so that they can be compared with the
-corresponding fields of the siginfo_t argument supplied to the
-handler in the receiving process */
+       corresponding fields of the siginfo_t argument supplied to the
+       handler in the receiving process */
 
     printf("%s: PID is %ld, UID is %ld\n", argv[0],
-(long) getpid(), (long)getuid());
+            (long) getpid(), (long) getuid());
 
     sig = getInt(argv[2], 0, "sig-num");
     sigData = getInt(argv[3], GN_ANY_BASE, "data");
@@ -22510,11 +22464,11 @@ handler in the receiving process */
     for (j = 0; j < numSigs; j++) {
         sv.sival_int = sigData + j;
         if (sigqueue(getLong(argv[1], 0, "pid"), sig, sv) == -1)
-            exit(EXIT_SUCCESS);
+            errExit("sigqueue %d", j);
     }
     exit(EXIT_SUCCESS);
 }
- signals/t_sigqueue.c
+signals/t_sigqueue.c
 ```
 
 参数 value 指定了信号的伴随数据，
@@ -22641,7 +22595,7 @@ catch_rtsigs 程序结束休眠，
 并且在传递给处理器函数的 siginfo_t 结构中包含了发送进程的进程 ID 和用户 ID。
 
 ```console
-$. /catch_rtsigs: sleep complete
+$ ./catch_rtsigs: sleep complete
 caught signal 40
     si_signo=40, si_code=-1 (SI_QUEUE), si_value=300
     si_pid=12845, si_uid=1000
@@ -22680,7 +22634,7 @@ $ caught signal 40
     si_signo=40, si_code=0 (SI_USER), si_value=0
     si_pid=12780, si_uid=1000 PID is that of the shell
 Press Enter to see next shell prompt
-$ kill 12842 Kill catch_ rtsigs by sending SIGTER
+$ kill 12842 Kill catch_rtsigs by sending SIGTERM
 Caught 6 signals
 Press Enter to see notification from shell about terminated background job
 [1]+  Done ./catch_rtsigs 60
@@ -22689,8 +22643,6 @@ Press Enter to see notification from shell about terminated background job
 程序清单 22-3：处理实时信号
 
 ```c
-signals/catch_ritsigs.c
-
 #define _GNU_SOURCE
 #include <string.h>
 #include <signal.h>
@@ -22698,7 +22650,7 @@ signals/catch_ritsigs.c
 
 static volatile int handlerSleepTime;
 static volatile int sigCnt = 0; /* Number of signals received */
-static volatile int allDone = 0;
+static volatile sig_atomic_t allDone = 0;
 
 static void /* Handler for signals established using SA_SIGINFO */
 siginfoHandler(int sig, siginfo_t *si, void *ucontext)
@@ -22709,19 +22661,21 @@ siginfoHandler(int sig, siginfo_t *si, void *ucontext)
 
     if (sig == SIGINT || sig == SIGTERM) {
         allDone = 1;
+        return;
     }
+
+    sigCnt++;
+    printf("caught signal %d\n", sig);
+
+    printf("    si_signo=%d, si_code=%d (%s), ", si->si_signo, si->si_code,
+               (si->si_code == SI_USER) ? "SI_USER" :
+               (si->si_code == SI_QUEUE) ? "SI_QUEUE" : "other");
+    printf("si_value=%d\n", si->si_value.sival_int);
+    printf("    si_pid=%ld, si_uid=%ld\n",
+               (long) si->si_pid, (long) si->si_uid);
+
+    sleep(handlerSleepTime);
 }
-return;
-}
-
-sigCnt++;
-printf("caught signal %d\n", sig);
-
-printf(" si_signo=%d, si_code=%d (%s), ", si->si_signo, si->si_code, (si->si_code == SI_USER) ? "SI_USER" : (si->si_code == SI_QUEUE) ? "SI_QUEUE" : "other");
-printf("si_value=%d\n", si->si_value.sival_int);
-printf(" si_pid=%ld, si_uid=%ld\n", (long)si->si_pid, (long)si->si_uid);
-
-sleep(handlerSleepTime);
 
 int main(int argc, char *argv[])
 {
@@ -22754,20 +22708,23 @@ int main(int argc, char *argv[])
         sigdelset(&blockMask, SIGTERM);
 
         if (sigprocmask(SIG_SETMASK, &blockMask, &prevMask) == -1)
-            exit("sigprocmask");
+            errExit("sigprocmask");
 
         printf("%s: signals blocked - sleeping %s seconds\n", argv[0], argv[1]);
         sleep(getInt(argv[1], GN_GT_0, "block-time"));
         printf("%s: sleep complete\n", argv[0]);
 
         if (sigprocmask(SIG_SETMASK, &prevMask, NULL) == -1)
-            exit("sigprocmask");
+            errExit("sigprocmask");
     }
+
+    while (!allDone) /* Wait for incoming signals */
+        pause();
+
+    printf("Caught %d signals\n", sigCnt);
+    exit(EXIT_SUCCESS);
 }
-while (!allDone) /* Wait for incoming signals */
-    pause();
-}
-___ signals/catch_rtle.s.c
+signals/catch_rtsigs.c
 ```
 
 ### 22.9 使用掩码来等待信号：sigsuspend()
@@ -22910,7 +22867,6 @@ sigprocmask(SIG_SETMASK, &prevMask, NULL); /* Restore old mask */
 程序清单 22-5：使用 sigsuspend()
 
 ```c
-signals/t_sigsuspend.c
 #define _GNU_SOURCE /* Get strsignal() declaration from <string.h> */
 
 #include <string.h>
@@ -22971,12 +22927,14 @@ main(int argc, char *argv[])
 
     if (sigprocmask(SIG_SETMASK, &origMask, NULL) == -1)
         errExit("sigprocmask - SIG_SETMASK");
+
+    printSigMask(stdout, "=== Exited loop\nRestored signal mask to:\n");
+
+    /* Do other processing... */
+
+    exit(EXIT_SUCCESS);
 }
-printSigMask(stdout, "=== Exited loop\nRestored signal mask to:\n");
-/* Do other processing... */
-exit(EXIT_SUCCESS);
-}
-___ signals/t_sigsuspend.c
+signals/t_sigsuspend.c
 ```
 
 以下 shell 会话日志所示为程序清单 22-5 中程序的运行结果示例：
@@ -22984,14 +22942,14 @@ ___ signals/t_sigsuspend.c
 ```console
 $ ./t_sigsuspend
 Initial signal mask is:
-<empty signal set>
+        <empty signal set>
 === LOOP 1
 Starting critical section, signal mask is:
-2 (Interrupt)
-3 (Quit)
+        2 (Interrupt)
+        3 (Quit)
 Type Control-C; SIGINT is generated, but remains pending because it is blocked
 Before sigsuspend() - pending signals:
-2 (Interrupt)
+        2 (Interrupt)
 Caught signal 2 (Interrupt)     sigsuspend() is called, signals are unblocked
 ```
 
@@ -23087,14 +23045,14 @@ SUSv3 规定，
 随后再向进程发送两个信号：
 
 ```console
-$. /t_sigwaitinfo 60 &
+$ ./t_sigwaitinfo 60 &
 ./t_sigwaitinfo: PID is 3837
 ./t_sigwaitinfo: signals blocked
 ./t_sigwaitinfo: about to delay 60 seconds
 [1] 3837
-$. /t_sigqueue 3837 43 100
+$ ./t_sigqueue 3837 43 100
 ./t_sigqueue: PID is 3839, UID is 1000
-$. /t_sigqueue 3837 42 200
+$ ./t_sigqueue 3837 42 200
 ./t_sigqueue: PID is 3840, UID is 1000
 ```
 
@@ -23130,8 +23088,8 @@ $ echo $$ Display PID of shell
 3744
 $ kill -USR1 3837 Shell sends SIGUSR1 using kill()
 $ got signal: 10 Delivery of SIGUSR1
-si_signo=10, si_code=0 (SI_USER), si_value=100
-si_pid=3744, si_uid=1000 3744 is PID of shell
+    si_signo=10, si_code=0 (SI_USER), si_value=100
+    si_pid=3744, si_uid=1000 3744 is PID of shell
 Press Enter to see next shell prompt
 $ kill %1 Terminate program with SIGTERM
 $
@@ -23196,13 +23154,13 @@ main(int argc, char *argv[])
         printf("    si_signo=%d, si_code=%d (%s), si_value=%d\n",
                si.si_signo, si.si_code,
                (si.si_code == SI_USER) ? "SI_USER" :
-(si.si_code == SI_QUEUE) ? "SI_QUEUE" : "other",
-si.si_value.sival_int);
-printf("    si_pid=%ld, si_uid=%ld\n",
-(long) si.si_pid, (long) si.si_uid);
+               (si.si_code == SI_QUEUE) ? "SI_QUEUE" : "other",
+               si.si_value.sival_int);
+        printf("    si_pid=%ld, si_uid=%ld\n",
+               (long) si.si_pid, (long) si.si_uid);
+    }
 }
-}
- signals/t_sigwaitinfo.c
+signals/t_sigwaitinfo.c
 ```
 
 sigtimedwait() 系统调用是 sigwaitinfo() 调用的变体。
@@ -23295,12 +23253,12 @@ Linux 从版本 2.6.27 开始支持下面两个标志。
 创建文件描述符之后，
 可以使用 read() 调用从中读取信号。
 提供给 read() 的缓冲区必须足够大，
-至少应能够容纳一个 signalfd_signinfo 结构。
+至少应能够容纳一个 signalfd_siginfo 结构。
 <sys/signalfd.h> 文件定义了该结构，
 如下所示：
 
 ```c
-struct signalfd_signinfo {
+struct signalfd_siginfo {
     uint32_t ssi_signo;    /* Signal number */
     int32_t  ssi_errno;    /* Error number (generally unused) */
     int32_t  ssi_code;     /* Signal code */
@@ -23309,7 +23267,6 @@ struct signalfd_signinfo {
     int32_t  ssi_fd;       /* File descriptor (SIGPOLL/SIGIO) */
     uint32_t ssi_tid;      /* Kernel timer ID (POSIX timers) */
     uint32_t ssi_band;     /* Band event (SIGPOLL/SIGIO) */
-    uint32_t ssi_tid;      /* (Kernel-internal) timer ID (POSIX timers) */
     uint32_t ssi_overrun;  /* Overrun count (POSIX timers) */
     uint32_t ssi_trapno;   /* Trap number */
     int32_t  ssi_status;   /* Exit status or signal (SIGCHLD) */
@@ -23318,13 +23275,13 @@ struct signalfd_signinfo {
     uint64_t ssi_utime;    /* User CPU time (SIGCHLD) */
     uint64_t ssi_stime;    /* System CPU time (SIGCHLD) */
     uint64_t ssi_addr;    /* Address that generated signal
-(hardware-generated signals only) */
+                           (hardware-generated signals only) */
 };
 ```
 
 该结构中字段所返回的信息与传统 siginfo_t 结构（21.4 节）中类似命名的字段信息相同。
 
-read() 每次调用都将返回与等待信号数目相等的 signalfd_signinfo 结构，
+read() 每次调用都将返回与等待信号数目相等的 signalfd_siginfo 结构，
 并填充到已提供的缓冲区中。
 如果调用时并无信号正在等待，
 那么 read() 将阻塞，
@@ -23342,7 +23299,6 @@ errno 为 EAGAIN。
 程序清单 22-7：使用 signalfd() 来读取信号
 
 ```c
-signals/signalfd_sigval.c
 #include <sys/signalfd.h>
 #include <signal.h>
 #include "tlpi_hdr.h"
@@ -23352,13 +23308,13 @@ main(int argc, char *argv[])
 {
     sigset_t mask;
     int sfd, j;
-    struct signalfd_signinfo fdsi;
+    struct signalfd_siginfo fdsi;
     ssize_t s;
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s sig-num...\\n", argv[0]);
+        usageErr("%s sig-num...\n", argv[0]);
 
-    printf("%s: PID = %ld\\n", argv[0], (long) getpid());
+    printf("%s: PID = %ld\n", argv[0], (long) getpid());
 
     sigemptyset(&mask);
     for (j = 1; j < argc; j++)
@@ -23372,8 +23328,8 @@ main(int argc, char *argv[])
         errExit("signalfd");
 
     for (;;) {
-        s = read(sfd, &fdsi, sizeof(struct signalfd_signinfo));
-        if (s != sizeof(struct signalfd_signinfo))
+        s = read(sfd, &fdsi, sizeof(struct signalfd_siginfo));
+        if (s != sizeof(struct signalfd_siginfo))
             errExit("read");
 
         printf("%s: got signal %d", argv[0], fdsi.ssi_signo);
@@ -23384,7 +23340,7 @@ main(int argc, char *argv[])
         printf("\n");
     }
 }
-signals/signalfd_signval.c
+signals/signalfd_sigval.c
 ```
 
 select()、poll() 和 epoll（参见第 63 章）可以将 signalfd 描述符和其他描述符混合起来进行监控。
@@ -23401,18 +23357,18 @@ select()、poll() 和 epoll（参见第 63 章）可以将 signalfd 描述符和
 阻塞这些信号，
 然后创建用来读取这些信号的 signalfd 文件描述符，
 之后循环从该文件描述符中读取信号，
-并显示返回的 signalfd_signinfo 结构中的部分信息。
+并显示返回的 signalfd_siginfo 结构中的部分信息。
 如下 shell 会话在后台运行了程序清单 22-7 中程序，
 并使用程序清单 22-2 中程序（t_sigqueue.c）向该进程发送实时信号及伴随数据：
 
 ```console
-$ ./signalfd_signal 44 &
-./signalfd_signal: PID = 6267
+$ ./signalfd_sigval 44 &
+./signalfd_sigval: PID = 6267
 [1] 6267
 $ ./t_sigqueue 6267 44 123
 Send signal 44 with data 123 to PID 6267
 ./t_sigqueue: PID is 6269, UID is 1000
-./signalfd_signal: got signal 44; ssi_pid=6269; ssi_int=123
+./signalfd_sigval: got signal 44; ssi_pid=6269; ssi_int=123
 $ kill %1
 Kill program running in background
 ```
@@ -23483,7 +23439,7 @@ SUSv4 将这些函数标记为已废止。
 #define _XOPEN_SOURCE 500
 #include <signal.h>
 
-void (*sigset(int sig, void (*handler)(int))(int);
+void (*sigset(int sig, void (*handler)(int)))(int);
     On success: returns the previous disposition of sig, or SIG_HOLD
     if sig was previously blocked; on error -1 is returned
 ```
@@ -23907,21 +23863,23 @@ static void
     static struct timeval start;
     struct timeval curr;
     static int callNum = 0; /* Number of calls to this function */
-}
-if (callNum == 0) /* Initialize elapsed time meter */
-    if (gettimeofday(&start, NULL) == -1)
-        exit("gettimeofday");
+
+    if (callNum == 0) /* Initialize elapsed time meter */
+        if (gettimeofday(&start, NULL) == -1)
+            errExit("gettimeofday");
+
     if (callNum % 20 == 0) /* Print header every 20 lines */
-        printf(" Elapsed Value Interval\n");
+        printf("       Elapsed   Value Interval\n");
+
     if (gettimeofday(&curr, NULL) == -1)
-        exit("gettimeofday");
-    printf("%-7s %-6.2f", msg, curr.tv_sec - start.tv_sec +
-(curr.tv_usec - start.tv_usec) / 1000000.0);
+        errExit("gettimeofday");
+    printf("%-7s %6.2f", msg, curr.tv_sec - start.tv_sec +
+            (curr.tv_usec - start.tv_usec) / 1000000.0);
 
     if (includeTimer) {
-        if (gettimeofday(ITIMER_REAL, &itv) == -1)
-            exit("gettimeofday");
-        printf(" %-6.2f %-6.2f",
+        if (getitimer(ITIMER_REAL, &itv) == -1)
+            errExit("getitimer");
+        printf("  %6.2f  %6.2f",
             itv.it_value.tv_sec + itv.it_value.tv_usec / 1000000.0,
             itv.it_interval.tv_sec + itv.it_interval.tv_usec / 1000000.0);
     }
@@ -23933,7 +23891,7 @@ if (callNum == 0) /* Initialize elapsed time meter */
 static void
 sigalrmHandler(int sig)
 {
-    gotAlarm = 1;
+    ② gotAlarm = 1;
 }
 
 int
@@ -23946,52 +23904,53 @@ main(int argc, char *argv[])
     struct sigaction sa;
 
     if (argc > 1 && strcmp(argv[1], "--help") == 0)
-        usageErr("%s [secs [usecs [int-secs [int-usecs]]]\n", argv[0]);
+        usageErr("%s [secs [usecs [int-secs [int-usecs]]]]\n", argv[0]);
 
     sigCnt = 0;
 
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
     sa.sa_handler = sigalrmHandler;
-    if (sigaction(SIGALRM, &sa, NULL) == -1)
-        exit("sigaction");
+    ③ if (sigaction(SIGALRM, &sa, NULL) == -1)
+        errExit("sigaction");
 
     /* Exit after 3 signals, or on first signal if interval is 0 */
     maxSigs = (itv.it_interval.tv_sec == 0 &&
                     itv.it_interval.tv_usec == 0) ? 1 : 3;
 
-    displayTimes("START", FALSE);
+    displayTimes("START:", FALSE);
 
     /* Set timer from the command-line arguments */
 
     itv.it_value.tv_sec = (argc > 1) ? getLong(argv[1], 0, "secs") : 2;
     itv.it_value.tv_usec = (argc > 2) ? getLong(argv[2], 0, "usecs") : 0;
 
-itv.it_interval.tv_sec = (argc > 3) ? getLong(argv[3], 0, "int-secs") : 0;
-itv.it_interval.tv_usec = (argc > 4) ? getLong(argv[4], 0, "int-usecs") : 0;
+    itv.it_interval.tv_sec = (argc > 3) ? getLong(argv[3], 0, "int-secs") : 0;
+    itv.it_interval.tv_usec = (argc > 4) ? getLong(argv[4], 0, "int-usecs") : 0;
 
-if (setitimer(ITIMER_REAL, &itv, 0) == -1)
-    exit("setitimer");
+    ④ if (setitimer(ITIMER_REAL, &itv, 0) == -1)
+        errExit("setitimer");
 
-prevClock = clock();
-sigCnt = 0;
+    prevClock = clock();
+    sigCnt = 0;
 
-for (; ; ) {
-    /* Inner loop consumes at least 0.5 seconds CPU time */
-    while (((clock() - prevClock) * 10 / CLOCKS_PER_SEC) < 5) {
-        if (gotAlarm) {
-            /* Did we get a signal? */
-            gotAlarm = 0;
-            displayTimes("ALARM:", TRUE);
-            sigCnt++;
-            if (sigCnt >= maxSigs) {
-                printf("That's all folks\n");
-                exit(EXIT_SUCCESS);
+    ⑤ for (; ; ) {
+        /* Inner loop consumes at least 0.5 seconds CPU time */
+        while (((clock() - prevClock) * 10 / CLOCKS_PER_SEC) < 5) {
+            ⑥ if (gotAlarm) {
+                /* Did we get a signal? */
+                gotAlarm = 0;
+                displayTimes("ALARM:", TRUE);
+                sigCnt++;
+                ⑦ if (sigCnt >= maxSigs) {
+                    printf("That's all folks\n");
+                    exit(EXIT_SUCCESS);
+                }
             }
         }
+        prevClock = clock();
+        displayTimes("Main: ", TRUE);
     }
-    prevClock = clock();
-    displayTimes("Main: ", TRUE);
 }
 
 timers/real_timer.c
@@ -24099,6 +24058,8 @@ Linux 内核可选择是否支持高分辨率定时器。
 
 程序清单 23-2 针对 read() 调用展示了这一技术，
 创建定时器时使用的是 alarm()。
+
+程序清单 23-2：运行设置了超时的 read()
 
 ```c
 timers/timed_read.c
@@ -24370,7 +24331,7 @@ main(int argc, char *argv[])
         if (s == 0)
             break; /* nanosleep() completed */
 
-        printf("Remaining: %21ld.%09ld\n", (long) remain.tv_sec,
+        printf("Remaining: %2ld.%09ld\n", (long) remain.tv_sec,
                  remain.tv_nsec);
         request = remain; /* Next sleep is with remaining time */
     }
@@ -24495,7 +24456,7 @@ Returns 0 on success, or -1 on error
 #define _XOPEN_SOURCE 600
 #include <time.h>
 
-int clock_gettime(pid_t pid, clockid_t *clockid);
+int clock_getcpuclockid(pid_t pid, clockid_t *clockid);
     Returns 0 on success, or a positive error number on error
 ```
 
@@ -24679,10 +24640,11 @@ struct sigevent {
     union sigval sigev_value;  /* Value accompanying signal or
 passed to thread function */
     union {
-        pid_t   _tid;          /* ID of thread to be signaled /
+        pid_t   _tid;          /* ID of thread to be signaled */
         struct {
             void (*function) (union sigval);
-            void  *_attribute;  /* Thread notification function */
+            /* Thread notification function */
+            void  *_attribute;
         } _sigev_thread;
     } _sigev_un;
 };
@@ -24950,60 +24912,60 @@ static void
 
     /* UNSAFE: This handler uses non-async-signal-safe functions
      (printf(); see Section 21.1.2) */
-    printf("%s] Got signal %d\n", currTime("%T"), sig);
-    printf(" *sival_ptr = %ld\n", (long) *tidptr);
-    printf(" timer_getoverrun() = %d\n", timer_getoverrun(*tidptr));
+    printf("[%s] Got signal %d\n", currTime("%T"), sig);
+    printf("    *sival_ptr         = %ld\n", (long) *tidptr);
+    printf("    timer_getoverrun() = %d\n", timer_getoverrun(*tidptr));
 }
 
 int
 main(int argc, char *argv[])
 {
+    struct itimerspec ts;
+    struct sigaction sa;
+    struct sigevent sev;
+    timer_t *tidlist;
+    int j;
 
-struct itimerspec ts;
-struct sigaction sa;
-struct sigevent sev;
-timer_t *tidlist;
-int j;
+    if (argc < 2)
+        usageErr("%s secs[/nsecs][:int-secs[/int-nsecs]]...\n", argv[0]);
 
-if (argc < 2)
-    usageErr("%s secs [/nsecs][:int-secs [/int-nsecs]]...\\n", argv[0]);
+    tidlist = calloc(argc - 1, sizeof(timer_t));
+    if (tidlist == NULL)
+        errExit("malloc");
 
-tidlist = calloc(argc - 1, sizeof(timer_t));
-if (tidlist == NULL)
-    exitExit("malloc");
+    /* Establish handler for notification signal */
 
-/* Establish handler for notification signal */
-
-sa.sa_flags = SA_SIGINFO;
-sa.sa_sigaction = handler;
-sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_SIGINFO;
+    sa.sa_sigaction = handler;
+    sigemptyset(&sa.sa_mask);
 ②
-if (sigaction(TIMER_SIG, &sa, NULL) == -1)
-    exitExit("sigaction");
+    if (sigaction(TIMER_SIG, &sa, NULL) == -1)
+        errExit("sigaction");
 
-/* Create and start one timer for each command-line argument */
+    /* Create and start one timer for each command-line argument */
 
-sev.sig_v notify = SIGEV_SIGNAL;   /* Notify via signal */
-sev.sig_v signo = TIMER_SIG;      /* Notify using this signal */
+    sev.sigev_notify = SIGEV_SIGNAL;   /* Notify via signal */
+    sev.sigev_signo = TIMER_SIG;      /* Notify using this signal */
 
-for (j = 0; j < argc - 1; j++) {
-    itimerspecFromStr(argv[j + 1], &ts);
+    for (j = 0; j < argc - 1; j++) {
+③
+        itimerspecFromStr(argv[j + 1], &ts);
 
-    sev.sig_v value.sival_ptr = &tidlist[j];
-    /* Allows handler to get ID of this timer */
+        sev.sigev_value.sival_ptr = &tidlist[j];
+        /* Allows handler to get ID of this timer */
 
 ④
-    if (timer_create(CLOCK_REALTIME, &sev, &tidlist[j]) == -1)
-        exitExit("timer_create");
-    printf("Timer ID: %ld (%s)\\n", (long) tidlist[j], argv[j + 1]);
+        if (timer_create(CLOCK_REALTIME, &sev, &tidlist[j]) == -1)
+            errExit("timer_create");
+        printf("Timer ID: %ld (%s)\n", (long) tidlist[j], argv[j + 1]);
 
 ⑤
-    if (timer_settime(tidlist[j], 0, &ts, NULL) == -1)
-        exitExit("timer_settime");
-}
+        if (timer_settime(tidlist[j], 0, &ts, NULL) == -1)
+            errExit("timer_settime");
+    }
 ⑥
     for (; ; )          /* Wait for incoming timer signals */
-    pause();
+        pause();
 }
 timers/ptmr_sigev_signal.c
 ```
@@ -25034,7 +24996,7 @@ timers/ptmr_sigev_signal.c
 ```c
 timers/itimerspec_from_str.c
 
-#define POSIX_C_SOURCE 199309
+#define _POSIX_C_SOURCE 199309
 #include <string.h>
 #include <stdlib.h>
 #include "itimerspec_from_str.h" /* Declares function defined here */
@@ -25080,10 +25042,10 @@ itimerspecFromStr(char *str, struct itimerspec *tsp)
 $ ./ptmr_sigev_signal 2:5
 Timer ID: 134524952 (2:5)
 [15:54:56] Got signal 64
-*sigval_ptr = 134524952
+*sival_ptr = 134524952
 timer_getoverrun() = 0
 [15:55:01] Got signal 64
-*sigval_ptr = 134524952
+*sival_ptr = 134524952
 timer_getoverrun() = 0
 Type Control-Z to suspend the process
 [1]+  Stopped     ./ptmr_sigev_signal 2:5
@@ -25216,15 +25178,15 @@ Timer ID: 134525080 (10:10)
 [13:06:22] Thread notify
     timer ID=134525024
     timer_getoverrun()=0
-main(): count = 1
+main(): expireCnt = 1
 [13:06:27] Thread notify
     timer ID=134525080
     timer_getoverrun()=0
-main(): count = 2
+main(): expireCnt = 2
 [13:06:27] Thread notify
     timer ID=134525024
     timer_getoverrun()=0
-main(): count = 3
+main(): expireCnt = 3
 Type Control-Z to suspend the program
 [1]+  Stopped     ./ptmr_sigev_thread 5:5 10:10
 $ fg
@@ -25232,11 +25194,11 @@ $ fg
 [13:06:45] Thread notify
     timer ID=134525024
     timer_getoverrun()=2
-main(): count = 6
+main(): expireCnt = 6
 [13:06:45] Thread notify
     timer ID=134525080
     timer_getoverrun()=0
-main(): count = 7
+main(): expireCnt = 7
 Type Control-C to kill the program
 ```
 
@@ -25265,9 +25227,9 @@ static void          /* Thread notification function */
 
     tidptr = sv.sival_ptr;
 
-    printf("%s Thread notify\n", currTime("%T"));
+    printf("[%s] Thread notify\n", currTime("%T"));
     printf("    timer ID=%ld\n", (long) *tidptr);
-    printf("    timer getoverrun()=%d\n", timer_getoverrun(*tidptr));
+    printf("    timer_getoverrun()=%d\n", timer_getoverrun(*tidptr));
 
     /* Increment counter variable shared with main thread and signal
 condition variable to notify main thread of the change. */
@@ -25295,44 +25257,45 @@ main(int argc, char *argv[])
     timer_t *tidlist;
     int s, j;
     if (argc < 2)
-        usageErr("%s secs/[nsecs][:int-secs/[int-nsecs]]...\\n", argv[0]);
+        usageErr("%s secs[/nsecs][:int-secs[/int-nsecs]]...\n", argv[0]);
 
     tidlist = calloc(argc - 1, sizeof(timer_t));
     if (tidlist == NULL)
         errExit("malloc");
 
-③    sev.sigt ev_notify = SIGEV_THREAD;        /* Notify via thread */
-    sev.sigt ev_notify_function = threadFunc;    /* Thread start function */
-    sev.sigt ev_notify_attributes = NULL;
+③    sev.sigev_notify = SIGEV_THREAD;        /* Notify via thread */
+④    sev.sigev_notify_function = threadFunc;    /* Thread start function */
+    sev.sigev_notify_attributes = NULL;
     /* Could be pointer to pthread_attr_t structure */
 
     /* Create and start one timer for each command-line argument */
 
-for (j = 0; j < argc - 1; j++) {
-    itimerspecFromStr(argv[j + 1], &ts);
-}
+    for (j = 0; j < argc - 1; j++) {
+        itimerspecFromStr(argv[j + 1], &ts);
 
-sev.sigev_value.sival_ptr = &tidlist[j];
-/* Passed as argument to threadFunc() */
+⑤        sev.sigev_value.sival_ptr = &tidlist[j];
+        /* Passed as argument to threadFunc() */
 
-if (timer_create(CLOCK_REALTIME, &sev, &tidlist[j]) == -1)
-    errExit("timer_create");
-printf("Timer ID: %ld (%s)\n", (long)tidlist[j], argv[j + 1]);
+⑥        if (timer_create(CLOCK_REALTIME, &sev, &tidlist[j]) == -1)
+            errExit("timer_create");
+        printf("Timer ID: %ld (%s)\n", (long) tidlist[j], argv[j + 1]);
 
-if (timer_settime(tidlist[j], 0, &ts, NULL) == -1)
-    errExit("timer_settime");
+⑦        if (timer_settime(tidlist[j], 0, &ts, NULL) == -1)
+            errExit("timer_settime");
+    }
 
-/* The main thread waits on a condition variable that is signaled on each invocation of the thread notification function. We print a message so that the user can see that this occurred. */
+    /* The main thread waits on a condition variable that is signaled on each invocation of the thread notification function. We print a message so that the user can see that this occurred. */
 
-s = pthread_mutex_lock(&mtx);
-if (s != 0)
-    errExitEN(s, "pthread_mutex_lock");
-
-for (; ; ) {
-    s = pthread_cond_wait(&cond, &mtx);
+    s = pthread_mutex_lock(&mtx);
     if (s != 0)
-        errExitEN(s, "pthread_cond_wait");
-    printf("main(): expireCnt = %d\n", expireCnt);
+        errExitEN(s, "pthread_mutex_lock");
+
+⑧    for (; ; ) {
+        s = pthread_cond_wait(&cond, &mtx);
+        if (s != 0)
+            errExitEN(s, "pthread_cond_wait");
+        printf("main(): expireCnt = %d\n", expireCnt);
+    }
 }
 
 timers/ptmr_sigev_thread.c
@@ -25516,62 +25479,61 @@ timers/demo_timerfd.c
 
 #include <sys/timerfd.h>
 #include <time.h>
-#include <unistd.h>
-#include "itimerspecFromString.h"
+#include <stdint.h> /* Definition of uint64_t */
+#include "itimerspec_from_str.h" /* Declares itimerspecFromStr() */
 #include "tlpi_hdr.h"
 
 int
 main(int argc, char *argv[])
 {
     struct itimerspec ts;
+    struct timespec start, now;
+    int maxExp, fd, secs, nanosecs;
+    uint64_t numExp, totalExp;
+    ssize_t s;
 
-struct timespec start, now;
-int maxExp, fd, secs, nanosecs;
-uint64_t numExp, totalExp;
-ssize_t s;
+    if (argc < 2 || strcmp(argv[1], "--help") == 0)
+        usageErr("%s secs[/nsecs][:int-secs[/int-nsecs]] [max-exp]\n", argv[0]);
 
-if (argc < 2 || strcmp(argv[1], "--help") == 0)
-    usageErr("%s secs/[nsecs][:int-secs/[int-nsecs]] [max-exp]\n", argv[0]);
+    itimerspecFromStr(argv[1], &ts);
+    maxExp = (argc > 2) ? getInt(argv[2], GN_GT_0, "max-exp") : 1;
+    fd = timerfd_create(CLOCK_REALTIME, 0);
+    if (fd == -1)
+        errExit("timerfd_create");
 
-itimerspecFromStr(argv[1], &ts);
-maxExp = (argc > 2) ? getInt(argv[2], GN_GT_0, "max-exp") : 1;
-fd = timerfd_create(CLOCK_REALTIME, 0);
-if (fd == -1)
-    errExit("timerfd_create");
+    if (timerfd_settime(fd, 0, &ts, NULL) == -1)
+        errExit("timerfd_settime");
 
-if (timerfd_settime(fd, 0, &ts, NULL) == -1)
-    errExit("timerfd_settime");
-
-if (clock_gettime(CLOCK_MONOTONIC, &start) == -1)
-    errExit("clock_gettime");
-
-for (totalExp = 0; totalExp < maxExp); {
-
-    /* Read number of expirations on the timer, and then display
-    time elapsed since timer was started, followed by number
-    of expirations read and total expirations so far. */
-
-    s = read(fd, &numExp, sizeof(uint64_t));
-    if (s != sizeof(uint64_t))
-        errExit("read");
-
-    totalExp += numExp;
-
-    if (clock_gettime(CLOCK_MONOTONIC, &now) == -1)
+    if (clock_gettime(CLOCK_MONOTONIC, &start) == -1)
         errExit("clock_gettime");
 
-    secs = now.tv_sec - start.tv_sec;
-    nanosecs = now.tv_nsec - start.tv_nsec;
-    if (nanosecs < 0) {
-        secs--;
-        nanosecs += 1000000000;
-    }
+    for (totalExp = 0; totalExp < maxExp;) {
 
-    printf("%d.%03d: expirations read: %llu; total=%llu\n",
-            secs, (nanosecs + 500000) / 1000000,
-            (unsigned long long) numExp, (unsigned long long) totalExp);
-}
-exit(EXIT_SUCCESS);
+        /* Read number of expirations on the timer, and then display
+        time elapsed since timer was started, followed by number
+        of expirations read and total expirations so far. */
+
+        s = read(fd, &numExp, sizeof(uint64_t));
+        if (s != sizeof(uint64_t))
+            errExit("read");
+
+        totalExp += numExp;
+
+        if (clock_gettime(CLOCK_MONOTONIC, &now) == -1)
+            errExit("clock_gettime");
+
+        secs = now.tv_sec - start.tv_sec;
+        nanosecs = now.tv_nsec - start.tv_nsec;
+        if (nanosecs < 0) {
+            secs--;
+            nanosecs += 1000000000;
+        }
+
+        printf("%d.%03d: expirations read: %llu; total=%llu\n",
+                secs, (nanosecs + 500000) / 1000000,
+                (unsigned long long) numExp, (unsigned long long) totalExp);
+    }
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -25853,7 +25815,7 @@ int main(int argc, char *argv[])
 
     switch (childPid = fork()) {
         case -1:
-            exitExit("fork");
+            errExit("fork");
 
         case 0:
             idata *= 3;
@@ -25870,6 +25832,7 @@ int main(int argc, char *argv[])
            (childPid == 0) ? "(child) " : "(parent)", idata, istack);
     exit(EXIT_SUCCESS);
 }
+procexec/t_fork.c
 ```
 
 #### 24.2.1 父、子进程间的文件共享
@@ -25915,7 +25878,6 @@ O_APPEND flag in parent is: on
 程序清单 24-2：在父子进程间共享文件偏移量和打开文件状态标志
 
 ```c
-c
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/wait.h>
@@ -25931,49 +25893,47 @@ main(int argc, char *argv[])
 
     fd = mkstemp(template);
     if (fd == -1)
-        exitExit("mkstemp");
+        errExit("mkstemp");
 
-    printf("File offset before fork(): %ld\n",
+    printf("File offset before fork(): %lld\n",
            (long long) lseek(fd, 0, SEEK_CUR));
 
     flags = fcntl(fd, F_GETFL);
     if (flags == -1)
-        exitExit("fcntl - F_GETFL");
-    printf("0_APPEND flag before fork() is: %s\n",
-           (flags & 0_APPEND) ? "on" : "off");
+        errExit("fcntl - F_GETFL");
+    printf("O_APPEND flag before fork() is: %s\n",
+           (flags & O_APPEND) ? "on" : "off");
     switch (fork()) {
         case -1:
-            exitExit("fork");
+            errExit("fork");
 
         case 0:       /* Child: change file offset and status flags */
             if (lseek(fd, 1000, SEEK_SET) == -1)
-                exitExit("lseek");
+                errExit("lseek");
 
             flags = fcntl(fd, F_GETFL);        /* Fetch current flags */
             if (flags == -1)
-                exitExit("fcntl - F_GETFL");
-            flags |= 0_APPEND;                 /* Turn 0_APPEND on */
+                errExit("fcntl - F_GETFL");
+            flags |= O_APPEND;                 /* Turn O_APPEND on */
             if (fcntl(fd, F_SETFL, flags) == -1)
-c
-        exit(F_SETFL);
-    _exit(EXIT_SUCCESS);
+                errExit("fcntl - F_SETFL");
+            _exit(EXIT_SUCCESS);
 
-default:   /* Parent: can see file changes made by child */
-    if (wait(NULL) == -1)
-        exit("wait");
-    /* Wait for child exit */
-    printf("Child has exited\n");
+        default:   /* Parent: can see file changes made by child */
+            if (wait(NULL) == -1)
+                errExit("wait");    /* Wait for child exit */
+            printf("Child has exited\n");
 
-    printf("File offset in parent: %ld\n",
-           (long long) lseek(fd, 0, SEEK_CUR));
+            printf("File offset in parent: %lld\n",
+                   (long long) lseek(fd, 0, SEEK_CUR));
 
-    flags = fcntl(fd, F_GETFL);
-    if (flags == -1)
-        exit(F_GETFL);
-    printf("O_APPEND flag in parent is: %s\n",
-           (flags & O_APPEND) ? "on" : "off");
-    exit(EXIT_SUCCESS);
-}
+            flags = fcntl(fd, F_GETFL);
+            if (flags == -1)
+                errExit("fcntl - F_GETFL");
+            printf("O_APPEND flag in parent is: %s\n",
+                   (flags & O_APPEND) ? "on" : "off");
+            exit(EXIT_SUCCESS);
+    }
 }
 procexec/fork_file_sharing.c
 ```
@@ -26100,25 +26060,23 @@ fork() 之后常常伴随着 exec()，
 程序清单 24-3：调用函数而不改变进程的内存需求量
 
 ```c
-from multiprocessing footprint.c
-
 pid_t childPid;
 int status;
 
 childPid = fork();
 if (childPid == -1)
-    exit("fork");
+    errExit("fork");
 
 if (childPid == 0) /* Child calls func() and */
     exit(func(arg)); /* uses return value as exit status */
 
 /* Parent waits for child to terminate. It can determine the
-result of func() by inspecting 'status'. */
+   result of func() by inspecting 'status'. */
 
 if (wait(&status) == -1)
-    exit("wait");
+    errExit("wait");
 
-from multiprocessing/footprint.c
+procexec/footprint.c
 ```
 
 > ¹ 译者注：针对游戏程序的分析结果而言。
@@ -26219,7 +26177,6 @@ istack=666
 程序清单 24-4：使用 vfork()
 
 ```c
-c
 #include "tlpi_hdr.h"
 
 int
@@ -26229,7 +26186,7 @@ main(int argc, char *argv[])
 
     switch (vfork()) {
         case -1:
-            exit(1);
+            errExit("vfork");
 
         case 0:           /* Child executes first, in parent's memory space */
             sleep(3);          /* Even if we sleep for a while,
@@ -26244,7 +26201,7 @@ main(int argc, char *argv[])
             exit(EXIT_SUCCESS);
     }
 }
-proces/t_vfork.c
+procexec/t_vfork.c
 ```
 
 除非速度绝对重要的场合，
@@ -26335,7 +26292,6 @@ fork() 之后总是继续执行父进程。
 程序清单 24-5：fork()之后，父、子进程竞争输出信息
 
 ```c
-c
 #include <sys/wait.h>
 #include "tlpi_hdr.h"
 
@@ -26355,19 +26311,19 @@ main(int argc, char *argv[])
     for (j = 0; j < numChildren; j++) {
         switch (childPid = fork()) {
             case -1:
-                exitExit("fork");
+                errExit("fork");
 
             case 0:
                 printf("%d child\n", j);
                 _exit(EXIT_SUCCESS);
 
             default:
-printf("%d parent\n", j);
-wait(NULL); /* Wait for child to terminate */
-break;
-}
-}
-exit(EXIT_SUCCESS);
+                printf("%d parent\n", j);
+                wait(NULL); /* Wait for child to terminate */
+                break;
+        }
+    }
+    exit(EXIT_SUCCESS);
 }
 procexec/fork_whos_on_first.c
 ```
@@ -26479,7 +26435,6 @@ $ ./fork_sig_sync
 程序清单 24-6：利用信号来同步进程间动作
 
 ```c
-c
 #include <signal.h>
 #include "curr_time.h" /* Declaration of currTime() */
 #include "tlpi_hdr.h"
@@ -26503,58 +26458,58 @@ main(int argc, char *argv[])
     sigemptyset(&blockMask);
     sigaddset(&blockMask, SYNC_SIG); /* Block signal */
     if (sigprocmask(SIG_BLOCK, &blockMask, &origMask) == -1)
-        exit("sigprocmask");
+        errExit("sigprocmask");
 
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
     sa.sa_handler = handler;
     if (sigaction(SYNC_SIG, &sa, NULL) == -1)
-        exit("sigaction");
+        errExit("sigaction");
 
     switch (childPid = fork()) {
     case -1:
-c
-errExit("fork");
+        errExit("fork");
 
-case 0: /* Child */
+    case 0: /* Child */
 
-/* Child does some required action here... */
-printf("%s %ld] Child started - doing some work\n",
-currTime("%T"), (long) getpid());
-sleep(2);          /* Simulate time spent doing some work */
+        /* Child does some required action here... */
 
-/* And then signals parent that it's done */
+        printf("[%s %ld] Child started - doing some work\n",
+               currTime("%T"), (long) getpid());
+        sleep(2);          /* Simulate time spent doing some work */
 
-printf("%s %ld] Child about to signal parent\n",
-currTime("%T"), (long) getpid());
-if (kill(getppid(), SYNC_SIG) == -1)
-errExit("kill");
+        /* And then signals parent that it's done */
 
-/* Now child can do other things... */
+        printf("[%s %ld] Child about to signal parent\n",
+               currTime("%T"), (long) getpid());
+        if (kill(getppid(), SYNC_SIG) == -1)
+            errExit("kill");
 
-_exit(EXIT_SUCCESS);
+        /* Now child can do other things... */
 
-default: /* Parent */
+        _exit(EXIT_SUCCESS);
 
-/* Parent may do some work here, and then waits for child to
-complete the required action */
+    default: /* Parent */
 
-printf("%s %ld] Parent about to wait for signal\n",
-currTime("%T"), (long) getpid());
-sigemptyset(&emptyMask);
-if (sigsuspend(&emptyMask) == -1 && errno != EINTR)
-errExit("sigsuspend");
-printf("%s %ld] Parent got signal\n", currTime("%T"), (long) getpid());
+        /* Parent may do some work here, and then waits for child to
+           complete the required action */
 
-/* If required, return signal mask to its original state */
+        printf("[%s %ld] Parent about to wait for signal\n",
+               currTime("%T"), (long) getpid());
+        sigemptyset(&emptyMask);
+        if (sigsuspend(&emptyMask) == -1 && errno != EINTR)
+            errExit("sigsuspend");
+        printf("[%s %ld] Parent got signal\n", currTime("%T"), (long) getpid());
 
-if (sigprocmask(SIG_SETMASK, &origMask, NULL) == -1)
-errExit("sigprocmask");
+        /* If required, return signal mask to its original state */
 
-/* Parent carries on to do other things... */
+        if (sigprocmask(SIG_SETMASK, &origMask, NULL) == -1)
+            errExit("sigprocmask");
 
-exit(EXIT_SUCCESS);
-}
+        /* Parent carries on to do other things... */
+
+        exit(EXIT_SUCCESS);
+    }
 }
 procexec/fork_sig_sync.c
 ```
@@ -26942,7 +26897,6 @@ on_exit function called: status=2, arg=10
 程序清单 25-1：使用退出处理程序
 
 ```c
-c
 #define _BSD_SOURCE      /* Get on_exit() declaration from <stdlib.h> */
 #include <stdlib.h>
 #include "tlpi_hdr.h"
@@ -26978,7 +26932,7 @@ main(int argc, char *argv[])
     if (on_exit(onexitFunc, (void *) 20) != 0)
         fatal("on_exit 2");
 
-exit(2);
+    exit(2);
 }
 procexec/exit_handlers.c
 ```
@@ -27022,11 +26976,12 @@ int main(int argc, char *argv[])
     write(STDOUT_FILENO, "Ciao\n", 5);
 
     if (fork() == -1)
-        exit(1);
+        errExit("fork");
 
     /* Both child and parent continue execution here */
     exit(EXIT_SUCCESS);
 }
+procexec/fork_stdio_buf.c
 ```
 
 要理解为什么 printf() 的输出消息出现了两次，
@@ -27171,7 +27126,7 @@ wait() 返回 -1。
 while ((childPid = wait(NULL)) != -1)
     continue;
 if (errno != ECHILD) /* An unexpected error... */
-    exit("wait");
+    errExit("wait");
 ```
 
 > ¹ 译者注：此处原文为 previously unwaited-for。
@@ -27229,37 +27184,38 @@ int main(int argc, char *argv[])
 
     for (j = 1; j < argc; j++) { /* Create one child for each argument */
         switch (fork()) {
-case -1:
-    exit(1);
-    -1:
-    exit(0);
-    case 0:
-        printf("%s] child %d started with PID %ld, sleeping %s "
+        case -1:
+            errExit("fork");
+
+        case 0: /* Child sleeps for a while then exits */
+            printf("[%s] child %d started with PID %ld, sleeping %s "
                 "seconds\n", currTime("%T"), j, (long) getpid(), argv[j]);
-        sleep(getInt(argv[j], GN_NONNEG, "sleep-time"));
-        _exit(EXIT_SUCCESS);
+            sleep(getInt(argv[j], GN_NONNEG, "sleep-time"));
+            _exit(EXIT_SUCCESS);
 
-default:
-    break;
-}
-
-numDead = 0;
-for (;;) {
-   mPid = wait(NULL); /* Parent waits for each child to exit */
-    if (childPid == -1) {
-        if (errno == ECHILD) {
-            printf("No more children - bye!\n");
-            exit(EXIT_SUCCESS);
-        } else {
-            perror("wait"); /* Some other (unexpected) error */
+        default: /* Parent just continues around loop */
+            break;
         }
     }
 
-    numDead++;
-    printf("%s] wait() returned child PID %ld (numDead=%d)\n",
-               currTime("%T"), (long)(childPid, numDead));
+    numDead = 0;
+    for (;;) { /* Parent waits for each child to exit */
+        childPid = wait(NULL);
+        if (childPid == -1) {
+            if (errno == ECHILD) {
+                printf("No more children - bye!\n");
+                exit(EXIT_SUCCESS);
+            } else { /* Some other (unexpected) error */
+                errExit("wait");
+            }
+        }
+
+        numDead++;
+        printf("[%s] wait() returned child PID %ld (numDead=%d)\n",
+               currTime("%T"), (long) childPid, numDead);
+    }
 }
-proctec/multi_wait.c
+procexec/multi_wait.c
 ```
 
 #### 26.1.2 系统调用 waitpid()
@@ -27427,18 +27383,17 @@ SUSv3 并未规范宏 WCOREDUMP()，
 程序清单 26-2：输出 wait() 及相关调用返回的状态值
 
 ```c
-procesec/print_wait_status.c
+procexec/print_wait_status.c
 #define _GNU_SOURCE /* Get strsignal() declaration from <string.h> */
 #include <string.h>
 #include <sys/wait.h>
-c
 #include "print_wait_status.h" /* Declaration of printWaitStatus() */
 #include "tlpi_hdr.h"
 
 /* NOTE: The following function employs printf(), which is not
-async-signal-safe (see Section 21.1.2). As such, this function is
-also not async-signal-safe (i.e., beware of calling it from a
-SIGCHLD handler). */
+   async-signal-safe (see Section 21.1.2). As such, this function is
+   also not async-signal-safe (i.e., beware of calling it from a
+   SIGCHLD handler). */
 
 void
 printWaitStatus(const char *msg, int status)
@@ -27449,33 +27404,32 @@ printWaitStatus(const char *msg, int status)
     if (WIFEXITED(status)) {
         printf("child exited, status=%d\n", WEXITSTATUS(status));
 
-    } else if (WIFSIGNaled(status)) {
+    } else if (WIFSIGNALED(status)) {
         printf("child killed by signal %d (%s)",
                WTERMSIG(status), strsignal(WTERMSIG(status)));
-    #ifdef WCOREDUMP /* Not in SUSv3, may be absent on some systems */
+#ifdef WCOREDUMP /* Not in SUSv3, may be absent on some systems */
         if (WCOREDUMP(status))
             printf(" (core dumped)");
-
-    #endif
+#endif
         printf("\n");
 
     } else if (WIFSTOPPED(status)) {
         printf("child stopped by signal %d (%s)\n",
                WSTOPSIG(status), strsignal(WSTOPSIG(status)));
 
-    #ifdef WIFCONTINUED /* SUSv3 has this, but older Linux versions and
-some other UNIX implementations don't */
-        } else if (WIFCONTINUED(status)) {
-            printf("child continued\n");
+#ifdef WIFCONTINUED /* SUSv3 has this, but older Linux versions and
+                       some other UNIX implementations don't */
+    } else if (WIFCONTINUED(status)) {
+        printf("child continued\n");
+#endif
 
-    #endif
-        } else {
-            /* Should never happen */
-            printf("what happened to this child? (status=%x)\n",
-                   (unsigned int) status);
-        }
+    } else {
+        /* Should never happen */
+        printf("what happened to this child? (status=%x)\n",
+               (unsigned int) status);
     }
-    __procexec/print_wait_status.c
+}
+procexec/print_wait_status.c
 ```
 
 程序清单 26-3 使用了 printWaitStatus() 函数。
@@ -27584,37 +27538,37 @@ int main(int argc, char *argv[])
         usageErr("%s [exit-status]\n", argv[0]);
 
     switch (fork()) {
-case -1: errExit("fork");
+    case -1: errExit("fork");
 
-case 0: /* Child: either exits immediately with given status or loops waiting for signals */
-    printf("Child started with PID = %ld\n", (long) getpid());
-    if (argc > 1) /* Status supplied on command line? */
-        exit(getInt(argv[1], 0, "exit-status"));
-    else /* Otherwise, wait for signals */
-        for (; )
-            pause();
-    exit(EXIT_FAILURE); /* Not reached, but good practice */
+    case 0: /* Child: either exits immediately with given status or loops waiting for signals */
+        printf("Child started with PID = %ld\n", (long) getpid());
+        if (argc > 1) /* Status supplied on command line? */
+            exit(getInt(argv[1], 0, "exit-status"));
+        else /* Otherwise, wait for signals */
+            for (;;)
+                pause();
+        exit(EXIT_FAILURE); /* Not reached, but good practice */
 
-default: /* Parent: repeatedly wait on child until it either exits or is terminated by a signal */
-    for (; ) {
-        childPid = waitpid(-1, &status, WUNTRACED
+    default: /* Parent: repeatedly wait on child until it either exits or is terminated by a signal */
+        for (;;) {
+            childPid = waitpid(-1, &status, WUNTRACED
 #ifdef WCONTINUED /* Not present on older versions of Linux */
-    | WCONTINUED
+                    | WCONTINUED
 #endif
-    );
-    if (childPid == -1)
-        errExit("waitpid");
+                    );
+            if (childPid == -1)
+                errExit("waitpid");
 
-    /* Print status in hex, and as separate decimal bytes */
-    printf("waitpid() returned: PID=%ld; status=0x%04x (%d,%d)\n",
-           (long) childPid,
-           (unsigned int) status, status >> 8, status & 0xff);
-    printWaitStatus(NULL, status);
+            /* Print status in hex, and as separate decimal bytes */
+            printf("waitpid() returned: PID=%ld; status=0x%04x (%d,%d)\n",
+                   (long) childPid,
+                   (unsigned int) status, status >> 8, status & 0xff);
+            printWaitStatus(NULL, status);
 
-    if (WIFEXITED(status) || WIFSIGNaled(status))
-        exit(EXIT_SUCCESS);
-}
-
+            if (WIFEXITED(status) || WIFSIGNALED(status))
+                exit(EXIT_SUCCESS);
+        }
+    }
 }
 ```
 
@@ -27648,7 +27602,7 @@ handler(int sig)
 {
     /* Perform cleanup steps */
     signal(sig, SIG_DFL); /* Disestablish handler */
-raise(sig); /* Raise signal again */
+    raise(sig); /* Raise signal again */
 }
 ```
 
@@ -27796,12 +27750,11 @@ SUSv3 并未规范这一行为，
 正如以下代码所示：
 
 ```c
-c
 siginfo_t info;
 ...
 memset(&info, 0, sizeof(siginfo_t));
 if (waitid(idtype, id, &info, options | WNOHANG) == -1)
-    exit("waitid");
+    errExit("waitid");
 if (info.si_pid == 0) {
     /* No children changed state */
 } else {
@@ -27818,7 +27771,6 @@ wait3() 和 wait4() 在参数 rusage 所指向的结构中返回终止子进程�
 36.1 节将在介绍系统调用 getrusage() 时详细讨论 rusage 结构。
 
 ```c
-c
 #define _BSD_SOURCE      /* Or #define _XOPEN_SOURCE 500 for wait3() */
 #include <sys/resource.h>
 #include <sys/wait.h>
@@ -27950,7 +27902,6 @@ ps(1) 所输出的字符串 <defunct> 表示进程处于僵尸状态。
 程序清单 26-4：创建一个僵尸子进程
 
 ```c
-c
 #include <signal.h>
 #include <libgen.h> /* For basename() declaration */
 #include "tlpi_hdr.h"
@@ -27969,31 +27920,28 @@ main(int argc, char *argv[])
 
     switch (childPid = fork()) {
     case -1:
-        exit(1);
+        errExit("fork");
+
     case 0: /* Child: immediately exits to become zombie */
         printf("Child (PID=%ld) exiting\n", (long) getpid());
         _exit(EXIT_SUCCESS);
+
     default: /* Parent */
         sleep(3); /* Give child a chance to start and exit */
         snprintf(cmd, CMD_SIZE, "ps | grep %s", basename(argv[0]));
+        cmd[CMD_SIZE - 1] = '\0';        /* Ensure string is null-terminated */
+        system(cmd);                     /* View zombie child */
 
+        /* Now send the "sure kill" signal to the zombie */
+
+        if (kill(childPid, SIGKILL) == -1)
+            errMsg("kill");
+        sleep(3);                       /* Give child a chance to react to signal */
+        printf("After sending SIGKILL to zombie (PID=%ld):\n", (long) childPid);
+        system(cmd);                     /* View zombie child again */
+
+        exit(EXIT_SUCCESS);
     }
-}
-
-c
-cmd[CMD_SIZE - 1] = '\0';        /* Ensure string is null-terminated */
-system(cmd);                     /* View zombie child */
-
-/* Now send the "sure kill" signal to the zombie */
-
-if (kill(childPid, SIGKILL) == -1)
-    errMsg("kill");
-sleep(3);                       /* Give child a chance to react to signal */
-printf("After sending SIGKILL to zombie (PID=%ld):\n", (long) childPid);
-system(cmd);                     /* View zombie child again */
-
-exit(EXIT_SUCCESS);
-}
 }
 procexec/make_zombie.c
 ```
@@ -28135,7 +28083,7 @@ $ ./multi_SIGCHLD 1 2 4
 程序清单 26-5：通过 SIGCHLD 信号处理程序捕获已终止的子进程
 
 ```c
-procesec/multi_SIGCHLD.c
+procexec/multi_SIGCHLD.c
 #include <signal.h>
 #include <sys/wait.h>
 #include "print_wait_status.h"
@@ -28145,9 +28093,8 @@ procesec/multi_SIGCHLD.c
 static volatile int numLiveChildren = 0;
 /* Number of children started but not yet waited on */
 
-c
 static void
-sigchildHandler(int sig)
+sigchldHandler(int sig)
 {
     int status, savedErrno;
     pid_t childPid;
@@ -28158,7 +28105,7 @@ sigchildHandler(int sig)
     printf("%s handler: Caught SIGCHLD\n", currTime("%T"));
 
     while ((childPid = waitpid(-1, &status, WNOHANG)) > 0) {
-        printf("%s handler: Reaped child %ld - ", currTime("%T"),
+        ① printf("%s handler: Reaped child %ld - ", currTime("%T"),
                (long) childPid);
         printWaitStatus(NULL, status);
         numLiveChildren--;
@@ -28167,7 +28114,7 @@ sigchildHandler(int sig)
     if (childPid == -1 && errno != ECHILD)
         errMsg("waitpid");
 
-    sleep(5);    /* Artificially lengthen execution of handler */
+    ② sleep(5);    /* Artificially lengthen execution of handler */
     printf("%s handler: returning\n", currTime("%T"));
 
     errno = savedErrno;
@@ -28190,7 +28137,7 @@ main(int argc, char *argv[])
 
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
-    sa.sa_handler = sigchildHandler;
+    sa.sa_handler = sigchldHandler;
     if (sigaction(SIGCHLD, &sa, NULL) == -1)
         errExit("sigaction");
 
@@ -28198,35 +28145,37 @@ main(int argc, char *argv[])
        before the parent commences the sigsuspend() loop below */
     sigemptyset(&blockMask);
     sigaddset(&blockMask, SIGCHLD);
-    if (sigprocmask(SIG_SETMASK, &blockMask, NULL) == -1)
+    ③ if (sigprocmask(SIG_SETMASK, &blockMask, NULL) == -1)
         errExit("sigprocmask");
 
-    for (j = 1; j < argc; j++) {
-switch (fork()) {
-    case -1:
-        exit(1);
-    case 0:
-        /* Child - sleeps and then exits */
-        sleep(getInt(argv[j], GN_NONNEG, "child-sleep-time"));
-        printf("%s Child %d (PID=%ld) exiting\n", currTime("%T"), j, (long) getpid());
-        _exit(EXIT_SUCCESS);
-    default:
-        /* Parent - loops to create next child */
-        break;
+    ④ for (j = 1; j < argc; j++) {
+        switch (fork()) {
+        case -1:
+            errExit("fork");
+
+        case 0:
+            /* Child - sleeps and then exits */
+            ⑤ sleep(getInt(argv[j], GN_NONNEG, "child-sleep-time"));
+            printf("%s Child %d (PID=%ld) exiting\n", currTime("%T"), j, (long) getpid());
+            _exit(EXIT_SUCCESS);
+
+        default:
+            /* Parent - loops to create next child */
+            break;
+        }
     }
-}
 
-/* Parent comes here: wait for SIGCHLD until all children are dead */
-sigemptyset(&emptyMask);
-while (numLiveChildren > 0) {
-    if (sigsuspend(&emptyMask) == -1 && errno != EINTR)
-        exit("sigsuspend");
-    sigCnt++;
-}
+    /* Parent comes here: wait for SIGCHLD until all children are dead */
+    sigemptyset(&emptyMask);
+    while (numLiveChildren > 0) {
+        ⑥ if (sigsuspend(&emptyMask) == -1 && errno != EINTR)
+            errExit("sigsuspend");
+        sigCnt++;
+    }
 
-printf("%s All %d children have terminated; SIGCHLD was caught "
-       "%d times\n", currTime("%T"), argc - 1, sigCnt);
-exit(EXIT_SUCCESS);
+    printf("%s All %d children have terminated; SIGCHLD was caught "
+           "%d times\n", currTime("%T"), argc - 1, sigCnt);
+    exit(EXIT_SUCCESS);
 }
 
 procexec/multi_SIGCHLD.c
@@ -28579,12 +28528,12 @@ ELF 规格也允许定义一个解释器（ELF 程序头部的 PT_INTERP 元素�
 
 ```console
 $ ./t_execve ./envargs
-    argv[0] = envvars
-    argv[1] = hello world
-    argv[2] = goodbye
-   .environ: GREET=salut
-   .environ: BYE=adieu
-All of the output is printed by envvars
+argv[0] = envargs
+argv[1] = hello world
+argv[2] = goodbye
+environ: GREET=salut
+environ: BYE=adieu
+All of the output is printed by envargs
 ```
 
 程序清单 27-1：调用函数 execve() 来执行新程序
@@ -28600,10 +28549,9 @@ int main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s pathname\n", argv[0]);
 
-    argVec[0] = strrchr(argv[1], '/') /* Get basename from argv[1] */
+    argVec[0] = strrchr(argv[1], '/'); /* Get basename from argv[1] */
     if (argVec[0] != NULL)
         argVec[0]++;
-
     else
         argVec[0] = argv[1];
     argVec[1] = "hello world";
@@ -28611,7 +28559,7 @@ int main(int argc, char *argv[])
     argVec[3] = NULL; /* List must be NULL-terminated */
 
     execve(argv[1], argVec, envVec);
-    exit("execve"); /* If we get here, something went wrong */
+    errExit("execve"); /* If we get here, something went wrong */
 }
 
 procexec/t_execve.c
@@ -28620,7 +28568,7 @@ procexec/t_execve.c
 程序清单 27-2：显示参数列表和环境列表
 
 ```c
-procesec/envargs.c
+procexec/envargs.c
 #include "tlpi_hdr.h"
 
 extern char **environ;
@@ -28631,13 +28579,13 @@ main(int argc, char *argv[])
     int j;
     char **ep;
 
-for (j = 0; j < argc; j++)
-    printf("argv[%d] = %s\n", j, argv[j]);
+    for (j = 0; j < argc; j++)
+        printf("argv[%d] = %s\n", j, argv[j]);
 
-for (ep = environ; *ep != NULL; ep++)
-    printf("environ: %s\n", *ep);
+    for (ep = environ; *ep != NULL; ep++)
+        printf("environ: %s\n", *ep);
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 
 procexec/envargs.c
@@ -28652,7 +28600,7 @@ procexec/envargs.c
 ```c
 #include <unistd.h>
 
-int execl(const char *pathname, const char *arg, ...
+int execle(const char *pathname, const char *arg, ...
      /*, (char *) NULL, char *const envp[] */);
 int execlp(const char *filename, const char *arg, ...
      /*, (char *) NULL */);
@@ -28781,7 +28729,7 @@ SUSv3 废止了这一技术；
 $ which echo
 /bin/echo
 $ ls -l /bin/echo
--rwxr-xr-x  1 root        15428 Mar 19 21:28 /bin/echo
+-rwxr-xr-x  1 root root    15428 Mar 19 21:28 /bin/echo
 $ echo $PATH
 Show contents of PATH environment variable
 /home/mtk/bin:/usr/local/bin:/usr/bin:/bin        /bin is in PATH
@@ -28823,12 +28771,12 @@ int main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s pathname\n", argv[0]);
 
-    execvp(argv[1], argv[1], "hello world", (char *) NULL);
-    exitExit("execvp");
+    execlp(argv[1], argv[1], "hello world", (char *) NULL);
+    errExit("execlp");
     /* If we get here, something went wrong */
 }
 
-proces/t_execvp.c
+procexec/t_execlp.c
 ```
 
 #### 27.2.2 将程序参数指定为列表
@@ -28850,22 +28798,21 @@ int main(int argc, char *argv[])
 {
     char *envVec[] = { "GREET=salut", "BYE=adieu", NULL };
     char *filename;
+
+    if (argc != 2 || strcmp(argv[1], "--help") == 0)
+        usageErr("%s pathname\n", argv[0]);
+
+    filename = strrchr(argv[1], '/');     /* Get basename from argv[1] */
+    if (filename != NULL)
+        filename++;
+    else
+        filename = argv[1];
+
+    execle(argv[1], filename, "hello world", (char *) NULL, envVec);
+    errExit("execle");
 }
 
-if (argc != 2 || strcmp(argv[1], "--help") == 0)
-    usageErr("%s pathname\n", argv[0]);
-
-filename = strrchr(argv[1], '/') ;     /* Get basename from argv[1] */
-if (filename != NULL)
-    filename++ ;
-else
-    filename = argv[1];
-
-execl(argv[1], filename, "hello world", (char *) NULL, envVec);
-errExit("execl");
-}
-
-procexec/t_execl.c
+procexec/t_execle.c
 ```
 
 #### 27.2.3 将调用者的环境传递给新程序
@@ -28887,7 +28834,7 @@ procexec/t_execl.c
 $ echo $USER $SHELL
 Display some of the shell's environment variables
 blv /bin/bash
-$ ./t_exec1
+$ ./t_execl
 Initial value of USER: blv Copy of environment was inherited from the shell
 britta
 These two lines are displayed by execed printenv
@@ -28904,10 +28851,10 @@ int main(int argc, char *argv[])
 {
     printf("Initial value of USER: %s\n", getenv("USER"));
     if (putenv("USER=britta") != 0)
-        exit(putenv);
+        errExit("putenv");
 
     execl("/usr/bin/printenv", "printenv", "USER", "SHELL", (char *) NULL);
-    exit("execl");
+    errExit("execl");
 }
 
 procexec/t_execl.c
@@ -29199,7 +29146,7 @@ shell 运行该命令时，
    ```c
    fd = open("dir.txt", O_WRONLY | O_CREAT,
                        S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
-   /* iw-IW-IW- */
+   /* rw-rw-rw- */
    if (fd != STDOUT_FILENO) {
        dup2(fd, STDOUT_FILENO);
        close(fd);
@@ -29283,7 +29230,7 @@ if (flags == -1)
 ```c
 flags |= FD_CLOEXEC;
 if (fcntl(fd, F_SETFD, flags) == -1)
-    exit("fcntl");
+    errExit("fcntl");
 ```
 
 实际上 FD_CLOEXEC 是文件描述符标志中唯一可以操作的一位。
@@ -29338,17 +29285,16 @@ main(int argc, char *argv[])
     if (argc > 1) {
         flags = fcntl(STDOUT_FILENO, F_GETFD);        /* Fetch flags */
         if (flags == -1)
-            exit("fcntl - F_GETFD");
+            errExit("fcntl - F_GETFD");
 
         flags |= FD_CLOEXEC;                         /* Turn on FD_CLOEXEC */
 
         if (fcntl(STDOUT_FILENO, F_SETFD, flags) == -1)   /* Update flags */
-            exit("fcntl - F_SETFD");
+            errExit("fcntl - F_SETFD");
     }
-}
 
-execvp("ls", "ls", "-l", argv[0], (char *) NULL);
-exit("execvp");
+    execlp("ls", "ls", "-l", argv[0], (char *) NULL);
+    errExit("execlp");
 }
 
 procexec/closeonexec.c
@@ -29530,21 +29476,21 @@ main(int argc, char *argv[])
     char str[MAX_CMD_LEN];        /* Command to be executed by system() */
     int status;                     /* Status return from system() */
 
-    for (; ) {                     /* Read and execute a shell command */
+    for (;;) {                     /* Read and execute a shell command */
         printf("Command: ");
         fflush(stdout);
         if (fgets(str, MAX_CMD_LEN, stdin) == NULL)
             break;                     /* end-of-file */
 
         status = system(str);
-        printf("system() returned: status=0x%x04x (%d,%d)\n",
+        printf("system() returned: status=0x%04x (%d,%d)\n",
                (unsigned int) status, status >> 8, status & 0xff);
 
         if (status == -1) {
-            exitExit("system");
+            errExit("system");
         } else {
             if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
-                printf("Probably could not invoke shell\n");
+                printf("(Probably) could not invoke shell\n");
             else /* Shell successfully executed command */
                 printWaitStatus(NULL, status);
         }
@@ -29552,6 +29498,8 @@ main(int argc, char *argv[])
 
     exit(EXIT_SUCCESS);
 }
+
+procexec/t_system.c
 ```
 
 #### 在设置用户 ID（set-user-ID）和组 ID（set-group-ID）程序中避免使用 system()
@@ -29628,19 +29576,20 @@ int system(char *command)
     pid_t childPid;
 
     switch (childPid = fork()) {
-        case -1: /* Error */
+    case -1: /* Error */
+        return -1;
+    case 0: /* Child */
+        execl("/bin/sh", "sh", "-c", command, (char *) NULL);
+        _exit(127); /* Failed exec */
+    default: /* Parent */
+        if (waitpid(childPid, &status, 0) == -1)
             return -1;
-        case 0: /* Child */
-            execl("/bin/sh", "sh", "-c", command, (char *)NULL);
-            _exit(127); /* Failed exec */
-        default: /* Parent */
-            if (waitpid(childPid, &status, 0) == -1)
-                return -1;
-            else
-                return status;
-        }
+        else
+            return status;
     }
 }
+
+procexec/simple_system.c
 ```
 
 #### 在 system() 内部正确处理信号
@@ -29852,67 +29801,68 @@ system()返回-1。
 int system(const char *command)
 {
     sigset_t blockMask, origMask;
-    struct sigaction saIgnore, sa_OrigQuit, sa_OrigInt, saDefault;
+    struct sigaction saIgnore, saOrigQuit, saOrigInt, saDefault;
     pid_t childPid;
     int status, savedErrno;
 
     if (command == NULL) /* Is a shell available? */
-        return system(":== 0;
+        ① return system(":") == 0;
     sigemptyset(&blockMask); /* Block SIGCHLD */
     sigaddset(&blockMask, SIGCHLD);
-    sigprocmask(SIG_BLOCK, &blockMask, &origMask);
+    ② sigprocmask(SIG_BLOCK, &blockMask, &origMask);
 
     saIgnore.sa_handler = SIG_IGN; /* Ignore SIGINT and SIGQUIT */
     saIgnore.sa_flags = 0;
     sigemptyset(&saIgnore.sa_mask);
-    sigaction(SIGINT, &saIgnore, &saOrigInt);
+    ③ sigaction(SIGINT, &saIgnore, &saOrigInt);
     sigaction(SIGQUIT, &saIgnore, &saOrigQuit);
 
     switch (childPid = fork()) {
-        case -1: /* fork() failed */
-            status = -1;
-            break;
-        /* Carry on to reset signal attributes */
-    }
-}
+    case -1: /* fork() failed */
+        status = -1;
+        break; /* Carry on to reset signal attributes */
 ```
 
 ```c
-case 0: /* Child: exec command */
-    saDefault.sa_handler = SIG_DFL;
-    saDefault.sa_flags = 0;
-    sigemptyset(&saDefault.sa_mask);
+    case 0: /* Child: exec command */
 
-④ if (saOrigInt.sa_handler != SIG_IGN)
-    sigaction(SIGINT, &saDefault, NULL);
-    if (saOrigQuit.sa_handler != SIG_IGN)
-        sigaction(SIGQUIT, &saDefault, NULL);
+        saDefault.sa_handler = SIG_DFL;
+        saDefault.sa_flags = 0;
+        sigemptyset(&saDefault.sa_mask);
 
-⑤ sigprocmask(SIG_SETMASK, &origMask, NULL);
+        ④ if (saOrigInt.sa_handler != SIG_IGN)
+            sigaction(SIGINT, &saDefault, NULL);
+        if (saOrigQuit.sa_handler != SIG_IGN)
+            sigaction(SIGQUIT, &saDefault, NULL);
 
-⑥ execl("/bin/sh", "sh", "-c", command, (char *) NULL);
-    _exit(127); /* We could not exec the shell */
+        ⑤ sigprocmask(SIG_SETMASK, &origMask, NULL);
 
-⑦ default: /* Parent: wait for our child to terminate */
-    while (waitpid(childPid, &status, 0) == -1) {
-        if (errno != EINTR) { /* Error other than EINTR */
-            status = -1; break; /* So exit loop */
+        ⑥ execl("/bin/sh", "sh", "-c", command, (char *) NULL);
+        _exit(127); /* We could not exec the shell */
+
+    ⑦ default: /* Parent: wait for our child to terminate */
+        while (waitpid(childPid, &status, 0) == -1) {
+            if (errno != EINTR) { /* Error other than EINTR */
+                status = -1;
+                break; /* So exit loop */
+            }
         }
+        break;
     }
-    break;
-}
 
-/* Unblock SIGCHLD, restore dispositions of SIGINT and SIGQUIT */
+    /* Unblock SIGCHLD, restore dispositions of SIGINT and SIGQUIT */
 
-⑧ savedErrno = errno; /* The following may change 'errno' */
+    ⑧ savedErrno = errno; /* The following may change 'errno' */
 
-⑨ sigprocmask(SIG_SETMASK, &origMask, NULL);
+    ⑨ sigprocmask(SIG_SETMASK, &origMask, NULL);
     sigaction(SIGINT, &saOrigInt, NULL);
     sigaction(SIGQUIT, &saOrigQuit, NULL);
 
-⑩ errno = savedErrno;
+    ⑩ errno = savedErrno;
     return status;
 }
+
+procexec/system.c
 ```
 
 #### 关于 system() 的更多细节
@@ -29948,12 +29898,12 @@ UNIX 实现能够处理僵尸进程（Linux 不在此列），
 ```c
 char path[PATH_MAX];
 
-if (constrstr(_CS_PATH, path, PATH_MAX) == 0)
+if (confstr(_CS_PATH, path, PATH_MAX) == 0)
     _exit(127);
 if (setenv("PATH", path, 1) == -1)
     _exit(127);
-execvp("sh", "sh", "-c", command, (char *) NULL);
-    _exit(127);
+execlp("sh", "sh", "-c", command, (char *) NULL);
+_exit(127);
 ```
 
 ### 27.8 总结
@@ -29988,7 +29938,7 @@ execve()的参数允许为新程序指定参数列表（argv）和环境列表�
 
 ```console
 $ echo $PATH
-/usr/local/bin:/usr/bin:/bin:..dir1:..dir2
+/usr/local/bin:/usr/bin:/bin:.:dir1:dir2
 $ ls -l dir1
 total 8
 -rw-r--r--  1 mtk      users        7860 Jun 13 11:55 xyz
@@ -30021,11 +29971,11 @@ Hello world
 ```c
 childPid = fork();
 if (childPid == -1)
-    exit("fork1");
+    errExit("fork1");
 
 if (childPid == 0) { /* Child */
     switch (fork()) {
-        case -1: exitExit("fork2");
+        case -1: errExit("fork2");
 
         case 0: /* Grandchild */
             /* ---- Do real work here ---- */
@@ -30038,7 +29988,7 @@ if (childPid == 0) { /* Child */
 /* Parent falls through to here */
 
 if (waitpid(childPid, &status, 0) == -1)
-    exitExit("waitpid");
+    errExit("waitpid");
 
 /* Parent carries on to do other things */
 ```
@@ -30155,6 +30105,8 @@ main(int argc, char *argv[])
            (argv[1] == NULL) ? "disabled" : "enabled");
     exit(EXIT_SUCCESS);
 }
+
+procexec/acct_on.c
 ```
 
 #### 进程账单记录
@@ -30177,20 +30129,20 @@ struct acct {
     comp_t   ac_utime;   /* User CPU time (clock ticks) */
     comp_t   ac_stime;   /* System CPU time (clock ticks) */
 
-comp_t ac_etime; /* Elapsed (real) time (clock ticks) */
-comp_t ac_mem; /* Average memory usage (kilobytes) */
-comp_t ac_io; /* Bytes transferred by read(2) and write(2)
-(unused) */
-comp_t ac_rw; /* Blocks read/written (unused) */
-comp_t ac_minFLT; /* Minor page faults (Linux-specific) */
-comp_t ac_majFLT; /* Major page faults (Linux-specific) */
-comp_t ac_swaps; /* Number of swaps (unused; Linux-specific) */
-u_int32_t ac_exitcode; /* Process termination status */
+    comp_t ac_etime; /* Elapsed (real) time (clock ticks) */
+    comp_t ac_mem; /* Average memory usage (kilobytes) */
+    comp_t ac_io; /* Bytes transferred by read(2) and write(2)
+                     (unused) */
+    comp_t ac_rw; /* Blocks read/written (unused) */
+    comp_t ac_minflt; /* Minor page faults (Linux-specific) */
+    comp_t ac_majflt; /* Major page faults (Linux-specific) */
+    comp_t ac_swaps; /* Number of swaps (unused; Linux-specific) */
+    u_int32_t ac_exitcode; /* Process termination status */
 #define ACCT_COMM 16
-char ac_comm[ACCT_COMM+1];
-/* (Null-terminated) command name
-(basename of last executed file) */
-char ac_pad[10]; /* Padding (reserved for future use) */
+    char ac_comm[ACCT_COMM+1];
+    /* (Null-terminated) command name
+       (basename of last executed file) */
+    char ac_pad[10]; /* Padding (reserved for future use) */
 };
 ```
 
@@ -30317,29 +30269,18 @@ PID=18349 (parent) idata=111 istack=222
 运行程序清单 28-2 中程序来查看记账文件的内容。
 
 ```console
-$ ./acct_view pactct
+$ ./acct_view pacct
 command flags term. user start time CPU elapsed
 status time time
-acct_on -S- 0 root 2010-07-23 17:19:05 0.00 0.00
-bash
-su
-cat
-sleep
-grep
-echo
-t_fork
-t_fork
-0
-0x83
-0
-0x200
-0
-00x200
-0
-F---
-0
-0---
-0
+acct_on -S-- 0 root 2010-07-23 17:19:05 0.00 0.00
+bash ---- 0 root 2010-07-23 17:18:55 0.02 21.10
+su -S-- 0 root 2010-07-23 17:18:51 0.01 24.94
+cat --XC 0x83 mtk 2010-07-23 17:19:55 0.00 1.72
+sleep ---- 0 mtk 2010-07-23 17:19:42 0.00 15.01
+grep ---- 0x200 mtk 2010-07-23 17:20:12 0.00 0.00
+echo ---- 0 mtk 2010-07-23 17:21:15 0.01 0.01
+t_fork F--- 0 mtk 2010-07-23 17:21:36 0.00 0.00
+t_fork ---- 0 mtk 2010-07-23 17:21:36 0.00 3.01
 ```
 
 输出中的每行都对应于 shell 会话所创建的一个进程。
@@ -30368,7 +30309,7 @@ flags 列中的各个字母表示每条记录对哪些 ac_flag 位进行了置�
 #define TIME_BUF_SIZE 100
 
 static long long          /* Convert comp_t value into long long */
-comptToll(comp_t ct)
+comptToLL(comp_t ct)
 {
     const int EXP_SIZE = 3;      /* 3-bit, base-8 exponent */
     const int MANTISSA_SIZE = 13;   /* Followed by 13-bit mantissa */
@@ -30384,7 +30325,7 @@ int
 main(int argc, char *argv[])
 {
     int acctFile;
-    struct acct acct;
+    struct acct ac;
     ssize_t numRead;
     char *s;
     char timeBuf[TIME_BUF_SIZE];
@@ -30396,54 +30337,56 @@ main(int argc, char *argv[])
 
     acctFile = open(argv[1], O_RDONLY);
     if (acctFile == -1)
-        exit(EXIT("open"));
+        errExit("open");
 
-printf("command flags term. user "
-       "start time      CPU   elapsed\n");
-printf(""
-       "          status   time   time\n");
+    printf("command  flags   term.  user     "
+            "start time            CPU   elapsed\n");
+    printf("                status           "
+            "                      time    time\n");
 
-while ((numRead = read(acctFile, &ac, sizeof(struct acct))) > 0) {
-    if (numRead != sizeof(struct acct))
-        fatal("partial read");
+    while ((numRead = read(acctFile, &ac, sizeof(struct acct))) > 0) {
+        if (numRead != sizeof(struct acct))
+            fatal("partial read");
 
-    printf("%-8.8s ", ac.ac_comm);
+        printf("%-8.8s  ", ac.ac_comm);
 
-    printf("%c", (ac.ac_flag & A Fork) ? 'F' : '-');
-    printf("%c", (ac.ac_flag & ASU) ? 'S' : '-');
-    printf("%c", (ac.ac_flag & AXISG) ? 'X' : '-');
-    printf("%c", (ac.ac_flag & ACORE) ? 'C' : '-');
-}
+        printf("%c", (ac.ac_flag & AFORK) ? 'F' : '-');
+        printf("%c", (ac.ac_flag & ASU) ? 'S' : '-');
+        printf("%c", (ac.ac_flag & AXSIG) ? 'X' : '-');
+        printf("%c", (ac.ac_flag & ACORE) ? 'C' : '-');
 
-#ifdef _linux_
-    printf("%#6lx ", (unsigned long) ac.ac_exitcode);
+#ifdef __linux__
+        printf(" %#6lx   ", (unsigned long) ac.ac_exitcode);
 #else
-    /* Many other implementations provide ac_stat instead */
-    printf("%#6lx ", (unsigned long) ac.ac_stat);
+        /* Many other implementations provide ac_stat instead */
+        printf(" %#6lx   ", (unsigned long) ac.ac_stat);
 #endif
 
-s = userNameFromId(ac.ac_uid);
-printf("%-8.8s ", (s == NULL) ? ??? : s);
+        s = userNameFromId(ac.ac_uid);
+        printf("%-8.8s ", (s == NULL) ? "???" : s);
 
-t = ac.ac_btime;
-loc = localtime(&t);
-if (loc == NULL) {
-    printf("??"Unknown time?? " );
-} else {
-    strftime(timeBuf, TIME_BUF_SIZE, "%Y-%m-%d %T ", loc);
-    printf("%s ", timeBuf);
+        t = ac.ac_btime;
+        loc = localtime(&t);
+        if (loc == NULL) {
+            printf("???Unknown time???  ");
+        } else {
+            strftime(timeBuf, TIME_BUF_SIZE, "%Y-%m-%d %T ", loc);
+            printf("%s ", timeBuf);
+        }
+
+        printf("%5.2f %7.2f ", (double) (comptToLL(ac.ac_utime) +
+                    comptToLL(ac.ac_stime)) / sysconf(_SC_CLK_TCK),
+                (double) comptToLL(ac.ac_etime) / sysconf(_SC_CLK_TCK));
+        printf("\n");
+    }
+
+    if (numRead == -1)
+        errExit("read");
+
+    exit(EXIT_SUCCESS);
 }
 
-printf("%5.2f %7.2f ", (double) (comptToll(ac.ac_utime) +
-                    comptToll(ac.ac_stime)) / sysconf(_SC_CLK_TCK),
-                    (double) comptToll(ac.ac_etime) / sysconf(_SC_CLK_TCK));
-printf("\n");
-
-if (numRead == -1)
-    exitExit("read");
-
-exit(EXIT_SUCCESS);
-}
+procexec/acct_view.c
 ```
 
 #### 进程记账文件格式（版本 3）
@@ -30462,27 +30405,25 @@ Linux 引入了另一版本的进程记账文件以备选用，
 ```c
 struct acct_v3 {
     char ac_flag; /* Accounting flags */
-};
-
-char ac_version;      /* Accounting version (3) */
-u_int16_t ac_tty;     /* Controlling terminal for process */
-u_int32_t ac_exitcode; /* Process termination status */
-u_int32_t ac_uid;     /* 32-bit user ID of process */
-u_int32_t ac_gid;     /* 32-bit group ID of process */
-u_int32_t ac_pid;     /* Process ID */
-u_int32_t ac_ppid;   /* Parent process ID */
-u_int32_t ac_btime;   /* Start time (time_t) */
-float    ac_etime;     /* Elapsed (real) time (clock ticks) */
-comp_t   ac_utime;     /* User CPU time (clock ticks) */
-comp_t   ac_stime;     /* System CPU time (clock ticks) */
-comp_t   ac_mem;       /* Average memory usage (kilobytes) */
-comp_t   ac_io;       /* Bytes read/written (unused) */
-comp_t   ac_rw;       /* Blocks read/written (unused) */
-comp_t   ac_minflt;   /* Minor page faults */
-comp_t   ac_majflt;   /* Major page faults */
-comp_t   ac_swaps;     /* Number of swaps (unused; Linux-specific) */
+    char ac_version;      /* Accounting version (3) */
+    u_int16_t ac_tty;     /* Controlling terminal for process */
+    u_int32_t ac_exitcode; /* Process termination status */
+    u_int32_t ac_uid;     /* 32-bit user ID of process */
+    u_int32_t ac_gid;     /* 32-bit group ID of process */
+    u_int32_t ac_pid;     /* Process ID */
+    u_int32_t ac_ppid;   /* Parent process ID */
+    u_int32_t ac_btime;   /* Start time (time_t) */
+    float    ac_etime;     /* Elapsed (real) time (clock ticks) */
+    comp_t   ac_utime;     /* User CPU time (clock ticks) */
+    comp_t   ac_stime;     /* System CPU time (clock ticks) */
+    comp_t   ac_mem;       /* Average memory usage (kilobytes) */
+    comp_t   ac_io;       /* Bytes read/written (unused) */
+    comp_t   ac_rw;       /* Blocks read/written (unused) */
+    comp_t   ac_minflt;   /* Minor page faults */
+    comp_t   ac_majflt;   /* Major page faults */
+    comp_t   ac_swaps;     /* Number of swaps (unused; Linux-specific) */
 #define ACCT_COMM 16
-char    ac_comm[ACCT_COMM];  /* Command name */
+    char    ac_comm[ACCT_COMM];  /* Command name */
 };
 ```
 
@@ -30658,6 +30599,8 @@ clone()尚未提供上述 3 个参数。
 该函数（利用参数 arg）接收由主程序打开的文件描述符（在②处）。
 子进程关闭文件描述符并调用 return 以终止①。
 
+程序清单 28-3：使用 clone() 创建子进程
+
 ```c
 #define _GNU_SOURCE
 #include <signal.h>
@@ -30666,16 +30609,16 @@ clone()尚未提供上述 3 个参数。
 #include <sched.h>
 #include "tlpi_hdr.h"
 
-#ifdef CHILD_SIG
+#ifndef CHILD_SIG
 #define CHILD_SIG SIGUSR1        /* Signal to be generated on termination
-of cloned child */
+                                   of cloned child */
 #endif
 
 static int          /* Startup function for cloned child */
 childFunc(void *arg)
 {
-    if (close(*(int *) arg)) == -1)
-        exit("close");
+    ① if (close(*((int *) arg)) == -1)
+        errExit("close");
 
     return 0;            /* Child terminates now */
 }
@@ -30688,47 +30631,47 @@ main(int argc, char *argv[])
     char *stackTop;               /* End of stack buffer */
     int s, fd, flags;
 
-    fd = open("/dev/null", O_RDWR);   /* Child will close this fd */
+    ② fd = open("/dev/null", O_RDWR);   /* Child will close this fd */
     if (fd == -1)
-        exit("open");
+        errExit("open");
     /* If argc > 1, child shares file descriptor table with parent */
 
-    flags = (argc > 1) ? CLONE_FILES : 0;
+    ③ flags = (argc > 1) ? CLONE_FILES : 0;
 
     /* Allocate stack for child */
 
-    stack = malloc(STACK_SIZE);
+    ④ stack = malloc(STACK_SIZE);
     if (stack == NULL)
-        exit("malloc");
+        errExit("malloc");
     stackTop = stack + STACK_SIZE;    /* Assume stack grows downward */
 
     /* Ignore CHILD_SIG, in case it is a signal whose default is to
     terminate the process; but don't ignore SIGCHLD (which is ignored
     by default), since that would prevent the creation of a zombie. */
 
-    if (CHILD_SIG != 0 && CHILD_SIG != SIGCHLD)
+    ⑤ if (CHILD_SIG != 0 && CHILD_SIG != SIGCHLD)
         if (signal(CHILD_SIG, SIG_IGN) == SIG_ERR)
-            exit("signal");
+            errExit("signal");
 
     /* Create child; child commences execution in childFunc() */
 
-    if (clone(childFunc, stackTop, flags | CHILD_SIG, (void *) &fd) == -1)
-        exit("clone");
+    ⑥ if (clone(childFunc, stackTop, flags | CHILD_SIG, (void *) &fd) == -1)
+        errExit("clone");
 
-/* Parent falls through to here. Wait for child; __WCLONE is needed for child notifying with signal other than SIGCHLD. */
-if (waitpid(-1, NULL, (CHILD_SIG != SIGCHLD) ? __WCLONE : 0) == -1)
-    exit(1);
-printf("child has terminated\n");
+    /* Parent falls through to here. Wait for child; __WCLONE is needed for child notifying with signal other than SIGCHLD. */
+    ⑦ if (waitpid(-1, NULL, (CHILD_SIG != SIGCHLD) ? __WCLONE : 0) == -1)
+        errExit("waitpid");
+    printf("child has terminated\n");
 
-/* Did close() of file descriptor in child affect parent? */
-s = write(fd, "x", 1);
-if (s == -1 && errno == EBADF)
-    printf("file descriptor %d has been closed\n", fd);
-else if (s == -1)
-    printf("write() on file descriptor %d failed " "unexpectedly (%s)\n", fd, strerror(errno));
-else
-    printf("write() on file descriptor %d succeeded\n", fd);
-exit(EXIT_SUCCESS);
+    /* Did close() of file descriptor in child affect parent? */
+    ⑧ s = write(fd, "x", 1);
+    if (s == -1 && errno == EBADF)
+        printf("file descriptor %d has been closed\n", fd);
+    else if (s == -1)
+        printf("write() on file descriptor %d failed " "unexpectedly (%s)\n", fd, strerror(errno));
+    else
+        printf("write() on file descriptor %d succeeded\n", fd);
+    exit(EXIT_SUCCESS);
 }
 
 procexec/t_clone.c
@@ -31515,9 +31458,9 @@ shell 内建命令 time 可用来测量程序的执行时间。
   只需将数据复制到共享（全局或堆）变量中即可。
   不过，要避免出现多个线程试图同时修改同一份信息的情况，这需要使用第 30 章描述的同步技术。
 
-创建线程比创建进程通常要快 10 倍甚至更多。
-（在 Linux 中，是通过系统调用 clone() 来实现线程的，表 28-3 展示了 fork() 和 clone() 在速度上的差异。）
-线程的创建之所以较快，是因为调用 fork() 创建子进程时所需复制的诸多属性，在线程间本来就是共享的。
+- 创建线程比创建进程通常要快 10 倍甚至更多。
+  （在 Linux 中，是通过系统调用 clone() 来实现线程的，表 28-3 展示了 fork() 和 clone() 在速度上的差异。）
+  线程的创建之所以较快，是因为调用 fork() 创建子进程时所需复制的诸多属性，在线程间本来就是共享的。
 特别是，既无需采用写时复制来复制内存页，也无需复制页表。
 
 除了全局内存之外，线程还共享了一干其他属性（这些属性对于进程而言是全局性的，而并非针对某个特定线程），包括以下内容。
@@ -31694,7 +31637,7 @@ SUSv3 明确指出，在新线程开始执行之前，实现无需对 thread 参
 pthread_exit() 函数将终止调用线程，且其返回值可由另一线程通过调用 pthread_join() 来获取。
 
 ```c
-include <pthread.h>
+#include <pthread.h>
 
 void pthread_exit(void *retval);
 ```
@@ -31714,7 +31657,7 @@ retval 所指向的内容不应分配于线程栈中，因为线程终止后，�
 线程 ID 会返回给 pthread_create() 的调用者，一个线程可以通过 pthread_self() 来获取自己的线程 ID。
 
 ```c
-include <pthread.h>
+#include <pthread.h>
 
 pthread_t pthread_self(void);
 ```
@@ -31729,7 +31672,7 @@ pthread_t pthread_self(void);
 函数 pthread_equal() 可检查两个线程的 ID 是否相同。
 
 ```c
-include <pthread.h>
+#include <pthread.h>
 
 int pthread_equal(pthread_t t1, pthread_t t2);
 Returns nonzero value if t1 and t2 are equal, otherwise 0
@@ -31773,7 +31716,7 @@ gettid() 返回的线程 ID 是一个由内核（Kernel）分配的数字，类�
 这种操作被称为连接（joining）。
 
 ```c
-include <pthread.h>
+#include <pthread.h>
 
 int pthread_join(pthread_t thread, void **retval);
 Returns 0 on success, or a positive error number on error
@@ -31821,12 +31764,11 @@ static void *
 threadFunc(void *arg)
 {
     char *s = (char *) arg;
-}
 ```
 
 ```c
-printf("%s", s);
-return (void *) strlen(s);
+    printf("%s", s);
+    return (void *) strlen(s);
 }
 int
 main(int argc, char *argv[])
@@ -31837,16 +31779,17 @@ main(int argc, char *argv[])
 
     s = pthread_create(&t1, NULL, threadFunc, "Hello world\n");
     if (s != 0)
-        exit(EXIT_SUCCESS);
+        errExitEN(s, "pthread_create");
 
     printf("Message from main()\n");
     s = pthread_join(t1, &res);
     if (s != 0)
-        exit(EXIT_SUCCESS);
+        errExitEN(s, "pthread_join");
 
     printf("Thread returned %ld\n", (long) res);
     exit(EXIT_SUCCESS);
 }
+threads/simple_thread.c
 ```
 
 当运行程序清单 29-1 的程序时，可以看到如下输出：
@@ -31895,8 +31838,6 @@ Returns 0 on success, or a positive error number on error
 程序清单 29-2：使用分离属性创建线程
 
 ```c
-from threads/detached_attrib.c
-
 pthread_t thr;
 pthread_attr_t attr;
 int s;
@@ -31917,7 +31858,7 @@ s = pthread_attr_destroy(&attr); /* No longer needed */
 if (s != 0)
     errExitEN(s, "pthread_attr_destroy");
 
-from threads/detached_attrib.c
+threads/detached_attrib.c
 ```
 
 ### 29.9 线程 VS 进程
@@ -31988,7 +31929,6 @@ from threads/detached_attrib.c
 29-2. 除了缺少错误检查，以及对各种变量和结构的声明外，下列程序还有什么问题？
 
 ```c
-c
 static void *
 threadFunc(void *arg)
 {
@@ -32038,17 +31978,17 @@ threadFunc(void *arg)
 {
     int loops = *((int *)arg);
     int loc, j;
-}
 ```
 
 ```c
-for (j = 0; j < loops; j++) {
-    loc = glob;
-    loc++;
-    glob = loc;
-}
+    for (j = 0; j < loops; j++) {
+        loc = glob;
+        loc++;
+        glob = loc;
+    }
 
-return NULL;
+    return NULL;
+}
 
 int main(int argc, char *argv[]) {
     pthread_t t1, t2;
@@ -32088,7 +32028,7 @@ glob = 2000
 如果加大每个线程的工作量，结果将完全不同。
 
 ```console
-$. /thread_incr 10000000
+$ ./thread_incr 10000000
 glob = 16517656
 ```
 
@@ -32226,14 +32166,14 @@ threadFunc(void *arg)
     for (j = 0; j < loops; j++) {
         s = pthread_mutex_lock(&mtx);
         if (s != 0)
-            exit(EN(s, "pthread_mutex_lock"));
+            errExitEN(s, "pthread_mutex_lock");
         loc = glob;
         loc++;
         glob = loc;
 
         s = pthread_mutex_unlock(&mtx);
         if (s != 0)
-            exit(EN(s, "pthread_mutex_unlock"));
+            errExitEN(s, "pthread_mutex_unlock");
     }
 
     return NULL;
@@ -32246,28 +32186,27 @@ main(int argc, char *argv[])
 ```
 
 ```c
-c
-pthread_t t1, t2;
-int loops, s;
+    pthread_t t1, t2;
+    int loops, s;
 
-loops = (argc > 1) ? getInt(argv[1], GN_GT_0, "num-loops") : 10000000;
+    loops = (argc > 1) ? getInt(argv[1], GN_GT_0, "num-loops") : 10000000;
 
-s = pthread_create(&t1, NULL, threadFunc, &loops);
-if (s != 0)
-    errExitEN(s, "pthread_create");
-s = pthread_create(&t2, NULL, threadFunc, &loops);
-if (s != 0)
-    errExitEN(s, "pthread_create");
+    s = pthread_create(&t1, NULL, threadFunc, &loops);
+    if (s != 0)
+        errExitEN(s, "pthread_create");
+    s = pthread_create(&t2, NULL, threadFunc, &loops);
+    if (s != 0)
+        errExitEN(s, "pthread_create");
 
-s = pthread_join(t1, NULL);
-if (s != 0)
-    errExitEN(s, "pthread_join");
-s = pthread_join(t2, NULL);
-if (s != 0)
-    errExitEN(s, "pthread_join");
+    s = pthread_join(t1, NULL);
+    if (s != 0)
+        errExitEN(s, "pthread_join");
+    s = pthread_join(t2, NULL);
+    if (s != 0)
+        errExitEN(s, "pthread_join");
 
-printf("glob = %d\n", glob);
-exit(EXIT_SUCCESS);
+    printf("glob = %d\n", glob);
+    exit(EXIT_SUCCESS);
 }
 threads/thread_incr_mutex.c
 ```
@@ -32427,7 +32366,6 @@ Linux 上，PTHREAD_MUTEX_DEFAULT 类型互斥量的行为与 PTHREAD_MUTEX_NORM
 程序清单 30-3：设置互斥量类型
 
 ```c
-c
 pthread_mutex_t mtx;
 pthread_mutexattr_t mtxAttr;
 int s, type;
@@ -32439,7 +32377,7 @@ s = pthread_mutexattr_settype(&mtxAttr, PTHREAD_MUTEX_ERRORCHECK);
 if (s != 0)
     errExitEN(s, "pthread_mutexattr_settype");
 
-s = pthread_mutex_init(mtx, &mtxAttr);
+s = pthread_mutex_init(&mtx, &mtxAttr);
 if (s != 0)
     errExitEN(s, "pthread_mutex_init");
 
@@ -32483,7 +32421,7 @@ if (s != 0)
 主线程（消费者）的代码如下：
 
 ```c
-for (; ; ) {
+for (;;) {
     s = pthread_mutex_lock(&mtx);
     if (s != 0)
         errExitEN(s, "pthread_mutex_lock");
@@ -32514,6 +32452,10 @@ for (; ; ) {
 类似于互斥量，使用条件变量前必须对其初始化。
 对于经由静态分配的条件变量，将其赋值为 PTHREAD_COND_INITIALIZER 即完成初始化操作。
 可参考下面的例子：
+
+```c
+static pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+```
 
 依据 SUSv3 规定，将本节后续所描述的操作施之于一个条件变量的副本（copy）时，其结果未定义。
 所有操作仅能针对条件变量的原本执行，要么经由 PTHREAD_COND_INITIALIZER 进行了静态初始化，要么使用 pthread_cond_init() 做了动态初始化（30.2.5 节描述）处理。
@@ -32617,7 +32559,7 @@ s = pthread_mutex_lock(&mtx);
 if (s != 0)
     errExitEN(s, "pthread_mutex_lock");
 
-while (*Check that shared variable is not in state we want */
+while (/* Check that shared variable is not in state we want */)
     pthread_cond_wait(&cond, &mtx);
 
 /* Now shared variable is in desired state; do some work */
@@ -32648,9 +32590,8 @@ SUSv3 规定，在针对同一条件变量并发调用 pthread_cond_wait() 时�
 结合以上所有细节，使用 pthread_cond_wait() 修改主（消费者）线程的代码如下：
 
 ```c
-c
-for (; ; ) {
-    s = pthread_mutex_lock(& mtx);
+for (;;) {
+    s = pthread_mutex_lock(&mtx);
     if (s != 0)
         errExitEN(s, "pthread_mutex_lock");
 
@@ -32754,13 +32695,13 @@ Reaped thread 4 (numLive=0)
 
 static pthread_cond_t threadDied = PTHREAD_COND_INITIALIZER;
 static pthread_mutex_t threadMutex = PTHREAD_MUTEX_INITIALIZER;
-/* Protects all of the following global variables */
+                /* Protects all of the following global variables */
 
 static int totThreads = 0; /* Total number of threads created */
 static int numLive = 0; /* Total number of threads still alive or
-terminated but not yet joined */
+                        terminated but not yet joined */
 static int numUnjoined = 0; /* Number of terminated threads that
-have not yet been joined */
+                            have not yet been joined */
 enum tstate {
     TS_ALIVE,
     TS_TERMINATED,
@@ -32783,24 +32724,21 @@ threadFunc(void *arg)
 
     s = pthread_mutex_lock(&threadMutex);
     if (s != 0)
-        return 0;
-}
 ```
 
 ```c
-c
-errExitEN(s, "pthread_mutex_lock");
-numUnjoined++;
-thread[idx].state = TS_TERMINATED;
+        errExitEN(s, "pthread_mutex_lock");
+    numUnjoined++;
+    thread[idx].state = TS_TERMINATED;
 
-s = pthread_mutex_unlock(&threadMutex);
-if (s != 0)
-    errExitEN(s, "pthread_mutex_unlock");
-s = pthread_cond_signal(&threadDied);
-if (s != 0)
-    errExitEN(s, "pthread_cond_signal");
+    s = pthread_mutex_unlock(&threadMutex);
+    if (s != 0)
+        errExitEN(s, "pthread_mutex_unlock");
+    s = pthread_cond_signal(&threadDied);
+    if (s != 0)
+        errExitEN(s, "pthread_cond_signal");
 
-return NULL;
+    return NULL;
 }
 
 int
@@ -32809,11 +32747,11 @@ main(int argc, char *argv[])
     int s, idx;
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s nsecs...\n", argv[0]);
+        usageErr("%s num-secs...\n", argv[0]);
 
-    thread = allocarg(argc - 1, sizeof(*thread));
+    thread = calloc(argc - 1, sizeof(*thread));
     if (thread == NULL)
-        errExit("alloc");
+        errExit("calloc");
 
     /* Create all threads */
 
@@ -32841,7 +32779,7 @@ main(int argc, char *argv[])
         }
 
         for (idx = 0; idx < totThreads; idx++) {
-            if (thread[idx].state == TS_TERMINATED){
+            if (thread[idx].state == TS_TERMINATED) {
                 s = pthread_join(thread[idx].tid, NULL);
                 if (s != 0)
                     errExitEN(s, "pthread_join");
@@ -32850,14 +32788,20 @@ main(int argc, char *argv[])
 ```
 
 ```c
-numLive--;
-numUnjoined--;
-printf("Reaped thread %d (numLive=%d)\n", idx, numLive);
-s = pthread_mutex_unlock(&threadMutex);
-if (s != 0)
-    errExitEN(s, "pthread_mutex_unlock");
-exit(EXIT_SUCCESS);
+                numLive--;
+                numUnjoined--;
+                printf("Reaped thread %d (numLive=%d)\n", idx, numLive);
+            }
+        }
+
+        s = pthread_mutex_unlock(&threadMutex);
+        if (s != 0)
+            errExitEN(s, "pthread_mutex_unlock");
+    }
+
+    exit(EXIT_SUCCESS);
 }
+
 threads/thread_multijoin.c
 ```
 
@@ -32922,8 +32866,8 @@ Returns 0 on success, or a positive error number on error
 ```c
 initialize(tree);
 add(tree, char *key, void *value);
-delete(tree, char *key)
-Boolean lookup(char *key, void **value)
+delete(tree, char *key);
+Boolean lookup(char *key, void **value);
 ```
 
 上述函数原型中，tree 是一个指向根节点的结构（为此需要定义一个合适的结构）。
@@ -33148,7 +33092,7 @@ Pthreads 的早期版本不能对互斥量进行静态初始化，只能使用 p
 ```c
 #include <pthread.h>
 
-int pthread_key_create(pthread_key_t *key, void (* destructor)(void *));
+int pthread_key_create(pthread_key_t *key, void (*destructor)(void *));
 Returns 0 on success, or a positive error number on error
 ```
 
@@ -33233,9 +33177,9 @@ Pthreads API 为每个函数维护指向线程特有数据块的一个指针数�
 程序清单 31-1：非线程安全版 strerror() 函数的一种实现
 
 ```c
-c
 #define _GNU_SOURCE            /* Get '_sys_nerr' and '_sys_errlist'
-#include <stdio.h>            declarations from <stdio.h> */
+                              declarations from <stdio.h> */
+#include <stdio.h>
 #include <string.h>            /* Get declaration of strerror() */
 
 #define MAX_ERROR_LEN 256        /* Maximum length of string
@@ -33255,7 +33199,7 @@ strerror(int err)
 
     return buf;
 }
-threads strerror.c
+threads/strerror.c
 ```
 
 可以利用程序清单 31-2 中程序来展示程序清单 31-1 中非线程安全版的 strerror() 实现所造成的后果。
@@ -33288,13 +33232,12 @@ threadFunc(void *arg)
 
     printf("Other thread about to call strerror()\n");
     str = strerror(EPERM);
-}
 ```
 
 ```c
-printf("Other thread: str (%p) = %s\n", str, str);
+    printf("Other thread: str (%p) = %s\n", str, str);
 
-return NULL;
+    return NULL;
 }
 
 int main(int argc, char *argv[])
@@ -33304,7 +33247,7 @@ int main(int argc, char *argv[])
     char *str;
 
     str = strerror(EINVAL);
-    printf("Main thread has called strerror(\n)");
+    printf("Main thread has called strerror()\n");
 
     s = pthread_create(&t, NULL, threadFunc, NULL);
     if (s != 0)
@@ -33318,6 +33261,7 @@ int main(int argc, char *argv[])
 
     exit(EXIT_SUCCESS);
 }
+threads/strerror_test.c
 ```
 
 程序清单 31-3 是对函数 strerror() 的全新实现，使用了线程特有数据来确保线程安全。
@@ -33325,9 +33269,9 @@ int main(int argc, char *argv[])
 程序清单 31-3：使用线程特有数据以实现线程安全的 strerror() 函数
 
 ```c
-c
 #define _GNU_SOURCE        /* Get '_sys_nerr' and '_sys_errlist'
-#include <stdio.h>        declarations from <stdio.h> */
+                          declarations from <stdio.h> */
+#include <stdio.h>
 #include <string.h>        /* Get declaration of strerror() */
 #include <pthread.h>
 #include "tlpi_hdr.h"
@@ -33336,7 +33280,7 @@ static pthread_once_t once = PTHREAD_ONCE_INIT;
 static pthread_key_t strerrorKey;
 
 #define MAX_ERROR_LEN 256    /* Maximum length of string in per-thread
-buffer returned by strerror() */
+                            buffer returned by strerror() */
 
 static void            /* Free thread-specific data buffer */
 ① destructor(void *buf)
@@ -33353,11 +33297,12 @@ static void            /* One-time key creation function */
 ```
 
 ```c
-of the destructor for thread-specific data buffers */
+       of the destructor for thread-specific data buffers */
 
-③ s = pthread_key_create(&strerrorKey, destructor);
-if (s != 0)
-    exit(EXIT(s, "pthread_key_create");
+    ③ s = pthread_key_create(&strerrorKey, destructor);
+    if (s != 0)
+        errExitEN(s, "pthread_key_create");
+}
 
 char *
 strerror(int err)
@@ -33366,28 +33311,29 @@ strerror(int err)
     char *buf;
 
     /* Make first caller allocate key for thread-specific data */
-    s = pthread_once(&once, createKey);
+    ④ s = pthread_once(&once, createKey);
     if (s != 0)
-        exit(EXIT(s, "pthread_once");
+        errExitEN(s, "pthread_once");
 
-    buf = pthread_getspecific(strerrorKey);
+    ⑤ buf = pthread_getspecific(strerrorKey);
     if (buf == NULL) {
         /* If first call from this thread, allocate buffer for thread, and save its location */
-        buf = malloc(MAX_ERROR_LEN);
+        ⑥ buf = malloc(MAX_ERROR_LEN);
         if (buf == NULL)
-            exit(EXIT("malloc");
+            errExit("malloc");
 
-        s = pthread_setspecific(strerrorKey, buf);
+        ⑦ s = pthread_setspecific(strerrorKey, buf);
         if (s != 0)
-            exit(EXIT(s, "pthread_setspecific");
-
+            errExitEN(s, "pthread_setspecific");
     }
+
     if (err < 0 || err >= _sys_nerr || _sys_errlist[err] == NULL) {
         snprintf(buf, MAX_ERROR_LEN, "Unknown error %d", err);
     } else {
         strncpy(buf, _sys_errlist[err], MAX_ERROR_LEN - 1);
         buf[MAX_ERROR_LEN - 1] = '\0'; /* Ensure null termination */
     }
+
     return buf;
 }
 
@@ -33436,7 +33382,7 @@ Linux 支持多达 1024 个键。
 要创建线程局部变量，只需简单地在全局或静态变量的声明中包含 __thread 说明符即可。
 
 ```c
-static __thread buf[MAX_ERROR_LEN];
+static __thread char buf[MAX_ERROR_LEN];
 ```
 
 但凡带有这种说明符的变量，每个线程都拥有一份对变量的拷贝。
@@ -33463,14 +33409,14 @@ Main thread: str (0x40175080) = Invalid argument
 程序清单 31-4：使用线程局部存储实现线程安全版的 strerror() 函数
 
 ```c
-c
 #define _GNU_SOURCE            /* Get '_sys_nerr' and '_sys_errlist'
-#include <stdio.h>            declarations from <stdio.h> */
+                              declarations from <stdio.h> */
+#include <stdio.h>
 #include <string.h>           /* Get declaration of strerror() */
 #include <pthread.h>
 
 #define MAX_ERROR_LEN 256       /* Maximum length of string in per-thread
-buffer returned by strerror() */
+                               buffer returned by strerror() */
 
 static __thread char buf[MAX_ERROR_LEN];
                 /* Thread-local return buffer */
@@ -33487,6 +33433,7 @@ strerror(int err)
 
     return buf;
 }
+threads/strerror_tls.c
 ```
 
 ### 31.5 总结
@@ -33644,7 +33591,7 @@ SUSv3 也没有规范这一行为，
 当某线程调用 fork()时，
 子进程会继承调用线程的取消性类型及状态。
 而当某线程调用 exec()时，
-会将新程序主线程的取消性类型及状态分别重置为 PTHREAD_CANCEL_NABLE 和 PTHREAD_CANCEL_DEFERRED。
+会将新程序主线程的取消性类型及状态分别重置为 PTHREAD_CANCEL_ENABLE 和 PTHREAD_CANCEL_DEFERRED。
 
 ### 32.3 取消点
 
@@ -33725,7 +33672,7 @@ glibc 将其中的许多非标准函数标记为取消点。
 程序运行结果如下：
 
 ```console
-$ ./t pthread cancel
+$ ./thread_cancel
 New thread started
 Loop 1
 Loop 2
@@ -33745,12 +33692,13 @@ threadFunc(void *arg)
 {
     int j;
     printf("New thread started\n"); /* May be a cancellation point */
-    for (j = 1; j++ { printf("Loop %d\n", j); /* May be a cancellation point */
-    sleep(1); /* A cancellation point */
-}
+    for (j = 1; ; j++) {
+        printf("Loop %d\n", j); /* May be a cancellation point */
+        sleep(1); /* A cancellation point */
+    }
 
-/* NOTREACHED */
-return NULL;
+    /* NOTREACHED */
+    return NULL;
 }
 
 int
@@ -33762,22 +33710,22 @@ main(int argc, char *argv[])
 
     s = pthread_create(&thr, NULL, threadFunc, NULL);
     if (s != 0)
-        exit(EN(s, "pthread_create"));
+        errExitEN(s, "pthread_create");
 
     sleep(3); /* Allow new thread to run a while */
 
     s = pthread_cancel(thr);
     if (s != 0)
-        exit(EN(s, "pthread_cancel"));
+        errExitEN(s, "pthread_cancel");
 
     s = pthread_join(thr, &res);
     if (s != 0)
-        exit(EN(s, "pthread_join"));
+        errExitEN(s, "pthread_join");
 
     if (res == PTHREAD_CANCELED)
         printf("Thread was canceled\n");
     else
-        printf("Thread was not canceled (should not happen)!\n");
+        printf("Thread was not canceled (should not happen!)\n");
 
     exit(EXIT_SUCCESS);
 }
@@ -33957,14 +33905,14 @@ cleanupHandler(void *arg)
     int s;
 
     printf("cleanup: freeing block at %p\n", arg);
-    free(arg);
+    ① free(arg);
 
     printf("cleanup: unlocking mutex\n");
 }
 ```
 
 ```c
-② s = pthread_mutex_unlock(& mtx);
+② s = pthread_mutex_unlock(&mtx);
 if (s != 0)
     errExitEN(s, "pthread_mutex_unlock");
 }
@@ -33981,13 +33929,13 @@ threadFunc(void *arg)
         errExitEN(s, "pthread_mutex_lock");
 ⑤ pthread_cleanup_push(cleanupHandler, buf);
 ⑥ while (glob == 0) {
-    s = pthread_cond_wait(&cond, &mtx); /* A cancellation point */
-    if (s != 0)
-        errExitEN(s, "pthread_cond_wait");
-}
-printf("thread: condition wait loop completed\n");
-pthread_cleanup_pop(1); /* Executes cleanup handler */
-return NULL;
+        s = pthread_cond_wait(&cond, &mtx); /* A cancellation point */
+        if (s != 0)
+            errExitEN(s, "pthread_cond_wait");
+    }
+    printf("thread: condition wait loop completed\n");
+    ⑦ pthread_cleanup_pop(1); /* Executes cleanup handler */
+    return NULL;
 }
 
 int
@@ -34002,29 +33950,29 @@ main(int argc, char *argv[])
     sleep(2); /* Give thread a chance to get started */
     if (argc == 1) { /* Cancel thread */
         printf("main: about to cancel thread\n");
-        s = pthread_cancel(thr);
+⑨ s = pthread_cancel(thr);
         if (s != 0)
             errExitEN(s, "pthread_cancel");
-    } else {
-        printf("main: about to signal condition variable */
+    } else { /* Signal condition variable */
+        printf("main: about to signal condition variable\n");
         glob = 1;
-        s = pthread_cond_signal(&cond);
+⑩ s = pthread_cond_signal(&cond);
         if (s != 0)
             errExitEN(s, "pthread_cond_signal");
     }
-⑩ s = pthread_join(thr, &res);
+⑪ s = pthread_join(thr, &res);
     if (s != 0)
         errExitEN(s, "pthread_join");
 
 ```
 
 ```c
-if (res == PTHREAD_CANCELED)
-    printf("main: thread was canceled\n");
-else
-    printf("main: thread terminated normally\n");
+    if (res == PTHREAD_CANCELED)
+        printf("main: thread was canceled\n");
+    else
+        printf("main: thread terminated normally\n");
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 
 threads/thread_cleanup.c
@@ -35220,7 +35168,7 @@ setpgid(getpid(), getpid());
 换句话说，
 在一个作业控制 shell 程序中可能会出现像程序清单 34-1 中给出的代码。
 
-**程序清单 34-1：作业控制 shell 程序如何设置子进程的进程组 ID**
+程序清单 34-1：作业控制 shell 程序如何设置子进程的进程组 ID
 
 ```c
 pid_t childPid;
@@ -35302,7 +35250,7 @@ getsid() 系统调用会返回 pid 指定的进程的会话 ID。
 #include <unistd.h>
 
 pid_t getsid(pid_t pid);
-Returns session ID of specified process, or  $ (pid\_t) $ -1 on error
+Returns session ID of specified process, or (pid_t) -1 on error
 ```
 
 如果 pid 参数的值为 0，
@@ -35324,7 +35272,7 @@ Returns session ID of specified process, or  $ (pid\_t) $ -1 on error
 #include <unistd.h>
 
 pid_t setsid(void);
-Returns session ID of new session, or  $ (pid\_t) $ -1 on error
+Returns session ID of new session, or (pid_t) -1 on error
 ```
 
 setsid() 系统调用会按照下列步骤创建一个新会话。
@@ -35364,8 +35312,7 @@ setsid() 系统调用会按照下列步骤创建一个新会话。
 ```console
 $ ps -p $$ -o 'pid pgid sid command'    $$ is PID of shell
 PID PGID SID COMMAND
-12243 12243 12243 bash
-PID, PGID, and SID of shell
+12243 12243 12243 bash PID, PGID, and SID of shell
 $ ./t_setsid
 $ PID=12352, PGID=12352, SID=12352
 ERROR [ENXIO Device not configured] open /dev/tty
@@ -35380,7 +35327,7 @@ shell 提示符与程序输出混杂在一起了，
 因为 shell 注意到父进程在 fork() 调用之后就退出了，
 因此在子进程结束之前就输出了下一个提示符。）
 
-**程序清单 34-2：创建一个新会话**
+程序清单 34-2：创建一个新会话
 
 ```c
 pgsjc/t_setsid.c
@@ -35396,13 +35343,13 @@ int main(int argc, char *argv[])
         _exit(EXIT_SUCCESS);
 
     if (setsid() == -1)
-        exitExit("setsid");
+        errExit("setsid");
 
     printf("PID=%ld, PGID=%ld, SID=%ld\n", (long) getpid(),
            (long) getpgrp(), (long) getsid(0));
 
-    if (open("/dev/tty", 0_RDWR) == -1)
-        exitExit("open /dev/tty");
+    if (open("/dev/tty", O_RDWR) == -1)
+        errExit("open /dev/tty");
     exit(EXIT_SUCCESS);
 }
 ```
@@ -35460,8 +35407,8 @@ SUSv3 并不支持一个会话获取未指定的控制终端，
 会话首进程需要使用 ioctl() TIOCSCTTY 操作来显式地将文件描述符 fd 指定的终端建立为控制终端。
 
 ```c
-if (ioctl(fd, TI0CSCTTY) == -1)
-    exit("ioctl");
+if (ioctl(fd, TIOCSCTTY) == -1)
+    errExit("ioctl");
 ```
 
 只有在会话没有控制终端时才能执行这个操作。
@@ -35620,7 +35567,7 @@ bash 内置的命令 disown 提供了类似的功能，
 如果一个进程没有终止的话，
 那么当它接收到 SIGALRM 信号而不做处理时会导致进程终止。）
 
-**程序清单 34-3：捕获 SIGHUP 信号**
+程序清单 34-3：捕获 SIGHUP 信号
 
 ```c
 #define _XOPEN_SOURCE 500
@@ -35644,28 +35591,27 @@ main(int argc, char *argv[])
     sa.sa_flags = 0;
     sa.sa_handler = handler;
     if (sigaction(SIGHUP, &sa, NULL) == -1)
-        exit("sigaction");
+        errExit("sigaction");
 
     childPid = fork();
     if (childPid == -1)
-        exit("fork");
+        errExit("fork");
 
     if (childPid == 0 && argc > 1)
         if (setpgid(0, 0) == -1)    /* Move to new process group */
-            exit("setpgid");
+            errExit("setpgid");
 
     printf("PID=%ld; PPID=%ld; PGID=%ld; SID=%ld\n", (long) getpid(),
            (long) getppid(), (long) getpgrp(), (long) getsid(0));
 
     alarm(60);                  /* An unhandled SIGALRM ensures this process
-
-for;;; {
-    // Wait for signals */
-    pause();
-    printf("%ld: caught SIGHUP\n", (long) getpid());
+                                   will die if nothing else terminates it */
+    for (;;) {                  /* Wait for signals */
+        pause();
+        printf("%ld: caught SIGHUP\n", (long) getpid());
+    }
 }
-}
-___ nastic/catch STHUP.c
+pgsjc/catch_SIGHUP.c
 ```
 
 假设在一个终端窗口中输入了下面的命令来运行程序清单 34-3 中的程序的两个实例，
@@ -35733,17 +35679,19 @@ SIGHUP 信号后面会跟着一个 SIGCONT 信号以确保在进程组之前被�
 当发出信号之后，
 处理器会打印出进程的进程 ID 和信号数值①。
 
+程序清单 34-4：在终端断开发生时捕获 SIGHUP 信号
+
 ```c
 #define _GNU_SOURCE   /* Get strsignal() declaration from <string.h> */
 #include <string.h>
 #include <signal.h>
-#include "tli_hdr.h"
+#include "tlpi_hdr.h"
 
 static void        /* Handler for SIGHUP */
 handler(int sig)
 {
-    printf("PID %ld: caught signal %2d (%s)\n", (long) getpid(),
-sig, strsignal(sig));
+    ① printf("PID %ld: caught signal %2d (%s)\n", (long) getpid(),
+            sig, strsignal(sig));
     /* UNSAFE (see Section 21.1.2) */
 }
 int
@@ -35754,38 +35702,38 @@ main(int argc, char *argv[])
     struct sigaction sa;
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s {d}s... [ > sig.log 2>&1 ]\n", argv[0]);
+        usageErr("%s {d|s}... [ > sig.log 2>&1 ]\n", argv[0]);
 
     setbuf(stdout, NULL);        /* Make stdout unbuffered */
     parentPid = getpid();
-    printf("PID of parent process is:    %ld\n", (long) parentPid);
+    printf("PID of parent process is:       %ld\n", (long) parentPid);
     printf("Foreground process group ID is: %ld\n",
-(long) tcgetpgrp(STDIN_FILENO));
+            (long) tcgetpgrp(STDIN_FILENO));
 
     for (j = 1; j < argc; j++) {        /* Create child processes */
-        childPid = fork();
+        ② childPid = fork();
         if (childPid == -1)
-            exit("fork");
+            errExit("fork");
 
         if (childPid == 0) {        /* If child... */
             if (argv[j][0] == 'd')        /* 'd' --> to different pgrp */
-                if (setpgid(0, 0) == -1)
-                    exit("setpgid");
+                ③ if (setpgid(0, 0) == -1)
+                    errExit("setpgid");
 
             sigemptyset(&sa.sa_mask);
             sa.sa_flags = 0;
             sa.sa_handler = handler;
-            if (sigaction(SIGHUP, &sa, NULL) == -1)
-                exit("sigaction");
+            ④ if (sigaction(SIGHUP, &sa, NULL) == -1)
+                errExit("sigaction");
             break;        /* Child exits loop */
         }
     }
 
     /* All processes fall through to here */
 
-    alarm(60);        /* Ensure each process eventually terminates */
-    printf("PID=%ld PGID=%ld\n", (long) getpid(), (long) getpgrp());
-    for (; ; )
+    ⑤ alarm(60);        /* Ensure each process eventually terminates */
+    ⑥ printf("PID=%ld PGID=%ld\n", (long) getpid(), (long) getpgrp());
+    ⑦ for (; ; )
         pause();        /* Wait for signals */
 }
 ```
@@ -35925,12 +35873,12 @@ $ bg %1
 
 ```console
 $ kill -STOP %1
-[1]+ Stopped          grep -r SIGHUP /usr/src/linux >>x
+[1]+ Stopped          grep -r SIGHUP /usr/src/linux >x
 $ jobs
-[1]+ Stopped          grep -r SIGHUP /usr/src/linux >>x
+[1]+ Stopped          grep -r SIGHUP /usr/src/linux >x
 [2]- Running          sleep 60 &
 $ bg %1                Restart job in background
-[1]+ grep -r SIGHUP /usr/src/linux >>x &
+[1]+ grep -r SIGHUP /usr/src/linux >x &
 ```
 
 Korn 和 C shell 提供了一个命令 stop 作为 kill -stop 快捷方式。
@@ -35953,7 +35901,7 @@ SIGTTIN 信号的默认处理动作是停止作业。
 
 在上一个例子以及后面的几个例子中可能不需要按下回车键就能看到作业状态变更信息。
 根据内核的调度决策，
-shell 可能会在打印下一个 shell 提示符之前接收到有关后台作业
+shell 可能会在打印下一个 shell 提示符之前接收到有关后台作业状态变更的通知。
 
 现在必须要将作业移到前台来（fg）并向其提供所需的输入了。
 如果需要的话，
@@ -35974,7 +35922,7 @@ cat 将会再次立即被停止，
 SIGTTOU 信号会停止作业。
 
 ```console
-$ stty tstop Enable TOSTOP flag for this terminal
+$ stty tostop Enable TOSTOP flag for this terminal
 $ date &
 [1] 19023
 $
@@ -36055,9 +36003,9 @@ $ ./job_mon | ./job_mon | ./job_mon
 - 程序构建了一个消息并将消息传递给了管道中的下一个命令。这个消息是一个表明进程在管道中的位置的整数。因此，对于第一个进程来讲，消息中包含数字 1。如果程序是管道中的第一个进程，那么消息被初始化为 0。如果程序不是管道中的第一个进程，那么程序首先会从其前面的进程中读取这个消息⑦。程序在将控制权传递给下一个进程之前会递增消息值⑧。
 - 不管程序在管道中所处的位置如何，它都会输出一行包含其在管道中的位置、进程 ID、父进程 ID、进程组 ID 以及会话 ID 的文本⑨。
 - 除非程序是管道中的最后一个命令，否则就会写入一个整数消息以将其传递给管道中的下一个命令。
-- 最后，程序会无限循环并使用 pause() 等待信号①。
+- 最后，程序会无限循环并使用 pause() 等待信号⑪。
 
-**程序清单 34-5：观察作业控制中的进程处理**
+程序清单 34-5：观察作业控制中的进程处理
 
 ```c
 #define _GNU_SOURCE /* Get declaration of strsignal() from <string.h> */
@@ -36073,15 +36021,15 @@ handler(int sig)
 {
     /* UNSAFE: This handler uses non-async-signal-safe functions
     (fprintf(), strsignal()); see Section 21.1.2) */
-    if (getpid() == getpgrp()) /* If process group leader */
+    ① if (getpid() == getpgrp()) /* If process group leader */
         fprintf(stderr, "Terminal FG process group: %ld\n",
-        (long) tgetpgrp(STDERR_FILENO));
-    fprintf(stderr, "Process %ld (%d) received signal %d (%s)\n",
+        (long) tcgetpgrp(STDERR_FILENO));
+    ② fprintf(stderr, "Process %ld (%d) received signal %d (%s)\n",
         (long) getpid(), cmdNum, sig, strsignal(sig));
     /* If we catch SIGTSTP, it won't actually stop us. Therefore we
     raise SIGSTOP so we actually get stopped. */
 
-    if (sig == SIGTSTP)
+    ③ if (sig == SIGTSTP)
         raise(SIGSTOP);
 }
 
@@ -36094,36 +36042,36 @@ main(int argc, char *argv[])
     sa.sa_flags = SA_RESTART;
     sa.sa_handler = handler;
 
-    if (sigaction(SIGINT, &sa, NULL) == -1)
-        exit("sigaction");
+    ④ if (sigaction(SIGINT, &sa, NULL) == -1)
+        errExit("sigaction");
     if (sigaction(SIGTSTP, &sa, NULL) == -1)
-        exit("sigaction");
+        errExit("sigaction");
     if (sigaction(SIGCONT, &sa, NULL) == -1)
-        exit("sigaction");
+        errExit("sigaction");
 
     /* If stdin is a terminal, this is the first process in pipeline:
      * print a heading and initialize message to be sent down pipe */
-    if (isatty(STDIN_FILENO)) {
+    ⑤ if (isatty(STDIN_FILENO)) {
         fprintf(stderr, "Terminal FG process group: %ld\n",
-                    (long) tgetpgrp(STDIN_FILENO));
-        fprintf(stderr, "Command PID PPID PGRP SID\n");
+                    (long) tcgetpgrp(STDIN_FILENO));
+        ⑥ fprintf(stderr, "Command PID PPID PGRP SID\n");
         cmdNum = 0;
     } else {
         /* Not first in pipeline, so read message from pipe */
-        if (read(STDIN_FILENO, &cmdNum, sizeof(cmdNum)) <= 0)
+        ⑦ if (read(STDIN_FILENO, &cmdNum, sizeof(cmdNum)) <= 0)
             fatal("read got EOF or error");
     }
 
-    cmdNum++;
-    fprintf(stderr, "%4d %5ld %5ld %5ld %5ld\n", cmdNum,
-                    (long) getpid(), (long) getpid(),
-                    (long) getppgrp(), (long) getsid(0));
+    ⑧ cmdNum++;
+    ⑨ fprintf(stderr, "%4d %5ld %5ld %5ld %5ld\n", cmdNum,
+                    (long) getpid(), (long) getppid(),
+                    (long) getpgrp(), (long) getsid(0));
 
     /* If not the last process, pass a message to the next process */
     if (!isatty(STDOUT_FILENO)) /* If not tty, then should be pipe */
-        if (write(STDOUT_FILENO, &cmdNum, sizeof(cmdNum)) == -1)
+        ⑩ if (write(STDOUT_FILENO, &cmdNum, sizeof(cmdNum)) == -1)
             errMsg("write");
-    for (;;) /* Wait for signals */
+    ⑪ for (;;) /* Wait for signals */
         pause();
 }
 
@@ -36136,7 +36084,7 @@ pgsjc/job_mon.c
 接着创建了一个包含两个进程的后台作业。
 
 ```console
-$ echo $
+$ echo $$
 1204
 $ ./job_mon | ./job_mon &
 [1] 1227
@@ -36209,14 +36157,14 @@ shell 变成了前台进程组，
 
 ```console
 $ bg
-[2]+  ./job_mon  ./job_mon  ./job_mon &
+[2]+  ./job_mon | ./job_mon | ./job_mon &
 Process 1230 (3) received signal 18 (Continued)
 Process 1229 (2) received signal 18 (Continued)
 Terminal FG process group: 1204
 Process 1228 (1) received signal 18 (Continued)
 $ kill %1 %2
-[1]-  Terminated  ./job_mon  ./job_mon
-[2]+  Terminated  ./job_mon  ./job_mon  ./job_mon
+[1]-  Terminated  ./job_mon | ./job_mon
+[2]+  Terminated  ./job_mon | ./job_mon | ./job_mon
 ```
 
 #### 34.7.3 处理作业控制信号
@@ -36287,7 +36235,7 @@ Caught SIGTSTP
 This message is printed by SIGTSTP handler
 [1]+  Stopped     ./handling_SIGTSTP
 $ fg
-.SIGNAL handling_SIGTSTP
+./handling_SIGTSTP
 Exiting SIGTSTP handler Execution of handler continues; handler returns
 Main pause() call in main() was interrupted by handler
 Type Control-C to terminate the program
@@ -36304,7 +36252,7 @@ Type Control-C to terminate the program
 在 pause() 调用被中断之后，
 主程序打印出了消息 Main。
 
-**程序清单 34-6：处理 SIGTSTP**
+程序清单 34-6：处理 SIGTSTP
 
 ```c
 #include <signal.h>
@@ -36338,7 +36286,7 @@ tstpHandler(int sig)
 
     sigemptyset(&sa.sa_mask);      /* Reestablish handler */
     sa.sa_flags = SA_RESTART;
-    sa.sa_handler = tstdHandler;
+    sa.sa_handler = tstpHandler;
     if (sigaction(SIGTSTP, &sa, NULL) == -1)
         errExit("sigaction");
 
@@ -36358,16 +36306,15 @@ main(int argc, char *argv[])
     if (sa.sa_handler != SIG_IGN) {
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART;
+        sa.sa_handler = tstpHandler;
+        if (sigaction(SIGTSTP, &sa, NULL) == -1)
+            errExit("sigaction");
+    }
 
-sa.sa_handler = tstpHandler;
-if (sigaction(SIGTSTP, &sa, NULL) == -1)
-    exit("sigaction");
-}
-for (; ; ) {
-    /* Wait for signals */
-    pause();
-    printf("Main\n");
-}
+    for (;;) {                          /* Wait for signals */
+        pause();
+        printf("Main\n");
+    }
 }
 pgsjc/handling_SIGTSTP.c
 ```
@@ -36499,18 +36446,18 @@ SUSv3 规定，
 就会调用信号处理器，
 信号处理器会显示出子进程的进程 ID 和信号编号①。
 
-**程序清单 34-7：SIGHUP 和孤儿进程组**
+程序清单 34-7：SIGHUP 和孤儿进程组
 
 ```c
 #define _GNU_SOURCE   /* Get declaration of strsignal() from <string.h> */
 #include <string.h>
 #include <signal.h>
-#include "tlipi_hdr.h"
+#include "tlpi_hdr.h"
 
 static void        /* Signal handler */
 handler(int sig)
 {
-    printf("PID=%ld: caught signal %d (%s)\n", (long) getpid(),
+    ① printf("PID=%ld: caught signal %d (%s)\n", (long) getpid(),
            sig, strsignal(sig));   /* UNSAFE (see Section 21.1.2) */
 }
 
@@ -36521,7 +36468,7 @@ main(int argc, char *argv[])
     struct sigaction sa;
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s {s|p} ...\\n", argv[0]);
+        usageErr("%s {s|p} ...\n", argv[0]);
 
     setbuf(stdout, NULL);          /* Make stdout unbuffered */
 
@@ -36529,7 +36476,7 @@ main(int argc, char *argv[])
     sa.sa_flags = 0;
     sa.sa_handler = handler;
 
-    if (sigaction(SIGHUP, &sa, NULL) == -1)
+    ② if (sigaction(SIGHUP, &sa, NULL) == -1)
         errExit("sigaction");
 
     if (sigaction(SIGCONT, &sa, NULL) == -1)
@@ -36538,37 +36485,35 @@ main(int argc, char *argv[])
     printf("parent: PID=%ld, PPID=%ld, PGID=%ld, SID=%ld\n",
            (long) getpid(), (long) getppid(),
            (long) getpgrp(), (long) getsid(0));
-}
-
-/* Create one child for each command-line argument */
-for (j = 1; j < argc; j++) {
-    switch (fork()) {
+    /* Create one child for each command-line argument */
+    for (j = 1; j < argc; j++) {
+        ③ switch (fork()) {
         case -1:
-            exit(1);
+            errExit("fork");
         case 0:
             /* Child */
             printf("child: PID=%ld, PPID=%ld, PGID=%ld, SID=%ld\n",
                     (long) getpid(), (long) getppid(),
-                    (long) getpgrp(), (long) getsid());
+                    (long) getpgrp(), (long) getsid(0));
             if (argv[j][0] == 's') { /* Stop via signal */
                 printf("PID=%ld stopping\n", (long) getpid());
-                raise(SIGSTOP);
+                ④ raise(SIGSTOP);
             } else { /* Wait for signal */
                 alarm(60);
                 /* So we die if not SIGHUPed */
                 printf("PID=%ld pausing\n", (long) getpid());
-                pause();
+                ⑤ pause();
             }
             _exit(EXIT_SUCCESS);
         default: /* Parent carries on round loop */
             break;
+        }
     }
-}
 
-/* Parent falls through to here after creating all children */
-sleep(3); /* Give children a chance to start */
-printf("parent exiting\n");
-exit(EXIT_SUCCESS); /* And orphan them and their group */
+    /* Parent falls through to here after creating all children */
+    ⑥ sleep(3); /* Give children a chance to start */
+    printf("parent exiting\n");
+    ⑦ exit(EXIT_SUCCESS); /* And orphan them and their group */
 }
 
 pgsjc/orphaned_pgrp_SIGHUP.c
@@ -36906,7 +36851,7 @@ Linux 提供了 RLIMIT_NICE 资源限制，
 程序清单 35-1 中的程序使用 setpriority() 来修改通过命令行参数（对应于 setpriority() 函数的参数）指定的进程的 nice 值，
 接着调用 getpriority() 来验证变更是否生效。
 
-**程序清单 35-1：修改和获取进程的 nice 值**
+程序清单 35-1：修改和获取进程的 nice 值
 
 ```c
 #include <sys/time.h>
@@ -36917,32 +36862,31 @@ int main(int argc, char *argv[])
 {
     int which, prio;
     id_t who;
-}
 
-if (argc != 4 || strchr("pgu", argv[1][0]) == NULL)
-    usageErr("%s {p|g|u} who priority\n"
+    if (argc != 4 || strchr("pgu", argv[1][0]) == NULL)
+        usageErr("%s {p|g|u} who priority\n"
                 "    set priority of: p=process; g=process group; "
                 "u=processes for user\n", argv[0]);
 
-/* Set nice value according to command-line arguments */
-which = (argv[1][0] == 'p') ? PRIO_PROCESS :
+    /* Set nice value according to command-line arguments */
+    which = (argv[1][0] == 'p') ? PRIO_PROCESS :
                 (argv[1][0] == 'g') ? PRIO_PGRP : PRIO_USER;
-who = getLong(argv[2], 0, "who");
-prio = getInt(argv[3], 0, "prio");
+    who = getLong(argv[2], 0, "who");
+    prio = getInt(argv[3], 0, "prio");
 
-if (setpriority(which, who, prio) == -1)
-    exitExit("getpriority");
+    if (setpriority(which, who, prio) == -1)
+        errExit("setpriority");
 
-/* Retrieve nice value to check the change */
+    /* Retrieve nice value to check the change */
 
-errno = 0; /* Because successful call may return -1 */
-prio = getpriority(which, who);
-if (prio == -1 && errno != 0)
-    exitExit("getpriority");
+    errno = 0; /* Because successful call may return -1 */
+    prio = getpriority(which, who);
+    if (prio == -1 && errno != 0)
+        errExit("getpriority");
 
-printf("Nice value = %d\n", prio);
+    printf("Nice value = %d\n", prio);
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 procpri/t_setpriority.c
 ```
@@ -37224,7 +37168,7 @@ pid 和 param 参数与 sched_setscheduler() 中相应的参数是一样的。
 第二个参数是一个整数优先级，
 剩下的参数是需修改调度特性的进程的进程 ID。
 
-**程序清单 35-2：修改进程的调度策略和优先级**
+程序清单 35-2：修改进程的调度策略和优先级
 
 ```c
 #include <sched.h>
@@ -37237,14 +37181,14 @@ int main(int argc, char *argv[])
 
     if (argc < 3 || strchr("rfo", argv[1][0]) == NULL)
         usageErr("%s policy priority [pid...]\n"
-                " policy is 'r' (RR), 'f' (FIFO), "
+                "    policy is 'r' (RR), 'f' (FIFO), "
 #ifdef SCHED_BATCH
                 /* Linux-specific */
-                "b' (BATCH), "
+                "'b' (BATCH), "
 #endif
 #ifdef SCHED_IDLE
                 /* Linux-specific */
-                "i' (IDLE), "
+                "'i' (IDLE), "
 #endif
                 "or 'o' (OTHER)\n",
                 argv[0]);
@@ -37261,7 +37205,9 @@ int main(int argc, char *argv[])
 
     for (j = 3; j < argc; j++)
         if (sched_setscheduler(getLong(argv[j], 0, "pid"), pol, &sp) == -1)
-            exit(EXIT_SUCCESS);
+            errExit("sched_setscheduler");
+
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -37327,12 +37273,12 @@ Password:
 [1] 2006 Create a process
 # ./sched_view 2006 View initial policy and priority of sleep process
 2006: OTHER 0
-# ./sched_set_f 25 2006 Switch process to SCHED_FIFO policy, priority 25
+# ./sched_set f 25 2006 Switch process to SCHED_FIFO policy, priority 25
 # ./sched_view 2006 Verify change
 2006: FIFO 25
 ```
 
-**程序清单 35-3：获取进程的调度策略和优先级**
+程序清单 35-3：获取进程的调度策略和优先级
 
 ```c
 procpri/sched_view.c
@@ -37342,35 +37288,33 @@ procpri/sched_view.c
 int main(int argc, char *argv[])
 {
     int j, pol;
+    struct sched_param sp;
 
-struct sched_param sp;
+    for (j = 1; j < argc; j++) {
+        pol = sched_getscheduler(getLong(argv[j], 0, "pid"));
+        if (pol == -1)
+            errExit("sched_getscheduler");
 
-for (j = 1; j < argc; j++) {
-    pol = sched_getscheduler(getLong(argv[j], 0, "pid"));
-    if (pol == -1)
-        exit("sched_getscheduler");
+        if (sched_getparam(getLong(argv[j], 0, "pid"), &sp) == -1)
+            errExit("sched_getparam");
 
-    if (sched_getparam(getLong(argv[j], 0, "pid"), &sp) == -1)
-        exit("sched_getparam");
-
-    printf("%s: %-5s %2d\n", argv[j],
-           (pol == SCHED_OTHER) ? "OTHER" :
-           (pol == SCHED_RR) ? "RR" :
-           (pol == SCHED_FIFO) ? "FIFO" :
+        printf("%s: %-5s %2d\n", argv[j],
+                (pol == SCHED_OTHER) ? "OTHER" :
+                (pol == SCHED_RR) ? "RR" :
+                (pol == SCHED_FIFO) ? "FIFO" :
 #ifdef SCHED_BATCH
-           /* Linux-specific */
-           (pol == SCHED_BATCH) ? "BATCH" :
+                /* Linux-specific */
+                (pol == SCHED_BATCH) ? "BATCH" :
 #endif
 #ifdef SCHED_IDLE
-           /* Linux-specific */
-           (pol == SCHED_IDLE) ? "IDLE" :
+                /* Linux-specific */
+                (pol == SCHED_IDLE) ? "IDLE" :
 #endif
-           "??? ", sp.sched_priority);
-}
+                "??? ", sp.sched_priority);
+    }
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
-___ proc pri/sched_view.c
 ```
 
 ##### 防止实时进程锁住系统
@@ -37710,16 +37654,12 @@ who 参数指定了需查询资源使用信息的进程，
 res_usage 参数是一个指向 rusage 结构的指针，
 其定义如程序清单 36-1 所示。
 
-**程序清单 36-1：rusage 结构的定义**
+程序清单 36-1：rusage 结构的定义
 
 ```c
 struct rusage {
     struct timeval ru_utime;    /* User CPU time used */
     struct timeval ru_stime;    /* System CPU time used */
-};
-```
-
-```c
 long          ru_maxrss;    /* Maximum size of resident set (kilobytes)
                          [used since Linux 2.6.32] */
 long          ru_ixrss;    /* Integral (shared) text memory size
@@ -37728,8 +37668,8 @@ long          ru_idrss;    /* Integral (unshared) data memory used
                          (kilobyte-seconds) [unused] */
 long          ru_isrss;    /* Integral (unshared) stack memory used
                          (kilobyte-seconds) [unused] */
-long          ru_minFLT;    /* Soft page faults (I/O not required) */
-long          ru_majFLT;    /* Hard page faults (I/O required) */
+long          ru_minflt;    /* Soft page faults (I/O not required) */
+long          ru_majflt;    /* Hard page faults (I/O required) */
 long          ru_nswap;     /* Swaps out of physical memory [unused] */
 long          ru_inblock;    /* Block input operations via file
                          system [used since Linux 2.6.22] */
@@ -37890,7 +37830,7 @@ rlim_t 数据类型与 off_t 通常是一样的，
 用来处理文件大小资源限制 RLIMIT_FSIZE 的表示。
 基于这个原因，
 在打印 rlim_t 值时（如在程序清单 36-2 中），
-需要像 5.10 节所说的
+需要像 5.10 节所说的那样将它们转换成 long long 并使用 %lld printf() 修饰符。
 
 程序清单 36-3 调用了 setrlimit() 来设置一个用户能够创建的进程数量的软限制和硬限制（RLIMIT_NPROC），
 同时使用了程序清单 36-2 中的函数 printRLimit() 来输出变更之前和之后的资源限制，
@@ -37915,14 +37855,14 @@ ERROR [EAGAIN Resource temporarily unavailable] fork
 程序只创建了 4 个新进程，
 因为在该用户下已经运行着 26 个进程了。
 
-**程序清单 36-2：显示进程资源限制**
+程序清单 36-2：显示进程资源限制
 
 ```c
 #include <sys/resource.h>
 #include "print_rlimit.h" /* Declares function defined here */
 #include "tlpi_hdr.h"
 
-int main(void)
+printRLimit(const char *msg, int resource)
 {
     struct rlimit rlim;
     if (getrlimit(resource, &rlim) == -1)
@@ -37931,26 +37871,28 @@ int main(void)
     printf("%s soft=", msg);
     if (rlim.rlim_cur == RLIM_INFINITY)
         printf("infinite");
-    #ifdef RLIM_SAVED_CUR /* Not defined on some implementations */
+#ifdef RLIM_SAVED_CUR /* Not defined on some implementations */
     else if (rlim.rlim_cur == RLIM_SAVED_CUR)
         printf("unrepresentable");
-    #endif
+#endif
     else
         printf("%lld", (long long)rlim.rlim_cur);
 
     printf("; hard=");
     if (rlim.rlim_max == RLIM_INFINITY)
         printf("infinite\n");
-    #ifdef RLIM_SAVED_MAX /* Not defined on some implementations */
+#ifdef RLIM_SAVED_MAX /* Not defined on some implementations */
     else if (rlim.rlim_max == RLIM_SAVED_MAX)
         printf("unrepresentable");
-    #endif
+#endif
     else
         printf("%lld\n", (long long)rlim.rlim_max);
 
     return 0;
 }
 ```
+
+程序清单 36-3：设置 RLIMIT_NPROC 资源限制
 
 ```c
 procres/rlimit_nproc.c
@@ -37976,20 +37918,19 @@ int main(int argc, char *argv[])
                     (argv[2][0] == 'i') ? RLIM_INFINITY :
                     getInt(argv[2], 0, "hard-limit");
     if (setrlimit(RLIMIT_NPROC, &rl) == -1)
-        exit(EXIT_FAILURE);
+        errExit("setrlimit");
 
     printRLimit("New maximum process limits: ", RLIMIT_NPROC);
 
     /* Create as many children as possible */
-    for (j = 1; j++ {
+    for (j = 1; ; j++) {
         switch (childPid = fork()) {
-            case -1: exit(EXIT_FAILURE);
-            case 0: _exit(EXIT_SUCCESS); /* Child */
-            default: /* Parent: display message about each new child
-                     and let the resulting zombies accumulate */
-                printf("Child %d (PID=%ld) started\n", j, (long) childPid);
-                break;
-            }
+        case -1: errExit("fork");
+        case 0: _exit(EXIT_SUCCESS); /* Child */
+        default: /* Parent: display message about each new child
+                    and let the resulting zombies accumulate */
+            printf("Child %d (PID=%ld) started\n", j, (long) childPid);
+            break;
         }
     }
 }
@@ -38408,19 +38349,19 @@ Returns 0 on success, or -1 on error
 
 becomeDaemon() 函数接收一个位掩码参数 flags，它允许调用者有选择地执行其中的步骤，具体可参考程序清单 37-1 中列出的头文件中的注释。
 
-> 程序清单 37-1：become_daemon.c 的头文件
+程序清单 37-1：become_daemon.c 的头文件
 
 ```c
 daemons/become_daemon.h
 
-/* Prevent double inclusion */
+#ifndef BECOME_DAEMON_H /* Prevent double inclusion */
 #define BECOME_DAEMON_H
 
 /* Bit-mask values for 'flags' argument of becomeDaemon() */
 #define BD_NO_CHDIR 01 /* Don't chdir("/") */
 #define BD_NO_CLOSE_FILES 02 /* Don't close all open files */
 #define BD_NO_REOPEN_STD_FDS 04 /* Don't reopen stdin, stdout, and stderr to /dev/null */
-#define BD_NO_UMASK 010 /* Don't do a umask(0) */
+#define BD_NO_UMASK0 010 /* Don't do a umask(0) */
 #define BD_MAX_CLOSE 8192 /* Maximum file descriptors to close if sysconf(_SC_OPEN_MAX) is indeterminate */
 int becomeDaemon(int flags);
 #endif
@@ -38433,7 +38374,7 @@ daemons/become_daemon.h
 GNU C 库提供了一个非标准的 daemon() 函数，它将调用者变成一个 daemon。
 glibc daemon() 函数与这里的 becomeDaemon() 函数不同，它并没有定义一个与 flags 参数等价的参数。
 
-> 程序清单 37-2：becomeDaemon() 函数的实现
+程序清单 37-2：becomeDaemon() 函数的实现
 
 ```c
 #include <sys/stat.h>
@@ -38461,7 +38402,7 @@ becomeDaemon(int flags)
         default: _exit(EXIT_SUCCESS);
     }
 
-    if (! (flags & BD_NO_UMASKO))
+    if (! (flags & BD_NO_UMASK0))
         umask(0); /* Clear file mode creation mask */
 
     if (! (flags & BD_NO_CHDIR))
@@ -38483,7 +38424,7 @@ becomeDaemon(int flags)
 
         if (fd != STDIN_FILENO) /* 'fd' should be 0 */
             return -1;
-        if (dup2(STDIN_FILENO,STDOUT_FILENO) != STDOUT_FILENO)
+        if (dup2(STDIN_FILENO, STDOUT_FILENO) != STDOUT_FILENO)
             return -1;
         if (dup2(STDIN_FILENO, STDERR_FILENO) != STDERR_FILENO)
             return -1;
@@ -38497,10 +38438,10 @@ daemons/become_daemon.c
 假设编写一个程序调用 becomeDaemon(0)，之后睡眠一段时间，那么可以使用 ps(1) 来查看结果进程的一些特性。
 
 ```console
-$ ./test Become_daemon
-$ ps -C test Become_daemon -o "pid ppid pgid sid tty command"
+$ ./test_become_daemon
+$ ps -C test_become_daemon -o "pid ppid pgid sid tty command"
 PID PPID PGID SID TT COMMAND
-24731 1 24730 24730 ? ./test Become_daemon
+24731 1 24730 24730 ? ./test_become_daemon
 ```
 
 由于代码比较简单，因此这里并没有给出 daemon/test_become_daemon.c 的源代码，本书的源代码包中提供了这个程序的代码。
@@ -38602,7 +38543,7 @@ Kill our daemon
 按照惯例，配置文件会被放在 /etc 或它的一个子目录中，日志文件会被放在 /var/log 中。
 Daemon 程序通常会提供命令行参数来指定其他存放位置以替换默认的存放位置。
 
-> 程序清单 37-3：使用 SIGHUP 重新初始化一个 daemon
+程序清单 37-3：使用 SIGHUP 重新初始化一个 daemon
 
 ```c
 #include <sys/stat.h>
@@ -38618,11 +38559,10 @@ readConfigFile() are omitted from this listing */
 
 static volatile sig_atomic_t hupReceived = 0;
 /* Set nonzero on receipt of SIGHUP */
-from
 static void
 sighupHandler(int sig)
 {
-    hupReceived = 1;
+    ① hupReceived = 1;
 }
 
 int
@@ -38636,31 +38576,31 @@ main(int argc, char *argv[])
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
     sa.sa_handler = sighupHandler;
-    if (sigaction(SIGHUP, &sa, NULL) == -1)
-        exit("sigaction");
+    ② if (sigaction(SIGHUP, &sa, NULL) == -1)
+        errExit("sigaction");
 
-    if (becomeDaemon(0) == -1)
-        exit("becomeDaemon");
+    ③ if (becomeDaemon(0) == -1)
+        errExit("becomeDaemon");
 
-    logOpen(LOG_FILE);
-    readConfigFile(CONFIG_FILE);
+    ④ logOpen(LOG_FILE);
+    ⑤ readConfigFile(CONFIG_FILE);
 
     unslept = SLEEP_TIME;
 
     for (;;) {
-        unslept = sleep(unslept);    /* Returns > 0 if interrupted */
-        if (hupReceived) {
+        ⑥ unslept = sleep(unslept);    /* Returns > 0 if interrupted */
+        ⑦ if (hupReceived) {
             logClose();
-logOpen(LOG_FILE);
-readConfigFile(CONFIG_FILE);
-hupReceived = 0; /* Get ready for next SIGHUP */
-}
-if (unslept == 0) { /* On completed interval */
-    count++;
-    logMessage("Main: %d", count);
-    unslept = SLEEP_TIME; /* Reset interval */
-}
-}
+            logOpen(LOG_FILE);
+            readConfigFile(CONFIG_FILE);
+            hupReceived = 0; /* Get ready for next SIGHUP */
+        }
+        if (unslept == 0) { /* On completed interval */
+            count++;
+            ⑧ logMessage("Main: %d", count);
+            unslept = SLEEP_TIME; /* Reset interval */
+        }
+    }
 }
 daemons/daemon_SIGHUP.c
 ```
@@ -38846,8 +38786,8 @@ level 表示消息的严重程度，其取值为表 37-2 中列出的值中的�
 下面的代码演示了 openlog() 和 syslog() 的用法。
 
 ```c
-openlog(argv[0], LOG_PID | LOG_CONS | LOG_NOWAIT, LOG_LOCAL);
-syslog(LOG_ERROR, "Bad argument: %s", argv[1]);
+openlog(argv[0], LOG_PID | LOG_CONS | LOG_NOWAIT, LOG_LOCAL0);
+syslog(LOG_ERR, "Bad argument: %s", argv[1]);
 syslog(LOG_USER | LOG_INFO, "Exiting");
 ```
 
@@ -39084,7 +39024,7 @@ saved set-group-ID 会保存程序的初始有效组 ID，
 
 ```c
 if (setuid(getuid()) == -1)
-    exit("setuid");
+    errExit("setuid");
 ```
 
 当调用进程的当前有效用户 ID 为非零时，
@@ -39095,20 +39035,20 @@ setuid() 只会修改有效用户 ID（参见 9.7.1 节）。
 在一个 set-user-ID-root 程序中，
 下面的调用序列不会永久地删除用户 ID 0。
 
-/* Initial UUIDs: real=1000 effective=0 saved=0 */
-
 ```c
+/* Initial UIDs: real=1000 effective=0 saved=0 */
+
 /* 1. Usual call to temporarily drop privilege */
 orig_euid = geteuid();
-if (seteuid(getuid() == -1)
-    exit("seteuid");
+if (seteuid(getuid()) == -1)
+    errExit("seteuid");
 
-/*UIDs changed to: real=1000 effective=1000 saved=0 */
+/* UIDs changed to: real=1000 effective=1000 saved=0 */
 /* 2. Looks like the right way to permanently drop privilege (WRONG!) */
-if (setuid(getuid() == -1)
-    exit("setuid");
+if (setuid(getuid()) == -1)
+    errExit("setuid");
 
-/*UIDs unchanged: real=1000 effective=1000 saved=0 */
+/* UIDs unchanged: real=1000 effective=1000 saved=0 */
 ```
 
 相反，
@@ -39117,7 +39057,7 @@ if (setuid(getuid() == -1)
 
 ```c
 if (seteuid(orig_euid) == -1)
-    exit("seteuid");
+    errExit("seteuid");
 ```
 
 另一方面，
@@ -39130,7 +39070,7 @@ if (seteuid(orig_euid) == -1)
 
 ```c
 if (setreuid(getuid(), getuid()) == -1)
-    exit("setreuid");
+    errExit("setreuid");
 ```
 
 上面的代码依赖于 Linux 实现中的 setreuid() 特性：
@@ -39882,14 +39822,13 @@ Thu Feb 1 21:39:02 CET 2018
 现在复制一份 date 程序的副本并赋予该副本所需的能力。
 
 ```console
-$ whereis -b date
+$ whereis -b date                   Find location of date binary
 date: /bin/date
 $ cp /bin/date .
 $ sudo setcap "cap_sys_time=pe" date
 root's password:
 $ getcap date
 date = cap_sys_time+ep
-Find location of date binary
 ```
 
 上面的 setcap 命令将 CAP_SYS_TIME 能力赋给了可执行文件的许可能力集（p）和有效能力集（e）。
@@ -40175,19 +40114,19 @@ int main(int argc, char *argv[])
     struct spwd *spwd;
     Boolean authOk;
     size_t len;
-    long lmax;
+    long lnmax;
 
-    lmax = sysconf(_SC_LOGIN_NAME_MAX);
-    if (lmax == -1) /* If limit is indeterminate */
-        lmax = 256; /* make a guess */
+    lnmax = sysconf(_SC_LOGIN_NAME_MAX);
+    if (lnmax == -1) /* If limit is indeterminate */
+        lnmax = 256; /* make a guess */
 
-    username = malloc(lmax);
+    username = malloc(lnmax);
     if (username == NULL)
-        exit("malloc");
+        errExit("malloc");
 
     printf("Username: ");
     fflush(stdout);
-    if (fgets(username, lmax, stdin) == NULL)
+    if (fgets(username, lnmax, stdin) == NULL)
         exit(EXIT_FAILURE); /* Exit on EOF */
 
     len = strlen(username);
@@ -40202,7 +40141,7 @@ int main(int argc, char *argv[])
     if (raiseCap(CAP_DAC_READ_SEARCH) == -1)
         fatal("raiseCap() failed");
 
-    spwd = getsppnam(username);
+    spwd = getspnam(username);
     if (spwd == NULL && errno == EACCES)
         fatal("no permission to read shadow password file");
 
@@ -40221,23 +40160,24 @@ int main(int argc, char *argv[])
     encrypted = crypt(password, pwd->pw_passwd);
     for (p = password; *p != '\0'; )
         *p++ = '\0';
+
+    if (encrypted == NULL)
+        errExit("crypt");
+
+    authOk = strcmp(encrypted, pwd->pw_passwd) == 0;
+    if (!authOk) {
+        printf("Incorrect password\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("Successfully authenticated: UID=%ld\n", (long) pwd->pw_uid);
+
+    /* Now do authenticated work... */
+
+    exit(EXIT_SUCCESS);
 }
 
-if (encrypted == NULL)
-    errExit("crypt");
-
-authOk = strcmp(encrypted, pwd->pw_passwd) == 0;
-if (!authOk) {
-    printf("Incorrect password\n");
-    exit(EXIT_FAILURE);
-}
-
-printf("Successfully authenticated: UID=%ld\n", (long) pwd->pw_uid);
-
-/* Now do authenticated work... */
-
-exit(EXIT_SUCCESS);
-}
+cap/check_password_caps.c
 ```
 
 ### 39.8 创建仅包含能力的环境
@@ -40298,9 +40238,9 @@ fork() 创建子进程会继承 securebits 标记设置。
 除 SECBIT_KEEP_CAPS 之外的所有标记设置都会得到保留，
 之所以清除 SECBIT_KEEP_CAPS 标记是为了与下面描述的 PR_SET_KEEPCAPS 设置保持兼容。
 
-进程可以使用 prctl() PR_GET_SECREBITS 操作来获取 securebits 标记。
+进程可以使用 prctl() PR_GET_SECUREBITS 操作来获取 securebits 标记。
 一个进程如果拥有 CAP_SETPCAP 能力，
-那么它就可以使用 prctl() PR_SET_SECREBITS 操作修改 securebits 标记。
+那么它就可以使用 prctl() PR_SET_SECUREBITS 操作修改 securebits 标记。
 一个完全基于能力的应用程序能够使用下面的调用不可逆地禁用调用进程及其所有子孙进程对 root 用户的特殊处理。
 
 ```c
@@ -40309,7 +40249,7 @@ if (prctl(PR_SET_SECUREBITS,
        SECBIT_NO_SETUID_FIXUP | SECBIT_NO_SETUID_FIXUP_LOCKED |
        SECBIT_NOROOT | SECBIT_NOROOT_LOCKED)
     == -1)
-    exit(EXIT_FAILURE);
+    errExit("prctl");
 ```
 
 在执行完这个调用之后，
@@ -40590,12 +40530,13 @@ SUSv3 规定了 ut_line 和 ut_user 字段，
 
 ```c
 #define _GNU_SOURCE        /* Without _GNU_SOURCE the two field
+names below are prepended by "__" */
 struct exit_status {
     short e_termination;    /* Process termination status (signal) */
     short e_exit;           /* Process exit status */
 };
 
-#define _UT_LINESIZE        32
+#define __UT_LINESIZE       32
 
 #define __UT_NAMESIZE 32
 #define __UT_HOSTSIZE 256
@@ -40809,7 +40750,7 @@ struct utmpx *res = NULL;
 
 if (res != NULL) /* If 'res' was set via a previous call */
     memset(res, 0, sizeof(struct utmpx));
-    res = getutxline(&ut);
+res = getutxline(&ut);
 ```
 
 glibc 实现不会进行这样的缓存，
@@ -40883,11 +40824,13 @@ DEAD_PR 10482 tty3 3 2.4.20-4G Sat Oct 23 10:32:54 2010
 程序清单 40-2：显示一个 utmpx 格式文件的内容
 
 ```c
+loginacct/dump_utmpx.c
+
 #define _GNU_SOURCE
 #include <time.h>
 #include <utmpx.h>
 #include <paths.h>
-#include "tlipi_hdr.h"
+#include "tlpi_hdr.h"
 
 int
 main(int argc, char *argv[])
@@ -40903,11 +40846,11 @@ main(int argc, char *argv[])
 
     setutxent();
 
-    printf("user    type    PID line    id    host    date/time\n");
+    printf("user     type      PID line   id  host      date/time\n");
 
     while ((ut = getutxent()) != NULL) { /* Sequential scan to EOF */
-        printf("%-8s", ut->ut_user);
-        printf("%-9.9s",
+        printf("%-8s ", ut->ut_user);
+        printf("%-9.9s ",
                (ut->ut_type == EMPTY) ? "EMPTY" :
                (ut->ut_type == RUN_LVL) ? "RUN_LVL" :
                (ut->ut_type == BOOT_TIME) ? "BOOT_TIME" :
@@ -40916,15 +40859,17 @@ main(int argc, char *argv[])
                (ut->ut_type == INIT_PROCESS) ? "INIT_PR" :
                (ut->ut_type == LOGIN_PROCESS) ? "LOGIN_PR" :
                (ut->ut_type == USER_PROCESS) ? "USER_PR" :
-               (ut->ut_type == DEAD_PROCESS) ? "DEAD_PR" : "???" );
-        printf("%5ld %-6.6s %-3.5s %-9.9s", (long) ut->ut_pid,
+               (ut->ut_type == DEAD_PROCESS) ? "DEAD_PR" : "???");
+        printf("%5ld %-6.6s %-3.5s %-9.9s ", (long) ut->ut_pid,
                ut->ut_line, ut->ut_id, ut->ut_host);
-        printf("%s", ctime((time_t *) (ut->ut_tv.tv_sec)));
+        printf("%s", ctime((time_t *) &(ut->ut_tv.tv_sec)));
     }
 
     endutxent();
     exit(EXIT_SUCCESS);
 }
+
+loginacct/dump_utmpx.c
 ```
 
 ### 40.5 获取登录名称：getlogin()
@@ -41150,6 +41095,8 @@ mtk pts/7 Fri Feb 1 22:08 - 22:09 (00:01)
 程序清单 40-3：更新 utmp 和 wtmp 文件
 
 ```c
+loginacct/utmpx_login.c
+
 #define _GNU_SOURCE
 #include <time.h>
 #include <utmpx.h>
@@ -41166,11 +41113,11 @@ main(int argc, char *argv[])
 
     /* Initialize login record for utmp and wtmp files */
 
-    memset(&ut, 0, sizeof(struct utmpx));      /* This is a user login */
-    ut.ut_type = USER_PROCESS;
+    memset(&ut, 0, sizeof(struct utmpx));
+    ut.ut_type = USER_PROCESS;          /* This is a user login */
     strncpy(ut.ut_user, argv[1], sizeof(ut.ut_user));
-    if (time((time_t *)&ut.ut_tv.tv_sec) == -1)      /* Stamp with current time */
-       退出("time");
+    if (time((time_t *) &ut.ut_tv.tv_sec) == -1)
+        errExit("time");                /* Stamp with current time */
     ut.ut_pid = getpid();
 
     /* Set ut_line and ut_id based on the terminal associated with
@@ -41180,7 +41127,7 @@ main(int argc, char *argv[])
 
     devName = ttyname(STDIN_FILENO);
     if (devName == NULL)
-        exit("ttyname");
+        errExit("ttyname");
     if (strlen(devName) <= 8)                 /* Should never happen */
         fatal("Terminal name is too short: %s", devName);
 
@@ -41188,36 +41135,38 @@ main(int argc, char *argv[])
     strncpy(ut.ut_id, devName + 8, sizeof(ut.ut_id));
 
     printf("Creating login entries in utmp and wtmp\n");
-    printf("        using pid %ld, line %.s, id %.s\n",
+    printf("        using pid %ld, line %.*s, id %.*s\n",
            (long) ut.ut_pid, (int) sizeof(ut.ut_line), ut.ut_line,
            (int) sizeof(ut.ut_id), ut.ut_id);
 
-    setutxent();                            /* Rewind to start of utmp file */
-    if (pututxline(&ut) == NULL)            /* Write login record to utmp */
+    setutxent();                        /* Rewind to start of utmp file */
+    if (pututxline(&ut) == NULL)        /* Write login record to utmp */
+        errExit("pututxline");
+    updwtmpx(_PATH_WTMP, &ut);          /* Append login record to wtmp */
 
-errExit("pututxline");
-updwtmpx(_PATH_WTMP, &ut);        /* Append login record to wtmp */
+    /* Sleep a while, so we can examine utmp and wtmp files */
 
-/* Sleep a while, so we can examine utmp and wtmp files */
+    sleep((argc > 2) ? getInt(argv[2], GN_NONNEG, "sleep-time") : 15);
 
-sleep((argc > 2) ? getInt(argv[2], GN_NONNEG, "sleep-time") : 15);
+    /* Now do a "logout"; use values from previously initialized 'ut',
+       except for changes below */
 
-/* Now do a "logout"; use values from previously initialized 'ut',
-   except for changes below */
+    ut.ut_type = DEAD_PROCESS;          /* Required for logout record */
+    time((time_t *) &ut.ut_tv.tv_sec);  /* Stamp with logout time */
+    memset(&ut.ut_user, 0, sizeof(ut.ut_user));
+                                        /* Logout record has null username */
+    printf("Creating logout entries in utmp and wtmp\n");
 
-ut.ut_type = DEAD_PROCESS;        /* Required for logout record */
-time((time_t *) &ut.ut_tv.tv_sec); /* Stamp with logout time */
-memset(&ut.ut_user, 0, sizeof(ut.ut_user));
-/* Logout record has null username */
-printf("Creating logout entries in utmp and wtmp\n");
-setutxent();
-if (pututxline(&ut) == NULL)      /* Rewind to start of utmp file */
-    errExit("pututxline");          /* Overwrite previous utmp record */
-updwtmpx(_PATH_WTMP, &ut);        /* Append logout record to wtmp */
+    setutxent();                        /* Rewind to start of utmp file */
+    if (pututxline(&ut) == NULL)        /* Overwrite previous utmp record */
+        errExit("pututxline");
+    updwtmpx(_PATH_WTMP, &ut);          /* Append logout record to wtmp */
 
-endutxent();
-exit(EXIT_SUCCESS);
+    endutxent();
+    exit(EXIT_SUCCESS);
 }
+
+loginacct/utmpx_login.c
 ```
 
 ### 40.7 lastlog 文件
@@ -41277,11 +41226,13 @@ paulh pts/11 Sat Aug 14 09:22:14 2010
 程序清单 40-4：显示 lastlog 文件中的信息
 
 ```c
+loginacct/view_lastlog.c
+
 #include <time.h>
 #include <lastlog.h>
 #include <paths.h> /* Definition of _PATH_LASTLOG */
-#include <fcntl.h> /* Declaration of userIdFromName() */
-#include "ugid_functions.h"
+#include <fcntl.h>
+#include "ugid_functions.h"     /* Declaration of userIdFromName() */
 #include "tlpi_hdr.h"
 
 int main(int argc, char *argv[])
@@ -41295,7 +41246,7 @@ int main(int argc, char *argv[])
 
     fd = open(_PATH_LASTLOG, O_RDONLY);
     if (fd == -1)
-        exit("open");
+        errExit("open");
 
     for (j = 1; j < argc; j++) {
         uid = userIdFromName(argv[j]);
@@ -41305,7 +41256,7 @@ int main(int argc, char *argv[])
         }
 
         if (lseek(fd, uid * sizeof(struct lastlog), SEEK_SET) == -1)
-            exit("lseek");
+            errExit("lseek");
 
         if (read(fd, &llog, sizeof(struct lastlog)) <= 0) {
             printf("read failed for %s\n", argv[j]); /* EOF or error */
@@ -41758,7 +41709,7 @@ open shared object file: No such file or directory
 因此可以使用下面的命令来运行程序。
 
 ```console
-$ LD_LIBRARY_PATH=.. /prog
+$ LD_LIBRARY_PATH=. ./prog
 Called mod1-x1
 Called mod2-x2
 ```
@@ -41842,7 +41793,7 @@ shared object file: No such file or directory
 
 ```console
 $ ln -s libfoo.so libbar.so Create soname symbolic link in current directory
-$ LD_LIBRARY_PATH=../prog
+$ LD_LIBRARY_PATH=. ./prog
 Called mod1-x1
 Called mod2-x2
 ```
@@ -42193,7 +42144,6 @@ Password:
 
 ```console
 # cd /usr/lib
-
 # ls -l libdemo* | awk '{print $1, $9, $10, $11}'
 lrwxrwxrwx libdemo.so.1 -> libdemo.so.1.0.1
 -rwxr-xr-x libdemo.so.1.0.1
@@ -42229,9 +42179,9 @@ lrwxrwxrwx libdemo.so.2 -> libdemo.so.2.0.0
 ```console
 $ gcc -g -c -fPIC -Wall mod1.c mod2.c mod3.c
 $ gcc -g -shared -Wl,-soname,libdemo.so.1 -o libdemo.so.1.0.1 \
-mod1.o mod2.0 mod3.0
+mod1.o mod2.o mod3.o
 $ /sbin/ldconfig -nv .
-::
+.:
     libdemo.so.1 -> libdemo.so.1.0.1
 $ ls -l libdemo.so* | awk '{print $1, $9, $10, $11}'
 lrwxrwxrwx libdemo.so.1 -> libdemo.so.1.0.1
@@ -42287,18 +42237,13 @@ lrwxrwxrwx libdemo.so.1 -> libdemo.so.1.0.1
 
 ```console
 $ su
-
 Password:
-
 # gcc -g -c -fPIC -Wall mod1.c mod2.c mod3.c
 # gcc -g -shared -Wl,-soname,libdemo.so.1 -o libdemo.so.1.0.2 \
 mod1.o mod2.o mod3.o
-
 # mv libdemo.so.1.0.2 /usr/lib
-
 # ldconfig -v | grep libdemo
-
-libdemo.so.1 -> libdemo.so.1.0.2 (changed)
+    libdemo.so.1 -> libdemo.so.1.0.2 (changed)
 ```
 
 假设已经正确地配置了链接器名称（即指向库的 soname），
@@ -42338,7 +42283,7 @@ ldconfig 自动为新主要版本创建了一个 soname 符号链接，
 要实现这种方式需要在创建可执行文件时使用 -rpath 链接器选项。
 
 ```console
-$ gcc -g -Wall -Wl,--rpath,/home/mtk/pdir -o prog prog.c libdemo.so
+$ gcc -g -Wall -Wl,-rpath,/home/mtk/pdir -o prog prog.c libdemo.so
 ```
 
 上面的命令将字符串 /home/mtk/pdir 复制到了可执行文件 prog 的运行时库路径（rpath）列表中，
@@ -42390,7 +42335,7 @@ $ gcc -g -shared -o libx2.so modx2.o
 ```console
 $ cd /home/mtk/pdir/d1
 $ gcc -g -c -Wall -fPIC modx1.c
-$ gcc -g -shared -o libx1.so modx1.o -Wl, -rpath, /home/mtk/pdir/d2 \
+$ gcc -g -shared -o libx1.so modx1.o -Wl,-rpath,/home/mtk/pdir/d2 \
 -L/home/mtk/pdir/d2 -lx2
 ```
 
@@ -42400,7 +42345,7 @@ $ gcc -g -shared -o libx1.so modx1.o -Wl, -rpath, /home/mtk/pdir/d2 \
 
 ```console
 $ cd /home/mtk/pdir
-$ gcc -g -Wall -o prog prog.c -Wl, -rpath, /home/mtk/pdir/d1 \
+$ gcc -g -Wall -o prog prog.c -Wl,-rpath,/home/mtk/pdir/d1 \
 -L/home/mtk/pdir/d1 -lx1
 ```
 
@@ -42479,7 +42424,7 @@ RUNPATH            /home/mtk/pdir/d1
 这意味着可以使用下面的命令来构建应用程序。
 
 ```console
-$ gcc -Wl,-rpath, '$ORIGIN'/lib ...
+$ gcc -Wl,-rpath,'$ORIGIN'/lib ...
 ```
 
 上面的命令假设在运行时应用程序的共享库位于包含应用程序的可执行文件的目录的子目录 lib 中。
@@ -42530,10 +42475,10 @@ $ gcc -Wl,-rpath, '$ORIGIN'/lib ...
 在构建共享库和可执行程序并运行这个程序之后能够看到下面的输出。
 
 ```console
-$ gcc -g -c -fPIC -Wall -c foo.c
+$ gcc -g -c -fPIC -Wall foo.c
 $ gcc -g -shared -o libfoo.so foo.o
 $ gcc -g -o prog prog.c libfoo.so
-$ LD_LIBRARY_PATH=.. /prog
+$ LD_LIBRARY_PATH=. ./prog
 main-xyz
 ```
 
@@ -42565,10 +42510,10 @@ main-xyz
 那么在构建共享库的时候就需要使用 -Bsymbolic 链接器选项。
 
 ```console
-$ gcc -g -c -fPIC -Wall -c foo.c
+$ gcc -g -c -fPIC -Wall foo.c
 $ gcc -g -shared -Wl,-Bsymbolic -o libfoo.so foo.o
 $ gcc -g -o prog prog.c libfoo.so
-$ LD_LIBRARY_PATH=.. /prog
+$ LD_LIBRARY_PATH=. ./prog
 foo-xyz
 ```
 
@@ -43027,7 +42972,7 @@ main(int argc, char *argv[])
     if (funcp == NULL)
         printf("%s is NULL\n", argv[2]);
     else
-        (*funcp ());
+        (*funcp)();
 
     dlclose(libHandle);          /* Close the library */
     exit(EXIT_SUCCESS);
@@ -43063,7 +43008,7 @@ dladdr() 返回一个包含地址 addr（通常通过前面的 dlsym() 调用获
 #include <dlfcn.h>
 
 int dladdr(const void *addr, Dl_info *info);
-    Returns nonzero value if addr was found in a shared library, otherwise 0
+Returns nonzero value if addr was found in a shared library, otherwise 0
 ```
 
 info 参数是一个指向由调用者分配的结构的指针，
@@ -43079,6 +43024,7 @@ library is loaded */
 with an address <= 'addr' */
     void        *dli_saddr;       /* Actual value of the symbol
 returned in 'dli_sname' */
+} Dl_info;
 ```
 
 Dl_info 结构中的前两个字段指定了包含地址 addr 的共享库的路径名和运行时基地址。
@@ -43152,7 +43098,7 @@ gcc -rdynamic 选项和 gcc -Wl,-E 选项的含义与 -Wl,--export-dynamic 是�
   void
   __attribute__ ((visibility("hidden")))
   func(void) {
-  /* Code */
+      /* Code */
   }
   ```
 
@@ -43316,8 +43262,12 @@ int main(int argc, char *argv[])
 }
 
 $ gcc -g -o p1 sv_prog.c libsv.so
-运行这个程序之后就能看到预期的结果
-$ LD_LIBRARY_PATH=../p1
+```
+
+运行这个程序之后就能看到预期的结果。
+
+```console
+$ LD_LIBRARY_PATH=. ./p1
 v1 xyz
 ```
 
@@ -43330,8 +43280,8 @@ v1 xyz
 $ cat sv_lib_v2.c
 #include <stdio.h>
 
-__asm__("symver xyz_old,xyz@VER_1");
-__asm__("symver xyz_new,xyz@VER_2");
+__asm__(".symver xyz_old,xyz@VER_1");
+__asm__(".symver xyz_new,xyz@@VER_2");
 
 void xyz_old(void) { printf("v1 xyz\n"); }
 void xyz_new(void) { printf("v2 xyz\n"); }
@@ -43406,9 +43356,9 @@ $ gcc -g -shared -o libsv.so sv_lib_v2.o -Wl,--version-script,sv_v2.map
 
 ```console
 $ gcc -g -o p2 sv_prog.c libsv.so
-$ LD_LIBRARY_PATH=.. /p2
+$ LD_LIBRARY_PATH=. ./p2
 v2 xyz
-$ LD_LIBRARY_PATH=.. /p1
+$ LD_LIBRARY_PATH=. ./p1
 v1 xyz
 Uses xyz@VER_2
 Uses xyz@VER_1
@@ -43450,7 +43400,7 @@ void __attribute__ ((constructor)) some_name_load(void)
 卸载函数的形式如下。
 
 ```c
-void __attribute__ (( destructor)) some_nameUnload(void)
+void __attribute__ ((destructor)) some_nameUnload(void)
 {
     /* Finalization code */
 }
@@ -43540,7 +43490,7 @@ bindings display information about symbol binding
 versions display version dependencies
 all all previous options combined
 statistics display relocation statistics
-unused determine unused DS0s
+unused determine unused DSOs
 help display this help message and exit
 ```
 
@@ -44357,22 +44307,22 @@ ioctl(fd, FIONREAD, &cnt) 调用返回文件描述符 fd 所引用的管道或 F
 ```c
 int filedes[2];
 if (pipe(filedes) == -1) /* Create the pipe */
-    exit("pipe");
+    errExit("pipe");
 
 switch (fork()) {
     case -1:
-        exit("fork");
+        errExit("fork");
 
     case 0: /* Child */
         if (close(filedes[1]) == -1)
-            exit("close");
+            errExit("close");
 
         /* Child now reads from pipe */
         break;
 
     default: /* Parent */
         if (close(filedes[0]) == -1)
-            exit("close");
+            errExit("close");
 
         /* Parent now writes to pipe */
         break;
@@ -44518,50 +44468,51 @@ It was a bright cold day in April, and the clocks were striking thirteen.
 int
 main(int argc, char *argv[])
 {
-    int pd[2]; /* Pipe file descriptors */
+    int pfd[2]; /* Pipe file descriptors */
     char buf[BUF_SIZE];
     ssize_t numRead;
 
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s string\n", argv[0]);
 
-    if (pipe(pfd == -1) /* Create the pipe */
-        exitExit("pipe");
+    ① if (pipe(pfd) == -1) /* Create the pipe */
+        errExit("pipe");
 
-    switch (fork()) {
+    ② switch (fork()) {
         case -1:
-            exitExit("fork");
+            errExit("fork");
 
         case 0: /* Child - reads from pipe */
-            if (close(pfd[1]) == -1) /* Write end is unused */
-                exitExit("close - child");
+            ③ if (close(pfd[1]) == -1) /* Write end is unused */
+                errExit("close - child");
 
             for (;;) { /* Read data from pipe, echo on stdout */
-                numRead = read(pfd[0], buf, BUF_SIZE);
+                ④ numRead = read(pfd[0], buf, BUF_SIZE);
                 if (numRead == -1)
-                    exitExit("read");
-                if (numRead == 0)
+                    errExit("read");
+                ⑤ if (numRead == 0)
                     break; /* End-of-file */
-                if (write(STDOUT_FILENO, buf, numRead) != numRead)
+                ⑥ if (write(STDOUT_FILENO, buf, numRead) != numRead)
                     fatal("child - partial/failed write");
             }
 
-            write(STDOUT_FILENO, "\n", 1);
+            ⑦ write(STDOUT_FILENO, "\n", 1);
             if (close(pfd[0]) == -1)
-                exitExit("close");
+                errExit("close");
             _exit(EXIT_SUCCESS);
 
         default: /* Parent - writes to pipe */
 
-if (close(pfd[0]) == -1) /* Read end is unused */
-    exit(1);
-    if (write(pfd[1], argv[1], strlen(argv[1])) != strlen(argv[1]))
-        fatal("parent - partial/failed write");
+            ⑧ if (close(pfd[0]) == -1) /* Read end is unused */
+                errExit("close - parent");
+            ⑨ if (write(pfd[1], argv[1], strlen(argv[1])) != strlen(argv[1]))
+                fatal("parent - partial/failed write");
 
-if (close(pfd[1]) == -1) /* Child will see EOF */
-    exit(1);
-    wait(NULL); /* Wait for child to finish */
-    exit(EXIT_SUCCESS);
+            ⑩ if (close(pfd[1]) == -1) /* Child will see EOF */
+                errExit("close");
+            ⑪ wait(NULL); /* Wait for child to finish */
+            exit(EXIT_SUCCESS);
+    }
 }
 
 pipes/simple_pipe.c
@@ -44613,40 +44564,41 @@ int main(int argc, char *argv[])
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s sleep-time...\n", argv[0]);
 
-    setbuf(stdout, NULL); /* Make stdout unbuffered, since we */
+    setbuf(stdout, NULL); /* Make stdout unbuffered, since we
+                             terminate child with _exit() */
     printf("%s Parent started\n", currTime("%T"));
 
-if (pipe(pfd) == -1)
-    exit(1);
-for (j = 1; j < argc; j++) {
-    switch (fork()) {
-        case -1:
-            exit(1);
-        case 0: /* Child */
-            if (close(pfd[0]) == -1) /* Read end is unused */
-                exit(1);
-            /* Child does some work, and lets parent know it's done */
-            sleep(getInt(argv[j], GN_NONNEG, "sleep-time"));
-            printf("%s Child %d (PID=%ld) closing pipe\n",
-                    currTime("%T"), j, (long) getpid());
-            if (close(pfd[1]) == -1)
-                exit(1);
-            /* Child now carries on to do other things... */
-            _exit(EXIT_SUCCESS);
-        default: /* Parent loops to create next child */
-            break;
+    ① if (pipe(pfd) == -1)
+        errExit("pipe");
+    for (j = 1; j < argc; j++) {
+        ② switch (fork()) {
+            case -1:
+                errExit("fork %d", j);
+            case 0: /* Child */
+                if (close(pfd[0]) == -1) /* Read end is unused */
+                    errExit("close");
+                /* Child does some work, and lets parent know it's done */
+                sleep(getInt(argv[j], GN_NONNEG, "sleep-time"));
+                printf("%s Child %d (PID=%ld) closing pipe\n",
+                        currTime("%T"), j, (long) getpid());
+                ③ if (close(pfd[1]) == -1)
+                    errExit("close");
+                /* Child now carries on to do other things... */
+                _exit(EXIT_SUCCESS);
+            default: /* Parent loops to create next child */
+                break;
+        }
     }
-}
 
-/* Parent comes here; close write end of pipe so we can see EOF */
-if (close(pfd[1]) == -1) /* Write end is unused */
-    exit(1);
-/* Parent may do other work, then synchronizes with children */
-if (read(pfd[0], &dummy, 1) != 0)
-    fatal("parent didn't get EOF");
-printf("%s Parent ready to go\n", currTime("%T"));
-/* Parent can now carry on to do other things... */
-exit(EXIT_SUCCESS);
+    /* Parent comes here; close write end of pipe so we can see EOF */
+    ④ if (close(pfd[1]) == -1) /* Write end is unused */
+        errExit("close");
+    /* Parent may do other work, then synchronizes with children */
+    ⑤ if (read(pfd[0], &dummy, 1) != 0)
+        fatal("parent didn't get EOF");
+    printf("%s Parent ready to go\n", currTime("%T"));
+    /* Parent can now carry on to do other things... */
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -44703,7 +44655,7 @@ dup(pfd[1]); /* Duplication uses lowest free file descriptor, i.e., fd 1 */
 因为通过这个函数可以显式地指定被绑定到管道一端的描述符。
 
 ```c
-dup2(pfd[1],STDOUT_FILENO);    /* Close descriptor 1, and reopen bound
+dup2(pfd[1], STDOUT_FILENO);    /* Close descriptor 1, and reopen bound
 to write end of pipe */
 ```
 
@@ -44734,7 +44686,7 @@ close(1); /* Closes sole descriptor for write end of pipe */
 如下所示。
 
 ```c
-if (pfd[1] !=STDOUT_FILENO) {
+if (pfd[1] != STDOUT_FILENO) {
 dup2(pfd[1], STDOUT_FILENO);
 close(pfd[1]);
 }
@@ -44753,65 +44705,71 @@ close(pfd[1]);
 程序清单 44-4：使用管道连接 ls 和 wc
 
 ```c
-pipes/pipes_ls_wc.c
+pipes/pipe_ls_wc.c
 
 #include <sys/wait.h>
 #include "tlpi_hdr.h"
 
 int main(int argc, char *argv[])
 {
-    int pd[2]; /* Pipe file descriptors */
+    int pfd[2]; /* Pipe file descriptors */
 
     if (pipe(pfd) == -1)
-        exit(EXIT("pipe"));
+        errExit("pipe");
 
     switch (fork()) {
         case -1:
-            exit(EXIT("fork")));
+            errExit("fork");
 
         case 0: /* First child: exec 'ls' to write to pipe */
-            if (close(pfd[0]) == -1)
-                exit(EXIT("close 1"));
+            if (close(pfd[0]) == -1) /* Read end is unused */
+                errExit("close 1");
             /* Duplicate stdout on write end of pipe; close duplicated descriptor */
             if (pfd[1] != STDOUT_FILENO) { /* Defensive check */
-                if (dup2(pfd[1],STDOUT_FILENO) == -1)
-                    exit(EXIT("dup2 1"));
+                if (dup2(pfd[1], STDOUT_FILENO) == -1)
+                    errExit("dup2 1");
                 if (close(pfd[1]) == -1)
-                    exit(EXIT("close 2"));
+                    errExit("close 2");
             }
             execlp("ls", "ls", (char *) NULL); /* Writes to pipe */
-            exit(EXIT(execlp_l));
+            errExit("execlp ls");
         default: /* Parent falls through to create next child */
             break;
-        }
+    }
 
     switch (fork()) {
         case -1:
-            exit(EXIT("fork")));
+            errExit("fork");
 
         case 0: /* Second child: exec 'wc' to read from pipe */
-            if (close(pfd[1]) == -1)
-                exit(EXIT("close 3"));
+            if (close(pfd[1]) == -1) /* Write end is unused */
+                errExit("close 3");
             /* Duplicate stdin on read end of pipe; close duplicated descriptor */
             if (pfd[0] != STDIN_FILENO) { /* Defensive check */
                 if (dup2(pfd[0], STDIN_FILENO) == -1)
-                    exit(EXIT("dup2 2"));
+                    errExit("dup2 2");
                 if (close(pfd[0]) == -1)
-                    exit(EXIT("close 4"));
+                    errExit("close 4");
             }
-           execlp("wc", "wc", "-l", (char *) NULL); /* Reads from pipe */
-            exit(EXIT(execlp_wc));
+            execlp("wc", "wc", "-l", (char *) NULL); /* Reads from pipe */
+            errExit("execlp wc");
 
-default: /* Parent falls through */
-    break;
+        default: /* Parent falls through */
+            break;
+    }
+
+    /* Parent closes unused file descriptors for pipe, and waits for children */
+
+    if (close(pfd[0]) == -1)
+        errExit("close 5");
+    if (close(pfd[1]) == -1)
+        errExit("close 6");
+    if (wait(NULL) == -1)
+        errExit("wait 1");
+    if (wait(NULL) == -1)
+        errExit("wait 2");
+    exit(EXIT_SUCCESS);
 }
-
-/* Parent closes unused file descriptors for pipe, and waits for children */
-
-if (close(pfd[0]) == -1)
-    exit(1);
-if (close(pfd[1]) == -1)
-    exit(1);
 ```
 
 当执行程序清单 44-4 中的程序时会看到下面的输出。
@@ -44933,29 +44891,31 @@ shell 处理针对的是命令。
 这种技术也被称为通配 globbing，
 它在引入 glob() 库函数之前就已经存在了。）
 
+程序清单 44-5：使用 popen() 通配文件名模式
+
 ```c
-#include <CTYPE.h>
+#include <ctype.h>
 #include <limits.h>
 #include "print_wait_status.h" /* For printWaitStatus() */
 #include "tlpi_hdr.h"
 
-① #define POPEN_FMT "/bin/ls -d %s 2>/dev/null"
+① ① #define POPEN_FMT "/bin/ls -d %s 2> /dev/null"
 #define PAT_SIZE 50
 #define PCMD_BUF_SIZE (sizeof(POPEN_FMT) + PAT_SIZE)
 
 int main(int argc, char *argv[])
 {
     char pat[PAT_SIZE]; /* Pattern for globbing */
-    char popenCmd[PCMD_BUF_SIZE]; /* File stream returned by popen() */
-    FILE *fp; /* Invalid characters in 'pat' */
+    char popenCmd[PCMD_BUF_SIZE];
+    FILE *fp; /* File stream returned by popen() */
     Boolean badPattern; /* Invalid characters in 'pat' */
     int len, status, fileCnt, j;
     char pathname[PATH_MAX];
 
-    for (; ; ) { /* Read pattern, display results of globbing */
+    for (;;) { /* Read pattern, display results of globbing */
         printf("pattern: ");
-       fflush(stdout);
-        if (fgets(pat, PAT_SIZE, stdin) == NULL)
+        fflush(stdout);
+        ② if (fgets(pat, PAT_SIZE, stdin) == NULL)
             break; /* EOF */
         len = strlen(pat);
         if (len <= 1) /* Empty line */
@@ -44970,8 +44930,8 @@ int main(int argc, char *argv[])
         restrictive than the shell, which permits other characters
         to be included in a filename if they are quoted.) */
 
-        for (j = 0, badPattern = FALSE; j < len && !badPattern; j++)
-            if (!isalnum((unsigned char)pat[j]) && strchr("_*?[^].", pat[j]) == NULL)
+        ③ for (j = 0, badPattern = FALSE; j < len && !badPattern; j++)
+            if (!isalnum((unsigned char) pat[j]) && strchr("_*?[^-].", pat[j]) == NULL)
                 badPattern = TRUE;
 
         if (badPattern) {
@@ -44981,40 +44941,36 @@ int main(int argc, char *argv[])
 
         /* Build and execute command to glob 'pat' */
 
-        snprintf(popenCmd, PCMD_BUF_SIZE, POPEN_FMT, pat);
+        ④ snprintf(popenCmd, PCMD_BUF_SIZE, POPEN_FMT, pat);
         popenCmd[PCMD_BUF_SIZE - 1] = '\0'; /* Ensure string is
         null-terminated */
 
-        fp = popen(popenCmd, "r");
+        ⑤ fp = popen(popenCmd, "r");
         if (fp == NULL) {
             printf("popen() failed\n");
             continue;
         }
-    }
-}
 ```
 
 ```c
-}
+        /* Read resulting list of pathnames until EOF */
 
-/* Read resulting list of pathnames until EOF */
+        fileCnt = 0;
+        while (fgets(pathname, PATH_MAX, fp) != NULL) {
+            printf("%s", pathname);
+            fileCnt++;
+        }
 
-fileCnt = 0;
-while (fgets(pathname, PATH_MAX, fp) != NULL) {
-    printf("%s", pathname);
-    fileCnt++;
-}
+        /* Close pipe, fetch and display termination status */
 
-/* Close pipe, fetch and display termination status */
+        status = pclose(fp);
+        printf("    %d matching file%s\n", fileCnt, (fileCnt != 1) ? "s" : "");
+        printf("    pclose() status = %#x\n", (unsigned int) status);
+        if (status != -1)
+            printWaitStatus("\t", status);
+    }
 
-status = pclose(fp);
-printf("    %d matching file%s\n", fileCnt, (fileCnt != 1) ? "s" : "");
-printf("    pclose() status == %x\n", (unsigned int) status);
-if (status != -1)
-    printWaitStatus("\t", status);
-}
-
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 pipes/popen_glob.c
 ```
@@ -45028,12 +44984,12 @@ $ ./popen_glob
 pattern: popen_glob* Matches two filenames
 popen_glob
 popen_glob.c
-2 matching files
-pclose() status = 0
+    2 matching files
+    pclose() status = 0
     child exited, status=0
 pattern: x* Matches no filename
-0 matching files
-pclose() status = 0x100
+    0 matching files
+    pclose() status = 0x100
     child exited, status=1
 pattern: ^D$ Type Control-D to terminate
 ```
@@ -45071,7 +45027,7 @@ pattern: ; rm *
 在使用 `popen()`（或 `system()`）执行根据用户输入构建的 shell 命令的程序中永远都需要做输入检测。
 （应用程序可以选择另一种方法，
 即将那些无需检测的字符放在引号中，
-这样 shell
+这样 shell 就不会对那些字符进行特殊处理了。）
 
 ### 44.6 管道和 stdio 缓冲
 
@@ -45224,7 +45180,7 @@ tee 会将输出传递给管道线中的下一个命令 sort，
 ```console
 $ mkfifo myfifo
 
-$ wc -l < mvfifo &
+$ wc -l < myfifo &
 
 $ ls -l | tee myfifo | sort -k5n
 
@@ -45384,7 +45340,7 @@ pipes/fifo_seqnum.h
 #define CLIENT_FIFO_NAME_LEN (sizeof(CLIENT_FIFO_TEMPLATE) + 20)
 /* Space required for client FIFO pathname (+20 as a generous allowance for the PID) */
 struct request {
-    /* Request (client -> server) */
+    /* Request (client --> server) */
     pid_t pid;
     /* PID of client */
     int seqLen;
@@ -45456,26 +45412,26 @@ int main(int argc, char *argv[])
     /* Create well-known FIFO, and open it for reading */
 
     umask(0); /* So we get the permissions we want */
-    if (mkfifo(SERVER_FIFO, S_IRUSR | S_IWUSR | S_IWGRP) == -1)
-        &errno != EEXIST)
-            exit("mkfifo %s", SERVER_FIFO);
-    serverFd = open(SERVER_FIFO, O_RDONLY);
+    ① if (mkfifo(SERVER_FIFO, S_IRUSR | S_IWUSR | S_IWGRP) == -1
+            && errno != EEXIST)
+        errExit("mkfifo %s", SERVER_FIFO);
+    ② serverFd = open(SERVER_FIFO, O_RDONLY);
     if (serverFd == -1)
-        exit("open %s", SERVER_FIFO);
+        errExit("open %s", SERVER_FIFO);
 
     /* Open an extra write descriptor, so that we never see EOF */
-    dummyFd = open(SERVER_FIFO, O_WRONLY);
-}
+    ③ dummyFd = open(SERVER_FIFO, O_WRONLY);
 ```
 
 ```c
-if (dummyFd == -1)
-    exit(1);
-    exit("open %s", SERVER_FIFO);
+    if (dummyFd == -1)
+        errExit("open %s", SERVER_FIFO);
 
-    if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
-        exit("signal");
-    for (;;) {
+    /* Let's find out about broken client pipe via failed write() */
+
+    ④ if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
+        errExit("signal");
+    ⑤ for (;;) {
         /* Read requests and send responses */
         if (read(serverFd, &req, sizeof(struct request))
             != sizeof(struct request)) {
@@ -45485,12 +45441,12 @@ if (dummyFd == -1)
         }
 
         /* Open client FIFO (previously created by client) */
-        snprintf(clientFifo, CLIENT_FIFO_NAME_LEN, CLIENT_FIFO_TEMPLATE,
+        ⑥ snprintf(clientFifo, CLIENT_FIFO_NAME_LEN, CLIENT_FIFO_TEMPLATE,
                 (long) req.pid);
-        clientFd = open(clientFifo, O_WRONLY);
+        ⑦ clientFd = open(clientFifo, O_WRONLY);
         if (clientFd == -1) { /* Open failed, give up on client */
             errMsg("open %s", clientFifo);
-            continue;
+            ⑧ continue;
         }
 
         /* Send response and close FIFO */
@@ -45572,41 +45528,42 @@ int main(int argc, char *argv[])
     struct request req;
     struct response resp;
     if (argc > 1 && strcmp(argv[1], "--help") == 0)
-        usageErr("%s [seq-len...]\n", argv[0]);
+        usageErr("%s [seq-len]\n", argv[0]);
 
     /* Create our FIFO (before sending request, to avoid a race) */
     umask(0); /* So we get the permissions we want */
-    snprintf(clientFifo, CLIENT_FIFO_NAME_LEN, CLIENT_FIFO_TEMPLATE,
+    ② snprintf(clientFifo, CLIENT_FIFO_NAME_LEN, CLIENT_FIFO_TEMPLATE,
             (long) getpid());
     if (mkfifo(clientFifo, S_IRUSR | S_IWUSR | S_IWGRP) == -1
             && errno != EEXIST)
         errExit("mkfifo %s", clientFifo);
 
-    if (atexit(removeFifo) != 0)
+    ③ if (atexit(removeFifo) != 0)
         errExit("atexit");
 
     /* Construct request message, open server FIFO, and send request */
-    req.pid = getpid();
-    req_seqLen = (argc > 1) ? getInt(argv[1], GN_GT_0, "seq-len") : 1;
-    serverFd = open(SERVER_FIFO, 0_WRONLY);
+    ④ req.pid = getpid();
+    req.seqLen = (argc > 1) ? getInt(argv[1], GN_GT_0, "seq-len") : 1;
+    ⑤ serverFd = open(SERVER_FIFO, O_WRONLY);
     if (serverFd == -1)
-        errExit("open %s", Server_FIFO);
+        errExit("open %s", SERVER_FIFO);
 
-    if (write(serverFd, &req, sizeof(struct request)) != sizeof(struct request))
+    ⑥ if (write(serverFd, &req, sizeof(struct request)) != sizeof(struct request))
         fatal("Can't write to server");
 
     /* Open our FIFO, read and display response */
-    clientFd = open(clientFifo, 0_RDONLY);
+    ⑦ clientFd = open(clientFifo, O_RDONLY);
     if (clientFd == -1)
 ```
 
 ```c
-errExit("open %s", clientFifo);
-⑧ if (read(clientFd, &resp, sizeof(struct response))
-    != sizeof(struct response))
-    fatal("Can't read response from server");
-printf("%d\n", resp.seqNum);
-exit(EXIT_SUCCESS);
+        errExit("open %s", clientFifo);
+
+    ⑧ if (read(clientFd, &resp, sizeof(struct response))
+            != sizeof(struct response))
+        fatal("Can't read response from server");
+    printf("%d\n", resp.seqNum);
+    exit(EXIT_SUCCESS);
 }
 pipes/fifo_seqnum_client.c
 ```
@@ -45622,7 +45579,7 @@ pipes/fifo_seqnum_client.c
 ```c
 fd = open("fifofilepath", O_RDONLY | O_NONBLOCK);
 if (fd == -1)
-    exit("open");
+    errExit("open");
 ```
 
 如果 FIFO 的另一端已经被打开，
@@ -45713,7 +45670,7 @@ O_NONBLOCK 标记不仅会影响 open() 的语义，
 int flags;
 
 flags = fcntl(fd, F_GETFL); /* Fetch open files status flags */
-flags |= 0 NONBLOCK; /* Enable 0 NONBLOCK bit */
+flags |= O_NONBLOCK; /* Enable O_NONBLOCK bit */
 fcntl(fd, F_SETFL, flags); /* Update open files status flags */
 ```
 
@@ -45721,7 +45678,7 @@ fcntl(fd, F_SETFL, flags); /* Update open files status flags */
 
 ```c
 flags = fcntl(fd, F_GETFL);
-flags &= ~0 NONBLOCK; /* Disable 0 NONBLOCK bit */
+flags &= ~O_NONBLOCK; /* Disable O_NONBLOCK bit */
 fcntl(fd, F_SETFL, flags);
 ```
 
@@ -45974,7 +45931,7 @@ SUSv3 并没有规定这些常量，它使用了与文件一样的位掩码，�
 
 ```c
 if (shmctl(id, IPC_RMID, NULL) == -1)
-    exit("shmctl");
+    errExit("shmctl");
 ```
 
 对于消息队列和信号量来讲，IPC 对象的删除是立即生效的，对象中包含的所有信息都会被销毁，不管是否有其他进程仍然在使用该对象。
@@ -46072,10 +46029,10 @@ int id;
 
 key = ftok("/mydir/myfile", 'x');
 if (key == -1)
-    exit("ftok");
+    errExit("ftok");
 id = msgget(key, IPC_CREAT | S_IRUSR | S_IWUSR);
 if (id == -1)
-    exit("msgget");
+    errExit("msgget");
 ```
 
 ### 45.3 关联数据结构和对象权限
@@ -46115,11 +46072,10 @@ cuid 和 cgid 字段保存着创建该对象的进程的用户 ID 和组 ID。
 struct shmid_ds shmds;
 
 if (shmctl(id, IPC_STAT, &shmds) == -1) /* Fetch from kernel */
-    exit("shmctl");
+    errExit("shmctl");
 shmds.shm_perm.uid = newuid; /* Change owner UID */
-    if (shmctl(id, IPC_SET, &shmds) == -1) /* Update kernel copy */
-        exit("shmctl");
-    }
+if (shmctl(id, IPC_SET, &shmds) == -1) /* Update kernel copy */
+    errExit("shmctl");
 ```
 
 ipc_perm 子结构的 mode 字段保存着 IPC 对象的权限掩码。
@@ -46215,36 +46171,36 @@ int main(int argc, char *argv[])
     int msqid;
     key_t key;
     const int MQ_PERMS = S_IRUSR | S_IWUSR | S_IWGRP; /* rw--w---- */
+
     /* Optional code here to check if another server process is
-     */
-}
+       already running */
 
-already running */
+    /* Generate the key for the message queue */
 
-/* Generate the key for the message queue */
+    key = ftok(KEY_FILE, 1);
+    if (key == -1)
+        errExit("ftok");
 
-key = ftok(KEY_FILE, 1);
-if (key == -1)
-    exit("ftok");
-/* While msqget() fails, try creating the queue exclusively */
+    /* While msgget() fails, try creating the queue exclusively */
 
-while ((msqid = msqget(key, IPC_CREAT | IPC_EXCL | MQ_perms)) == -1) {
-    if (errno == EEXIST) {
-        /* MQ with the same key already exists - remove it and try again */
-        msqid = msqget(key, 0);
-        if (msqid == -1)
-            exit("msqget() failed to retrieve old queue ID");
-        if (msgctl(msqid, IPC_RMID, NULL) == -1)
-            exit("msqget() failed to delete old queue");
-        printf("Removed old message queue (id=%d)\n", msqid);
-    } else {
-        exit("msqget() failed");
+    while ((msqid = msgget(key, IPC_CREAT | IPC_EXCL | MQ_PERMS)) == -1) {
+        if (errno == EEXIST) {
+            /* MQ with the same key already exists - remove it and try again */
+            msqid = msgget(key, 0);
+            if (msqid == -1)
+                errExit("msgget() failed to retrieve old queue ID");
+            if (msgctl(msqid, IPC_RMID, NULL) == -1)
+                errExit("msgctl() failed to delete old queue");
+            printf("Removed old message queue (id=%d)\n", msqid);
+        } else {
+            errExit("msgget() failed");
+        }
     }
+
+    /* Upon loop exit, we've successfully created the message queue, and we can then carry on to do other work... */
+
+    exit(EXIT_SUCCESS);
 }
-
-/* Upon loop exit, we've successfully created the message queue, and we can then carry on to do other work... */
-
-exit(EXIT_SUCCESS);
 ```
 
 svipc/svmsg_demo_server.c
@@ -46311,7 +46267,7 @@ index = identifier % SEQ_MULTIPLIER
 能够快速地执行这种计算对于那些接收 IPC 对象标识符的 IPC 系统调用（即表 45-1 中除 get 调用的其他调用）的高效执行来讲是有必要的。
 
 顺便提一下，当一个进程在执行一个 IPC 系统调用（如 msgctl()、semop()、或 shmat()）时传入了一个与既有对象不匹配的标识符，那么就会导致两个错误的发生。
-如果 entries 中相应下标处是空的，那么将会导致 EINVALID 错误的发生。
+如果 entries 中相应下标处是空的，那么将会导致 EINVAL 错误的发生。
 如果下标指向了一个关联数据结构，但存储在该结构中的序号导致不会产生同样的标识符值，那么就假设这个数组下标指向的旧对象已经被删除了，该下标会被重用。
 通过错误 EIDRM 可以诊断出这种情况的发生。
 
@@ -46390,7 +46346,7 @@ Linux 提供了两种获取系统上所有 IPC 对象列表的非标准方法。
 下面给出了一个示例 /proc/sysvipc/sem 文件的内容（为符合版面的要求，这里删除了一些空格）。
 
 ```console
-$ cat /proc/syvipc/sem
+$ cat /proc/sysvipc/sem
 
 key   semid  perms  nsems  uid  gid  cuid  cgid  otime  ctime
 0    16646144 600    4  1000  100  1000  100        0  1010166460
@@ -46519,7 +46475,7 @@ usageError(const char *progName, const char *msg)
                      "[octal-perms]\n", progName);
     fprintf(stderr, "       -c           Use IPC_CREAT flag\n");
     fprintf(stderr, "       -x           Use IPC_EXCL flag\n");
-    fprintf(stderr, "       -f pathname  Generate key using ftok(\n);
+    fprintf(stderr, "       -f pathname  Generate key using ftok()\n");
     fprintf(stderr, "       -k key        Use 'key' as key\n");
     fprintf(stderr, "       -p           Use IPC_PRIVATE key\n");
     exit(EXIT_FAILURE);
@@ -46534,82 +46490,58 @@ int main(int argc, char *argv[])
     key_t key;
 
     /* Parse command-line options and arguments */
-}
 
-numKeyFlags = 0;
-flags = 0;
+    numKeyFlags = 0;
+    flags = 0;
 
-while ((opt = getopt(argc, argv, "cf:k:px")) != -1) {
-    switch (opt) {
-        case 'c':
-            flags |= IPC_CREAT;
-            break;
-        case 'f':
-            /* -f pathname */
-            key = ftok(optarg, 1);
-            if (key == -1)
-                exit(1);
-            numKeyFlags++;
-            break;
-        case 'k':
-            /* -k key (octal, decimal or hexadecimal) */
-            if (sscanf(optarg, "%11", &key) != 1)
-                cmplineErr("-%k option requires a numeric argument\n");
-            key = 1;
-            numKeyFlags++;
-            break;
-        case 'p':
-            key = IPC_PRIVATE;
-            numKeyFlags++;
-            break;
-        case 'x':
-            flags |= IPC_EXCL;
-            break;
-        default:
-            usageError(argv[0], "Bad option\n");
+    while ((opt = getopt(argc, argv, "cf:k:px")) != -1) {
+        switch (opt) {
+            case 'c':
+                flags |= IPC_CREAT;
+                break;
+            case 'f':
+                /* -f pathname */
+                key = ftok(optarg, 1);
+                if (key == -1)
+                    errExit("ftok");
+                numKeyFlags++;
+                break;
+            case 'k':
+                /* -k key (octal, decimal or hexadecimal) */
+                if (sscanf(optarg, "%li", &lkey) != 1)
+                    cmdLineErr("-k option requires a numeric argument\n");
+                key = lkey;
+                numKeyFlags++;
+                break;
+            case 'p':
+                key = IPC_PRIVATE;
+                numKeyFlags++;
+                break;
+            case 'x':
+                flags |= IPC_EXCL;
+                break;
+            default:
+                usageError(argv[0], "Bad option\n");
+        }
     }
-}
 
-if (numKeyFlags != 1)
-    usageError(argv[0], "Exactly one of the options -f, -k, "
+    if (numKeyFlags != 1)
+        usageError(argv[0], "Exactly one of the options -f, -k, "
                      "or -p must be supplied\n");
 
-perms = (optind == argc) ? (S_IRUSR | S_IWUSR) :
+    perms = (optind == argc) ? (S_IRUSR | S_IWUSR) :
                      getInt(argv[optind], GN_BASE_8, "octal-perms");
 
-msqid = msgget(key, flags | perms);
-if (msqid == -1)
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1);
-    exit(1 perms);
-if (msqid == -1)
-    exit(EXIT_SUCCESS);
+    msqid = msgget(key, flags | perms);
+    if (msqid == -1)
+        errExit("msgget");
 
-printf("%d\n", msqid);
-exit(EXIT_SUCCESS);
+    printf("%d\n", msqid);
+    exit(EXIT_SUCCESS);
+}
 ```
+
+ svmsg/svmsg_create.c
 
 ### 46.2 交换消息
 
@@ -46694,7 +46626,7 @@ usageError(const char *progName, const char *msg)
 int
 main(int argc, char *argv[])
 {
-    int msqid, flags, msglen;
+    int msqid, flags, msgLen;
     struct mbuf msg;         /* Message buffer for msgsnd() */
     int opt;
 
@@ -46705,7 +46637,7 @@ main(int argc, char *argv[])
         if (opt == 'n')
             flags |= IPC_NOWAIT;
         else
-            usageError(argv[opt], NULL);
+            usageError(argv[0], NULL);
     }
 
     if (argc < optind + 2 || argc > optind + 3)
@@ -46717,7 +46649,7 @@ main(int argc, char *argv[])
     if (argc > optind + 2) {        /* 'msg-text' was supplied */
         msgLen = strlen(argv[optind + 2]) + 1;
         if (msgLen > MAX_MTEXT)
-            cmplineErr("msg-text too long (max: %d characters)\n", MAX_MTEXT);
+            cmdLineErr("msg-text too long (max: %d characters)\n", MAX_MTEXT);
         memcpy(msg.mtext, argv[optind + 2], msgLen);
     } else {
         msgLen = 0;             /* No 'msg-text' => zero-length msg */
@@ -46838,7 +46770,7 @@ $ ./svmsg_receive -t -20 32769
 
 ```console
 Type Control-C to terminate program
-$ ./svmseg_receive 32769
+$ ./svmsg_receive 32769
 Received: type=30; length=23; body=I do and I understand.
 ```
 
@@ -46876,7 +46808,7 @@ int
 main(int argc, char *argv[])
 {
     int msqid, flags, type;
-    ssize_t msglen;
+    ssize_t msgLen;
     size_t maxBytes;
     struct mbuf msg;         /* Message buffer for msgrcv() */
     int opt;                 /* Option character from getopt() */
@@ -46895,29 +46827,30 @@ main(int argc, char *argv[])
 #endif
             default:        usageError(argv[0], NULL);
         }
+    }
 
-        if (argc < optind + 1 || argc > optind + 2)
-            usageError(argv[0], "wrong number of arguments\n");
+    if (argc < optind + 1 || argc > optind + 2)
+        usageError(argv[0], "Wrong number of arguments\n");
 
-        msqid = getInt(argv[optind], 0, "msqid");
-        maxBytes = (argc > optind + 1) ?
-                    getInt(argv[optind + 1], 0, "max-bytes") : MAX_MTEXT;
+    msqid = getInt(argv[optind], 0, "msqid");
+    maxBytes = (argc > optind + 1) ?
+                getInt(argv[optind + 1], 0, "max-bytes") : MAX_MTEXT;
 
-        /* Get message and display on stdout */
+    /* Get message and display on stdout */
 
-        msglen = msgrcv(msqid, &msg, maxBytes, type, flags);
-        if (msglen == -1)
-            errMsg("msgrcv");
+    msgLen = msgrcv(msqid, &msg, maxBytes, type, flags);
+    if (msgLen == -1)
+        errExit("msgrcv");
 
-printf("Received: type=%ld; length=%ld", msg.mtype, (long) msgLen);
-if (msgLen > 0)
-    printf("; body=%s", msg.mtext);
-printf("\n");
-exit(EXIT_SUCCESS);
+    printf("Received: type=%ld; length=%ld", msg.mtype, (long) msgLen);
+    if (msgLen > 0)
+        printf("; body=%s", msg.mtext);
+    printf("\n");
+    exit(EXIT_SUCCESS);
 }
 ```
 
-svmmsg/svmmsg_receive.c
+svmsg/svmsg_receive.c
 
 ### 46.3 消息队列控制操作
 
@@ -46968,13 +46901,13 @@ int main(int argc, char *argv[])
 
     for (j = 1; j < argc; j++)
         if (msgctl(getInt(argv[j], 0, "msqid"), IPC_RMID, NULL) == -1)
+            errExit("msgctl %s", argv[j]);
 
-errExit("msgctl %s", argv[j]);
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 ```
 
-svmmsg/svmmsg_rm.c
+svmsg/svmsg_rm.c
 
 ### 46.4 消息队列关联数据结构
 
@@ -47087,7 +47020,7 @@ Linux 会对队列操作施加下列限制。
 #### MSGMAX
 
 这是系统级别的一个限制，它规定了单条消息中最多可写入的字节数（mtext）。
-（msgsnd()，EINVALID）
+（msgsnd()，EINVAL）
 
 #### MSGMNB
 
@@ -47173,7 +47106,7 @@ msgctl(0, IPC_INFO, (struct msqid_ds *) &buf);
 
 1. 使用 MSG_INFO 操作找到消息队列的 entries 数组的最大下标（maxind）。
 2. 执行一个循环，对 0 到 maxind（包含）之间的每一个值都执行一个 MSG_STAT 操作。
-   在循环过程中忽略因 entries 数组中的元素为空而发生的错误（EINVALID）以及在数组中元素所引用的对象上不具备相应的权限而发生的错误（EACCES）。
+   在循环过程中忽略因 entries 数组中的元素为空而发生的错误（EINVAL）以及在数组中元素所引用的对象上不具备相应的权限而发生的错误（EACCES）。
 
 程序清单 46-6 按照上面的步骤实现了对消息队列的处理。
 下面的 shell 会话日志演示了这个程序的用法。
@@ -47213,7 +47146,7 @@ main(int argc, char *argv[])
     /* Obtain size of kernel 'entries' array */
     maxind = msgctl(0, MSG_INFO, (struct msqid_ds *) &msginfo);
     if (maxind == -1)
-        exit("msgctl-MSG_INFO");
+        errExit("msgctl-MSG_INFO");
 
     printf("maxind: %d\n\n", maxind);
     printf("index id key messages\n");
@@ -47222,8 +47155,8 @@ main(int argc, char *argv[])
     for (ind = 0; ind <= maxind; ind++) {
         msqid = msgctl(ind, MSG_STAT, &ds);
         if (msqid == -1) {
-            if (errno != EINVALID && errno != EACCES)
-                errmsg("msgctl-MSG_STAT");
+            if (errno != EINVAL && errno != EACCES)
+                errMsg("msgctl-MSG_STAT");
             continue;
         }
         printf("%4d %8d 0x%08lx %7ld\n", ind, msqid,
@@ -47316,10 +47249,10 @@ responseMsg 结构定义了服务器返回给客户端的响应消息的格式�
 
 #define SERVER_KEY 0x1aaaaaa1 /* Key for server's message queue */
 
-struct requestMsg {
-    long mtype; /* Requests (client to server) */
-    int clientId; /* Unused */
-    char pathname[PATH_MAX]; /* ID of client's message queue */
+struct requestMsg { /* Requests (client to server) */
+    long mtype; /* Unused */
+    int clientId; /* ID of client's message queue */
+    char pathname[PATH_MAX]; /* File to be returned */
 };
 
 /* REQ_MSG_SIZE computes size of 'mtext' part of 'requestMsg' structure.
@@ -47331,10 +47264,9 @@ bytes between the 'clientId' and 'pathname' fields. */
 
 #define RESP_MSG_SIZE 8192
 
-struct responseMsg {
-    long mtype; /* Responses (server to client) */
-    char data[RESP_MSG_SIZE]; /* One of RESP_MT_* values below */
-    /* File content / response message */
+struct responseMsg { /* Responses (server to client) */
+    long mtype; /* One of RESP_MT_* values below */
+    char data[RESP_MSG_SIZE]; /* File content / response message */
 };
 
 /* Types for response messages sent from server to client */
@@ -47344,7 +47276,7 @@ struct responseMsg {
 #define RESP_MT_END 3 /* File data complete */
 ```
 
-svmg/svmg_file.h
+svmsg/svmsg_file.h
 
 #### 服务器程序
 
@@ -47371,16 +47303,19 @@ svmg/svmg_file.h
 ```c
 #include "svmsg_file.h"
 
-static void grmAeaper(int sig)
+static void /* SIGCHLD handler */
+grimReaper(int sig)
 {
     int savedErrno;
 
     savedErrno = errno; /* waitpid() might change 'errno' */
+    ①
     while (waitpid(-1, NULL, WNOHANG) > 0)
         continue;
     errno = savedErrno;
 }
 
+②
 static void /* Executed in child process: serve a single client */
 serveRequest(const struct requestMsg *req)
 {
@@ -47389,6 +47324,7 @@ serveRequest(const struct requestMsg *req)
     struct responseMsg resp;
 
     fd = open(req->pathname, O_RDONLY);
+    ③
     if (fd == -1) {
         /* Open failed: send error text */
         resp.mtype = RESP_MT_FAILURE;
@@ -47399,52 +47335,55 @@ serveRequest(const struct requestMsg *req)
 
     /* Transmit file contents in messages with type RESP_MT_DATA. We don't diagnose read() and msgsnd() errors since we can't notify client. */
 
+    ④
     resp.mtype = RESP_MT_DATA;
     while ((numRead = read(fd, resp.data, RESP_MSG_SIZE)) > 0)
         if (msgsnd(req->clientId, &resp, numRead, 0) == -1)
-            return -1;
+            break;
+
+    /* Send a message of type RESP_MT_END to signify end-of-file */
+    ⑤
+    resp.mtype = RESP_MT_END;
+    msgsnd(req->clientId, &resp, 0, 0); /* Zero-length mtext */
 }
 
-break;
-
-/* Send a message of type RESP_MT_END to signify end-of-file */
-⑤
-resp.mtype = RESP_MT_END;
-msgsnd(req->clientId, &resp, 0, 0); /* Zero-length mtext */
-}
 int
 main(int argc, char *argv[])
 {
     struct requestMsg req;
     pid_t pid;
-    ssize_t msglen;
+    ssize_t msgLen;
     int serverId;
     struct sigaction sa;
 
     /* Create server message queue */
+
     serverId = msgget(SERVER_KEY, IPC_CREAT | IPC_EXCL |
-S_IRUSR | S_IWUSR | S_IWGRP);
+            S_IRUSR | S_IWUSR | S_IWGRP);
     if (serverId == -1)
         errExit("msgget");
 
     /* Establish SIGCHLD handler to reap terminated children */
+
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
     sa.sa_handler = grimReaper;
     ⑥
     if (sigaction(SIGCHLD, &sa, NULL) == -1)
         errExit("sigaction");
+
     /* Read requests, handle each in a separate child process */
-    for (; ; )
-    {
-        msglen = msgrcv(serverId, &req, REQ_MSG_SIZE, 0, 0);
-        if (msglen == -1) {
+
+    for (;;) {
+        msgLen = msgrcv(serverId, &req, REQ_MSG_SIZE, 0, 0);
+        if (msgLen == -1) {
+            ⑦
             if (errno == EINTR) /* Interrupted by SIGCHLD handler? */
-            continue; /* ... then restart msgrcv() */
+                continue; /* ... then restart msgrcv() */
             errMsg("msgrcv");
             break; /* ... so terminate loop */
         }
-        ⑦
+        ⑧
         pid = fork(); /* Create child process */
         if (pid == -1) {
             errMsg("fork");
@@ -47452,16 +47391,17 @@ S_IRUSR | S_IWUSR | S_IWGRP);
         }
         if (pid == 0) { /* Child handles request */
             serveRequest(&req);
+            ⑨
             _exit(EXIT_SUCCESS);
         }
         /* Parent loops to receive next client request */
     }
 
     /* If msgrcv() or fork() fails, remove server MQ and exit */
-    if (msgctl(serverId, IPC_RMID, NULL) == -1)
 
-errExit("msgctl");
-exit(EXIT_SUCCESS);
+    if (msgctl(serverId, IPC_RMID, NULL) == -1)
+        errExit("msgctl");
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -47488,6 +47428,7 @@ svmsg/svmsg_file_server.c
 
 static int clientId;
 
+①
 static void removeQueue(void)
 {
     if (msgctl(clientId, IPC_RMID, NULL) == -1)
@@ -47500,6 +47441,7 @@ int main(int argc, char *argv[])
     struct responseMsg resp;
     int serverId, numMsgs;
     ssize_t msgLen, totBytes;
+
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s pathname\n", argv[0]);
 
@@ -47508,77 +47450,55 @@ int main(int argc, char *argv[])
                     (long) sizeof(req.pathname) - 1);
 
     /* Get server's queue identifier; create queue for response */
+
     serverId = msgget(SERVER_KEY, S_IWUSR);
     if (serverId == -1)
         errExit("msgget - server message queue");
-}
 
 ② clientId = msgget(IPC_PRIVATE, S_IRUSR | S_IWUSR | S_IWGRP);
-
-f (clientId == -1)
-
-errExit("msgget - client message queue");
+    if (clientId == -1)
+        errExit("msgget - client message queue");
 
 ③ if (atexit(removeQueue) != 0)
+        errExit("atexit");
 
-errExit("atexit");
+    /* Send message asking for file named in argv[1] */
 
-/* Send message asking for file named in argv[1] */
-
-req.mtype = 1; /* Any type will do */
-
-req clientId = clientId;
-
-strncpy(req.pathname, argv[1], sizeof(req.pathname) - 1);
-
-req.pathname[ sizeof(req.pathname) - 1 ] = '\0';
-
-/* Ensure string is terminated */
+    req.mtype = 1; /* Any type will do */
+    req.clientId = clientId;
+    strncpy(req.pathname, argv[1], sizeof(req.pathname) - 1);
+    req.pathname[sizeof(req.pathname) - 1] = '\0';
+    /* Ensure string is terminated */
 
 ④ if (msgsnd(serverId, &req, REQ_MSG_SIZE, 0) == -1)
+        errExit("msgsnd");
 
-errExit("msgsnd");
+    /* Get first response, which may be failure notification */
 
-/* Get first response, which may be failure notification */
-
-msglen = msgrcv(clientId, &resp, RESP_MSG_SIZE, 0, 0);
-
-(msgLen == -1)
-
-errExit("msgrcv");
+    msgLen = msgrcv(clientId, &resp, RESP_MSG_SIZE, 0, 0);
+    if (msgLen == -1)
+        errExit("msgrcv");
 
 ⑤ if (resp.mtype == RESP_MT_FAILURE) {
+        printf("%s\n", resp.data); /* Display msg from server */
+        if (msgctl(clientId, IPC_RMID, NULL) == -1)
+            errExit("msgctl");
+        exit(EXIT_FAILURE);
+    }
 
-printf("%s\n", resp.data); /* Display */
+    /* File was opened successfully by server; process messages
+       (including the one already received) containing file data */
 
-if (msgctl(clientId, IPC RMID, NULL) == -1)
+    totBytes = msgLen; /* Count first message */
+⑥ for (numMsgs = 1; resp.mtype == RESP_MT_DATA; numMsgs++) {
+        msgLen = msgrcv(clientId, &resp, RESP_MSG_SIZE, 0, 0);
+        if (msgLen == -1)
+            errExit("msgrcv");
+        totBytes += msgLen;
+    }
 
-errExit("msgctl");
-
-exit(EXIT FÄILÜRE);
-
-}
-
-/* File was opened successfully by server; process messages
-
-(including the one already received) containing file data */
-
-totBytes = msgLen; /* Count first message */
-
-for (numMsgs = 1; resp.mtype == RESP MT DATA; numMsgs++) {
-
-msglen = msgrcv(clientId, &resp, _RESP_MSG_SIZE, 0, 0);
-
-if (msgLen == -1)
-
-tôtrutac 1- mcalen.
-
-}
-
-printf("Received %ld bytes (%d messages)\n", (long) totBytes, numMsgs);
-
-exit(EXIT_SUCCESS);
-
+    printf("Received %ld bytes (%d messages)\n", (long) totBytes, numMsgs);
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -47597,7 +47517,7 @@ $ wc -c /etc/services
 
 764360 /etc/services
 
-$ ./svmsg file client /etc/services
+$ ./svmsg_file_client /etc/services
 
 Received 764360 bytes (95 messages)
 
@@ -47705,7 +47625,7 @@ System V 消息队列允许进程通过交换由一个数字类型和一个包�
 上面操作中的后两个可能会导致调用进程阻塞。
 当减小一个信号量的值时，内核会将所有试图将信号量值降低到 0 之下的操作阻塞。
 类似的，如果信号量的当前值不为 0，那么等待信号量的值等于 0 的调用进程将会发生阻塞。
-不管是一种情况，调用进程会一直保持阻塞直到其他一些进程将信号量的值修改为一个允许这些操作继续向前的值，在那个时刻内核会唤醒被阻塞的进程。
+不管是何种情况，调用进程会一直保持阻塞直到其他一些进程将信号量的值修改为一个允许这些操作继续向前的值，在那个时刻内核会唤醒被阻塞的进程。
 图 47-1 显示了使用一个信号量来同步两个交替将信号量的值在 0 和 1 之间切换的进程的动作。
 
 在控制进程的动作方面，信号量本身并没有任何意义，它的意义仅由使用信号量的进程赋予其的关联关系来确定。
@@ -47800,29 +47720,29 @@ int main(int argc, char *argv[])
 
         semid = semget(IPC_PRIVATE, 1, S_IRUSR | S_IWUSR);
         if (semid == -1)
-            exit("semid");
+            errExit("semid");
 
         arg.val = getInt(argv[1], 0, "init-value");
         if (semctl(semid, /* semnum= */ 0, SETVAL, arg) == -1)
-            exit("semctl");
+            errExit("semctl");
 
         printf("Semaphore ID = %d\n", semid);
     } else { /* Perform an operation on first semaphore */
+        struct sembuf sop; /* Structure defining operation */
+
+        semid = getInt(argv[1], 0, "semid");
+
+        sop.sem_num = 0; /* Specifies first semaphore in set */
+        sop.sem_op = getInt(argv[2], 0, "operation"); /* Add, subtract, or wait for 0 */
+        sop.sem_flg = 0; /* No special options for operation */
+
+        printf("%ld: about to semop at %s\n", (long) getpid(), currTime("%T"));
+        if (semop(semid, &sop, 1) == -1)
+            errExit("semop");
+        printf("%ld: semop completed at %s\n", (long) getpid(), currTime("%T"));
     }
-}
 
-struct sembuf sop; /* Structure defining operation */
-semid = getInt(argv[1], 0, "semid");
-
-sop.sem_num = 0; /* Specifies first semaphore in set */
-sop.sem_op = getInt(argv[2], 0, "operation"); /* Add, subtract, or wait for 0 */
-sop.sem_flg = 0; /* No special options for operation */
-
-printf("%ld: about to semop at %s\n", (long) getpid(), currTime("%T"));
-if (semop(semid, &sop, 1) == -1)
     exit(EXIT_SUCCESS);
-printf("%ld: semop completed at %s\n", (long) getpid(), currTime("%T"));
-exit(EXIT_SUCCESS);
 }
 ```
 
@@ -47841,7 +47761,7 @@ Returns semaphore set identifier on success, or -1 on error
 key 参数是使用 45.2 节中描述的其中一种方法生成的键（通常使用值 IPC_PRIVATE 或由 ftok() 返回的键）。
 
 如果使用 semget() 创建一个新信号量集，那么 nsems 会指定集合中信号量的数量，并且其值必须大于 0。
-如果使用 semget() 来获取一个既有集的标识符，那么 nsems 必须要小于或等于集合的大小（否则会发生 EINVALID 错误）。
+如果使用 semget() 来获取一个既有集的标识符，那么 nsems 必须要小于或等于集合的大小（否则会发生 EINVAL 错误）。
 无法修改一个既有集中的信号量数量。
 
 semflg 参数是一个位掩码，它指定了施加于新信号量集之上的权限或需检查的一个既有集合的权限。
@@ -47892,8 +47812,8 @@ glibc 较早以前的版本（2.0 以下，包括 2.0）也提供了这个定义
 程序清单 47-2：semun union 的定义
 
 ```c
-#ifdef SEMUN_H
-#define SEMUN_H /* Prevent accidental double inclusion */
+#ifndef SEMUN_H /* Prevent accidental double inclusion */
+#define SEMUN_H
 #include <sys/types.h> /* For portability */
 #include <sys/sem.h>
 
@@ -47901,9 +47821,9 @@ union semun {
     int val;
     struct semid_ds * buf;
     unsigned short * array;
-    #if defined(_linux_)
-        struct seminfo * __buf;
-    #endif
+#if defined(__linux__)
+    struct seminfo * __buf;
+#endif
 };
 
 #endif
@@ -48069,7 +47989,7 @@ int main(int argc, char *argv[])
         errExit("semctl");
 
     printf("Semaphore changed: %s", ctime(&ds.sem_ctime));
-    printf("Last semop(): %s", ctime(&ds.sem_o time));
+    printf("Last semop(): %s", ctime(&ds.sem_otime));
 
     /* Display per-semaphore information */
 
@@ -48084,10 +48004,10 @@ int main(int argc, char *argv[])
     for (j = 0; j < ds.sem_nsems; j++)
         printf("%3d %5d %5d %5d %5d\n", j, arg.array[j],
                 semctl(semid, j, GETPID, dummy),
+                semctl(semid, j, GETNCNT, dummy),
+                semctl(semid, j, GETZCNT, dummy));
 
-semctl(semid, j, GETNCNT, dummy),
-semctl(semid, j, GETZCNT, dummy));
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -48113,7 +48033,7 @@ int main(int argc, char *argv[])
     union semun arg; /* Fourth argument for semctl() */
     int j, semid;
     if (argc < 3 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s semid val...\\n", argv[0]);
+        usageErr("%s semid val...\n", argv[0]);
 
     semid = getInt(argv[1], 0, "semid");
 
@@ -48123,7 +48043,7 @@ int main(int argc, char *argv[])
         errExit("semctl");
 
     if (ds.sem_nsems != argc - 2)
-        cmdlineErr("Set contains %ld semaphores, but %ld values were supplied\\n",
+        cmdLineErr("Set contains %ld semaphores, but %d values were supplied\n",
                     (long) ds.sem_nsems, argc - 2);
 
     /* Set up array of values; perform semaphore initialization */
@@ -48136,7 +48056,7 @@ int main(int argc, char *argv[])
 
     if (semctl(semid, 0, SETALL, arg) == -1)
         errExit("semctl-SETALL");
-    printf("Semaphore values changed (PID=%ld)\\n", (long) getpid());
+    printf("Semaphore values changed (PID=%ld)\n", (long) getpid());
 
     exit(EXIT_SUCCESS);
 }
@@ -48217,17 +48137,16 @@ if (semid != -1) {
 
     arg.val = 0;
     if (semctl(semid, 0, SETVAL, arg) == -1)
-        exit("semctl");
+        errExit("semctl");
 
-    /* Perform a "no-op" semaphore operation - changes semotime
-     so other processes can see we've initialized the set. */
-}
+    /* Perform a "no-op" semaphore operation - changes sem_otime
+       so other processes can see we've initialized the set. */
 
-sop.sem_num = 0;            /* Operate on semaphore 0 */
-sop.sem_op = 0;             /* Wait for value to equal 0 */
-sop.sem_flg = 0;
-if (semop(semid, &sop, 1) == -1)
-    exit("semop");
+    sop.sem_num = 0;            /* Operate on semaphore 0 */
+    sop.sem_op = 0;             /* Wait for value to equal 0 */
+    sop.sem_flg = 0;
+    if (semop(semid, &sop, 1) == -1)
+        errExit("semop");
 
 } else {                     /* We didn't create the semaphore set */
     const int MAX_TRIES = 10;
@@ -48235,25 +48154,25 @@ if (semop(semid, &sop, 1) == -1)
     union semun arg;
     struct semid_ds ds;
 
-    if (errno != EEXIST) {      /* Unexpected error from semget() */
-        exit("semget");
+    if (errno != EEXIST)       /* Unexpected error from semget() */
+        errExit("semget");
 
     semid = semget(key, 1, perms); /* Retrieve ID of existing set */
     if (semid == -1)
-        exit("semget");
+        errExit("semget");
 
     /* Wait until another process has called semop() */
 
     arg.buf = &ds;
     for (j = 0; j < MAX_TRIES; j++) {
         if (semctl(semid, 0, IPC_STAT, arg) == -1)
-            exit("semctl");
-        if (ds.semotime != 0)      /* semop() performed? */
-            break;                   /* Yes, quit loop */
+            errExit("semctl");
+        if (ds.sem_otime != 0)      /* semop() performed? */
+            break;                  /* Yes, quit loop */
         sleep(1);                   /* If not, wait and retry */
     }
 
-    if (ds.semotime == 0)         /* Loop ran to completion! */
+    if (ds.sem_otime == 0)          /* Loop ran to completion! */
         fatal("Existing semaphore not initialized");
 }
 
@@ -48377,7 +48296,7 @@ if (semop(semid, sops, 3) == -1) {
     if (errno == EAGAIN) /* Semaphore 2 would have blocked */
         printf("Operation would have blocked\n");
     else
-        exit("semop");
+        errExit("semop");
 }
 ```
 
@@ -48414,7 +48333,7 @@ $ ./svsem_op 0 0=0 0-1,1-2n
 ```c
 #include <sys/types.h>
 #include <sys/sem.h>
-#include <CTYPE.h>
+#include <ctype.h>
 #include "curr_time.h" /* Declaration of currTime() */
 #include "tlpi_hdr.h"
 
@@ -48422,15 +48341,15 @@ $ ./svsem_op 0 0=0 0-1,1-2n
 
 static void usageError(const char *progName)
 {
-    fprintf(stderr, "Usage: %s semid op[,...] ...\\n", progName);
-    fprintf(stderr, "op' is either: <sem>#>+[-]<value>[,u]\n");
-    fprintf(stderr, "or: <sem>#>=0[n]\n");
-    fprintf(stderr, " \\n" means include IPC_NOWAIT in 'op'\n");
-    fprintf(stderr, " \\u" means include SEM_UNDO in 'op'\n");
+    fprintf(stderr, "Usage: %s semid op[,op...] ...\n\n", progName);
+    fprintf(stderr, "'op' is either: <sem#>{+|-}<value>[n][u]\n");
+    fprintf(stderr, "            or: <sem#>=0[n]\n");
+    fprintf(stderr, "       \"n\" means include IPC_NOWAIT in 'op'\n");
+    fprintf(stderr, "       \"u\" means include SEM_UNDO in 'op'\n\n");
     fprintf(stderr, "The operations in each argument are "
-                     "performed in a single semop() call\n");
+                     "performed in a single semop() call\n\n");
     fprintf(stderr, "e.g.: %s 12345 0+1,1-2un\n", progName);
-    fprintf(stderr, " %s 12345 0=On 1+1,2-1u 1=0\n", progName);
+    fprintf(stderr, "      %s 12345 0=0n 1+1,2-1u 1=0\n", progName);
     exit(EXIT_FAILURE);
 }
 
@@ -48443,58 +48362,58 @@ static int parseOps(char *arg, struct sembuf sops[])
 
     for (numOps = 0, remaining = arg; ; numOps++) {
         if (numOps >= MAX_SEMOPS)
-            cmdLineErr("Too many operations (maximum=%d): \\%s\\n",
+            cmdLineErr("Too many operations (maximum=%d): \"%s\"\n",
+                        MAX_SEMOPS, arg);
 
-MAX_SEMOPS, arg);
+        if (*remaining == '\0')
+            fatal("Trailing comma or empty argument: \"%s\"", arg);
+        if (!isdigit((unsigned char) *remaining))
+            cmdLineErr("Expected initial digit: \"%s\"\n", arg);
 
-if (*remaining == '\0')
-    fatal("Trailing comma or empty argument: \\%s\\", arg);
-if (!isdigit((unsigned char) *remaining))
-    cmplineErr("Expected initial digit: \\%s\\n", arg);
+        sops[numOps].sem_num = strtol(remaining, &sign, 10);
 
-sops[numOps].sem_num = strtol(remaining, &sign, 10);
+        if (*sign == '\0' || strchr("+-=", *sign) == NULL)
+            cmdLineErr("Expected '+', '-', or '=' in \"%s\"\n", arg);
+        if (!isdigit((unsigned char) *(sign + 1)))
+            cmdLineErr("Expected digit after '%c' in \"%s\"\n", *sign, arg);
 
-if (*sign == '\0' || strchr("+-", *sign) == NULL)
-    cmplineErr("Expected ' +', '-', or '=' in \\%s\\n", arg);
-if (!isdigit((unsigned char) *sign + 1))
-    cmplineErr("Expected digit after '%c' in \\%s\\n", *sign, arg);
+        sops[numOps].sem_op = strtol(sign + 1, &flags, 10);
+        if (*sign == '-')
+            sops[numOps].sem_op = - sops[numOps].sem_op;
+        else if (*sign == '=')
+            /* Should be '=0' */
+            if (sops[numOps].sem_op != 0)
+                cmdLineErr("Expected \"=0\" in \"%s\"\n", arg);
 
-sops[numOps].sem_op = strtol(sign + 1, &flags, 10);
-if (*sign == '-')
-    sops[numOps].sem_op = - sops[numOps].sem_op;
-else if (*sign == '+')
-    /* Should be '0' */
-    if (sops[numOps].sem_op != 0)
-        cmplineErr("Expected '\\0' in \\%s\\n", arg);
+        sops[numOps].sem_flg = 0;
+        for (;; flags++) {
+            if (*flags == 'n')
+                sops[numOps].sem_flg |= IPC_NOWAIT;
+            else if (*flags == 'u')
+                sops[numOps].sem_flg |= SEM_UNDO;
+            else
+                break;
+        }
 
-sops[numOps].sem_flg = 0;
-for (; ; flags++)
-    {
-        if (*flags == 'n')
-            sops[numOps].sem_flg |= IPC_NOWAIT;
-        else if (*flags == 'u')
-            sops[numOps].sem_flg |= SEM_UNDO;
-        else
+        if (*flags != ',' && *flags != '\0')
+            cmdLineErr("Bad trailing character (%c) in \"%s\"\n", *flags, arg);
+
+        comma = strchr(remaining, ',');
+        if (comma == NULL)
             break;
+        else
+            remaining = comma + 1;
     }
 
-if (*flags != ',' && *flags != '\0')
-    cmplineErr("Bad trailing character (%c) in \\%s\\n", *flags, arg);
-
-comma = strchr(remaining, ',');
-if (comma == NULL)
-    break;
-else
-    remaining = comma + 1;
-
-return numOps + 1;
+    return numOps + 1;
+}
 
 int main(int argc, char *argv[])
 {
     struct sembuf sops[MAX_SEMOPS];
     int ind, nsops;
 
-    if (argc < 2 || strncmp(argv[1], "--help") == 0)
+    if (argc < 2 || strcmp(argv[1], "--help") == 0)
         usageError(argv[0]);
 
     for (ind = 2; argv[ind] != NULL; ind++) {
@@ -48503,14 +48422,12 @@ int main(int argc, char *argv[])
         printf("%ld, %s: about to semop() [%s]\n", (long) getpid(), currTime("%T"), argv[ind]);
 
         if (semop(getInt(argv[1], 0, "semid"), sops, nsops) == -1)
-            return 0;
-    }
-}
+            errExit("semop (PID=%ld)", (long) getpid());
 
-    errExit("semop (PID=%ld)", (long) getpid());
-    printf("%5ld, %s: semop() completed [%s]\n", (long) getpid(),
-           curremTime("%T"), argv[ind]);
-}
+        printf("%5ld, %s: semop() completed [%s]\n", (long) getpid(),
+                currTime("%T"), argv[ind]);
+    }
+
     exit(EXIT_SUCCESS);
 }
 ```
@@ -48590,8 +48507,8 @@ Sem # Value SEMPID SEMNCNT SEMZCNT
 由于无法立即执行这个操作，因此 semop() 会返回 EAGAIN 错误。
 
 ```console
-$ ./svsem_op 32769 0=On Operation 4
-3673, 16:03:13: about to semop() [0=On]
+$ ./svsem_op 32769 0=0n Operation 4
+3673, 16:03:13: about to semop() [0=0n]
 ERROR [EAGAIN/EWOULDBLOCK Resource temporarily unavailable] semop (PID=3673)
 ```
 
@@ -48615,7 +48532,7 @@ $ ./svsem_op 32769 1+1 Operation 5
 $ ./svsem_mon 32769
 Semaphore changed: Sun Jul 25 16:01:53 2010
 Last semop(): Sun Jul 25 16:03:29 2010
-Sem # Value SEMID SEMNCNT SEMZCNT
+Sem # Value SEMPID SEMNCNT SEMZCNT
 0 0 3661 0 0
 1 0 3659 1 0
 ```
@@ -48706,7 +48623,7 @@ $ ./svsem_mon 131073
 Semaphore changed: Sun Jul 25 06:41:34 2010
 Last semop():
 Sun Jul 25 06:41:56 2010
-Sem # Value SEMID SEMNCNT SEMZCNT
+Sem # Value SEMPID SEMNCNT SEMZCNT
 0 0 2248 0 0
 1 1 2248 0 0
 ```
@@ -48775,7 +48692,7 @@ bsRetryOnEintr 变量控制实现是否在 semop() 调用被信号中断之后�
 程序清单 47-9：binary_sems.c 的头文件
 
 ```c
-#ifdef BINARY_SEMS_H /* Prevent accidental double inclusion */
+#ifndef BINARY_SEMS_H /* Prevent accidental double inclusion */
 #define BINARY_SEMS_H
 
 #include "tlpi_hdr.h"
@@ -48783,7 +48700,7 @@ bsRetryOnEintr 变量控制实现是否在 semop() 调用被信号中断之后�
 /* Variables controlling operation of functions below */
 
 extern Boolean bsUseSemUndo; /* Use SEM_UNDO during semop()? */
-extern Boolean bsRetryOnEntr; /* Retry if semop() interrupted by signal handler? */
+extern Boolean bsRetryOnEintr; /* Retry if semop() interrupted by signal handler? */
 
 int initSemAvailable(int semId, int semNum);
 
@@ -48812,7 +48729,7 @@ svsem/binary_sems.h
 #include "binary_sems.h"
 
 Boolean bsUseSemUndo = FALSE;
-Boolean bsRetryOnIntr = TRUE;
+Boolean bsRetryOnEintr = TRUE;
 
 int /* Initialize semaphore to 1 (i.e., "available") */
 initSemAvailable(int semId, int semNum)
@@ -48845,7 +48762,7 @@ reserveSem(int semId, int semNum)
     sops.sem_flg = bsUseSemUndo ? SEM_UNDO : 0;
 
     while (semop(semId, &sops, 1) == -1)
-        if (errno != EINTR || !bsRetryOnIntr)
+        if (errno != EINTR || !bsRetryOnEintr)
             return -1;
 
     return 0;
@@ -48856,10 +48773,11 @@ releaseSem(int semId, int semNum)
 {
     struct sembuf sops;
 
-sops.sem_num = semNum;
-sops.sem_op = 1;
-sops.sem_flg = bsUseSemUndo ? SEM_UNDO : 0;
-return semop(semId, &sops, 1);
+    sops.sem_num = semNum;
+    sops.sem_op = 1;
+    sops.sem_flg = bsUseSemUndo ? SEM_UNDO : 0;
+
+    return semop(semId, &sops, 1);
 }
 ```
 
@@ -48885,7 +48803,7 @@ SEMAEM 的值与 SEMVMX（稍后介绍）的值是一样的。
 #### SEMMSL
 
 一个信号量集中能分配的信号量的最大数量。
-（semget()，EINVALID）
+（semget()，EINVAL）
 
 #### SEMMNS
 
@@ -49301,7 +49219,7 @@ Returns 0 on success, or -1 on error
 #define WRITE_SEM 0 /* Writer has access to shared memory */
 #define READ_SEM 1 /* Reader has access to shared memory */
 
-#ifdef BUF_SIZE /* Allow "cc -D" to override definition */
+#ifndef BUF_SIZE /* Allow "cc -D" to override definition */
 #define BUF_SIZE 1024 /* Size of transfer buffer */
 #endif
 
@@ -49361,32 +49279,31 @@ svshm/svshm_xfr.h
 
 int main(int argc, char *argv[])
 {
-    int semid, shmids, bytes, xfers;
+    int semid, shmid, bytes, xfrs;
     struct shmseg *shmp;
     union semun dummy;
 
     semid = semget(SEM_KEY, 2, IPC_CREAT | OBJ_PERMS);
     if (semid == -1)
-        exit("semget");
+        errExit("semget");
     if (initSemAvailable(semid, WRITE_SEM) == -1)
-        exit("initSemAvailable");
+        errExit("initSemAvailable");
     if (initSemInUse(semid, READ_SEM) == -1)
-        exit("initSemInUse");
+        errExit("initSemInUse");
 
     shmid = shmget(SHM_KEY, sizeof(struct shmseg), IPC_CREAT | OBJ_PERMS);
     if (shmid == -1)
-        exit("shmget");
+        errExit("shmget");
 
     shmp = shmat(shmid, NULL, 0);
     if (shmp == (void *)-1)
-        exit("shmat");
+        errExit("shmat");
 
     /* Transfer blocks of data from stdin to shared memory */
-}
 ```
 
 ```c
-③ for (xfrs = 0, bytes = 0; xfrs++, bytes += shmp->cnt) {
+③ for (xfrs = 0, bytes = 0; ; xfrs++, bytes += shmp->cnt) {
 ④ if (reserveSem(semid, WRITE_SEM) == -1) /* Wait for our turn */
     errExit("reserveSem");
 ```
@@ -49394,15 +49311,15 @@ int main(int argc, char *argv[])
 ```c
 ⑤ shmp->cnt = read(STDIN_FILENO, shmp->buf, BUF_SIZE);
 if (shmp->cnt == -1)
-    exit(EXIT("read"));
+    errExit("read");
 ```
 
 ```c
 ⑥ if (releaseSem(semid, READ_SEM) == -1) /* Give reader a turn */
-    exit("releaseSem");
+    errExit("releaseSem");
 
 /* Have we reached EOF? We test this after giving the reader
-a turn so that it can see the 0 value in shmn-sent */
+a turn so that it can see the 0 value in shmp->cnt */
 ```
 
 ```c
@@ -49416,11 +49333,11 @@ reader has finished, and so we can delete the IPC objects. */
 
 ```c
 ⑧ if (reserveSem(semid, WRITE_SEM) == -1)
-    exit("reserveSem");
+    errExit("reserveSem");
 ```
 
 ```c
-⑨     if (semctl(semid, 0, IPC_RMID, dummy) == -1)
+⑨ if (semctl(semid, 0, IPC_RMID, dummy) == -1)
         errExit("semctl");
     if (shmdt(shmp) == -1)
         errExit("shmdt");
@@ -49446,7 +49363,6 @@ main(int argc, char *argv[])
 {
     int semid, shmid, xfrs, bytes;
     struct shmseg *shmp;
-}
 ```
 
 ```c
@@ -49464,38 +49380,37 @@ if (shmid == -1)
 ```
 
 ```c
-② shmp = shmat(shmid, NULL, SHM_RONLY);
+② shmp = shmat(shmid, NULL, SHM_RDONLY);
 ```
 
 ```c
-c
 if (shmp == (void *) -1)
     errExit("shmat");
 
 /* Transfer blocks of data from shared memory to stdout */
-for (xfrs = 0, bytes = 0; ; xfrs++) {
-    if (reserveSem(semid, READ_SEM) == -1)       /* Wait for our turn */
+③ for (xfrs = 0, bytes = 0; ; xfrs++) {
+    ④ if (reserveSem(semid, READ_SEM) == -1)       /* Wait for our turn */
         errExit("reserveSem");
 
-    if (shmp->cnt == 0)           /* Writer encountered EOF */
+    ⑤ if (shmp->cnt == 0)           /* Writer encountered EOF */
         break;
     bytes += shmp->cnt;
 
-    if (write(STDOUT_FILENO, shmp->buf, shmp->cnt) != shmp->cnt)
+    ⑥ if (write(STDOUT_FILENO, shmp->buf, shmp->cnt) != shmp->cnt)
         fatal("partial/failed write");
 
-    if (releaseSem(semid, WRITE_SEM) == -1)       /* Give writer a turn */
+    ⑦ if (releaseSem(semid, WRITE_SEM) == -1)       /* Give writer a turn */
         errExit("releaseSem");
 }
 
-if (shmdt(shmp) == -1)
+⑧ if (shmdt(shmp) == -1)
     errExit("shmdt");
 
 /* Give writer one more turn, so it can clean up */
-if (releaseSem(semid, WRITE_SEM) == -1)
+⑨ if (releaseSem(semid, WRITE_SEM) == -1)
     errExit("releaseSem");
 
-fprintf(stderr, "Received %d bytes (%d xfers)\n", bytes, xfrs);
+fprintf(stderr, "Received %d bytes (%d xfrs)\n", bytes, xfrs);
 exit(EXIT_SUCCESS);
 }
 svshm/svshm_xfr_reader.c
@@ -49511,8 +49426,8 @@ $ wc -c /etc/services
 $ ./svshm_xfr_writer < /etc/services &
 [1] 9403
 $ ./svshm_xfr_reader > out.txt
-Received 764360 bytes (747 xfers)
-Sent 764360 bytes (747 xfers)
+Received 764360 bytes (747 xfrs)
+Sent 764360 bytes (747 xfrs)
 [1]+  Done ./svshm_xfr_writer < /etc/services
 $ diff /etc/services out.txt
 $
@@ -49578,10 +49493,6 @@ $ ./svshm_create -p 102400
 9633796
 $ ./svshm_create -p 3276800
 9666565
-$ ./svshm_create -p 102400
-1015817
-$ ./svshm_create -p 3276800
-1048586
 ```
 
 然后启动一个将这两个段附加到由内核选择的地址处的程序。
@@ -49736,11 +49647,10 @@ target = baseaddr + *p; /* Interpret offset */
 shmctl() 系统调用在 shmid 标识的共享内存段上执行一组控制操作。
 
 ```c
-c
 #include <sys/types.h>        /* For portability */
 #include <sys/shm.h>
 
-int shmctl(int shmid, int cmd, struct shm_ds *buf);
+int shmctl(int shmid, int cmd, struct shmid_ds *buf);
         Returns 0 on success, or -1 on error
 ```
 
@@ -49840,11 +49750,10 @@ struct shmid_ds {
     time_t shm_ctime; /* Time of last change */
     pid_t shm_cpid; /* PID of creator */
     pid_t shm_lpid; /* PID of last shmat() / shmdt() */
-};
 ```
 
 ```c
-shmatt_t shm_nattch; /* Number of currently attached processes */
+    shmatt_t shm_nattch; /* Number of currently attached processes */
 };
 ```
 
@@ -49961,7 +49870,7 @@ SHMALL 的实际上限依赖于可用的 RAM 和交换空间。
 $ cd /proc/sys/kernel
 $ cat shmmni
 4096
-$ cat shmax
+$ cat shmmax
 33554432
 $ cat shmall
 2097152
@@ -49972,7 +49881,7 @@ Linux 特有的 shmctl() IPC_INFO 操作返回一个类型为 shminfo 的结构�
 
 ```c
 struct shminfo buf;
-shmcctl(0, IPC_INFO, (struct shmid_ds *) &buf);
+shmctl(0, IPC_INFO, (struct shmid_ds *) &buf);
 ```
 
 相关的 Linux 特有的 SHM_INFO 操作返回一个类型为 shm_info 的结构，
@@ -50281,7 +50190,6 @@ SUSv4 表示一个实现可以要求这个参数是分页对齐的。
 程序清单 49-1：使用 mmap() 创建一个私有文件映射
 
 ```c
-c
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -50299,15 +50207,15 @@ main(int argc, char *argv[])
 
     fd = open(argv[1], O_RDONLY);
     if (fd == -1)
-        exit("open");
+        errExit("open");
     /* Obtain the size of the file and use it to specify the size of
-        the mapping and the size of the buffer to be written */
+       the mapping and the size of the buffer to be written */
     if (fstat(fd, &sb) == -1)
-        exit("fstat");
+        errExit("fstat");
 
     addr = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (addr == MAP_FAILED)
-        exit("mmap");
+        errExit("mmap");
 
     if (write(STDOUT_FILENO, addr, sb.st_size) != sb.st_size)
         fatal("partial/failed write");
@@ -50344,11 +50252,11 @@ length 参数是一个非负整数，
 ```c
 addr = mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 if (addr == MAP_FAILED)
-    exit("mmap");
+    errExit("mmap");
 
 /* Code for working with mapped region */
 if (munmap(addr, length) == -1)
-    exit("munmap");
+    errExit("munmap");
 ```
 
 或者也可以解除一个映射中的部分映射，
@@ -50564,8 +50472,8 @@ Copied "goodbye" to shared memory
 
 ```console
 $ od -c -w8 s.txt
-0000000 g o o d b y e nul
-0000010 nul nul nul nul nul nul nul
+0000000 g o o d b y e \0
+0000010 \0 \0 \0 \0 \0 \0 \0 \0
 *
 0002000
 ```
@@ -50580,7 +50488,6 @@ $ od -c -w8 s.txt
 程序清单 49-2：使用 mmap() 创建一个共享文件映射
 
 ```c
-c
 #include <sys/mman.h>
 #include <fcntl.h>
 #include "tlpi_hdr.h"
@@ -50598,32 +50505,31 @@ main(int argc, char *argv[])
 
     fd = open(argv[1], O_RDWR);
     if (fd == -1)
-        exit("open");
+        errExit("open");
     addr = mmap(NULL, MEM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (addr == MAP_FAILED)
-        exit("mmap");
+        errExit("mmap");
 
     if (close(fd) == -1) /* No longer need 'fd' */
-        exit("close");
+        errExit("close");
 
-    printf("Current string=%s\n", MEM_SIZE, addr);
+    printf("Current string=%.*s\n", MEM_SIZE, addr);
     /* Secure practice: output at most MEM_SIZE bytes */
     if (argc > 2) { /* Update contents of region */
 ```
 
 ```c
-c
-if (strlen(argv[2]) >= MEM_SIZE)
-    cmdLineErr("new-value too large\n");
+        if (strlen(argv[2]) >= MEM_SIZE)
+            cmdLineErr("'new-value' too large\n");
 
-memset(addr, 0, MEM_SIZE);   /* Zero out region */
-strncpy(addr, argv[2], MEM_SIZE - 1);
-if (msync(addr, MEM_SIZE, MS_SYNC) == -1)
-    exitExit("msync");
+        memset(addr, 0, MEM_SIZE);   /* Zero out region */
+        strncpy(addr, argv[2], MEM_SIZE - 1);
+        if (msync(addr, MEM_SIZE, MS_SYNC) == -1)
+            errExit("msync");
 
-printf("Copied \\%s\\ to shared memory\n", argv[2]);
-}
-exit(EXIT_SUCCESS);
+        printf("Copied \"%s\" to shared memory\n", argv[2]);
+    }
+    exit(EXIT_SUCCESS);
 }
 mmap/t_mmap.c
 ```
@@ -50898,13 +50804,12 @@ MAP_PRIVATE 匿名映射用来分配进程私有的内存块并将其中的内�
 下面的代码使用 /dev/zero 技术创建了一个 MAP_PRIVATE 匿名映射。
 
 ```c
-c
 fd = open("/dev/zero", O_RDWR);
 if (fd == -1)
-    exit("open");
+    errExit("open");
 addr = mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 if (addr == MAP_FAILED)
-    exit("mmap");
+    errExit("mmap");
 ```
 
 glibc 中的 malloc() 实现使用 MAP_PRIVATE 匿名映射来分配大小大于 MMAP_THRESHOLD 字节的内存块。
@@ -50921,11 +50826,13 @@ MAP_SHARED 匿名映射只在 Linux 2.4 以及之后的版本上可用。
 
 下面的代码使用 MAP_ANONYMOUS 技术创建了一个 MAP_SHARED 匿名映射。
 
+程序清单 49-3：在父进程和子进程之间共享一个匿名映射
+
 ```c
 addr = mmap(NULL, length, PROT_READ | PROT_WRITE,
-                 MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+            MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 if (addr == MAP_FAILED)
-    exit("mmap");
+    errExit("mmap");
 ```
 
 如果在上面的代码之后加上一个对 fork() 的调用，
@@ -50951,7 +50858,6 @@ In parent, value = 2
 mmap/anon_mmap.c
 
 ```c
-c
 #ifdef USE_MAP_ANON
 #define _BSD_SOURCE          /* Get MAP_ANONYMOUS definition */
 #endif
@@ -50967,49 +50873,49 @@ main(int argc, char *argv[])
 
 #ifdef USE_MAP_ANON            /* Use MAP_ANONYMOUS */
     addr = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE,
-                    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+                MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (addr == MAP_FAILED)
-        exitExit("mmap");
+        errExit("mmap");
 
 #else                        /* Map /dev/zero */
     int fd;
 
     fd = open("/dev/zero", O_RDWR);
     if (fd == -1)
-        exitExit("open");
+        errExit("open");
 
     addr = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (addr == MAP_FAILED)
-        exitExit("mmap");
+        errExit("mmap");
 
     if (close(fd) == -1)        /* No longer needed */
-        exitExit("close");
+        errExit("close");
 #endif
 
     *addr = 1;                    /* Initialize integer in mapped region */
 
     switch (fork()) {            /* Parent and child share mapping */
     case -1:
-        exitExit("fork");
+        errExit("fork");
 
     case 0:                        /* Child: increment shared integer and exit */
         printf("Child started, value = %d\n", *addr);
         (*addr)++;
         if (munmap(addr, sizeof(int)) == -1)
-            exitExit("munmap");
+            errExit("munmap");
         exit(EXIT_SUCCESS);
 
     default:                        /* Parent: wait for child to terminate */
         if (wait(NULL) == -1)
-            exitExit("wait");
+            errExit("wait");
         printf("In parent, value = %d\n", *addr);
         if (munmap(addr, sizeof(int)) == -1)
-            exitExit("munmap");
+            errExit("munmap");
         exit(EXIT_SUCCESS);
 ```
 
 ```c
-}
+    }
 }
 ```
 
@@ -51020,7 +50926,6 @@ main(int argc, char *argv[])
 但 Linux 提供了（不可移植的）mremap() 系统调用来执行此类变更。
 
 ```c
-c
 #define _GNU_SOURCE
 #include <sys/mman.h>
 
@@ -51264,7 +51169,6 @@ Linux 提供了 remap_file_pages() 系统调用来在无需创建多个 VMA 的�
    （remap_file_pages() 所做的工作是操作进程的页表。）
 
 ```c
-c
 #define _GNU_SOURCE
 #include <sys/mman.h>
 
@@ -51292,7 +51196,7 @@ addr 和 size 都应该是系统分页大小的整数倍。
 并且该调用将返回地址 0x4001a000 赋给了 addr。
 
 ```c
-ps = sysconf(_SCPageSize); /* Obtain system page size */
+ps = sysconf(_SC_PAGESIZE); /* Obtain system page size */
 addr = mmap(0, 3 * ps, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 ```
 
@@ -51461,16 +51365,15 @@ b7cde000-b7dde000 rw-s 00000000 00:04 18258 /dev/zero (deleted)
 程序清单 50-1：使用 mprotect() 修改内存保护
 
 ```c
-c
 #define _BSD_SOURCE /* Get MAP_ANONYMOUS definition from <sys/mman.h> */
 #include <sys/mman.h>
-#include "tlipi_hdr.h"
+#include "tlpi_hdr.h"
 
 #define LEN (1024 * 1024)
 
 #define SHELL_FMT "cat /proc/%ld/maps | grep zero"
 #define CMD_SIZE (sizeof(SHELL_FMT) + 20)
-/* Allow extra space for integer string */
+                            /* Allow extra space for integer string */
 
 int
 main(int argc, char *argv[])
@@ -51482,7 +51385,7 @@ main(int argc, char *argv[])
 
     addr = mmap(NULL, LEN, PROT_NONE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (addr == MAP_FAILED)
-        exit("mmap");
+        errExit("mmap");
 
     /* Display line from /proc/self/maps corresponding to mapping */
 
@@ -51493,13 +51396,13 @@ main(int argc, char *argv[])
     /* Change protection on memory to allow read and write access */
 
     if (mprotect(addr, LEN, PROT_READ | PROT_WRITE) == -1)
-        exit("mprotect");
+        errExit("mprotect");
 ```
 
 ```c
-printf("After mprotect()\n");
-system(cmd); /* Review protection via /proc/self/maps */
-exit(EXIT_SUCCESS);
+    printf("After mprotect()\n");
+    system(cmd); /* Review protection via /proc/self/maps */
+    exit(EXIT_SUCCESS);
 }
 vmem/t_mprotect.c
 ```
@@ -51652,10 +51555,9 @@ addr 和 length 参数被解释的方式与它们在 munlock() 中被解释的�
 接着执行下面的调用。
 
 ```c
-mlock(*p1, len1);
-mlock(*p2, len2);
-munlock(*p1, len1);
-/* Actually has no effect */
+mlock(p1, len1);
+mlock(p2, len2);
+munlock(p1, len1);          /* Actually has no effect */
 ```
 
 上面的所有调用都会成功，
@@ -51777,13 +51679,12 @@ mincore() 返回的信息在执行调用的时刻与检查 vec 中的元素的�
 程序清单 50-2：使用 mlock() 和 mincore()
 
 ```c
-c
 #define _BSD_SOURCE      /* Get mincore() declaration and MAP_ANONYMOUS
-definition from <sys/mman.h> */
+                            definition from <sys/mman.h> */
 #include <sys/mman.h>
 #include "tlpi_hdr.h"
 
-/* Display residency of pages in range [addr .. (addr + length - 1) ] */
+/* Display residency of pages in range [addr .. (addr + length - 1)] */
 
 static void
 displayMincore(char *addr, size_t length)
@@ -51791,19 +51692,19 @@ displayMincore(char *addr, size_t length)
     unsigned char *vec;
     long pageSize, numPages, j;
 
-    pageSize = sysconf(_SCPageSize);
+    pageSize = sysconf(_SC_PAGESIZE);
 
     numPages = (length + pageSize - 1) / pageSize;
     vec = malloc(numPages);
     if (vec == NULL)
-        exit("malloc");
+        errExit("malloc");
     if (mincore(addr, length, vec) == -1)
-        exit("mincore");
+        errExit("mincore");
 
     for (j = 0; j < numPages; j++) {
         if (j % 64 == 0)
             printf("%s%10p: ", (j == 0) ? "" : "\n", addr + (j * pageSize));
-        printf("%c", (vec[j] & 1) ? '*' : '.';
+        printf("%c", (vec[j] & 1) ? '*' : '.');
     }
     printf("\n");
 
@@ -51818,39 +51719,38 @@ main(int argc, char *argv[])
     long pageSize, stepSize, j;
 
     if (argc != 4 || strcmp(argv[1], "--help") == 0)
-        usageErr(">%s num-pages lock-page-step lock-page-len\n", argv[0]);
+        usageErr("%s num-pages lock-page-step lock-page-len\n", argv[0]);
 
-    pageSize = sysconf(_SCPageSize);
+    pageSize = sysconf(_SC_PAGESIZE);
 ```
 
 ```c
-c
-if (pageSize == -1)
-    errExit("sysconf(_SC_PAGESIZE)");
+    if (pageSize == -1)
+        errExit("sysconf(_SC_PAGESIZE)");
 
-len = getInt(argv[1], GN_GT_0, "num-pages") * pageSize;
-stepSize = getInt(argv[2], GN_GT_0, "lock-page-step") * pageSize;
-lockLen = getInt(argv[3], GN_GT_0, "lock-page-len") * pageSize;
+    len = getInt(argv[1], GN_GT_0, "num-pages") * pageSize;
+    stepSize = getInt(argv[2], GN_GT_0, "lock-page-step") * pageSize;
+    lockLen = getInt(argv[3], GN_GT_0, "lock-page-len") * pageSize;
 
-addr = mmap(NULL, len, PROT_READ, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-if (addr == MAP_FAILED)
-    errExit("mmap");
+    addr = mmap(NULL, len, PROT_READ, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    if (addr == MAP_FAILED)
+        errExit("mmap");
 
-printf("Allocated %ld (%#lx) bytes starting at %p\n",
-       (long) len, (unsigned long) len, addr);
+    printf("Allocated %ld (%#lx) bytes starting at %p\n",
+            (long) len, (unsigned long) len, addr);
 
-printf("Before mlock:\n");
-displayMincore(addr, len);
+    printf("Before mlock:\n");
+    displayMincore(addr, len);
 
-/* Lock pages specified by command line arguments into memory */
-for (j = 0; j + lockLen <= len; j += stepSize)
-    if (mlock(addr + j, lockLen) == -1)
-        errExit("mlock");
+    /* Lock pages specified by command-line arguments into memory */
+    for (j = 0; j + lockLen <= len; j += stepSize)
+        if (mlock(addr + j, lockLen) == -1)
+            errExit("mlock");
 
-printf("After mlock:\n");
-displayMincore(addr, len);
+    printf("After mlock:\n");
+    displayMincore(addr, len);
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 vmem/memlock.c
 ```
@@ -52310,8 +52210,7 @@ mq_notify() 函数允许一个进程向一个队列注册接收消息通知。
 mq_open() 函数创建一个新消息队列或打开一个既有队列。
 
 ```c
-c
-#include <fcntl.h>          /* Defines 0 *_ constants */
+#include <fcntl.h>          /* Defines O_* constants */
 #include <sys/stat.h>        /* Defines mode constants */
 #include <mqueue.h>
 
@@ -52432,7 +52331,7 @@ mq_unlink() 函数删除通过 name 标识的消息队列，
 前提是所有打开该队列的进程已经关闭了该队列）。
 
 ```c
-#include <queue.h>
+#include <mqueue.h>
 
 int mq_unlink(const char *name);
 Returns 0 on success, or -1 on error
@@ -52443,7 +52342,7 @@ Returns 0 on success, or -1 on error
 程序清单 52-1：使用 mq_unlink() 断开一个 POSIX 消息队列的链接
 
 ```c
-#include <queue.h>
+#include <mqueue.h>
 #include "tlpi_hdr.h"
 
 int main(int argc, char *argv[])
@@ -52451,12 +52350,12 @@ int main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s mq-name\n", argv[0]);
 
-    if (mq unlink(argv[1]) == -1)
-        errExit("mq unlink");
+    if (mq_unlink(argv[1]) == -1)
+        errExit("mq_unlink");
     exit(EXIT_SUCCESS);
 }
 
-pmsg/pmsg unlink.c
+pmsg/pmsg_unlink.c
 ```
 
 ### 52.3 描述符和消息队列之间的关系
@@ -52555,7 +52454,7 @@ mq_maxmsg 和 mq_msgsize 特性是在消息队列被创建时就确定下来的�
 程序清单 52-2：创建一个 POSIX 消息队列
 
 ```c
-#include <queue.h>
+#include <mqueue.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "tlpi_hdr.h"
@@ -52565,10 +52464,10 @@ usageError(const char *progName)
 {
     fprintf(stderr, "Usage: %s [-c] [-m maxmsg] [-s msgsize] mq-name "
                 " [octal-perms]\n", progName);
-    fprintf(stderr, "     -c Create queue (0_CREAT)\n");
+    fprintf(stderr, "     -c Create queue (O_CREAT)\n");
     fprintf(stderr, "     -m maxmsg Set maximum # of messages\n");
     fprintf(stderr, "     -s msgsize Set maximum message size\n");
-    fprintf(stderr, "     -x Create exclusively (0_EXCL)\n");
+    fprintf(stderr, "     -x Create exclusively (O_EXCL)\n");
     exit(EXIT_FAILURE);
 }
 
@@ -52583,13 +52482,13 @@ main(int argc, char *argv[])
     attrp = NULL;
     attr.mq_maxmsg = 50;
     attr.mq_msgsize = 2048;
-    flags = 0_RDRW;
+    flags = O_RDWR;
     /* Parse command-line options */
 
     while ((opt = getopt(argc, argv, "cm:s:x")) != -1) {
         switch (opt) {
             case 'c':
-                flags |= 0_CREAT;
+                flags |= O_CREAT;
                 break;
             case 'm':
                 attr.mq_maxmsg = atoi(optarg);
@@ -52600,7 +52499,7 @@ main(int argc, char *argv[])
                 attrp = &attr;
                 break;
             case 'x':
-                flags |= 0_EXCL;
+                flags |= O_EXCL;
                 break;
         }
     }
@@ -52608,20 +52507,21 @@ main(int argc, char *argv[])
 ```
 
 ```c
-default:
-    usageError(argv[0]);
-}
+            default:
+                usageError(argv[0]);
+        }
+    }
 
-if (optind >= argc)
-    usageError(argv[0]);
+    if (optind >= argc)
+        usageError(argv[0]);
 
-perms = (argc <= optind + 1) ? (S_IRUSR | S_IWUSR) :
-    getInt(argv[optind + 1], GN_BASE_8, "octal-perms");
+    perms = (argc <= optind + 1) ? (S_IRUSR | S_IWUSR) :
+                getInt(argv[optind + 1], GN_BASE_8, "octal-perms");
 
-mqd = mq_open(argv[optind], flags, perms, attrp);
-if (mqd == (mqd_t)-1)
+    mqd = mq_open(argv[optind], flags, perms, attrp);
+    if (mqd == (mqd_t)-1)
+        errExit("mq_open");
     exit(EXIT_SUCCESS);
-exit(EXIT_SUCCESS);
 }
 
 pmsg/pmsg_create.c
@@ -52661,7 +52561,7 @@ O_NONBLOCK。
 程序清单 52-3：获取 POSIX 消息队列特性
 
 ```c
-#include <queue.h>
+#include <mqueue.h>
 #include "tlpi_hdr.h"
 
 int main(int argc, char *argv[])
@@ -52670,22 +52570,22 @@ int main(int argc, char *argv[])
 ```
 
 ```c
-struct mq_attr attr;
+    struct mq_attr attr;
 
-if (argc != 2 || strcmp(argv[1], "--help") == 0)
-    usageErr("%s mq-name\n", argv[0]);
+    if (argc != 2 || strcmp(argv[1], "--help") == 0)
+        usageErr("%s mq-name\n", argv[0]);
 
-mqd = mq_open(argv[1], 0_RDLONLY);
-if (mqd == (mqd_t)-1)
-    errExit("mq_open");
+    mqd = mq_open(argv[1], O_RDONLY);
+    if (mqd == (mqd_t)-1)
+        errExit("mq_open");
 
-if (mq_getattr(mqd, &attr) == -1)
-    errExit("mq_getattr");
+    if (mq_getattr(mqd, &attr) == -1)
+        errExit("mq_getattr");
 
-printf("Maximum # of messages on queue: %ld\n", attr.mq_maxmsg);
-printf("Maximum message size: %ld\n", attr.mq_msgsize);
-printf("# of messages currently on queue: %ld\n", attr.mq_curmsgs);
-exit(EXIT_SUCCESS);
+    printf("Maximum # of messages on queue: %ld\n", attr.mq_maxmsg);
+    printf("Maximum message size: %ld\n", attr.mq_msgsize);
+    printf("# of messages currently on queue: %ld\n", attr.mq_curmsgs);
+    exit(EXIT_SUCCESS);
 }
 pmsg/pmsg_getattr.c
 ```
@@ -52741,9 +52641,9 @@ SUSv3 规定使用 mq_setattr() 能够修改的唯一特性是 O_NONBLOCK 标记
 ```c
 if (mq_getattr(mqd, &attr) == -1)
     errExit("mq_getattr");
-attr.mq_flags |= 0 NONBLOCK;
+attr.mq_flags |= O_NONBLOCK;
 if (mq_setattr(mqd, &attr, NULL) == -1)
-    errExit("mq_getattr");
+    errExit("mq_setattr");
 ```
 
 ### 52.5 交换消息
@@ -52797,18 +52697,19 @@ SUSv3 要求这个上限至少是 32（_POSIX_MQ_PRIO_MAX），
 程序清单 52-4 中的程序为 mq_send() 函数提供了一个命令行界面，
 下一节将会演示如何使用这个程序。
 
+程序清单 52-4：向 POSIX 消息队列写入一条消息
+
 pmsg/pmsg_send.c
 
 ```c
-c
-#include <malloc.h>
-#include <fcntl.h>
+#include <mqueue.h>
+#include <fcntl.h> /* For definition of O_NONBLOCK */
 #include "tlpi_hdr.h"
 
 static void
 usageError(const char *progName)
 {
-    fprintf(stderr, "Usage: %s [-n] name msg [prio]\n", progName);
+    fprintf(stderr, "Usage: %s [-n] mq-name msg [prio]\n", progName);
     fprintf(stderr, "       -n             Use O_NONBLOCK flag\n");
     exit(EXIT_FAILURE);
 }
@@ -52926,94 +52827,16 @@ ERROR [EAGAIN/EWOULDBLOCK Resource temporarily unavailable] mq_receive
 程序清单 52-5：从 POSIX 消息队列中读取一条消息
 
 ```c
-#include <pthread.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/ucontext_t.h>
-#include <sys/uio.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-/stat.h>
+#include <mqueue.h>
+#include <fcntl.h> /* For definition of O_NONBLOCK */
 #include "tlpi_hdr.h"
 
 static void usageError(const char *progName)
 {
-    fprintf(stderr, "Usage: %s [-n] name\n", progName);
-}
+    fprintf(stderr, "Usage: %s [-n] mq-name\n", progName);
 ```
 
 ```c
-c
     fprintf(stderr, "    -n    Use O_NONBLOCK flag\n");
     exit(EXIT_FAILURE);
 }
@@ -53043,8 +52866,8 @@ main(int argc, char *argv[])
     if (mqd == (mqd_t)-1)
         errExit("mq_open");
 
-    if (mqgetattr(mqd, &attr) == -1)
-        errExit("mqgetattr");
+    if (mq_getattr(mqd, &attr) == -1)
+        errExit("mq_getattr");
 
     buffer = malloc(attr.mq_msgsize);
     if (buffer == NULL)
@@ -53070,7 +52893,6 @@ mq_timedsend() 和 mq_timedreceive() 函数与 mq_send() 和 mq_receive() 几乎
 那么 abs_timeout 参数就会为调用阻塞的时间指定一个上限。
 
 ```c
-c
 #define _XOPEN_SOURCE 600
 #include <mqueue.h>
 #include <time.h>
@@ -53151,7 +52973,6 @@ notification 参数指定了进程接收通知的机制。
 它只列出了与 mq_notify() 相关的字段。
 
 ```c
-c
 union sigval {
     int sival_int;          /* Integer value for accompanying data */
     void *sival_ptr;         /* Pointer value for accompanying data */
@@ -53254,18 +53075,18 @@ main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s mq-name\n", argv[0]);
 
-    mqd = mq_open(argv[1], 0_RDNONLY | 0_NONBLOCK);
+    ① mqd = mq_open(argv[1], O_RDONLY | O_NONBLOCK);
     if (mqd == (mqd_t)-1)
         errExit("mq_open");
 
-    if (mqgetattr(mqd, &attr) == -1)
-        errExit("mqgetattr");
+    ② if (mq_getattr(mqd, &attr) == -1)
+        errExit("mq_getattr");
 
-    buffer = malloc(attr.mq_msgsize);
+    ③ buffer = malloc(attr.mq_msgsize);
     if (buffer == NULL)
         errExit("malloc");
 
-    sigemptyset(&blockMask);
+    ④ sigemptyset(&blockMask);
     sigaddset(&blockMask, NOTIFY_SIG);
     if (sigprocmask(SIG_BLOCK, &blockMask, NULL) == -1)
         errExit("sigprocmask");
@@ -53275,12 +53096,9 @@ main(int argc, char *argv[])
     sa.sa_handler = handler;
     if (sigaction(NOTIFY_SIG, &sa, NULL) == -1)
         errExit("sigaction");
-}
 ```
 
 ```c
-c
-    errExit("sigaction");
 
 ⑤    sev.sigev_notify = SIGEV_SIGNAL;
     sev.sigev_signo = NOTIFY_SIG;
@@ -53290,7 +53108,7 @@ c
     sigemptyset(&emptyMask);
 
     for (;;) {
-        sigsuspend(&emptyMask);        /* Wait for notification signal */
+        ⑥ sigsuspend(&emptyMask);        /* Wait for notification signal */
 ⑦    if (mq_notify(mqd, &sev) == -1)
         errExit("mq_notify");
 
@@ -53341,11 +53159,12 @@ pmsg/mq_notify_sig.c
   程序会在清空队列之前重新启用通知②。
 - 采用了非阻塞模式使得在接收到一个通知之后可以在无需阻塞的情况下完全清空队列⑤。
 
+程序清单 52-7：通过线程来接收消息通知
+
 ```c
-c
 #include <pthread.h>
-#include <mysql.h>
-#include <fcntl.h>          /* For definition of 0_NONBLOCK */
+#include <mqueue.h>
+#include <fcntl.h>          /* For definition of O_NONBLOCK */
 #include "tlpi_hdr.h"
 
 static void notifySetup(mqd_t *mqdp);
@@ -53374,7 +53193,6 @@ static void          /* Thread notification function */
         errExit("mq_receive");
 
     free(buffer);
-    pthread_exit(NULL);
 }
 
 static void
@@ -53399,13 +53217,13 @@ main(int argc, char *argv[])
 ```
 
 ```c
-usageErr("%s mq-name\n", argv[0]);
+    usageErr("%s mq-name\n", argv[0]);
 
-⑤ mqd = mq_open(argv[1], 0_RDNLY | 0_NONBLOCK);
-if (mqd == (mqd_t) -1)
-    errExit("mq_open");
+    ⑤ mqd = mq_open(argv[1], O_RDONLY | O_NONBLOCK);
+    if (mqd == (mqd_t) -1)
+        errExit("mq_open");
 
-⑥ notifySetup(&mqd);
+    ⑥ notifySetup(&mqd);
     pause(); /* Wait for notifications via thread function */
 }
 
@@ -53492,7 +53310,7 @@ $ rm /dev/mqueue/newq
 
 ```console
 $ ./pmsg_create -c /mq Create a queue
-$ ./pmsg_send /mq alphabetg Write 7 bytes to the queue
+$ ./pmsg_send /mq abcdefg Write 7 bytes to the queue
 $ cat /dev/mqueue/mq
 QSIZE:7 NOTIFY:0 SIGNO:0 NOTIFY_PID:0
 ```
@@ -53732,8 +53550,7 @@ SUSv3 并没有规定如何实现命名信号量。
 sem_open() 函数创建和打开一个新的命名信号量或打开一个既有信号量。
 
 ```c
-c
-#include <fcntl.h>             /* Defines 0 * constants */
+#include <fcntl.h>             /* Defines O_* constants */
 #include <sys/stat.h>          /* Defines mode constants */
 #include <semaphore.h>
 
@@ -53794,7 +53611,7 @@ SUSv3 声称当在 sem_open() 的返回值指向的 sem_t 变量的副本上执�
 像下面这种使用 sem2 的做法是不允许的。
 
 ```c
-sem_t *sp, sem2
+sem_t *sp, sem2;
 sp = sem_open(...);
 sem2 = *sp;
 sem_wait(&sem2);
@@ -53817,7 +53634,7 @@ sem_wait(&sem2);
 $ umask 007
 $ ./psem_create -cx /demo 666
 666 means read+write for all users
-$ ls -l /dev/shm/sem.\
+$ ls -l /dev/shm/sem.demo
 -rw-rw---- 1 mtk users 16 Jul 6 12:09 /dev/shm/sem.demo
 ```
 
@@ -53829,7 +53646,7 @@ ls 命令的输出表明进程的 umask 覆盖了为 other 用户指定的 read+
 
 ```console
 $ ./psem_create -cx /demo 666
-ERROR [EEXIST File exists] sem_open Failed because of 0_EXCL
+ERROR [EEXIST File exists] sem_open Failed because of O_EXCL
 ```
 
 程序清单 53-1：使用 sem_open() 打开或创建一个 POSIX 命名信号量
@@ -53844,8 +53661,8 @@ static void
 usageError(const char *progName)
 {
     fprintf(stderr, "Usage: %s [-cx] name [octal-perms [value]]\n", progName);
-    fprintf(stderr, "       -c Create semaphore (0_CREAT)\n");
-    fprintf(stderr, "       -x Create exclusively (0_EXCL)\n");
+    fprintf(stderr, "       -c Create semaphore (O_CREAT)\n");
+    fprintf(stderr, "       -x Create exclusively (O_EXCL)\n");
     exit(EXIT_FAILURE);
 }
 
@@ -53857,33 +53674,32 @@ main(int argc, char *argv[])
 ```
 
 ```c
-c
-unsigned int value;
-sem_t *sem;
+    unsigned int value;
+    sem_t *sem;
 
-flags = 0;
-while ((opt = getopt(argc, argv, "cx")) != -1) {
-    switch (opt) {
-        case 'c':    flags |= 0_CREAT;          break;
-        case 'x':    flags |= 0_EXCL;          break;
-        default:     usageError(argv[0]);
+    flags = 0;
+    while ((opt = getopt(argc, argv, "cx")) != -1) {
+        switch (opt) {
+            case 'c':    flags |= O_CREAT;          break;
+            case 'x':    flags |= O_EXCL;          break;
+            default:     usageError(argv[0]);
+        }
     }
-}
-if (optind >= argc)
-    usageError(argv[0]);
+    if (optind >= argc)
+        usageError(argv[0]);
 
-/* Default permissions are rw------; default semaphore initialization
-value is 0 */
+    /* Default permissions are rw-------; default semaphore initialization
+       value is 0 */
 
-perms = (argc <= optind + 1) ? (S_IRUSR | S_IWUSR) :
-         getInt(argv[optind + 1], GN_BASE_8, "octal-perms");
-value = (argc <= optind + 2) ? 0 : getInt(argv[optind + 2], 0, "value");
+    perms = (argc <= optind + 1) ? (S_IRUSR | S_IWUSR) :
+                getInt(argv[optind + 1], GN_BASE_8, "octal-perms");
+    value = (argc <= optind + 2) ? 0 : getInt(argv[optind + 2], 0, "value");
 
-sem = sem_open(argv[optind], flags, perms, value);
-if (sem == SEM_FAILED)
-    exitExit("sem_open");
+    sem = sem_open(argv[optind], flags, perms, value);
+    if (sem == SEM_FAILED)
+        errExit("sem_open");
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 
 psem/psem_create.c
@@ -53935,12 +53751,12 @@ int main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s sem-name\n", argv[0]);
 
-    if (sem unlink(argv[1]) == -1)
-        exit(EXIT_SUCCESS);
+    if (sem_unlink(argv[1]) == -1)
+        errExit("sem_unlink");
     exit(EXIT_SUCCESS);
 }
 
-psem/psem unlink.c
+psem/psem_unlink.c
 ```
 
 ### 53.3 信号量操作
@@ -54009,10 +53825,10 @@ int main(int argc, char *argv[])
 
     sem = sem_open(argv[1], 0);
     if (sem == SEM_FAILED)
-        exitErr("sem_open");
+        errExit("sem_open");
 
     if (sem_wait(sem) == -1)
-        exitErr("sem_wait");
+        errExit("sem_wait");
 
     printf("%ld sem_wait() succeeded\n", (long) getpid());
     exit(EXIT_SUCCESS);
@@ -54035,13 +53851,14 @@ sem_timedwait() 函数是 sem_wait() 的另一个变体，
 它允许调用者为调用被阻塞的时间量指定一个限制。
 
 ```c
-c
 #define _XOPEN_SOURCE 600
 #include <semaphore.h>
 
 int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout);
         Returns 0 on success, or -1 on error
 ```
+
+ psem/psem_wait.c
 
 如果 sem_timedwait() 调用因超时而无法递减信号量，
 那么这个调用就会失败并返回 ETIMEDOUT 错误。
@@ -54100,10 +53917,10 @@ int main(int argc, char *argv[])
 
     sem = sem_open(argv[1], 0);
     if (sem == SEM_FAILED)
-        exitErr("sem_open");
+        errExit("sem_open");
 
     if (sem_post(sem) == -1)
-        exitErr("sem_post");
+        errExit("sem_post");
 
     exit(EXIT_SUCCESS);
 }
@@ -54339,7 +54156,7 @@ static int glob = 0;
 static sem_t sem;
 
 static void *
-loop 'arg' times incrementing 'glob' */
+/* Loop 'arg' times incrementing 'glob' */
 threadFunc(void *arg)
 {
     int loops = *((int *)arg);
@@ -54366,35 +54183,35 @@ main(int argc, char *argv[])
 
     loops = (argc > 1) ? getInt(argv[1], GN_GT_0, "num-loops") : 10000000;
 
-    /* Initialize a thread-shared mutex with the value 1 */
+    /* Initialize a thread-shared semaphore with the value 1 */
     if (sem_init(&sem, 0, 1) == -1)
         errExit("sem_init");
 
     /* Create two threads that increment 'glob' */
     s = pthread_create(&t1, NULL, threadFunc, &loops);
-}
 ```
 
 ```c
-c
-if (s != 0)
-    errExitEN(s, "pthread_create");
-s = pthread_create(&t2, NULL, threadFunc, &loops);
-if (s != 0)
-    errExitEN(s, "pthread_create");
-/* Wait for threads to terminate */
+    if (s != 0)
+        errExitEN(s, "pthread_create");
+    s = pthread_create(&t2, NULL, threadFunc, &loops);
+    if (s != 0)
+        errExitEN(s, "pthread_create");
+    /* Wait for threads to terminate */
 
-s = pthread_join(t1, NULL);
-if (s != 0)
-    errExitEN(s, "pthread_join");
-s = pthread_join(t2, NULL);
-if (s != 0)
-    errExitEN(s, "pthread_join");
+    s = pthread_join(t1, NULL);
+    if (s != 0)
+        errExitEN(s, "pthread_join");
+    s = pthread_join(t2, NULL);
+    if (s != 0)
+        errExitEN(s, "pthread_join");
 
-printf("glob = %d\n", glob);
-exit(EXIT_SUCCESS);
+    printf("glob = %d\n", glob);
+    exit(EXIT_SUCCESS);
 }
 ```
+
+ psem/thread_incr_psem.c
 
 #### 53.4.2 销毁一个未命名信号量
 
@@ -54504,7 +54321,7 @@ POSIX 信号量数目实际上会受限于可用的内存。
 这是一个 POSIX 信号量值能够取的最大值。
 信号量的取值可以为 0 到这个限制之间的任意一个值。
 SUSv3 要求这个限制至少为 32767，
-Linux 实现允许这个值最大为 INT_MAX（在
+Linux 实现允许这个值最大为 INT_MAX（在 Linux/x86-32 上是 2147483647）。
 
 ### 53.7 总结
 
@@ -54621,7 +54438,7 @@ shm_open() 函数创建和打开一个新的共享内存对象或打开一个既
 传入 shm_open() 的参数与传入 open() 的参数类似。
 
 ```c
-#include <fcntl.h>          /* Defines 0_* constants */
+#include <fcntl.h>          /* Defines O_* constants */
 #include <sys/stat.h>        /* Defines mode constants */
 #include <sys/mman.h>
 
@@ -54712,6 +54529,8 @@ total 0
 -rw------ 1 mtk users 10000 Jun 20 11:31 demo_shm
 ```
 
+程序清单 54-1：创建一个 POSIX 共享内存对象
+
 ```c
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -54721,9 +54540,9 @@ total 0
 static void
 usageError(const char *progName)
 {
-    fprintf(stderr, "Usage: %s [-cX] name size [octal-perms]\n", progName);
-    fprintf(stderr, "     -c Create shared memory (0_CREAT)\n");
-    fprintf(stderr, "     -x Create exclusively (0_EXCL)\n");
+    fprintf(stderr, "Usage: %s [-cx] shm-name size [octal-perms]\n", progName);
+    fprintf(stderr, "     -c Create shared memory (O_CREAT)\n");
+    fprintf(stderr, "     -x Create exclusively (O_EXCL)\n");
     exit(EXIT_FAILURE);
 }
 
@@ -54735,11 +54554,11 @@ main(int argc, char *argv[])
     size_t size;
     void *addr;
 
-    flags = 0 RDWR;
+    flags = O_RDWR;
     while ((opt = getopt(argc, argv, "cx")) != -1) {
         switch (opt) {
-            case 'c': flags |= 0_CREAT; break;
-            case 'x': flags |= 0_EXCL; break;
+            case 'c': flags |= O_CREAT; break;
+            case 'x': flags |= O_EXCL; break;
             default: usageError(argv[0]);
         }
     }
@@ -54747,21 +54566,21 @@ main(int argc, char *argv[])
     if (optind + 1 >= argc)
         usageError(argv[0]);
 
-    size = sizeof(argv[optind + 1], GN_ANY_BASE, "size");
+    size = getLong(argv[optind + 1], GN_ANY_BASE, "size");
     perms = (argc <= optind + 2) ? (S_IRUSR | S_IWUSR) : getLong(argv[optind + 2], GN_BASE_8, "octal-perms");
 
     /* Create shared memory object and set its size */
     fd = shm_open(argv[optind], flags, perms);
     if (fd == -1)
-        exit("shm_open");
+        errExit("shm_open");
 
     if (ftruncate(fd, size) == -1)
-        exit("ftruncate");
+        errExit("ftruncate");
 
     /* Map shared memory object */
     addr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (addr == MAP_FAILED)
-        exit("mmap");
+        errExit("mmap");
 
     exit(EXIT_SUCCESS);
 }
@@ -54792,7 +54611,7 @@ int main(int argc, char *argv[])
     if (argc != 3 || strcmp(argv[1], "--help") == 0)
         usageErr("%s shm-name string\n", argv[0]);
 
-    fd = shm_open(argv[1], 0_RDWR, 0); /* Open existing object */
+    fd = shm_open(argv[1], O_RDWR, 0); /* Open existing object */
     if (fd == -1)
         errExit("shm_open");
 
@@ -54821,6 +54640,8 @@ pshm/pshm_write.c
 在调用 shm_open() 之后，
 这个程序使用了 fstat() 来确定共享内存的大小并在映射该对象的 mmap() 调用中和打印这个字符串的 write() 调用中使用这个值。
 
+程序清单 54-3：从一个 POSIX 共享内存对象中复制数据
+
 ```c
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -54836,20 +54657,20 @@ int main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s shm-name\n", argv[0]);
 
-    fd = shm_open(argv[1], O_RDWR, 0); /* Open existing object */
+    fd = shm_open(argv[1], O_RDONLY, 0); /* Open existing object */
     if (fd == -1)
-        exit("shm_open");
+        errExit("shm_open");
 
     /* Use shared memory object size as length argument for mmap() and as number of bytes to write() */
     if (fstat(fd, &sb) == -1)
-        exit("fstat");
+        errExit("fstat");
 
     addr = mmap(NULL, sb.st_size, PROT_READ, MAP_SHARED, fd, 0);
     if (addr == MAP_FAILED)
-        exit("mmap");
+        errExit("mmap");
 
     if (close(fd) == -1) /* 'fd' is no longer needed */
-        exit("close");
+        errExit("close");
 
     write(STDOUT_FILENO, addr, sb.st_size);
     printf("\n");
@@ -54927,7 +54748,7 @@ int main(int argc, char *argv[])
     if (argc != 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s shm-name\n", argv[0]);
     if (shm_unlink(argv[1]) == -1)
-        exitExit("shm_unlink");
+        errExit("shm_unlink");
     exit(EXIT_SUCCESS);
 }
 ```
@@ -55203,9 +55024,9 @@ int main(int argc, char *argv[])
     if (argv[2][1] == 'n')
         lock |= LOCK_NB;
 
-    fd = open(argv[1], 0_RDNOLY); /* Open file to be locked */
+    fd = open(argv[1], O_RDONLY); /* Open file to be locked */
     if (fd == -1)
-        exit(EXIT_FAILURE);
+        errExit("open");
 
     lname = (lock & LOCK_SH) ? "LOCK_SH" : "LOCK_EX";
 
@@ -55216,21 +55037,20 @@ int main(int argc, char *argv[])
         if (errno == EWOULDBLOCK)
             fatal("PID %ld: already locked - bye!", (long) getpid());
         else
-            exit(EXIT_FAILURE);
+            errExit("flock (PID=%ld)", (long) getpid());
     }
-}
 
-printf("PID %ld: granted    %s at %s\n", (long) getpid(), lname,
-currTime("%T"));
+    printf("PID %ld: granted    %s at %s\n", (long) getpid(), lname,
+            currTime("%T"));
 
-sleep((argc > 3) ? getInt(argv[3], GN_NONNEG, "sleep-time") : 10);
+    sleep((argc > 3) ? getInt(argv[3], GN_NONNEG, "sleep-time") : 10);
 
-printf("PID %ld: releasing %s at %s\n", (long) getpid(), lname,
-currTime("%T"));
-if (flock(fd, LOCK_UN) == -1)
-errExit("flock");
+    printf("PID %ld: releasing %s at %s\n", (long) getpid(), lname,
+            currTime("%T"));
+    if (flock(fd, LOCK_UN) == -1)
+        errExit("flock");
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 ```
 
@@ -55253,7 +55073,7 @@ PID 9777: granted       LOCK_SH at 21:19:37
 然后释放这个共享锁。
 
 ```console
-$ ./flock tfile s 2
+$ ./t_flock tfile s 2
 PID 9778: requesting LOCK_SH at 21:19:49
 PID 9778: granted LOCK_SH at 21:19:49
 PID 9778: releasing LOCK_SH at 21:19:51
@@ -55707,14 +55527,14 @@ main(int argc, char *argv[])
 
     fd = open(argv[1], O_RDWR);
     if (fd == -1)
-        exitExit("open (%s)", argv[1]);
+        errExit("open (%s)", argv[1]);
 
     printf("Enter ? for help\n");
 
     for (;;) {
         /* Prompt for locking command and carry it out */
-        printf("PID=%ld ", (long) getpid());
-       fflush(stdout);
+        printf("PID=%ld> ", (long) getpid());
+        fflush(stdout);
 
         if (fgets(line, MAX_LINE, stdin) == NULL)    /* EOF */
             exit(EXIT_SUCCESS);
@@ -55729,50 +55549,50 @@ main(int argc, char *argv[])
         }
 
         whence = 's';                                /* In case not otherwise filled in */
-        numRead = sscanf(line, "%c %c %ld %ld %c", &cmdCh, &lock,
+        numRead = sscanf(line, "%c %c %lld %lld %c", &cmdCh, &lock,
                             &st, &len, &whence);
-        fl.1_start = st;
-f1.l_len = len;
+        fl.l_start = st;
+        fl.l_len = len;
 
-if (numRead < 4 || strchr("gsw", cmdCh) == NULL || strchr("iwu", lock) == NULL || strchr("sce", whence) == NULL) {
-    printf("Invalid command!\n");
-    continue;
-}
+        if (numRead < 4 || strchr("gsw", cmdCh) == NULL ||
+                strchr("rwu", lock) == NULL || strchr("sce", whence) == NULL) {
+            printf("Invalid command!\n");
+            continue;
+        }
 
-cmd = (cmdCh == 'g') ? F_GETLK : (cmdCh == 's') ? F_SETLK : F_SETLKW;
-f1.l_type = (lock == 'r') ? F_RDLCK : (lock == 'w') ? F_WRLCK : F_UNLCK;
-f1.l_whence = (whence == 'c') ? SEEK_CUR : (whence == 'e') ? SEEK_END : SEEK_SET;
+        cmd = (cmdCh == 'g') ? F_GETLK : (cmdCh == 's') ? F_SETLK : F_SETLKW;
+        fl.l_type = (lock == 'r') ? F_RDLCK : (lock == 'w') ? F_WRLCK : F_UNLCK;
+        fl.l_whence = (whence == 'c') ? SEEK_CUR : (whence == 'e') ? SEEK_END : SEEK_SET;
 
-status = fcntl(fd, cmd, &fl);            /* Perform request... */
+        status = fcntl(fd, cmd, &fl);            /* Perform request... */
 
-if (cmd == F_GETLK) {                  /* ... and see what happened */
-    if (status == -1) {
-        errMsg("fcntl - F_GETLK");
-    } else {
-        if (fl.l_type == F_UNLCK)
-            printf("[PID=%ld] Lock can be placed\n", (long) getpid());
-        else
-            printf("[PID=%ld] Denied by %s lock on %ld\n", (long) getpid(),
-            "held by PID %ld\n", (long) getpid(),
-            (fl.l_type == F_RDLCK) ? "READ" : "WRITE",
-            (long long) fl.l_start,
-            (long long) fl.l_len, (long) fl.l_pid);
+        if (cmd == F_GETLK) {                  /* ... and see what happened */
+            if (status == -1) {
+                errMsg("fcntl - F_GETLK");
+            } else {
+                if (fl.l_type == F_UNLCK)
+                    printf("[PID=%ld] Lock can be placed\n", (long) getpid());
+                else
+                    printf("[PID=%ld] Denied by %s lock on %lld:%lld "
+                            "(held by PID %ld)\n", (long) getpid(),
+                            (fl.l_type == F_RDLCK) ? "READ" : "WRITE",
+                            (long long) fl.l_start,
+                            (long long) fl.l_len, (long) fl.l_pid);
+            }
+        } else {
+            /* F_SETLK, F_SETLKW */
+            if (status == 0)
+                printf("[PID=%ld] %s\n", (long) getpid(),
+                        (lock == 'u') ? "unlocked" : "got lock");
+            else if (errno == EAGAIN || errno == EACCES) /* F_SETLK */
+                printf("[PID=%ld] failed (incompatible lock)\n",
+                        (long) getpid());
+            else if (errno == EDEADLK)              /* F_SETLKW */
+                printf("[PID=%ld] failed (deadlock)\n", (long) getpid());
+            else
+                errMsg("fcntl - F_SETLK(W)");
+        }
     }
-} else {
-    /* F_SETLK, F_SETLKW */
-    if (status == 0)
-        printf("[PID=%ld] %s\n", (long) getpid(),
-            (lock == 'u') ? "unlocked" : "got lock");
-    else if (errno == EAGAIN) || errno == EACCES) /* F_SETLK */
-        printf("[PID=%ld] failed (incompatible lock)\n",
-            (long) getpid());
-    else if (errno == EDEADLK)              /* F_SETLKW */
-        printf("[PID=%ld] failed (deadlock)\n", (long) getpid());
-    else
-        errMsg("fcntl - F_SETLK(W)");
-}
-}
-}
 }
 ```
 
@@ -55788,7 +55608,7 @@ filelock/i_fcntl_locking.c
 Terminal window 1
 $ ls -l tfile
 -rw-r--r-- 1 mtk users 100 Apr 18 12:19 tfile
-$ ./i_fcntl_locking_tfile
+$ ./i_fcntl_locking tfile
 Enter ? for help
 PID=790> s r 0 40
 [PID=790] got lock
@@ -56006,15 +55826,15 @@ close(fd2) 调用会释放调用进程持有的 testfile 文件之上的锁，
 ```c
 struct flock fl;
 
-f1.1_type = F_WRLCK;
-f1.1_whence = SEEK_SET;
-f1.1_start = 0;
-f1.1_len = 0;
+fl.l_type = F_WRLCK;
+fl.l_whence = SEEK_SET;
+fl.l_start = 0;
+fl.l_len = 0;
 
 fd1 = open("testfile", O_RDWR);
 fd2 = open("testfile", O_RDWR);
 
-if (fcntl(fd1, cmd, &fl) == -1)
+if (fcntl(fd1, F_SETLK, &fl) == -1)
     errExit("fcntl");
 
 close(fd2);
@@ -56265,7 +56085,7 @@ PID TTY TIME CMD
 下面首先在 /dev 目录中搜索文件并确定 ID 为 3:7 的设备是 /dev/sda7。
 
 ```console
-$ ls -li /dev/sda7 | awk '$6 == "3," && $7 == 10'
+$ ls -li /dev/sda7 | awk '$6 == "3," && $7 == 7'
 1311 brw-rw---- 1 root disk 3, 7 May 12 2006 /dev/sda7
 ```
 
@@ -56277,7 +56097,7 @@ $ mount | grep sda7
 $ su
 Password:
 # find / -mount -inum 133853
-/var/run/atk.pid
+/var/run/atd.pid
 ```
 
 Device is mounted on /
@@ -56304,7 +56124,7 @@ find -mount 选项防止 find 进入 / 下的子目录（表示其他文件系�
 ```console
 $ cat /proc/locks
 1: POSIX ADVISORY WRITE 11073 03:07:436283 100 109
-1: -> POSIX Advisory Write 11152 03:07:436283 100 109
+1: -> POSIX ADVISORY WRITE 11152 03:07:436283 100 109
 2: POSIX MANDATORY WRITE 11014 03:07:436283 0 9
 2: -> POSIX MANDATORY WRITE 11024 03:07:436283 0 9
 2: -> POSIX MANDATORY READ 11122 03:07:436283 0 19
@@ -56360,7 +56180,7 @@ daemon 会将其进程 ID 写入锁文件，
 
 ```c
 if (createPidFile("mydaemon", "/var/run/mydaemon.pid", 0) == -1)
-    exit("createPidFile");
+    errExit("createPidFile");
 ```
 
 createPidFile() 函数中的一个精妙之处是使用 ftruncate() 来清除锁文件中之前存在的所有字符串。
@@ -56389,18 +56209,18 @@ createPidFile() 函数中的一个精妙之处是使用 ftruncate() 来清除锁
 #include <fcntl.h>
 #include "region_locking.h" /* For lockRegion() */
 #include "create_pid_file.h" /* Declares createPidFile() and
-defines CPF_CLOEXEC */
+                               defines CPF_CLOEXEC */
 #include "tlpi_hdr.h"
 
 #define BUF_SIZE 100 /* Large enough to hold maximum PID as string */
 /* Open/create the file named in 'pidFile', lock it, optionally set the
-close-on-exec flag for the file descriptor, write our PID into the file,
-and (in case the caller is interested) return the file descriptor
-referring to the locked file. The caller is responsible for deleting
-'pidFile' file (just) before process termination. 'progName' should be the
-name of the calling program (i.e., argv[0] or similar), and is used only for
-diagnostic messages. If we can't open 'pidFile', or we encounter some other
-error, then we print an appropriate diagnostic and terminate. */
+   close-on-exec flag for the file descriptor, write our PID into the file,
+   and (in case the caller is interested) return the file descriptor
+   referring to the locked file. The caller is responsible for deleting
+   'pidFile' file (just) before process termination. 'progName' should be the
+   name of the calling program (i.e., argv[0] or similar), and is used only for
+   diagnostic messages. If we can't open 'pidFile', or we encounter some other
+   error, then we print an appropriate diagnostic and terminate. */
 int
 createPidFile(const char *progName, const char *pidFile, int flags)
 {
@@ -56409,39 +56229,38 @@ createPidFile(const char *progName, const char *pidFile, int flags)
 
     fd = open(pidFile, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
     if (fd == -1)
-        exit("Could not open PID file %s", pidFile);
+        errExit("Could not open PID file %s", pidFile);
 
     if (flags & CPF_CLOEXEC) {
 
         /* Set the close-on-exec file descriptor flag */
 
         flags = fcntl(fd, F_GETFD); /* Fetch flags */
+        if (flags == -1)
+            errExit("Could not get flags for PID file %s", pidFile);
 
-if (flags == -1)
-    exit(1"Could not get flags for PID file %s", pidFile);
+        flags |= FD_CLOEXEC; /* Turn on FD_CLOEXEC */
 
-flags |= FD_CLOEXEC; /* Turn on FD_CLOEXEC */
+        if (fcntl(fd, F_SETFD, flags) == -1) /* Update flags */
+            errExit("Could not set flags for PID file %s", pidFile);
+    }
 
-if (fcntl(fd, F_SETFD, flags) == -1) /* Update flags */
-    exit(1"Could not set flags for PID file %s", pidFile);
-}
+    if (lockRegion(fd, F_WRLCK, SEEK_SET, 0, 0) == -1) {
+        if (errno == EAGAIN || errno == EACCES)
+            fatal("PID file '%s' is locked; probably "
+                    "'%s' is already running", pidFile, progName);
+        else
+            errExit("Unable to lock PID file '%s'", pidFile);
+    }
 
-if (lockRegion(fd, F_WRLCK, SEEK_SET, 0, 0) == -1) {
-    if (errno == EAGAIN || errno == EACCES)
-        fatal("PID file '%s' is locked; probably "
-               "%s' is already running", pidFile, progName);
-    else
-        exit(1"Unable to lock PID file '%s'", pidFile);
-}
+    if (ftruncate(fd, 0) == -1)
+        errExit("Could not truncate PID file '%s'", pidFile);
 
-if (ftruncate(fd, 0) == -1)
-    exit(1"Could not truncate PID file '%s'", pidFile);
+    snprintf(buf, BUF_SIZE, "%ld\n", (long) getpid());
+    if (write(fd, buf, strlen(buf)) != strlen(buf))
+        fatal("Writing to PID file '%s'", pidFile);
 
-snprintf(buf, BUF_SIZE, "%ld\n", (long) getpid());
-if (write(fd, buf, strlen(buf)) != strlen(buf))
-    fatal("Writing to PID file '%s'", pidFile);
-
-return fd;
+    return fd;
 }
 ```
 
@@ -56520,7 +56339,7 @@ link() 系统调用在新链接已经存在时会失败的事实可用作一种�
 要获取一把锁可以使用下面的代码（省略了错误检查）来创建一个新文件。
 
 ```c
-fd = open(file, 0_CREAT | 0_TRUNC | 0_WRONLY, (mode_t) 0);
+fd = open(file, O_CREAT | O_TRUNC | O_WRONLY, (mode_t) 0);
 close(fd);
 ```
 
@@ -57182,7 +57001,7 @@ ssize_t recvfrom(int sockfd, void *buffer, size_t length, int flags,
                     struct sockaddr *src_addr, socklen_t *addrlen);
     Returns number of bytes received, 0 on EOF, or -1 on error
 
-    ssize_t sendto(int sockfd, const void *buffer, size_t length, int flags,
+ssize_t sendto(int sockfd, const void *buffer, size_t length, int flags,
                     const struct sockaddr *dest_addr, socklen_t addrlen);
     Returns number of bytes sent, or -1 on error
 ```
@@ -57354,23 +57173,22 @@ SUSv3 并没有规定 sun_path 字段的大小。
 
 ```c
 const char *SOCKNAME = "/tmp/mysock";
-int(sockfd;
+int sfd;
 struct sockaddr_un addr;
 
- sockfd = socket(AF_UNIX, SOCK_STREAM, 0); /* Create socket */
+sfd = socket(AF_UNIX, SOCK_STREAM, 0); /* Create socket */
 ```
 
 ```c
 if (sfd == -1)
-    exit(1);
-    exit(1);
+    errExit("socket");
 
-    memset(&addr, 0, sizeof(struct sockaddr_un));    /* Clear structure */
-    addr.sun_family = AF_UNIX;                         /* UNIX domain address */
-    strncpy(addr.sun_path, SOCKNAME, sizeof(addr.sun_path) - 1);
+memset(&addr, 0, sizeof(struct sockaddr_un));   /* Clear structure */
+addr.sun_family = AF_UNIX;                      /* UNIX domain address */
+strncpy(addr.sun_path, SOCKNAME, sizeof(addr.sun_path) - 1);
 
-    if (bind(sfd, (struct sockaddr *) &addr, sizeof(struct sockaddr_un)) == -1)
-        exit(1);
+if (bind(sfd, (struct sockaddr *) &addr, sizeof(struct sockaddr_un)) == -1)
+    errExit("bind");
 ```
 
 程序清单 57-1 使用 memset() 调用来确保结构中所有字段的值都为 0。
@@ -57400,12 +57218,12 @@ UNIX domain socket 在第一列将会显示类型 s，
 
 - 无法将一个 socket 绑定到一个既有路径名上（bind()会失败并返回 EADDRINUSE 错误）。
 
-通常会将一个 socket 绑定到一个绝对路径名上，
-这样这个 socket 就会位于文件系统中的一个固定地址处。
-当然，
-也可以使用一个相对路径名，
-但这种做法并不常见，
-因为它要求想要 connect()这个 socket 的应用程序知道执行 bind()的应用程序的当前工作目录。
+- 通常会将一个 socket 绑定到一个绝对路径名上，
+  这样这个 socket 就会位于文件系统中的一个固定地址处。
+  当然，
+  也可以使用一个相对路径名，
+  但这种做法并不常见，
+  因为它要求想要 connect()这个 socket 的应用程序知道执行 bind()的应用程序的当前工作目录。
 
 - 一个 socket 只能绑定到一个路径名上，
   相应地，
@@ -57464,32 +57282,31 @@ sockets/us_xfr_sv.c
 int main(int argc, char *argv[])
 {
     struct sockaddr_un addr;
-    int(sockfd, cfd;
+    int sfd, cfd;
     ssize_t numRead;
     char buf[BUF_SIZE];
 
-    sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
-    if (sockfd == -1)
-        exit("socket");
+    sfd = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (sfd == -1)
+        errExit("socket");
 
     /* Construct server socket address, bind socket to it,
      and make this a listening socket */
 
     if (remove(SV_SOCK_PATH) == -1 && errno != ENOENT)
-        exit("remove-%s", SV_SOCK_PATH);
+        errExit("remove-%s", SV_SOCK_PATH);
 
     memset(&addr, 0, sizeof(struct sockaddr_un));
     addr.sun_family = AF_UNIX;
     strncpy(addr.sun_path, SV_SOCK_PATH, sizeof(addr.sun_path) - 1);
-}
 ```
 
 ```c
 if (bind(sfd, (struct sockaddr *) &addr, sizeof(struct sockaddr_un)) == -1)
-    exit(1);
+    errExit("bind");
 
 if (listen(sfd, BACKLOG) == -1)
-    exit(1);
+    errExit("listen");
 
 for (;;) {        /* Handle client connections iteratively */
         /* Accept a connection. The connection is returned on a new
@@ -57497,15 +57314,15 @@ for (;;) {        /* Handle client connections iteratively */
             and can be used to accept further connections. */
         cfd = accept(sfd, NULL, NULL);
         if (cfd == -1)
-            exit(1);
+            errExit("accept");
         /* Transfer data from connected socket to stdout until EOF */
-        while ((numRead = read(cfd, buf, BUFSIZE)) > 0)
+        while ((numRead = read(cfd, buf, BUF_SIZE)) > 0)
             if (write(STDOUT_FILENO, buf, numRead) != numRead)
                 fatal("partial/failed write");
         if (numRead == -1)
-            exit(1);
+            errExit("read");
         if (close(cfd) == -1)
-            exit(1);
+            errMsg("close");
     }
 }
 sockets/us_xfr_sv.c
@@ -57521,26 +57338,25 @@ sockets/us_xfr_cl.c
 int main(int argc, char *argv[])
 {
     struct sockaddr_un addr;
-    int(sockfd;
+    int sfd;
     ssize_t numRead;
     char buf[BUF_SIZE];
 
-    sockfd = socket(AF_UNIX, SOCK_STREAM, 0); /* Create client socket */
-    if (sockfd == -1)
-        exit(EXIT("socket"));
+    sfd = socket(AF_UNIX, SOCK_STREAM, 0); /* Create client socket */
+    if (sfd == -1)
+        errExit("socket");
 
     /* Construct server address, and make the connection */
 
     memset(&addr, 0, sizeof(struct sockaddr_un));
     addr.sun_family = AF_UNIX;
-    strncpy(addr.sun_path, SVSock_PATH, sizeof(addr.sun_path) - 1);
+    strncpy(addr.sun_path, SV_SOCK_PATH, sizeof(addr.sun_path) - 1);
 
-    if (connect(sockfd, (struct sockaddr *)&addr,
+    if (connect(sfd, (struct sockaddr *) &addr,
                     sizeof(struct sockaddr_un)) == -1)
-        exit(EXIT("connect"));
+        errExit("connect");
 
     /* Copy stdin to socket */
-}
 ```
 
 ```c
@@ -57549,7 +57365,9 @@ while ((numRead = read(STDIN_FILENO, buf, BUF_SIZE)) > 0)
         fatal("partial/failed write");
 
 if (numRead == -1)
-    exit(EXIT_SUCCESS); /* Closes our socket; server sees EOF */
+    errExit("read");
+
+exit(EXIT_SUCCESS); /* Closes our socket; server sees EOF */
 }
 sockets/us_xfr_cl.c
 ```
@@ -57651,7 +57469,7 @@ sockets/ud_ucase.h
 
 #include <sys/un.h>
 #include <sys/socket.h>
-#include <CTYPE.h>
+#include <ctype.h>
 #include "tlpi_hdr.h"
 
 #define BUF_SIZE 10 /* Maximum size of messages exchanged
@@ -57688,7 +57506,6 @@ main(int argc, char *argv[])
 {
     struct sockaddr_un svaddr, claddr;
     int sfd, j;
-}
 ```
 
 ```c
@@ -57698,19 +57515,18 @@ char buf[BUF_SIZE];
 
 sfd = socket(AF_UNIX, SOCK_DGRAM, 0);        /* Create server socket */
 if (sfd == -1)
-    exit(1);
+    errExit("socket");
 
 /* Construct well-known address and bind server socket to it */
 if (remove(SV_SOCK_PATH) == -1 && errno != ENOENT)
-    exit(1);
-    exit("remove-%s", SV_SOCK_PATH);
+    errExit("remove-%s", SV_SOCK_PATH);
 
 memset(&svaddr, 0, sizeof(struct sockaddr_un));
 svaddr.sun_family = AF_UNIX;
 strncpy(svaddr.sun_path, SV_SOCK_PATH, sizeof(svaddr.sun_path) - 1);
 
 if (bind(sfd, (struct sockaddr *) &svaddr, sizeof(struct sockaddr_un)) == -1)
-    exit("bind");
+    errExit("bind");
 
 /* Receive messages, convert to uppercase, and return to client */
 for (;;) {
@@ -57718,7 +57534,7 @@ for (;;) {
     numBytes = recvfrom(sfd, buf, BUF_SIZE, 0,
                     (struct sockaddr *) &claddr, &len);
     if (numBytes == -1)
-        exit("recvfrom");
+        errExit("recvfrom");
 
     printf("Server received %ld bytes from %s\n", (long) numBytes,
             claddr.sun_path);
@@ -57731,7 +57547,7 @@ for (;;) {
         fatal("sendto");
 }
 }
-sockets/ud_roadcast_sv.c
+sockets/ud_ucase_sv.c
 ```
 
 程序清单 57-7：一个简单的 UNIX domain 数据报客户端
@@ -57745,20 +57561,19 @@ int main(int argc, char *argv[])
 {
     struct sockaddr_un svaddr, claddr;
     int sfd, j;
-    size_t msglen;
+    size_t msgLen;
     ssize_t numBytes;
     char resp[BUF_SIZE];
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
         usageErr("%s msg...\n", argv[0]);
-}
 ```
 
 ```c
 /* Create client socket; bind to unique pathname (based on PID) */
 sfd = socket(AF_UNIX, SOCK_DGRAM, 0);
 if (sfd == -1)
-    exit("socket");
+    errExit("socket");
 
 memset(&claddr, 0, sizeof(struct sockaddr_un));
 claddr.sun_family = AF_UNIX;
@@ -57766,7 +57581,7 @@ snprintf(claddr.sun_path, sizeof(claddr.sun_path),
           "/tmp/ud_ucase_cl.%ld", (long) getpid());
 
 if (bind(sfd, (struct sockaddr *) &claddr, sizeof(struct sockaddr_un)) == -1)
-    exit("bind");
+    errExit("bind");
 
 /* Construct address of server */
 
@@ -57784,8 +57599,8 @@ for (j = 1; j < argc; j++) {
 
     numBytes = recvfrom(sfd, resp, BUF_SIZE, 0, NULL, NULL);
     if (numBytes == -1)
-        exit("recvfrom");
-    printf("Response %d: %.s\n", j, (int) numBytes, resp);
+        errExit("recvfrom");
+    printf("Response %d: %.*s\n", j, (int) numBytes, resp);
 }
 
 remove(claddr.sun_path); /* Remove client socket pathname */
@@ -57920,11 +57735,11 @@ strncpy(&addr.sun_path[1], "xyz", sizeof(addr.sun_path) - 2);
 
 sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
 if (sockfd == -1)
-    exit("socket");
+    errExit("socket");
 
 if (bind(sockfd, (struct sockaddr *) &addr,
                  sizeof(struct sockaddr_un)) == -1)
-    exit("bind");
+    errExit("bind");
 
 from sockets/us_abstract_bind.c
 ```
@@ -58904,7 +58719,7 @@ $ telnet host port
 ```c
 #include "read_line.h"
 
-ssize_t readline(int fd, void *buffer, size_t n);
+ssize_t readLine(int fd, void *buffer, size_t n);
 Returns number of bytes copied into buffer (excluding terminating null byte), or 0 on end-of-file, or -1 on error
 ```
 
@@ -58926,7 +58741,7 @@ sockets/read_line.c
 #include <errno.h>
 #include "read_line.h" /* Declaration of readLine() */
 
-ssize readLine(int fd, void *buffer, size_t n)
+ssize_t readLine(int fd, void *buffer, size_t n)
 {
     ssize_t numRead; /* # of bytes fetched by last read() */
     size_t totRead; /* Total bytes read so far */
@@ -58934,7 +58749,7 @@ ssize readLine(int fd, void *buffer, size_t n)
     char ch;
 
     if (n <= 0 || buffer == NULL) {
-        errno = EINVALID;
+        errno = EINVAL;
         return -1;
     }
 
@@ -59000,22 +58815,15 @@ IPv4 和 IPv6。
 具体如下。
 
 ```c
-struct in_addr {
-    in_addr_t s_addr;
-    /* IPv4 4-byte address */
-    /* Unsigned 32-bit integer */
+struct in_addr {                /* IPv4 4-byte address */
+    in_addr_t s_addr;           /* Unsigned 32-bit integer */
 };
 
-struct sockaddr_in {
-    sa_family_t sin_family;
-    in_port_t sin_port;
-    struct in_addr sin_addr;
-    unsigned char __pad[X];
-    /* IPv4 socket address */
-    /* Address family (AF_INET) */
-    /* Port number */
-    /* IPv4 address */
-    /* Pad to size of 'sockaddr' structure (16 bytes) */
+struct sockaddr_in {            /* IPv4 socket address */
+    sa_family_t sin_family;     /* Address family (AF_INET) */
+    in_port_t sin_port;         /* Port number */
+    struct in_addr sin_addr;    /* IPv4 address */
+    unsigned char __pad[X];     /* Pad to size of 'sockaddr' structure (16 bytes) */
 };
 ```
 
@@ -59037,23 +58845,16 @@ in_port_t 和 in_addr_t 数据类型是无符号整型，
 具体如下。
 
 ```c
-struct in6_addr {
-    uint8_t s6_addr[16];
-    /* IPv6 address structure */
-    /* 16 bytes == 128 bits */
+struct in6_addr {               /* IPv6 address structure */
+    uint8_t s6_addr[16];        /* 16 bytes == 128 bits */
 };
 
-struct sockaddr_in6 {
-    /* IPv6 socket address */
-    sa_family_t sin6_family;
-    in_port_t sin6_port;
-    /* Port number */
-    uint32_t sin6_flowinfo;
-    /* IPv6 flow information */
-    struct in6_addr sin6_addr;
-    /* IPv6 address */
-    uint32_t sin6_scope_id;
-    /* Scope ID (new in kernel 2.4) */
+struct sockaddr_in6 {           /* IPv6 socket address */
+    sa_family_t sin6_family;    /* Address family (AF_INET6) */
+    in_port_t sin6_port;        /* Port number */
+    uint32_t sin6_flowinfo;     /* IPv6 flow information */
+    struct in6_addr sin6_addr;  /* IPv6 address */
+    uint32_t sin6_scope_id;     /* Scope ID (new in kernel 2.4) */
 };
 ```
 
@@ -59077,7 +58878,7 @@ IPv6 和 IPv4 一样也有通配和回环地址，
 具体如下。
 
 ```c
-#define IN6ADDR_ANY_INIT { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0 } }
+#define IN6ADDR_ANY_INIT { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 } }
 ```
 
 在 Linux 上，
@@ -59287,7 +59088,7 @@ sockets/i6d_ucase.h
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <CTYPE.h>
+#include <ctype.h>
 #include "tlpi_hdr.h"
 
 #define BUF_SIZE 10 /* Maximum size of messages exchanged between client and server */
@@ -59298,15 +59099,6 @@ sockets/i6d_ucase.h
 程序清单 59-3 给出了服务器程序。
 服务器使用 inet_ntop()函数将客户端的主机地址（通过 recvfrom()调用获得）转换成可打印的形式。
 
-```console
-$ ./i6d_ucase_sv &
-[1] 31047
-$ ./i6d_ucase_cl ::1 ciao
-Server received 4 bytes from (::1, 32770)
-Response 1: CIAO
-Send to server on local host
-```
-
 程序清单 59-4 给出的客户端程序与之前的 UNIX domain 中的版本（程序清单 57-7）相比存在两个显著的改动。
 第一个差别在于客户端会将其第一个命令行参数解释成服务器的 IPv6 地址。
 （剩余的命令行参数是作为单独的数据报被传递给服务器的。）
@@ -59316,6 +59108,15 @@ Send to server on local host
 那么内核会将该 socket 绑定到主机系统上的一个临时端口上。
 这一点可以从下面的 shell 会话日志中看出，
 其中服务器和客户端运行于同一个主机上。
+
+```console
+$ ./i6d_ucase_sv &
+[1] 31047
+$ ./i6d_ucase_cl ::1 ciao
+Server received 4 bytes from (::1, 32770)
+Response 1: CIAO
+Send to server on local host
+```
 
 从上面的输出中可以看出服务器的 recvfrom() 调用能够获取客户端 socket 的地址，
 包括临时端口号，
@@ -59338,7 +59139,7 @@ main(int argc, char *argv[])
 
     sfd = socket(AF_INET6, SOCK_DGRAM, 0);
     if (sfd == -1)
-        exit("socket");
+        errExit("socket");
 
     memset(&svaddr, 0, sizeof(struct sockaddr_in6));
     svaddr.sin6_family = AF_INET6;
@@ -59347,15 +59148,15 @@ main(int argc, char *argv[])
 
     if (bind(sfd, (struct sockaddr *) &svaddr,
                     sizeof(struct sockaddr_in6)) == -1)
-        exit("bind");
+        errExit("bind");
 
     /* Receive messages, convert to uppercase, and return to client */
     for (;;) {
         len = sizeof(struct sockaddr_in6);
         numBytes = recvfrom(sfd, buf, BUF_SIZE, 0,
-                                    (struct sockaddr *) &claddr, &len);
+                            (struct sockaddr *) &claddr, &len);
         if (numBytes == -1)
-            exit("recvfrom");
+            errExit("recvfrom");
 
         if (inet_ntop(AF_INET6, &claddr.sin6_addr, claddrStr,
                     INET6_ADDRSTRLEN) == NULL)
@@ -59374,6 +59175,8 @@ main(int argc, char *argv[])
 sockets/i6d_ucase_sv.c
 ```
 
+程序清单 59-4：使用数据报 socket 的 IPv6 大小写转换客户端
+
 ```c
 sockets/i6d_ucase_cl.c
 
@@ -59383,12 +59186,12 @@ int main(int argc, char *argv[])
 {
     struct sockaddr_in6 svaddr;
     int sfd, j;
-    size_t msglen;
+    size_t msgLen;
     ssize_t numBytes;
     char resp[BUF_SIZE];
 
     if (argc < 3 || strcmp(argv[1], "--help") == 0)
-        usageErr("%s host-address msg...\\n", argv[0]);
+        usageErr("%s host-address msg...\n", argv[0]);
 
     sfd = socket(AF_INET6, SOCK_DGRAM, 0); /* Create client socket */
     if (sfd == -1)
@@ -59403,16 +59206,16 @@ int main(int argc, char *argv[])
     /* Send messages to server; echo responses on stdout */
 
     for (j = 2; j < argc; j++) {
-        msglen = strlen(argv[j]);
-        if (sendto(sfd, argv[j], msglen, 0, (struct sockaddr *) &svaddr,
-                     sizeof(struct sockaddr_in6)) != msglen)
+        msgLen = strlen(argv[j]);
+        if (sendto(sfd, argv[j], msgLen, 0, (struct sockaddr *) &svaddr,
+                     sizeof(struct sockaddr_in6)) != msgLen)
             fatal("sendto");
 
         numBytes = recvfrom(sfd, resp, BUF_SIZE, 0, NULL, NULL);
         if (numBytes == -1)
             errExit("recvfrom");
 
-        printf("Response %d: %.s\n", j - 1, (int) numBytes, resp);
+        printf("Response %d: %.*s\n", j - 1, (int) numBytes, resp);
     }
 
     exit(EXIT_SUCCESS);
@@ -59818,9 +59621,7 @@ void freeaddrinfo(struct addrinfo *result);
 
 getaddrinfo()在发生错误时会返回表 59-1 中给出的一个非零错误码。
 
-> 表 59-1
->
-> getaddrinfo()和 getnameinfo()返回的错误码
+> 表 59-1：getaddrinfo() 和 getnameinfo() 返回的错误码
 
 | 错误常量|描述|
 | ---|---|
@@ -59970,9 +59771,9 @@ getnameinfo()在成功时会返回 0，
   每个客户端的请求会在接受下一个客户端的请求之前得到服务。
   对于每个客户端，
   服务器将会执行下列任务。
-- 接受一个新连接①。
+- 接受一个新连接⑩。
   服务器向 accept() 的第二个和第三个参数传入了一个非 NULL 指针以便获取客户端的地址。
-  服务器会在标准输出上显示客户端的地址①（IP 地址加上端口号）。
+  服务器会在标准输出上显示客户端的地址⑪（IP 地址加上端口号）。
 - 读取客户端的消息⑫，
   该消息由一个以换行符结尾的指定了客户端请求的序号数量的字符串构成。
   服务器将这个字符串转换成一个整数并将其存储在变量 reqLen 中⑬。
@@ -59987,7 +59788,7 @@ sockets/is_seqnum.h
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <signal.h>
-#include "read_line.h" /* Declaration of readline() */
+#include "read_line.h" /* Declaration of readLine() */
 #include "tlpi_hdr.h"
 
 #define PORT_NUM "50000" /* Port number for server */
@@ -59995,11 +59796,11 @@ sockets/is_seqnum.h
 sockets/is_seqnum.h
 ```
 
-sockets/is_seqnum_sv.c
+程序清单 59-6：使用流 socket 与客户端进行通信的迭代式服务器
 
 ```c
 #define _BSD_SOURCE /* To get definitions of NI_MAXHOST and
-_NI_MAXSERV from <netdb.h> */
+NI_MAXSERV from <netdb.h> */
 #include <netdb.h>
 #include "is_seqnum.h"
 
@@ -60013,7 +59814,7 @@ main(int argc, char *argv[])
     char seqNumStr[INT_LEN]; /* Start of granted sequence */
     struct sockaddr_storage claddr;
     int lfd, cfd, optval, reqLen;
-    sockaddr_t addrlen;
+    socklen_t addrlen;
     struct addrinfo hints;
     struct addrinfo *result, *rp;
 #define ADDRSTRLEN (NI_MAXHOST + NI_MAXSERV + 10)
@@ -60031,7 +59832,7 @@ main(int argc, char *argv[])
 
 ```c
 ② if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
-    exit("signal");
+    errExit("signal");
 ```
 
 ```c
@@ -60044,23 +59845,23 @@ memset(&hints, 0, sizeof(struct addrinfo));
 ```
 
 ```c
-hints.ai canonname = NULL;
+hints.ai_canonname = NULL;
 ```
 
 ```c
-hints.ai addr = NULL;
+hints.ai_addr = NULL;
 ```
 
 ```c
-hints.ai next = NULL;
+hints.ai_next = NULL;
 ```
 
 ```c
-hints.ai socktype = SOCK_STREAM;
+hints.ai_socktype = SOCK_STREAM;
 ```
 
 ```c
-hints.ai_family = AF UNSPEC; /* Allows IPv4 or IPv6 */
+hints.ai_family = AF_UNSPEC; /* Allows IPv4 or IPv6 */
 ```
 
 ```c
@@ -60070,7 +59871,7 @@ hints.ai_family = AF UNSPEC; /* Allows IPv4 or IPv6 */
 
 ```c
 ④ if (getaddrinfo(NULL, PORT_NUM, &hints, &result) != 0)
-    exit("getaddrinfo");
+    errExit("getaddrinfo");
 ```
 
 ```c
@@ -60090,9 +59891,9 @@ optval = 1;
 ```
 
 ```c
-⑥ if (setsockopt(1fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval))
-== -1)
-errExit("setsockopt");
+⑥ if (setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval))
+        == -1)
+        errExit("setsockopt");
 ```
 
 ```c
@@ -60108,40 +59909,40 @@ close(lfd);
 if (rp == NULL)
 fatal("Could not bind socket to any address");
 ⑧ if (listen(lfd, BACKLOG) == -1)
-errExit("listen");
+    errExit("listen");
 freeaddrinfo(result);
 ⑨ for (;;) {
     /* Handle clients iteratively */
     /* Accept a client connection, obtaining client's address */
     addrlen = sizeof(struct sockaddr_storage);
-    cfd = accept(lfd, (struct sockaddr *) &addr, &addrlen);
+⑩ cfd = accept(lfd, (struct sockaddr *) &claddr, &addrlen);
     if (cfd == -1) {
         errMsg("accept");
         continue;
     }
-    if (getnameinfo((struct sockaddr *) &addr, addrlen,
-host, NI_MAXHOST, service, NI_MAXSERV, 0) == 0)
-snprintf(addrStr, ADDRSTRLEN, "%s, %s", host, service);
-else
-snprintf(addrStr, ADDRSTRLEN, "?UNKNOWN?");
+⑪ if (getnameinfo((struct sockaddr *) &claddr, addrlen,
+                host, NI_MAXHOST, service, NI_MAXSERV, 0) == 0)
+        snprintf(addrStr, ADDRSTRLEN, "(%s, %s)", host, service);
+    else
+        snprintf(addrStr, ADDRSTRLEN, "(?UNKNOWN?)");
 printf("Connection from %s\n", addrStr);
 /* Read client request, send sequence number back */
-⑩ if (readLine(cfd, reqLenStr, INT_LEN) <= 0) {
+⑫ if (readLine(cfd, reqLenStr, INT_LEN) <= 0) {
     close(cfd);
     continue;
     /* Failed read; skip request */
 }
-⑪ reqlen = atoi(reqLenStr);
-if (reqlen <= 0) {
+⑬ reqLen = atoi(reqLenStr);
+if (reqLen <= 0) {
     /* Watch for misbehaving clients */
     close(cfd);
     continue;
     /* Bad request; skip it */
 }
-⑫ snprintf(seqNumStr, INT_LEN, "%d\n", seqNum);
+⑭ snprintf(seqNumStr, INT_LEN, "%d\n", seqNum);
 if (write(cfd, &seqNumStr, strlen(seqNumStr)) != strlen(seqNumStr))
 fprintf(stderr, "Error on write");
-⑬ seqNum += reqlen;
+⑮ seqNum += reqLen;
     /* Update sequence number */
     if (close(cfd) == -1)
         errMsg("close");
@@ -60196,11 +59997,11 @@ Client 3: requests 1 sequence number
 ```console
 $ telnet localhost 50000
 Our server uses this port number
-Trying 127.0..0.1...
+Trying 127.0.0.1...
 Empty line printed by telnet
 Connection from (localhost, 33276)
 Connected to localhost.
-Escape character is '^].
+Escape character is '^]'.
 1
 12
 Connection closed by foreign host.
@@ -60215,7 +60016,7 @@ detects that server closed connection
 这个行为是最小化对内核的本地 socket 绑定关系表的哈希查询的结果。
 当到达这些数字的上限时内核会从范围的下限（由 Linux 特有的 /proc/sys/net/ipv4/ip_local_port_range 文件定义）开始重新分配一个可用的数字。
 
-#### 程序清单 59-7：使用流 socket 的客户端
+程序清单 59-7：使用流 socket 的客户端
 
 ```c
 sockets/is_seqnum_cl.c
@@ -60230,7 +60031,6 @@ int main(int argc, char *argv[])
     ssize_t numRead;
     struct addrinfo hints;
     struct addrinfo *result, *rp;
-}
 ```
 
 ```c
@@ -60244,7 +60044,7 @@ memset(&hints, 0, sizeof(struct addrinfo));
 hints.ai_canonname = NULL;
 hints.ai_addr = NULL;
 hints.ai_next = NULL;
-hints.ai_family = AF_UNSSPEC; /* Allows IPv4 or IPv6 */
+hints.ai_family = AF_UNSPEC; /* Allows IPv4 or IPv6 */
 hints.ai_socktype = SOCK_STREAM;
 hints.ai_flags = AI_NUMERICSERV;
 
@@ -60311,9 +60111,9 @@ sockets/is_seqnum_cl.c
 程序清单 59-8：inet_sockets.c 使用的头文件
 
 ```c
-sockets/inet sockets.h
+sockets/inet_sockets.h
 
-#ifdef INET_SOCKETS_H
+#ifndef INET_SOCKETS_H
 #define INET_SOCKETS_H        /* Prevent accidental double inclusion */
 #include <sys/socket.h>
 #include <netdb.h>
@@ -60367,7 +60167,7 @@ inetBind()函数根据给定的 type 创建一个 socket 并将其绑定到由 s
 这个函数被设计（主要）供 UDP 服务器和创建 socket 并将其绑定到某个具体地址上的客户端使用。
 
 ```c
-#include "inet sockets.h"
+#include "inet_sockets.h"
 
 int inetBind(const char *service, int type, socklen_t *addrlen);
 Returns a file descriptor on success, or -1 on error
@@ -60382,7 +60182,7 @@ inetBind() 会将关联 socket 地址结构的长度返回在 addrlen 指向的�
 这些工作是通过库中的单个函数 inetPassiveSocket() 来实现的。）
 
 ```c
-#include "inet sockets.h"
+#include "inet_sockets.h"
 
 char *inetAddressStr(const struct sockaddr *addr, socklen_t addrlen,
                     char *addrStr, int addrStrLen);
@@ -60415,32 +60215,31 @@ inetAddressStr()返回 addrStr 作为其函数结果。
 程序清单 59-9：一个 Internet domain socket 库
 
 ```c
-sockets/inet sockets.c
+sockets/inet_sockets.c
 
 #define _BSD_SOURCE /* To get NI_MAXHOST and NI_MAXSERV definitions from <netdb.h> */
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-#include "inet sockets.h" /* Declares functions defined here */
+#include "inet_sockets.h" /* Declares functions defined here */
 #include "tlpi_hdr.h"
 
 int
 inetConnect(const char *host, const char *service, int type)
 {
     struct addrinfo hints;
-}
 ```
 
 ```c
 struct addrinfo *result, *rp;
-int sockfd, s;
+int sfd, s;
 
- memset(&hints, 0, sizeof(struct addrinfo));
+memset(&hints, 0, sizeof(struct addrinfo));
 hints.ai_canonname = NULL;
 hints.ai_addr = NULL;
 hints.ai_next = NULL;
-hints.ai_family = AF_UNSSPEC;     /* Allows IPv4 or IPv6 */
+hints.ai_family = AF_UNSPEC;      /* Allows IPv4 or IPv6 */
 hints.ai_socktype = type;
 
 s = getaddrinfo(host, service, &hints, &result);
@@ -60453,38 +60252,38 @@ if (s != 0) {
 that can be used to successfully connect a socket */
 
 for (rp = result; rp != NULL; rp = rp->ai_next) {
-    sockfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-    if (sockfd == -1)
+    sfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+    if (sfd == -1)
         continue;                     /* On error, try next address */
 
-    if (connect(sockfd, rp->ai_addr, rp->ai_addrlen) != -1)
+    if (connect(sfd, rp->ai_addr, rp->ai_addrlen) != -1)
         break;                       /* Success */
 
     /* Connect failed: close this socket and try next address */
 
-    close(sockfd);
+    close(sfd);
 }
 
 freeaddrinfo(result);
 
-return (rp == NULL) ? -1 : sockfd;
+return (rp == NULL) ? -1 : sfd;
 }
 
-static int          /* Public interfaces:INETBind() andINETlisten() */
-INETPassiveSocket(const char *service, int type, socklen_t *addrlen,
+static int          /* Public interfaces: inetBind() and inetListen() */
+inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
                        Boolean doListen, int backlog)
 {
     struct addrinfo hints;
     struct addrinfo *result, *rp;
-    int sockfd, optval, s;
+    int sfd, optval, s;
 
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_canonname = NULL;
     hints.ai_addr = NULL;
     hints.ai_next = NULL;
-    hints.ai_socktype = type;            /* Allows IPv4 or IPv6 */
-    hints.ai_family = AF_UNSSPEC;        /* Use wildcard IP address */
-    hints.ai_flags = AI_PASSIVE;
+    hints.ai_socktype = type;
+    hints.ai_family = AF_UNSPEC;         /* Allows IPv4 or IPv6 */
+    hints.ai_flags = AI_PASSIVE;         /* Use wildcard IP address */
 
     s = getaddrinfo(NULL, service, &hints, &result);
     if (s != 0)
@@ -60502,7 +60301,7 @@ for (rp = result; rp != NULL; rp = rp->ai_next) {
         continue; /* On error, try next address */
 
     if (doListen) {
-        if (setsockopt(sfd, SOL_SOCKET, SOReuseADDR, &optval,
+        if (setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, &optval,
                     sizeof(optval)) == -1) {
             close(sfd);
             freeaddrinfo(result);
@@ -60532,26 +60331,26 @@ return (rp == NULL) ? -1 : sfd;
 }
 
 int
-INETListen(const char *service, int backlog, socklen_t *addrlen)
+inetListen(const char *service, int backlog, socklen_t *addrlen)
 {
-    returnINETPassiveSocket(service, SOCK_STREAM, addrlen, TRUE, backlog);
+    return inetPassiveSocket(service, SOCK_STREAM, addrlen, TRUE, backlog);
 }
 
 int
-INETBind(const char *service, int type, socklen_t *addrlen)
+inetBind(const char *service, int type, socklen_t *addrlen)
 {
-    returnINETPassiveSocket(service, type, addrlen, FALSE, 0);
+    return inetPassiveSocket(service, type, addrlen, FALSE, 0);
 }
 
 char *
 inetAddressStr(const struct sockaddr *addr, socklen_t addrlen,
-                char *addrStr, int addrStrlen)
+                char *addrStr, int addrStrLen)
 {
     char host[NI_MAXHOST], service[NI_MAXSERV];
 
     if (getnameinfo(addr, addrlen, host, NI_MAXHOST,
                     service, NI_MAXSERV, NI_NUMERICSERV) == 0)
-        snprintf(addrStr, addrStrlen, "%s,%s", host, service);
+        snprintf(addrStr, addrStrLen, "(%s, %s)", host, service);
     else
 ```
 
@@ -60559,7 +60358,7 @@ inetAddressStr(const struct sockaddr *addr, socklen_t addrlen,
 snprintf(addrStr, addrStrLen, "(?UNKNOWN?)");
 addrStr[addrStrLen - 1] = '\0'; /* Ensure result is null-terminated */
 return addrStr;
-sockets/inet sockets.c
+sockets/inet_sockets.c
 ```
 
 ### 59.13 过时的主机和服务转换 API
@@ -60636,14 +60435,14 @@ gethostbyname()函数解析由 name 给出的主机名并返回一个指向静�
 struct hostent {
     char *h_name;            /* Official (canonical) name of host */
     char **h_aliases;        /* NULL-terminated array of pointers
-to alias strings */
+                                to alias strings */
     int   h_addrtype;         /* Address type (AF_INET or AF_INET6) */
     int   h_length;            /* Length (in bytes) of addresses pointed
-to by h_addr_list (4 bytes for AF_INET,
-16 bytes for AF_INET6) */
+                                to by h_addr_list (4 bytes for AF_INET,
+                                16 bytes for AF_INET6) */
     char **h_addr_list;        /* NULL-terminated array of pointers to
-host IP addresses (in_addr or in6_addr
-structures) in network byte order */
+                                host IP addresses (in_addr or in6_addr
+                                structures) in network byte order */
 };
 ```
 
@@ -60692,10 +60491,10 @@ herror()函数（在标准错误上）显示了在 str 中给出的字符串，
 #define _BSD_SOURCE          /* Or _SVID_SOURCE or _GNU_SOURCE */
 #include <netdb.h>
 
-void perror(const char *str);
+void herror(const char *str);
 
 const char *hstrerror(int err);
-        Returns pointer to h errno error string corresponding to err
+        Returns pointer to h_errno error string corresponding to err
 ```
 
 程序清单 59-10 演示了如何使用 gethostbyname()。
@@ -60705,10 +60504,9 @@ const char *hstrerror(int err);
 ```console
 $ ./t_gethostbyname www.jambit.com
 Canonical name: jamjam1.jambit.com
-alias(es):
-address type:
-address(es):
-62.245.207.90
+        alias(es):      www.jambit.com
+        address type:   AF_INET
+        address(es):    62.245.207.90
 ```
 
 程序清单 59-10：使用 gethostbyname() 获取主机信息
@@ -60737,17 +60535,17 @@ main(int argc, char *argv[])
 
         printf("Canonical name: %s\n", h->h_name);
 
-        printf("        alias(es): ");
+        printf("        alias(es):     ");
         for (pp = h->h_aliases; *pp != NULL; pp++)
-            printf("%s", *pp);
+            printf(" %s", *pp);
         printf("\n");
-        printf("        address type: %s\n",
+        printf("        address type:   %s\n",
                 (h->h_addrtype == AF_INET) ? "AF_INET" :
                 (h->h_addrtype == AF_INET6) ? "AF_INET6" : "???");
         if (h->h_addrtype == AF_INET || h->h_addrtype == AF_INET6) {
-            printf("        address(es): ");
+            printf("        address(es):   ");
             for (pp = h->h_addr_list; *pp != NULL; pp++)
-                printf("%s",inet_ntop(h->h_addrtype, *pp,
+                printf(" %s", inet_ntop(h->h_addrtype, *pp,
                                     str, INET6_ADDRSTRLEN));
             printf("\n");
         }
@@ -60766,9 +60564,9 @@ getservbyname()和 getservbyport()函数从/etc/services 文件（59.9 节）中
 ```c
 #include <netdb.h>
 
-struct servant *getservbyname(const char *name, const char *proto);
-struct servant *getservbyport(int port, const char *proto);
-Both return pointer to a (statically allocated) servant structure on success, or NULL on not found or error
+struct servent *getservbyname(const char *name, const char *proto);
+struct servent *getservbyport(int port, const char *proto);
+Both return pointer to a (statically allocated) servent structure on success, or NULL on not found or error
 ```
 
 getservbyname()函数查询服务名（或其中一个别名）与 name 匹配以及协议与 proto 匹配的记录。
@@ -60783,7 +60581,7 @@ proto 参数是一个诸如 tcp 或 udp 之类的字符串，
 那么 getservbyname()会返回一个指向静态分配的如下类型的结构的指针。
 
 ```c
-struct servant {
+struct servent {
     char *s_name; /* Official service name */
     char **s_aliases; /* Pointers to aliases (NULL-terminated) */
     int s_port; /* Port number (in network byte order) */
@@ -60899,7 +60697,7 @@ DNS 的优点是数据库的管理不再是集中的了。
 实现这两个函数。
 修改程序清单 59-6 中的程序（is_seqnum_sv.c）和程序清单 59-7 中的程序（is_seqnum_cl.c）使之使用这两个函数。
 
-59-2. 修改程序清单 59-6 中的程序（is_seqnum_sv.c）和程序清单 59-7 中的程序（is_seqnum_cl.c）使之使用程序清单 59-9（inet sockets.c）中给出的 inetListen()和 inetConnect()函数。
+59-2. 修改程序清单 59-6 中的程序（is_seqnum_sv.c）和程序清单 59-7 中的程序（is_seqnum_cl.c）使之使用程序清单 59-9（inet_sockets.c）中给出的 inetListen()和 inetConnect()函数。
 
 59-3. 编写一个 UNIX domain socket 库使其 API 与 59.12 节中给出的 Internet domain socket 库的 API 类似。
 重写程序清单 57-3 中的程序（us_xfr_sv.c）和程序清单 57-4 中的程序（us_xfr_cl.c）使之使用这个库。
@@ -60964,7 +60762,7 @@ UDP echo 服务器连续读取数据报，将每个数据报的拷贝返回给�
 
 ```c
 sockets/id_echo.h
-#include "inet sockets.h" /* Declares our socket functions */
+#include "inet_sockets.h" /* Declares our socket functions */
 #include "tlpi_hdr.h"
 
 #define SERVICE "echo" /* Name of UDP service */
@@ -60986,7 +60784,7 @@ sockets/id_echo.h
 在现实世界的应用程序中，我们可能会针对 syslog()写入的消息做一些速率限制。
 这不仅是为了防止攻击者将系统日志灌满，
 还因为 syslog()的调用开销是很昂贵的，
-因为（默认情况下）syslog()会反过来调用到 fasync()。
+因为（默认情况下）syslog()会反过来调用到 fsync()。
 
 程序清单 60-2：实现迭代型的 UDP echo 服务器
 
@@ -61007,9 +60805,9 @@ int main(int argc, char *argv[])
     char addrStr[IS_ADDR_STR_LEN];
 
     if (becomeDaemon(0) == -1)
-        exit("becomeDaemon");
+        errExit("becomeDaemon");
 
-    sfd = inotify(SERVICE, SOCK_DGRAM, &addrlen);
+    sfd = inetBind(SERVICE, SOCK_DGRAM, &addrlen);
     if (sfd == -1) {
         syslog(LOG_ERR, "Could not create server socket (%s)", strerror(errno));
         exit(EXIT_FAILURE);
@@ -61017,21 +60815,21 @@ int main(int argc, char *argv[])
 
     /* Receive datagrams and return copies to senders */
 
-    for (; ) {
+    for (;;) {
 
-len = sizeof(struct sockaddr_storage);
-numRead = recvfrom(sfd, buf, BUF_SIZE, 0,
-                    (struct sockaddr *) &claddr, &len);
-if (numRead == -1)
-    errExit("recvfrom");
+        len = sizeof(struct sockaddr_storage);
+        numRead = recvfrom(sfd, buf, BUF_SIZE, 0,
+                        (struct sockaddr *) &claddr, &len);
+        if (numRead == -1)
+            errExit("recvfrom");
 
-if (sendto(sfd, buf, numRead, 0, (struct sockaddr *) &claddr, len)
-    != numRead)
-    syslog(LOG_WARNING, "Error echoing response to %s (%s)",
-            inetAddressStr((struct sockaddr *) &claddr, len,
-                    addrStr, IS_ADDR_STR_LEN),
+        if (sendto(sfd, buf, numRead, 0, (struct sockaddr *) &claddr, len)
+                        != numRead)
+            syslog(LOG_WARNING, "Error echoing response to %s (%s)",
+                    inetAddressStr((struct sockaddr *) &claddr, len,
+                            addrStr, IS_ADDR_STR_LEN),
                     strerror(errno));
-}
+    }
 }
 sockets/id_echo_sv.c
 ```
@@ -61071,9 +60869,9 @@ int main(int argc, char *argv[])
 
         numRead = read(sfd, buf, BUF_SIZE);
         if (numRead == -1)
-            exit("read");
+            errExit("read");
 
-        printf("%ld bytes %.*s\n", (long) numRead, (int) numRead, buf);
+        printf("[%ld bytes] %.*s\n", (long) numRead, (int) numRead, buf);
     }
 
     exit(EXIT_SUCCESS);
@@ -61087,12 +60885,12 @@ sockets/id_echo_cl.c
 ```console
 $ su
 Password:
-# ./id_emoji_sv
+# ./id_echo_sv
 # exit
-$ ./id_emoji_cl localhost hello world
+$ ./id_echo_cl localhost hello world
 [5 bytes] hello
 [5 bytes] world
-$ ./id_emoji_cl localhost goodbye
+$ ./id_echo_cl localhost goodbye
 [7 bytes] goodbye
 Need privilege to bind reserved port
 Server places itself in background
@@ -61149,12 +60947,14 @@ TCP echo 服务器接受一条连接然后不断循环，
 
 sockets/is_echo_sv.c
 
+程序清单 60-4：并发型 TCP echo 服务器的实现
+
 ```c
 #include <signal.h>
 #include <syslog.h>
 #include <sys/wait.h>
 #include "become_daemon.h"
-#include "inet_sockets.h" /* Declarations ofINET() socket functions */
+#include "inet_sockets.h" /* Declarations of inet*() socket functions */
 #include "tlpi_hdr.h"
 
 #define SERVICE "echo" /* Name of TCP service */
@@ -61206,38 +61006,38 @@ main(int argc, char *argv[])
     if (sigaction(SIGCHLD, &sa, NULL) == -1) {
         syslog(LOG_ERR, "Error from sigaction(): %s", strerror(errno));
         exit(EXIT_FAILURE);
-}
+    }
 
-lfd = inetListen(SERVICE, 10, NULL);
-if (lfd == -1) {
-    syslog(LOG_ERR, "Could not create server socket (%s)", strerror(errno));
-    exit(EXIT_FAILURE);
-}
-
-for (; ; {
-    cfd = accept(lfd, NULL, NULL); /* Wait for connection */
-    if (cfd == -1) {
-        syslog(LOG_ERR, "Failure in accept(): %s", strerror(errno));
+    lfd = inetListen(SERVICE, 10, NULL);
+    if (lfd == -1) {
+        syslog(LOG_ERR, "Could not create server socket (%s)", strerror(errno));
         exit(EXIT_FAILURE);
     }
 
-    /* Handle each client request in a new child process */
+    for (;;) {
+        cfd = accept(lfd, NULL, NULL); /* Wait for connection */
+        if (cfd == -1) {
+            syslog(LOG_ERR, "Failure in accept(): %s", strerror(errno));
+            exit(EXIT_FAILURE);
+        }
 
-    switch (fork()) {
+        /* Handle each client request in a new child process */
+
+        switch (fork()) {
         case -1:
             syslog(LOG_ERR, "Can't create child (%s)", strerror(errno));
             close(cfd); /* Give up on this client */
             break; /* May be temporary; try next client */
 
-        case 0:
-            close(lfd); /* Child */
-            handleRequest(cfd); /* Unneeded copy of listening socket */
+        case 0: /* Child */
+            close(lfd); /* Unneeded copy of listening socket */
+            handleRequest(cfd);
             _exit(EXIT_SUCCESS);
 
-        default:
-            close(cfd); /* Parent */
-            /* Unneeded copy of connected socket */
+        default: /* Parent */
+            close(cfd); /* Unneeded copy of connected socket */
             break; /* Loop to accept next connection */
+        }
     }
 }
 
@@ -61605,36 +61405,34 @@ Internet 超级服务器守护进程 inetd 可以监视多个套接字，
 如果出现了部分 I/O 现象——例如，如果 read() 返回的字节数少于请求的数量，
 又或者是阻塞式的 write() 调用在完成了部分数据传输后被信号处理例程中断——
 那么有时候需要重新调用系统调用来完成全部数据的传输。
-在程序清单 61-1 中，我们提供了两个函数能做到这一点：readn() 和 written()。
+在程序清单 61-1 中，我们提供了两个函数能做到这一点：readn() 和 writen()。
 （实现这两个函数的想法源自 [Stevens et al., 2004] 中的同名函数。）
 
 ```c
-#include "rdwn.h"
+#include "rdwrn.h"
 
 ssize_t readn(int fd, void *buffer, size_t count);
 Returns number of bytes read, 0 on EOF, or -1 on error
 
-ssize_t written(int fd, void *buffer, size_t count);
+ssize_t writen(int fd, void *buffer, size_t count);
 Returns number of bytes written, or -1 on error
 ```
 
-函数 readn() 和 written() 的参数与 read() 和 write() 相同。
+函数 readn() 和 writen() 的参数与 read() 和 write() 相同。
 但是，这两个函数使用循环来重新启用这些系统调用，
 因此确保了请求的字节数总是能够全部得到传输
 （除非出现错误或者在 read() 中检测到了文件结尾符）。
 
-程序清单 61-1：实现 readn() 和 written()
+程序清单 61-1：实现 readn() 和 writen()
 
 ```c
 sockets/rdwrn.c
 
 #include <unistd.h>
 #include <errno.h>
-#include "rdwrn.h"
+#include "rdwrn.h" /* Declares readn() and writen() */
 
-/* Declares readn() and written() */
-
-ssize readn(int fd, void *buffer, size_t n)
+ssize_t readn(int fd, void *buffer, size_t n)
 {
     ssize_t numRead; /* # of bytes fetched by last read() */
     size_t totRead; /* Total # of bytes read so far */
@@ -61647,20 +61445,19 @@ ssize readn(int fd, void *buffer, size_t n)
         if (numRead == 0) /* EOF */
             return totRead; /* May be 0 if this is first read() */
         if (numRead == -1) {
-            if (errno == EINTR) /* Interrupted --> restart read() */
-                continue;
-            else /* Some other error */
-                return -1;
+            if (errno == EINTR)
+                continue; /* Interrupted --> restart read() */
+            else
+                return -1; /* Some other error */
         }
         totRead += numRead;
         buf += numRead;
     }
+    return totRead; /* Must be 'n' bytes if we get here */
 }
-    }
-    return totRead;            /* Must be 'n' bytes if we get here */
-}
+
 ssize_t
-written(int fd, const void *buffer, size_t n)
+writen(int fd, const void *buffer, size_t n)
 {
     ssize_t numWritten;        /* # of bytes written by last write() */
     size_t totWritten;         /* Total # of bytes written so far */
@@ -61789,7 +61586,7 @@ Create a file for testing
 It is impossible to say how the idea entered my brain;
 but once conceived, it haunted me day and night.
 Type Control-D
-$ ./is_echo_cl_tekapo < tell-tale-heart.txt
+$ ./is_echo_cl tekapo < tell-tale-heart.txt
 It is impossible to say how the idea entered my brain;
 but once conceived, it haunted me day and night.
 ```
@@ -61797,7 +61594,7 @@ but once conceived, it haunted me day and night.
 程序清单 61-2：echo 服务的客户端程序
 
 ```c
-#include "inet sockets.h"
+#include "inet_sockets.h"
 #include "tlpi_hdr.h"
 
 #define BUF_SIZE 100
@@ -61814,36 +61611,36 @@ main(int argc, char *argv[])
 
     sfd = inetConnect(argv[1], "echo", SOCK_STREAM);
     if (sfd == -1)
-        exitExit("inetConnect");
+        errExit("inetConnect");
 
     switch (fork()) {
     case -1:
-        exitExit("fork");
+        errExit("fork");
 
     case 0:           /* Child: read server's response, echo on stdout */
-    for (;;) {
-        numRead = read(sfd, buf, BUF_SIZE);
-        if (numRead <= 0)      /* Exit on EOF or error */
-            break;
-        printf("%.*s", (int) numRead, buf);
-    }
-    exit(EXIT_SUCCESS);
+        for (;;) {
+            numRead = read(sfd, buf, BUF_SIZE);
+            if (numRead <= 0)      /* Exit on EOF or error */
+                break;
+            printf("%.*s", (int) numRead, buf);
+        }
+        exit(EXIT_SUCCESS);
 
     default:           /* Parent: write contents of stdin to socket */
-    for (;;) {
-        numRead = read(STDIN_FILENO, buf, BUF_SIZE);
-        if (numRead <= 0)      /* Exit loop on EOF or error */
-            break;
-        if (write(sfd, buf, numRead) != numRead)
-            fatal("write() failed");
+        for (;;) {
+            numRead = read(STDIN_FILENO, buf, BUF_SIZE);
+            if (numRead <= 0)      /* Exit loop on EOF or error */
+                break;
+            if (write(sfd, buf, numRead) != numRead)
+                fatal("write() failed");
+        }
+
+        /* Close writing channel, so server sees EOF */
+
+        if (shutdown(sfd, SHUT_WR) == -1)
+            errExit("shutdown");
+        exit(EXIT_SUCCESS);
     }
-
-    /* Close writing channel, so server sees EOF */
-    if (shutdown(sfd, SHUT_WR) == -1)
-
-errExit("shutdown");
-exit(EXIT_SUCCESS);
-}
 }
 sockets/is_echo_cl.c
 ```
@@ -61948,7 +61745,7 @@ send(2)和recv(2)的用户手册页中还描述了一些这里没有介绍到的
 一种方法是通过循环按照如下方式处理。
 
 ```c
-while ((n = read(diskfilefd, buf, BUZ_SIZE)) > 0)
+while ((n = read(diskfilefd, buf, BUF_SIZE)) > 0)
     write(sockfd, buf, n);
 ```
 
@@ -62012,7 +61809,7 @@ SUSv3 中并没有指定 sendfile()。
 但参数列表一般同 Linux 下的 sendfile()不同。
 
 从 2.6.16 版内核开始，Linux 提供了 3 个新的（非标准的）系统调用——
-splice()，vmslice() 以及 tee()——这些系统调用提供了 sendfile() 功能的超集。
+splice()，vmsplice() 以及 tee()——这些系统调用提供了 sendfile() 功能的超集。
 请参见用户手册页以获得更多细节。
 
 > 1 译者注：原文为 “On return, it contains the offset of the next byte following the last byte that was transferred from in_fd.”
@@ -62127,12 +61924,12 @@ getsockname()可以返回套接字地址族，以及套接字所绑定到的地�
 
 ```console
 $ ./socknames 55555 &
-getsockname(connFd): (localhost, 32835)
-getsockname.acceptFd): (localhost, 55555)
-getpeername(connFd): (localhost, 55555)
-getpeername.acceptFd): (localhost, 32835)
+getsockname(connFd):   (localhost, 32835)
+getsockname(acceptFd): (localhost, 55555)
+getpeername(connFd):   (localhost, 55555)
+getpeername(acceptFd): (localhost, 32835)
 [1] 8171
-$ netstat -a | grep ' (Address|55555)'
+$ netstat -a | egrep '(Address|55555)'
 Proto Recv-Q Send-Q Local Address Foreign Address State
 tcp 0 0 *:55555 *:* LISTEN
 tcp 0 0 localhost:32835 localhost:55555 ESTABLISHED
@@ -62147,7 +61944,7 @@ netstat 命令为我们展示出了由程序创建的 3 个套接字的所有相
 程序清单 61-3：使用 getsockname() 和 getpeername()
 
 ```c
-#include "inet sockets.h" /* Declares our socket functions */
+#include "inet_sockets.h" /* Declares our socket functions */
 #include "tlpi_hdr.h"
 
 int main(int argc, char *argv[])
@@ -62178,7 +61975,7 @@ int main(int argc, char *argv[])
 
     if (getsockname(connFd, addr, &len) == -1)
         errExit("getsockname");
-    printf("getsockname(connFd): %s\n",
+    printf("getsockname(connFd):   %s\n",
            inetAddressStr(addr, len, addrStr, IS_ADDR_STR_LEN));
     if (getsockname(acceptFd, addr, &len) == -1)
         errExit("getsockname");
@@ -62186,9 +61983,8 @@ int main(int argc, char *argv[])
            inetAddressStr(addr, len, addrStr, IS_ADDR_STR_LEN));
 
     if (getpeername(connFd, addr, &len) == -1)
-
-    errExit("getpeername");
-    printf("getpeername(connFd): %s\n",
+        errExit("getpeername");
+    printf("getpeername(connFd):   %s\n",
            inetAddressStr(addr, len, addrStr, IS_ADDR_STR_LEN));
     if (getpeername(acceptFd, addr, &len) == -1)
         errExit("getpeername");
@@ -62719,7 +62515,7 @@ socklen_t optlen;
 
 optlen = sizeof(optval);
 if (getsockopt(sfd, SOL_SOCKET, SO_TYPE, &optval, &optlen) == -1)
-    exit("getsockopt");
+    errExit("getsockopt");
 ```
 
 经过这个调用之后，optval 就包含了套接字类型——比如，SOCK_STREAM 或者SOCK_DGRAM。
@@ -62788,16 +62584,16 @@ int sockfd, optval;
 
 sockfd = socket(AF_INET, SOCK_STREAM, 0);
 if (sockfd == -1)
-    exit("socket");
+    errExit("socket");
 
 optval = 1;
-if (setsockopt(sockfd, SOL_SOCKET, SOReuseaddr, &optval, sizeof(optval)) == -1)
-    exit("socket");
+if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1)
+    errExit("socket");
 
 if (bind(sockfd, &addr, addrlen) == -1)
-    exit("bind");
+    errExit("bind");
 if (listen(sockfd, backlog) == -1)
-    exit("listen");
+    errExit("listen");
 ```
 
 ### 61.11 在 accept() 中继承标记和选项
@@ -63007,7 +62803,7 @@ SCTP 的特点就是支持多条数据流，这样就允许多个逻辑上的数
 但是，SCTP 提供了一种可选的协议来实现流式套接字，只要按照如下形式创建套接字即可。
 
 ```c
-socket(AF_INET, SOCK_STREAM, IPPROTO SCTP);
+socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP);
 ```
 
 从 2.6.14 版内核开始，Linux 支持了一种新的数据报协议——数据报拥塞控制协议（DCCP）。
@@ -63021,7 +62817,7 @@ socket(AF_INET, SOCK_STREAM, IPPROTO SCTP);
 ### 61.14 总结
 
 在许多情况下，当在流式套接字上执行 I/O 操作时会出现部分读取和部分写入的现象。
-我们给出了两个函数 readn() 以及 written() 的实现，
+我们给出了两个函数 readn() 以及 writen() 的实现，
 它们可用来确保将缓冲区中的数据完整地读取或写入。
 
 shutdown()系统调用对连接终止提供了更加精细的控制。
@@ -63318,8 +63114,8 @@ werase = ^W; lnext = ^V; flush = ^O; min = 1; time = 0;
 -parenb -parodd cs8 hupcl -cstopb cread -clocal -crtscts
 -ignbrk brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr icrnl ixon -ixoff
 -iuclc -ixany imaxbel -iutf8
-opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel n10 cr0 tab0 bs0 vt0 ff0
-isig icanonon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt
+opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0
+isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt
 echoctl echoke
 ```
 
@@ -63419,26 +63215,26 @@ CR 和 NL 字符没有对应的 c_cc 下标，因为这些字符的值不能改�
 
 | 字 符|c_cc 下标|描 述|默 认 设 定|相 关 的 位 掩 码 标 志|SUSv3|
 | ---|---|---|---|---|---|
-| CR|(无)|回车|^M|ICANON、IGNCR、ICRNL、 OPOST、OCRNL、ONOCR||
+| CR|(无)|回车|^M|ICANON、IGNCR、ICRNL、 OPOST、OCRNL、ONOCR|●|
 | DISCARD|VDISCARD|丢弃输出|^O|(未实现)||
-| EOF|VEOF|文件结尾|^D|ICANON||
-| EOL|VEOL|行结尾||ICANON||
+| EOF|VEOF|文件结尾|^D|ICANON|●|
+| EOL|VEOL|行结尾||ICANON|●|
 | EOL2|VEOL2|另一种行结尾||ICANON, IEXTEN||
-| ERASE|VERASE|擦除字符|^?|ICANON||
-| INTR|VINTR|中断 (SIGINT)|^C|ISIG||
-| KILL|VKILL|擦除一行|^U|ICANON||
+| ERASE|VERASE|擦除字符|^?|ICANON|●|
+| INTR|VINTR|中断 (SIGINT)|^C|ISIG|●|
+| KILL|VKILL|擦除一行|^U|ICANON|●|
 | LNEXT|VLNEXT|字面化下个字符|^V|ICANON、IEXTEN||
-| NL|(无)|换行|^J|ICANON、INLCR、ECHONL、 OPOST、ONLCR、ONLRET||
-| QUIT|VQUIT|退出 (SIGQUIT)|^|ISIG|||
+| NL|(无)|换行|^J|ICANON、INLCR、ECHONL、 OPOST、ONLCR、ONLRET|●|
+| QUIT|VQUIT|退出 (SIGQUIT)|^\\|ISIG|●|
 | REPRINT|VREPRINT|重新打印输入行|^R|ICANON、IEXTEN、ECHO||
 
 > 续表
 
 | 字 符|c_cc 下标|描 述|默 认 设 定|相关的位掩码标志|SUSV3|
 | ---|---|---|---|---|---|
-| START|VSTART|开始输出|^Q|IXON、IXOFF||
-| STOP|VSTOP|停止输出|^S|IXON、IXOFF||
-| SUSP|VSUSP|暂停（SIGTSTP）|^Z|ISIG||
+| START|VSTART|开始输出|^Q|IXON、IXOFF|●|
+| STOP|VSTOP|停止输出|^S|IXON、IXOFF|●|
+| SUSP|VSUSP|暂停（SIGTSTP）|^Z|ISIG|●|
 | WERASE|VWERASE|擦除一个字|^W|ICANON、IEXTEN||
 
 表格中默认设定这一列显示了特殊字符通常的默认值。
@@ -63627,7 +63423,7 @@ shell 层是 System V 作业控制的前身。
 
 ```c
 #include <termios.h>
-#include <CTYPE.h>
+#include <ctype.h>
 #include "tlpi_hdr.h"
 
 int
@@ -63640,14 +63436,14 @@ main(int argc, char *argv[])
         usageErr("%s [intr-char]\n", argv[0]);
 
     /* Determine new INTR setting from command line */
-    if (argc == 1) {
-        intrChar = fpathconf(STDIN_FILENO, _PC_VDISABLE); /* Disable */
+    if (argc == 1) { /* Disable */
+        intrChar = fpathconf(STDIN_FILENO, _PC_VDISABLE);
         if (intrChar == -1)
-            errExit("Could't determine VDISABLE");
+            errExit("Couldn't determine VDISABLE");
     } else if (isdigit((unsigned char) argv[1][0])) {
-        intrChar = strtol(argv[1], NULL, 0); /* Allows hex, octal */
-    } else {
-        intrChar = argv[1][0]; /* Literal character */
+        intrChar = strtoul(argv[1], NULL, 0); /* Allows hex, octal */
+    } else { /* Literal character */
+        intrChar = argv[1][0];
     }
 
     /* Fetch current terminal settings, modify INTR character, and
@@ -63707,11 +63503,12 @@ intr = <undef>;
 
 ```console
 $ sleep 10
-^C\
-Type Control- to generate SIGQUIT
+^C^L
+Control-C and Control-L are simply echoed
+Type Control-\ to generate SIGQUIT
 Quit
 $ stty sane
-Control-C and Control-L are simply echoed
+Return terminal to a sane state
 ```
 
 ### 62.5 终端标志
@@ -63927,14 +63724,16 @@ PAREN B 标志可为输出字符打开奇偶校验位，并为输入字符做奇
 
 ```console
 $ ./no_echo
-Enter text: We type some text, which is not echoed,
-Read: Knock, knock, Neo. but was nevertheless read
+Enter text:
+We type some text, which is not echoed,
+Read: Knock, knock, Neo.
+but was nevertheless read
 ```
 
 程序清单 62-2：关闭终端回显功能
 
 ```c
-tt/ no echo.c
+tty/no_echo.c
 #include <termios.h>
 #include "tlpi_hdr.h"
 #define BUF_SIZE 100
@@ -63959,7 +63758,7 @@ main(int argc, char *argv[])
     printf("Enter text: ");
     fflush(stdout);
     if (fgets(buf, BUF_SIZE, stdin) == NULL)
-        printf("Got end-of-file/error on fgets()!\n");
+        printf("Got end-of-file/error on fgets()\n");
     else
         printf("\nRead: %s", buf);
 
@@ -63970,7 +63769,7 @@ main(int argc, char *argv[])
 
     exit(EXIT_SUCCESS);
 }
-ttty/no_echo.c
+tty/no_echo.c
 ```
 
 ### 62.6 终端的 I/O 模式
@@ -64000,7 +63799,7 @@ ttty/no_echo.c
 
 在 62.5 节中我们描述了 NOFLSH 标志，
 我们注意到产生信号的字符同样会导致终端驱动程序刷新终端的输入队列。
-无论管信号是否被捕获或者是被应用程序忽略，刷新都会发生。
+无论信号是否被捕获或者是被应用程序忽略，刷新都会发生。
 我们可以通过打开 NOFLSH 标志来防止出现这种刷新的行为。
 
 #### 62.6.2 非规范模式
@@ -64090,9 +63889,8 @@ VMIN 和 VEOF 可能有着相同的值，这一事实意味着进入非规范模
 
 > 表 62-3：加工模式、cbreak 模式和原始模式之间的区别
 
-| 功能特性|模式|模式|模式|
-| ---|---|---|---|
 | 功能特性|加工模式|Cbreak 模式|原始模式|
+| ---|---|---|---|
 | 输入处理|按行|按字符|按字符|
 | 行编辑?|是|否|否|
 | 对产生信号的字符做解释?|是|是|否|
@@ -64134,7 +63932,13 @@ cbreak 模式在与屏幕处理相关的应用程序中很有用（比如 less�
 #include <unistd.h>
 #include "tty_functions.h" /* Declares functions defined here */
 
-/* Place terminal referred to by 'fd' in cbreak mode (noncanonical mode with echoing turned off). This function assumes that the terminal is currently in cooked mode (i.e., we shouldn't call it if the terminal is currently in raw mode, since it does not undo all of the changes made by the ttySetRaw() function below). Return 0 on success, or -1 on error. If 'prevTermios' is non-NULL, then use the buffer to which it points to return the previous terminal settings. */
+/* Place terminal referred to by 'fd' in cbreak mode (noncanonical mode
+   with echoing turned off). This function assumes that the terminal is
+   currently in cooked mode (i.e., we shouldn't call it if the terminal
+   is currently in raw mode, since it does not undo all of the changes
+   made by the ttySetRaw() function below). Return 0 on success, or -1
+   on error. If 'prevTermios' is non-NULL, then use the buffer to which
+   it points to return the previous terminal settings. */
 
 int
 ttySetCbreak(int fd, struct termios *prevTermios)
@@ -64148,18 +63952,18 @@ ttySetCbreak(int fd, struct termios *prevTermios)
         *prevTermios = t;
 
     t.c_lflag &= ~(ICANON | ECHO);
-}
 
-t.c_lflag |= ISIG;
+    t.c_lflag |= ISIG;
 
-t.c_iflag &=~ICRNL;
-t.c_cc[VMIN] = 1; /* Character-at-a-time input */
-t.c_cc[VTIME] = 0; /* with blocking */
+    t.c_iflag &= ~ICRNL;
 
-if (tcsetattr(fd, TCSAFLUSH, &t) == -1)
-    return -1;
+    t.c_cc[VMIN] = 1; /* Character-at-a-time input */
+    t.c_cc[VTIME] = 0; /* with blocking */
 
-return 0;
+    if (tcsetattr(fd, TCSAFLUSH, &t) == -1)
+        return -1;
+
+    return 0;
 }
 
 /* Place terminal referred to by 'fd' in raw mode (noncanonical mode
@@ -64178,17 +63982,17 @@ ttySetRaw(int fd, struct termios *prevTermios)
     if (prevTermios != NULL)
         *prevTermios = t;
 
-    t.c_lflag &=~(ICANON | ISIG | IEXTEN | ECHO);
+    t.c_lflag &= ~(ICANON | ISIG | IEXTEN | ECHO);
     /* Noncanonical mode, disable signals, extended
-input processing, and echoing */
+       input processing, and echoing */
 
-    t.c_iflag &=~(BRKINT | ICRNL | IGNBRK | IGNCR | INLCR |
+    t.c_iflag &= ~(BRKINT | ICRNL | IGNBRK | IGNCR | INLCR |
                  INPCK | ISTRIP | IXON | PARMRK);
     /* Disable special handling of CR, NL, and BREAK.
-No 8th-bit stripping or parity error handling.
-Disable START/STOP output flow control. */
+       No 8th-bit stripping or parity error handling.
+       Disable START/STOP output flow control. */
 
-    t.c_oflag &=~OPOST; /* Disable all output processing */
+    t.c_oflag &= ~OPOST; /* Disable all output processing */
 
     t.c_cc[VMIN] = 1; /* Character-at-a-time input */
     t.c_cc[VTIME] = 0; /* with blocking */
@@ -64244,11 +64048,11 @@ Disable START/STOP output flow control. */
 程序清单 62-4：演示 cbreak 模式以及原始模式
 
 ```c
-ttt/test_tty_functions.c
+tty/test_tty_functions.c
 
 #include <termios.h>
 #include <signal.h>
-#include <type.h>
+#include <ctype.h>
 #include "tty_functions.h" /* Declarations of ttySetCbreak()
 and ttySetRaw() */
 #include "tlpi_hdr.h"
@@ -64256,66 +64060,69 @@ and ttySetRaw() */
 ① static struct termios userTermios;
 /* Terminal settings as defined by user */
 
-static void
+static void /* General handler: restore tty settings and exit */
 handler(int sig)
 {
-    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &userTermios) == -1)
-        exit(EXIT_SUCCESS);
+② if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &userTermios) == -1)
+        errExit("tcsetattr");
+    _exit(EXIT_SUCCESS);
 }
 
-static void
-/* Handler for SIGTSTP */
-tstpHandler(int sig)
+static void /* Handler for SIGTSTP */
+③ tstpHandler(int sig)
 {
     struct termios ourTermios;
     /* To save our tty settings */
+
+    sigset_t tstpMask, prevMask;
+    struct sigaction sa;
+    int savedErrno;
+
+    savedErrno = errno; /* We might change 'errno' here */
+
+    /* Save current terminal settings, restore terminal to
+       state at time of program startup */
+
+④ if (tcgetattr(STDIN_FILENO, &ourTermios) == -1)
+        errExit("tcgetattr");
+⑤ if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &userTermios) == -1)
+        errExit("tcsetattr");
+
+    /* Set the disposition of SIGTSTP to the default, raise the signal
+       once more, and then unblock it so that we actually stop */
+
+    if (signal(SIGTSTP, SIG_DFL) == SIG_ERR)
+        errExit("signal");
+    raise(SIGTSTP);
+
+    sigemptyset(&tstpMask);
+    sigaddset(&tstpMask, SIGTSTP);
+    if (sigprocmask(SIG_UNBLOCK, &tstpMask, &prevMask) == -1)
+        errExit("sigprocmask");
+
+    /* Execution resumes here after SIGCONT */
+
+    if (sigprocmask(SIG_SETMASK, &prevMask, NULL) == -1)
+        errExit("sigprocmask"); /* Reblock SIGTSTP */
+    sigemptyset(&sa.sa_mask); /* Reestablish handler */
+    sa.sa_flags = SA_RESTART;
+    sa.sa_handler = tstpHandler;
+    if (sigaction(SIGTSTP, &sa, NULL) == -1)
+        errExit("sigaction");
+
+    /* The user may have changed the terminal settings while we were
+       stopped; save the settings so we can restore them later */
+
+⑥ if (tcgetattr(STDIN_FILENO, &userTermios) == -1)
+        errExit("tcgetattr");
+
+    /* Restore our terminal settings */
+
+⑦ if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &ourTermios) == -1)
+        errExit("tcsetattr");
+
+    errno = savedErrno;
 }
-
-sigset_t tstpMask, prevMask;
-struct sigaction sa;
-int savedErrno;
-
-savedErrno = errno; /* We might change 'errno' here */
-
-/* Save current terminal settings, restore terminal to
-state at time of program startup */
-if (tcgetattr(STDIN_FILENO, &ourTermios) == -1)
-    errExit("tcgetattr");
-
-if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &userTermios) == -1)
-    errExit("tcsetattr");
-
-/* Set the disposition of SIGTSTP to the default, raise the signal
-once more, and then unlock it so that we actually stop */
-if (signal(SIGTSTP, SIG_DFL) == SIG_ERR)
-    errExit("signal");
-
-raise(SIGTSTP);
-
-sigemptyset(&tstpMask);
-sigaddset(&tstpMask, SIGTSTP);
-if (sigprocmask(SIG_UNBLOCK, &tstpMask, &prevMask) == -1)
-    errExit("sigprocmask");
-
-/* Execution resumes here after SIGCONT */
-if (sigprocmask(SIG_SETMASK, &prevMask, NULL) == -1)
-    errExit("sigprocmask"); /* Reblock SIGTSTP */
-sigemptyset(&sa.sa_mask); /* Reestablish handler */
-sa.sa_flags = SA_RESTART;
-sa.sa_handler = tstpHandler;
-if (sigaction(SIGTSTP, &sa, NULL) == -1)
-    errExit("sigaction");
-
-/* The user may have changed the terminal settings while we were
-stopped; save the settings so we can restore them later */
-if (tcgetattr(STDIN_FILENO, &userTermios) == -1)
-    errExit("tcgetattr");
-
-/* Restore our terminal settings */
-if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &ourTermios) == -1)
-    errExit("tcsetattr");
-
-errno = savedErrno;
 
 int main(int argc, char *argv[])
 {
@@ -64326,76 +64133,75 @@ int main(int argc, char *argv[])
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
 
-if (argc > 1) { /* Use cbreak mode */
-    if (ttySetCbreak(STDIN_FILENO, &userTermios) == -1)
-        errExit("ttySetCbreak");
+⑧ if (argc > 1) { /* Use cbreak mode */
+⑨     if (ttySetCbreak(STDIN_FILENO, &userTermios) == -1)
+            errExit("ttySetCbreak");
 
-    /* Terminal special characters can generate signals in cbreak
-    mode. Catch them so that we can adjust the terminal mode.
-    We establish handlers only if the signals are not being ignored. */
-}
+        /* Terminal special characters can generate signals in cbreak
+           mode. Catch them so that we can adjust the terminal mode.
+           We establish handlers only if the signals are not being ignored. */
 
-sa.sa_handler = handler;
+⑩     sa.sa_handler = handler;
 
-if (sigaction(SIGQUIT, NULL, &prev) == -1)
-    errExit("sigaction");
-if (prev.sa_handler != SIG_IGN)
-    if (sigaction(SIGQUIT, &sa, NULL) == -1)
-        errExit("sigaction");
+        if (sigaction(SIGQUIT, NULL, &prev) == -1)
+            errExit("sigaction");
+        if (prev.sa_handler != SIG_IGN)
+            if (sigaction(SIGQUIT, &sa, NULL) == -1)
+                errExit("sigaction");
 
-if (sigaction(SIGINT, NULL, &prev) == -1)
-    errExit("sigaction");
-if (prev.sa_handler != SIG_IGN)
-    if (sigaction(SIGINT, &sa, NULL) == -1)
-        errExit("sigaction");
+        if (sigaction(SIGINT, NULL, &prev) == -1)
+            errExit("sigaction");
+        if (prev.sa_handler != SIG_IGN)
+            if (sigaction(SIGINT, &sa, NULL) == -1)
+                errExit("sigaction");
 
-sa.sa_handler = tkillHandler;
-if (sigaction(SIGTSTP, NULL, &prev) == -1)
-    errExit("sigaction");
-if (prev.sa_handler != SIG_TSTP)
-    if (sigaction(SIGTSTP, &sa, NULL) == -1)
-        errExit("sigaction");
-} else { /* Use raw mode */
-    if (ttySetRaw(STDIN_FILENO, &userTermios) == -1)
-        errExit("ttySetRaw");
-}
+⑪     sa.sa_handler = tstpHandler;
 
-sa.sa_handler = handler;
-if (sigaction(SIGTERM, &sa, NULL) == -1)
-    errExit("sigaction");
-
-setbuf(stdout, NULL); /* Disable stdout buffering */
-
-for (;;) { /* Read and echo stdin */
-    n = read(STDIN_FILENO, &ch, 1);
-    if (n == -1) {
-        errMsg("read");
-        break;
+        if (sigaction(SIGTSTP, NULL, &prev) == -1)
+            errExit("sigaction");
+        if (prev.sa_handler != SIG_IGN)
+            if (sigaction(SIGTSTP, &sa, NULL) == -1)
+                errExit("sigaction");
+    } else { /* Use raw mode */
+⑫     if (ttySetRaw(STDIN_FILENO, &userTermios) == -1)
+            errExit("ttySetRaw");
     }
 
-    if (n == 0 /* Can occur after terminal disconnect */
-    break;
+⑬ sa.sa_handler = handler;
+    if (sigaction(SIGTERM, &sa, NULL) == -1)
+        errExit("sigaction");
 
-    if (isalpha((unsigned char) ch)) /* Letters --> lowercase */
-        putchar(toupper((unsigned char) ch));
-    else if (ch == '\n' || ch == '\r')
-        putchar(ch);
-    else if (iscntrl((unsigned char) ch))
-        printf("^%c", ch ^ 64); /* Echo Control-A as ^A, etc. */
-    else
-        putchar(' ');
-    /* All other chars as ' * ' */
+    setbuf(stdout, NULL); /* Disable stdout buffering */
 
-if (ch == 'q') /* Quit loop */
-    break;
+⑭ for (;;) { /* Read and echo stdin */
+        n = read(STDIN_FILENO, &ch, 1);
+        if (n == -1) {
+            errMsg("read");
+            break;
+        }
+
+        if (n == 0) /* Can occur after terminal disconnect */
+            break;
+
+⑮     if (isalpha((unsigned char) ch)) /* Letters --> lowercase */
+            putchar(tolower((unsigned char) ch));
+        else if (ch == '\n' || ch == '\r')
+            putchar(ch);
+        else if (iscntrl((unsigned char) ch))
+            printf("^%c", ch ^ 64); /* Echo Control-A as ^A, etc. */
+        else
+            putchar('*'); /* All other chars as '*' */
+
+⑯     if (ch == 'q') /* Quit loop */
+            break;
+    }
+
+⑰ if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &userTermios) == -1)
+        errExit("tcsetattr");
+    exit(EXIT_SUCCESS);
 }
 
-if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &userTermios) == -1)
-    errExit("tcsetattr");
-exit(EXIT_SUCCESS);
-}
-
-tty/test/tty_functions.c
+tty/test_tty_functions.c
 ```
 
 当我们请求程序清单 62-4 使用原始模式时，下面是我们会看到的输出示例。
@@ -64406,12 +64212,12 @@ Initial terminal mode is sane (cooked)
 speed 38400 baud; line = 0;
 $ ./test_tty_functions
 abc
-Type abc, and ControlJ
-def
-Type DEF, ControlJ, and Enter
+Type abc, and Control-J
+    def
+Type DEF, Control-J, and Enter
 ^C^Z
-Type Control-C, Control-Z, and ControlJ
-q$
+Type Control-C, Control-Z, and Control-J
+    q$
 Type q to exit
 ```
 
@@ -64423,14 +64229,21 @@ Type q to exit
 ```console
 $ ./test_tty_functions x
 XYZ
+Type XYZ and Control-Z
 [1]+  Stopped ./test_tty_functions x
 $ stty
+Verify that terminal mode was restored
 speed 38400 baud; line = 0;
 $ fg
+Resume in foreground
 ./test_tty_functions x
 ***
-$ Press Enter to get next shell prompt
+Type 123 and Control-J
+    $
+Type Control-C to terminate program
+Press Enter to get next shell prompt
 $ stty
+Verify that terminal mode was restored
 speed 38400 baud; line = 0;
 ```
 
@@ -64468,9 +64281,9 @@ speed_t rate;
 
 if (tcgetattr(fd, &tp) == -1)
     errExit("tcgetattr");
-rate = cgetospeed(&tp);
+rate = cfgetospeed(&tp);
 if (rate == -1)
-    errExit("cgetospeed");
+    errExit("cfgetospeed");
 ```
 
 如果我们希望修改这个线速，可以继续按照下面这样处理：
@@ -64478,7 +64291,7 @@ if (rate == -1)
 ```c
 if (cfsetospeed(&tp, B38400) == -1)
     errExit("cfsetospeed");
-if (tcsetattr(fd, TCSAFUSH, &tp) == -1)
+if (tcsetattr(fd, TCSAFLUSH, &tp) == -1)
     errExit("tcsetattr");
 ```
 
@@ -64577,7 +64390,7 @@ ioctl()的 TIOCGWINSZ 操作应该按照如下方式来使用。
 
 ```c
 if (ioctl(fd, TIOCGWINSZ, &ws) == -1)
-    exit("ioctl");
+    errExit("ioctl");
 ```
 
 参数 fd 表示指向终端窗口的文件描述符。
@@ -64624,19 +64437,20 @@ main(int argc, char *argv[])
     struct winsize ws;
     struct sigaction sa;
 
-sigemptyset(&sa.sa_mask);
-sa.sa_flags = 0;
-sa.sa_handler = sigwinchHandler;
-if (sigaction(SIGWINCH, &sa, NULL) == -1)
-    exit("sigaction");
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sa.sa_handler = sigwinchHandler;
+    if (sigaction(SIGWINCH, &sa, NULL) == -1)
+        errExit("sigaction");
 
-for (; ; ) {
-    pause(); /* Wait for SIGWINCH signal */
+    for (;;) {
+        pause(); /* Wait for SIGWINCH signal */
 
-    if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1)
-        exit("ioctl");
-    printf("Caught SIGWINCH, new window size: "
-           "%d rows * %d columns\n", ws.ws_row, ws.ws_col);
+        if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1)
+            errExit("ioctl");
+        printf("Caught SIGWINCH, new window size: "
+               "%d rows * %d columns\n", ws.ws_row, ws.ws_col);
+    }
 }
 
 tty/demo_SIGWINCH.c
@@ -64645,10 +64459,10 @@ tty/demo_SIGWINCH.c
 也可以在 ioctl()的 TIOCSWINSZ 操作中传入一个初始化过的 winsize 结构体来修改终端驱动程序对于窗口大小的设定。
 
 ```c
-ws.ws_ROW = 40;
+ws.ws_row = 40;
 ws.ws_col = 100;
 if (ioctl(fd, TIOCSWINSZ, &ws) == -1)
-    exit("ioctl");
+    errExit("ioctl");
 ```
 
 如果 winsize 结构体中的值与终端驱动程序当前对于终端窗口大小的设定不一致，那么会发生两件事情：
@@ -64903,9 +64717,9 @@ epoll API 同其他两种 I/O 模型的区别在于它对水平触发（默认�
 
 | I/O 模式 | 水平触发 | 边缘触发 |
 | --- | --- | --- |
-| select()、poll() |  |  |
-| 信号驱动 I/O |  |  |
-| epoll |  |  |
+| select()、poll() | ● |  |
+| 信号驱动 I/O |  | ● |
+| epoll | ● | ● |
 
 有关这两种通知模型区别的细节将在本章的学习中逐渐清晰。
 现在我们讨论一下通知模型的选择是如何影响我们设计程序的方式的。
@@ -65140,11 +64954,11 @@ SUSv3 中规定由 timeout 所指向的结构体只有在 select() 调用成功�
 static void
 usageError(const char *progName)
 {
-    fprintf(stderr, "Usage: %s {timeout|-} fd-num[rtw]...\\n", progName);
-    fprintf(stderr, "     - means infinite timeout; \\n");
-    fprintf(stderr, "     r = monitor for read\\n");
-    fprintf(stderr, "     w = monitor for write\\n");
-    fprintf(stderr, "     e.g.: %s - 0rw 1w\\n", progName);
+    fprintf(stderr, "Usage: %s {timeout|-} fd-num[rw]...\n", progName);
+    fprintf(stderr, "    - means infinite timeout; \n");
+    fprintf(stderr, "    r = monitor for read\n");
+    fprintf(stderr, "    w = monitor for write\n\n");
+    fprintf(stderr, "    e.g.: %s - 0rw 1w\n", progName);
     exit(EXIT_FAILURE);
 }
 
@@ -65152,57 +64966,63 @@ int
 main(int argc, char *argv[])
 {
     fd_set readfds, writefds;
-    int ready, nfd, fd, numRead, j;
-struct timeval timeout;
-struct timeval *pto;
-char buf[10]; /* Large enough to hold "rw\0" */
-if (argc < 2 || strcmp(argv[1], "--help") == 0)
-usageError(argv[0]);
+    int ready, nfds, fd, numRead, j;
+    struct timeval timeout;
+    struct timeval *pto;
+    char buf[10]; /* Large enough to hold "rw\0" */
 
-/* Timeout for select() is specified in argv[1] */
-if (strcmp(argv[1], "--") == 0) { /* Infinite timeout */
-pto = NULL;
-} else {
-pto = &timeout;
-timeout.tv_sec = getLong(argv[1], 0, "timeout");
-timeout.tv_usec = 0; /* No microseconds */
-}
+    if (argc < 2 || strcmp(argv[1], "--help") == 0)
+        usageError(argv[0]);
 
-/* Process remaining arguments to build file descriptor sets */
-nfds = 0;
-FD_ZERO(&readfds);
-FD_ZERO(&writefds);
+    /* Timeout for select() is specified in argv[1] */
 
-for (j = 2; j < argc; j++) {
-numRead = sscanf(argv[j], "%d%2[rw]", &fd, buf);
-if (numRead != 2)
-usageError(argv[0]);
-if (fd >= FD_SETSIZE)
-cmdlineErr("file descriptor exceeds limit (%d)\n", FD_SETSIZE);
-if (fd >= nfds)
-nfds = fd + 1; /* Record maximum fd + 1 */
-if (strchr(buf, 'r') != NULL)
-FD_SET(fd, &readfds);
-if (strchr(buf, 'w') != NULL)
-FD_SET(fd, &writefds);
-}
+    if (strcmp(argv[1], "-") == 0) {
+        pto = NULL; /* Infinite timeout */
+    } else {
+        pto = &timeout;
+        timeout.tv_sec = getLong(argv[1], 0, "timeout");
+        timeout.tv_usec = 0; /* No microseconds */
+    }
 
-/* We've built all of the arguments; now call select() */
-ready = select(nfds, &readfds, &writefds, NULL, pto);
-/* Ignore exceptional events */
-if (ready == -1)
-errExit("select");
+    /* Process remaining arguments to build file descriptor sets */
 
-/* Display results of select() */
-printf("ready = %d\n", ready);
-for (fd = 0; fd < nfds; fd++)
-printf("%d: %s\n", fd, FD_ISSET(fd, &readfds) ? "r" : "",
-FD_ISSET(fd, &writefds) ? "w" : "");
+    nfds = 0;
+    FD_ZERO(&readfds);
+    FD_ZERO(&writefds);
 
-if (pto != NULL)
-printf("timeout after select(): %ld.%03ld\n",
-(long) timeout.tv_sec, (long) timeout.tv_usec / 10000);
-exit(EXIT_SUCCESS);
+    for (j = 2; j < argc; j++) {
+        numRead = sscanf(argv[j], "%d%2[rw]", &fd, buf);
+        if (numRead != 2)
+            usageError(argv[0]);
+        if (fd >= FD_SETSIZE)
+            cmdLineErr("file descriptor exceeds limit (%d)\n", FD_SETSIZE);
+
+        if (fd >= nfds)
+            nfds = fd + 1; /* Record maximum fd + 1 */
+        if (strchr(buf, 'r') != NULL)
+            FD_SET(fd, &readfds);
+        if (strchr(buf, 'w') != NULL)
+            FD_SET(fd, &writefds);
+    }
+
+    /* We've built all of the arguments; now call select() */
+
+    ready = select(nfds, &readfds, &writefds, NULL, pto);
+    /* Ignore exceptional events */
+    if (ready == -1)
+        errExit("select");
+
+    /* Display results of select() */
+
+    printf("ready = %d\n", ready);
+    for (fd = 0; fd < nfds; fd++)
+        printf("%d: %s%s\n", fd, FD_ISSET(fd, &readfds) ? "r" : "",
+                FD_ISSET(fd, &writefds) ? "w" : "");
+
+    if (pto != NULL)
+        printf("timeout after select(): %ld.%03ld\n",
+               (long) timeout.tv_sec, (long) timeout.tv_usec / 10000);
+    exit(EXIT_SUCCESS);
 }
 altio/t_select.c
 ```
@@ -65241,7 +65061,7 @@ select() 调用立刻返回，且发现没有文件描述符处于就绪态。
 在这种情况下，我们将参数 timeout 设为 NULL（第一个命令行参数为连字符 -），表示一直阻塞下去。
 
 ```console
-$ ./t_select - Or 1w
+$ ./t_select - 0r 1w
 ready = 1
 0:
 1: w
@@ -65292,17 +65112,17 @@ pollfd 结构体中的 events 和 revents 字段都是位掩码。
 
 | 位掩码 | events 中的输入 | 返回到 revents | 描述 |
 | --- | --- | --- | --- |
-| POLLIN |  |  | 可读取非高优先级的数据 |
-| POLLRDNORM |  |  | 等同于 POLLIN |
-| POLLRDBAND |  |  | 可读取优先级数据（Linux 中不使用） |
-| POLLPRI |  |  | 可读取高优先级数据 |
-| POLLRDHUP |  |  | 对端套接字关闭 |
-| POLLOUT |  |  | 普通数据可写 |
-| POLLWRNORM |  |  | 等同于 POLLOUT |
-| POLLWRBAND |  |  | 优先级数据可写入 |
-| POLLERR |  |  | 有错误发生 |
-| POLLHUP |  |  | 出现挂断 |
-| POLLNVAL |  |  | 文件描述符未打开 |
+| POLLIN | ● | ● | 可读取非高优先级的数据 |
+| POLLRDNORM | ● | ● | 等同于 POLLIN |
+| POLLRDBAND | ● | ● | 可读取优先级数据（Linux 中不使用） |
+| POLLPRI | ● | ● | 可读取高优先级数据 |
+| POLLRDHUP | ● | ● | 对端套接字关闭 |
+| POLLOUT | ● | ● | 普通数据可写 |
+| POLLWRNORM | ● | ● | 等同于 POLLOUT |
+| POLLWRBAND | ● | ● | 优先级数据可写入 |
+| POLLERR |  | ● | 有错误发生 |
+| POLLHUP |  | ● | 出现挂断 |
+| POLLNVAL |  | ● | 文件描述符未打开 |
 | POLLMSG |  |  | Linux 中不使用（SUSv3 中未指定） |
 
 在提供有 STREAMS 设备的 UNIX 实现中，POLLMSG 表示包含有 SIGPOLL 信号的消息已经到达 stream 头部。
@@ -65387,10 +65207,11 @@ Readable: 13
 #include <poll.h>
 #include "tlpi_hdr.h"
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     int numPipes, j, ready, randPipe, numWrites;
-    int (*pfd)[2]; /* File descriptors for all pipes */
+    int (*pfds)[2]; /* File descriptors for all pipes */
     struct pollfd *pollFd;
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0)
@@ -65399,52 +65220,53 @@ int main(int argc, char *argv[])
     /* Allocate the arrays that we use. The arrays are sized according to the number of pipes specified on command line */
     numPipes = getInt(argv[1], GN_GT_0, "num-pipes");
 
-    pfd = calloc(numPipes, sizeof(int[2]));
-    if (pfd == NULL)
+    pfds = calloc(numPipes, sizeof(int [2]));
+    if (pfds == NULL)
         errExit("malloc");
     pollFd = calloc(numPipes, sizeof(struct pollfd));
     if (pollFd == NULL)
         errExit("malloc");
 
     /* Create the number of pipes specified on command line */
+
     for (j = 0; j < numPipes; j++)
-        if (pipe(pfd[j]) == -1)
+        if (pipe(pfds[j]) == -1)
             errExit("pipe %d", j);
 
     /* Perform specified number of writes to random pipes */
+
     numWrites = (argc > 2) ? getInt(argv[2], GN_GT_0, "num-writes") : 1;
-    srandom((int)time(NULL));
+    srandom((int) time(NULL));
     for (j = 0; j < numWrites; j++) {
         randPipe = random() % numPipes;
-        printf("Writing to fd: %3d (read fd: %3d)\n", pfd[randPipe][1], pfd[randPipe][0]);
-        if (write(pfd[randPipe][1], "a", 1) == -1)
-            errExit("write %d", pfd[randPipe][1]);
+        printf("Writing to fd: %3d (read fd: %3d)\n",
+                pfds[randPipe][1], pfds[randPipe][0]);
+        if (write(pfds[randPipe][1], "a", 1) == -1)
+            errExit("write %d", pfds[randPipe][1]);
     }
-}
-}
 
-/* Build the file descriptor list to be supplied to poll(). This list
+    /* Build the file descriptor list to be supplied to poll(). This list
 is set to contain the file descriptors for the read ends of all of
 the pipes. */
 
-for (j = 0; j < numPipes; j++) {
-    pollFd[j].fd = pfds[j][0];
-    pollFd[j].events = POLLIN;
-}
+    for (j = 0; j < numPipes; j++) {
+        pollFd[j].fd = pfds[j][0];
+        pollFd[j].events = POLLIN;
+    }
 
-ready = poll(pollFd, numPipes, -1);        /* Nonblocking */
-if (ready == -1)
-    errExit("poll");
+    ready = poll(pollFd, numPipes, -1);        /* Nonblocking */
+    if (ready == -1)
+        errExit("poll");
 
-printf("poll() returned: %d\n", ready);
+    printf("poll() returned: %d\n", ready);
 
-/* Check which pipes have data available for reading */
+    /* Check which pipes have data available for reading */
 
-for (j = 0; j < numPipes; j++)
-    if (pollFd[j].revents & POLLIN)
-        printf("Readable: %d %3d\n", j, pollFd[j].fd);
+    for (j = 0; j < numPipes; j++)
+        if (pollFd[j].revents & POLLIN)
+            printf("Readable: %d %3d\n", j, pollFd[j].fd);
 
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 altio/poll_pipes.c
 ```
@@ -65576,8 +65398,8 @@ poll() 系统调用的实现包括为每个文件描述符调用内核 poll 例�
 为了实现 select()，我们使用一组宏将内核 poll 例程返回的信息转化为由 select() 返回的与之对应的事件类型。
 
 ```c
-#define POLLIN_SET (POLLRDNORM | POLLRDBAND | POLLIN | POLLHUP | POLLEERR)
-#define POLLOUT_SET (POLLWRBAND | POLLWRNORM | POLLOUT | POLLEERR)
+#define POLLIN_SET (POLLRDNORM | POLLRDBAND | POLLIN | POLLHUP | POLLERR)
+#define POLLOUT_SET (POLLWRBAND | POLLWRNORM | POLLOUT | POLLERR)
 #define POLLEX_SET (POLLPRI) /* Exceptional condition */
 ```
 
@@ -65684,7 +65506,7 @@ fcntl(fd, F_SETOWN, pid);
 
 ```c
 flags = fcntl(fd, F_GETFL); /* Get current flags */
-fcntl(fd, F_SETFL, flags | 0_ASYNC | 0NONBLOCK);
+fcntl(fd, F_SETFL, flags | O_ASYNC | O_NONBLOCK);
 ```
 
 5. 调用进程现在可以执行其他的任务了。
@@ -65737,7 +65559,7 @@ cnt=333; read #
 
 ```c
 #include <signal.h>
-#include <CTYPE.h>
+#include <ctype.h>
 #include <fcntl.h>
 #include <termios.h>
 #include "tty_functions.h" /* Declaration of ttySetCbreak() */
@@ -65767,49 +65589,49 @@ main(int argc, char *argv[])
     sa.sa_flags = SA_RESTART;
     sa.sa_handler = sigioHandler;
     if (sigaction(SIGIO, &sa, NULL) == -1)
-        exit("sigaction");
+        errExit("sigaction");
 
     /* Set owner process that is to receive "I/O possible" signal */
 
     if (fcntl(STDIN_FILENO, F_SETOWN, getpid()) == -1)
-        exit("fcntl(F_SETOWN)");
+        errExit("fcntl(F_SETOWN)");
 
     /* Enable "I/O possible" signaling and make I/O nonblocking
      for file descriptor */
 
     flags = fcntl(STDIN_FILENO, F_GETFL);
     if (fcntl(STDIN_FILENO, F_SETFL, flags | O_ASYNC | O_NONBLOCK) == -1)
-        exit("fcntl(F_SETFL)");
+        errExit("fcntl(F_SETFL)");
 
     /* Place terminal in cbreak mode */
 
-if (ttySetCbreak(STDIN_FILENO, &origTermios) == -1)
-    errExit("ttySetCbreak");
+    if (ttySetCbreak(STDIN_FILENO, &origTermios) == -1)
+        errExit("ttySetCbreak");
 
-for (done = FALSE, cnt = 0; !done ; cnt++) {
-    for (j = 0; j < 100000000; j++)
-        continue;
-    /* Slow main loop down a little */
-    if (gotSigio) {
-        /* Is input available? */
-        /* Read all available input until error (probably EAGAIN)
-or EOF (not actually possible in cbreak mode) or a
-hash (#) character is read */
+    for (done = FALSE, cnt = 0; !done ; cnt++) {
+        for (j = 0; j < 100000000; j++)
+            continue; /* Slow main loop down a little */
 
-        while (read(STDIN_FILENO, &ch, 1) > 0 && !done) {
-            printf("cnt=%d; read %c\n", cnt, ch);
-            done = ch == '#';
+        if (gotSigio) { /* Is input available? */
+
+            /* Read all available input until error (probably EAGAIN)
+            or EOF (not actually possible in cbreak mode) or a
+            hash (#) character is read */
+
+            while (read(STDIN_FILENO, &ch, 1) > 0 && !done) {
+                printf("cnt=%d; read %c\n", cnt, ch);
+                done = ch == '#';
+            }
+
+            gotSigio = 0;
         }
-
-        gotSigio = 0;
     }
-}
 
-/* Restore original terminal settings */
+    /* Restore original terminal settings */
 
-if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &origTermios) == -1)
-    errExit("tcsetattr");
-exit(EXIT_SUCCESS);
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &origTermios) == -1)
+        errExit("tcsetattr");
+    exit(EXIT_SUCCESS);
 }
 altio/demo_sigio.c
 ```
@@ -65847,7 +65669,7 @@ fcntl(fd, F_SETOWN, pid);
 ```c
 id = fcntl(fd, F_GETOWN);
 if (id == -1)
-    exit("fcntl");
+    errExit("fcntl");
 ```
 
 进程组 ID 号以负数的形式由该调用返回。
@@ -65939,7 +65761,7 @@ fcntl() 的 F_SETSIG 操作指定了一个可选的信号，当文件描述符�
 
 ```c
 if (fcntl(fd, F_SETSIG, sig) == -1)
-    exit("fcntl");
+    errExit("fcntl");
 ```
 
 F_GETSIG 操作完成的任务同 F_SETSIG 相反，它取回当前为文件描述符指定的信号。
@@ -65947,7 +65769,7 @@ F_GETSIG 操作完成的任务同 F_SETSIG 相反，它取回当前为文件描�
 ```c
 sig = fcntl(fd, F_GETSIG);
 if (sig == -1)
-    exit("fcntl");
+    errExit("fcntl");
 ```
 
 （为了在头文件 <fcntl.h> 中得到 F_SETSIG 和 F_GETSIG 的定义，我们必须定义测试宏 _GNU_SOURCE。）
@@ -65982,12 +65804,12 @@ if (sig == -1)
 
 | si_code | si_band 掩码值 | 描述 |
 | --- | --- | --- |
-| POLL_IN | POLLIN | POLLRDNORM |
-| POLL_OUT | POLLOUT | POLLWRNORM |
-| POLL_MSG | POLLIN | POLLRDNORM |
+| POLL_IN | POLLIN \| POLLRDNORM | 存在输入；文件结尾情况 |
+| POLL_OUT | POLLOUT \| POLLWRNORM \| POLLWRBAND | 可输出 |
+| POLL_MSG | POLLIN \| POLLRDNORM \| POLLMSG | 存在输出消息（不使用） |
 | POLL_ERR | POLLERR | I/O 错误 |
-| POLL_PRI | POLLPRI | POLLRDNORM |
-| POLL_HUP | POLLHUP | POLLERR |
+| POLL_PRI | POLLPRI \| POLLRDNORM | 存在高优先级输入 |
+| POLL_HUP | POLLHUP \| POLLERR | 出现宕机 |
 
 在一个纯输入驱动的应用程序中，我们可以进一步优化使用 F_SETSIG。
 我们可以阻塞待发出的 “I/O 就绪” 信号，然后通过 sigwaitinfo() 或 sigtimedwait()（见 22.10 节）来接收排队中的信号。
@@ -66119,7 +65941,7 @@ Returns file descriptor on success, or -1 on error
 ```c
 #include <sys/epoll.h>
 
-int epollCtl(int epfd, int op, int fd, struct epoll_event *ev);
+int epoll_ctl(int epfd, int op, int fd, struct epoll_event *ev);
 Returns 0 on success, or -1 on error
 ```
 
@@ -66184,12 +66006,12 @@ struct epoll_event ev;
 
 epfd = epoll_create(5);
 if (epfd == -1)
-    exit("epoll_create");
+    errExit("epoll_create");
 
 ev.data.fd = fd;
 ev.events = EPOLLIN;
 if (epoll_ctl(epfd, EPOLL_CTL_ADD, fd, ev) == -1)
-    exit("epoll_ctl");
+    errExit("epoll_ctl");
 ```
 
 ##### max_user_watches 上限
@@ -66249,14 +66071,14 @@ data 字段返回的是我们在描述符上使用 epoll_ctl() 注册感兴趣�
 
 | 位掩码 | 作为 epoll_ctl() 的输入？ | 由 epoll_wait() 返回？ | 描述 |
 | --- | --- | --- | --- |
-| EPOLLIN |  |  | 可读取非高优先级的数据 |
-| EPOLLPRI |  |  | 可读取高优先级数据 |
-| EPOLLRDHUP |  |  | 套接字对端关闭（始于 Linux 2.6.17 版） |
-| EPOLLOUT |  |  | 普通数据可写 |
-| EPOLLET |  |  | 采用边缘触发事件通知 |
-| EPOLLONESHOT |  |  | 在完成事件通知之后禁用检查 |
-| EPOLLERR |  |  | 有错误发生 |
-| EPOLLHUP |  |  | 出现挂断 |
+| EPOLLIN | ● | ● | 可读取非高优先级的数据 |
+| EPOLLPRI | ● | ● | 可读取高优先级数据 |
+| EPOLLRDHUP | ● | ● | 套接字对端关闭（始于 Linux 2.6.17 版） |
+| EPOLLOUT | ● | ● | 普通数据可写 |
+| EPOLLET | ● |  | 采用边缘触发事件通知 |
+| EPOLLONESHOT | ● |  | 在完成事件通知之后禁用检查 |
+| EPOLLERR |  | ● | 有错误发生 |
+| EPOLLHUP |  | ● | 出现挂断 |
 
 ##### EPOLLONESHOT 标志
 
@@ -66309,7 +66131,7 @@ $ cat > q
 Opened "q" on fd 5
 About to epoll_wait()
 Type Control-Z to suspend the epoll_input program
-[1]+  Stopped     ./poll_input p q
+[1]+  Stopped     ./epoll_input p q
 ```
 
 在上述步骤中，我们暂停了监测程序，这样我们可以在两个 FIFO 上产生输入，然后关闭其中一个 FIFO 的写端。
@@ -66319,7 +66141,7 @@ qqq
 Type Control-D to terminate “cat > q”
 $ fg %1
 cat >p
-PPP
+ppp
 ```
 
 现在，我们将监测程序带入前台恢复其运行，此时 epoll_wait() 将返回两个事件。
@@ -66331,8 +66153,10 @@ About to epoll_wait()
 Ready: 2
     fd=4; events: EPOLLIN
         read 4 bytes: ppp
+
     fd=5; events: EPOLLIN EPOLLHUP
         read 4 bytes: qqq
+
     closing fd 5
 About to epoll_wait()
 ```
@@ -66344,8 +66168,8 @@ About to epoll_wait()
 
 ```console
 Ready: 1
-fd=4; events: EPOLLHUP
-closing fd 4
+    fd=4; events: EPOLLHUP
+    closing fd 4
 All file descriptors closed; bye
 Type Control-D to terminate “cat >p”
 ```
@@ -66360,78 +66184,84 @@ Type Control-D to terminate “cat >p”
 #define MAX_BUF 1000 /* Maximum bytes fetched by a single read() */
 #define MAX_EVENTS 5 /* Maximum number of events to be returned from a single epoll_wait() call */
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     int epfd, ready, fd, s, j, numOpenFds;
     struct epoll_event ev;
     struct epoll_event evlist[MAX_EVENTS];
-char buf[MAX_BUF];
+    char buf[MAX_BUF];
 
-if (argc < 2 || strcmp(argv[1], "--help") == 0)
-usageErr("%s file...\n", argv[0]);
+    if (argc < 2 || strcmp(argv[1], "--help") == 0)
+        usageErr("%s file...\n", argv[0]);
 
-epfd = epoll_create(argc - 1);
-if (epfd == -1)
-errExit("epoll_create");
+    ① epfd = epoll_create(argc - 1);
+    if (epfd == -1)
+        errExit("epoll_create");
 
-/* Open each file on command line, and add it to the "interest
+    /* Open each file on command line, and add it to the "interest
 list" for the epoll instance */
 
-for (j = 1; j < argc; j++) {
-    fd = open(argv[j], O_RDONLY);
-    if (fd == -1)
-        errExit("open");
-    printf("Opened \"%s\" on fd %d\n", argv[j], fd);
+    ② for (j = 1; j < argc; j++) {
+        fd = open(argv[j], O_RDONLY);
+        if (fd == -1)
+            errExit("open");
+        printf("Opened \"%s\" on fd %d\n", argv[j], fd);
 
-    ev.events = EPOLLIN; /* Only interested in input events */
-    ev.data.fd = fd;
-    if (epollCtl(epfd, EPOLL_CTL_ADD, fd, &ev) == -1)
-        errExit("epollCtl");
-}
-
-numOpenFds = argc - 1;
-
-while (numOpenFds > 0) {
-
-    /* Fetch up to MAX_EVENTS items from the ready list */
-    printf("About to epoll_wait()\n");
-    ready = epoll_wait(epfd, evlist, MAX_EVENTS, -1);
-    if (ready == -1) {
-        if (errno == EINTR)
-            continue; /* Restart if interrupted by signal */
-        else
-            errExit("epoll_wait");
+        ev.events = EPOLLIN; /* Only interested in input events */
+        ev.data.fd = fd;
+        ③ if (epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &ev) == -1)
+            errExit("epoll_ctl");
     }
-    printf("Ready: %d\n", ready);
 
-    /* Deal with returned list of events */
+    numOpenFds = argc - 1;
 
-    for (j = 0; j < ready; j++) {
-        printf(" fd=%d; events: %s%s\n", evlist[j].data.fd,
-"evlist[j].events & EPOLLIN" ? "EPOLLIN " : "",
-"evlist[j].events & EPOLLHUP" ? "EPOLLHUP " : "",
-"evlist[j].events & EPOLLERR" ? "EPOLLERR " : "");
+    ④ while (numOpenFds > 0) {
 
-        if (evlist[j].events & EPOLLIN) {
-            s = read(evlist[j].data.fd, buf, MAX_BUF);
-            if (s == -1)
-                errExit("read");
-            printf(" read %d bytes: %.s\n", s, s, buf);
-        } else if (evlist[j].events & (EPOLLHUP | EPOLLERR)) {
+        /* Fetch up to MAX_EVENTS items from the ready list */
 
-            /* If EPOLLIN and EPOLLHUP were both set, then there might
-            be more than MAX_BUF bytes to read. Therefore, we close
-            the file descriptor only if EPOLLIN was not set.
+        printf("About to epoll_wait()\n");
+        ⑤ ready = epoll_wait(epfd, evlist, MAX_EVENTS, -1);
+        if (ready == -1) {
+            ⑥ if (errno == EINTR)
+                continue; /* Restart if interrupted by signal */
+            else
+                errExit("epoll_wait");
+        }
+        printf("Ready: %d\n", ready);
 
-We'll read further bytes after the next `epoll_wait()`. */
+        /* Deal with returned list of events */
 
-printf(" closing fd %d\n", evlist[j].data.fd);
-if (close(evlist[j].data.fd) == -1)
-    exit(1);
-numOpenFds--;
+        ⑦ for (j = 0; j < ready; j++) {
+            printf("  fd=%d; events: %s%s%s\n", evlist[j].data.fd,
+                    (evlist[j].events & EPOLLIN)  ? "EPOLLIN "  : "",
+                    (evlist[j].events & EPOLLHUP) ? "EPOLLHUP " : "",
+                    (evlist[j].events & EPOLLERR) ? "EPOLLERR " : "");
 
-printf("All file descriptors closed; bye\n");
-exit(EXIT_SUCCESS);
+            ⑧ if (evlist[j].events & EPOLLIN) {
+                s = read(evlist[j].data.fd, buf, MAX_BUF);
+                if (s == -1)
+                    errExit("read");
+                printf("    read %d bytes: %.*s\n", s, s, buf);
+
+            ⑨ } else if (evlist[j].events & (EPOLLHUP | EPOLLERR)) {
+
+                /* If EPOLLIN and EPOLLHUP were both set, then there might
+                be more than MAX_BUF bytes to read. Therefore, we close
+                the file descriptor only if EPOLLIN was not set.
+
+                We'll read further bytes after the next epoll_wait(). */
+
+                printf("    closing fd %d\n", evlist[j].data.fd);
+                ⑩ if (close(evlist[j].data.fd) == -1)
+                    errExit("close");
+                numOpenFds--;
+            }
+        }
+    }
+
+    printf("All file descriptors closed; bye\n");
+    exit(EXIT_SUCCESS);
 }
 altio/epoll_input.c
 ```
@@ -66458,9 +66288,9 @@ epoll_wait() 调用的目的就是让内核负责监视打开的文件描述。
 这表示我们必须对之前的观点做改进：如果一个文件描述符是 epoll 兴趣列表中的成员，当关闭它后会自动从列表中移除。
 改进版应该是这样的：一旦所有指向打开的文件描述的文件描述符都被关闭后，这个打开的文件描述将从 epoll 的兴趣列表中移除。
 这表示如果我们通过 dup()（或类似的函数）或者 fork() 为打开的文件创建了描述符副本，
-那么这个打开的文件只会在原始的描述符以及所有其他的副本都被关闭时才会移除 [^1]。
+那么这个打开的文件只会在原始的描述符以及所有其他的副本都被关闭时才会移除¹。
 
-> 译者注：本章之前都是用文件描述符（file descriptor）来表示打开了某个文件，这一段又冒出来个文件描述（file description），而文件描述和文件描述符之间还有着关联。其实是这样的：文件描述（file description）表示的是一个打开文件的上下文信息（大小、内容、编码等与文件有关的信息），可以比喻为一个抽屉，这部分内容实际上是由内核来管理的。而用户空间的应用程序如果要操作文件怎么办。就是通过 open() 这样的系统调用向内核请求，然后内核分配给用户空间一个文件描述符（file descriptor）。这个文件描述符可以比喻为抽屉的把手（handle 之所以翻译为“句柄”，这就是原因），有了这个把手（文件描述符），用户就可以操作抽屉（文件描述）里的内容了。但是，一个抽屉可以有多个把手（即文件描述可以对应多个文件描述符），只有当所有的把手（文件描述符）都关闭了，内核就知道此时没有用户空间的程序要用这个抽屉了（文件描述），那么就把它回收。
+> ¹ 译者注：本章之前都是用文件描述符（file descriptor）来表示打开了某个文件，这一段又冒出来个文件描述（file description），而文件描述和文件描述符之间还有着关联。其实是这样的：文件描述（file description）表示的是一个打开文件的上下文信息（大小、内容、编码等与文件有关的信息），可以比喻为一个抽屉，这部分内容实际上是由内核来管理的。而用户空间的应用程序如果要操作文件怎么办。就是通过 open() 这样的系统调用向内核请求，然后内核分配给用户空间一个文件描述符（file descriptor）。这个文件描述符可以比喻为抽屉的把手（handle 之所以翻译为“句柄”，这就是原因），有了这个把手（文件描述符），用户就可以操作抽屉（文件描述）里的内容了。但是，一个抽屉可以有多个把手（即文件描述可以对应多个文件描述符），只有当所有的把手（文件描述符）都关闭了，内核就知道此时没有用户空间的程序要用这个抽屉了（文件描述），那么就把它回收。
 
 > 文件描述实际上是内核中的一个数据结构，而用户空间中的文件描述符只不过是一个整数，epoll 的兴趣列表实际关注的是内核中的数据结构。所以作者在这里改进了一下之前的结论，说得更细，更准确，也符合这一节的主题“深入探究 epoll 的语义”。
 
@@ -66561,7 +66391,7 @@ struct epoll_event ev;
 ev.data.fd = fd
 ev.events = EPOLLIN | EPOLLET;
 if (epoll_ctl(epfd, EPOLL_CTL_ADD, fd, ev) == -1)
-    exit(EXIT_FAILURE);
+    errExit("epoll_ctl");
 ```
 
 我们通过一个例子来说明 epoll 的水平触发和边缘触发通知之间的区别。
@@ -66633,7 +66463,7 @@ main(int argc, char *argv[])
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
     if (sigaction(SIGUSR1, &sa, NULL) == -1)
-        exit("sigaction");
+        errExit("sigaction");
     /* What if the signal is delivered now? */
     ready = select(nfds, &readfds, NULL, NULL, NULL);
     if (ready > 0) {
@@ -66707,26 +66537,25 @@ pselect() 接口定义在 POSIX.1g 中，现在已经加入到 SUSv3 规范。
 程序清单 63-8：使用 pselect()
 
 ```c
-sigset_t emptyset, blockset;
-struct sigaction sa;
+    sigset_t emptyset, blockset;
+    struct sigaction sa;
 
-sigemptyset(&blockset);
-sigaddset(&blockset, SIGUSR1);
+    sigemptyset(&blockset);
+    sigaddset(&blockset, SIGUSR1);
 
-if (sigprocmask(SIG_BLOCK, &blockset, NULL) == -1)
+    if (sigprocmask(SIG_BLOCK, &blockset, NULL) == -1)
+        errExit("sigprocmask");
 
-errExit("sigprocmask");
+    sa.sa_sigaction = handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    if (sigaction(SIGUSR1, &sa, NULL) == -1)
+        errExit("sigaction");
 
-sa.sa_sigaction = handler;
-sigemptyset(&sa.sa_mask);
-sa.sa_flags = SA_RESTART;
-if (sigaction(SIGUSR1, &sa, NULL) == -1)
-    errExit("sigaction");
-
-sigemptyset(&emptyset);
-ready = pselect(nfds, &readfds, NULL, NULL, NULL, &emptyset);
-if (ready == -1)
-    errExit("pselect");
+    sigemptyset(&emptyset);
+    ready = pselect(nfds, &readfds, NULL, NULL, NULL, &emptyset);
+    if (ready == -1)
+        errExit("pselect");
 ```
 
 ##### ppoll() 和 epoll_pwait() 系统调用
@@ -66763,6 +66592,8 @@ if (ready == -1)
 
 同样可以采用 poll() 和 epoll_wait() 来作为这种技术的变种。
 
+程序清单 63-9：采用 self-pipe 技巧
+
 ```c
 static int pfd[2]; /* File descriptors for pipe */
 
@@ -66773,7 +66604,7 @@ handler(int sig)
 
     savedErrno = errno;
     if (write(pfd[1], "x", 1) == -1 && errno != EAGAIN)
-        exit("write");
+        errExit("write");
     errno = savedErrno;
 }
 
@@ -66781,61 +66612,60 @@ int
 main(int argc, char *argv[])
 {
     fd_set readfds;
-    int ready, nfd, flags;
+    int ready, nfds, flags;
     struct timeval timeout;
     struct timeval *pto;
     struct sigaction sa;
     char ch;
-    /* ... Initialize 'timeout', 'readfds', and 'nfd' for select() */
+    /* ... Initialize 'timeout', 'readfds', and 'nfds' for select() */
 
     if (pipe(pfd) == -1)
-        exit("pipe");
+        errExit("pipe");
 
     FD_SET(pfd[0], &readfds); /* Add read end of pipe to 'readfds' */
-    nfd = max(nfds, pfd[0] + 1); /* And adjust 'nfd' if required */
+    nfds = max(nfds, pfd[0] + 1); /* And adjust 'nfds' if required */
 
     flags = fcntl(pfd[0], F_GETFL);
     if (flags == -1)
-        exit("fcntl-F_GETFL");
-    flags |= 0 NONBLOCK; /* Make read end nonblocking */
+        errExit("fcntl-F_GETFL");
+    flags |= O_NONBLOCK; /* Make read end nonblocking */
     if (fcntl(pfd[0], F_SETFL, flags) == -1)
-        exit("fcntl-F_SETFL");
+        errExit("fcntl-F_SETFL");
 
     flags = fcntl(pfd[1], F_GETFL);
     if (flags == -1)
-        exit("fcntl-F_GETFL");
-    flags |= 0 NONBLOCK; /* Make write end nonblocking */
+        errExit("fcntl-F_GETFL");
+    flags |= O_NONBLOCK; /* Make write end nonblocking */
     if (fcntl(pfd[1], F_SETFL, flags) == -1)
-        exit("fcntl-F_SETFL");
+        errExit("fcntl-F_SETFL");
 
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART; /* Restart interrupted read()s */
     sa.sa_handler = handler;
     if (sigaction(SIGINT, &sa, NULL) == -1)
-        exit("sigaction");
+        errExit("sigaction");
 
-    while ((ready = select(nfd, &readfds, NULL, NULL, pto)) == -1 && errno == EINTR)
+    while ((ready = select(nfds, &readfds, NULL, NULL, pto)) == -1 && errno == EINTR)
         continue; /* Restart if interrupted by signal */
-    if (ready == -1)
-        exit("select");
+    if (ready == -1) /* Unexpected error */
+        errExit("select");
 
     if (FD_ISSET(pfd[0], &readfds)) { /* Handler was called */
+        printf("A signal was caught\n");
 
-printf("A signal was caught\n");
+        for (;;) { /* Consume bytes from pipe */
+            if (read(pfd[0], &ch, 1) == -1) {
+                if (errno == EAGAIN)
+                    break; /* No more bytes */
+                else
+                    errExit("read"); /* Some other error */
+            }
 
-for (;;) {
-    if (read(pfd[0], &ch, 1) == -1) {
-        if (errno == EAGAIN)
-            break;
-        else
-            exit("read"); /* Some other error */
+            /* Perform any actions that should be taken in response to signal */
+        }
     }
 
-    /* Perform any actions that should be taken in response to signal */
-}
-}
-
-/* Examine file descriptor sets returned by select() to see
+    /* Examine file descriptor sets returned by select() to see
 which other file descriptors are ready */
 
 }
@@ -66988,8 +66818,7 @@ Linux 也提供了类似（但非标准）的 ppoll() 和 epoll_pwait() 接口�
 通常，驱动程序同时读取输入并将输出写入到另一个 I/O 通道中。
 它的行为就如同一个中继，在伪终端和另一个程序间双向传递数据。
 为了实现这一点，驱动程序必须同时监控两个方向上的输入。
-这通常由 I/O 多路复用（select() 或 poll()）来实现，也可以采用一对进程或线程来实现。
-程在两个方向上做数据传输。
+这通常由 I/O 多路复用（select() 或 poll()）来实现，也可以采用一对进程或线程在两个方向上做数据传输。
 
 一般情况下使用伪终端的应用程序会按照如下步骤来做。
 
@@ -67233,7 +67062,7 @@ Returns file descriptor on success, or -1 on error
 
 函数 ptyMasterOpen() 打开一个未使用的伪终端主设备，调用 grantpt() 并通过 unlockpt() 对其解锁，
 然后将对应的伪终端从设备名拷贝到 slaveName 所指向的缓冲区中。
-调用者必须通过参
+调用者必须通过参数 snLen 指定缓冲区的空间大小。
 
 省略参数 slaveName 和 snLen 也是同样可行的，我们可以让 ptyMasterOpen() 的调用者直接调用 ptsname() 来获取伪终端从设备名称。
 但是，我们这里使用 slaveName 和 snLen 参数是因为 BSD 风格的伪终端实现并没有提供和 ptsname() 功能相同的函数，
@@ -67258,14 +67087,14 @@ ptyMasterOpen(char *slaveName, size_t snLen)
     if (masterFd == -1)
         return -1;
 
-    if (grantpt(masterFd) == -1) {
+    if (grantpt(masterFd) == -1) { /* Grant access to slave pty */
         savedErrno = errno;
         close(masterFd); /* Might change 'errno' */
         errno = savedErrno;
         return -1;
     }
 
-    if (unlockpt(masterFd) == -1) {
+    if (unlockpt(masterFd) == -1) { /* Unlock slave pty */
         savedErrno = errno;
         close(masterFd); /* Might change 'errno' */
         errno = savedErrno;
@@ -67281,15 +67110,16 @@ ptyMasterOpen(char *slaveName, size_t snLen)
     }
 
     if (strlen(p) < snLen) {
-        strcpy(slaveName, p, snLen);
-    } else {
-        close(masterFd); /* Return an error if buffer too small */
+        strncpy(slaveName, p, snLen);
+    } else { /* Return an error if buffer too small */
+        close(masterFd);
         errno = EOVERFLOW;
         return -1;
     }
+
+    return masterFd;
 }
-return masterFd;
-}
+pty/pty_master_open.c
 ```
 
 ### 64.4 将进程连接到伪终端：ptyFork()
@@ -67366,35 +67196,35 @@ ptyFork(int *masterFd, char *slaveName, size_t snLen,
 {
     int mfd, slaveFd, savedErrno;
     pid_t childPid;
-    char sname[MAX_SNAME];
+    char slname[MAX_SNAME];
 
-    mfd = ptyMasterOpen(sname, MAX_SNAME);
+① mfd = ptyMasterOpen(slname, MAX_SNAME);
     if (mfd == -1)
         return -1;
 
-    if (slaveName != NULL) {
+② if (slaveName != NULL) {
         /* Return slave name to caller */
-        if (strlen(sname) < snLen) {
-            strncpy(slaveName, sname, snLen);
-        } else {
+        if (strlen(slname) < snLen) {
+            strncpy(slaveName, slname, snLen);
+        } else { /* 'slaveName' was too small */
             close(mfd);
             errno = EOVERFLOW;
             return -1;
         }
     }
 
-    childPid = fork();
-}
-if (childPid == -1) {
-    savedErrno = errno;
-    close(mfd);
-    errno = savedErrno;
-    return -1;
-}
+③ childPid = fork();
 
-④ if (childPid != 0) {
-    *masterFd = mfd;
-    return childPid;
+    if (childPid == -1) { /* fork() failed */
+        savedErrno = errno; /* close() might change 'errno' */
+        close(mfd); /* Don't leak file descriptors */
+        errno = savedErrno;
+        return -1;
+    }
+
+④ if (childPid != 0) { /* Parent */
+    *masterFd = mfd; /* Only parent gets master fd */
+    return childPid; /* Like parent of fork() */
 }
 
 /* Child falls through to here */
@@ -67404,14 +67234,14 @@ if (childPid == -1) {
 
 ⑥ close(mfd);                  /* Not needed in child */
 
-⑦ slaveFd = open(sname, O_RDWR); /* Becomes controlling tty */
+⑦ slaveFd = open(slname, O_RDWR); /* Becomes controlling tty */
     if (slaveFd == -1)
         err_exit("ptyFork:open-slave");
 
 ⑧ #ifdef TIOCSCTTY              /* Acquire controlling tty on BSD */
     if (ioctl(slaveFd, TIOCSCTTY, 0) == -1)
         err_exit("ptyFork:ioctl-TIOCSCTTY");
-    #endif
+#endif
 
 ⑨ if (slaveTermios != NULL)      /* Set slave tty attributes */
     if (tcsetattr(slaveFd, TCSANOW, slaveTermios) == -1)
@@ -67420,7 +67250,7 @@ if (childPid == -1) {
 ⑩ if (slaveWS != NULL)          /* Set slave tty window size */
     if (ioctl(slaveFd, TIOCSWINSZ, slaveWS) == -1)
         err_exit("ptyFork:ioctl-TIOCSWINSZ");
-/* Duplicatepty slave to be child's stdin, stdout, and stderr */
+/* Duplicate pty slave to be child's stdin, stdout, and stderr */
 
 ⑪ if (dup2(slaveFd, STDIN_FILENO) != STDIN_FILENO)
     err_exit("ptyFork:dup2-STDIN_FILENO");
@@ -67434,6 +67264,7 @@ if (childPid == -1) {
 
     return 0;                          /* Like child of fork() */
 }
+pty/pty_fork.c
 ```
 
 ### 64.5 伪终端 I/O
@@ -67492,7 +67323,7 @@ int arg;
 
 arg = 1; /* 1 == enable; 0 == disable */
 if (ioctl(mfd, TIOCPKT, &arg) == -1)
-    exit(EXIT("ioctl"));
+    errExit("ioctl");
 ```
 
 当启动了信包模式后，从伪终端主设备读取要么返回一个单字节非零控制符，
@@ -67574,12 +67405,11 @@ script 进程对用户表现为一个代理，接收键入到终端的输入然�
 
 struct termios ttyOrig;
 
-static void
-    /* Reset terminal mode on program exit */
+static void             /* Reset terminal mode on program exit */
 ttyReset(void)
 {
     if (tcsetattr(STDIN_FILENO, TCSANOW, &ttyOrig) == -1)
-        exitExit("tcsetattr");
+        errExit("tcsetattr");
 }
 
 int
@@ -67594,47 +67424,47 @@ main(int argc, char *argv[])
     ssize_t numRead;
     pid_t childPid;
 
-    if (tcgetattr(STDIN_FILENO, &tyyOrig) == -1)
+    ① if (tcgetattr(STDIN_FILENO, &ttyOrig) == -1)
         errExit("tcgetattr");
-
     if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) < 0)
         errExit("ioctl-TIOCGWINSZ");
 
-    childPid =ptyFork(&masterFd, slaveName, MAX_SNAME, &tyyOrig, &ws);
+    ② childPid = ptyFork(&masterFd, slaveName, MAX_SNAME, &ttyOrig, &ws);
     if (childPid == -1)
         errExit("ptyFork");
 
-    if (childPid == 0) { /* Child: execute a shell onpty slave */
-        shell = getenv("SHELL");
+    if (childPid == 0) { /* Child: execute a shell on pty slave */
+        ③ shell = getenv("SHELL");
         if (shell == NULL || *shell == '\0')
             shell = "/bin/sh";
 
-        execvp(shell, shell, (char *) NULL);
-        errExit("execvp");
-    } /* Parent: relay data between terminal andpty master */
+        ④ execlp(shell, shell, (char *) NULL);
+        errExit("execlp");      /* If we get here, something went wrong */
+    }
 
-    scriptFd = open((argc > 1) ? argv[1] : "typescript",
+    /* Parent: relay data between terminal and pty master */
+
+    ⑤ scriptFd = open((argc > 1) ? argv[1] : "typescript",
         O_WRONLY | O_CREAT | O_TRUNC,
-        S_IWRITE | S_IUMUSR | S_IIRGRP | S_IWGRP |
+        S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
         S_IROTH | S_IWOTH);
-
     if (scriptFd == -1)
         errExit("open typescript");
 
-    ttySetRaw(STDIN_FILENO, &tyyOrig);
+    ⑥ ttySetRaw(STDIN_FILENO, &ttyOrig);
 
-    if (atexit(ttyReset) != 0)
+    ⑦ if (atexit(ttyReset) != 0)
         errExit("atexit");
 
-    for (;;) {
+    ⑧ for (;;) {
         FD_ZERO(&inFds);
         FD_SET(STDIN_FILENO, &inFds);
         FD_SET(masterFd, &inFds);
 
-        if (select(masterFd + 1, &inFds, NULL, NULL, NULL) == -1)
+        ⑨ if (select(masterFd + 1, &inFds, NULL, NULL, NULL) == -1)
             errExit("select");
 
-        if (FD_ISSET(STDIN_FILENO, &inFds)) { /* stdin -->pty */
+        ⑩ if (FD_ISSET(STDIN_FILENO, &inFds)) { /* stdin --> pty */
             numRead = read(STDIN_FILENO, buf, BUF_SIZE);
             if (numRead <= 0)
                 exit(EXIT_SUCCESS);
@@ -67643,16 +67473,17 @@ main(int argc, char *argv[])
                 fatal("partial/failed write (masterFd)");
         }
 
-if (FD_ISSET(masterFd, &inFds)) { /*pty ---> stdout+file */
-    numRead = read(masterFd, buf, BUF_SIZE);
-    if (numRead <= 0)
-        exit(EXIT_SUCCESS);
-    if (write(STDOUT_FILENO, buf, numRead) != numRead)
-        fatal("partial/failed write (STDOUT_FILENO)");
-    if (write(scriptFd, buf, numRead) != numRead)
-        fatal("partial/failed write (scriptFd)");
-}
-}
+        ⑪ if (FD_ISSET(masterFd, &inFds)) { /* pty --> stdout+file */
+            numRead = read(masterFd, buf, BUF_SIZE);
+            if (numRead <= 0)
+                exit(EXIT_SUCCESS);
+
+            if (write(STDOUT_FILENO, buf, numRead) != numRead)
+                fatal("partial/failed write (STDOUT_FILENO)");
+            if (write(scriptFd, buf, numRead) != numRead)
+                fatal("partial/failed write (scriptFd)");
+        }
+    }
 }
 pty/script.c
 ```
@@ -67664,7 +67495,7 @@ pty/script.c
 ```console
 $ tty
 /dev/pts/1
-$ echo $
+$ echo $$
 7979
 ```
 
@@ -67752,7 +67583,7 @@ BSD 伪终端同 UNIX 98 伪终端的区别仅仅只在如何找到并打开伪�
 每个主设备的名称按照 /dev/ptyxy 的形式呈现，
 这里 x 会由 [p-z-a-e] 范围内的 16 个字符来替换，而 y 由 [0-9a-f] 范围内的 16 个字符来替换。
 与特定的伪终端主设备相对应的从设备名形式为 /dev/ttyxt。
-因此，举个例子，/dev/ptyp0 和 /dev/ttyp0 就组成了一对 BSD
+因此，举个例子，/dev/ptyp0 和 /dev/ttyp0 就组成了一对 BSD 风格的伪终端。
 
 不同的 UNIX 实现对于 BSD 风格的伪终端，所提供的数量和名字都有所不同。
 在有些实现中默认提供 32 对。
@@ -67792,10 +67623,10 @@ pty/pty_master_open_bsd.c
 
 #define PTYM_PREFIX "/dev/pty"
 #define PTYS_PREFIX "/dev/tty"
-#define PTY_PREFIX_LEN (sizeof(PTY_PREFIX) - 1)
+#define PTY_PREFIX_LEN (sizeof(PTYM_PREFIX) - 1)
 #define PTY_NAME_LEN (PTY_PREFIX_LEN + sizeof("XY"))
 #define X_RANGE "pqrstuvwxyzabcde"
-#define Y_RANGE "0123456789abcdefghijklmnopqrstuvwxyz"
+#define Y_RANGE "0123456789abcdef"
 
 int
 ptyMasterOpen(char *slaveName, size_t snLen)
@@ -67804,39 +67635,42 @@ ptyMasterOpen(char *slaveName, size_t snLen)
     char *x, *y;
     char masterName[PTY_NAME_LEN];
 
-if (PTY_NAME_LEN > snLen) {
-    errno = EOVERFLOW;
-    return -1;
-}
-memset(masterName, 0, PTY_NAME_LEN);
-strncpy(masterName, PTYM_PREFIX, PTY_PREFIX_LEN);
+    if (PTY_NAME_LEN > snLen) {
+        errno = EOVERFLOW;
+        return -1;
+    }
+    memset(masterName, 0, PTY_NAME_LEN);
+    strncpy(masterName, PTYM_PREFIX, PTY_PREFIX_LEN);
 
-for (x = X_RANGE; *x != '\0'; x++) {
-    masterName[PTY_PREFIX_LEN] = *x;
+    for (x = X_RANGE; *x != '\0'; x++) {
+        masterName[PTY_PREFIX_LEN] = *x;
 
-    for (y = Y_RANGE; *y != '\0'; y++) {
-        masterName[PTY_PREFIX_LEN + 1] = *y;
+        for (y = Y_RANGE; *y != '\0'; y++) {
+            masterName[PTY_PREFIX_LEN + 1] = *y;
 
-        masterFd = open(masterName, O_RDWR);
+            masterFd = open(masterName, O_RDWR);
 
-        if (masterFd == -1) {
-            if (errno == ENOENT)        /* No such file */
-                return -1;                /* Probably no morepty devices */
-            else                        /* Other error (e.g.,pty busy) */
-                continue;
-        } else {                        /* Return slave name corresponding to master */
-            n = snprintf(slaveName, snLen, "%s%c%c", PTYS_PREFIX, *x, *y);
-            if (n >= snLen) {
-                errno = EOVERFLOW;
-                return -1;
-            } else if (n == -1) {
-                return -1;
+            if (masterFd == -1) {
+                if (errno == ENOENT)    /* No such file */
+                    return -1;          /* Probably no more pty devices */
+                else                    /* Other error (e.g., pty busy) */
+                    continue;
+
+            } else {                    /* Return slave name corresponding to master */
+                n = snprintf(slaveName, snLen, "%s%c%c", PTYS_PREFIX, *x, *y);
+                if (n >= snLen) {
+                    errno = EOVERFLOW;
+                    return -1;
+                } else if (n == -1) {
+                    return -1;
+                }
+
+                return masterFd;
             }
         }
-        return masterFd;
     }
-}
-return -1;                    /* Tried all ptys without success */
+
+    return -1;                          /* Tried all ptys without success */
 }
 ```
 
@@ -67945,11 +67779,11 @@ strace 会将输出写入到 stderr 中，
 ```console
 execve("/bin/date", ["date"], [/* 114 vars */]) = 0
 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
-open("/etc/ld.so.cache", O_RONLY) = 3
+open("/etc/ld.so.cache", O_RDONLY) = 3
 fstat64(3, {st_mode=S_IFREG|0644, st_size=111059, ...}) = 0
 mmap2(NULL, 111059, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb7f38000
 close(3) = 0
-open("/lib/libc.so.6", O_RONLY) = 3
+open("/lib/libc.so.6", O_RDONLY) = 3
 fstat64(3, {st_mode=S_IFREG|0755, st_size=1491141, ...}) = 0
 close(3) = 0
 write(1, "Mon Jan 17 12:14:24 CET 2011\n", 29) = 29
@@ -68245,7 +68079,7 @@ opt =112 (p); optind = 3
 而不是单独作为选项。
 
 ```c
-#include <type.h>
+#include <ctype.h>
 #include "tlpi_hdr.h"
 
 #define printable(ch) (isprint((unsigned char) ch) ? ch : '#')
@@ -68261,29 +68095,29 @@ usageError(char *progName, char *msg, int opt)
 
 int main(int argc, char *argv[])
 {
-    int opt, xfd;
+    int opt, xfnd;
     char *pstr;
 
-    xfd = 0;
+    xfnd = 0;
     pstr = NULL;
 
     while ((opt = getopt(argc, argv, ":p:x")) != -1) {
         printf("opt =%3d (%c); optind = %d", opt, printable(opt), optind);
         if (opt == '?' || opt == ':')
-            printf(" opt: optopt =%3d (%c)", optopt, printable(optopt));
+            printf("; optopt =%3d (%c)", optopt, printable(optopt));
         printf("\n");
 
         switch (opt) {
             case 'p': pstr = optarg; break;
-            case 'x': xfd++; break;
+            case 'x': xfnd++; break;
             case ':': usageError(argv[0], "Missing argument", optopt);
             case '?': usageError(argv[0], "Unrecognized option", optopt);
-            default: fatal("Unexpected case in switch");
+            default: fatal("Unexpected case in switch()");
         }
     }
 
-    if (xfd != 0)
-        printf("-x was specified (count=%d)\n", xfd);
+    if (xfnd != 0)
+        printf("-x was specified (count=%d)\n", xfnd);
     if (pstr != NULL)
         printf("-p was specified with the value \"%s\"\n", pstr);
     if (optind < argc)
@@ -68348,7 +68182,7 @@ POSIXLY_CORRECT 会导致很多 Linux 下的工具行为发生改变。
 （如果我们也希望像前面描述过的那样禁止 getopt() 打印错误消息，
 那么 optstring 的前两个字符就应该是 +:，
 顺序不能改变。）
-这种方法的缺点在于需要修改程序代码。
+由于会用到 putenv() 和 setenv()，这种方法的缺点在于需要修改程序代码。
 请参阅 getopt(3) 用户手册页以获得更多细节。
 
 未来对 SUSv4 的技术勘误中很可能会增加关于在 optstring 中使用加号来阻止对命令行参数进行重排列的规范。
@@ -68425,7 +68259,7 @@ GNU C 函数库对 getopt() 提供了一些扩展，
 考虑如下对变参型函数 execl() 的调用：
 
 ```c
-exec("ls", "ls", "-l", (char *) NULL);
+execl("ls", "ls", "-l", (char *) NULL);
 ```
 
 变参型函数是指可接收的参数数量可变，
@@ -68456,10 +68290,9 @@ C 标准规定常数 0 可以用在任何需要用到指针的上下文中，
 
 ```c
 int *p;
-p = 0;
-p = NULL;
-/* Assign null pointer to 'p' */
-/* Same as 'p = 0' */
+
+p = 0;                      /* Assign null pointer to 'p' */
+p = NULL;                   /* Same as 'p = 0' */
 ```
 
 上面的赋值语句可以正常工作，
@@ -68876,8 +68709,8 @@ Linux Cross-reference，
 
 ```console
 $ ls -l f1 f2
--rw------ 1 mtk users 2000000 Jan 9 11:14 f1
--rw------ 1 mtk users 1999962 Jan 9 11:14 f2
+-rw------- 1 mtk users 2000000 Jan 9 11:14 f1
+-rw------- 1 mtk users 1999962 Jan 9 11:14 f2
 ```
 
 因为 lseek() 和 write() 的组合操作不具有原子性，
@@ -68893,7 +68726,6 @@ fd = fcntl(oldfd, F_DUPFD, 0);
 对 dup2() 的调用可以改写为：
 
 ```c
-c
 if (oldfd == newfd) {
     /* oldfd == newfd is a special case */
     if (fcntl(oldfd, F_GETFL) == -1) {
@@ -68958,7 +68790,7 @@ if (oldfd == newfd) {
 9-4. 以下代码显示了每个系统调用的步骤。
 
 ```c
-e = getuid(); /* Save initial value of effective user ID */
+e = geteuid(); /* Save initial value of effective user ID */
 setuid(getuid()); /* Suspend privileges */
 setuid(e); /* Resume privileges */
 /* Can't permanently drop the set-user-ID identity with setuid() */
@@ -69123,7 +68955,7 @@ gdb gcore 命令为程序执行类似任务，
 
 ```c
 if (kill(childPid, SIGUSR1) == -1)
-    exit("kill")
+    errExit("kill");
 ```
 
 在子进程中添加一个逆向的 sigsuspend() 调用。
@@ -69238,7 +69070,7 @@ threadFunc() 函数继续对主线程堆栈中的数据进行操作，
 34-1. 假设程序是一个 shell 管道的一部分。
 
 ```console
-$. /ourprog | grep 'some string'
+$ ./ourprog | grep 'some string'
 ```
 
 这里存在的问题是 grep 与 ourprog 同属一个进程组，
