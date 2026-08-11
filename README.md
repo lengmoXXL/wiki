@@ -11,7 +11,6 @@
 - [The Google File System](tr/gfs-2003.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
 - [Just for Fun](tr/just-for-fun-2002.md)：`oss://lengmo-asserts/books/just-for-fun-2002.pdf`
 - [Kafka: a Distributed Messaging System for Log Processing](tr/kafka-2011.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
-- [Linux/UNIX 系统编程手册](tr/linux-unix-系统编程手册-2014.md)：`oss://lengmo-asserts/books/linux-unix-系统编程手册-上-2014.pdf`、`oss://lengmo-asserts/books/linux-unix-系统编程手册-下-2014.pdf`
 - [The RocksDB Experience](tr/rocksdb-2021.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
 - [Scaling Memcache at Facebook](tr/scaling-memcache-at-facebook-2013.md)：`oss://lengmo-asserts/papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf`
 - [Silent Data Corruptions at Scale](tr/slient-data-corruptions-at-scale-2021.md)：`oss://lengmo-asserts/papers/machine/slient-data-corruptions-at-scale-2021.pdf`
