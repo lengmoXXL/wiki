@@ -68,7 +68,7 @@ DynamoDB 以独特的方式整合了以下六项基本系统属性：
   DynamoDB 将不同客户的数据存储在相同的物理机器上，
   以确保资源得到充分利用，
   从而将节省的成本让利给客户。
-  资源预留、紧密预置和受监控的使用情况，
+  资源预留、严格预置和受监控的使用情况，
   为共同驻留的表工作负载提供隔离。
 - **DynamoDB 使表可以无界扩展。**
   每个表能够存储的数据量没有预定义上限。
@@ -87,7 +87,7 @@ DynamoDB 以独特的方式整合了以下六项基本系统属性：
   即使表从几 MB 增长到数百 TB，
   由于 DynamoDB 采用分布式数据放置和请求路由算法，
   延迟仍能保持稳定。
-  DynamoDB 通过水平扩展处理任意流量，
+  DynamoDB 通过水平扩展处理任意规模的流量，
   并自动对数据进行 partition 划分和重新划分，
   以满足应用程序的 Input/Output（I/O）性能要求。
 - **DynamoDB 高度可用。**
@@ -98,7 +98,7 @@ DynamoDB 以独特的方式整合了以下六项基本系统属性：
   以满足严格的可用性与持久性要求。
   客户还可以创建跨所选 Region 进行地理复制的 global table，
   用于灾难恢复并从任何地点提供低延迟访问。
-  DynamoDB 为普通表提供 99.99% 的 Service Level Agreement（SLA），
+  DynamoDB 为普通表提供可用性达 99.99% 的 Service Level Agreement（SLA），
   为 global table 提供 99.999% 的 SLA；
   对于后者，
   DynamoDB 会跨多个 AWS Region 复制表。
@@ -195,7 +195,7 @@ SimpleDB 提供多数据中心复制、高可用性和高持久性，
 客户无须设置、配置数据库或为其打补丁。
 与 Dynamo 一样，
 SimpleDB 也提供非常简单的表接口和受限的查询集，
-可以作为许多开发者的构建基础。
+可以作为许多开发者的构建块。
 SimpleDB 虽然很成功并支撑了许多应用程序，
 但也存在一些局限。
 其一是表的存储容量较小，
@@ -214,7 +214,7 @@ SimpleDB API 无法实现消除 SimpleDB 局限、提供性能可预测的可扩
 更好的解决方案应结合原始 Dynamo 设计的优点，
 即增量可扩展性和可预测的高性能，
 以及 SimpleDB 的优点，
-即云服务易于管理、一致性，
+即云服务易于管理、支持一致性，
 以及比纯键值存储更丰富的表数据模型。
 这些架构讨论最终催生了 Amazon DynamoDB，
 并于 2012 年作为公共服务推出。
@@ -280,7 +280,7 @@ replication group 使用 Multi-Paxos [14] 进行 leader 选举和共识。
 收到写请求后，
 负责所写 key 的 replication group leader 会生成 write-ahead log 记录，
 并将其发送给 peer replica。
-当达到 quorum 的 peer 已把日志记录持久化到各自的本地 write-ahead log 后，
+当 quorum 数量的 peer 把日志记录持久化到各自的本地 write-ahead log 后，
 系统才向应用程序确认写入成功。
 DynamoDB 支持强一致性读取和最终一致性读取。
 replication group 中的任何 replica 都可以处理最终一致性读取。
@@ -380,7 +380,7 @@ storage node 根据其本地存储 partition 的分配独立执行 admission con
 每个 partition 的已分配吞吐量被用于隔离工作负载。
 DynamoDB 对单个 partition 可以分配的最大吞吐量设置上限，
 并确保 storage node 所承载全部 partition 的总吞吐量，
-小于或等于根据其存储驱动物理特性确定的节点最大允许吞吐量。
+小于或等于根据存储驱动器的物理特性确定的节点最大允许吞吐量。
 
 当整张表的吞吐量发生变化，
 或其 partition 被拆分成子 partition 时，
@@ -479,7 +479,7 @@ partition 用完所有 provisioned token 后，
 系统依据本地 token bucket 接纳读请求。
 写请求要使用 burst capacity，
 还需要检查该 partition 其他成员 replica 所在节点的节点级 token bucket。
-partition 的 leader replica 会定期收集各成员节点的容量信息。
+partition 的 leader replica 会定期收集每个成员的节点级容量信息。
 第 4.3 节说明我们如何提高节点的 burst 能力。
 
 #### 4.1.2 Adaptive capacity
@@ -582,7 +582,7 @@ partition 绝不允许接收超过 allocated capacity 的流量，
 这让租户共同放置成为更复杂的挑战。
 因此，
 系统会在 storage node 上装入一组 replica，
-它们的 provisioned capacity 总量超过节点的整体 provisioned capacity。
+其 provisioned capacity 总量超过节点的总容量。
 DynamoDB 实现了一个系统，
 根据吞吐量消耗与存储空间主动平衡 storage node 间分配的 partition，
 从而缓解 replica 紧密装箱造成的可用性风险。
@@ -987,7 +987,7 @@ cache hit rate 约为 99.75%。
 因此 metadata service 必须扩展到能以与 DynamoDB 相同的速率处理请求。
 在实践中，
 我们曾在向 request router 机群增加新容量时观察到这种效应。
-metadata service 流量偶尔会激增，最高达到 75%。
+metadata service 流量偶尔会激增，增幅最高可达 75%。
 因此，
 引入新的 request router 会影响性能，
 并可能使系统不稳定。
@@ -1089,7 +1089,7 @@ DynamoDB 一直保持这些关键属性，
 ## 9 致谢
 
 DynamoDB 从客户身上获益良多，
-客户持续不断的反馈推动我们代表他们进行创新。
+客户持续不断的反馈推动我们为他们不断创新。
 在这段历程中，
 我们有幸与一支卓越的团队同行。
 感谢 Shawn Bice、Rande Blackman、Marc Brooker、Lewis Bruck、Andrew Certain、Raju Gulabani、James Hamilton、Long Huang、Yossi Levanson、David Lutz、Maximiliano Maccanti、Rama Pokkunuri、Tony Petrossian、Jim Scharf、Khawaja Shams、Stefano Stefani、Allan Vermuellen、Wei Xiao 和整个 DynamoDB 团队，
