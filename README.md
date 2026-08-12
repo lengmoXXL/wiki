@@ -13,6 +13,8 @@
 - [Kafka: a Distributed Messaging System for Log Processing](tr/kafka-2011.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
 - [The RocksDB Experience](tr/rocksdb-2021.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
 - [Scalable Leader Leases for Multi Consensus Groups in CockroachDB](tr/crdb-2026.md)：`oss://lengmo-asserts/papers/distributed-systems/crdb-2026.pdf`
+- [Dynamo: Amazon's Highly Available Key-value Store](tr/dynamo-2007.md)：`oss://lengmo-asserts/papers/distributed-systems/dynamo-2007.pdf`
+- [Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service](tr/dynamo-2022.md)：`oss://lengmo-asserts/papers/distributed-systems/dynamo-2022.pdf`
 - [Scaling Memcache at Facebook](tr/scaling-memcache-at-facebook-2013.md)：`oss://lengmo-asserts/papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf`
 - [Silent Data Corruptions at Scale](tr/slient-data-corruptions-at-scale-2021.md)：`oss://lengmo-asserts/papers/machine/slient-data-corruptions-at-scale-2021.pdf`
 - [Software Architecture: The Hard Parts](tr/software-architecture-2021.md)：`oss://lengmo-asserts/books/software-architecture-2021.pdf`
