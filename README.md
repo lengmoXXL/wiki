@@ -5,6 +5,7 @@
 - [A Critique of Snapshot Isolation](tr/critique-of-snapshot-isolation-2012.md)：`oss://lengmo-asserts/papers/distributed-systems/critique-of-snapshot-isolation-2012.pdf`
 - [Bigtable: A Distributed Storage System for Structured Data](tr/bigtable-2006.md)：`oss://lengmo-asserts/papers/distributed-systems/bigtable-2006.pdf`
 - [Building Event-Driven Microservices](tr/build-event-driven-microservices-2025.md)：`oss://lengmo-asserts/books/build-event-driven-microservices-2025.pdf`
+- [Database Internals](tr/database-internals-2019.md)：`oss://lengmo-asserts/books/database-internals-2019.pdf`
 - [Cores that don't count](tr/cores-dont-count-2021.md)：`oss://lengmo-asserts/papers/machine/cores-dont-count-2021.pdf`
 - [Designing Data-Intensive Applications](tr/ddia-2026.md)：`oss://lengmo-asserts/books/ddia-2026.pdf`
 - [Efficient Memory Management for Large Language Model Serving with PagedAttention](tr/llm-serving-2023.md)：`oss://lengmo-asserts/papers/llm/llm-serving-2023.pdf`
