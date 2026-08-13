@@ -246,7 +246,7 @@ leader 就进入第二阶段，
 通过获得多数参与者的支持来作出决定。
 leader 负责保留在算法第一阶段获知的所有过去决定，
 并且只在安全的情况下才提议新值。
-只要多数派参与者在线并同步通信，
+只要至少多数参与者在线并同步通信，
 该算法就保证能达成决定。
 这种方法现在被广泛采用，
 成为许多生产系统的基础。
@@ -684,7 +684,7 @@ Raft 集群通常包含五台服务器 [OO14, §5.1]。
 把 proposer 集合记为 $P = \{p_1, p_2, \ldots\}$，
 其中 $P \subseteq U$ 且 $|P| = n_p$。
 共识算法定义了 acceptor 从 proposer 提出的值中选定值 $v$ 的过程。
-我们把 acceptor 对某个特定值作出承诺的时刻称为*提交点*。
+我们把 acceptor 已对某个特定值作出决定的时刻称为*提交点*。
 在这一时刻之后，
 $v$ 已被决定，
 之后不能再更改。
@@ -931,7 +931,7 @@ proposer 确信尚没有任何值被决定，
 那么在阶段二中就必须改为提出那个值。
 这两个阶段各自都需要多数派 acceptor 同意才能继续。
 
-我们现在定义 *epoch* 和*提案*两个术语，
+我们现在定义 *epoch* 和 *提案*两个术语，
 然后用它们来概括经典 Paxos 算法。
 
 **定义 2.** epoch $e$ 是 epoch 集合 $E$ 的任意成员。
@@ -955,7 +955,7 @@ acceptor 收到 $prepare(e)$ 时，
 $f$ 是 epoch，
 $v$ 是相应的提案值。
 
-3. 一旦 proposer 从多数派 acceptor 收到 $promise(e,_,\_)$，
+3. 一旦 proposer 从多数派 acceptor 收到 $promise(e,_,_-)$，
 就进入阶段二。
 承诺中可以包含最近接受的提案，
 供下一阶段使用。
@@ -1133,7 +1133,7 @@ acceptor 就回复 $promise(e,e_{acc},v_{acc})$（算法 4 第 6 行）。
 如果 acceptor 尚未接受任何提案，
 $e_{acc}$ 和 $v_{acc}$ 就是 nil。
 当 acceptor 发出承诺消息时，
-我们称该 acceptor 已$承诺$ epoch $e$[^ch2-13]。
+我们称该 acceptor 已承诺 epoch $e$[^ch2-13]。
 
 如果消息是 $propose(e,v)$，
 acceptor 就把 $e_{acc}$ 和 $v_{acc}$ 设为提案 $(e,v)$（算法 4 第 10 行），
@@ -1189,7 +1189,7 @@ proposer $p_1$ 执行经典 Paxos，
 
 > 图 2.4：经典 Paxos 的示例运行，其中 proposer $p_1$ 在阶段二中、到达提交点之前停止。proposer $p_2$ 没有观测到来自 $p_1$ 的提案。
 
-在图 2.3 中，
+在图 2.3 中，初始时
 proposer $p_2$ 已执行经典 Paxos，
 提案 $(1, B)$ 已被决定并被所有 acceptor 接受。
 随后 proposer $p_1$ 以 epoch 0 执行阶段一，
@@ -1285,7 +1285,7 @@ acceptor 在更新其最近接受的提案之后回复接受。
 ## 2.5 非平凡性
 
 首先，
-经典 Paxos 要求解分布式共识，
+经典 Paxos 要能求解分布式共识，
 就必须满足非平凡性。
 令 $\Gamma$ 表示 proposer 提出的候选值集合，
 则非平凡性可表述为：
@@ -1481,13 +1481,13 @@ $f$ 中的 proposer 必定是在完成阶段一并按值选择规则选定 $w$ �
 
 由引理 11，
 至少有一个 acceptor 既向 $e$ 中的 proposer 发送过 $accept(e,v)$，
-又向 $f$ 中的 proposer 发送过 $promise(f,_,\_)$，
+又向 $f$ 中的 proposer 发送过 $promise(f,_,-)$，
 因为 $e < f$。
 
 由引理 10，
 由于 $e < f$，
 该 acceptor 先发送 $accept(e,v)$，
-后发送 $promise(f,_,\_)$。
+后发送 $promise(f,_,_-)$。
 
 在发送 $accept(e,v)$ 之前，
 该 acceptor 已把最近承诺的 epoch（性质 7）和最近接受的 epoch 设为 $e$，
@@ -1497,7 +1497,7 @@ $f$ 中的 proposer 必定是在完成阶段一并按值选择规则选定 $w$ �
 该 acceptor 在发送 $accept(e,v)$ 之后只能接受 $\ge e$ 的提案。
 反过来，
 由引理 8，
-在发送 $promise(f,_,\_)$ 之前，
+在发送 $promise(f,_,_-)$ 之前，
 该 acceptor 只可能接受过 $\le f$ 的提案。
 因此该 acceptor 只会因为 $e$ 到 $f$ 之间的提案更新其最近接受的值。
 所以它发出的必定是 $promise(f,g,x)$，
@@ -1668,7 +1668,7 @@ $p$ 必定从多数派 acceptor 收到了某个 epoch $e$ 的 $accept(e)$（性�
 本节要证明的进展性必须依赖某些活性条件，
 FLP 结果 [FLP85] 已经证明了这一点。
 我们对进展的表述如下：
-从时刻 0 到全局稳定时间（Global Stabilisation Time，GST），
+从时刻 0 到 Global Stabilisation Time（GST），
 参与者系统一直在执行经典 Paxos。
 在此期间不对活性作任何假设。
 在 GST 时刻，
@@ -1841,7 +1841,7 @@ SAA 中的 proposer 保证在一次到 acceptor 的往返内终止；
 
 [^ch2-8]: 更准确地说，它是一族算法。
 
-[^ch2-9]: epoch 在文献中也称为 term [OO14, §5.1]、view number [LC12, §3]、round number [MPSP10, §3]、instance value/epoch [HKJR10, §1] 或 ballot number。
+[^ch2-9]: epoch 在文献中也称为 term [OO14, §5.1]、view number [LC12, §3]、round number [MPSP10, §3]、instance values/epoch [HKJR10, §1] 或 ballot number。
 
 [^ch2-10]: 提案在文献中也称为 ballot。
 
@@ -3192,7 +3192,7 @@ state:
 6 while ∃ z ∈ E : z < e ∧ ∃ Q ∈ 𝒬_2^z : Q_P ∩ Q = ∅ do
 7 switch do
 8 case promise(e, f, w) received from acceptor a
-9 Q_P ← Q_P ∩ a
+9 Q_P ← Q_P ∪ {a}
 10 if f ≠ nil ∧ (e_max = nil ∨ f > e_max) then
 11 e_max ← f, v ← w
 12 case timeout
@@ -3247,8 +3247,8 @@ Lamport 的原始证明也没有用到所作假设的全部强度，
 但表明该算法的做法存在不必要的保守。
 经典 Paxos 是 Paxos 修订 A 的特例，
 进而是修订 B 的特例；
-修订 A 增加了每个阶段内部的法定人数交集要求，
-经典 Paxos 则进一步要求无论 epoch 如何都相交。
+它增加了每个阶段内部的法定人数交集要求，
+并要求无论 epoch 如何都相交。
 
 ### 4.2.3 示例
 
@@ -4423,7 +4423,7 @@ proposer 可以自由提出任意值。
 由消息顺序（引理 10）和承诺的单调性（引理 6 与 7），
 $D[Q]$ 不会由第 4—5 行或第 6—7 行赋值。
 由值的唯一性（引理 9）和承诺格式（引理 8.1），
-$D[Q]$ 不会由第 8—11 行赋值。
+$D[Q]$ 不会由第 8—9 行赋值。
 因此 $V_{dec} = \emptyset$ 的情形不会发生。
 
 考虑 $V_{dec} = \{w\}$ 的情形。
@@ -4464,7 +4464,7 @@ $D[Q]$ 不会由第 4—5 行或第 6—7 行赋值为 $no$。
 
 由于 $f$ 是会随承诺返回的最大 epoch（引理 8.1），
 且 epoch $e$ 到 $f$ 的所有提案都是值 $v$，
-$D[Q]$ 不会由第 8—11 行赋值。
+$D[Q]$ 不会由第 8—9 行赋值。
 因此 $V_{dec} = \emptyset$ 的情形不会发生。
 
 考虑 $V_{dec} = \{w\}$ 的情形。
@@ -4560,7 +4560,7 @@ $V_{dec}$ 被设为 possibleValues 的输出（算法 19 第 12 行）。
 
 对于 epoch $g$ 中的法定人数，
 只有在不存在 epoch 更大且值不同的提案时，
-$D[Q]$ 才会被设为值 $x$（算法 20 第 8—11 行）。
+$D[Q]$ 才会被设为值 $x$（算法 20 第 8—9 行）。
 而我们已经假设 $w \neq x$，
 所以这不成立。
 
@@ -5061,23 +5061,23 @@ state:
 只有性质 1 和性质 4 除外，
 重述如下：
 
-**性质 1.***proposer 为每个提案使用唯一的 epoch。*
+**性质 1。** *proposer 为每个提案使用唯一的 epoch。*
 
-**性质 4.***proposer 必须按照值选择规则选定要提议的值。如果没有随承诺返回先前已接受的提案，则可以选定任意值。如果返回了一个或多个先前已接受的提案，则选定与最高 epoch 关联的值。*
+**性质 4。** *proposer 必须按照值选择规则选定要提议的值。如果没有随承诺返回先前已接受的提案，则可以选定任意值。如果返回了一个或多个先前已接受的提案，则选定与最高 epoch 关联的值。*
 
 不过，
 我们将增加以下三条额外性质，
 供后文使用：
 
-**性质 17.***对于 acceptor 收到的每条 propose 消息，如果其 epoch 与最后接受的 epoch 相同，则仅当所提议的值与最后接受的值相同时，acceptor 才处理该消息。*
+**性质 17。** *对于 acceptor 收到的每条 propose 消息，如果其 epoch 与最后接受的 epoch 相同，则仅当所提议的值与最后接受的值相同时，acceptor 才处理该消息。*
 
-**性质 18.***proposer 只有在收到足够多的 acceptor 的承诺、使得至多只有一个值可能已被决定之后，才会提议一个值。*
+**性质 18。** *proposer 只有在收到足够多的 acceptor 的承诺、使得至多只有一个值可能已被决定之后，才会提议一个值。*
 
-**性质 19.***proposer 必须按照值选择规则选定在 epoch $e$ 中提议的值。如果 $V_{dec}$ 是空集，则可以选定任意值。否则，如果 $V_{dec}$ 是单元素集合，则选定其中唯一的值。*
+**性质 19。** *proposer 必须按照值选择规则选定在 epoch $e$ 中提议的值。如果 $V_{dec}$ 是空集，则可以选定任意值。否则，如果 $V_{dec}$ 是单元素集合，则选定其中唯一的值。*
 
 由性质 17 可得：
 
-**引理 26.**一个 acceptor 不会接受同一个 epoch 的多个提案。如果一个 acceptor 对任意 epoch $e \in E$ 接受了 $(e, v)$ 和 $(e, w)$，那么 $v = w$。
+**引理 26。** 一个 acceptor 不会接受同一个 epoch 的多个提案。如果一个 acceptor 对任意 epoch $e \in E$ 接受了 $(e, v)$ 和 $(e, w)$，那么 $v = w$。
 
 引理 26 的证明。
 假设一个 acceptor 先接受了 $(e, v)$，
@@ -5089,7 +5089,7 @@ $v = w$。
 
 因此可以证明：
 
-**引理 27.**如果值 $v$ 在 epoch $e$ 中被决定，
+**引理 27。** 如果值 $v$ 在 epoch $e$ 中被决定，
 那么不存在另一个值 $w$，
 满足 $v \neq w$，
 也在 $e$ 中被决定。
@@ -5247,7 +5247,7 @@ $D[Q] = no$ 或 $D[Q] = w$。
 式（7.2）中强化的法定人数交集要求始终足以取得进展。
 现在考察这一断言。
 
-**引理 28.***epoch $e$ 中的 proposer 收到足以满足式（7.2）的承诺之后，possibleValues 总是返回空集或单元素集合。*
+**引理 28。** *epoch $e$ 中的 proposer 收到足以满足式（7.2）的承诺之后，possibleValues 总是返回空集或单元素集合。*
 
 引理 28 的证明。
 考虑 epoch $e$ 中的一个 proposer，
@@ -5899,13 +5899,13 @@ Fast Paxos，
 
 二十多年来，Paxos 一直是分布式共识的代名词。
 因此，它被广泛研究、讲授并部署到生产系统中。
-本文重新审视我们在分布式系统中处理共识的方式，
-并挑战了“Paxos 算法是共识的最优解”这一广为流传的观念。
+本文试图重新审视我们在分布式系统中处理共识的方式，
+并挑战“Paxos 算法是共识的最优解”这一广为流传的观念。
 
 ## 8.1 动机
 
 在 1.3 节中，我们列举了 Paxos 的种种局限。
-除了算法本身的微妙与欠规格化之外，
+除了算法本身的微妙与规范不足之外，
 它的决定过程也很慢：
 每次决定都需要向多数派 acceptor 发起两次往返。
 这种方式带来很高的消息开销，
@@ -6085,11 +6085,11 @@ Multi-Paxos 很少执行阶段一（4.3.3 节）。
 
 我们对经典 Paxos 的进展保证依赖于只有一个 proposer 执行 proposer 算法。
 实践中，
-这通常通过指定一个 proposer 为指定 proposer 来实现，
+这通常通过将一个 proposer 指定为指定 proposer 来实现，
 从而依赖同步性来检测该指定 proposer 的故障。
 
 在 7.2 节和 7.3 节中，
-我们提出了按值分配 epoch 和经恢复分配 epoch。
+我们提出了按值映射的 epoch 和经恢复分配的 epoch。
 当多个 proposer 以相同候选值执行 proposer 算法时，
 这两种新算法都能保证终止。
 图 7.5 就展示了这样的例子。
@@ -6170,7 +6170,7 @@ Multi-Paxos 的关键动机是一次往返即达成一致，
 
 [Dem] Murat Demirbas. Modeling Paxos and Flexible Paxos in Pluscal and TLA+. <http://muratbuffalo.blogspot.co.uk/2016/11/modeling-paxos-and-flexible-paxos-in.html>. [Online; accessed 17-Jan-2018].
 
-[DHJ$^{+}$07] Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati, Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall, and Werner Vogels. Dynamo: Amazon's highly available key-value store. In *Proceedings of 21st ACM SIGOPS Symposium on Operating Systems Principles*, SOSP '07, pages 205–220, New York, NY, USA, 2007. ACM.
+[DHJ+07] Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati, Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall, and Werner Vogels. Dynamo: Amazon's highly available key-value store. In *Proceedings of 21st ACM SIGOPS Symposium on Operating Systems Principles*, SOSP '07, pages 205–220, New York, NY, USA, 2007. ACM.
 
 [DLS88] Cynthia Dwork, Nancy Lynch, and Larry Stockmeyer. Consensus in the presence of partial synchrony. *Journal of the ACM (JACM)*, 35(2):288–323, April 1988.
 
@@ -6212,7 +6212,7 @@ Multi-Paxos 的关键动机是一次往返即达成一致，
 
 [Mel17] Max Meldrum. Flexible Paxos: An industry perspective. Master's thesis, Blekinge Institute of Technology, 2017.
 
-[MHL$^{+}$92] C. Mohan, Don Haderle, Bruce Lindsay, Hamid Pirahesh, and Peter Schwarz. ARIES: A transaction recovery method supporting fine-granularity locking and partial rollbacks using write-ahead logging. *ACM Transactions on Database Systems (TODS)*, 17(1):94–162, March 1992.
+[MHL+92] C. Mohan, Don Haderle, Bruce Lindsay, Hamid Pirahesh, and Peter Schwarz. ARIES: A transaction recovery method supporting fine-granularity locking and partial rollbacks using write-ahead logging. *ACM Transactions on Database Systems (TODS)*, 17(1):94–162, March 1992.
 
 [MJM08] Yanhua Mao, Flavio P. Junqueira, and Keith Marzullo. Mencius: Building efficient replicated state machines for WANs. In *Proceedings of the 8th USENIX Conference on Operating Systems Design and Implementation*, OSDI'08, pages 369–384, Berkeley, CA, USA, 2008. USENIX Association.
 
