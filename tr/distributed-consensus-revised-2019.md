@@ -65,7 +65,7 @@ Paxos 在生产系统中得到广泛部署，
 除上述各位之外，
 我还要衷心感谢 SRG 之外的朋友，
 特别是 Laura Scriven、Shreedipta Mitra 和 Jeunese Payne，
-感谢她们多年来让我保持清醒。
+感谢他们多年来让我保持清醒。
 感谢我的同事 Martin Kleppmann，
 在博士阶段的关键时刻与我讨论分布式系统。
 
@@ -868,7 +868,7 @@ acceptor 把 $v_{acc}$ 更新为 $\gamma'$ 的唯一途径是收到 $accept(\gam
 并且活性条件在足够长的时间内得到满足，
 那么最终会有某个值 $v$ 被决定。
 
-定理 2 的证明。
+定理 3 的证明。
 假设 proposer $p$ 向 acceptor 发送 $propose(\gamma)$。
 根据活性条件，
 这条消息最终会被 acceptor 收到。
@@ -1702,7 +1702,7 @@ acceptor 有机会响应 proposer 的消息。
 **定理 16.** *只要活性条件得到满足，
 proposer 最终会终止并返回值 $v$。*
 
-引理 16 的证明。
+定理 16 的证明。
 考虑一个已到达 GST 的系统。
 proposer $p$ 可能处于 proposer 算法的任何阶段。
 
@@ -1764,7 +1764,7 @@ proposer 总能选定一个值 $v$。
 **推论 16.1.** *只要活性条件得到满足，
 最终会有某个值 $v$ 被决定。*
 
-请注意这些活性条件与 SAA 的活性条件（5 节）有何不同。
+请注意这些活性条件与 SAA 的活性条件（2.1.1 节）有何不同。
 SAA 要求唯一的 acceptor 在线，
 而经典 Paxos 要求多数派 acceptor 在线。
 另一方面，
@@ -2762,8 +2762,8 @@ state：
 9             Q_P ← Q_P ∪ {a}
 10             if e_max = nil ∨ f > e_max then
 11                 e_max ← f, v ← w
-12                 case timeout
-13                     goto line 1
+12         case timeout
+13             goto line 1
 14     if v = nil then
 15         v ← γ
 /* 为提案 (e,v) 开始阶段二 */
@@ -2772,8 +2772,8 @@ state：
 18     switch do
 19         case accept(e) received from acceptor a
 20             Q_A ← Q_A ∪ {a}
-21             case timeout
-22                 goto line 1
+21         case timeout
+22             goto line 1
 23 return v
 ```
 
@@ -2879,6 +2879,8 @@ Fast Paxos 对 fast epoch 使用大小为 $k_f$ 的计数法定人数，
 使得：[^ch3-16]
 
 $$ n_{a}<2k_{c} $$
+
+$$ 2n_{a}<2k_{f}+k_{c} $$
 
 ## 3.13 小结
 
@@ -3792,6 +3794,8 @@ proposer 可以利用法定人数交集的传递性，
 如果 proposer 收到包含提案 $(e, v)$ 的承诺，
 它就不再需要与 epoch $e$ 及之前的所有阶段二法定人数相交。
 
+[^ch5-1]: 这一说法的例外是绕过阶段二：当多数派 proposer 带着相同提案作出承诺时可以绕过（3.2 节）。
+
 # 第 6 章 值选择再探
 
 在经典 Paxos 及我们的修订中，
@@ -4587,8 +4591,6 @@ proposer 可以提出自己的候选值，
 原始规则是对更完备的基于法定人数规则的一种快速而安全的近似。
 这一关系类似于经典 Paxos 法定人数交集要求与 Paxos 修订 B 要求之间的关系。
 
-[^ch5-1]: 这一说法的例外是绕过阶段二：当多数派 proposer 带着相同提案作出承诺时可以绕过（3.2 节）。
-
 [^ch6-1]: 此时没有必要返回集合，因为它要么为空、要么只含一个元素，但我们稍后会用到这一点。
 
 [^ch6-2]: 该算法不可能返回包含两个或更多值的集合，因为那意味着 proposer 收到了多个 epoch 相同但值不同的提案。我们已经证明这不可能发生（推论 9.1）。
@@ -5317,7 +5319,7 @@ state:
 但它的活性要求 $Q$ 中所有 acceptor 都在线。
 该算法类似于第一版 All Aboard Paxos，
 见 4.3.2 节，
-但增加了 acceptor 可以使用任意 epoch 的灵活性。
+但增加了 proposer 可以使用任意 epoch 的灵活性。
 
 #### 示例：经恢复分配 epoch 的固定法定人数
 
@@ -5355,7 +5357,7 @@ acceptor 算法保持不变。
 $k$ 是法定人数大小。
 
 完成阶段一必须满足两个条件，
-见算法 29 第 9 行。
+见算法 29 第 10 行。
 
 第一，
 必须已收到至少 $n_a - k + 1$ 个承诺。
