@@ -1,4 +1,4 @@
-# 时空可组合性的编程范式
+# A Programming Paradigm for Spatiotemporal Composability
 
 Yifan Shi¹,²、Wei Zhang¹、Tianyi Cui²
 

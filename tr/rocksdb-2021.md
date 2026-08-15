@@ -1,4 +1,4 @@
-# 面向大规模应用的键值存储，其开发优先级的演进：RocksDB 的经验
+# Evolution of Development Priorities in Key-value Stores Serving Large-scale Applications: The RocksDB Experience
 
 https://www.usenix.org/conference/fast21/presentation/dong
 

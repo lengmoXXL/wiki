@@ -115,6 +115,7 @@ PDF 转换得到的所有图片均保留在 `raw/<原目录名>/images/` 下，
   producer.send("topic1", set);
   ```
 
+- 译文的名称不翻译：文档标题保留英文原名，正文中引用该书/论文名时同样使用英文原名（可保留《》等原有标点）。例如 `tr/kafka-2011.md` 的标题为 `# Kafka: a Distributed Messaging System for Log Processing`，`tr/ddia-2026.md` 的书名引用为《Designing Data-Intensive Applications》。
 - 图片处理：
   - 无语义的图片说明要补充完整，
     如 `![figure](../raw/kafka-2011/images/figure-0001.png)`

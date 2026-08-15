@@ -1,4 +1,4 @@
-# Bigtable：结构化数据的分布式存储系统
+# Bigtable: A Distributed Storage System for Structured Data
 
 Fay Chang、Jeffrey Dean、Sanjay Ghemawat、
 Wilson C. Hsieh、Deborah A. Wallach、

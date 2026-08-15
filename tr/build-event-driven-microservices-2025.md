@@ -1,4 +1,4 @@
-# 构建事件驱动微服务  
+# Building Event-Driven Microservices  
 
 大规模利用组织数据  
 
@@ -17,9 +17,9 @@ K. Scott Morrison，顾问，PHEMI Systems 前首席技术官
 "这本书将为你提供理解事件驱动系统所需的一切：从把数据建模为事件的基本概念，
 一直到测试与部署到生产环境的种种实际考量。"  
 
-Martin Kleppmann，剑桥大学副教授，《数据密集型应用系统设计》作者  
+Martin Kleppmann，剑桥大学副教授，《Designing Data-Intensive Applications》作者  
 
-## 构建事件驱动微服务  
+## Building Event-Driven Microservices  
 
 事件驱动微服务为利用事件流提供了一种绝佳途径，
 让你能够在公司各处发生变化时实时做出反应和响应。
@@ -46,12 +46,12 @@ Martin Kleppmann，剑桥大学副教授，《数据密集型应用系统设计�
 - 将事件驱动应用集成到现有架构中  
 
 Adam Bellemare 是 Confluent 的首席技术专家。
-除《构建事件驱动微服务》外，
+除《Building Event-Driven Microservices》外，
 他还是《构建事件驱动数据网格》一书的作者。
 此前，他在 Shopify 和 Flipp 从事数据平台工程和数据流工作，
 在那里他构建、开发并推广了事件驱动架构和微服务。  
 
-# 构建事件驱动微服务  
+# Building Event-Driven Microservices  
 
 大规模利用组织数据  
 
@@ -59,7 +59,7 @@ Adam Bellemare 著
 
 Martin Kleppmann 作序  
 
-## 构建事件驱动微服务  
+## Building Event-Driven Microservices  
 
 Adam Bellemare 著  
 
@@ -105,7 +105,7 @@ O'Reilly 图书可用于教育、
 isbn=0642572147761 。  
 
 O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
-《构建事件驱动微服务》、
+《Building Event-Driven Microservices》、
 封面图片以及相关商业外观均为 O'Reilly Media, Inc. 的商标。  
 
 本作品所表达的观点为作者个人观点，
@@ -172,7 +172,7 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
 基于 Kafka 的流处理才刚刚起步。
 2014 年，我做了一场名为"把数据库翻转过来"（Turning the Database Inside-Out）
 的会议演讲，它至今仍是我在 YouTube 上观看量最高的演讲。
-而当我撰写《数据密集型应用系统设计》（O'Reilly，
+而当我撰写《Designing Data-Intensive Applications》（O'Reilly，
 2017）一书时，我开始在我们日常使用的各种数据系统中处处看到事件流的身影。
 数据库的持久性、用于高可用的复制、
 事务、实时协作、更新大规模分析系统……这一切本质上都是事件日志。  
@@ -248,7 +248,7 @@ REST API 和服务调用都是这样工作的：
 
 剑桥大学副教授  
 
-《数据密集型应用系统设计》作者  
+《Designing Data-Intensive Applications》作者  
 
 英国剑桥，2025 年 8 月  
 # 前言
@@ -3248,7 +3248,7 @@ JSON Schema 对于偏爱 JSON 的人来说有些流行，
 但请不要把它与无模式 JSON 这种反模式的烂摊子混为一谈（稍后会更多讨论）。
 
 > [!TIP]
-> Martin Kleppmann 在《数据密集型应用系统设计》（O'Reilly，
+> Martin Kleppmann 在《Designing Data-Intensive Applications》（O'Reilly，
 > 2017）第 4 章中对 JSON、
 > XML、Protobuf、
 > Thrift 和 Avro 写了出色的拆解和分析。
@@ -17413,7 +17413,7 @@ Delta Lake, 153
 
 弃用, 元数据标记, 387
 
-《设计数据密集型应用》(Kleppmann), 77
+《Designing Data-Intensive Applications》(Kleppmann), 77
 
 设计事件, 97-125
 
@@ -18003,7 +18003,7 @@ Keycloak, 384
 
 keyed 事件, 30, 35-36
 
-Kleppmann, Martin,《设计数据密集型应用》, 77
+Kleppmann, Martin,《Designing Data-Intensive Applications》, 77
 
 KMS（密钥管理服务）, 123
 

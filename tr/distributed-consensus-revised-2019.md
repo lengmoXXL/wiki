@@ -1,4 +1,4 @@
-# 分布式共识再探
+# Distributed consensus revised
 
 Heidi Howard
 

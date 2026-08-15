@@ -1,4 +1,4 @@
-# 在 Facebook 扩展 Memcache
+# Scaling Memcache at Facebook
 
 Rajesh Nishtala, Hans Fugal, Steven Grimm, Marc Kwiatkowski,
 Herman Lee, Harry C. Li,

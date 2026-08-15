@@ -1,4 +1,4 @@
-# 基于 PagedAttention 的大语言模型服务高效内存管理
+# Efficient Memory Management for Large Language Model Serving with PagedAttention
 
 Woosuk Kwon、Zhuohan Li*、Siyuan Zhuang、Ying Sheng、
 Lianmin Zheng、Cody Hao Yu、

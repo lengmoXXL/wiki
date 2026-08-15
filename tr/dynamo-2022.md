@@ -1,4 +1,4 @@
-# Amazon DynamoDB：可扩展、性能可预测的全托管 NoSQL 数据库服务
+# Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service
 
 Mostafa Elhemali、Niall Gallagher、Nicholas Gordon、
 Joseph Idziorek、Richard Krog、Colin Lazier、Erben Mo、

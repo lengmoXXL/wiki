@@ -1,4 +1,4 @@
-# Dynamo：Amazon 的高可用 key-value 存储
+# Dynamo: Amazon's Highly Available Key-value Store
 
 Giuseppe DeCandia、Deniz Hastorun、Madan Jampani、
 Gunavardhan Kakulapati、Avinash Lakshman、Alex Pilchin、

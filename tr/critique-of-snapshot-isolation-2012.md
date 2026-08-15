@@ -1,4 +1,4 @@
-# 对快照隔离的批判
+# A Critique of Snapshot Isolation
 
 Daniel Gómez Ferro、Maysam Yabandeh*
 

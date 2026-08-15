@@ -1,4 +1,4 @@
-# Kafka：一种用于日志处理的分布式消息系统
+# Kafka: a Distributed Messaging System for Log Processing
 
 **Jay Kreps · Neha Narkhede · Jun Rao**<br>
 LinkedIn Corp.<br>

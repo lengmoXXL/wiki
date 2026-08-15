@@ -1,11 +1,11 @@
-# 软件架构：难点  
+# Software Architecture: The Hard Parts  
 
 分布式架构的现代 trade-off 分析  
 
 Neal Ford、Mark Richards、
 Pramod Sadalage 和 Zhamak Dehghani 著  
 
-## 软件架构：难点  
+## Software Architecture: The Hard Parts  
 
 软件架构中没有轻松的决定。
 相反，有许多难点——即没有最佳实践的困难问题——迫使你在各种 trade-off 之间做出选择。
@@ -49,7 +49,7 @@ Zhamak Dehghani 是 Thoughtworks 的技术总监，
 专注于分布式架构和新兴技术。
 她是 Data Mesh 的创始人。  
 
-## 各界赞誉《软件架构：难点》  
+## 各界赞誉《Software Architecture: The Hard Parts》  
 
 "本书提供了围绕构建微服务和分析整个技术栈中架构决策细微差别的缺失手册。在本书中，
 你将获得构建分布式系统时可以做出的架构决策目录，以及每个决策的优缺点。
@@ -66,7 +66,7 @@ Zhamak Dehghani 是 Thoughtworks 的技术总监，
 
 ——Dr. Venkat Subramaniam，获奖作者、Agile Developer, Inc. 创始人  
 
-"《软件架构：难点》为读者提供了关于拆分高度耦合系统并重新构建它们的宝贵见解、实践和真实案例。
+"《Software Architecture: The Hard Parts》为读者提供了关于拆分高度耦合系统并重新构建它们的宝贵见解、实践和真实案例。
 通过获得有效的 trade-off 分析技能，你将开始做出更好的架构决策。"  
 
 ——Joost van Weenen，Infuze Consulting 管理合伙人兼联合创始人  
@@ -83,14 +83,14 @@ Zhamak Dehghani 是 Thoughtworks 的技术总监，
 
 ——James Lewis，Thoughtworks 技术总监  
 
-# 软件架构：难点  
+# Software Architecture: The Hard Parts  
 
 # 分布式架构的现代 trade-off 分析  
 
 Neal Ford、Mark Richards、
 Pramod Sadalage 和 Zhamak Dehghani 著  
 
-## 软件架构：难点  
+## Software Architecture: The Hard Parts  
 
 Neal Ford、Mark Richards、
 Pramod Sadalage 和 Zhamak Dehghani 著  
@@ -134,7 +134,7 @@ O'Reilly 图书可用于教育、商业或销售促销用途。大多数图书�
 发布详情请参见 http:
 //oreilly.com/catalog/errata.csp?isbn=9781492086895。  
 
-O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。《软件架构：难点》、
+O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。《Software Architecture: The Hard Parts》、
 封面图片以及相关商业外观均为 O'Reilly Media, Inc. 的商标。  
 
 本作品所表达的观点为作者个人观点，不代表出版方观点。尽管出版方和作者已尽善意努力确保本作品中包含的信息和说明准确无误，
@@ -461,7 +461,7 @@ Thoughtworks 以多种方式支持了本书，并持续培养着每天都在挑�
 
 ## 为什么叫"难点"？  
 
-为什么我们把这本书称为《软件架构：难点》？
+为什么我们把这本书称为《Software Architecture: The Hard Parts》？
 实际上，标题中的"硬"具有双重含义。
 首先，*hard* 意味着*困难*，
 架构师不断面临着字面上（和比喻上）前所未见的困难问题，
