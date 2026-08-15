@@ -94,7 +94,8 @@ Nick Spooner、Diego Ongaro、Jenny Wolochow 和 Igor Zablotschi。
 谨以此论文献给我的父亲 Daniel Howard，
 他抚养我长大，
 一生支持我，
-却不幸在本博士学位完成之前因癌症匆匆离世。
+却不幸在与癌症短暂抗争后，
+于本博士学位完成之前离世。
 
 ## 目录
 
@@ -293,7 +294,7 @@ Gbcast [Bir85, BJ87] 等系统以及 Dwork 等人的工作 [DLS88]。
 由 Lamport 提出 [Lam78b]、经 Schneider 推广 [Sch90] 的状态机复制，
 成为一种通过复制应用状态并用共识协调其操作来使应用容错的技术。
 
-那篇声名狼藉的《兼职议会》论文 [Lam98] 于 1990 年投稿，
+那篇声名狼藉的论文《The Part-Time Parliament》[Lam98] 于 1990 年投稿，
 八年之后才得以发表，
 其中描述了 Paxos。
 彼时，
@@ -359,7 +360,7 @@ Paxos 出了名的难以理解，
 对多数派同意的依赖意味着 Paxos 算法达成决定的速度很慢，
 因为每个决定都需要与许多参与者往返一次。
 让每个决定都牵涉大多数参与者，
-会给参与者之间的网络以及 leader 本身带来很高的负载。
+会给参与者与 leader 之间的网络以及 leader 本身带来很高的负载。
 其结果是系统规模受限，
 通常只有三到五名参与者[^ch1-4]，
 因为每增加一名参与者都会显著降低整体性能[^ch1-5]。
@@ -379,7 +380,7 @@ Paxos 就无法达成一致。
 Paxos 的共识方法确立一名参与者为 leader，
 并由该参与者负责作出决定。
 这种集中式方法以单点串行化换来了简单性，
-但它也把算法的性能瓶颈限制在单个高度拥塞的参与者身上。
+但它也使算法的性能受限于单个高度拥塞的参与者。
 由于 leader 负责决策，
 所有决策请求都必须转发给 leader 并由其处理，
 这进一步增加了决策延迟。
@@ -436,7 +437,7 @@ Paxos 算法是共识的最优解吗？
 本文共分 8 章。
 通过这些章节，
 我们逐步推广流行的 Paxos 算法，
-构建出求解分布式共识的新型通用算法。
+构建出求解分布式共识的新型泛化算法。
 总体而言，
 我们作出了以下关键贡献：
 
@@ -531,7 +532,7 @@ AA '15, pages 29–32. Aarhus University Press, 2015.
 我们的方法有以下局限：
 
 **Byzantine 容错**——我们假设算法被正确地实现和执行。
-参与者以及它们之间的网络不会有任意或恶意的行为。
+参与者以及它们之间的网络不会任意或恶意行事。
 不作此假设的共识算法称为 *Byzantine 容错*算法。
 PBFT [CL99] 就是这类算法的一个例子。
 
@@ -578,13 +579,13 @@ PBFT [CL99] 就是这类算法的一个例子。
 而非具体协议或实现。
 为了适用于一系列现有和未来的系统，
 我们不针对特定系统或工作负载进行优化，
-尽管这方面已有大量研究。
+而这类优化一直是大量研究的主题。
 例如，
 Ring Paxos [MPSP10] 和 Multi-Ring Paxos [MPP12]
 针对提供 IP 组播的网络进行了优化。
 
 [^ch1-1]: 目前，
-我们用 Paxos 一词指代该算法今天通常的用法，
+我们用 Paxos 一词指代该算法今天通常的形式，
 而不是 Lamport 最初描述的形式。
 为此人们也常使用 Multi-degree Paxos 或简称 Multi-Paxos。
 
@@ -632,8 +633,8 @@ Raft 集群通常包含五台服务器 [OO14, §5.1]。
 是在由 $n$ 个参与者组成的有限集合 $U = \{u_1, u_2, \ldots, u_n\}$ 之间，
 决定一个值 $v \in V$。
 
-**定义 1.** 一个算法被称为求解了分布式共识，
-仅当它满足以下三条安全性要求：
+**定义 1.** 一个算法只有在满足以下三条安全性要求时，
+才能称得上求解了分布式共识：
 
 **非平凡性** *已决定值必须是由某个参与者提出的。*
 
@@ -817,7 +818,7 @@ state:
 1 while true do
 2     case propose(v) received from proposer
 3         if v_acc = nil then
-4              v_acc ← v
+4            v_acc ← v
 5         send accept(v_acc) to proposer
 ```
 
@@ -954,7 +955,7 @@ proposer 在线，
 经典 Paxos 决定一个值的过程分为两个阶段。
 阶段一可以看作读取阶段：
 proposer 了解系统当前状态，
-并取走一种版本号，
+并获取一个版本号，
 用于检测此后的变化。
 阶段二可以看作写入阶段：
 proposer 尝试让某个值被接受。
@@ -1066,8 +1067,8 @@ proposer 只有在确信另一个值尚未被选定时，
 消息 $prepare(e)$ 被发送给所有 acceptor（算法 3 第 5 行），
 随后 proposer 等待响应。
 随着承诺不断到达，
-proposer 跟踪提案中收到的最大 epoch $e_{max}$ 及其关联值 $v$（算法 3 第 8—11
-行）。
+proposer 跟踪收到的提案中的最大 epoch $e_{max}$
+及其关联值 $v$（算法 3 第 8—11 行）。
 如果某个承诺不包含提案，
 就不更新最大 epoch $e_{max}$ 及其关联值 $v$（算法 3 第 10 行）。
 集合 $Q_P$ 跟踪到目前为止有哪些 acceptor 已作出承诺。
@@ -1482,7 +1483,7 @@ proposer 不会重复使用同一个 epoch。
 proposer 在阶段一中不会收到多个 epoch 相同但值不同的提案。
 
 **引理 10**（消息定序）。如果一个 acceptor 发出了一系列消息[^ch2-15]，
-那么这些消息的 epoch 与消息发出的先后顺序构成偏序。
+那么这些消息的 epoch 是消息发出先后顺序上的偏序。
 无论这些消息全是承诺、全是接受，
 还是两者兼有，
 该结论都成立。
@@ -1922,7 +1923,7 @@ SAA 中的 proposer 保证在一次到 acceptor 的往返内终止；
 然而，
 Paxos 实际上是一个庞大的分布式共识算法家族。
 本章进行知识系统化，
-考察经典 Paxos 算法一些最常用的改进。
+考察经典 Paxos 算法的一些最常用改进。
 
 ## 3.1 否定响应（NACK）
 
@@ -1943,7 +1944,7 @@ proposer 收到否定响应后，
 可以选择用更大的 epoch 重启提案。
 否则，
 proposer 可以忽略否定响应，
-等待是否能收到多数参与者的肯定响应。
+等待看能否从多数参与者那里收到肯定响应。
 如果 proposer 收到多数 acceptor 的否定响应，
 它的提案就不会成功，
 应当重启提案。
@@ -2067,9 +2068,9 @@ NACK 不必包含 proposer 的 epoch，
 经典 Paxos 的 proposer 算法所做的工作，
 超出了满足分布式共识要求所必需的程度。
 在实践中，
-如果 proposer 在阶段一中从多数 acceptor 返回了相同的提案，
-从而得知某个值已经被决定，
-那么 proposer 可以跳过阶段二，
+如果多数 acceptor 在阶段一中返回了相同的提案，
+proposer 就会得知某个值已经被决定，
+此时它可以跳过阶段二，
 直接返回该提案中的值。
 
 ![图 3.2：带绕过的经典 Paxos](../raw/distributed-consensus-revised-2019/images/figure-0009.png)
@@ -2101,7 +2102,7 @@ proposer 不确定是否已达到提交点。
 并随承诺返回了提案 $(e_{max}, v)$（第 3、12、15、16 行）。
 阶段一完成后，
 如果 $Q_V$ 包含多数 acceptor，
-就可以绕过阶段二（第 18–19 行）。
+就可以绕过阶段二（第 19–20 行）。
 请注意，
 acceptor 算法保持不变。
 
@@ -2203,7 +2204,7 @@ acceptor 在阶段三中获知值已被决定。
 经典 Paxos 就能取得进展。
 因此，
 proposer 可能只与一个 acceptor 通信后就返回已决定值。
-算法 8 和算法 9 给出了如何把它实现到经典 Paxos 中的一个示例。
+算法 8 和算法 9 给出了如何将其实现到经典 Paxos 中的示例。
 
 **算法 8：带终止的经典 Paxos proposer 算法。**
 
@@ -2350,8 +2351,8 @@ acceptor 一旦得知某个提案已被决定，
 需要可靠的故障检测，
 而异步分布式系统中不存在可靠的故障检测 [FLP85]。
 我们只能用心跳和超时来近似可靠的故障检测器；
-不过这就要求我们加强进展的活性条件，
-约束 proposer 之间的消息延迟、时钟漂移和运行速度。
+不过，这确实要求我们加强进展的活性条件，
+以约束 proposer 之间的消息延迟、时钟漂移和运行速度。
 故障检测的最弱活性条件在文献 [CHT96, MOZ05] 中有研究。
 
 这项称为指定 proposer 的优化被广泛使用 [Lam01a, §2.4][LC12, §4.2]
@@ -2361,7 +2362,7 @@ acceptor 一旦得知某个提案已被决定，
 ## 3.5 阶段排序
 
 在经典 Paxos 的阶段一中，
-proposer 不需要知道自己将在阶段二中提出的值 $\gamma$。
+proposer 不需要知道自己在阶段二可能提出的值 $\gamma$。
 因此，
 proposer 可以在知道要提出的值之前先执行阶段一。
 当 proposer 随后得知要提出的值时，
@@ -2543,12 +2544,12 @@ state：
 2     switch do
 3         case prepare(e) received from proposer p
 4         if (e_pro = nil) ∨ (e > e_pro) ∨ (e = e_pro ∧ p = p_lst) then
-5              e_pro ← e, p_lst ← p
+5             e_pro ← e, p_lst ← p
 6             send promise(e, e_acc, v_acc) to proposer
 7         case propose(e, v) received from proposer
 8         if e_pro = nil ∨ e ≥ e_pro then
-9              e_pro ← e
-10              v_acc ← v, e_acc ← e
+9             e_pro ← e
+10             v_acc ← v, e_acc ← e
 11             send accept(e) to proposer
 ```
 
@@ -2825,7 +2826,7 @@ state：
 1 v, e_max ← nil
 2 Q_P, Q_A ← ∅
 3 e ← min(ℰ)
-4 ℰ ← ℰ ∖ e
+4 ℰ ← ℰ ∖ {e}
 /* 为 epoch e 开始阶段一 */
 5 send prepare(e) to acceptors
 6 while ∀Q ∈ 𝒬 : Q_P ⊉ Q do
@@ -2941,7 +2942,7 @@ VRR [LC12, §4.3] 采用了这种方法。
 
 Fast Paxos [Lam05a] 是经典 Paxos 的一个变体：
 对于一个 epoch 子集，
-如果 proposer 在其阶段一中没有收到任何提案，
+如果 acceptor 在其阶段一中没有收到任何提案，
 因而可以提出自己的值，
 那么它可以通知所有其他 acceptor，
 任何 acceptor 都可以在阶段二中直接提出自己的值，
@@ -3079,7 +3080,7 @@ $$ \forall Q_{1}\in\mathcal{Q}_{1},\forall Q_{2}\in\mathcal{Q}_{2}:Q_{1}\cap Q_{
 ### 4.1.2 安全性
 
 现在考察为什么放宽法定人数交集要求是安全的，
-方法是回顾此前经典 Paxos 安全性证明（2.6 节）中是如何利用法定人数交集的。
+方法是回顾此前经典 Paxos 安全性证明（2.6 节）对法定人数交集的利用。
 
 回顾以下性质（最初定义于 2.4 节）：
 
@@ -3094,12 +3095,10 @@ $$ \forall Q_{1}\in\mathcal{Q}_{1},\forall Q_{2}\in\mathcal{Q}_{2}:Q_{1}\cap Q_{
 现在用 Paxos 修订 A 的以下性质替换它们。
 其余性质保持不变。
 
-**性质 11。
-** *proposer 只有在收到阶段一的一个 acceptor 法定人数
+**性质 11。** *proposer 只有在收到阶段一的一个 acceptor 法定人数
 $Q \in \mathcal{Q}_1$ 的承诺后才提出值。*
 
-**性质 12。
-** *proposer 只有在收到阶段二的一个 acceptor 法定人数
+**性质 12。** *proposer 只有在收到阶段二的一个 acceptor 法定人数
 $Q \in \mathcal{Q}_2$ 的接受后才返回值。*
 
 **算法 13：Paxos 修订 A 的 proposer 算法。**[^ch4-3]
@@ -3153,7 +3152,8 @@ state:
 我们也可以使用式（4.4）中更弱的修订 A 法定人数交集来证明引理 11：
 
 引理 11 的修订证明。假设值 v 在 epoch e 中被决定，
-于是阶段二的某个 acceptor 法定人数 $Q_{2} \in Q_{2}$ 已经接受了提案 $(e, v)$。
+于是阶段二的某个 acceptor 法定人数 $Q_2 \in \mathcal{Q}_2$ 已经接受了提案
+$(e, v)$。
 
 在阶段二中提出某个值之前，
 阶段一的一个 acceptor 法定人数 $Q_1 \in \mathcal{Q}_1$ 必须已向 proposer
@@ -3308,13 +3308,11 @@ set of quorums for phase two (configured, persistent)
 23 return v
 ```
 
-**性质 13。
-** *proposer 只有在收到 epoch $e$ 的阶段一 acceptor 法定人数
+**性质 13。** *proposer 只有在收到 epoch $e$ 的阶段一 acceptor 法定人数
 $\mathcal{Q}_1^e$ 的承诺后，
 才在 epoch $e$ 中提出值。*
 
-**性质 14。
-** *proposer 只有在收到 epoch $e$ 的阶段二 acceptor 法定人数
+**性质 14。** *proposer 只有在收到 epoch $e$ 的阶段二 acceptor 法定人数
 $\mathcal{Q}_2^e$ 的接受后才返回值。*
 
 回顾经典 Paxos 安全性证明（2.6 节）中的引理 11：
@@ -3328,13 +3326,14 @@ $\mathcal{Q}_2^e$ 的接受后才返回值。*
 即得到 Paxos 修订 B 的安全性证明。
 
 引理 11 的修订证明。假设值 v 在 epoch e 中被决定，
-于是 epoch e 的阶段二 acceptor 法定人数 $Q \in Q_{2}^{e}$ 已经接受了提案
+于是 epoch e 的阶段二 acceptor 法定人数 $Q \in \mathcal{Q}_2^e$
+已经接受了提案
 $(e, v)$。
 
 考虑 epoch f 中的一个提案，
 其中 f > e。
 在 f 中提出某个值之前，
-epoch f 的阶段一 acceptor 法定人数 $Q' \in Q_{1}^{f}$ 必须已向 f 的
+epoch f 的阶段一 acceptor 法定人数 $Q' \in \mathcal{Q}_1^f$ 必须已向 f 的
 proposer 作出承诺（性质 13）。
 由于 f > e，
 应用式（4.6）可知任意两个这样的法定人数都会相交，
@@ -3417,8 +3416,8 @@ Mencius 的 Coordinated Paxos 算法就使用了这项技术 [MJM08, §4.2]。
 ### 4.3.1 绕过阶段二
 
 在 3.2 节中，
-我们讨论了经典 Paxos 的 proposer 如何在阶段一中有多数派 acceptor 随承诺返回相同提案
-$(e, v)$ 时绕过阶段二。
+我们讨论了当阶段一中多数派 acceptor 随承诺返回相同提案 $(e, v)$ 时，
+经典 Paxos 的 proposer 如何绕过阶段二。
 这是安全的，
 因为 $(e, v)$ 已经被决定。
 类似的优化是：
@@ -3586,7 +3585,7 @@ Multi-Paxos 的法定人数大小为 $\frac{n_a}{2} + 1$，
 因此现有的 Multi-Paxos 系统建议不要部署在偶数个 acceptor 上。
 使用 Paxos 修订 A，
 当 $n_a$ 为偶数时可以把阶段二法定人数缩小到 $\frac{n_a}{2}$，
-使偶数个 acceptor 的部署成为可行选项。
+使在偶数个 acceptor 上部署成为可行选项。
 阶段二法定人数规模的这一改进没有其他方面的代价，
 因此实际上是免费的。
 
@@ -3605,7 +3604,7 @@ Multi-Paxos 已经在实践中广泛部署。
 
 如前所述（3.12 节），
 proposer 只需把 propose 消息发送给阶段二的一个法定人数，
-只要当某个 acceptor 不响应时，
+前提是：当某个 acceptor 不响应时，
 proposer 能换用另一个阶段二法定人数重试。
 这种做法把经典 Paxos 稳态下每次决定发送的消息数量（几乎）减半，
 从而降低 leader 和网络的负载。
@@ -3626,7 +3625,7 @@ proposer 能换用另一个阶段二法定人数重试。
 其余 acceptor 充当备用，
 因为只有在发生故障时才需要它们。
 
-### 4.3.4 epoch 的投票
+### 4.3.4 为 epoch 投票
 
 此前我们讨论了如何利用经典 Paxos 的阶段一保证 epoch 的唯一性（3.9 节）。
 这一结论同样适用于我们的修订，
@@ -3663,7 +3662,7 @@ $$ \forall Q,Q^{\prime}\in\mathcal{Q}_{1}^{e}:Q\cap Q^{\prime}\neq\emptyset $$
 > 表 4.2：阶段一 while 条件的几种替代形式。
 
 表 4.2 总结了三个推广阶段对法定人数交集要求的逐步弱化。
-表 4.2 中的表达式是完成阶段一的另一种 *while* 条件。
+表 4.2 中的表达式是完成阶段一时可供选择的几种 *while* 条件。
 
 [^ch4-1]: 等价地说，
     epoch $e$ 的阶段二法定人数与所有更大 epoch 的阶段一法定人数相交。
@@ -3731,7 +3730,7 @@ $e$ 的 proposer 本质上可以复用 $f$ 的 proposer 成功执行过的那次
 
 ## 5.2 算法
 
-算法 15 给出 Paxos 修订 C 修订后的 proposer 算法。
+算法 15 给出 Paxos 修订 C 修改后的 proposer 算法。
 与 Paxos 修订 B（算法 14）相比，
 本算法把随承诺收到的最大 epoch $e_{max}$，
 用作完成阶段一所需法定人数交集要求的（不含边界的）下界（算法 15 第 6 行）。
@@ -3852,7 +3851,7 @@ $\square$
 这一结果仍然适用。
 例如，
 我们可以扩展经典 Paxos 的 proposer 算法，
-检查承诺消息是否包含当前 epoch 前一 epoch 的提案。
+检查承诺消息是否包含当前 epoch 的前一 epoch 的提案。
 如果是，
 proposer 无需等待阶段一法定人数，
 就可以直接进入阶段二。
@@ -3959,12 +3958,13 @@ $V_{dec}$ 是单元素集合，
 
 **算法 16：使用 possibleValues 的修订 A proposer 算法。**
 
-状态：
+state:
 
-- $R$：对每个 acceptor $a \in A$，取以下两者之一：
-  - $no$：尚未收到 $a$ 的承诺
-  - $(e, v)$：随 $a$ 的承诺收到的提案，可以为 nil
-- $V_{dec}$：可能已被决定的值的集合
+- $R$: for each acceptor $a \in A$, either:
+  - $no$: no promise received yet from $a$
+  - $(e, v)$: the proposal received with a promise from $a$,
+    maybe nil
+- $V_{dec}$: set of values which may have been decided
 
 ```text
 1  v ← nil
@@ -4032,8 +4032,7 @@ $V_{dec}$ 是单元素集合，
 如果法定人数中任一 acceptor 返回了 nil 承诺，
 proposer 就把该法定人数的决定情况设为 $no$。
 
-**引理 20。
-** 如果 acceptor $a_1$ 和 $a_2$ 分别发送 `promise(g,e,w)` 和
+**引理 20。** 如果 acceptor $a_1$ 和 $a_2$ 分别发送 `promise(g,e,w)` 和
 `promise(g,f,x)`，
 其中 $e < f$ 且 $w \neq x$，
 那么在小于 $g$ 的 epoch 中，
@@ -4041,11 +4040,13 @@ proposer 就把该法定人数的决定情况设为 $no$。
 
 **算法 18：possibleValues 的基于法定人数的算法。**
 
-状态：
+state:
 
-- $D$：对每个法定人数 $Q$，先前提案的结果，取以下两者之一：
-  - $no$：$Q$ 中没有达成任何决定
-  - $v$：如果 $Q$ 中达成了决定，则决定的值是 $v$
+- $D$: for each quorum $Q$,
+  the outcome of previous proposals, either:
+  - $no$: no decision has been reached in $Q$
+  - $v$: if decision(s) were reached in $Q$,
+    value $v$ was decided
 
 ```text
 1 func possibleValues(R):
@@ -4093,7 +4094,8 @@ possibleValues 的两种实现都会返回该已决定值。
 possibleValues 的经典实现可能返回一个值，
 而基于法定人数的实现可能返回空集。
 换句话说，
-经典方法可能提出一个基于法定人数的方法已知未被决定的值[^ch6-4]。
+经典方法可能提出一个值，
+而基于法定人数的方法知道该值尚未被决定[^ch6-4]。
 在这一实现中，
 如果没有达成任何决定，
 proposer 总是提出自己的候选值。
@@ -4167,7 +4169,7 @@ $e$ 是提案中会被返回的最大 epoch，
 
 考虑 $D[Q] = w$ 的情形。
 
-这种情形要求 $Q$ 中某个 acceptor 曾在某个小于等于 $e$ 的 epoch 中接受过 $w$（引理
+这种情形要求 $Q$ 中某个 acceptor 曾在某个小于等于 $e$ 的 epoch 中接受过 $w$（推论
 8.1）。
 由于 $Q$ 中所有 acceptor 都接受过 $(e, v)$，
 由值的唯一性（引理 9）和已接受 epoch 的单调性（引理 6 与 7）可知 $v = w$。
@@ -4219,7 +4221,7 @@ $Q$ 中的 acceptor 只会返回 epoch 大于等于 $e$ 的提案。
 
 考虑 $D[Q] = w$ 的情形。
 
-这种情形要求 $Q$ 中某个 acceptor 曾在某个小于等于 $f$ 的 epoch 中接受过值 $w$（引理
+这种情形要求 $Q$ 中某个 acceptor 曾在某个小于等于 $f$ 的 epoch 中接受过值 $w$（推论
 8.1）。
 由于 $Q$ 中所有 acceptor 都接受过 $(e, v)$，
 由已接受提案的单调性（引理 6 与 7）可知，
@@ -4228,14 +4230,14 @@ $Q$ 中的 acceptor 只会返回 epoch 大于等于 $e$ 的提案。
 $Q$ 中 acceptor 返回的提案必定是值 $v$。
 因此 $v = w$。
 
-本节证明了使用基于法定人数值选择的新修订 A 算法（算法 16）的安全性。
+本节证明了使用基于法定人数的值选择的新修订 A 算法（算法 16）的安全性。
 我们还可以扩展该算法，
 利用修订 B 和 C 的结果：
 当 $e = min(E)$ 时绕过阶段一；
 收到 $e$ 前一 epoch 的提案时完成阶段一。
 
 接下来，
-我们将证明基于法定人数值选择所利用的两个结论（引理 19 与 20）的正确性。
+我们将证明基于法定人数的值选择所利用的两个结论（引理 19 与 20）的正确性。
 
 **引理 19。
 ** 如果 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e, w) = nil$，
@@ -4301,8 +4303,7 @@ $\square$
 由此产生矛盾。
 $\square$
 
-**引理 20。
-** 如果 acceptor $a_1$ 和 $a_2$ 分别发送 `promise(g,e,w)` 和
+**引理 20。** 如果 acceptor $a_1$ 和 $a_2$ 分别发送 `promise(g,e,w)` 和
 `promise(g,f,x)`，
 其中 $e < f$ 且 $w \neq x$，
 那么在小于 $g$ 的 epoch 中，
@@ -4478,12 +4479,16 @@ proposer 可以自由提出任意值。
 
 **算法 20：possibleValues 的基于法定人数的算法（修订 B/C）。**
 
-状态：
+state:
 
-- $D$：对每个 epoch $e$ 中的每个法定人数 $Q$，先前提案的结果，取以下三者之一：
-  - $no$：$Q$ 在 $e$ 中没有达成决定
-  - $v$：如果 $Q$ 在 $e$ 中达成了决定，则决定的值是 $v$
-  - $nil$：不知道 $Q$ 在 $e$ 中是否达成了决定
+- $D$: for each quorum $Q$ in each epoch $e$,
+  the outcome of previous proposals, either:
+  - $no$: no decision has been reached in $Q$ during $e$
+  - $v$: if a decision was reached in $Q$ during $e$,
+    value $v$ was decided
+  - $nil$:
+    no information known on whether a decision was reached
+    in $Q$ during $e$
 
 ```text
 1 func possibleValues(R, e):
@@ -4716,7 +4721,7 @@ proposer 可以提出自己的候选值，
 或任何先前见过的值。
 
 基于法定人数的值选择推广了经典 Paxos 的值选择规则。
-原始规则是对更完备的基于法定人数规则的一种快速而安全的近似。
+原始规则是对更完备的基于法定人数的规则的一种快速而安全的近似。
 这一关系类似于经典 Paxos 法定人数交集要求与 Paxos 修订 B 要求之间的关系。
 
 [^ch6-1]: 此时没有必要返回集合，因为它要么为空、要么只含一个元素，但我们稍后会用到这一点。
@@ -4891,7 +4896,7 @@ proposer 不需要把 epoch 存入持久存储，
 就能达成中止决定，
 见算法 22 第 4—5 行。
 同样，
-如果收到的承诺带有前驱 epoch 的提案，
+如果收到的承诺带有来自前驱 epoch 的提案，
 我们可以跳过阶段一的剩余部分，
 见算法 22 第 13 行。
 由于 epoch 与值直接对应，
@@ -5229,9 +5234,7 @@ $v = w$。
 因此可以证明：
 
 **引理 27。** 如果值 $v$ 在 epoch $e$ 中被决定，
-那么不存在另一个值 $w$，
-满足 $v \neq w$，
-也在 $e$ 中被决定。
+那么不存在满足 $v \neq w$ 的值 $w$ 也在 $e$ 中被决定。
 
 引理 27 的证明。
 假设提案 $(e, v)$ 已被决定，
@@ -5336,7 +5339,7 @@ $D[Q] = no$。
 $D[Q] = no$ 或 $D[Q] = w$。
 我们已经证明不可能出现 $D[Q] = no$，
 因此 $D[Q] = w$，
-于是对某个 acceptor 有 $\exists a \in Q : R[a] = (h, w)$。
+于是 $\exists a \in Q : R[a] = (h, w)$。
 这个 acceptor 必定先接受过 $(e, v)$，
 因此 $h \geq e$。
 如果 $h = e$，
@@ -5374,8 +5377,8 @@ $D[Q] = no$ 或 $D[Q] = w$。
 要么 $e < f$，
 要么 $e > f$。
 由定理 14 的对称性，
-我们可以假设 $e < f$，
-交换 $e$ 和 $f$ 即可推出 $e > f$ 的情形。
+我们可以假设 $e < f$；
+$e > f$ 的情形可通过交换 $e$ 和 $f$ 归结为前者。
 
 一个值要被决定，
 必须先被提议，
@@ -5416,7 +5419,7 @@ $\exists a \in A : R[a] \neq no \wedge a \in Q \wedge a \in Q'$。
 现在考察经恢复分配 epoch 的三个示例，
 分别使用三类不同的法定人数系统。
 
-#### 示例：采用经恢复分配 epoch 的 All Aboard Paxos
+#### 示例：采用经恢复分配 epoch 的 All aboard Paxos
 
 **算法 27：经恢复分配 epoch 且使用固定法定人数的 proposer 算法。**
 
@@ -5458,7 +5461,7 @@ state:
 如算法 27 所示。
 这个算法虽然简单，
 但它的活性要求 $Q$ 中所有 acceptor 都在线。
-该算法类似于第一版 All Aboard Paxos，
+该算法类似于第一版 All aboard Paxos，
 见 4.3.2 节，
 但增加了 proposer 可以使用任意 epoch 的灵活性。
 
@@ -5689,7 +5692,7 @@ proposer $p_2$ 可以进入阶段二并提议 $(1, A)$。
 
 > 图 7.2：两个串行 proposer 执行经恢复分配 epoch 的示例。
 > 在 proposer $p_2$ 提议 $(0, B)$ 之前，
-  提案 $(0, A)$ 已被所有 acceptor 接受。
+> 提案 $(0, A)$ 已被所有 acceptor 接受。
 
 ![图 7.3：$a_3$ 未接受任何提案的经恢复分配 epoch 示例](../raw/distributed-consensus-revised-2019/images/figure-0021.png)
 
@@ -5886,7 +5889,7 @@ acceptor 算法与经恢复分配 epoch 的算法相同，
 那么对所有其他 epoch 就可以使用严格多数派法定人数。
 这样的算法满足与经典 Paxos 相同的进展保证，
 但最好情况更优：
-只需到 $\frac{3}{4}$ acceptor 的一次往返即可做出决定。
+只需一次往返到 $\frac{3}{4}$ 的 acceptor 即可做出决定。
 proposer 算法会先尝试让 acceptor 接受 $e_{min}$ 的阶段二，
 即快速路径；
 如果不成功，
@@ -6026,7 +6029,7 @@ Fast Paxos，
 
 [^ch7-15]: 请注意，我们可以把这种方法扩展到前 $n$ 个 epoch 都使用分配器，而不仅是 $e_{min}$。
 
-[^ch7-16]: 只是 $e_{min}$ 不能再被预先分配。
+[^ch7-16]: 只是 $e_{min}$ 不能被预先分配。
 
 [^ch7-17]: 实践中，proposer 可以选择先尝试快速路径，还是直接进入慢速路径。
 
@@ -6043,7 +6046,7 @@ Fast Paxos，
 > 对人生最有益的学问，
 > 莫过于摒弃谬误。
 >
-> ——安提斯泰尼（Antisthenes）
+> ——Antisthenes
 
 二十多年来，Paxos 一直是分布式共识的代名词。
 因此，它被广泛研究、讲授并部署到生产系统中。
@@ -6233,7 +6236,7 @@ Multi-Paxos 很少执行阶段一（4.3.3 节）。
 
 我们对经典 Paxos 的进展保证依赖于只有一个 proposer 执行 proposer 算法。
 实践中，
-这通常通过将一个 proposer 指定为指定 proposer 来实现，
+这通常通过将其中一个 proposer 设为指定 proposer 来实现，
 从而依赖同步性来检测该指定 proposer 的故障。
 
 在 7.2 节和 7.3 节中，
@@ -6295,17 +6298,17 @@ Multi-Paxos 的关键动机是一次往返即达成一致，
 
 # 参考文献
 
-[ACDK17] Ailidani Ailijiang, Aleksey Charapko, Murat Demirbas, and Tevfik Kosar. Multileader WAN paxos: Ruling the archipelago with fast consensus, 2017. arXiv: 1703.08905 [cs.DC].
+[ACDK17] Ailidani Ailijiang, Aleksey Charapko, Murat Demirbas, and Tevfik Kosar. Multileader WAN paxos: Ruling the archipelago with fast consensus, 2017. arXiv:1703.08905 [cs.DC].
 
 [BAC$^{+}$13] Nathan Bronson, Zach Amsden, George Cabrera, Prasad Chakka, Peter Dimov, Hui Ding, Jack Ferris, Anthony Giardullo, Sachin Kulkarni, Harry Li, Mark Marchukov, Dmitri Petrov, Lovro Puzar, Yee Jiun Song, and Venkat Venkataramani. TAO: Facebook's distributed data store for the social graph. In *Proceedings of the 2013 USENIX Annual Technical Conference*, ATC'13, pages 49–60, Berkeley, CA, USA, 2013. USENIX Association.
 
 [BBH$^{+}$11] William J. Bolosky, Dexter Bradshaw, Randolph B. Haagens, Norbert P. Kusters, and Peng Li. Paxos replicated state machines as the basis of a high-performance data store. In *Proceedings of the 8th USENIX Conference on Networked Systems Design and Implementation*, NSDI'11, pages 141–154, Berkeley, CA, USA, 2011. USENIX Association.
 
-[Bir85]Kenneth P. Birman. Replication and fault-tolerance in the ISIS system. In *Proceedings of the 10th ACM Symposium on Operating Systems Principles*, SOSP '85, pages 79–86, New York, NY, USA, 1985. ACM.
+[Bir85] Kenneth P. Birman. Replication and fault-tolerance in the ISIS system. In *Proceedings of the 10th ACM Symposium on Operating Systems Principles*, SOSP '85, pages 79–86, New York, NY, USA, 1985. ACM.
 
-[BJ87]Kenneth P. Birman and Thomas A. Joseph. Reliable communication in the presence of failures. *ACM Transactions on Computer Systems (TOCS)*, 5(1):47–76, January 1987.
+[BJ87] Kenneth P. Birman and Thomas A. Joseph. Reliable communication in the presence of failures. *ACM Transactions on Computer Systems (TOCS)*, 5(1):47–76, January 1987.
 
-[Bur06]Mike Burrows. The Chubby lock service for loosely-coupled distributed systems. In *Proceedings of the 7th Symposium on Operating Systems Design and Implementation*, OSDI '06, pages 335–350, Berkeley, CA, USA, 2006. USENIX Association.
+[Bur06] Mike Burrows. The Chubby lock service for loosely-coupled distributed systems. In *Proceedings of the 7th Symposium on Operating Systems Design and Implementation*, OSDI '06, pages 335–350, Berkeley, CA, USA, 2006. USENIX Association.
 
 [CDG$^{+}$08] Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber. Bigtable: A distributed storage system for structured data. *ACM Transactions on Computer Systems (TOCS)*, 26(2):4:1–4:26, June 2008.
 
@@ -6313,13 +6316,13 @@ Multi-Paxos 的关键动机是一次往返即达成一致，
 
 [CHT96] Tushar Deepak Chandra, Vassos Hadzilacos, and Sam Toueg. The weakest failure detector for solving consensus. *Journal of the ACM (JACM)*, 43(4):685–722, July 1996.
 
-[CL99]Miguel Castro and Barbara Liskov. Practical byzantine fault tolerance. In *Proceedings of the 3rd Symposium on Operating Systems Design and Implementation*, OSDI '99, pages 173–186, Berkeley, CA, USA, 1999. USENIX Association.
+[CL99] Miguel Castro and Barbara Liskov. Practical byzantine fault tolerance. In *Proceedings of the 3rd Symposium on Operating Systems Design and Implementation*, OSDI '99, pages 173–186, Berkeley, CA, USA, 1999. USENIX Association.
 
-[CT96]Tushar Deepak Chandra and Sam Toueg. Unreliable failure detectors for reliable distributed systems. *Journal of the ACM (JACM)*, 43(2):225–267, March 1996.
+[CT96] Tushar Deepak Chandra and Sam Toueg. Unreliable failure detectors for reliable distributed systems. *Journal of the ACM (JACM)*, 43(2):225–267, March 1996.
 
 [DDS87] Danny Dolev, Cynthia Dwork, and Larry Stockmeyer. On the minimal synchronization needed for distributed consensus. *Journal of the ACM (JACM)*, 34(1):77–97, January 1987.
 
-[Dem]Murat Demirbas. Modeling Paxos and Flexible Paxos in Pluscal and TLA+. <http://muratbuffalo.blogspot.co.uk/2016/11/modeling-paxos-and-flexible-paxos-in.html>. [Online; accessed 17-Jan-2018].
+[Dem] Murat Demirbas. Modeling Paxos and Flexible Paxos in Pluscal and TLA+. <http://muratbuffalo.blogspot.co.uk/2016/11/modeling-paxos-and-flexible-paxos-in.html>. [Online; accessed 17-Jan-2018].
 
 [DHJ+07] Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati, Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall, and Werner Vogels. Dynamo: Amazon's highly available key-value store. In *Proceedings of 21st ACM SIGOPS Symposium on Operating Systems Principles*, SOSP '07, pages 205–220, New York, NY, USA, 2007. ACM.
 
@@ -6329,37 +6332,37 @@ Multi-Paxos 的关键动机是一次往返即达成一致，
 
 [GGL03] Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung. The Google file system. In *Proceedings of the 19th ACM Symposium on Operating Systems Principles*, SOSP '03, pages 29–43, New York, NY, USA, 2003. ACM.
 
-[GL03]Eli Gafni and Leslie Lamport. Disk Paxos. *Distributed Computing*, 16(1):1–20, February 2003.
+[GL03] Eli Gafni and Leslie Lamport. Disk Paxos. *Distributed Computing*, 16(1):1–20, February 2003.
 
 [HKJR10] Patrick Hunt, Mahadev Konar, Flavio P. Junqueira, and Benjamin Reed. Zookeeper: Wait-free coordination for internet-scale systems. In *Proceedings of the 2010 USENIX Annual Technical Conference*, ATC'10, pages 11–11, Berkeley, CA, USA, 2010. USENIX Association.
 
 [JRS11] Flavio P. Junqueira, Benjamin C. Reed, and Marco Serafini. Zab: High-performance broadcast for primary-backup systems. In *Proceedings of the 41st IEEE/IFIP International Conference on Dependable Systems & Networks (DSN)*, pages 245–256. IEEE, 2011.
 
-[Lam78a]Leslie Lamport. The implementation of reliable distributed multiprocess systems. *Computer Networks*, 2(2):95–114, August 1978.
+[Lam78a] Leslie Lamport. The implementation of reliable distributed multiprocess systems. *Computer Networks*, 2(2):95–114, August 1978.
 
 [Lam78b] Leslie Lamport. Time, clocks, and the ordering of events in a distributed system. *Communications of the ACM (CACM)*, 21(7):558–565, July 1978.
 
-[Lam96]Butler W. Lampson. How to build a highly available system using consensus. In *Proceedings of the 10th International Workshop on Distributed Algorithms*, WDAG '96, pages 1–17, London, UK, UK, 1996. Springer-Verlag.
+[Lam96] Butler W. Lampson. How to build a highly available system using consensus. In *Proceedings of the 10th International Workshop on Distributed Algorithms*, WDAG '96, pages 1–17, London, UK, UK, 1996. Springer-Verlag.
 
-[Lam98]Leslie Lamport. The part-time parliament. *ACM Transactions on Computer Systems (TOCS)*, 16(2):133–169, May 1998.
+[Lam98] Leslie Lamport. The part-time parliament. *ACM Transactions on Computer Systems (TOCS)*, 16(2):133–169, May 1998.
 
-[Lam01a]Leslie Lamport. Paxos made simple. *ACM SIGACT News (Distributed Computing Column)*, December 2001.
+[Lam01a] Leslie Lamport. Paxos made simple. *ACM SIGACT News (Distributed Computing Column)*, December 2001.
 
-[Lam01b]Butler Lampson. The ABCD's of Paxos. In *Proceedings of the 20th Annual ACM Symposium on Principles of Distributed Computing*, PODC '01, pages 13–, New York, NY, USA, 2001. ACM.
+[Lam01b] Butler Lampson. The ABCD's of Paxos. In *Proceedings of the 20th Annual ACM Symposium on Principles of Distributed Computing*, PODC '01, pages 13–, New York, NY, USA, 2001. ACM.
 
-[Lam05a]Leslie Lamport. Fast Paxos. Technical Report MSR-TR-2005-112, Microsoft Research, 2005.
+[Lam05a] Leslie Lamport. Fast Paxos. Technical Report MSR-TR-2005-112, Microsoft Research, 2005.
 
-[Lam05b]Leslie Lamport. Generalized consensus and Paxos. Technical Report MSR-TR-2005-33, Microsoft Research, March 2005.
+[Lam05b] Leslie Lamport. Generalized consensus and Paxos. Technical Report MSR-TR-2005-33, Microsoft Research, March 2005.
 
-[LC12]Barbara Liskov and James Cowling. Viewstamped replication revisited. Technical Report MIT-CSAIL-TR-2012-021, MIT, July 2012.
+[LC12] Barbara Liskov and James Cowling. Viewstamped replication revisited. Technical Report MIT-CSAIL-TR-2012-021, MIT, July 2012.
 
-[LM04]Leslie Lamport and Mike Massa. Cheap Paxos. In *Proceedings of the 2004 International Conference on Dependable Systems and Networks*, DSN '04, pages 307–, Washington, DC, USA, 2004. IEEE Computer Society.
+[LM04] Leslie Lamport and Mike Massa. Cheap Paxos. In *Proceedings of the 2004 International Conference on Dependable Systems and Networks*, DSN '04, pages 307–, Washington, DC, USA, 2004. IEEE Computer Society.
 
 [LVA$^{+}$15] Haonan Lu, Kaushik Veeraraghavan, Philippe Ajoux, Jim Hunt, Yee Jiun Song, Wendy Tobagus, Sanjeev Kumar, and Wyatt Lloyd. Existential consistency: Measuring and understanding consistency at Facebook. In *Proceedings of the 25th Symposium on Operating Systems Principles*, SOSP '15, pages 295–310, New York, NY, USA, 2015. ACM.
 
 [MAK13] Iulian Moraru, David G. Andersen, and Michael Kaminsky. There is more consensus in egalitarian parliaments. In *Proceedings of the 24th ACM Symposium on Operating Systems Principles*, SOSP '13, pages 358–372, New York, NY, USA, 2013. ACM.
 
-[Mal]Dahlia Malkhi. ACM A.M. Turing award - Leslie Lamport 2013. <https://amturing.acm.org/award_winners/lamport_1205376.cfm>. [Online; accessed 23-April-2018].
+[Mal] Dahlia Malkhi. ACM A.M. Turing award - Leslie Lamport 2013. <https://amturing.acm.org/award_winners/lamport_1205376.cfm>. [Online; accessed 23-April-2018].
 
 [Mel17] Max Meldrum. Flexible Paxos: An industry perspective. Master's thesis, Blekinge Institute of Technology, 2017.
 
@@ -6377,18 +6380,18 @@ Multi-Paxos 的关键动机是一次往返即达成一致，
 
 [NAEA18] Faisal Nawab, Divyakant Agrawal, and Amr El Abbadi. DPaxos: Managing data closer to users for low-latency and mobile applications. In *Proceedings of the 2018 International Conference on Management of Data*, SIGMOD '18, pages 1221–1236, New York, NY, USA, 2018. ACM.
 
-[OL88]Brian M. Oki and Barbara H. Liskov. Viewstamped replication: A new primary copy method to support highly-available distributed systems. In *Proceedings of the 7th Annual ACM Symposium on Principles of Distributed Computing*, PODC '88, pages 8–17, New York, NY, USA, 1988. ACM.
+[OL88] Brian M. Oki and Barbara H. Liskov. Viewstamped replication: A new primary copy method to support highly-available distributed systems. In *Proceedings of the 7th Annual ACM Symposium on Principles of Distributed Computing*, PODC '88, pages 8–17, New York, NY, USA, 1988. ACM.
 
-[OO14]Diego Ongaro and John Ousterhout. In search of an understandable consensus algorithm. In *Proceedings of the 2014 USENIX Annual Technical Conference*, ATC'14, pages 305–320, 2014.
+[OO14] Diego Ongaro and John Ousterhout. In search of an understandable consensus algorithm. In *Proceedings of the 2014 USENIX Annual Technical Conference*, ATC'14, pages 305–320, 2014.
 
 [PLL97] Roberto De Prisco, Butler W. Lampson, and Nancy A. Lynch. Revisiting the Paxos algorithm. In *Proceedings of the 11th International Workshop on Distributed Algorithms*, WDAG '97, pages 111–125, London, UK, UK, 1997. Springer-Verlag.
 
 [PLSS17] Oded Padon, Giuliano Losa, Mooly Sagiv, and Sharon Shoham. Paxos made EPR: Decidable reasoning about distributed protocols. *Proceedings of the ACM on Programming Languages*, 1(OOPSLA):108:1–108:31, October 2017.
 
-[Sch90]Fred B. Schneider. Implementing fault-tolerant services using the state machine approach: A tutorial. *ACM Computing Surveys (CSUR)*, 22(4):299–319, December 1990.
+[Sch90] Fred B. Schneider. Implementing fault-tolerant services using the state machine approach: A tutorial. *ACM Computing Surveys (CSUR)*, 22(4):299–319, December 1990.
 
-[Tre]Trex. An embeddable paxos engine for the JVM. <https://github.com/trex-paxos/trex>. [Online; accessed 17-Jan-2018].
+[Tre] Trex. An embeddable paxos engine for the JVM. <https://github.com/trex-paxos/trex>. [Online; accessed 17-Jan-2018].
 
-[VRA15]Robbert Van Renesse and Deniz Altinbuken. Paxos made moderately complex. *ACM Computing Surveys (CSUR)*, 47(3):42:1–42:36, February 2015.
+[VRA15] Robbert Van Renesse and Deniz Altinbuken. Paxos made moderately complex. *ACM Computing Surveys (CSUR)*, 47(3):42:1–42:36, February 2015.
 
 [vRSS15] R. van Renesse, N. Schiper, and F. B. Schneider. Vive la différence: Paxos vs. Viewstamped Replication vs. Zab. *IEEE Transactions on Dependable and Secure Computing*, 12(4):472–484, July 2015.
