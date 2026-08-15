@@ -228,6 +228,7 @@ O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
 ## 4. 检查改动
 
 ```bash
+python tools/format.py tr/xxx.md  # 超长译文行按标点断开（只拆不并）
 git diff --check
 git diff
 ```
