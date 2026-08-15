@@ -1,10 +1,13 @@
 # 在 Facebook 扩展 Memcache
 
-Rajesh Nishtala, Hans Fugal, Steven Grimm, Marc Kwiatkowski, Herman Lee, Harry C. Li,
-Ryan McElroy, Mike Paleczny, Daniel Peek, Paul Saab, David Stafford, Tony Tung,
+Rajesh Nishtala, Hans Fugal, Steven Grimm, Marc Kwiatkowski,
+Herman Lee, Harry C. Li,
+Ryan McElroy, Mike Paleczny, Daniel Peek, Paul Saab,
+David Stafford, Tony Tung,
 Venkateshwaran Venkataramani
 
-{rajeshn,hans}@fb.com, {sgrimm, marc}@facebook.com, {herman, hcli, rm, mpal, dpeek, ps, dstaff, ttung, veeve}@fb.com
+{rajeshn,hans}@fb.com, {sgrimm, marc}@facebook.com, {herman,
+hcli, rm, mpal, dpeek, ps, dstaff, ttung, veeve}@fb.com
 Facebook Inc.
 
 **摘要：** Memcached 是一个广为人知的简单内存缓存方案。
@@ -33,7 +36,8 @@ Facebook Inc.
 每秒处理超过十亿次请求，
 存储数万亿条数据项。
 
-本文是一系列认识到分布式键值存储的灵活性和实用性的工作的最新成果 [1, 2, 5, 6, 12, 14, 34, 36]。
+本文是一系列认识到分布式键值存储的灵活性和实用性的工作的最新成果 [1, 2, 5, 6, 12, 14, 34,
+36]。
 本文聚焦于 memcached——一个内存哈希表的开源实现——因为它以低成本提供对共享存储池的低延迟访问。
 这些特性使我们能够构建否则不切实际的数据密集型功能。
 例如，
@@ -994,7 +998,8 @@ set 和 delete 率。
 
 在图 11 中，
 我们使用此监控机制报告 30 天跨度内的失效延迟。
-我们将这些数据分为两个不同的组成部分：(1) 删除源自主区域的 Web 服务器并发送到主区域的 memcached 服务器；
+我们将这些数据分为两个不同的组成部分：(1)
+删除源自主区域的 Web 服务器并发送到主区域的 memcached 服务器；
 (2) 删除源自副本区域并发送到另一个副本区域。
 如数据所示，
 当删除的源和目标与主区域共置时，
@@ -1038,7 +1043,8 @@ memcache 不保证持久性。
 Ports 等人 [31] 提供了一个库来管理对事务数据库查询的缓存结果。
 我们的需求需要更灵活的缓存策略。
 我们对租约 [18] 和陈旧读取 [23] 的使用利用了先前关于高性能系统中缓存一致性和读操作的研究。
-Ghandeharizadeh 和 Yap [15] 的工作也提出了一种基于时间戳而非显式版本号来解决陈旧写入问题的算法。
+Ghandeharizadeh 和 Yap [15]
+的工作也提出了一种基于时间戳而非显式版本号来解决陈旧写入问题的算法。
 
 虽然软件路由器更容易定制和编程，
 但它们的性能通常不如其硬件对应物。

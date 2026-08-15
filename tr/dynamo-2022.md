@@ -1,6 +1,10 @@
 # Amazon DynamoDB：可扩展、性能可预测的全托管 NoSQL 数据库服务
 
-Mostafa Elhemali、Niall Gallagher、Nicholas Gordon、Joseph Idziorek、Richard Krog、Colin Lazier、Erben Mo、Akhilesh Mritunjai、Somu Perianayagam、Tim Rath、Swami Sivasubramanian、James Christopher Sorenson III、Sroaj Sosothikul、Doug Terry、Akshat Vig
+Mostafa Elhemali、Niall Gallagher、Nicholas Gordon、
+Joseph Idziorek、Richard Krog、Colin Lazier、Erben Mo、
+Akhilesh Mritunjai、Somu Perianayagam、Tim Rath、
+Swami Sivasubramanian、James Christopher Sorenson III、
+Sroaj Sosothikul、Doug Terry、Akshat Vig
 
 Amazon Web Services（AWS）
 
@@ -19,7 +23,9 @@ Amazon DynamoDB 是一项 Not Only SQL（NoSQL）云数据库服务，
 以及全托管的 serverless 体验。
 2021 年，
 在长达 66 小时的 Amazon Prime Day 购物活动期间，
-包括 Alexa、Amazon.com 站点和 Amazon 物流中心在内的 Amazon 系统向 DynamoDB 发出了数万亿次 Application Programming Interface（API）调用，
+包括 Alexa、
+Amazon.com 站点和 Amazon 物流中心在内的 Amazon 系统向 DynamoDB 发出了数万亿次
+Application Programming Interface（API）调用，
 峰值达到每秒 8920 万次请求，
 同时仍保持了高可用性和个位数毫秒级性能。
 自 2012 年发布以来，
@@ -41,7 +47,9 @@ DynamoDB 是一项基础 AWS 服务，
 DynamoDB 支撑着多个高流量的 Amazon 业务和系统，
 包括 Alexa、Amazon.com 站点以及所有 Amazon 物流中心。
 此外，
-AWS Lambda、AWS Lake Formation 和 Amazon SageMaker 等许多 AWS 服务都构建在 DynamoDB 之上，
+AWS Lambda、
+AWS Lake Formation 和 Amazon SageMaker 等许多 AWS 服务都构建在
+DynamoDB 之上，
 数十万客户应用程序也是如此。
 
 这些应用程序和服务在性能、可靠性、持久性、效率与规模方面都有严苛的运维要求。
@@ -113,7 +121,13 @@ DynamoDB 以独特的方式整合了以下六项基本系统属性：
 
 ![图 1：DynamoDB 时间线](../raw/dynamo-2022/images/figure-0002.png)
 
-> 图 1：DynamoDB 时间线。从 2007 年 Dynamo 白皮书开始，依次展示 2012 年 DynamoDB 发布、2013 年 secondary index、2014 年 JavaScript Object Notation（JSON）文档、2015 年 Streams、2016 年 adaptive capacity、2017 年静态数据加密、global table 与备份恢复、2018 年事务与 on-demand table、2020 年 PartiQL（SQL-compatible query language），以及 2021 年低频访问表等里程碑。
+> 图 1：DynamoDB 时间线。从 2007 年 Dynamo 白皮书开始，
+> 依次展示 2012 年 DynamoDB 发布、2013 年 secondary index、
+> 2014 年 JavaScript Object Notation（JSON）文档、2015 年 Streams、
+> 2016 年 adaptive capacity、2017 年静态数据加密、global table 与备份恢复、
+> 2018 年事务与 on-demand table、
+> 2020 年 PartiQL（SQL-compatible query language），
+> 以及 2021 年低频访问表等里程碑。
 
 本文介绍 DynamoDB 如何作为一项分布式数据库服务不断演进，
 以满足客户需求，
@@ -181,7 +195,8 @@ Dynamo 是单租户系统，
 
 在这一时期，
 Amazon 推出了专注于托管式弹性体验的新服务，
-其中尤以 Amazon Simple Storage Service（Amazon S3）和 Amazon SimpleDB 为代表，
+其中尤以 Amazon Simple Storage Service（Amazon S3）
+和 Amazon SimpleDB 为代表，
 目的是消除上述运维负担。
 即使 Dynamo 的功能通常更符合应用程序需求，
 Amazon 工程师仍更愿意使用这些服务，
@@ -258,7 +273,8 @@ DynamoDB 提供了简单接口，
 插入、更新或删除 item 的任何操作都可以指定一个条件，
 只有满足该条件，
 操作才会成功。
-DynamoDB 支持原子性、一致性、隔离性和持久性（Atomicity, Consistency, Isolation, Durability，ACID）事务，
+DynamoDB 支持原子性、一致性、隔离性和持久性（Atomicity, Consistency,
+Isolation, Durability，ACID）事务，
 让应用程序能够更新多个 item，
 同时保证 item 间的原子性、一致性、隔离性和持久性，
 而不牺牲 DynamoDB 表的可扩展性、可用性与性能特征。
@@ -293,11 +309,17 @@ replication group 中的任何 replica 都可以处理最终一致性读取。
 
 ![图 2：storage node 上的 storage replica](../raw/dynamo-2022/images/figure-0003.png)
 
-> 图 2：storage node 上的 storage replica。storage replica 在 Solid State Drive（SSD）上同时保存存储键值数据的 B-tree 和包含 `Put`、`Delete` 等记录的 write-ahead log，并将 write-ahead log 归档到 Amazon S3。
+> 图 2：storage node 上的 storage replica。
+> storage replica 在 Solid State Drive（SSD）
+> 上同时保存存储键值数据的 B-tree 和包含 `Put`、
+> `Delete` 等记录的 write-ahead log，
+> 并将 write-ahead log 归档到 Amazon S3。
 
 ![图 3：log node 上的 log replica](../raw/dynamo-2022/images/figure-0004.png)
 
-> 图 3：log node 上的 log replica。log replica 只在 SSD 上持久化近期 write-ahead log，不保存 B-tree，并将 write-ahead log 归档到 Amazon S3。
+> 图 3：log node 上的 log replica。
+> log replica 只在 SSD 上持久化近期 write-ahead log，不保存 B-tree，
+> 并将 write-ahead log 归档到 Amazon S3。
 
 replication group 包含 storage replica；
 如图 2 所示，
@@ -311,7 +333,8 @@ log replica 类似 Paxos 中的 acceptor，
 第 5 节和第 6 节介绍 log replica 如何帮助 DynamoDB 提高可用性与持久性。
 
 DynamoDB 由数十个微服务组成。
-其核心服务包括 metadata service、request routing service、storage node 和 autoadmin service，
+其核心服务包括 metadata service、request routing service、
+storage node 和 autoadmin service，
 如图 4 所示。
 metadata service 存储路由信息，
 其中包括表、index，
@@ -327,7 +350,10 @@ storage service 负责在 storage node 机群上存储客户数据。
 
 ![图 4：DynamoDB 架构](../raw/dynamo-2022/images/figure-0005.png)
 
-> 图 4：DynamoDB 架构。客户请求经网络到达 request router；request router 与 authentication system、partition metadata system 和 global admission control 交互，再把请求路由到跨多个 Availability Zone 部署的 storage node。
+> 图 4：DynamoDB 架构。客户请求经网络到达 request router；
+> request router 与 authentication system、
+> partition metadata system 和 global admission control 交互，
+> 再把请求路由到跨多个 Availability Zone 部署的 storage node。
 
 autoadmin service 被设计成 DynamoDB 的中枢神经系统。
 它负责机群健康状况、partition 健康状况、表扩展，
@@ -344,14 +370,17 @@ autoadmin service 被设计成 DynamoDB 的中枢神经系统。
 使系统恢复稳定状态。
 
 图 4 没有展示 DynamoDB 的其他服务，
-这些服务支持 point-in-time restore、on-demand backup、update stream、global admission control、global table、global secondary index 和事务等功能。
+这些服务支持 point-in-time restore、on-demand backup、update stream、
+global admission control、global table、
+global secondary index 和事务等功能。
 
 ## 4 从 provisioned 到 on-demand 的历程
 
 DynamoDB 发布时引入了一种名为 partition 的内部抽象，
 用于动态扩展表的容量和性能。
 在 DynamoDB 的最初版本中，
-客户需要用 read capacity unit（RCU）和 write capacity unit（WCU）明确指定所需的表吞吐量。
+客户需要用 read capacity unit（RCU）和 write capacity unit（WCU）
+明确指定所需的表吞吐量。
 对于不超过 4 KB 的 item，
 一个 RCU 每秒可以执行一次强一致性读请求。
 对于不超过 1 KB 的 item，
@@ -459,7 +488,8 @@ bursting 的思路是让应用程序以 best-effort 方式利用 partition 层�
 吸收短时峰值。
 DynamoDB 最多保留一个 partition 的部分闲置容量 300 秒，
 供后续吞吐量突增使用；
-当 consumed capacity 超过该 partition 的 provisioned capacity 时便会使用它。
+当 consumed capacity 超过该 partition 的 provisioned capacity
+时便会使用它。
 这些闲置容量称为 burst capacity。
 
 DynamoDB 仍通过限制 partition 只能在节点层级有闲置吞吐量时 burst，
@@ -486,8 +516,10 @@ partition 的 leader replica 会定期收集每个成员的节点级容量信息
 
 DynamoDB 推出了 adaptive capacity，
 以便更好地吸收 burst capacity 无法处理的长期流量峰值。
-adaptive capacity 使 DynamoDB 能够更好地吸收 partition 间访问模式高度倾斜的工作负载。
-adaptive capacity 主动监控所有表的 provisioned capacity 和 consumed capacity。
+adaptive capacity 使 DynamoDB 能够更好地吸收 partition
+间访问模式高度倾斜的工作负载。
+adaptive capacity 主动监控所有表的 provisioned capacity 和 consumed
+capacity。
 如果表发生 throttling，
 但表级吞吐量尚未超限，
 系统便使用比例控制算法，
@@ -519,7 +551,8 @@ DynamoDB 认识到，
 将会更有利。
 
 为解决 admission control 问题，
-DynamoDB 用 global admission control（GAC）取代了 adaptive capacity。
+DynamoDB 用 global admission control（GAC）
+取代了 adaptive capacity。
 GAC 建立在同样的 token bucket 思路之上。
 GAC 服务以 token 为单位，
 集中跟踪表容量的总消耗量。
@@ -841,7 +874,8 @@ gray failure 可能因故障检测出现 false positive 或根本未检测到故
 而如上一节所述，
 这会干扰可用性。
 为解决 gray failure 造成的可用性问题，
-希望触发 failover 的 follower 会向 replication group 中的其他 replica 发送消息，
+希望触发 failover 的 follower 会向 replication group 中的其他 replica
+发送消息，
 询问它们能否与 leader 通信。
 如果有 replica 回复 leader 健康，
 follower 就会放弃触发 leader 选举。
@@ -944,8 +978,10 @@ DynamoDB 在请求路径上依赖的所有服务都应比 DynamoDB 具有更高�
 或者，
 当依赖服务受损时，
 DynamoDB 仍应能够继续运行。
-DynamoDB 在请求路径上依赖的服务包括 AWS Identity and Access Management（IAM）[2]，
-以及对使用客户 key 加密的表提供支持的 AWS Key Management Service（AWS KMS）[3]。
+DynamoDB 在请求路径上依赖的服务包括 AWS Identity and Access
+Management（IAM）[2]，
+以及对使用客户 key 加密的表提供支持的 AWS Key Management Service（AWS KMS）
+[3]。
 DynamoDB 使用 IAM 和 AWS KMS 验证每个客户请求。
 这些服务虽然高度可用，
 但 DynamoDB 的设计仍能在它们不可用时继续运行，
@@ -995,7 +1031,8 @@ metadata service 流量偶尔会激增，增幅最高可达 75%。
 无效的 cache 可能让数据源因过多直接负载而崩溃，
 进而造成系统其他部分发生 cascading failure [4]。
 
-DynamoDB 希望消除或显著减少 request router 和其他 metadata client 对本地 cache 的依赖，
+DynamoDB 希望消除或显著减少 request router 和其他 metadata client 对本地
+cache 的依赖，
 同时不影响客户请求延迟。
 处理请求时，
 router 只需要承载该请求 key 的 partition 信息。
@@ -1052,11 +1089,13 @@ B 类包含 95% 读取和 5% 更新。
 
 ![图 5：YCSB 读取延迟汇总](../raw/dynamo-2022/images/figure-0006.png)
 
-> 图 5：YCSB 读取延迟汇总。比较 YCSB-A 与 YCSB-B 在每秒 10 万、25 万、50 万和 100 万次操作下第 50 百分位（P50）与第 99 百分位（P99）的读取延迟。
+> 图 5：YCSB 读取延迟汇总。比较 YCSB-A 与 YCSB-B 在每秒 10 万、25 万、
+> 50 万和 100 万次操作下第 50 百分位（P50）与第 99 百分位（P99）的读取延迟。
 
 ![图 6：YCSB 写入延迟汇总](../raw/dynamo-2022/images/figure-0007.png)
 
-> 图 6：YCSB 写入延迟汇总。比较 YCSB-A 与 YCSB-B 在每秒 10 万、25 万、50 万和 100 万次操作下的 P50 与 P99 写入延迟。
+> 图 6：YCSB 写入延迟汇总。比较 YCSB-A 与 YCSB-B 在每秒 10 万、25 万、
+> 50 万和 100 万次操作下的 P50 与 P99 写入延迟。
 
 图 5 展示两种工作负载的 P50 和 P99 读取延迟。
 该图旨在说明，
@@ -1083,7 +1122,8 @@ DynamoDB 开创了 cloud-native NoSQL 数据库领域。
 同时获得稳定性能、高可用性和较低的运维复杂性。
 十余年来，
 DynamoDB 一直保持这些关键属性，
-并通过 on-demand capacity、point-in-time backup and restore、multi-Region replication 和 atomic transaction 等突破性功能，
+并通过 on-demand capacity、point-in-time backup and restore、
+multi-Region replication 和 atomic transaction 等突破性功能，
 持续增强对应用程序开发者的吸引力。
 
 ## 9 致谢
@@ -1092,7 +1132,11 @@ DynamoDB 从客户身上获益良多，
 客户持续不断的反馈推动我们为他们不断创新。
 在这段历程中，
 我们有幸与一支卓越的团队同行。
-感谢 Shawn Bice、Rande Blackman、Marc Brooker、Lewis Bruck、Andrew Certain、Raju Gulabani、James Hamilton、Long Huang、Yossi Levanson、David Lutz、Maximiliano Maccanti、Rama Pokkunuri、Tony Petrossian、Jim Scharf、Khawaja Shams、Stefano Stefani、Allan Vermuellen、Wei Xiao 和整个 DynamoDB 团队，
+感谢 Shawn Bice、Rande Blackman、Marc Brooker、Lewis Bruck、
+Andrew Certain、Raju Gulabani、James Hamilton、Long Huang、
+Yossi Levanson、David Lutz、Maximiliano Maccanti、
+Rama Pokkunuri、Tony Petrossian、Jim Scharf、Khawaja Shams、
+Stefano Stefani、Allan Vermuellen、Wei Xiao 和整个 DynamoDB 团队，
 感谢他们在这一演进过程中作出的重要贡献。
 许多人帮助改进了本文。
 感谢帮助塑造本文的匿名审稿人。

@@ -1,6 +1,7 @@
 # Silent Data Corruptions at Scale
 
-Harish Dattatraya Dixit、Sneha Pendharkar、Matt Beardon、Chris Mason、
+Harish Dattatraya Dixit、Sneha Pendharkar、Matt Beardon、
+Chris Mason、
 Tejasvi Chakravarthy、Bharath Muthiah、Sriram Sankar
 
 Facebook, Inc.
@@ -43,7 +44,8 @@ silent data error；数据损坏；系统可靠性；硬件可靠性；比特翻
 
 ## 1 引言
 
-Facebook 基础设施为 Facebook、WhatsApp、Instagram 和 Messenger 等众多应用提供服务。
+Facebook 基础设施为 Facebook、WhatsApp、
+Instagram 和 Messenger 等众多应用提供服务。
 这套基础设施由分布在全球各数据中心的数十万台服务器组成。
 每台服务器都包含许多基础组件，
 如主板、CPU、Dual In-line Memory Module（DIMM）、
@@ -653,7 +655,8 @@ Java 提供了 `+PrintAssembly` 选项；
 $$
 \begin{aligned}
 \operatorname{Int}[(1.1)^3] &= 0,     &\text{预期值} &= 1,\\
-\operatorname{Int}[(1.1)^{107}] &= 32809, &\text{预期值} &= 26854,\\
+\operatorname{Int}[(1.1)^{107}] &= 32809,
+&\text{预期值} &= 26854,\\
 \operatorname{Int}[(1.1)^{-3}] &= 1,    &\text{预期值} &= 0.
 \end{aligned}
 $$
@@ -822,7 +825,8 @@ SDC 有多种检测和缓解策略，
 
 **致谢：**
 作者感谢 Manish Modi、Vijay Rao、T. S. Khurana、Aslan Bakirov、
-Melita Mihaljevic、Kushal Thakkar、Nishant Yadav、Aravind Anbudurai、
+Melita Mihaljevic、Kushal Thakkar、Nishant Yadav、
+Aravind Anbudurai、
 Jason Liang、Jianyu Huang、Sihuan Li、Jongsoo Park，
 以及其他基础设施工程师；
 他们为方案实现贡献了力量，

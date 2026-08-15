@@ -21,10 +21,9 @@ HARD_RES = [
     re.compile(r"\[[^\]]*\]\([^)]*\)"),   # 链接
     re.compile(r"<[^>]+>"),               # 裸 URL
 ]
-# 无标点断点时允许在内部空格处跨行的片段
+# 无标点断点时允许在内部空格处跨行的片段（斜体由 star_spans 单独配对）
 SOFT_RES = [
     re.compile(r"\[[^\]]*\]"),            # 引用标记 [Lam01a, §2.4]
-    re.compile(r"\*[^*]+\*"),             # 斜体片段
 ]
 SKIP_RES = [
     re.compile(r"^\|"),                   # 表格
@@ -33,12 +32,24 @@ SKIP_RES = [
     re.compile(r"^\[\^"),                 # 脚注定义
     re.compile(r"^<a "),                  # 锚点
 ]
-PREFIX_RE = re.compile(r"^(\s*(?:[-*]|\d+\.)\s+|(?:>\s?)+)")  # 列表标记 / 引用前缀
+PREFIX_RE = re.compile(r"^(\s*(?:[-*]|\d+\.)\s+|(?:>\s?)+|\s+)")  # 列表标记 / 引用前缀 / 裸缩进
+
+
+def star_spans(text):
+    """成对的单星号（斜体）区间；** 粗体标记不参与配对。"""
+    stars, i = [], 0
+    while i < len(text):
+        if text[i] == "*":
+            if i + 1 < len(text) and text[i + 1] == "*":
+                i += 2
+                continue
+            stars.append(i)
+        i += 1
+    return [(a, b + 1) for a, b in zip(stars[::2], stars[1::2])]
 
 
 def spans(res, text):
     return [(m.start(), m.end()) for r in res for m in r.finditer(text)]
-
 
 def in_span(i, ss):
     return any(s < i + 1 < e for s, e in ss)
@@ -46,19 +57,21 @@ def in_span(i, ss):
 
 def wrap(text, width):
     """把 text 拆成若干行，每行不超过 width（无断点时允许超出）。"""
-    hard, soft = spans(HARD_RES, text), spans(SOFT_RES, text)
+    hard, soft = spans(HARD_RES, text), spans(SOFT_RES, text) + star_spans(text)
     lines = []
     while len(text) > width:
         n = len(text)
+        # 断点须在其后还留有足够内容（忽略行尾空格），避免产生只有标点的孤行
+        rest_len = lambda i: len(text[i + 1:].strip())
         punct = [i for i, ch in enumerate(text) if ch in BREAK_CHARS
-                 and i < n - 3 and not in_span(i, hard + soft)]
+                 and rest_len(i) >= 4 and not in_span(i, hard + soft)]
         under = [p for p in punct if p < width] or [
             p for p, ch in enumerate(text)
-            if ch == " " and p < n - 3 and not in_span(p, hard) and p < width]
+            if ch == " " and rest_len(p) >= 4 and not in_span(p, hard) and p < width]
         if under:
             cut = max(under)
         else:
-            after = [p for p in punct if n - p > 9]
+            after = [p for p in punct if rest_len(p) >= 8]
             if not after:
                 break
             cut = min(after)

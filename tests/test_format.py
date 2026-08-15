@@ -51,6 +51,22 @@ def test_blockquote_keeps_prefix():
     assert all(l.startswith("> ") for l in out)
 
 
+def test_star_pairing_not_confused_by_bold():
+    line = ("**定义 24。** 键 $k$ 处的*系数*是一个三元组 $\\left(\\mathcal{V}_k\\right)$，"
+            "其中 $\\mathcal{V}_k$ 是定义 22 中的值类型，$\\mathcal{A}_k$ 是一组*系数运算*，即某个较长的结尾内容。")
+    out = run([line])
+    assert all(len(l) <= fmt.WIDTH for l in out)
+    joined = "".join(l.lstrip() for l in out)
+    assert joined.replace(" ", "") == line.replace(" ", "")
+    # 不配对错位：斜体之外的逗号成为断点
+    assert len(out) >= 3
+def test_indented_math_line_kept_intact():
+    line = "   $\\partial\\Gamma \\to \\partial\\Gamma \\times (\\partial\\Gamma \\to \\partial^2\\Gamma)$，即某个足够长的续行内容。"
+    out = run([line])
+    assert out == [line] or all(l.startswith("   ") and l.strip() for l in out)
+    assert "" not in out
+
+
 def test_bibliography_section_untouched():
     lines = [
         "# 参考文献",

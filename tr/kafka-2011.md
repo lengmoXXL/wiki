@@ -551,7 +551,8 @@ MapReduce 的任务管理机制允许任务失败并重启，
 ## 5. 实验结果
 
 我们开展了一项实验研究，
-将 Kafka 的性能与 Apache ActiveMQ v5.4 [1] 和 RabbitMQ v2.4 [16] 进行比较。
+将 Kafka 的性能与 Apache ActiveMQ v5.4 [1] 和 RabbitMQ v2.4 [16]
+进行比较。
 前者是流行的 JMS 开源实现，
 后者是一种以性能著称的消息系统。
 我们使用 ActiveMQ 默认的持久消息存储 KahaDB。

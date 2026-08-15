@@ -1,6 +1,8 @@
 # Dynamo：Amazon 的高可用 key-value 存储
 
-Giuseppe DeCandia、Deniz Hastorun、Madan Jampani、Gunavardhan Kakulapati、Avinash Lakshman、Alex Pilchin、Swaminathan Sivasubramanian、Peter Vosshall 和 Werner Vogels
+Giuseppe DeCandia、Deniz Hastorun、Madan Jampani、
+Gunavardhan Kakulapati、Avinash Lakshman、Alex Pilchin、
+Swaminathan Sivasubramanian、Peter Vosshall 和 Werner Vogels
 
 Amazon.com
 
@@ -188,7 +190,8 @@ Dynamo 面向需要存储较小对象的应用，
 对象通常小于 1 MB。
 
 **ACID 属性：**
-原子性、一致性、隔离性和持久性（Atomicity, Consistency, Isolation, Durability，ACID）
+原子性、一致性、隔离性和持久性（Atomicity, Consistency, Isolation,
+Durability，ACID）
 是一组保证数据库事务得到可靠处理的属性。
 在数据库语境中，
 对数据的一次逻辑操作称为事务。
@@ -206,7 +209,8 @@ Dynamo 不提供任何隔离保证，
 Amazon 平台中的服务有严格的延迟要求，
 通常以延迟分布的第 99.9 百分位衡量。
 状态访问对服务运行至关重要，
-因此存储系统必须能够满足如此严格的服务等级协议（Service Level Agreement，SLA；见第 2.2 节）。
+因此存储系统必须能够满足如此严格的服务等级协议（Service Level Agreement，SLA；
+见第 2.2 节）。
 服务必须能够配置 Dynamo，
 使其持续达到延迟和吞吐量要求。
 需要权衡的因素包括性能、成本效益、可用性和持久性保证。
@@ -1101,7 +1105,8 @@ Dynamo 的每个存储节点包含三个主要软件组件：
 这些组件都使用 Java 实现。
 
 Dynamo 的本地持久化组件可以插入不同的存储引擎。
-正在使用的引擎包括 Berkeley Database（BDB）Transactional Data Store[^2]、
+正在使用的引擎包括 Berkeley Database（BDB）
+Transactional Data Store[^2]、
 BDB Java Edition、MySQL，
 以及带持久后备存储的内存缓冲区。
 设计可插拔持久化组件的主要原因，

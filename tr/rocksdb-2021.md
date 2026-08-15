@@ -34,7 +34,8 @@ RocksDB 是一种面向大规模分布式系统、
 
 ## 1 引言
 
-RocksDB [19, 54] 是 Facebook 于 2012 年基于 Google 的 LevelDB 代码库 [22]
+RocksDB [19, 54]
+是 Facebook 于 2012 年基于 Google 的 LevelDB 代码库 [22]
 创建的高性能持久化键值存储引擎。
 它针对 SSD
 的特性进行了优化，面向大规模（分布式）
@@ -70,13 +71,15 @@ MongoDB [40] 和 TiDB [27]）
 - **日志/队列服务：** Facebook 的 LogDevice [5]（同时使用 SSD 和 HDD）、
   Uber 的 Cherami [8] 以及 Iron.io [29] 都使用 RocksDB。
 
-- **索引服务：** Facebook 的 Dragon [59] 和 Rockset [58] 使用 RocksDB。
+- **索引服务：** Facebook 的 Dragon [59] 和 Rockset [58]
+  使用 RocksDB。
 
 - **SSD 缓存：** Netflix EVCache [7]、
   奇虎 Pika [51] 和 Redis [46] 等内存缓存服务，
   使用 RocksDB 将从 DRAM 淘汰的数据存储到 SSD 上。
 
-此前的一篇论文分析了使用 RocksDB 的若干数据库应用 [11]。表 2 汇总了从生产工作负载中获得的一些关键系统指标。
+此前的一篇论文分析了使用 RocksDB 的若干数据库应用 [11]。
+表 2 汇总了从生产工作负载中获得的一些关键系统指标。
 
 能够支持多种使用场景的存储引擎具有一项优势：
 不同应用可以共用同一个存储引擎。
@@ -940,7 +943,8 @@ RocksDB 没有指定时间点的 API，
 | fill_random + read_random|1.9|
 | fill_random + read_while_writing|2.0|
 
-> 表 6：使用时间戳 API 的 DB_bench 微基准测试获得了 $\ge 1.2\text{X}$ 的吞吐量提升。
+> 表 6：
+> 使用时间戳 API 的 DB_bench 微基准测试获得了 $\ge 1.2\text{X}$ 的吞吐量提升。
 
 每种工作负载都分为两个步骤：
 第一步填充数据库，我们在第二步测量性能。

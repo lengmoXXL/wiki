@@ -178,7 +178,8 @@ Linus 好脾气地提议改去参加"落水箱"游戏。
 
 ——David Diamond
 
-X-Authentication-Warning: penguin.transmeta.com: torvalds owned process doing-bs
+X-Authentication-Warning: penguin.transmeta.com:
+torvalds owned process doing-bs
 
 Date: Mon, 18 Oct 1999 14:12:27-0700 (PDT)
 
@@ -4680,7 +4681,8 @@ Organization: University of Helsinki
 但……
 是时候来一场认真的论战了！
 
-In article <12595@star.cs.vu.nl> ast@cs.vu.nl (Andy Tanenbaum) writes:
+In article <12595@star.cs.vu.nl> ast@cs.vu.nl (Andy
+Tanenbaum) writes:
 
 > 我在美国待了几个星期，
 > 所以没怎么评论 LINUX（就算我在，
@@ -11422,7 +11424,8 @@ Torvalds, Anna（Mikke；母亲），15，16，18，84，123，128，144，145
 
 Torvalds, Celeste（女儿），141
 
-Torvalds, Daniela（女儿），xvii，xxi，23，25，34，141，144，172，177，181，200，201
+Torvalds, Daniela（女儿），xvii，xxi，23，25，34，141，144，172，177，181，
+200，201
 
 Torvalds, Leo（同父异母的兄弟），10-11，15-16
 
@@ -11483,12 +11486,15 @@ Torvalds, Linus
 
 Torvalds, Märta（Farmor；祖母），14，91
 
-Torvalds, Nils（Nicke；父亲），10-11，15，17，18，26，41，60，65-68，69，84，123，128，200
+Torvalds, Nils（Nicke；父亲），10-11，15，17，18，26，41，60，65-68，69，
+84，123，128，200
 
 Torvalds, Patricia（女儿），
-xvii，xviii，xxi，xxii，23，25，34，71，132，141，144，145，154，155，177，181，200，201
+xvii，xviii，xxi，xxii，23，25，34，71，132，141，144，145，154，155，177，
+181，200，201
 
-Torvalds, Sara（妹妹），4，8，11，15-19，25，63，64，65，67-72，84，92，123，155
+Torvalds, Sara（妹妹），4，8，11，15-19，25，63，64，65，67-72，84，92，
+123，155
 
 Torvalds, Tove（妻子），xvii，xxi，xxii，11，50，108，136，239，240
   Comdex Show（1999）与，180，181

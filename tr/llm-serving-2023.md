@@ -1,6 +1,7 @@
 # 基于 PagedAttention 的大语言模型服务高效内存管理
 
-Woosuk Kwon、Zhuohan Li*、Siyuan Zhuang、Ying Sheng、Lianmin Zheng、Cody Hao Yu、
+Woosuk Kwon、Zhuohan Li*、Siyuan Zhuang、Ying Sheng、
+Lianmin Zheng、Cody Hao Yu、
 Joseph E. Gonzalez、Hao Zhang、Ion Stoica
 
 加州大学伯克利分校、斯坦福大学、独立研究者、加州大学圣地亚哥分校
@@ -48,7 +49,8 @@ vLLM 的源代码已在 https://github.com/vllm-project/vllm 公开。
 
 ## 1. 引言
 
-GPT [5, 37] 和 PaLM [9] 等大语言模型的出现催生了编程助手 [6, 18] 和通用聊天机器人 [19, 35] 等新应用，
+GPT [5, 37] 和 PaLM [9] 等大语言模型的出现催生了编程助手 [6, 18]
+和通用聊天机器人 [19, 35] 等新应用，
 它们正在深刻影响我们的工作和日常生活。
 许多云厂商 [34, 44] 正竞相以托管服务的形式提供这些应用。
 然而，运行这些应用的成本非常高，
@@ -80,7 +82,8 @@ LLM 的核心是一个自回归 Transformer 模型 [53]。
 将多个请求批处理在一起可以提高吞吐量。
 然而，要在一个批次中处理大量请求，
 就必须高效管理每个请求的内存空间。
-例如，图 1（左）展示了一个 13B 参数的 LLM 在 40GB 内存的 NVIDIA A100 GPU 上的内存分布。
+例如，图 1（左）
+展示了一个 13B 参数的 LLM 在 40GB 内存的 NVIDIA A100 GPU 上的内存分布。
 约 65% 的内存分配给模型权重，
 权重在服务期间保持不变。
 近 30% 的内存用于存储请求的动态状态。
@@ -101,7 +104,8 @@ KV cache 内存会严重限制批量大小，
 
 本文观察到，
 现有的 LLM 服务系统 [31, 60] 在高效管理 KV cache 内存方面存在不足。
-这主要是因为它们将请求的 KV cache 存储在连续内存空间中——大多数深度学习框架 [33, 39] 都要求张量连续存储。
+这主要是因为它们将请求的 KV cache 存储在连续内存空间中——大多数深度学习框架 [33, 39]
+都要求张量连续存储。
 然而，与传统深度学习工作负载中的张量不同，
 KV cache 具有独特的性质：
 它会随着模型生成新 token 而动态增长和收缩，
@@ -216,7 +220,8 @@ $$ q_{i}=W_{q}x_{i},\ k_{i}=W_{k}x_{i},\ v_{i}=W_{v}x_{i}. \tag{2} $$
 $$ a_{ij}=\frac{\exp(q_{i}^{\top}k_{j}/\sqrt{d})}{\sum_{t=1}^{i}\exp(q_{i}^{\top}k_{t}/\sqrt{d})},\ o_{i}=\sum_{j=1}^{i}a_{ij}v_{j}. \tag{3} $$
 
 除式（3）中的计算外，
-Transformer 模型中的所有其他组件——包括嵌入层、前馈层、层归一化 [2]、残差连接 [22]、输出 logit 计算，
+Transformer 模型中的所有其他组件——包括嵌入层、前馈层、层归一化 [2]、残差连接 [22]、
+输出 logit 计算，
 以及式（2）中的 query、key、value 变换——都以 $y_i = f(x_i)$ 的形式逐位置独立应用。
 
 ### 2.2 LLM 服务与自回归生成
@@ -245,7 +250,8 @@ LLM 服务中的生成计算可以分为两个阶段：
 
 **prompt 阶段**将整个用户 prompt $(x_1, \ldots, x_n)$ 作为输入，
 计算第一个新 token 的概率 $P(x_{n+1} \mid x_1, \ldots, x_n)$。
-在此过程中还会生成 key 向量 $k_1, \ldots, k_n$ 和 value 向量 $v_1, \ldots, v_n$。
+在此过程中还会生成 key 向量 $k_1, \ldots, k_n$ 和 value 向量
+$v_1, \ldots, v_n$。
 由于 prompt token $x_1, \ldots, x_n$ 全部已知，
 prompt 阶段的计算可以使用矩阵-矩阵乘法并行化。
 因此，这一阶段可以高效利用 GPU 固有的并行性。
@@ -253,7 +259,9 @@ prompt 阶段的计算可以使用矩阵-矩阵乘法并行化。
 **自回归生成阶段**逐个串行生成其余的新 token。
 在第 $t$ 次迭代，
 模型以一个 token $x_{n+t}$ 作为输入，
-用 key 向量 $k_1, \ldots, k_{n+t}$ 和 value 向量 $v_1, \ldots, v_{n+t}$ 计算概率 $P(x_{n+t+1} \mid x_1, \ldots, x_{n+t})$。
+用 key 向量 $k_1, \ldots, k_{n+t}$ 和 value 向量
+$v_1, \ldots, v_{n+t}$ 计算概率
+$P(x_{n+t+1} \mid x_1, \ldots, x_{n+t})$。
 注意，
 位置 $1$ 到 $n + t - 1$ 的 key 和 value 向量已在之前的迭代中缓存，
 本次迭代只需计算新的 key 和 value 向量 $k_{n+t}$ 和 $v_{n+t}$。
@@ -338,7 +346,9 @@ FLOPS 提高了 2 倍多，
 
 **复杂的解码算法。** LLM 服务为用户提供一系列解码算法，
 每种算法对内存管理复杂度的影响各不相同。
-例如，当用户要求对单个输入 prompt 做多次随机采样时——这是程序建议 [18] 中的典型用例——prompt 部分的 KV cache（在我们的实验中占总 KV cache 内存的 12%，见 §6.3）可以被共享，
+例如，当用户要求对单个输入 prompt 做多次随机采样时——这是程序建议 [18]
+中的典型用例——prompt 部分的 KV cache（在我们的实验中占总 KV cache 内存的 12%，
+见 §6.3）可以被共享，
 以最大限度地减少内存占用。
 另一方面，
 自回归生成阶段的 KV cache 则不应共享，
@@ -437,7 +447,8 @@ value 块 $V_{j} = (v_{(j-1)B+1}, \ldots, v_{jB})$。
 
 $$ A_{ij}=\frac{\exp(q_{i}^{\top}K_{j}/\sqrt{d})}{\sum_{t=1}^{\lceil i/B\rceil}\exp(q_{i}^{\top}K_{t}\mathbf{1}/\sqrt{d})},\ o_{i}=\sum_{j=1}^{\lceil i/B\rceil}V_{j}A_{ij}^{\top}, \tag{4} $$
 
-其中 $A_{ij} = (a_{i,(j-1)B+1}, \ldots, a_{i,jB})$ 是第 $j$ 个 KV 块上注意力分数的行向量。
+其中 $A_{ij} = (a_{i,(j-1)B+1}, \ldots, a_{i,jB})$ 是第 $j$ 个
+KV 块上注意力分数的行向量。
 
 > ¹ 在 Transformer 中，
 > 每个 token 在每一层的各个注意力头上都有一组 key 和 value 向量。
@@ -453,7 +464,9 @@ PagedAttention kernel 分别识别并取回不同的 KV 块。
 key 和 value 向量分布在三个块中，
 且这三个块在物理内存上不连续。
 每次，
-kernel 将查询 token（"forth"）的 query 向量 $q_i$ 与一个块中的 key 向量 $K_j$（例如块 0 中 "Four score and seven" 的 key 向量）相乘，
+kernel 将查询 token（"forth"）
+的 query 向量 $q_i$ 与一个块中的 key 向量 $K_j$（例如块 0 中 "Four score
+and seven" 的 key 向量）相乘，
 计算出注意力分数 $A_{ij}$，
 随后将 $A_{ij}$ 与该块中的 value 向量 $V_j$ 相乘，
 得到最终的注意力输出 $o_i$。
@@ -539,7 +552,8 @@ vLLM 为它分配一个新的物理块（物理块 3），
 vLLM 首先选出一组参与组批的候选序列（详见 §4.5），
 并为新需要的逻辑块分配物理块。
 然后，
-vLLM 将当前迭代的所有输入 token（即 prompt 阶段请求的所有 token 和生成阶段请求的最新 token）拼接为一个序列，
+vLLM 将当前迭代的所有输入 token（即 prompt 阶段请求的所有 token 和生成阶段请求的最新
+token）拼接为一个序列，
 送入 LLM。
 在 LLM 的计算过程中，
 vLLM 使用 PagedAttention kernel 访问以逻辑 KV 块形式存储的先前 KV cache，
@@ -784,7 +798,8 @@ vLLM 还包含一个 CPU 块分配器，
 我们在被抢占的序列被重新调度时直接重新计算其 KV cache。
 注意，
 重计算的延迟可以显著低于原始延迟，
-因为解码时生成的 token 可以与原始用户 prompt 拼接成新的 prompt——它们在所有位置的 KV cache 可以在一次 prompt 阶段迭代中生成。
+因为解码时生成的 token 可以与原始用户 prompt 拼接成新的 prompt——它们在所有位置的 KV
+cache 可以在一次 prompt 阶段迭代中生成。
 
 交换和重计算的性能取决于 CPU RAM 与 GPU 内存之间的带宽以及 GPU 的计算能力。
 我们在 §7.3 考察交换和重计算的速度。
@@ -848,7 +863,8 @@ vLLM 引擎由 8500 行 Python 代码和 2000 行 C++/CUDA 代码编写。
 我们用 Python 开发调度器和块管理器等控制相关组件，
 同时为 PagedAttention 等关键操作开发自定义 CUDA kernel。
 在模型执行器方面，
-我们用 PyTorch [39] 和 Transformers [58] 实现了 GPT [5]、OPT [62] 和 LLaMA [52] 等主流 LLM。
+我们用 PyTorch [39] 和 Transformers [58] 实现了 GPT [5]、OPT [62]
+和 LLaMA [52] 等主流 LLM。
 我们使用 NCCL [32] 在分布式 GPU worker 之间进行张量通信。
 
 ### 5.1 Kernel 级优化
@@ -898,7 +914,8 @@ vLLM 用 fork 方法从单个输入序列创建多个输出序列。
 
 ### 6.1 实验设置
 
-**模型与服务器配置。** 我们使用 13B、66B 和 175B 参数的 OPT [62] 模型以及 13B 参数的 LLaMA [52] 进行评估。
+**模型与服务器配置。** 我们使用 13B、66B 和 175B 参数的 OPT [62]
+模型以及 13B 参数的 LLaMA [52] 进行评估。
 如某 LLM 排行榜 [38] 所示，
 13B 和 66B 是流行的 LLM 规模，
 而 175B 是著名的 GPT-3 [5] 模型的规模。
@@ -936,7 +953,8 @@ ShareGPT 数据集的输入 prompt 平均比 Alpaca 数据集长 8.4 倍，
 
 > 图 11（b）：Alpaca 数据集的输入与输出长度分布。
 
-**基线 1：FasterTransformer。** FasterTransformer [31] 是一个针对延迟高度优化的分布式推理引擎。
+**基线 1：FasterTransformer。** FasterTransformer [31]
+是一个针对延迟高度优化的分布式推理引擎。
 由于 FasterTransformer 没有自己的调度器，
 我们实现了一个自定义调度器，
 其动态批处理机制类似于 Triton [30] 等现有服务系统。
@@ -1010,7 +1028,8 @@ vLLM 能承受高达 22 倍的请求速率，
 
 ![图 13：服务 OPT-13B 时的平均批处理请求数](../raw/llm-serving-2023/images/figure-0014.png)
 
-> 图 13：在 ShareGPT（2 请求/秒）和 Alpaca（30 请求/秒）轨迹下运行 OPT-13B 时的平均批处理请求数。
+> 图 13：在 ShareGPT（2 请求/秒）和 Alpaca（30 请求/秒）
+> 轨迹下运行 OPT-13B 时的平均批处理请求数。
 
 图 12 第二行和图 13（b）展示了 Alpaca 数据集上的结果，
 其趋势与 ShareGPT 数据集类似。
@@ -1182,7 +1201,8 @@ vLLM 同时支持重计算和交换作为恢复机制。
 
 ## 8. 讨论
 
-**将虚拟内存与分页技术应用于其他 GPU 工作负载。** 虚拟内存与分页的思想之所以能有效管理 LLM 服务中的 KV cache，
+**将虚拟内存与分页技术应用于其他 GPU 工作负载。
+** 虚拟内存与分页的思想之所以能有效管理 LLM 服务中的 KV cache，
 是因为该工作负载需要动态内存分配（输出长度无法事先预知），
 且其性能受 GPU 内存容量限制。
 然而，
@@ -1213,7 +1233,8 @@ vLLM 通过将内存访问操作的 GPU kernel 与注意力等其他操作的 ke
 **通用模型服务系统。** 模型服务是近年来活跃的研究领域，
 已有众多系统被提出，
 以解决深度学习模型部署的各个方面的问题。
-Clipper [11]、TensorFlow Serving [33]、Nexus [45]、InferLine [10] 和 Clockwork [20] 是一些较早的通用模型服务系统。
+Clipper [11]、TensorFlow Serving [33]、Nexus [45]、
+InferLine [10] 和 Clockwork [20] 是一些较早的通用模型服务系统。
 它们研究服务单个或多个模型时的批处理、缓存、放置和调度。
 更近一些，
 DVABatch [12] 引入了多入口多出口批处理。
@@ -1225,11 +1246,13 @@ AlpaServe [28] 利用模型并行进行统计复用。
 
 **面向 Transformer 的专用服务系统。** 由于 Transformer 架构的重要性，
 大量面向它的专用服务系统被开发出来。
-这些系统利用 GPU kernel 优化 [1, 29, 31, 56]、高级批处理机制 [14, 60]、模型并行 [1, 41, 60] 和参数共享 [64] 来实现高效服务。
+这些系统利用 GPU kernel 优化 [1, 29, 31, 56]、高级批处理机制 [14, 60]、
+模型并行 [1, 41, 60] 和参数共享 [64] 来实现高效服务。
 其中，
 Orca [60] 与我们的工作最相关。
 
-**与 Orca 的比较。** Orca [60] 的迭代级调度与 vLLM 的 PagedAttention 是互补的技术：
+**与 Orca 的比较。** Orca [60]
+的迭代级调度与 vLLM 的 PagedAttention 是互补的技术：
 两个系统都旨在提高 GPU 利用率，
 从而提高 LLM 服务的吞吐量；
 Orca 通过调度和交错请求，
@@ -1273,7 +1296,8 @@ vLLM 相对最先进的系统实现了 2—4 倍的吞吐量提升。
 
 感谢 Xiaoxuan Liu、Zhifeng Chen、Yanping Huang、
 SOSP 匿名审稿人以及我们的论文指导人 Lidong Zhou 提出的深刻反馈。
-本研究部分得到 Andreessen Horowitz、Anyscale、Astronomer、Google、IBM、Intel、Lacework、Microsoft、
+本研究部分得到 Andreessen Horowitz、Anyscale、Astronomer、Google、IBM、
+Intel、Lacework、Microsoft、
 穆罕默德·本·扎耶德人工智能大学、Samsung SDS、Uber 和 VMware 的捐赠支持。
 
 ## 参考文献

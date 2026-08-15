@@ -2,7 +2,8 @@
 
 Alex Petrov 著
 
-O'Reilly Media, Inc. 出版，地址：1005 Gravenstein Highway North, Sebastopol, CA 95472
+O'Reilly Media, Inc. 出版，地址：1005 Gravenstein Highway North,
+Sebastopol, CA 95472
 
 - 版权所有 (C) 2019 Oleksandr Petrov，保留所有权利。
 - 在美国印刷。
@@ -25,7 +26,8 @@ O'Reilly Media, Inc. 出版，地址：1005 Gravenstein Highway North, Sebastopo
 
 - 2019-09-12：首次发布。
 
-发布详情请参见 http://oreilly.com/catalog/errata.csp?isbn=9781492040347。
+发布详情请参见 http://oreilly.com/catalog/errata.csp?
+isbn=9781492040347。
 
 ## 献词
 
@@ -53,7 +55,8 @@ O'Reilly Media, Inc. 出版，地址：1005 Gravenstein Highway North, Sebastopo
 即运行多个数据库实例，
 让它们充当一个逻辑单元，
 从而提升性能并增加容量；
-Gamma Database Machine Project、Teradata、Greenplum、Parallel DB2 等许多系统都是如此。
+Gamma Database Machine Project、Teradata、Greenplum、
+Parallel DB2 等许多系统都是如此。
 如今，
 水平扩展仍然是客户期待数据库具备的最重要特性之一。
 这可以用云服务日益普及来解释。
@@ -71,7 +74,8 @@ NoSQL 以及后来出现的 big data 等术语也逐渐流行起来。
 
 Amazon 团队于 2007 年发表的 Dynamo 论文 [DECANDIA07] 对数据库社区产生了巨大影响，
 在很短时间内就催生出许多变体和实现。
-其中最著名的包括 Facebook 创建的 Apache Cassandra、LinkedIn 创建的 Project Voldemort，
+其中最著名的包括 Facebook 创建的 Apache Cassandra、
+LinkedIn 创建的 Project Voldemort，
 以及由前 Akamai 工程师创建的 Riak。
 
 如今，
@@ -133,14 +137,18 @@ Amazon 团队于 2007 年发表的 Dynamo 论文 [DECANDIA07] 对数据库社区
 ## 为什么要读本书？
 
 我们经常听到人们用数据库系统实现的概念和算法来描述它们：
-“这个数据库使用 gossip 传播成员关系”（见[第 12 章](#chapter-12-anti-entropy-and-dissemination)）、
+“这个数据库使用 gossip
+传播成员关系”（见[第 12 章](#chapter-12-anti-entropy-and-dissemination)）、
 “他们实现了 Dynamo”，
-或者“这就像 Spanner 论文中描述的那样”（见[第 13 章](#chapter-13-distributed-transactions)）。
+或者“这就像 Spanner
+论文中描述的那样”（见[第 13 章](#chapter-13-distributed-transactions)）。
 如果讨论的是算法和数据结构，
 你还可能听到这样的说法：
 “ZAB 和 Raft 有很多共同之处”（见[第 14 章](#chapter-14-consensus)）、
-“Bw-Tree 就像在日志结构存储之上实现的 B-Tree”（见[第 6 章](#chapter-6-b-tree-variants)），
-或者“它们使用了类似 B-link-Tree 中的兄弟指针”（见[第 5 章](#chapter-5-transaction-processing-and-recovery)）。
+“Bw-Tree 就像在日志结构存储之上实现的
+B-Tree”（见[第 6 章](#chapter-6-b-tree-variants)），
+或者“它们使用了类似 B-link-Tree
+中的兄弟指针”（见[第 5 章](#chapter-5-transaction-processing-and-recovery)）。
 
 讨论复杂概念需要抽象，
 而我们不能每次开始交谈时都先讨论一遍术语。
@@ -307,7 +315,8 @@ Amazon 团队于 2007 年发表的 Dynamo 论文 [DECANDIA07] 对数据库社区
 我们欢迎但不强制要求注明出处。
 出处通常包括书名、作者、出版商和 ISBN。
 例如：
-“*Database Internals* by Alex Petrov (O'Reilly). Copyright 2019 Oleksandr Petrov, 978-1-492-04034-7.”
+“*Database Internals* by Alex Petrov (O'Reilly)
+. Copyright 2019 Oleksandr Petrov, 978-1-492-04034-7.”
 
 如果你认为自己对示例代码的使用超出了合理使用或上述许可范围，
 请随时通过 permissions@oreilly.com 与我们联系。
@@ -352,7 +361,14 @@ Sebastopol, CA 95472<br>
 
 我要感谢所有审阅书稿并提供反馈的人，
 是他们确保了本书内容正确、措辞准确：
-Dmitry Alimov、Peter Alvaro、Carlos Baquero、Jason Brown、Blake Eggleston、Marcus Eriksson、Francisco Fernández Castaño、Heidi Howard、Vaidehi Joshi、Maximilian Karaszt、Stas Kelvich、Michael Klishin、Predrag Knežević、Joel Knighton、Eugene Lazin、Nate McCall、Christopher Meiklejohn、Tyler Neely、Maxim Neverov、Marina Petrova、Stefan Podkowinski、Edward Ribiero、Denis Rytsov、Kir Shatrov、Alex Sorokoumov、Massimiliano Tomassi 和 Ariel Weisberg。
+Dmitry Alimov、Peter Alvaro、Carlos Baquero、Jason Brown、
+Blake Eggleston、Marcus Eriksson、Francisco Fernández Castaño、
+Heidi Howard、Vaidehi Joshi、Maximilian Karaszt、Stas Kelvich、
+Michael Klishin、Predrag Knežević、Joel Knighton、Eugene Lazin、
+Nate McCall、Christopher Meiklejohn、Tyler Neely、
+Maxim Neverov、Marina Petrova、Stefan Podkowinski、
+Edward Ribiero、Denis Rytsov、Kir Shatrov、Alex Sorokoumov、
+Massimiliano Tomassi 和 Ariel Weisberg。
 
 当然，
 如果没有家人的支持，
@@ -404,7 +420,8 @@ Dmitry Alimov、Peter Alvaro、Carlos Baquero、Jason Brown、Blake Eggleston、
 从存储引擎的角度来看，
 二者都只是序列化后的条目。
 
-BerkeleyDB、LevelDB 及其后继 RocksDB、LMDB 及其后继 libmdbx、Sophia、HaloDB 等众多存储引擎，
+BerkeleyDB、LevelDB 及其后继 RocksDB、LMDB 及其后继 libmdbx、Sophia、
+HaloDB 等众多存储引擎，
 最初都是独立于后来嵌入它们的数据库管理系统开发的。
 借助可插拔存储引擎，
 数据库开发者可以利用现有存储引擎快速搭建数据库系统，
@@ -434,7 +451,8 @@ MongoDB 允许在 WiredTiger、In-Memory 和现已弃用的 MMAPv1 存储引擎�
 
 如果根据数据库的组件（例如使用哪种存储引擎，
 数据如何共享、复制和分布等）、
-排名（ThoughtWorks 等咨询机构或 DB-Engines、Database of Databases 等数据库比较网站给出的任意流行度数值），
+排名（ThoughtWorks 等咨询机构或 DB-Engines、
+Database of Databases 等数据库比较网站给出的任意流行度数值），
 或实现语言（C++、Java 或 Go 等）来比较数据库，
 可能会过早得出无效结论。
 这些方法只能用于高层比较，
@@ -524,7 +542,8 @@ YCSB 提供了一个框架和一组通用工作负载，
 
 ## TPC-C 基准测试
 
-事务处理性能委员会（Transaction Processing Performance Council，TPC）提供了一组基准测试，
+事务处理性能委员会（Transaction Processing Performance Council，TPC）
+提供了一组基准测试，
 数据库厂商用它们比较并宣传产品性能。
 TPC-C 是一种在线事务处理（OLTP）基准测试，
 由只读事务和更新事务混合而成，
@@ -709,7 +728,8 @@ OLAP 数据库通常用于分析和数据仓库，
 在代码中，
 看似独立的组件也可能因性能优化、边界情况处理或架构决策而耦合在一起。
 
-描述数据库管理系统架构的资料（例如 [HELLERSTEIN07]、[WEIKUM01]、[ELMASRI11] 和 [MOLINA08]），
+描述数据库管理系统架构的资料（例如 [HELLERSTEIN07]、[WEIKUM01]、[ELMASRI11]
+和 [MOLINA08]），
 对组件及其关系的定义各不相同。
 图 1-1 所示架构展示了这些表述中的一些共同主题。
 
@@ -768,7 +788,8 @@ OLAP 数据库通常用于分析和数据仓库，
 
 访问方法管理对磁盘数据的访问和数据组织。
 访问方法包括堆文件，
-以及 B-Tree（参见“无处不在的 B-Tree”）或日志结构合并树（LSM Tree，参见“LSM Tree”）等存储结构。
+以及 B-Tree（参见“无处不在的 B-Tree”）或日志结构合并树（LSM Tree，参见“LSM Tree”）
+等存储结构。
 
 **缓冲区管理器**
 
@@ -1398,15 +1419,25 @@ Bitcask（参见“Bitcask”）和 WiscKey（参见“WiscKey”）把数据记
 
 ### 数据库架构
 
-Hellerstein, Joseph M., Michael Stonebraker, and James Hamilton. 2007. “Architecture of a Database System.” *Foundations and Trends in Databases* 1, no. 2 (February): 141-259. https://doi.org/10.1561/1900000002.
+Hellerstein, Joseph M., Michael Stonebraker,
+and James Hamilton. 2007. “Architecture of a Database
+System.” *Foundations and Trends in Databases* 1,
+no. 2 (February): 141-259. https:
+//doi.org/10.1561/1900000002.
 
 ### 列式 DBMS
 
-Abadi, Daniel, Peter Boncz, Stavros Harizopoulos, Stratos Idreaos, and Samuel Madden. 2013. *The Design and Implementation of Modern Column-Oriented Database Systems*. Hanover, MA: Now Publishers Inc.
+Abadi, Daniel, Peter Boncz, Stavros Harizopoulos,
+Stratos Idreaos,
+and Samuel Madden. 2013. *The Design and Implementation of
+Modern Column-Oriented Database Systems*. Hanover, MA:
+Now Publishers Inc.
 
 ### 内存 DBMS
 
-Faerber, Frans, Alfons Kemper, and Per-Åke Alfons. 2017. *Main Memory Database Systems*. Hanover, MA: Now Publishers Inc.
+Faerber, Frans, Alfons Kemper,
+and Per-Åke Alfons. 2017. *Main Memory Database Systems*.
+Hanover, MA: Now Publishers Inc.
 
 <a id="chapter-2-b-tree-basics"></a>
 # 第 2 章 B-Tree 基础
@@ -1653,7 +1684,8 @@ SSD 可以包含一个或多个裸片。
 空块中的页必须按顺序写入。
 
 闪存控制器中负责将页 ID 映射到物理位置，
-并跟踪空页、已写页和已丢弃页的部分称为 Flash Translation Layer（FTL，闪存转换层；有关 FTL 的更多内容，参见“Flash Translation Layer”）。
+并跟踪空页、已写页和已丢弃页的部分称为 Flash Translation Layer（FTL，闪存转换层；
+有关 FTL 的更多内容，参见“Flash Translation Layer”）。
 它还负责垃圾回收；
 在此过程中，
 FTL 会找出可安全擦除的块。
@@ -1803,7 +1835,8 @@ B-Tree 节点内的键按顺序存储。
 可以使用二分搜索之类的算法定位目标键。
 这也意味着 B-Tree 查找具有对数复杂度。
 例如，
-在 40 亿（$4 \times 10^9$）个元素中寻找目标键大约需要 32 次比较（有关这一主题的更多内容，参见[B-Tree 查找复杂度](#b-tree-查找复杂度)）。
+在 40 亿（$4 \times 10^9$）个元素中寻找目标键大约需要 32 次比较（有关这一主题的更多内容，
+参见[B-Tree 查找复杂度](#b-tree-查找复杂度)）。
 如果每次比较都必须执行一次磁盘寻道，
 速度会显著下降；
 但由于 B-Tree 节点可以存储几十乃至数百个元素，
@@ -2211,15 +2244,24 @@ B-Tree 通过增加每个节点中存储的元素数量（高 fanout）并降低
 
 **二叉搜索树**
 
-Sedgewick, Robert and Kevin Wayne. 2011. *Algorithms (4th Ed.).* Boston: Pearson.
+Sedgewick,
+Robert and Kevin Wayne. 2011. *Algorithms (4th Ed.).*
+Boston: Pearson.
 
-Knuth, Donald E. 1997. *The Art of Computer Programming, Volume 2 (3rd Ed.): Seminumerical Algorithms*. Boston: Addison-Wesley Longman.
+Knuth,
+Donald E. 1997. *The Art of Computer Programming, Volume 2
+(3rd Ed.): Seminumerical Algorithms*. Boston:
+Addison-Wesley Longman.
 
 **B-Tree 的拆分与合并算法**
 
-Elmasri, Ramez and Shamkant Navathe. 2011. *Fundamentals of Database Systems (6th Ed.).* Boston: Pearson.
+Elmasri,
+Ramez and Shamkant Navathe. 2011. *Fundamentals of Database
+Systems (6th Ed.).* Boston: Pearson.
 
-Silberschatz, Abraham, Henry F. Korth, and S. Sudarshan. 2010. *Database Systems Concepts (6th Ed.).* New York: McGraw-Hill.
+Silberschatz, Abraham, Henry F. Korth,
+and S. Sudarshan. 2010. *Database Systems Concepts (6th
+Ed.).* New York: McGraw-Hill.
 
 <a id="chapter-3-file-formats"></a>
 # 第 3 章 文件格式
@@ -2359,7 +2401,8 @@ MSB 的地址最低。
 为了按照相应字节序重建 64 位整数，
 RocksDB 提供了平台专用定义，
 用于识别目标平台的字节序[^ch3-3]。
-如果目标平台字节序与值的字节序不匹配（`EncodeFixed64WithEndian` 会查找 `kLittleEndian` 的值并将其与值的字节序比较），
+如果目标平台字节序与值的字节序不匹配（`EncodeFixed64WithEndian` 会查找
+`kLittleEndian` 的值并将其与值的字节序比较），
 它就使用 `EndianTransform` 反转字节；
 该函数逐字节以相反顺序读取值，
 并将其追加到结果中。
@@ -2386,7 +2429,8 @@ RocksDB 提供了平台专用定义，
 `long` 为 8 字节（64 位）。
 
 浮点数（例如 `float` 和 `double`）由符号、尾数和指数表示。
-IEEE Standard for Binary Floating-Point Arithmetic（IEEE 754）标准描述了广泛采用的浮点数表示法。
+IEEE Standard for Binary Floating-Point Arithmetic（IEEE 754）
+标准描述了广泛采用的浮点数表示法。
 32 位 `float` 表示单精度值。
 例如，
 浮点数 `0.15652` 的二进制表示如图 3-2 所示。
@@ -2608,7 +2652,8 @@ B-Tree 区分保存键与数据记录对的叶节点，
 
 ![图 3-4：固定大小记录的页面组织方式](../raw/database-internals-2019/images/figure-0031.png)
 
-> 图 3-4：固定大小记录的页面组织方式。页面由指向子页面的指针 $p$、键 $k$ 和关联值 $v$ 构成的三元组连续拼接而成。
+> 图 3-4：固定大小记录的页面组织方式。页面由指向子页面的指针 $p$、
+> 键 $k$ 和关联值 $v$ 构成的三元组连续拼接而成。
 
 这种方法易于理解，
 但存在一些缺点：
@@ -2657,7 +2702,8 @@ B-Tree 区分保存键与数据记录对的叶节点，
 - 不考虑记录的确切位置即可引用页内记录。
 
 为了高效存储字符串、binary large object（BLOB）等大小可变的记录，
-可以使用一种称为*分槽页*（即带有槽的页面）[SILBERSCHATZ10] 或*槽目录* [RAMAKRISHNAN03] 的组织技术。
+可以使用一种称为*分槽页*（即带有槽的页面）[SILBERSCHATZ10]
+或*槽目录* [RAMAKRISHNAN03] 的组织技术。
 许多数据库都采用了这种方法，
 例如 PostgreSQL。
 
@@ -2719,7 +2765,9 @@ B-Tree 区分保存键与数据记录对的叶节点，
 
 ![图 3-A：大小可变的 key cell 布局](../raw/database-internals-2019/images/figure-0033.png)
 
-> 图 3-A：大小可变的 key cell 布局。固定大小的 cell header 依次保存 key 大小和 page ID，随后是 `key_size` 个 key byte。
+> 图 3-A：大小可变的 key cell 布局。
+> 固定大小的 cell header 依次保存 key 大小和 page ID，
+> 随后是 `key_size` 个 key byte。
 
 我们把固定大小的数据字段组合在一起，
 后跟 `key_size` 个字节。
@@ -2740,7 +2788,9 @@ B-Tree 区分保存键与数据记录对的叶节点，
 
 ![图 3-B：大小可变的 key-value cell 布局](../raw/database-internals-2019/images/figure-0034.png)
 
-> 图 3-B：大小可变的 key-value cell 布局。固定大小的 cell header 依次保存 key 大小和 value 大小，随后是 key byte 和 data record byte。
+> 图 3-B：大小可变的 key-value cell 布局。
+> 固定大小的 cell header 依次保存 key 大小和 value 大小，
+> 随后是 key byte 和 data record byte。
 
 你可能已经注意到这里对偏移量与页面 ID 的区分。
 页面大小固定且由 page cache 管理（参见“缓冲区管理”），
@@ -2801,7 +2851,8 @@ B-Tree 区分保存键与数据记录对的叶节点，
 
 ![图 3-7：以随机顺序追加记录](../raw/database-internals-2019/images/figure-0036.png)
 
-> 图 3-7：以随机顺序追加记录：Tom、Leslie。单元保持插入顺序，偏移指针则按 Leslie、Tom 的逻辑顺序排列。
+> 图 3-7：以随机顺序追加记录：Tom、Leslie。单元保持插入顺序，偏移指针则按 Leslie、
+> Tom 的逻辑顺序排列。
 
 现在，
 我们想再向这个页面添加一个姓名：*Ron*。
@@ -2816,7 +2867,8 @@ B-Tree 区分保存键与数据记录对的叶节点，
 
 ![图 3-8：再追加一条记录](../raw/database-internals-2019/images/figure-0037.png)
 
-> 图 3-8：再追加一条记录 Ron。Ron 单元追加到现有单元之后，偏移指针则插入 Leslie 与 Tom 对应的指针之间。
+> 图 3-8：再追加一条记录 Ron。Ron 单元追加到现有单元之后，
+> 偏移指针则插入 Leslie 与 Tom 对应的指针之间。
 
 ### 管理大小可变的数据
 
@@ -2986,11 +3038,20 @@ CRC 有助于检测突发错误（例如多个连续位损坏），
 
 **文件组织技术**
 
-Folk, Michael J., Greg Riccardi, and Bill Zoellick. 1997. *File Structures: An Object-Oriented Approach with C++* (3rd Ed.). Boston: Addison-Wesley Longman.
+Folk, Michael J., Greg Riccardi,
+and Bill Zoellick. 1997. *File Structures: An
+Object-Oriented Approach with C++* (3rd Ed.). Boston:
+Addison-Wesley Longman.
 
-Giampaolo, Dominic. 1998. *Practical File System Design with the Be File System (1st Ed.).* San Francisco: Morgan Kaufmann.
+Giampaolo,
+Dominic. 1998. *Practical File System Design with the Be
+File System (1st Ed.).* San Francisco: Morgan Kaufmann.
 
-Vitter, Jeffrey Scott. 2008. "Algorithms and data structures for external memory." *Foundations and Trends in Theoretical Computer Science* 2, no. 4 (January): 305-474. https://doi.org/10.1561/0400000014.
+Vitter,
+Jeffrey Scott. 2008. "Algorithms and data structures for
+external memory." *Foundations and Trends in Theoretical
+Computer Science* 2, no. 4 (January): 305-474. https:
+//doi.org/10.1561/0400000014.
 
 <a id="chapter-4-implementing-b-trees"></a>
 # 第 4 章 实现 B-Tree
@@ -3036,7 +3097,8 @@ magic number 常用于验证和合理性检查 [GIAMPAOLO98]。
 如果确实匹配，
 该 offset 很可能是正确的。
 例如，为了验证 page 是否正确加载并对齐，
-写入时可以在 header 中放入 magic number `50 41 47 45`（`PAGE` 的十六进制表示）。
+写入时可以在 header 中放入 magic number `50 41 47 45`（`PAGE`
+的十六进制表示）。
 读取时，
 通过比较读出的 header 中四个字节与预期字节序列来验证 page。
 
@@ -3062,14 +3124,16 @@ magic number 常用于验证和合理性检查 [GIAMPAOLO98]。
 
 ![图 4-1：通过 parent link 与 sibling link 定位 sibling](../raw/database-internals-2019/images/figure-0041.png)
 
-> 图 4-1：通过 parent link 定位 sibling（a），与通过 sibling link 定位 sibling（b）的对比。
+> 图 4-1：通过 parent link 定位 sibling（a），
+> 与通过 sibling link 定位 sibling（b）的对比。
 
 存储 sibling link 的缺点之一是，
 拆分和合并时必须更新这些链接。
 由于更新发生在 sibling node 中，
 而不是正在拆分或合并的 node 中，
 因此可能需要额外加锁。
-[“B-link Tree”](#b-link-tree)一节将讨论 sibling link 在并发 B-Tree 实现中的用途。
+[“B-link Tree”](#b-link-tree)
+一节将讨论 sibling link 在并发 B-Tree 实现中的用途。
 
 ### 最右指针
 
@@ -3202,7 +3266,8 @@ primary page 中的 record 指向 overflow page，
 
 ![图 4-6：Overflow page](../raw/database-internals-2019/images/figure-0046.png)
 
-> 图 4-6：primary page 中的 record 指向保存其后续 payload 的 overflow page。
+> 图 4-6：
+> primary page 中的 record 指向保存其后续 payload 的 overflow page。
 
 overflow page 需要额外的簿记，
 因为它们和 primary page 一样也可能产生碎片。
@@ -3271,7 +3336,8 @@ B-Tree page 中的 cell 按插入顺序存储，
 
 ![图 4-7：使用间接指针进行二分查找](../raw/database-internals-2019/images/figure-0047.png)
 
-> 图 4-7：使用间接指针进行二分查找。灰色表示目标元素。虚线箭头表示通过 cell 指针执行的二分查找；实线表示沿 cell 指针进行的访问，这是将 cell 值与目标 key 比较所必需的。
+> 图 4-7：使用间接指针进行二分查找。灰色表示目标元素。虚线箭头表示通过 cell 指针执行的二分查找；
+> 实线表示沿 cell 指针进行的访问，这是将 cell 值与目标 key 比较所必需的。
 
 ## 传播拆分与合并
 
@@ -3346,7 +3412,8 @@ parent 发生变化时都必须更新 parent 指针。
 
 ![图 4-8：查找期间收集的面包屑](../raw/database-internals-2019/images/figure-0048.png)
 
-> 图 4-8：查找期间收集的面包屑，包含遍历过的 node 和 cell 索引。虚线表示指向已访问 node 的逻辑链接；面包屑表中的数字表示沿途采用的 child 指针索引。
+> 图 4-8：查找期间收集的面包屑，包含遍历过的 node 和 cell 索引。
+> 虚线表示指向已访问 node 的逻辑链接；面包屑表中的数字表示沿途采用的 child 指针索引。
 
 ## 再平衡
 
@@ -3505,7 +3572,9 @@ page 可以彼此独立地压缩和解压，
 
 ![图 4-10：压缩与 block padding](../raw/database-internals-2019/images/figure-0050.png)
 
-> 图 4-10：压缩与 block padding。（a）压缩 page 小于一个 disk block，读取时会载入相邻 page 的额外字节；（b）page 跨越多个 disk block，必须额外读取一个 block。
+> 图 4-10：压缩与 block padding。（a）压缩 page 小于一个 disk block，
+> 读取时会载入相邻 page 的额外字节；（b）page 跨越多个 disk block，
+> 必须额外读取一个 block。
 
 另一种方法是只压缩数据，
 既可以按行压缩（压缩整个 data record），
@@ -3674,9 +3743,14 @@ internal page key 用于引导导航，
 
 **Disk-based B-Trees**
 
-Graefe, Goetz. 2011. "Modern B-Tree Techniques." *Foundations and Trends in Databases* 3, no. 4 (April): 203-402. https://doi.org/10.1561/1900000028.
+Graefe,
+Goetz. 2011. "Modern B-Tree Techniques." *Foundations and
+Trends in Databases* 3, no. 4 (April): 203-402. https:
+//doi.org/10.1561/1900000028.
 
-Healey, Christopher G. 2016. *Disk-Based Algorithms for Big Data* (1st Ed.). Boca Raton: CRC Press.
+Healey,
+Christopher G. 2016. *Disk-Based Algorithms for Big Data*
+(1st Ed.). Boca Raton: CRC Press.
 
 <a id="chapter-5-transaction-processing-and-recovery"></a>
 # 第 5 章 事务处理与恢复
@@ -3818,7 +3892,8 @@ page cache 不按顺序把 page 加载到空闲 slot，
 
 ![图 5-1：Page cache](../raw/database-internals-2019/images/figure-0053.png)
 
-> 图 5-1：Page cache。B-Tree page 的逻辑表示、无序装入内存 slot 的缓存版本，以及磁盘 page 之间的关系。
+> 图 5-1：Page cache。B-Tree page 的逻辑表示、无序装入内存 slot 的缓存版本，
+> 以及磁盘 page 之间的关系。
 
 page cache 的主要功能可归纳如下：
 
@@ -4053,7 +4128,8 @@ LRU-K 跟踪最近 $K$ 次访问来识别频繁引用的 page，
 
 在某些情况下，
 效率可能比精确性更重要。
-CLOCK 算法的变体常用作 LRU 的紧凑、cache-friendly 且支持并发的替代方案 [SOUNDARARAJAN06]。
+CLOCK 算法的变体常用作 LRU 的紧凑、
+cache-friendly 且支持并发的替代方案 [SOUNDARARAJAN06]。
 例如，Linux 就使用 CLOCK 算法的一种变体。
 
 CLOCK-sweep 在 circular buffer 中保存 page 引用和关联的 access bit。
@@ -4062,15 +4138,19 @@ CLOCK-sweep 在 circular buffer 中保存 page 引用和关联的 access bit。
 其 access bit 都设为 1。
 算法沿 circular buffer 循环并检查 access bit：
 
-- access bit 为 1 且 page 未被 referenced 时，将 bit 设为 0，再检查下一个 page。
+- access bit 为 1 且 page 未被 referenced 时，将 bit 设为 0，
+  再检查下一个 page。
 - access bit 已为 0 时，该 page 成为候选，并被安排 eviction。
-- page 当前被 referenced 时，其 access bit 保持不变。假定已访问 page 的 access bit 不可能为 0，因此不能被 evict；这使 referenced page 更不容易被替换。
+- page 当前被 referenced 时，其 access bit 保持不变。
+  假定已访问 page 的 access bit 不可能为 0，因此不能被 evict；
+  这使 referenced page 更不容易被替换。
 
 图 5-2 展示了带有 access bit 的 circular buffer。
 
 ![图 5-2：CLOCK-sweep 示例](../raw/database-internals-2019/images/figure-0054.png)
 
-> 图 5-2：CLOCK-sweep 示例。灰色表示当前被 referenced 的 page 的 counter，白色表示未被 referenced 的 page 的 counter；箭头指向下一个要检查的元素。
+> 图 5-2：CLOCK-sweep 示例。灰色表示当前被 referenced 的 page 的 counter，
+> 白色表示未被 referenced 的 page 的 counter；箭头指向下一个要检查的元素。
 
 使用 circular buffer 的一个优点是，
 clock hand 指针与 buffer 内容都能通过 compare-and-swap 操作修改，
@@ -4123,7 +4203,8 @@ frequency filter 与 eviction 之间的逻辑连接。
 
 ![图 5-3：TinyLFU 的三个队列](../raw/database-internals-2019/images/figure-0055.png)
 
-> 图 5-3：TinyLFU 的 admission、protected 和 probation queue，以及 frequency filter 与 eviction 之间的关系。
+> 图 5-3：TinyLFU 的 admission、protected 和 probation queue，
+> 以及 frequency filter 与 eviction 之间的关系。
 
 还有许多其他算法可用于优化 cache eviction。
 page-replacement strategy 的选择对延迟和 I/O 操作次数影响显著，
@@ -4149,7 +4230,8 @@ page cache 可以在内存中缓冲 page 内容的变更。
 WAL 的主要功能可归纳如下：
 
 - 允许 page cache 缓冲对磁盘 page 的更新，同时确保整个数据库系统的持久性语义。
-- 在受操作影响的缓存 page 副本同步到磁盘前，把所有操作持久化在磁盘上。任何修改数据库状态的操作都必须先记录到磁盘 log，之后才能修改相关 page 的内容。
+- 在受操作影响的缓存 page 副本同步到磁盘前，把所有操作持久化在磁盘上。
+  任何修改数据库状态的操作都必须先记录到磁盘 log，之后才能修改相关 page 的内容。
 - 崩溃时允许从操作 log 重建丢失的内存变更。
 
 除这些功能外，
@@ -4159,7 +4241,8 @@ WAL 的重要性怎么强调都不过分：
 并在崩溃时可用；
 未 commit 的数据会从 log 重放，
 从而完整恢复崩溃前的数据库状态。
-本节会经常提到 Algorithm for Recovery and Isolation Exploiting Semantics（ARIES），
+本节会经常提到 Algorithm for Recovery and Isolation Exploiting
+Semantics（ARIES），
 这是一种广泛使用和引用的先进恢复算法 [MOHAN92]。
 
 ### PostgreSQL 与 `fsync()`
@@ -4229,7 +4312,8 @@ WAL 通常通过一个接口与 primary storage structure 配合，
 到达 checkpoint 时可借助该接口 trim WAL。
 logging 是数据库最关键的正确性环节之一，
 要正确实现并不容易：
-只要 log trimming 与“确保数据已经进入 primary storage structure”之间存在最细微的不一致，
+只要 log trimming 与“确保数据已经进入 primary storage
+structure”之间存在最细微的不一致，
 就可能造成数据丢失。
 
 checkpoint 是让 log 知道某个标记之前的 log record 已经完全持久化、
@@ -4244,14 +4328,16 @@ checkpoint 是让 log 知道某个标记之前的 log record 已经完全持久�
 因此多数数据库系统实现 *fuzzy checkpoint*。
 此时，
 log header 中存储的 `last_checkpoint` 指针包含最近一次成功 checkpoint 的信息。
-fuzzy checkpoint 以指定开始位置的特殊 `begin_checkpoint` log record 开始，
+fuzzy checkpoint 以指定开始位置的特殊 `begin_checkpoint` log
+record 开始，
 以 `end_checkpoint` log record 结束；
 后者包含 dirty page 信息和 transaction table 的内容。
 在该 record 指定的所有 page 全部 flush 之前，
 checkpoint 都被视为 *未完成*。
 page 会异步 flush；
 完成后，
-`last_checkpoint` record 被更新为 `begin_checkpoint` record 的 LSN。
+`last_checkpoint` record 被更新为 `begin_checkpoint` record 的
+LSN。
 若发生崩溃，
 恢复过程将从这里开始 [MOHAN92]。
 
@@ -4355,9 +4441,12 @@ ARIES 是一种 steal/no-force 恢复算法。
 数据库系统崩溃后重启时，
 恢复分三个阶段进行：
 
-1. *分析阶段*识别崩溃时 page cache 中的 dirty page 和正在进行的事务。dirty page 信息用于确定 redo 阶段的起点；进行中事务的列表在 undo 阶段用于回滚未完成的事务。
-2. *Redo 阶段*重复直至崩溃点的历史，并把数据库恢复到先前状态。该阶段既处理未完成事务，也处理已经 commit、但其内容尚未 flush 到 persistent storage 的事务。
-3. *Undo 阶段*回滚所有未完成事务，并把数据库恢复到最近的一致状态。所有操作按逆时间顺序回滚。如果数据库在恢复期间再次崩溃，undo 事务的操作本身也会记录到 log，以免重复执行。
+1. *分析阶段*识别崩溃时 page cache 中的 dirty page 和正在进行的事务。
+   dirty page 信息用于确定 redo 阶段的起点；进行中事务的列表在 undo 阶段用于回滚未完成的事务。
+2. *Redo 阶段*重复直至崩溃点的历史，并把数据库恢复到先前状态。该阶段既处理未完成事务，
+   也处理已经 commit、但其内容尚未 flush 到 persistent storage 的事务。
+3. *Undo 阶段*回滚所有未完成事务，并把数据库恢复到最近的一致状态。所有操作按逆时间顺序回滚。
+   如果数据库在恢复期间再次崩溃，undo 事务的操作本身也会记录到 log，以免重复执行。
 
 ARIES 使用 LSN 标识 log record，
 在 dirty page table 中跟踪运行中事务修改的 page，
@@ -4660,11 +4749,16 @@ snapshot isolation 下仍可能出现 write skew anomaly，
 验证阶段与写入阶段通常比读取阶段短，
 所以这是一种可接受的折中。
 
-backward-oriented concurrency control 确保任意一对事务 $T_1$ 和 $T_2$ 满足以下属性：
+backward-oriented concurrency control 确保任意一对事务 $T_1$ 和
+$T_2$ 满足以下属性：
 
 - $T_1$ 在 $T_2$ 的读取阶段开始前已经 commit，因此允许 $T_2$ commit。
-- $T_1$ 在 $T_2$ 的写入阶段前已经 commit，且 $T_1$ 的 write set 与 $T_2$ 的 read set 不相交。换言之，$T_1$ 没有写入任何 $T_2$ 本应看到的值。
-- $T_1$ 的读取阶段在 $T_2$ 的读取阶段之前完成，且 $T_2$ 的 write set 与 $T_1$ 的 read set、write set 均不相交。换言之，事务操作的是彼此独立的 data record 集，因此二者都可以 commit。
+- $T_1$ 在 $T_2$ 的写入阶段前已经 commit，
+  且 $T_1$ 的 write set 与 $T_2$ 的 read set 不相交。换言之，
+  $T_1$ 没有写入任何 $T_2$ 本应看到的值。
+- $T_1$ 的读取阶段在 $T_2$ 的读取阶段之前完成，
+  且 $T_2$ 的 write set 与 $T_1$ 的 read set、write set 均不相交。换言之，
+  事务操作的是彼此独立的 data record 集，因此二者都可以 commit。
 
 如果验证通常成功、
 事务不必重试，
@@ -4711,7 +4805,8 @@ MVCC 的主要用途之一是实现 snapshot isolation [HELLERSTEIN07]。
 是否允许执行事务操作，
 取决于是否已有 timestamp 更早的事务 commit。
 为此，
-transaction manager 必须为每个值维护 `max_read_timestamp` 和 `max_write_timestamp`，
+transaction manager 必须为每个值维护 `max_read_timestamp` 和
+`max_write_timestamp`，
 描述并发事务执行的读写操作。
 
 试图以低于 `max_write_timestamp` 的 timestamp 读取值的操作，
@@ -4936,11 +5031,13 @@ writer 1 持有对象的 exclusive lock，
 
 ![图 5-8（a）：多个 reader 与等待中的 writer](../raw/database-internals-2019/images/figure-0059.png)
 
-> 图 5-8（a）：多个 reader 以 shared 模式访问对象，writer 等待获取 exclusive lock。
+> 图 5-8（a）：多个 reader 以 shared 模式访问对象，
+> writer 等待获取 exclusive lock。
 
 ![图 5-8（b）：持有锁的 writer 与等待者](../raw/database-internals-2019/images/figure-0060.png)
 
-> 图 5-8（b）：writer 1 持有 exclusive lock，另一个 writer 和三个 reader 等待。
+> 图 5-8（b）：writer 1 持有 exclusive lock，
+> 另一个 writer 和三个 reader 等待。
 
 两个相互重叠、试图访问同一 page 的读取不需要同步，
 只需防止 page cache 从磁盘重复取得该 page，
@@ -4999,8 +5096,10 @@ latch crabbing 是一种相当简单的方法，
 图 5-9 展示了插入期间从 root 到 leaf 的过程：
 
 - （a）在 root 层级获取 write latch。
-- （b）定位下一层级 node 并获取其 write latch；检查该 node 是否可能发生结构变化。由于 node 未满，可以释放 parent latch。
-- （c）操作下降到下一层级；获取 write latch，检查目标 leaf node 是否可能发生结构变化，并释放 parent latch。
+- （b）定位下一层级 node 并获取其 write latch；检查该 node 是否可能发生结构变化。
+  由于 node 未满，可以释放 parent latch。
+- （c）操作下降到下一层级；获取 write latch，检查目标 leaf node 是否可能发生结构变化，
+  并释放 parent latch。
 
 这种方法是乐观的：
 大多数插入和删除操作不会导致向上跨多个层级传播的结构变化。
@@ -5021,7 +5120,9 @@ latch crabbing 是一种相当简单的方法，
 
 ![图 5-9：插入期间的 latch crabbing](../raw/database-internals-2019/images/figure-0061.png)
 
-> 图 5-9：插入期间的 latch crabbing。（a）获取 root 的 write latch；（b）获取下一层 node 的 latch，确认其未满后释放 parent latch；（c）继续下降，在确认目标 leaf 不会引发结构变化后释放 parent latch。
+> 图 5-9：插入期间的 latch crabbing。（a）获取 root 的 write latch；（b）
+> 获取下一层 node 的 latch，确认其未满后释放 parent latch；（c）继续下降，
+> 在确认目标 leaf 不会引发结构变化后释放 parent latch。
 
 ### Latch Upgrading 与 Pointer Chasing
 
@@ -5132,37 +5233,90 @@ page cache 与 WAL 通过 force 和 steal policy 协调，
 
 **Transaction processing and recovery, generally**
 
-Weikum, Gerhard, and Gottfried Vossen. 2001. *Transactional Information Systems: Theory, Algorithms, and the Practice of Concurrency Control and Recovery*. San Francisco: Morgan Kaufmann Publishers Inc.
+Weikum, Gerhard,
+and Gottfried Vossen. 2001. *Transactional Information
+Systems: Theory, Algorithms, and the Practice of
+Concurrency Control and Recovery*. San Francisco:
+Morgan Kaufmann Publishers Inc.
 
-Bernstein, Philip A. and Eric Newcomer. 2009. *Principles of Transaction Processing*. San Francisco: Morgan Kaufmann.
+Bernstein,
+Philip A. and Eric Newcomer. 2009. *Principles of
+Transaction Processing*. San Francisco: Morgan Kaufmann.
 
-Graefe, Goetz, Guy, Wey & Sauer, Caetano. 2016. "Instant Recovery with Write-Ahead Logging: Page Repair, System Restart, Media Restore, and System Failover, (2nd Ed.)" in *Synthesis Lectures on Data Management* 8, 1-113. 10.2200/S00710ED2V01Y201603DTM044.
+Graefe, Goetz, Guy, Wey & Sauer,
+Caetano. 2016. "Instant Recovery with Write-Ahead Logging:
+Page Repair, System Restart, Media Restore,
+and System Failover, (2nd Ed.)
+" in *Synthesis Lectures on Data Management* 8,
+1-113. 10.2200/S00710ED2V01Y201603DTM044.
 
-Mohan, C., Don Haderle, Bruce Lindsay, Hamid Pirahesh, and Peter Schwarz. 1992. "ARIES: a transaction recovery method supporting fine-granularity locking and partial rollbacks using write-ahead logging." *Transactions on Database Systems* 17, no. 1 (March): 94-162. https://doi.org/10.1145/128765.128770.
+Mohan, C., Don Haderle, Bruce Lindsay, Hamid Pirahesh,
+and Peter Schwarz. 1992. "ARIES:
+a transaction recovery method supporting fine-granularity
+locking and partial rollbacks using write-ahead logging."
+*Transactions on Database Systems* 17, no. 1 (March):
+94-162. https://doi.org/10.1145/128765.128770.
 
 **B-Tree 中的并发控制**
 
-Wang, Paul. 1991. "An In-Depth Analysis of Concurrent B-Tree Algorithms." MIT Technical Report. https://apps.dtic.mil/dtic/tr/fulltext/u2/a232287.pdf.
+Wang,
+Paul. 1991. "An In-Depth Analysis of Concurrent B-Tree
+Algorithms." MIT Technical Report. https:
+//apps.dtic.mil/dtic/tr/fulltext/u2/a232287.pdf.
 
-Goetz Graefe. 2010. A survey of B-tree locking techniques. ACM Trans. Database Syst. 35, 3, Article 16 (July 2010), 26 pages.
+Goetz Graefe. 2010. A survey of B-tree locking techniques.
+ACM Trans. Database Syst. 35, 3, Article 16 (July 2010),
+26 pages.
 
 **Parallel and concurrent data structures**
 
-McKenney, Paul E. 2012. "Is Parallel Programming Hard, And, If So, What Can You Do About It?" https://arxiv.org/abs/1701.00854.
+McKenney, Paul E. 2012. "Is Parallel Programming Hard, And,
+If So, What Can You Do About It?" https:
+//arxiv.org/abs/1701.00854.
 
-Herlihy, Maurice and Nir Shavit. 2012. *The Art of Multiprocessor Programming*, *Revised Reprint (1st Ed.).* San Francisco: Morgan Kaufmann.
+Herlihy,
+Maurice and Nir Shavit. 2012. *The Art of Multiprocessor
+Programming*, *Revised Reprint (1st Ed.).* San Francisco:
+Morgan Kaufmann.
 
-**Chronological developments in the field of transaction processing**
+**Chronological developments in the field of transaction
+processing**
 
-Diaconu, Cristian, Craig Freedman, Erik Ismert, Per-Åke Larson, Pravin Mittal, Ryan Stonecipher, Nitin Verma, and Mike Zwilling. 2013. "Hekaton: SQL Server's Memory-Optimized OLTP Engine." In Proceedings of the 2013 ACM SIGMOD International Conference on Management of Data (SIGMOD '13), 1243-1254. New York: Association for Computing Machinery. https://doi.org/10.1145/2463676.2463710.
+Diaconu, Cristian, Craig Freedman, Erik Ismert,
+Per-Åke Larson, Pravin Mittal, Ryan Stonecipher,
+Nitin Verma, and Mike Zwilling. 2013. "Hekaton:
+SQL Server's Memory-Optimized OLTP Engine." In Proceedings
+of the 2013 ACM SIGMOD International Conference on
+Management of Data (SIGMOD '13), 1243-1254. New York:
+Association for Computing Machinery. https:
+//doi.org/10.1145/2463676.2463710.
 
-Kimura, Hideaki. 2015. "FOEDUS: OLTP Engine for a Thousand Cores and NVRAM." In Proceedings of the 2015 ACM SIGMOD International Conference on Management of Data (SIGMOD '15), 691-706. https://doi.org/10.1145/2723372.2746480.
+Kimura, Hideaki. 2015. "FOEDUS:
+OLTP Engine for a Thousand Cores and NVRAM." In Proceedings
+of the 2015 ACM SIGMOD International Conference on
+Management of Data (SIGMOD '15), 691-706. https:
+//doi.org/10.1145/2723372.2746480.
 
-Yu, Xiangyao, Andrew Pavlo, Daniel Sanchez, and Srinivas Devadas. 2016. "Tic-Toc: Time Traveling Optimistic Concurrency Control." In Proceedings of the 2016 International Conference on Management of Data (SIGMOD '16), 1629-1642. https://doi.org/10.1145/2882903.2882935.
+Yu, Xiangyao, Andrew Pavlo, Daniel Sanchez,
+and Srinivas Devadas. 2016. "Tic-Toc:
+Time Traveling Optimistic Concurrency Control." In
+Proceedings of the 2016 International Conference on
+Management of Data (SIGMOD '16), 1629-1642. https:
+//doi.org/10.1145/2882903.2882935.
 
-Kim, Kangnyeon, Tianzheng Wang, Ryan Johnson, and Ippokratis Pandis. 2016. "ERMIA: Fast Memory-Optimized Database System for Heterogeneous Workloads." In Proceedings of the 2016 International Conference on Management of Data (SIGMOD '16), 1675-1687. https://doi.org/10.1145/2882903.2882905.
+Kim, Kangnyeon, Tianzheng Wang, Ryan Johnson,
+and Ippokratis Pandis. 2016. "ERMIA:
+Fast Memory-Optimized Database System for Heterogeneous
+Workloads." In Proceedings of the 2016 International
+Conference on Management of Data (SIGMOD '16),
+1675-1687. https://doi.org/10.1145/2882903.2882905.
 
-Lim, Hyeontaek, Michael Kaminsky, and David G. Andersen. 2017. "Cicada: Dependably Fast Multi-Core In-Memory Transactions." In Proceedings of the 2017 ACM International Conference on Management of Data (SIGMOD '17), 21-35. https://doi.org/10.1145/3035918.3064015.
+Lim, Hyeontaek, Michael Kaminsky,
+and David G. Andersen. 2017. "Cicada:
+Dependably Fast Multi-Core In-Memory Transactions." In
+Proceedings of the 2017 ACM International Conference on
+Management of Data (SIGMOD '17), 21-35. https:
+//doi.org/10.1145/3035918.3064015.
 
 <a id="chapter-6-b-tree-variants"></a>
 # 第 6 章 B-Tree 变体
@@ -5172,10 +5326,14 @@ B-Tree 变体有一些共同点：树结构、通过拆分与合并进行平衡�
 
 本章讨论几种可用于实现高效 B-Tree 的技术以及采用这些技术的数据结构：
 
-- 写时复制 B-Tree 的结构类似 B-Tree，但 node 不可变且不做原地更新。page 会被复制、更新并写入新位置。
-- 惰性 B-Tree 通过在 node 上缓冲更新，减少后续写入同一 node 时的 I/O 请求。下一章还会介绍双组件 LSM tree，它进一步利用缓冲来实现完全不可变的 B-Tree。
-- FD-Tree 采用一种类似 LSM tree 的缓冲方式：先在小型 B-Tree 中缓冲更新；填满后将内容写入不可变 run，并让更新以级联方式由高层向低层传播。
-- Bw-Tree 把 B-Tree node 拆成多个较小部分，并以 append-only 方式写入，从而通过批处理不同 node 的更新降低小写入成本。
+- 写时复制 B-Tree 的结构类似 B-Tree，但 node 不可变且不做原地更新。page 会被复制、
+  更新并写入新位置。
+- 惰性 B-Tree 通过在 node 上缓冲更新，减少后续写入同一 node 时的 I/O 请求。
+  下一章还会介绍双组件 LSM tree，它进一步利用缓冲来实现完全不可变的 B-Tree。
+- FD-Tree 采用一种类似 LSM tree 的缓冲方式：先在小型 B-Tree 中缓冲更新；
+  填满后将内容写入不可变 run，并让更新以级联方式由高层向低层传播。
+- Bw-Tree 把 B-Tree node 拆成多个较小部分，并以 append-only 方式写入，
+  从而通过批处理不同 node 的更新降低小写入成本。
 - Cache-oblivious B-Tree 允许以非常接近内存数据结构的方式处理磁盘数据结构。
 
 ## 写时复制
@@ -5606,7 +5764,8 @@ delta 节点可以表示插入、
 读取时必须遍历所有 delta，
 并将它们应用到基础节点，
 才能重建节点的实际状态。
-这与 LA-Tree 的做法有些相似（参见 [Lazy-Adaptive Tree](#lazy-adaptive-tree)）：
+这与 LA-Tree 的做法有些相似（参见
+[Lazy-Adaptive Tree](#lazy-adaptive-tree)）：
 把更新与主结构分开保存，
 并在读取时重放。
 
@@ -5657,7 +5816,8 @@ Bw-Tree 的逻辑结构与 B-Tree 相同，
 这意味着节点仍可能增长得过大（overflow），
 或收缩到几乎为空（underflow），
 因而需要执行拆分和合并等结构修改操作（structure modification operation，SMO）。
-这里拆分和合并的语义与 B-Tree 类似（参见“B-Tree Node Splits”和“B-Tree Node Merges”），
+这里拆分和合并的语义与 B-Tree 类似（参见“B-Tree Node Splits”和“B-Tree Node
+Merges”），
 但实现不同。
 
 拆分 SMO 首先 consolidation 待拆分节点的逻辑内容，
@@ -5827,7 +5987,8 @@ cache-oblivious 算法让我们可以用两级内存模型来推理数据结构�
 
 ### van Emde Boas 布局
 
-cache-oblivious B-Tree 由一棵静态 B-Tree 和一个 packed array 结构组成 [BENDER05]。
+cache-oblivious B-Tree 由一棵静态 B-Tree 和一个 packed array 结构组成
+[BENDER05]。
 静态 B-Tree 使用 *van Emde Boas* 布局构建。
 它在边的中间层拆分树，
 然后以类似方式递归拆分每棵子树，
@@ -5921,25 +6082,49 @@ B-Tree 节点及其更新分别存储在磁盘上的不同位置，
 
 ### Copy-on-Write B-Trees
 
-Driscoll, J. R., N. Sarnak, D. D. Sleator, and R. E. Tarjan. 1986. "Making data structures persistent." In Proceedings of the eighteenth annual ACM symposium on Theory of computing (STOC '86), 109-121. https://dx.doi.org/10.1016/0022-0000(89)90034-2.
+Driscoll, J. R., N. Sarnak, D. D. Sleator,
+and R. E. Tarjan. 1986. "Making data structures
+persistent." In Proceedings of the eighteenth annual ACM
+symposium on Theory of computing (STOC '86), 109-121. https:
+//dx.doi.org/10.1016/0022-0000(89)90034-2.
 
 ### Lazy-Adaptive Trees
 
-Agrawal, Devesh, Deepak Ganesan, Ramesh Sitaraman, Yanlei Diao, and Shashi Singh. 2009. "Lazy-Adaptive Tree: an optimized index structure for flash devices." Proceedings of the VLDB Endowment 2, no. 1 (January): 361-372. https://doi.org/10.14778/1687627.1687669.
+Agrawal, Devesh, Deepak Ganesan, Ramesh Sitaraman,
+Yanlei Diao, and Shashi Singh. 2009. "Lazy-Adaptive Tree:
+an optimized index structure for flash devices."
+Proceedings of the VLDB Endowment 2, no. 1 (January):
+361-372. https://doi.org/10.14778/1687627.1687669.
 
 ### FD-Trees
 
-Li, Yinan, Bingsheng He, Robin Jun Yang, Qiong Luo, and Ke Yi. 2010. "Tree Indexing on Solid State Drives." Proceedings of the VLDB Endowment 3, no. 1-2 (September): 1195-1206. https://doi.org/10.14778/1920841.1920990.
+Li, Yinan, Bingsheng He, Robin Jun Yang, Qiong Luo,
+and Ke Yi. 2010. "Tree Indexing on Solid State Drives."
+Proceedings of the VLDB Endowment 3, no. 1-2 (September):
+1195-1206. https://doi.org/10.14778/1920841.1920990.
 
 ### Bw-Trees
 
-Wang, Ziqi, Andrew Pavlo, Hyeontaek Lim, Viktor Leis, Huanchen Zhang, Michael Kaminsky, and David G. Andersen. 2018. "Building a Bw-Tree Takes More Than Just Buzz Words." Proceedings of the 2018 International Conference on Management of Data (SIGMOD '18), 473-488. https://doi.org/10.1145/3183713.3196895
+Wang, Ziqi, Andrew Pavlo, Hyeontaek Lim, Viktor Leis,
+Huanchen Zhang, Michael Kaminsky,
+and David G. Andersen. 2018. "Building a Bw-Tree Takes More
+Than Just Buzz Words." Proceedings of the 2018
+International Conference on Management of Data (SIGMOD '18),
+473-488. https://doi.org/10.1145/3183713.3196895
 
-Levandoski, Justin J., David B. Lomet, and Sudipta Sengupta. 2013. "The Bw-Tree: A B-tree for new hardware platforms." In Proceedings of the 2013 IEEE International Conference on Data Engineering (ICDE '13), 302-313. IEEE. https://doi.org/10.1109/ICDE.2013.6544834.
+Levandoski, Justin J., David B. Lomet,
+and Sudipta Sengupta. 2013. "The Bw-Tree:
+A B-tree for new hardware platforms." In Proceedings of the
+2013 IEEE International Conference on Data Engineering
+(ICDE '13), 302-313. IEEE. https:
+//doi.org/10.1109/ICDE.2013.6544834.
 
 ### Cache-Oblivious B-Trees
 
-Bender, Michael A., Erik D. Demaine, and Martin Farach-Colton. 2005. "Cache-Oblivious B-Trees." SIAM Journal on Computing 35, no. 2 (August): 341-358. https://doi.org/10.1137/S0097539701389956.
+Bender, Michael A., Erik D. Demaine,
+and Martin Farach-Colton. 2005. "Cache-Oblivious B-Trees."
+SIAM Journal on Computing 35, no. 2 (August):
+341-358. https://doi.org/10.1137/S0097539701389956.
 
 [^6-1]: 要进一步了解 LMDB，参见代码注释和相关演讲。
 
@@ -6081,7 +6266,8 @@ LSM Tree 会延迟数据文件写入，
 保持数据文件不可变有利于顺序写：
 数据单趟写入磁盘，
 文件采用 append-only 方式。
-可变结构可以单趟预分配块（例如 indexed sequential access method（ISAM）[RAMAKRISHNAN03] [LARSON81]），
+可变结构可以单趟预分配块（例如 indexed sequential access method（ISAM）
+[RAMAKRISHNAN03] [LARSON81]），
 但后续访问仍需要随机读写。
 不可变结构让数据记录可以顺序布局，
 从而避免碎片。
@@ -6186,7 +6372,8 @@ flush 时，
 
 ![图 7-1：flush 前的双组件 LSM Tree](../raw/database-internals-2019/images/figure-0072.png)
 
-> 图 7-1：flush 前的双组件 LSM Tree。灰色表示正在 flush 的驻留内存 segment 和驻留磁盘 segment。
+> 图 7-1：flush 前的双组件 LSM Tree。
+> 灰色表示正在 flush 的驻留内存 segment 和驻留磁盘 segment。
 
 子树 flush 后，
 已被取代的驻留内存子树和驻留磁盘子树会被丢弃，
@@ -6378,7 +6565,8 @@ reconciliation 期间，
 与谓词匹配的数据记录会被跳过，
 不会返回给客户端。
 
-谓词可以采用 `DELETE FROM table WHERE key >= "k2" AND key < "k4"` 这样的形式，
+谓词可以采用 `DELETE FROM table WHERE key >= "k2" AND key < "k4"`
+这样的形式，
 也可以接受任何范围匹配器。
 Apache Cassandra 实现了这种方法，
 并称其为 range tombstone。
@@ -6660,7 +6848,8 @@ RocksDB 就使用这种策略。
 
 ![图 7-6：压实过程](../raw/database-internals-2019/images/figure-0079.png)
 
-> 图 7-6：压实过程。带虚线的灰色方框表示当前正在压实的表。横跨整层的方框表示该层的目标数据大小限制。第 1 层超出限制。
+> 图 7-6：压实过程。带虚线的灰色方框表示当前正在压实的表。横跨整层的方框表示该层的目标数据大小限制。
+> 第 1 层超出限制。
 
 把不同键范围保存在不同表中，
 可以减少读取时访问的表数量。
@@ -6726,7 +6915,8 @@ Apache Cassandra 还实现了时间窗口压实策略；
 降低空间开销；
 代价是持续重写表造成更高的写放大。
 另一种方法是避免持续重写数据；
-这会增加读放大（读取期间对同一个键关联的数据记录进行 reconciliation 的开销）和空间放大（因为冗余记录会保留更长时间）。
+这会增加读放大（读取期间对同一个键关联的数据记录进行 reconciliation 的开销）
+和空间放大（因为冗余记录会保留更长时间）。
 
 > [!NOTE]
 > 数据库社区的一大争论是 B-Tree 还是 LSM Tree 的写放大更低。
@@ -6857,7 +7047,8 @@ cell 顺序写入，
 
 ### SSTable 附属二级索引
 
-LSM Tree 索引领域一个有趣的发展是 Apache Cassandra 实现的 SSTable-Attached Secondary Index（SASI）。
+LSM Tree 索引领域一个有趣的发展是 Apache Cassandra 实现的 SSTable-Attached
+Secondary Index（SASI）。
 为了不仅按主键，
 还按其他任意字段索引表内容，
 索引结构及其生命周期与 SSTable 生命周期相耦合，
@@ -6892,7 +7083,8 @@ LSM Tree 的读放大来自这样一个事实：
 这一信息并不精确，
 只能告诉我们数据记录*可能*存在于表中。
 为了改善这种情况，
-包括 Apache Cassandra 和 RocksDB 在内的许多实现使用称为 Bloom filter 的数据结构。
+包括 Apache Cassandra 和 RocksDB 在内的许多实现使用称为 Bloom filter
+的数据结构。
 
 > [!NOTE]
 > 概率数据结构通常比对应的“常规”数据结构更节省空间。
@@ -7198,7 +7390,8 @@ keydir 指向与每个键关联的最新活跃数据记录。
 
 ![图 7-11：Bitcask 中 keydir 与数据文件的映射](../raw/database-internals-2019/images/figure-0087.png)
 
-> 图 7-11：Bitcask 中 keydir 与数据文件的映射。实线表示从键指向与其关联的最新值的指针。被遮蔽的键值对以浅灰色表示。
+> 图 7-11：Bitcask 中 keydir 与数据文件的映射。实线表示从键指向与其关联的最新值的指针。
+> 被遮蔽的键值对以浅灰色表示。
 
 压实期间，
 系统顺序读取所有 logfile 的内容，
@@ -7264,7 +7457,9 @@ WiscKey 利用 SSD 的内部并行能力，
 
 ![图 7-12：WiscKey 的关键组件](../raw/database-internals-2019/images/figure-0088.png)
 
-> 图 7-12：WiscKey 的关键组件，包括索引 LSM Tree 和 vLog 文件，以及它们之间的关系。数据文件中被遮蔽的记录，即被后续写入或删除所取代的记录，以灰色表示。实线表示从 LSM Tree 中的键指向日志文件中最新值的指针。
+> 图 7-12：WiscKey 的关键组件，包括索引 LSM Tree 和 vLog 文件，以及它们之间的关系。
+> 数据文件中被遮蔽的记录，即被后续写入或删除所取代的记录，以灰色表示。
+> 实线表示从 LSM Tree 中的键指向日志文件中最新值的指针。
 
 压实期间，
 系统顺序读取 vLog 文件内容，
@@ -7502,7 +7697,8 @@ FTL 知道页面状态和状态转换，
 > ——《The Emperor's New Groove》中的 Kuzco
 
 我们在 Bw-Tree 中讨论了一种名为 Bw-Tree 的不可变 B-Tree 版本。
-Bw-Tree 构建在 *latch-free, log-structured, access-method aware*（LLAMA）存储子系统之上。
+Bw-Tree 构建在 *latch-free, log-structured, access-method
+aware*（LLAMA）存储子系统之上。
 这种分层让 Bw-Tree 可以动态增长和收缩，
 同时让垃圾回收和页面管理对树透明。
 这里最关注的是 *access-method aware* 部分，
@@ -7526,7 +7722,8 @@ buffer 一旦填满，
 
 如果不了解 access method，
 属于不同逻辑节点的交错 delta 节点会按插入顺序写入。
-LLAMA 对 Bw-Tree 的了解使它能够把多个 delta 节点 consolidation 到同一个连续物理位置。
+LLAMA 对 Bw-Tree 的了解使它能够把多个 delta 节点 consolidation
+到同一个连续物理位置。
 如果 delta 节点中的两次更新彼此抵消，
 例如插入后又删除，
 也可以对其进行逻辑 consolidation，
@@ -7564,8 +7761,10 @@ LSS 仍需对旧版本执行垃圾回收。
 并更好地控制损耗均衡、
 垃圾回收、
 数据放置和调度。
-采用这种方法的实现之一是 LOCS（LSM Tree-based KV Store on Open-Channel SSD）[WANG13]。
-另一个使用 Open-Channel SSD 的例子是 Linux 内核中实现的 LightNVM [BJØRLING17]。
+采用这种方法的实现之一是 LOCS（LSM Tree-based KV Store on Open-Channel
+SSD）[WANG13]。
+另一个使用 Open-Channel SSD 的例子是 Linux 内核中实现的 LightNVM
+[BJØRLING17]。
 
 flash translation layer 通常处理数据放置、
 垃圾回收和页面重定位。
@@ -7579,7 +7778,8 @@ Open-Channel SSD 暴露其内部结构、
 它能提供更强的控制能力，
 但需要手动管理页面。
 
-Software Defined Flash（SDF）[OUYANG14] 是一种软硬件协同设计的 Open-Channel SSD 系统，
+Software Defined Flash（SDF）[OUYANG14]
+是一种软硬件协同设计的 Open-Channel SSD 系统，
 它暴露一个考虑 SSD 特性的非对称 I/O 接口。
 读写单元大小不同，
 写入单元大小与擦除单元（块）相对应，
@@ -7626,27 +7826,47 @@ LSM Tree 借鉴了 LSS 的一些思想，
 
 ### Overview
 
-Luo, Chen, and Michael J. Carey. 2019. "LSM-based Storage Techniques: A Survey." *The VLDB Journal* https://doi.org/10.1007/s00778-019-00555-y.
+Luo, Chen,
+and Michael J. Carey. 2019. "LSM-based Storage Techniques:
+A Survey." *The VLDB Journal* https:
+//doi.org/10.1007/s00778-019-00555-y.
 
 ### LSM Trees
 
-O'Neil, Patrick, Edward Cheng, Dieter Gawlick, and Elizabeth O'Neil. 1996. "The log-structured merge-tree (LSM-tree)." *Acta Informatica* 33, no. 4: 351-385. https://doi.org/10.1007/s002360050048.
+O'Neil, Patrick, Edward Cheng, Dieter Gawlick,
+and Elizabeth O'Neil. 1996. "The log-structured merge-tree
+(LSM-tree)." *Acta Informatica* 33, no. 4: 351-385. https:
+//doi.org/10.1007/s002360050048.
 
 ### Bitcask
 
-Justin Sheehy, David Smith. "Bitcask: A Log-Structured Hash Table for Fast Key/Value Data." 2010.
+Justin Sheehy, David Smith. "Bitcask:
+A Log-Structured Hash Table for Fast Key/Value Data." 2010.
 
 ### WiscKey
 
-Lanyue Lu, Thanumalayan Sankaranarayana Pillai, Hariharan Gopalakrishnan, Andrea C. Arpaci-Dusseau, and Remzi H. Arpaci-Dusseau. 2017. "WiscKey: Separating Keys from Values in SSD-Conscious Storage." ACM Trans. Storage 13, 1, Article 5 (March 2017), 28 pages.
+Lanyue Lu, Thanumalayan Sankaranarayana Pillai,
+Hariharan Gopalakrishnan, Andrea C. Arpaci-Dusseau,
+and Remzi H. Arpaci-Dusseau. 2017. "WiscKey:
+Separating Keys from Values in SSD-Conscious Storage." ACM
+Trans. Storage 13, 1, Article 5 (March 2017), 28 pages.
 
 ### LOCS
 
-Peng Wang, Guangyu Sun, Song Jiang, Jian Ouyang, Shiding Lin, Chen Zhang, and Jason Cong. 2014. "An efficient design and implementation of LSM-tree based key-value store on open-channel SSD." In Proceedings of the Ninth European Conference on Computer Systems (EuroSys '14). ACM, New York, NY, USA, Article 16, 14 pages.
+Peng Wang, Guangyu Sun, Song Jiang, Jian Ouyang,
+Shiding Lin, Chen Zhang,
+and Jason Cong. 2014. "An efficient design and
+implementation of LSM-tree based key-value store on
+open-channel SSD." In Proceedings of the Ninth European
+Conference on Computer Systems (EuroSys '14). ACM, New York,
+NY, USA, Article 16, 14 pages.
 
 ### LLAMA
 
-Justin Levandoski, David Lomet, and Sudipta Sengupta. 2013. "LLAMA: a cache/storage subsystem for modern hardware." Proc. VLDB Endow. 6, 10 (August 2013), 877-888.
+Justin Levandoski, David Lomet,
+and Sudipta Sengupta. 2013. "LLAMA:
+a cache/storage subsystem for modern hardware." Proc. VLDB
+Endow. 6, 10 (August 2013), 877-888.
 
 <a id="part-1-conclusion"></a>
 # 第一部分结语
@@ -7752,7 +7972,8 @@ WiscKey 只把键存储在有序 LSM Tree 中，
 我们每天都在使用分布式系统。
 有时甚至意识不到这一点：任何客户端/服务器应用程序都是分布式系统。
 
-对于许多现代软件系统而言，*纵向*扩展（即在一台 CPU 更多、RAM 更大或磁盘更快的大型高速机器上运行同一软件）并不可行。
+对于许多现代软件系统而言，*纵向*扩展（即在一台 CPU 更多、RAM 更大或磁盘更快的大型高速机器上运行同一软件）
+并不可行。
 大型机器更昂贵、更难更换，也可能需要特殊维护。
 另一种选择是*横向*扩展：让软件运行在多台通过网络连接的机器上，并作为单个逻辑实体协同工作。
 
@@ -7795,7 +8016,8 @@ WiscKey 只把键存储在有序 LSM Tree 中，
 
 分布式算法描述多个独立节点的本地行为及其交互。
 节点通过相互发送消息进行通信。
-算法会定义参与者角色、交换的消息、状态、转换、执行的步骤、投递介质的属性、时序假设、故障模型，以及描述进程及其交互的其他特征。
+算法会定义参与者角色、交换的消息、状态、转换、执行的步骤、投递介质的属性、时序假设、故障模型，
+以及描述进程及其交互的其他特征。
 
 分布式算法有许多不同用途：
 
@@ -7924,18 +8146,22 @@ Erlang 编程语言的创造者 Joe Armstrong 举过一个例子：
 消息要到达远程服务器，必须经过多个软件层以及光纤或线缆等物理介质。
 所有这些操作都不是瞬间完成的。
 
-Michael Lewis 在其著作 *Flash Boys*（Simon and Schuster）中讲述了这样一个故事：
+Michael Lewis 在其著作 *Flash Boys*（Simon and Schuster）
+中讲述了这样一个故事：
 一些公司花费数百万美元，只为将延迟降低几毫秒，从而比竞争对手更快地访问证券交易所。
 这是将延迟转化为竞争优势的绝佳示例。
-但值得一提的是，根据 [BARTLETT16] 等其他研究，陈旧报价套利（利用比竞争对手更快获知价格并执行订单来获利）并不能让高速交易者操纵市场。
+但值得一提的是，根据 [BARTLETT16] 等其他研究，陈旧报价套利（利用比竞争对手更快获知价格并执行订单来获利）
+并不能让高速交易者操纵市场。
 
 吸取这些教训后，我们增加了重试和重新连接，并放弃了执行瞬间完成的假设，但这仍然不够。
 当交换消息的数量、速率和大小增加，或向现有网络添加新进程时，不应假定带宽无限。
 
 > [!NOTE]
-> 1994 年，Peter Deutsch 发布了一份如今已广为人知的断言清单，题为“Fallacies of distributed computing”，描述了分布式计算中容易被忽视的方面。
+> 1994 年，Peter Deutsch 发布了一份如今已广为人知的断言清单，
+> 题为“Fallacies of distributed computing”，描述了分布式计算中容易被忽视的方面。
 > 除网络可靠性、延迟和带宽假设外，他还描述了其他一些问题。
-> 例如网络安全、潜在敌对方的存在、可能破坏我们对特定资源是否存在及其位置之假设的有意或无意拓扑变化、时间和资源两方面的传输成本，以及最后，是否存在一个了解并控制整个网络的单一权威。
+> 例如网络安全、潜在敌对方的存在、可能破坏我们对特定资源是否存在及其位置之假设的有意或无意拓扑变化、
+> 时间和资源两方面的传输成本，以及最后，是否存在一个了解并控制整个网络的单一权威。
 
 Deutsch 的分布式计算谬误清单相当全面，但它关注的是通过链路从一个进程向另一个进程发送消息时可能出现的问题。
 这些顾虑确实合理，也描述了最普遍、最底层的复杂性；
@@ -8003,7 +8229,8 @@ Deutsch 的分布式计算谬误清单相当全面，但它关注的是通过链
 当然，这并不意味着完全不能或不应该依赖时间：毕竟，任何同步系统都会使用本地时钟设置超时。
 
 必须始终考虑进程之间可能存在的时间差，以及消息投递和处理所需的时间。
-例如，Spanner（参见“使用 Spanner 的分布式事务”）使用一种特殊的时间 API，它会返回时间戳和不确定性边界，以施加严格的事务顺序。
+例如，Spanner（参见“使用 Spanner 的分布式事务”）使用一种特殊的时间 API，
+它会返回时间戳和不确定性边界，以施加严格的事务顺序。
 一些故障检测算法依赖共享的时间概念，并要求时钟漂移始终处于允许范围内，以保证正确性 [GUPTA01]。
 
 除了分布式系统中的时钟难以同步之外，*当前*时间本身也在不断变化：
@@ -8071,7 +8298,8 @@ Deutsch 的分布式计算谬误清单相当全面，但它关注的是通过链
 ### 网络分区与局部故障
 
 当两台或多台服务器无法彼此通信时，我们称这种情形为*网络分区*。
-在“Perspectives on the CAP Theorem”[GILBERT12] 中，Seth Gilbert 和 Nancy Lynch 区分了两种情形：
+在“Perspectives on the CAP Theorem”[GILBERT12] 中，
+Seth Gilbert 和 Nancy Lynch 区分了两种情形：
 两个参与者无法相互通信；
 或者若干组参与者彼此隔离，无法交换消息，却各自继续执行算法。
 
@@ -8097,7 +8325,8 @@ Deutsch 的分布式计算谬误清单相当全面，但它关注的是通过链
 不可能防止所有故障，但仍然可以构建一个在故障存在时仍能正确工作的弹性系统。
 面向故障进行设计的最佳方法，就是对故障进行测试。
 要想遍历每一种可能的故障情形并预测多个进程的行为，几乎不可能。
-最好的方法是建立测试工具，制造分区、模拟 bit rot [GRAY05]、增加延迟、使时钟产生分歧，并放大相对处理速度的差异。
+最好的方法是建立测试工具，制造分区、模拟 bit rot [GRAY05]、增加延迟、使时钟产生分歧，
+并放大相对处理速度的差异。
 真实世界中的分布式系统环境可能极具对抗性，既不友好又很“有创意”（不过是以一种非常恶劣的方式），
 因此测试工作应尽可能覆盖更多情形。
 
@@ -8287,15 +8516,20 @@ B 收到消息后，立即向 A 发回确认 $ACK(n)$。
 我们已经引入序列号，可以在接收方使用这些消息标识符来保证先进先出（FIFO）顺序。
 由于每条消息都有序列号，接收方可以跟踪：
 
-- $n_{\text{consecutive}}$：表示截至哪个最高序列号为止，所有消息都已出现；不超过该序列号的消息可以恢复顺序。
-- $n_{\text{processed}}$：表示截至哪个最高序列号为止，消息已经恢复原始顺序并得到处理；该值可以用于去重。
+- $n_{\text{consecutive}}$：表示截至哪个最高序列号为止，所有消息都已出现；
+  不超过该序列号的消息可以恢复顺序。
+- $n_{\text{processed}}$：表示截至哪个最高序列号为止，消息已经恢复原始顺序并得到处理；
+  该值可以用于去重。
 
 如果收到消息的序列号不连续，接收方就把它放入重排缓冲区。
 例如，在收到序列号为 3 的消息后，又收到序列号为 5 的消息，说明 4 仍然缺失；
 因此需要先把 5 放到一旁，等 4 到达后再重建消息顺序。
-由于底层使用公平损失链路，我们假定 $n_{\text{consecutive}}$ 与 $n_{\text{max\_seen}}$ 之间的消息最终都会投递。
+由于底层使用公平损失链路，
+我们假定 $n_{\text{consecutive}}$ 与 $n_{\text{max\_seen}}$
+之间的消息最终都会投递。
 
-接收方可以安全丢弃随后收到的、序列号不超过 $n_{\text{consecutive}}$ 的消息，因为这些消息肯定已经投递过。
+接收方可以安全丢弃随后收到的、序列号不超过 $n_{\text{consecutive}}$ 的消息，
+因为这些消息肯定已经投递过。
 
 去重的工作方式是检查序列号为 $n$ 的消息是否已经处理（即接收方是否已将其向协议栈下层传递），并丢弃已经处理过的消息。
 
@@ -8313,7 +8547,8 @@ B 收到消息后，立即向 A 发回确认 $ACK(n)$。
 
 与其他类型的链路一样，它只能投递实际发送过的消息。
 
-这可能会让你想到 Transmission Control Protocol（TCP）[^ch8-4]（不过，TCP 的可靠投递只在单个会话范围内得到保证）。
+这可能会让你想到 Transmission Control Protocol（TCP）[^ch8-4]（不过，
+TCP 的可靠投递只在单个会话范围内得到保证）。
 当然，这个模型只是用于说明的简化表示。
 TCP 处理确认的模型复杂得多，它会对确认进行分组，以降低协议层开销。
 此外，TCP 还有选择性确认、流量控制、拥塞控制、错误检测以及许多不在本书讨论范围内的其他功能。
@@ -8402,7 +8637,8 @@ B 无法知道信使是否成功送达了确认。
 
 ## FLP 不可能性
 
-Fischer、Lynch 和 Paterson 在一篇论文中描述了一个著名问题，称为 *FLP 不可能性问题* [FISCHER85]，名称来自三位作者姓氏的首字母。
+Fischer、Lynch 和 Paterson 在一篇论文中描述了一个著名问题，
+称为 *FLP 不可能性问题* [FISCHER85]，名称来自三位作者姓氏的首字母。
 他们讨论了一种共识形式：进程从一个初始值开始，尝试就一个新值达成一致。
 算法完成后，所有无故障进程的新值都必须相同。
 
@@ -8577,11 +8813,19 @@ FLP 并不否定安全性，也不表示每次执行都无法达成共识；
 
 **分布式系统抽象、故障模型与时序假设**
 
-Lynch, Nancy A. 1996. *Distributed Algorithms*. San Francisco: Morgan Kaufmann.
+Lynch,
+Nancy A. 1996. *Distributed Algorithms*. San Francisco:
+Morgan Kaufmann.
 
-Tanenbaum, Andrew S. and Maarten van Steen. 2006. *Distributed Systems: Principles and Paradigms* (2nd Ed). Boston: Pearson.
+Tanenbaum,
+Andrew S. and Maarten van Steen. 2006. *Distributed
+Systems: Principles and Paradigms* (2nd Ed). Boston:
+Pearson.
 
-Cachin, Christian, Rachid Guerraoui, and Lus Rodrigues. 2011. *Introduction to Reliable and Secure Distributed Programming* (2nd Ed.). New York: Springer.
+Cachin, Christian, Rachid Guerraoui,
+and Lus Rodrigues. 2011. *Introduction to Reliable and
+Secure Distributed Programming* (2nd Ed.). New York:
+Springer.
 <a id="chapter-9-failure-detection"></a>
 # 第 9 章 故障检测
 
@@ -8612,7 +8856,8 @@ Cachin, Christian, Rachid Guerraoui, and Lus Rodrigues. 2011. *Introduction to R
 更正式地说，*活性*属性保证某个预期事件*必须*发生。
 例如，如果某个进程发生故障，故障检测器就*必须*检测到该故障。
 *安全性*则保证非预期事件*不会*发生。
-例如，如果故障检测器把某个进程标记为死亡，那么该进程实际上必须确已死亡 [LAMPORT77] [RAYNAL99] [FREILING11]。
+例如，如果故障检测器把某个进程标记为死亡，那么该进程实际上必须确已死亡 [LAMPORT77] [RAYNAL99]
+[FREILING11]。
 
 从实践角度看，排除故障进程有助于避免不必要的工作，并防止错误传播和级联故障；
 但排除可能只是受到怀疑、实际仍然存活的进程，则会降低可用性。
@@ -8702,7 +8947,8 @@ Cachin, Christian, Rachid Guerraoui, and Lus Rodrigues. 2011. *Introduction to R
 
 ## 委托式心跳
 
-可扩展弱一致感染式进程组成员协议（Scalable Weakly Consistent Infection-style Process Group Membership Protocol，SWIM）[GUPTA01] 采用了另一种方法：
+可扩展弱一致感染式进程组成员协议（Scalable Weakly Consistent Infection-style
+Process Group Membership Protocol，SWIM）[GUPTA01] 采用了另一种方法：
 使用委托式心跳，借助从邻居视角获得的进程活性信息来提高可靠性。
 这种方法不要求进程知道网络中的所有其他进程，只需知道一部分已连接的对等节点。
 
@@ -8713,10 +8959,12 @@ $P_2$ 没有响应，因此 $P_1$ 接着选择多个随机成员（$P_3$ 和 $P_
 
 ![图 9-3：委托心跳检测](../raw/database-internals-2019/images/figure-0104.png)
 
-> 图 9-3：“委托”心跳；$P_1$ 无法直接从 $P_2$ 得到响应时，请 $P_3$ 和 $P_4$ 代为探测并转发确认。
+> 图 9-3：“委托”心跳；$P_1$ 无法直接从 $P_2$ 得到响应时，
+> 请 $P_3$ 和 $P_4$ 代为探测并转发确认。
 
 这样就可以同时考虑直接和间接可达性。
-例如，若有进程 $P_1$、$P_2$ 和 $P_3$，就可以同时从 $P_1$ 和 $P_2$ 的视角检查 $P_3$ 的状态。
+例如，若有进程 $P_1$、$P_2$ 和 $P_3$，
+就可以同时从 $P_1$ 和 $P_2$ 的视角检查 $P_3$ 的状态。
 
 委托式心跳把决策责任分散给一组成员，从而实现可靠的故障检测。
 这种方法不需要向一大群对等节点广播消息。
@@ -8724,7 +8972,8 @@ $P_2$ 没有响应，因此 $P_1$ 接着选择多个随机成员（$P_3$ 和 $P_
 
 ## Phi Accrual 故障检测器
 
-Phi Accrual（$\varphi$ Accrual）故障检测器 [HAYASHIBARA04] 不把节点故障视为只有“启动”和“停机”两种状态的二元问题，
+Phi Accrual（$\varphi$ Accrual）故障检测器 [HAYASHIBARA04]
+不把节点故障视为只有“启动”和“停机”两种状态的二元问题，
 而是使用连续刻度来表示受监控进程发生崩溃的概率。
 它维护一个滑动窗口，收集来自对等进程的最近心跳到达时间。
 这些信息用于估计*下一次*心跳的到达时间，
@@ -8786,7 +9035,8 @@ $\varphi$ 越高，对进程发生故障的怀疑越强。
 
 ![图 9-4：用于故障检测的复制心跳表](../raw/database-internals-2019/images/figure-0105.png)
 
-> 图 9-4：用于故障检测的复制心跳表；三个进程通过共享心跳计数器，在直接链路故障时传播状态，并在 P3 停止更新后检测其故障。
+> 图 9-4：用于故障检测的复制心跳表；三个进程通过共享心跳计数器，在直接链路故障时传播状态，
+> 并在 P3 停止更新后检测其故障。
 
 这样既能检测崩溃节点，也能检测任何其他集群成员都无法到达的节点。
 由于集群视图由多个节点的视图聚合而成，这项决定是可靠的。
@@ -8848,11 +9098,22 @@ $\varphi$ 越高，对进程发生故障的怀疑越强。
 
 **故障检测与算法**
 
-Chandra, Tushar Deepak and Sam Toueg. 1996. "Unreliable failure detectors for reliable distributed systems." *Journal of the ACM* 43, no. 2 (March): 225-267. https://doi.org/10.1145/226643.226647.
+Chandra,
+Tushar Deepak and Sam Toueg. 1996. "Unreliable failure
+detectors for reliable distributed systems." *Journal of
+the ACM* 43, no. 2 (March): 225-267. https:
+//doi.org/10.1145/226643.226647.
 
-Freiling, Felix C., Rachid Guerraoui, and Petr Kuznetsov. 2011. "The failure detector abstraction." *ACM Computing Surveys* 43, no. 2 (January): Article 9. https://doi.org/10.1145/1883612.1883616.
+Freiling, Felix C., Rachid Guerraoui,
+and Petr Kuznetsov. 2011. "The failure detector
+abstraction." *ACM Computing Surveys* 43, no. 2 (January):
+Article 9. https://doi.org/10.1145/1883612.1883616.
 
-Phan-Ba, Michael. 2015. "A literature review of failure detection within the context of solving the problem of distributed consensus." https://www.cs.ubc.ca/~bestchai/theses/michael-phan-ba-msc-essay-2015.pdf
+Phan-Ba,
+Michael. 2015. "A literature review of failure detection
+within the context of solving the problem of distributed
+consensus." https:
+//www.cs.ubc.ca/~bestchai/theses/michael-phan-ba-msc-essay-2015.pdf
 <a id="chapter-10-leader-election"></a>
 # 第 10 章 领导者选举
 
@@ -8906,7 +9167,8 @@ Spanner（参见“使用 Spanner 的分布式事务”）就是采用这种方�
 由于每个领导者进程最终都会发生故障，系统必须检测并报告故障，再作出反应：
 选出另一位领导者来接替故障领导者。
 
-ZAB（参见“Zookeeper 原子广播（ZAB）”）、Multi-Paxos（参见“Multi-Paxos”）或 Raft（参见“Raft”）等算法，
+ZAB（参见“Zookeeper 原子广播（ZAB）”）、Multi-Paxos（参见“Multi-Paxos”）
+或 Raft（参见“Raft”）等算法，
 使用临时领导者来减少参与者达成一致所需的消息数量。
 不过，这些算法使用各自特有的手段来进行领导者选举、故障检测，并解决相互竞争的领导者进程之间的冲突。
 
@@ -8924,14 +9186,16 @@ ZAB（参见“Zookeeper 原子广播（ZAB）”）、Multi-Paxos（参见“Mu
 或前任领导者已经停止响应请求，选举就会开始，并分三个步骤进行：[^ch10-5]
 
 1. 该进程向标识符比自己高的进程发送 `Election` 消息。
-2. 该进程等待，让排名更高的进程响应。如果没有排名更高的进程响应，就进入第 3 步；否则，它会通知本轮中已响应的最高排名进程，让后者进入第 3 步。
+2. 该进程等待，让排名更高的进程响应。如果没有排名更高的进程响应，就进入第 3 步；否则，
+   它会通知本轮中已响应的最高排名进程，让后者进入第 3 步。
 3. 该进程假定不存在排名更高的活跃进程，并通知所有排名较低的进程新领导者是谁。
 
 [^ch10-5]: 这里描述的是改进后的 Bully 选举算法 [KORDAFSHARI05]，因为它更加紧凑、清晰。
 
 图 10-1 展示了 Bully 领导者选举算法：
 
-- a) 进程 3 发现前任领导者 6 已经崩溃，于是向标识符更高的进程发送 `Election` 消息，启动新一轮选举。
+- a) 进程 3 发现前任领导者 6 已经崩溃，于是向标识符更高的进程发送 `Election` 消息，
+  启动新一轮选举。
 - b) 4 和 5 的排名高于 3，因此以 `Alive` 响应。
 - c) 3 通知本轮中已响应的最高排名进程 5。
 - d) 5 当选为新领导者；它广播 `Elected` 消息，向排名较低的进程通知选举结果。
@@ -8969,7 +9233,8 @@ Bully 算法有许多不同版本，用于改进它的各种属性。
 
 ![图 10-2：带故障转移的 Bully 算法](../raw/database-internals-2019/images/figure-0108.png)
 
-> 图 10-2：带故障转移的 Bully 算法；前任领导者 6 发生故障，进程 3 联系排名最高的候补 5，后者接任领导者。
+> 图 10-2：带故障转移的 Bully 算法；前任领导者 6 发生故障，进程 3 联系排名最高的候补 5，
+> 后者接任领导者。
 
 因此，如果顺位候补进程仍然存活，选举所需的步骤就会减少。
 
@@ -9019,7 +9284,8 @@ Bully 算法有许多不同版本，用于改进它的各种属性。
 图 10-4 展示了邀请算法的执行步骤：
 
 - a) 四个进程一开始分别是只含自身一个成员的组领导者；1 邀请 2 加入自己的组，3 邀请 4 加入自己的组。
-- b) 2 加入进程 1 的组，4 加入进程 3 的组；第一组的领导者 1 联系另一组的领导者 3；其余组成员（本例中的 4）会收到新组领导者的通知。
+- b) 2 加入进程 1 的组，4 加入进程 3 的组；第一组的领导者 1 联系另一组的领导者 3；
+  其余组成员（本例中的 4）会收到新组领导者的通知。
 - c) 两个组合并，1 成为扩展后组的领导者。
 
 ![图 10-4：邀请算法](../raw/database-internals-2019/images/figure-0112.png)
@@ -9052,7 +9318,8 @@ Bully 算法有许多不同版本，用于改进它的各种属性。
 图 10-5 展示了一次这样的遍历：
 
 - a) 前任领导者 6 已发生故障，每个进程都从自己的视角观察环。
-- b) 3 通过启动遍历来发起一轮选举；在每一步中，都有一个迄今已在路径上遍历过的节点集合；5 无法到达 6，因此跳过它，直接前往 1。
+- b) 3 通过启动遍历来发起一轮选举；在每一步中，都有一个迄今已在路径上遍历过的节点集合；5 无法到达 6，
+  因此跳过它，直接前往 1。
 - c) 由于 5 是排名最高的节点，3 发起另一轮消息传递，以分发新领导者的信息。
 
 ![图 10-5：环算法选举新领导者](../raw/database-internals-2019/images/figure-0113.png)
@@ -9115,11 +9382,19 @@ Bully 算法有许多不同版本，用于改进它的各种属性。
 
 **领导者选举算法**
 
-Lynch, Nancy and Boaz Patt-Shamir. 1993. "Distributed algorithms." *Lecture notes for 6.852*. Cambridge, MA: MIT.
+Lynch,
+Nancy and Boaz Patt-Shamir. 1993. "Distributed algorithms."
+*Lecture notes for 6.852*. Cambridge, MA: MIT.
 
-Attiya, Hagit and Jennifer Welch. 2004. *Distributed Computing: Fundamentals, Simulations and Advanced Topics*. USA: John Wiley & Sons.
+Attiya,
+Hagit and Jennifer Welch. 2004. *Distributed Computing:
+Fundamentals, Simulations and Advanced Topics*. USA:
+John Wiley & Sons.
 
-Tanenbaum, Andrew S. and Maarten van Steen. 2006. *Distributed Systems: Principles and Paradigms* (2nd Ed.). Upper Saddle River, NJ: Prentice-Hall.
+Tanenbaum,
+Andrew S. and Maarten van Steen. 2006. *Distributed
+Systems: Principles and Paradigms* (2nd Ed.)
+. Upper Saddle River, NJ: Prentice-Hall.
 
 <a id="chapter-11-replication-and-consistency"></a>
 # 第 11 章 复制与一致性
@@ -9229,7 +9504,8 @@ Tanenbaum, Andrew S. and Maarten van Steen. 2006. *Distributed Systems: Principl
 
 可用性要求任何未发生故障的节点都交付结果，
 而一致性要求结果具备线性一致性。
-Eric Brewer 提出的 CAP 猜想讨论了一致性（Consistency）、可用性（Availability）和分区容错性（Partition tolerance）之间的权衡 [BREWER00]。
+Eric Brewer 提出的 CAP 猜想讨论了一致性（Consistency）、可用性（Availability）
+和分区容错性（Partition tolerance）之间的权衡 [BREWER00]。
 
 在发生网络分区的异步系统中，
 不可能同时保证 CAP 可用性和线性一致性 [GILBERT02]。
@@ -9453,7 +9729,8 @@ CAP 猜想只讨论最强形式的一致性和可用性：
 根据其*调用*和*完成*事件来定义它，
 并描述操作的边界。
 
-假设一个系统中的进程可以在共享寄存器上执行 `read(register)` 和 `write(register, value)` 操作。
+假设一个系统中的进程可以在共享寄存器上执行 `read(register)` 和
+`write(register, value)` 操作。
 每个进程顺序执行自己的操作集合，
 也就是说，
 每项已调用的操作必须先完成，
@@ -9749,7 +10026,8 @@ read(x)
 
 #### 可复用的线性一致性基础设施
 
-可复用的线性一致性基础设施（Reusable Infrastructure for Linearizability，RIFL）是一种实现线性一致远程过程调用（RPC）的机制 [LEE15]。
+可复用的线性一致性基础设施（Reusable Infrastructure for Linearizability，
+RIFL）是一种实现线性一致远程过程调用（RPC）的机制 [LEE15]。
 在 RIFL 中，
 消息由客户端 ID 和客户端本地单调递增的序列号唯一标识。
 
@@ -9978,7 +10256,8 @@ $P_2$ 又执行写操作 $\text{write}(x, t_1, 2)$，
 上下文不匹配的消息会在服务器端缓冲，
 因为现在交付它们还太早。
 
-实现因果一致性且经常被引用的两个著名项目是保持顺序的服务器集群（Clusters of Order-Preserving Servers，COPS）[LLOYD11] 和 Eiger [LLOYD13]。
+实现因果一致性且经常被引用的两个著名项目是保持顺序的服务器集群（Clusters of
+Order-Preserving Servers，COPS）[LLOYD11] 和 Eiger [LLOYD13]。
 二者都通过一个库（实现为用户所连接的前端服务器）实现因果性，
 并跟踪依赖关系来保证一致性。
 COPS 通过键版本跟踪依赖关系，
@@ -9996,11 +10275,13 @@ Eiger 则实现最后写入胜出规则。
 系统也能重建事件序列、填补消息间的空缺，
 并在仍缺少某些消息时避免发布操作结果。
 例如，
-如果消息 $\{M1(\emptyset,t1), M2(M1,t2), M3(M2,t3)\}$ 具有因果关系且乱序传播，
+如果消息 $\{M1(\emptyset,t1), M2(M1,t2), M3(M2,t3)\}$
+具有因果关系且乱序传播，
 其中每条消息都指定自己的依赖项，
 进程就会缓冲它们，
 直到收集到全部操作依赖并恢复因果顺序 [KINGSBURY18b]。
-许多数据库（例如 Dynamo [DECANDIA07] 和 Riak [SHEEHY10a]）使用向量时钟 [LAMPORT78] [MATTERN88] 建立因果顺序。
+许多数据库（例如 Dynamo [DECANDIA07] 和 Riak [SHEEHY10a]）
+使用向量时钟 [LAMPORT78] [MATTERN88] 建立因果顺序。
 
 向量时钟是一种在事件之间建立偏序、检测并解决事件链分歧的结构。
 借助向量时钟，
@@ -10062,7 +10343,8 @@ Riak 允许用户查看并解决分歧的历史 [DAILY13]。
 但有些事情从客户端角度更容易理解和解释。
 我们可以从单个客户端而非多个客户端的角度观察分布式系统。
 
-会话模型 [VIOTTI16]（也称以客户端为中心的一致性模型 [TANENBAUM06]）有助于从客户端角度推理分布式系统状态：
+会话模型 [VIOTTI16]（也称以客户端为中心的一致性模型 [TANENBAUM06]）
+有助于从客户端角度推理分布式系统状态：
 每个客户端发出读写操作时如何观察系统状态。
 
 此前讨论的其他一致性模型着重解释存在并发客户端时的操作排序，
@@ -10112,7 +10394,8 @@ Riak 允许用户查看并解决分歧的历史 [DAILY13]。
 > $P_2$ 也应能读到自己的写入。
 
 组合单调读、单调写和读己之写，
-可以得到流水线 RAM（Pipelined RAM，PRAM）一致性 [LIPTON88] [BRZEZINSKI03]，
+可以得到流水线 RAM（Pipelined RAM，PRAM）一致性 [LIPTON88]
+[BRZEZINSKI03]，
 它也称为 FIFO 一致性。
 PRAM 保证来自同一进程的写操作按该进程执行它们的顺序传播。
 与顺序一致性不同，
@@ -10337,7 +10620,8 @@ $n$ 个数据副本加 $m$ 个见证副本就能提供与 $n + m$ 个数据副�
 我们可以允许操作保留额外状态，
 以便执行后协调（即合并）分歧状态，
 从而放宽一致性要求。
-这种方法最著名的例子之一是无冲突复制数据类型（Conflict-Free Replicated Data Type，CRDT）[SHAPIRO11a]，
+这种方法最著名的例子之一是无冲突复制数据类型（Conflict-Free Replicated Data Type，
+CRDT）[SHAPIRO11a]，
 Redis 等系统实现了这种数据类型 [BIYIKOGLU13]。
 
 CRDT 是专门的数据结构，
@@ -10360,7 +10644,8 @@ CRDT 是专门的数据结构，
 而且可能乱序到达。
 CRDT 让我们能从各个局部状态或操作序列重建完整系统状态。
 
-最简单的 CRDT 例子是基于操作的可交换复制数据类型（Commutative Replicated Data Type，CmRDT）。
+最简单的 CRDT 例子是基于操作的可交换复制数据类型（Commutative Replicated Data
+Type，CmRDT）。
 要让 CmRDT 正常工作，
 允许的操作必须具备以下性质：
 
@@ -10437,7 +10722,8 @@ merge([0, 0, 1], [1, 0, 0]) = [1, 0, 1]
 而这些值彼此独立，
 所以无须额外协调。
 
-可以使用由两个向量组成的载荷实现支持递增和递减的正负计数器（Positive-Negative Counter，PN-Counter）：
+可以使用由两个向量组成的载荷实现支持递增和递减的正负计数器（Positive-Negative Counter，
+PN-Counter）：
 节点用 P 记录递增，
 用 N 记录递减。
 在更大的系统中，
@@ -10554,13 +10840,27 @@ CRDT 为我们提供了相当多的可能性，
 
 ### 一致性模型
 
-Perrin, Matthieu. 2017. *Distributed Systems: Concurrency and Consistency* (1st Ed.). Elsevier, UK: ISTE Press.
+Perrin,
+Matthieu. 2017. *Distributed Systems: Concurrency and
+Consistency* (1st Ed.). Elsevier, UK: ISTE Press.
 
-Viotti, Paolo and Marko Vukolić. 2016. "Consistency in Non-Transactional Distributed Storage Systems." ACM Computing Surveys 49, no. 1 (July): Article 19. https://doi.org/10.1145/2926965.
+Viotti,
+Paolo and Marko Vukolić. 2016. "Consistency in
+Non-Transactional Distributed Storage Systems." ACM
+Computing Surveys 49, no. 1 (July): Article 19. https:
+//doi.org/10.1145/2926965.
 
-Bailis, Peter, Aaron Davidson, Alan Fekete, Ali Ghodsi, Joseph M. Hellerstein, and Ion Stoica. 2013. "Highly available transactions: virtues and limitations." Proceedings of the VLDB Endowment 7, no. 3 (November): 181-192. https://doi.org/10.14778/2732232.2732237.
+Bailis, Peter, Aaron Davidson, Alan Fekete, Ali Ghodsi,
+Joseph M. Hellerstein,
+and Ion Stoica. 2013. "Highly available transactions:
+virtues and limitations." Proceedings of the VLDB Endowment
+7, no. 3 (November): 181-192. https:
+//doi.org/10.14778/2732232.2732237.
 
-Aguilera, M.K., and D.B. Terry. 2016. "The Many Faces of Consistency." *Bulletin of the Technical Committee on Data Engineering* 39, no. 1 (March): 3-13.
+Aguilera, M.K.,
+and D.B. Terry. 2016. "The Many Faces of Consistency."
+*Bulletin of the Technical Committee on Data Engineering*
+39, no. 1 (March): 3-13.
 
 <a id="chapter-12-anti-entropy-and-dissemination"></a>
 # 第 12 章 反熵与传播
@@ -10865,7 +11165,8 @@ Merkle 树以自底向上的方式递归计算，
 这样，
 冲突解决就能捕获写入间的因果关系。
 
-图 12-3（改编自 [GONÇALVES15]）展示了系统中三个节点 $P_1$、$P_2$ 和 $P_3$ 的状态表示；
+图 12-3（改编自 [GONÇALVES15]）展示了系统中三个节点 $P_1$、
+$P_2$ 和 $P_3$ 的状态表示；
 这是从 $P_2$ 的角度观察它见过哪些值。
 $P_2$ 每次执行写入或收到复制值时都会更新此表。
 
@@ -10991,7 +11292,8 @@ Gossip 协议虽然重要且有用，
 通常却只用于范围较窄的一组问题。
 非流行病式方法能以非概率性的确定性、更少的冗余，
 并且通常以更优方式分发消息 [BIRMAN07]。
-Gossip 算法经常因其可扩展性及能在 $\log N$ 轮消息内分发消息而受到赞扬（$N$ 为集群规模）[KREMARREC07]；
+Gossip 算法经常因其可扩展性及能在 $\log N$ 轮消息内分发消息而受到赞扬（$N$ 为集群规模）
+[KREMARREC07]；
 但也必须留意 gossip 轮次产生的冗余消息数。
 为了实现可靠性，
 基于 gossip 的协议会产生一些重复消息交付。
@@ -11023,11 +11325,13 @@ Gossip 算法经常因其可扩展性及能在 $\log N$ 轮消息内分发消息
 
 ![图 12-4a：完全连通的生成树](../raw/database-internals-2019/images/figure-0135.png)
 
-> 图 12-4a：生成树在不使用所有边的情况下实现各点完全连通。深色点表示节点，深色线表示覆盖网络，灰线表示节点之间其他可能存在的连接。
+> 图 12-4a：生成树在不使用所有边的情况下实现各点完全连通。深色点表示节点，深色线表示覆盖网络，
+> 灰线表示节点之间其他可能存在的连接。
 
 ![图 12-4b：链路断开后的生成树](../raw/database-internals-2019/images/figure-0136.png)
 
-> 图 12-4b：生成树中一条链路断开后，整棵子树可能失去连接。深色点表示节点，深色线表示覆盖网络，灰线表示节点之间其他可能存在的连接。
+> 图 12-4b：生成树中一条链路断开后，整棵子树可能失去连接。深色点表示节点，深色线表示覆盖网络，
+> 灰线表示节点之间其他可能存在的连接。
 
 [^12-1]: 此例仅用于说明；网络中的节点通常不会排列成网格。
 
@@ -11092,7 +11396,8 @@ gossip 协议通常使用*对等节点采样服务*。
 但冗余过多又意味着额外工作。
 
 例如，
-混合局部视图（Hybrid Partial View，HyParView）协议 [LEITAO07] 维护一个较小的主动视图和一个较大的被动视图。
+混合局部视图（Hybrid Partial View，HyParView）协议 [LEITAO07]
+维护一个较小的主动视图和一个较大的被动视图。
 主动视图中的节点创建可用于传播的覆盖网络。
 被动视图用于维护节点列表，
 以便替换主动视图中发生故障的节点。
@@ -11191,11 +11496,24 @@ Riak core 曾使用 Plumtree 传播集群范围的信息。
 
 ### Gossip 协议
 
-Shah, Devavrat. 2009. “Gossip Algorithms.” *Foundations and Trends in Networking* 3, no. 1 (January): 1-125. https://doi.org/10.1561/1300000014.
+Shah,
+Devavrat. 2009. “Gossip Algorithms.” *Foundations and
+Trends in Networking* 3, no. 1 (January): 1-125. https:
+//doi.org/10.1561/1300000014.
 
-Jelasy, Márk. 2003. “Gossip-based Protocols for Large-scale Distributed Systems.” Dissertation. http://www.inf.u-szeged.hu/~jelasy/dr/doktori-mu.pdf.
+Jelasy,
+Márk. 2003. “Gossip-based Protocols for Large-scale
+Distributed Systems.” Dissertation. http:
+//www.inf.u-szeged.hu/~jelasy/dr/doktori-mu.pdf.
 
-Demers, Alan, Dan Greene, Carl Hauser, Wes Irish, John Larson, Scott Shenker, Howard Sturgis, Dan Swinehart, and Doug Terry. 1987. "Epidemic algorithms for replicated database maintenance." In Proceedings of the sixth annual ACM Symposium on Principles of distributed computing (PODC '87), 1-12. New York: Association for Computing Machinery. https://doi.org/10.1145/41840.41841.
+Demers, Alan, Dan Greene, Carl Hauser, Wes Irish,
+John Larson, Scott Shenker, Howard Sturgis, Dan Swinehart,
+and Doug Terry. 1987. "Epidemic algorithms for replicated
+database maintenance." In Proceedings of the sixth annual
+ACM Symposium on Principles of distributed computing (PODC
+'87), 1-12. New York:
+Association for Computing Machinery. https:
+//doi.org/10.1145/41840.41841.
 
 <a id="chapter-13-distributed-transactions"></a>
 # 第 13 章 分布式事务
@@ -11997,7 +12315,8 @@ $T_1$ 在 $T_2$ 提交前读取的 $x$ 值，
 这是因为快照数据无法更改，
 所以不必获取锁。
 
-Percolator 是一个在分布式数据库 Bigtable 之上实现事务 API 的库（参见“[宽列存储](#宽列存储)”）。
+Percolator 是一个在分布式数据库 Bigtable 之上实现事务 API
+的库（参见“[宽列存储](#宽列存储)”）。
 它是在现有系统之上构建事务 API 的绝佳示例。
 Percolator 把数据记录、已提交数据点的位置（写入元数据）和锁存储在不同的列中。
 为了避免竞态条件，
@@ -12267,21 +12586,47 @@ RAMP 允许同一条记录的多个版本在任意时刻同时存在：
 
 **原子提交与本地事务处理及恢复子系统的集成**
 
-Silberschatz, Abraham, Henry F. Korth, and S. Sudarshan. 2010. *Database Systems Concepts* (6th Ed.). New York: McGraw-Hill.
+Silberschatz, Abraham, Henry F. Korth,
+and S. Sudarshan. 2010. *Database Systems Concepts* (6th
+Ed.). New York: McGraw-Hill.
 
-Garcia-Molina, Hector, Jeffrey D. Ullman, and Jennifer Widom. 2008. *Database Systems: The Complete Book* (2nd Ed.). Boston: Pearson.
+Garcia-Molina, Hector, Jeffrey D. Ullman,
+and Jennifer Widom. 2008. *Database Systems: The Complete
+Book* (2nd Ed.). Boston: Pearson.
 
 **分布式事务领域的近期进展（按时间顺序排列；本列表并非详尽无遗）**
 
-Cowling, James and Barbara Liskov. 2012. "Granola: low-overhead distributed transaction coordination." In Proceedings of the 2012 USENIX conference on Annual Technical Conference (USENIX ATC '12): 21-21. USENIX.
+Cowling, James and Barbara Liskov. 2012. "Granola:
+low-overhead distributed transaction coordination." In
+Proceedings of the 2012 USENIX conference on Annual
+Technical Conference (USENIX ATC '12): 21-21. USENIX.
 
-Balakrishnan, Mahesh, Dahlia Malkhi, Ted Wobber, Ming Wu, Vijayan Prabhakaran, Michael Wei, John D. Davis, Sriram Rao, Tao Zou, and Aviad Zuck. 2013. "Tango: distributed data structures over a shared log." In Proceedings of the Twenty-Fourth ACM Symposium on Operating Systems Principles (SOSP '13): 324-340.
+Balakrishnan, Mahesh, Dahlia Malkhi, Ted Wobber, Ming Wu,
+Vijayan Prabhakaran, Michael Wei, John D. Davis, Sriram Rao,
+Tao Zou, and Aviad Zuck. 2013. "Tango:
+distributed data structures over a shared log." In
+Proceedings of the Twenty-Fourth ACM Symposium on Operating
+Systems Principles (SOSP '13): 324-340.
 
-Ding, Bailu, Lucja Kot, Alan Demers, and Johannes Gehrke. 2015. "Centiman: elastic, high performance optimistic concurrency control by watermarking." In Proceedings of the Sixth ACM Symposium on Cloud Computing (SoCC '15): 262-275.
+Ding, Bailu, Lucja Kot, Alan Demers,
+and Johannes Gehrke. 2015. "Centiman: elastic,
+high performance optimistic concurrency control by
+watermarking." In Proceedings of the Sixth ACM Symposium on
+Cloud Computing (SoCC '15): 262-275.
 
-Dragojević, Aleksandar, Dushyanth Narayanan, Edmund B. Nightingale, Matthew Renzelmann, Alex Shamis, Anirudh Badam, and Miguel Castro. 2015. "No compromises: distributed transactions with consistency, availability, and performance." In Proceedings of the 25th Symposium on Operating Systems Principles (SOSP '15): 54-70.
+Dragojević, Aleksandar, Dushyanth Narayanan,
+Edmund B. Nightingale, Matthew Renzelmann, Alex Shamis,
+Anirudh Badam, and Miguel Castro. 2015. "No compromises:
+distributed transactions with consistency, availability,
+and performance." In Proceedings of the 25th Symposium on
+Operating Systems Principles (SOSP '15): 54-70.
 
-Zhang, Irene, Naveen Kr. Sharma, Adriana Szekeres, Arvind Krishnamurthy, and Dan R. K. Ports. 2015. "Building consistent transactions with inconsistent replication." In Proceedings of the 25th Symposium on Operating Systems Principles (SOSP '15): 263-278.
+Zhang, Irene, Naveen Kr. Sharma, Adriana Szekeres,
+Arvind Krishnamurthy,
+and Dan R. K. Ports. 2015. "Building consistent
+transactions with inconsistent replication." In Proceedings
+of the 25th Symposium on Operating Systems Principles (SOSP
+'15): 263-278.
 
 <a id="chapter-14-consensus"></a>
 # 第 14 章 共识
@@ -12501,7 +12846,8 @@ FLP 不可能性（参见“FLP 不可能性”）表明，
 ### ZooKeeper 原子广播（ZAB）
 
 最流行、最广为人知的原子广播实现之一，
-是层次式分布式键值存储 Apache ZooKeeper 所使用的 ZooKeeper Atomic Broadcast（ZAB）[HUNT10] [JUNQUEIRA11]。
+是层次式分布式键值存储 Apache ZooKeeper 所使用的 ZooKeeper Atomic
+Broadcast（ZAB）[HUNT10] [JUNQUEIRA11]。
 ZooKeeper 用它来确保事件全序和原子传递，
 这是维持副本状态一致所必需的。
 
@@ -12623,7 +12969,8 @@ ZAB 的优点之一是高效：
 原子广播与共识算法在动机和实现方面有许多相似之处。
 
 Paxos 可能是最广为人知的共识算法。
-Leslie Lamport 最先在论文 “The Part-Time Parliament” [LAMPORT98] 中提出它。
+Leslie Lamport 最先在论文 “The Part-Time Parliament” [LAMPORT98]
+中提出它。
 该论文借用爱琴海 Paxos 岛上的立法与投票过程术语来描述共识。
 2001 年，
 作者发表了后续论文 “Paxos Made Simple” [LAMPORT01]，
@@ -12722,7 +13069,8 @@ $v$ 是它从接受者响应中收到的编号最高提议所关联的值；
 
 ![图 14-3：Paxos 算法的正常执行](../raw/database-internals-2019/images/figure-0148.png)
 
-> 图 14-3：Paxos 算法的正常执行。提议者先以 `Prepare` 和 `Promise` 消息完成提议阶段，再以 `Accept!` 消息和确认完成复制阶段，接受者随后把决定通知学习者。
+> 图 14-3：Paxos 算法的正常执行。提议者先以 `Prepare` 和 `Promise` 消息完成提议阶段，
+> 再以 `Accept!` 消息和确认完成复制阶段，接受者随后把决定通知学习者。
 
 一旦某个值被选定
 （即达到法定人数的接受者接受了它），
@@ -12823,7 +13171,8 @@ Paxos（以及其他共识算法）使用法定人数，
 
 ![图 14-4：Paxos 故障场景——提议者故障后决定旧值](../raw/database-internals-2019/images/figure-0150.png)
 
-> 图 14-4：Paxos 故障场景——提议者故障后决定旧值。$P_1$ 仅将 V1 发给 $A_1$ 后故障；$P_2$ 从包含 $A_1$ 的法定人数集合获知 V1，并继续提交它。
+> 图 14-4：Paxos 故障场景——提议者故障后决定旧值。$P_1$ 仅将 V1 发给 $A_1$ 后故障；
+> $P_2$ 从包含 $A_1$ 的法定人数集合获知 V1，并继续提交它。
 
 由于算法状态复制到了多个节点，
 提议者故障不会导致无法达成共识。
@@ -12850,7 +13199,8 @@ Paxos（以及其他共识算法）使用法定人数，
 
 ![图 14-5：Paxos 故障场景——提议者故障后决定新值](../raw/database-internals-2019/images/figure-0151.png)
 
-> 图 14-5：Paxos 故障场景——提议者故障后决定新值。$P_2$ 从不含 $A_1$ 的法定人数集合获得响应，因此可以提交自己的新值。
+> 图 14-5：Paxos 故障场景——提议者故障后决定新值。$P_2$ 从不含 $A_1$ 的法定人数集合获得响应，
+> 因此可以提交自己的新值。
 
 还有一种可能，
 如图 14-6 所示：
@@ -12866,7 +13216,9 @@ Paxos（以及其他共识算法）使用法定人数，
 
 ![图 14-6：Paxos 故障场景——提议者故障后接受者也发生故障](../raw/database-internals-2019/images/figure-0152.png)
 
-> 图 14-6：Paxos 故障场景——提议者故障后接受者也发生故障。保存 V1 的唯一接受者 $A_1$ 随 $P_1$ 之后故障，$P_2$ 因而提交自己的值；后续轮次选择更新的已接受提议。
+> 图 14-6：Paxos 故障场景——提议者故障后接受者也发生故障。
+> 保存 V1 的唯一接受者 $A_1$ 随 $P_1$ 之后故障，$P_2$ 因而提交自己的值；
+> 后续轮次选择更新的已接受提议。
 
 另一种故障场景是两个或更多提议者开始竞争：
 每个都试图通过提议阶段，
@@ -13009,7 +13361,8 @@ Fast Paxos 有两类轮次：
 
 ![图 14-7：Fast Paxos 的快速轮次和经典轮次](../raw/database-internals-2019/images/figure-0153.png)
 
-> 图 14-7：Fast Paxos 的快速轮次和经典轮次。经典路径由提议者经协调者提交值；快速路径在协调者发出 `Any` 后允许提议者直接向接受者提交值。
+> 图 14-7：Fast Paxos 的快速轮次和经典轮次。经典路径由提议者经协调者提交值；
+> 快速路径在协调者发出 `Any` 后允许提议者直接向接受者提交值。
 
 该算法容易发生*碰撞*：
 如果两个或更多提议者都尝试使用*快速*步骤来减少往返次数，
@@ -13144,7 +13497,8 @@ $P_5$ 发起慢速路径：
 
 ![图 14-8：EPaxos 算法的执行](../raw/database-internals-2019/images/figure-0155.png)
 
-> 图 14-8：EPaxos 算法的执行。$P_1$ 的依赖关系一致，沿快速路径提交；$P_5$ 发现与提议 1 冲突后更新依赖项，沿慢速路径完成 `Accept` 后提交。
+> 图 14-8：EPaxos 算法的执行。$P_1$ 的依赖关系一致，沿快速路径提交；
+> $P_5$ 发现与提议 1 冲突后更新依赖项，沿慢速路径完成 `Accept` 后提交。
 
 仅当命令 A 和 B 的执行顺序会影响结果时，
 二者才相互干扰；
@@ -13331,7 +13685,8 @@ Paxos 有时不太容易推理：
 客户端不能写入会让同一寄存器集合内不同法定人数集合决定不同值的值。
 最后，
 客户端不能写入会覆盖先前寄存器集合中既有决定的值
-（索引不超过 $\tau - 1$ 的寄存器集合所作决定必须是 `None`、`Maybe v` 或 `Decided v`）。
+（索引不超过 $\tau - 1$ 的寄存器集合所作决定必须是 `None`、
+`Maybe v` 或 `Decided v`）。
 
 #### 通用 Paxos 算法
 
@@ -13384,7 +13739,8 @@ Paxos 有时不太容易推理：
 
 ![图 14-9：Paxos 的泛化形式](../raw/database-internals-2019/images/figure-0156.png)
 
-> 图 14-9：Paxos 的泛化形式。客户端 C0 在阶段 1 从多数服务器确认寄存器尚未写入，再在阶段 2 把值 V 写入多数服务器；状态表据此推断各法定人数集合的决定状态。
+> 图 14-9：Paxos 的泛化形式。客户端 C0 在阶段 1 从多数服务器确认寄存器尚未写入，
+> 再在阶段 2 把值 V 写入多数服务器；状态表据此推断各法定人数集合的决定状态。
 
 此时，
 其他任何客户端都可以查询服务器以了解当前状态。
@@ -13419,7 +13775,8 @@ Paxos 一直是共识算法的代表，
 但分布式系统社区公认它难以推理。
 2013 年出现了一种名为 Raft 的新算法。
 开发它的研究人员希望创造一种容易理解和实现的算法。
-该算法首次发表于论文 “In Search of an Understandable Consensus Algorithm” [ONGARO14]。
+该算法首次发表于论文 “In Search of an Understandable Consensus
+Algorithm” [ONGARO14]。
 
 分布式系统本身已经足够复杂，
 因此更简单的算法十分可取。
@@ -13526,7 +13883,8 @@ Raft 中的跟随者角色类似于 Paxos 的接受者和学习者。
 
 ![图 14-10：Raft 共识算法概要](../raw/database-internals-2019/images/figure-0157.png)
 
-> 图 14-10：Raft 共识算法概要。候选者通过 `RequestVote` 当选领导者，领导者用周期性心跳维持任期，并以 `AppendEntries` 向跟随者复制日志。
+> 图 14-10：Raft 共识算法概要。候选者通过 `RequestVote` 当选领导者，
+> 领导者用周期性心跳维持任期，并以 `AppendEntries` 向跟随者复制日志。
 
 ### Raft 中的领导者角色
 
@@ -13572,7 +13930,8 @@ Raft 中的跟随者角色类似于 Paxos 的接受者和学习者。
 
 ![图 14-11：以 P1 为领导者时 Raft 的提交过程](../raw/database-internals-2019/images/figure-0158.png)
 
-> 图 14-11：以 $P_1$ 为领导者时 Raft 的提交过程。命令先追加到领导者日志并复制到多数参与者，随后领导者在本地提交，再把提交决定复制给跟随者。
+> 图 14-11：以 $P_1$ 为领导者时 Raft 的提交过程。命令先追加到领导者日志并复制到多数参与者，
+> 随后领导者在本地提交，再把提交决定复制给跟随者。
 
 图 14-12 展示了一轮共识的示例，
 其中 $P_1$ 是领导者，
@@ -13589,7 +13948,8 @@ Raft 中的跟随者角色类似于 Paxos 的接受者和学习者。
 
 ![图 14-12：Raft 状态机](../raw/database-internals-2019/images/figure-0159.png)
 
-> 图 14-12：Raft 状态机。领导者 $P_1$ 将按任期和索引标识的日志条目复制给跟随者；获得法定人数确认的条目及其之前所有条目均可按序应用于状态机。
+> 图 14-12：Raft 状态机。领导者 $P_1$ 将按任期和索引标识的日志条目复制给跟随者；
+> 获得法定人数确认的条目及其之前所有条目均可按序应用于状态机。
 
 ### 故障场景
 
@@ -13808,7 +14168,9 @@ $P_4$ 可能已经发生故障，
 
 ![图 14-13：PBFT 共识的正常执行](../raw/database-internals-2019/images/figure-0160.png)
 
-> 图 14-13：PBFT 共识的正常执行。客户端向主副本 $P_1$ 发送请求；副本依次执行 Pre-prepare、Prepare 和 Commit，并仅在收集到足够多匹配消息后进入下一阶段，最后向客户端响应。
+> 图 14-13：PBFT 共识的正常执行。客户端向主副本 $P_1$ 发送请求；
+> 副本依次执行 Pre-prepare、Prepare 和 Commit，并仅在收集到足够多匹配消息后进入下一阶段，
+> 最后向客户端响应。
 
 在 prepare 和 commit 阶段，
 节点通过向其他每个节点发送消息，
@@ -13869,7 +14231,8 @@ PBFT 中的只读操作只需一次往返即可完成。
 以及该状态的摘要，
 然后等待 $2f + 1$ 个副本响应。
 这些响应构成 checkpoint 的证明，
-并保证副本可以安全丢弃截至给定序号的所有 pre-prepare、prepare、commit 和 checkpoint 消息状态。
+并保证副本可以安全丢弃截至给定序号的所有 pre-prepare、prepare、
+commit 和 checkpoint 消息状态。
 
 理解拜占庭容错非常重要；
 它用于部署在潜在对抗性网络中的存储系统。
@@ -13933,51 +14296,107 @@ Raft 将日志复制、领导者选举和安全性彼此分离。
 
 ### Atomic broadcast
 
-Junqueira, Flavio P., Benjamin C. Reed, and Marco Serafini. “Zab: High-performance broadcast for primary-backup systems.” 2011. In Proceedings of the 2011 IEEE/IFIP 41st International Conference on Dependable Systems & Networks (DSN ’11): 245-256.
+Junqueira, Flavio P., Benjamin C. Reed,
+and Marco Serafini. “Zab:
+High-performance broadcast for primary-backup systems.”
+2011. In Proceedings of the 2011 IEEE/IFIP 41st
+International Conference on Dependable Systems & Networks
+(DSN ’11): 245-256.
 
-Hunt, Patrick, Mahadev Konar, Flavio P. Junqueira, and Benjamin Reed. 2010. “ZooKeeper: wait-free coordination for internet-scale systems.” In Proceedings of the 2010 USENIX conference on USENIX annual technical conference (USENIX-ATC’10): 11.
+Hunt, Patrick, Mahadev Konar, Flavio P. Junqueira,
+and Benjamin Reed. 2010. “ZooKeeper:
+wait-free coordination for internet-scale systems.” In
+Proceedings of the 2010 USENIX conference on USENIX annual
+technical conference (USENIX-ATC’10): 11.
 
-Oki, Brian M., and Barbara H. Liskov. 1988. “Viewstamped Replication: A New Primary Copy Method to Support Highly-Available Distributed Systems.” In Proceedings of the seventh annual ACM Symposium on Principles of distributed computing (PODC ’88): 8-17.
+Oki, Brian M.,
+and Barbara H. Liskov. 1988. “Viewstamped Replication:
+A New Primary Copy Method to Support Highly-Available
+Distributed Systems.” In Proceedings of the seventh annual
+ACM Symposium on Principles of distributed computing (PODC
+’88): 8-17.
 
-Van Renesse, Robbert, Nicolas Schiper, and Fred B. Schneider. 2014. “Vive la Différence: Paxos vs. Viewstamped Replication vs. Zab.”
+Van Renesse, Robbert, Nicolas Schiper,
+and Fred B. Schneider. 2014. “Vive la Différence:
+Paxos vs. Viewstamped Replication vs. Zab.”
 
 ### Classic Paxos
 
-Lamport, Leslie. 1998. “The part-time parliament.” ACM Transactions on Computer Systems 16, no. 2 (May): 133-169.
+Lamport,
+Leslie. 1998. “The part-time parliament.” ACM Transactions
+on Computer Systems 16, no. 2 (May): 133-169.
 
-Lamport, Leslie. 2001. “Paxos made simple.” ACM SIGACT News 32, no. 4: 51-58.
+Lamport,
+Leslie. 2001. “Paxos made simple.” ACM SIGACT News 32,
+no. 4: 51-58.
 
-Lamport, Leslie. 2005. “Generalized Consensus and Paxos.” Technical Report MSR-TR-2005-33. Microsoft Research, Mountain View, CA.
+Lamport,
+Leslie. 2005. “Generalized Consensus and Paxos.” Technical
+Report MSR-TR-2005-33. Microsoft Research,
+Mountain View, CA.
 
-Primi, Marco. 2009. “Paxos made code: Implementing a high throughput Atomic Broadcast.” (Libpaxos code: https://bitbucket.org/sciascid/libpaxos/src/master/.
+Primi, Marco. 2009. “Paxos made code:
+Implementing a high throughput Atomic Broadcast.” (Libpaxos
+code: https://bitbucket.org/sciascid/libpaxos/src/master/.
 
 ### Fast Paxos
 
-Lamport, Leslie. 2005. “Fast Paxos.” 14 July 2005. Microsoft Research.
+Lamport,
+Leslie. 2005. “Fast Paxos.” 14 July 2005. Microsoft
+Research.
 
 ### Multi-Paxos
 
-Chandra, Tushar D., Robert Griesemer, and Joshua Redstone. 2007. “Paxos made live: an engineering perspective.” In Proceedings of the twenty-sixth annual ACM symposium on Principles of distributed computing (PODC ’07): 398-407.
+Chandra, Tushar D., Robert Griesemer,
+and Joshua Redstone. 2007. “Paxos made live:
+an engineering perspective.” In Proceedings of the
+twenty-sixth annual ACM symposium on Principles of
+distributed computing (PODC ’07): 398-407.
 
-Van Renesse, Robbert and Deniz Altinbuken. 2015. “Paxos Made Moderately Complex.” ACM Computing Surveys 47, no. 3 (February): Article 42. https://doi.org/10.1145/2673577.
+Van Renesse,
+Robbert and Deniz Altinbuken. 2015. “Paxos Made Moderately
+Complex.” ACM Computing Surveys 47, no. 3 (February):
+Article 42. https://doi.org/10.1145/2673577.
 
 ### EPaxos
 
-Moraru, Iulian, David G. Andersen, and Michael Kaminsky. 2013. “There is more consensus in Egalitarian parliaments.” In Proceedings of the Twenty-Fourth ACM Symposium on Operating Systems Principles (SOSP ’13): 358-372.
+Moraru, Iulian, David G. Andersen,
+and Michael Kaminsky. 2013. “There is more consensus in
+Egalitarian parliaments.” In Proceedings of the
+Twenty-Fourth ACM Symposium on Operating Systems Principles
+(SOSP ’13): 358-372.
 
-Moraru, I., D. G. Andersen, and M. Kaminsky. 2013. “A proof of correctness for Egalitarian Paxos.” Technical report, Parallel Data Laboratory, Carnegie Mellon University, Aug. 2013.
+Moraru, I., D. G. Andersen,
+and M. Kaminsky. 2013. “A proof of correctness for
+Egalitarian Paxos.” Technical report,
+Parallel Data Laboratory, Carnegie Mellon University,
+Aug. 2013.
 
 ### Raft
 
-Ongaro, Diego, and John Ousterhout. 2014. “In search of an understandable consensus algorithm.” In Proceedings of the 2014 USENIX conference on USENIX Annual Technical Conference (USENIX ATC’14), Garth Gibson and Nickolai Zeldovich (Eds.): 305-320.
+Ongaro, Diego,
+and John Ousterhout. 2014. “In search of an understandable
+consensus algorithm.” In Proceedings of the 2014 USENIX
+conference on USENIX Annual Technical Conference (USENIX
+ATC’14), Garth Gibson and Nickolai Zeldovich (Eds.):
+305-320.
 
-Howard, H. 2014. “ARC: Analysis of Raft Consensus.” Technical Report UCAM-CL-TR-857, University of Cambridge, Computer Laboratory, July 2014.
+Howard, H. 2014. “ARC:
+Analysis of Raft Consensus.” Technical Report
+UCAM-CL-TR-857, University of Cambridge,
+Computer Laboratory, July 2014.
 
-Howard, Heidi, Malte Schwarzkopf, Anil Madhavapeddy, and Jon Crowcroft. 2015. “Raft Refloated: Do We Have Consensus?” SIGOPS Operating Systems Review 49, no. 1 (January): 12-21. https://doi.org/10.1145/2723872.2723876.
+Howard, Heidi, Malte Schwarzkopf, Anil Madhavapeddy,
+and Jon Crowcroft. 2015. “Raft Refloated:
+Do We Have Consensus?” SIGOPS Operating Systems Review 49,
+no. 1 (January): 12-21. https:
+//doi.org/10.1145/2723872.2723876.
 
 ### Recent developments
 
-Howard, Heidi and Richard Mortier. 2019. “A Generalised Solution to Distributed Consensus.” 18 Feb 2019.
+Howard,
+Heidi and Richard Mortier. 2019. “A Generalised Solution to
+Distributed Consensus.” 18 Feb 2019.
 
 <a id="part-2-conclusion"></a>
 # 第二部分结语
@@ -14051,53 +14470,105 @@ Howard, Heidi and Richard Mortier. 2019. “A Generalised Solution to Distribute
 
 ### Database systems
 
-Bernstein, Philip A., Vassco Hadzilacos, and Nathan Goodman. 1987. *Concurrency Control and Recovery in Database Systems*. Boston: Addison-Wesley Longman.
+Bernstein, Philip A., Vassco Hadzilacos,
+and Nathan Goodman. 1987. *Concurrency Control and Recovery
+in Database Systems*. Boston: Addison-Wesley Longman.
 
-Korth, Henry F. and Abraham Silberschatz. 1986. *Database System Concepts*. New York: McGraw-Hill.
+Korth,
+Henry F. and Abraham Silberschatz. 1986. *Database System
+Concepts*. New York: McGraw-Hill.
 
-Gray, Jim and Andreas Reuter. 1992. *Transaction Processing: Concepts and Techniques* (1st Ed.). San Francisco: Morgan Kaufmann.
+Gray,
+Jim and Andreas Reuter. 1992. *Transaction Processing:
+Concepts and Techniques* (1st Ed.). San Francisco:
+Morgan Kaufmann.
 
-Stonebraker, Michael and Joseph M. Hellerstein (Eds.). 1998. *Readings in Database Systems* (3rd Ed.). San Francisco: Morgan Kaufmann.
+Stonebraker, Michael and Joseph M. Hellerstein (Eds.)
+. 1998. *Readings in Database Systems* (3rd Ed.)
+. San Francisco: Morgan Kaufmann.
 
-Weikum, Gerhard and Gottfried Vossen. 2001. *Transactional Information Systems: Theory, Algorithms, and the Practice of Concurrency Control and Recovery*. San Francisco: Morgan Kaufmann.
+Weikum,
+Gerhard and Gottfried Vossen. 2001. *Transactional
+Information Systems: Theory, Algorithms, and the Practice
+of Concurrency Control and Recovery*. San Francisco:
+Morgan Kaufmann.
 
-Ramakrishnan, Raghu and Johannes Gehrke. 2002. *Database Management Systems* (3 Ed.). New York: McGraw-Hill.
+Ramakrishnan,
+Raghu and Johannes Gehrke. 2002. *Database Management
+Systems* (3 Ed.). New York: McGraw-Hill.
 
-Garcia-Molina, Hector, Jeffrey D. Ullman, and Jennifer Widom. 2008. *Database Systems: The Complete Book* (2 Ed.). Upper Saddle River, NJ: Prentice Hall.
+Garcia-Molina, Hector, Jeffrey D. Ullman,
+and Jennifer Widom. 2008. *Database Systems: The Complete
+Book* (2 Ed.). Upper Saddle River, NJ: Prentice Hall.
 
-Bernstein, Philip A. and Eric Newcomer. 2009. *Principles of Transaction Processing* (2nd Ed.). San Francisco: Morgan Kaufmann.
+Bernstein,
+Philip A. and Eric Newcomer. 2009. *Principles of
+Transaction Processing* (2nd Ed.). San Francisco:
+Morgan Kaufmann.
 
-Elmasri, Ramez and Shamkant Navathe. 2010. *Fundamentals of Database Systems* (6th Ed.). Boston: Addison-Wesley.
+Elmasri,
+Ramez and Shamkant Navathe. 2010. *Fundamentals of Database
+Systems* (6th Ed.). Boston: Addison-Wesley.
 
-Lake, Peter and Paul Crowther. 2013. *Concise Guide to Databases: A Practical Introduction*. New York: Springer.
+Lake,
+Peter and Paul Crowther. 2013. *Concise Guide to Databases:
+A Practical Introduction*. New York: Springer.
 
-Härder, Theo, Caetano Sauer, Goetz Graefe, and Wey Guy. 2015. *Instant recovery with write-ahead logging*. Datenbank-Spektrum.
+Härder, Theo, Caetano Sauer, Goetz Graefe,
+and Wey Guy. 2015. *Instant recovery with write-ahead
+logging*. Datenbank-Spektrum.
 
 ### Distributed systems
 
-Lynch, Nancy A. *Distributed Algorithms*. 1996. San Francisco: Morgan Kaufmann.
+Lynch,
+Nancy A. *Distributed Algorithms*. 1996. San Francisco:
+Morgan Kaufmann.
 
-Attiya, Hagit, and Jennifer Welch. 2004. *Distributed Computing: Fundamentals, Simulations and Advanced Topics*. Hoboken, NJ: John Wiley & Sons.
+Attiya, Hagit,
+and Jennifer Welch. 2004. *Distributed Computing:
+Fundamentals, Simulations and Advanced Topics*. Hoboken, NJ:
+John Wiley & Sons.
 
-Birman, Kenneth P. 2005. *Reliable Distributed Systems: Technologies, Web Services, and Applications*. Berlin: Springer-Verlag.
+Birman,
+Kenneth P. 2005. *Reliable Distributed Systems:
+Technologies, Web Services, and Applications*. Berlin:
+Springer-Verlag.
 
-Cachin, Christian, Rachid Guerraoui, and Lus Rodrigues. 2011. *Introduction to Reliable and Secure Distributed Programming* (2nd Ed.). New York: Springer.
+Cachin, Christian, Rachid Guerraoui,
+and Lus Rodrigues. 2011. *Introduction to Reliable and
+Secure Distributed Programming* (2nd Ed.). New York:
+Springer.
 
-Fokkink, Wan. 2013. *Distributed Algorithms: An Intuitive Approach*. The MIT Press.
+Fokkink,
+Wan. 2013. *Distributed Algorithms: An Intuitive Approach*.
+The MIT Press.
 
-Ghosh, Sukumar. *Distributed Systems: An Algorithmic Approach* (2nd Ed.). Chapman & Hall/CRC.
+Ghosh,
+Sukumar. *Distributed Systems: An Algorithmic Approach*
+(2nd Ed.). Chapman & Hall/CRC.
 
-Tanenbaum Andrew S. and Maarten van Steen. 2017. *Distributed Systems: Principles and Paradigms* (3rd Ed.). Boston: Pearson.
+Tanenbaum Andrew S. and Maarten van Steen. 2017.
+*Distributed Systems: Principles and Paradigms* (3rd Ed.)
+. Boston: Pearson.
 
 ### Operating databases
 
-Beyer, Betsy, Chris Jones, Jennifer Petoff, and Niall Richard Murphy. 2016. *Site Reliability Engineering: How Google Runs Production Systems* (1st Ed.). Boston: O'Reilly Media.
+Beyer, Betsy, Chris Jones, Jennifer Petoff,
+and Niall Richard Murphy. 2016. *Site Reliability
+Engineering: How Google Runs Production Systems* (1st Ed.)
+. Boston: O'Reilly Media.
 
-Blank-Edelman, David N. 2018. *Seeking SRE*. Boston: O'Reilly Media.
+Blank-Edelman, David N. 2018. *Seeking SRE*. Boston:
+O'Reilly Media.
 
-Campbell, Laine and Charity Majors. 2017. *Database Reliability Engineering: Designing and Operating Resilient Database Systems* (1st Ed.). Boston: O'Reilly Media.
+Campbell,
+Laine and Charity Majors. 2017. *Database Reliability
+Engineering: Designing and Operating Resilient Database
+Systems* (1st Ed.). Boston: O'Reilly Media.
 
-Sridharan, Cindy. 2018. *Distributed Systems Observability: A Guide to Building Robust Systems*. Boston: O'Reilly Media.
+Sridharan,
+Cindy. 2018. *Distributed Systems Observability: A Guide to
+Building Robust Systems*. Boston: O'Reilly Media.
 
 <a id="appendix-a-bibliography"></a>
 # 附录 A：参考文献
@@ -14843,7 +15314,8 @@ candidate/ordinary optimization, 209
 
 candidates, 86
 
-CAP (consistency, availability, and partition tolerance), 216-219
+CAP (consistency, availability, and partition tolerance),
+216-219
 
 cascading failures, 180
 
@@ -16786,4 +17258,8 @@ Zookeeper Atomic Broadcast (ZAB), 283
 <a id="about-the-author"></a>
 # 作者简介
 
-Alex Petrov is a data infrastructure engineer, database and storage systems enthusiast, Apache Cassandra committer, and PMC member interested in storage, distributed systems, and algorithms.
+Alex Petrov is a data infrastructure engineer,
+database and storage systems enthusiast,
+Apache Cassandra committer,
+and PMC member interested in storage, distributed systems,
+and algorithms.

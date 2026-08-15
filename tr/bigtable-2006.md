@@ -5,7 +5,8 @@ Wilson C. Hsieh、Deborah A. Wallach、
 Mike Burrows、Tushar Chandra、
 Andrew Fikes、Robert E. Gruber
 
-{fay,jeff,sanjay,wilsonh,kerr,m3b,tushar,fikes,gruber}@google.com
+{fay,jeff,sanjay,wilsonh,kerr,m3b,tushar,fikes,
+gruber}@google.com
 
 Google, Inc.
 
@@ -119,7 +120,8 @@ Bigtable 按行键的字典序维护数据。
 例如，在 Webtable 中，
 我们通过反转 URL 的主机名组成部分，
 把同一域中的页面归入连续的行。
-`maps.google.com/index.html` 的数据会存储在键 `com.google.maps/index.html` 下。
+`maps.google.com/index.html` 的数据会存储在键
+`com.google.maps/index.html` 下。
 把同一域的页面相邻存储，
 可以提高某些主机和域分析的效率。
 
@@ -347,7 +349,8 @@ Bigtable 客户端不依赖主服务器获取 tablet 位置信息，
 <a id="sec-5-1"></a>
 ### 5.1 tablet 位置
 
-我们使用一个类似 B$^{+}$ 树 [10] 的三级层次结构存储 tablet 位置信息（见[图 4](#fig-4)）。
+我们使用一个类似 B$^{+}$ 树 [10]
+的三级层次结构存储 tablet 位置信息（见[图 4](#fig-4)）。
 
 <a id="fig-4"></a>
 ![图 4：tablet 位置层次结构](../raw/bigtable-2006/images/figure-0002.png)
@@ -535,7 +538,8 @@ merging compaction 读取若干 SSTable 和 memtable 的内容，
 并写出一个新的 SSTable。
 compaction 完成后，输入的 SSTable 和 memtable 即可丢弃。
 
-把所有 SSTable 重写成恰好一个 SSTable 的 merging compaction 称为*major compaction*。
+把所有 SSTable 重写成恰好一个 SSTable 的 merging compaction 称为*major
+compaction*。
 non-major compaction 生成的 SSTable 可以包含特殊删除条目，
 用来屏蔽仍然存活的旧 SSTable 中已删除的数据。
 major compaction 生成的 SSTable 则不包含删除信息或已删除数据。
@@ -654,7 +658,8 @@ tablet 服务器死亡后，
 日志文件就会被读取 100 次，每台服务器各读一次。
 
 为了避免重复读取日志，
-我们首先按键 $\langle \text{table}, \text{row name}, \text{log sequence number} \rangle$
+我们首先按键
+$\langle \text{table}, \text{row name}, \text{log sequence number} \rangle$
 对提交日志条目排序。
 排序结果中，同一 tablet 的所有变更都连续排列，
 因此只需一次磁盘寻道和随后的顺序读取即可高效读出。
@@ -1096,7 +1101,8 @@ Tapestry [37] 和 Pastry [30] 等项目的分布式哈希表研究。
 而且足够透明，使用户能通过 locality group 调节系统的重要行为。
 
 多家数据库厂商已经开发出可以存储大量数据的并行数据库。
-Oracle Real Application Cluster 数据库 [27] 使用共享磁盘存储数据（Bigtable 使用 GFS），
+Oracle Real Application Cluster 数据库 [27]
+使用共享磁盘存储数据（Bigtable 使用 GFS），
 并使用分布式锁管理器（Bigtable 使用 Chubby）。
 IBM DB2 Parallel Edition [4] 采用类似 Bigtable 的无共享架构 [33]。
 每台 DB2 服务器负责表中的一部分行，

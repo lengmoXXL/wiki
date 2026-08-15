@@ -2,7 +2,8 @@
 
 分布式架构的现代 trade-off 分析  
 
-Neal Ford、Mark Richards、Pramod Sadalage 和 Zhamak Dehghani 著  
+Neal Ford、Mark Richards、
+Pramod Sadalage 和 Zhamak Dehghani 著  
 
 ## 软件架构：难点  
 
@@ -86,11 +87,13 @@ Zhamak Dehghani 是 Thoughtworks 的技术总监，
 
 # 分布式架构的现代 trade-off 分析  
 
-Neal Ford、Mark Richards、Pramod Sadalage 和 Zhamak Dehghani 著  
+Neal Ford、Mark Richards、
+Pramod Sadalage 和 Zhamak Dehghani 著  
 
 ## 软件架构：难点  
 
-Neal Ford、Mark Richards、Pramod Sadalage 和 Zhamak Dehghani 著  
+Neal Ford、Mark Richards、
+Pramod Sadalage 和 Zhamak Dehghani 著  
 
 版权所有 © 2022 Neal Ford、Mark Richards、
 Pramod Sadalage 和 Zhamak Dehghani。保留所有权利。  
@@ -286,9 +289,12 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。《软件架构：难�
 将本书中大量示例代码整合到你的产品文档中需要许可。  
 
 我们感谢但不要求署名。署名通常包括书名、作者、出版社和 ISBN。例如：
-"Software Architecture: The Hard Parts by Neal Ford, Mark Richards, Pramod 
-Sadalage, and Zhamak Dehghani (O'Reilly). Copyright 2022 Neal Ford, Mark 
-Richards, Pramod Sadalage, and Zhamak Dehghani, 978-1-492-08689-5."  
+"Software Architecture: The Hard Parts by Neal Ford,
+Mark Richards, Pramod 
+Sadalage, and Zhamak Dehghani (O'Reilly)
+. Copyright 2022 Neal Ford, Mark 
+Richards, Pramod Sadalage, and Zhamak Dehghani,
+978-1-492-08689-5."  
 
 如果你认为你对代码示例的使用超出了合理使用范围或上述许可范围，
 请随时通过 permissions@oreilly.com 联系我们。  
@@ -301,7 +307,8 @@ Richards, Pramod Sadalage, and Zhamak Dehghani, 978-1-492-08689-5."
 > 我们独特的专家和创新者网络通过书籍、文章和我们的在线学习平台分享他们的知识和专长。
 > O'Reilly 的在线学习平台为你提供按需访问的现场培训课程、
 > 深入的学习路径、交互式编码环境，
-> 以及来自 O'Reilly 和 200 多家其他出版社的大量文本和视频。更多信息请访问 http://oreilly.com。
+> 以及来自 O'Reilly 和 200 多家其他出版社的大量文本和视频。更多信息请访问 http:
+> //oreilly.com。
 
 ## 如何联系我们  
 
@@ -536,7 +543,8 @@ Thoughtworks 以多种方式支持了本书，并持续培养着每天都在挑�
 我们想弄清楚原因。
 我们最终意识到，在分布式架构的早期，
 我们大多仍然将数据持久化在单个关系数据库中。
-然而，在微服务以及从**domain-driven design**中对*bounded context*的哲学性遵循中，
+然而，
+在微服务以及从**domain-driven design**中对*bounded context*的哲学性遵循中，
 作为限制实现细节耦合范围的一种方式，
 数据已经变成了一个架构关注点，事务性也是如此。
 现代架构的许多难点源于数据和架构关注点之间的张力，
@@ -547,7 +555,8 @@ Thoughtworks 以多种方式支持了本书，并持续培养着每天都在挑�
 **运维数据**
 
 用于业务运营的数据，包括销售、事务数据、库存等。这些数据是公司赖以运转的——如果这些数据出现问题，组织无法长时间运作。
-这种类型的数据被定义为 Online Transaction Processing（OLTP），通常涉及在数据库中插入、更新和删除数据。
+这种类型的数据被定义为 Online Transaction Processing（OLTP），通常涉及在数据库中插入、
+更新和删除数据。
 
 **分析数据**
 
@@ -837,7 +846,9 @@ var result = Types.InCurrentDomain()
 ## Equifax 数据泄露事件  
 
 2017 年 9 月 7 日，美国主要信用评分机构 Equifax 宣布发生了数据泄露。
-最终，问题被追溯到 Java 生态系统中流行的 Struts Web 框架的黑客利用（Apache Struts vCVE-2017-5638）。
+最终，
+问题被追溯到 Java 生态系统中流行的 Struts Web 框架的黑客利用（Apache Struts
+vCVE-2017-5638）。
 该基金会于 2017 年 3 月 7 日发布声明宣布该漏洞并发布了补丁。
 美国国土安全部于次日联系了 Equifax 和类似公司，警告他们这个问题，
 并于 2017 年 3 月 15 日进行了扫描，但未能揭示所有受影响的系统。
@@ -918,7 +929,9 @@ var result = Types.InCurrentDomain()
 
 应用的架构构建块，执行某种业务或基础设施功能，
 通常通过包结构（Java）、命名空间（C#）或在某种目录结构中的源文件物理分组来体现。
-例如，组件 Order History 可能通过位于命名空间 app.business.order.history 中的一组类文件来实现。  
+例如，
+组件 Order History 可能通过位于命名空间 app.business.order.history
+中的一组类文件来实现。  
 
 **同步通信**
 
@@ -1020,7 +1033,8 @@ Sysops Squad 工单应用的四个主要用户如下：
 服务区域和可用性确定哪个 Sysops Squad 专家最适合该工作。  
 
 3. 一旦分配，
-问题工单被上传到 Sysops Squad 专家移动设备上的专用定制移动应用。专家还通过短信通知他们有一个新的问题工单。  
+问题工单被上传到 Sysops Squad 专家移动设备上的专用定制移动应用。
+专家还通过短信通知他们有一个新的问题工单。  
 
 4. 客户通过短信或电子邮件（基于他们的资料偏好）通知专家正在赶来。  
 
@@ -1054,7 +1068,8 @@ Sysops Squad 问题工单应用最近情况不太好。
 
 Sysops Squad 应用的单体系统处理工单管理、运维报告、客户注册和计费，
 以及一般管理功能，如用户维护、登录和专家技能及资料维护。
-图 1-3 和相应的表 1-1 说明和描述了现有单体应用的组件（命名空间的 ss. 部分指定了 Sysops Squad 应用上下文）。  
+图 1-3 和相应的表 1-1 说明和描述了现有单体应用的组件（命名空间的 ss. 部分指定了 Sysops
+Squad 应用上下文）。  
 
 ![图 1-3：现有 Sysops Squad 应用中的组件](../raw/software-architecture-2021/images/figure-0006.png)
 
@@ -1087,7 +1102,8 @@ Sysops Squad 应用的单体系统处理工单管理、运维报告、客户注�
 
 ## Sysops Squad 数据模型  
 
-表 1-1 中列出的 Sysops Squad 应用及其各种组件在数据库中使用单一 schema 来托管其所有表和相关数据库代码。
+表 1-1 中列出的 Sysops Squad 应用及其各种组件在数据库中使用单一 schema
+来托管其所有表和相关数据库代码。
 该数据库用于持久化客户、用户、
 合同、计费、付款、知识库和客户调查问卷；表列于表 1-2 中，ER 模型如图 1-4 所示。  
 
@@ -1162,7 +1178,8 @@ Meilir Page-Jones 做出了敏锐的观察，即架构中的耦合可以分为�
 
 > 插图 2-1：Logan 在自助餐厅打断 Addison 和 Austen 等架构师关于分布式架构的讨论。
 
-Penultimate Electronics 的首席架构师 Logan 打断了自助餐厅里一小群正在讨论分布式架构的架构师。
+Penultimate Electronics 的首席架构师 Logan
+打断了自助餐厅里一小群正在讨论分布式架构的架构师。
 "Austen，你又戴夹板了？"  
 
 "不，只是护具，"Austen 回答说。"我周末打极限飞盘高尔夫扭伤了手腕——快好了。"  
@@ -1298,7 +1315,8 @@ architecture quantum 的一个常见示例是工作流中的一个良好形成�
 
 ### 独立可部署  
 
-独立可部署意味着 architecture quantum 的几个方面——每个 quantum 代表特定架构中的一个独立部署单元。
+独立可部署意味着 architecture quantum 的几个方面——每个 quantum
+代表特定架构中的一个独立部署单元。
 因此，
 单体架构——作为单个单元部署的——根据定义是单个 architecture quantum。
 在分布式架构如微服务中，开发人员倾向于独立部署服务的能力，
@@ -1310,17 +1328,21 @@ architecture quantum 的一个常见示例是工作流中的一个良好形成�
 开发人员和运维之间的有用通用语言。每个人都理解讨论中的共同范围：架构师理解耦合特征，
 开发人员理解行为范围，运维团队理解可部署特征。  
 
-其次，architecture quantum 代表了架构师在努力确定分布式架构中服务的适当粒度时必须考虑的作用力（静态耦合）
+其次，
+architecture quantum 代表了架构师在努力确定分布式架构中服务的适当粒度时必须考虑的作用力（静态耦合）
 之一。通常，在微服务架构中，
-开发人员面临一个困难的问题，即什么服务粒度提供了最优的 trade-off 集合。其中一些 trade-off 围绕可部署性：
+开发人员面临一个困难的问题，即什么服务粒度提供了最优的 trade-off 集合。
+其中一些 trade-off 围绕可部署性：
 该服务需要什么发布节奏，其他哪些服务可能受到影响，涉及什么工程实践等。
-架构师从对分布式架构中部署边界确切位置的牢固理解中获益。我们在第 7 章中讨论服务粒度及其伴随的 trade-off。  
+架构师从对分布式架构中部署边界确切位置的牢固理解中获益。
+我们在第 7 章中讨论服务粒度及其伴随的 trade-off。  
 
 第三，独立可部署性迫使 architecture quantum 包含常见的耦合点如数据库。
 大多数关于架构的讨论方便地忽略了数据库和用户界面等问题，
 但现实世界的系统通常必须处理这些问题。因此，
 任何使用共享数据库的系统都不符合 architecture quantum 的独立部署标准，除非数据库部署与应用同步。
-许多本来可以符合多个 quantum 的分布式系统，如果它们共享一个具有自己部署节奏的公共数据库，则在独立可部署部分失败。
+许多本来可以符合多个 quantum 的分布式系统，如果它们共享一个具有自己部署节奏的公共数据库，
+则在独立可部署部分失败。
 因此，仅仅考虑部署边界并不能单独提供有用的度量。
 架构师还应考虑 architecture quantum 的第二个标准，高功能内聚，
 以将 architecture quantum 限制在有用的范围内。  
@@ -1379,7 +1401,8 @@ architecture quantum 的静态耦合度量有助于识别架构中的耦合点�
 当我们提到*基于服务的架构*时，我们不是指基于服务的通用架构，
 而是指一种特定的混合架构风格，它遵循分布式宏分层结构，由单独部署的用户界面、
 单独部署的远程粗粒度服务和单体数据库组成。这种架构解决了微服务的一个复杂性——数据库级别的分离。
-基于服务的架构中的服务遵循与微服务相同的原则（基于 domain-driven design 的 bounded context），
+基于服务的架构中的服务遵循与微服务相同的原则（基于 domain-driven design 的 bounded
+context），
 但依赖单个关系数据库，
 因为架构师没有看到分离的价值（或看到了太多负面的 trade-off）。  
 
@@ -1388,11 +1411,13 @@ architecture quantum 的静态耦合度量有助于识别架构中的耦合点�
 
 到目前为止，architecture quantum 的静态耦合度量将所有拓扑评估为一。
 然而，分布式架构创造了多个 quantum 的可能性，但并不一定保证它。例如，
-事件驱动架构的 mediator 风格将始终被评估为单个 architecture quantum，如图 2-4 所示。  
+事件驱动架构的 mediator 风格将始终被评估为单个 architecture quantum，
+如图 2-4 所示。  
 
 即使这种风格代表分布式架构，两个耦合点将其推向单个 architecture quantum：数据库，
 与之前的单体架构相同，
-还有请求 orchestrator 本身——架构运行所需的任何整体耦合点都围绕它形成一个 architecture quantum。  
+还有请求 orchestrator 本身——架构运行所需的任何整体耦合点都围绕它形成一个 architecture
+quantum。  
 
 ![图 2-4：mediator 事件驱动架构具有单个 architecture quantum](../raw/software-architecture-2021/images/figure-0012.png)
 
@@ -1413,12 +1438,14 @@ architecture quantum 的静态分析回答的问题是，
 然而，分布式架构中不存在公共耦合点的情况呢？考虑图 2-6 所示的事件驱动架构。  
 
 架构师设计了这个事件驱动系统，有两个数据存储，且服务集之间没有静态依赖。请注意，
-任一 architecture quantum 都可以在类似生产环境的生态系统中运行。它可能无法参与系统所需的所有工作流，
+任一 architecture quantum 都可以在类似生产环境的生态系统中运行。
+它可能无法参与系统所需的所有工作流，
 但它成功运行并操作——在架构中发送请求和接收请求。  
 
 architecture quantum 的静态耦合度量评估架构和运维组件之间的耦合依赖关系。
 因此，操作系统、数据存储、消息代理、
-容器编排和所有其他运维依赖构成了 architecture quantum 的静态耦合点，使用尽可能严格的契约，即运维依赖。  
+容器编排和所有其他运维依赖构成了 architecture quantum 的静态耦合点，使用尽可能严格的契约，
+即运维依赖。  
 
 ![图 2-6：具有多个 quantum 的事件驱动架构](../raw/software-architecture-2021/images/figure-0014.png)
 
@@ -1432,7 +1459,8 @@ architecture quantum 的静态耦合度量评估架构和运维组件之间的�
 
 > 图 2-7：微服务可以形成自己的 quantum。
 
-每个服务（作为 bounded context）可能有自己的一组架构特征——一个服务可能比另一个有更高水平的可扩展性或安全性。
+每个服务（作为 bounded context）
+可能有自己的一组架构特征——一个服务可能比另一个有更高水平的可扩展性或安全性。
 这种架构特征范围的细粒度水平代表了微服务架构风格的优势之一。
 高度解耦允许在服务上工作的团队尽可能快地移动，而不必担心破坏其他依赖。  
 
@@ -1458,12 +1486,15 @@ architecture quantum 的静态耦合度量评估架构和运维组件之间的�
 > 图 2-9：在微前端架构中，每个服务+用户界面组件形成一个 architecture quantum。
 
 在这个例子中，
-四个着色服务连同它们相应的微前端形成 architecture quantum：这些服务中的每一个可能具有不同的架构特征。  
+四个着色服务连同它们相应的微前端形成 architecture quantum：
+这些服务中的每一个可能具有不同的架构特征。  
 
-架构中的任何耦合点都可以从 quantum 的角度创建静态耦合点。考虑图 2-10 所示的两个系统之间共享数据库的影响。  
+架构中的任何耦合点都可以从 quantum 的角度创建静态耦合点。
+考虑图 2-10 所示的两个系统之间共享数据库的影响。  
 
 系统的静态耦合提供了宝贵的洞察力，即使在涉及集成架构的复杂系统中也是如此。越来越常见的是，
-理解遗留架构的常见架构师技术涉及创建事物如何"连接"在一起的静态 quantum 图，这有助于确定哪些系统将受到变更的影响，
+理解遗留架构的常见架构师技术涉及创建事物如何"连接"在一起的静态 quantum 图，
+这有助于确定哪些系统将受到变更的影响，
 并提供了一种理解（并可能解耦）架构的方式。  
 
 静态耦合只是分布式架构中作用力的一半。另一半是动态耦合。  
@@ -1518,7 +1549,8 @@ architecture quantum 在分布式架构中相互交互以形成工作流的行�
 每种图表变体都暗示异步消息传递；第二种提供了视觉简写和更少的实现细节。
   
 
-在选择服务如何通信时，架构师必须考虑重大的 trade-off。围绕通信的决策影响同步、错误处理、事务性、可扩展性和性能。
+在选择服务如何通信时，架构师必须考虑重大的 trade-off。围绕通信的决策影响同步、错误处理、事务性、
+可扩展性和性能。
 本书的其余部分深入探讨了许多这些问题。  
 
 ### 一致性  
@@ -1538,7 +1570,8 @@ architecture quantum 在分布式架构中相互交互以形成工作流的行�
 
 这三个因素——通信、一致性和协调——都为架构师必须做出的重要决策提供信息。然而，关键的是，
 架构师不能孤立地做出这些选择；每个选项对其他选项都有引力效应。例如，
-事务性在具有 mediator 的同步架构中更容易，而更高水平的规模在最终一致的异步 choreographed 系统中是可能的。
+事务性在具有 mediator 的同步架构中更容易，
+而更高水平的规模在最终一致的异步 choreographed 系统中是可能的。
 
 将这些力视为彼此相关形成了一个三维空间，如图 2-13 所示。  
 
@@ -1634,14 +1667,16 @@ Austen 笑了。"防御性地？你什么意思……"
 其中'东西'可能是我们架构或运维中的任何东西。他们在做风险缓解——如果我们改变一个服务，
 他们想知道必须测试什么。"  
 
-"我明白了——那就是静态 quantum 耦合。我能看出这是一个有用的视图。它还显示了团队如何相互影响。这似乎真的很有用。
+"我明白了——那就是静态 quantum 耦合。我能看出这是一个有用的视图。它还显示了团队如何相互影响。
+这似乎真的很有用。
 有没有工具我们可以下载，帮我们自动搞明白这些？"  
 
 "那该多好啊！"Addison 笑了。"不幸的是，
 没有哪个拥有我们独特架构组合的人构建并开源了恰好我们想要的工具。然而，一些平台团队正在开发一个工具来自动化它，
 必然是为我们的架构定制的。他们在使用容器清单、POM 文件、
 NPM 依赖和其他依赖工具来构建和维护构建依赖列表。我们还为所有服务建立了可观测性，
-所以我们现在有一致的日志文件，记录了什么系统调用彼此、何时以及多频繁。他们在用这些构建调用图，看看事物是如何连接的。"  
+所以我们现在有一致的日志文件，记录了什么系统调用彼此、何时以及多频繁。他们在用这些构建调用图，
+看看事物是如何连接的。"  
 
 "好的，所以静态耦合是事物如何连接在一起。动态耦合呢？"  
 
@@ -1685,7 +1720,8 @@ architecture quantum 定义了架构特征的范围——静态耦合如何影�
 
 ![插图 3-1：业务赞助商与 Addison 和 Austen 的紧张会议](../raw/software-architecture-2021/images/figure-0023.png)
 
-> 插图 3-1：Sysops Squad 工单应用的业务赞助商与架构师 Addison 和 Austen 举行气氛紧张的会议。
+> 插图 3-1：
+> Sysops Squad 工单应用的业务赞助商与架构师 Addison 和 Austen 举行气氛紧张的会议。
 
 这是他们之前去过一百次的同一间会议室，但今天的气氛不同了。非常不同。当人们聚集时，
 没有人闲聊。只有沉默。那种死一般的沉默，你可以用刀切开。是的，
@@ -1783,7 +1819,8 @@ Addison 在消息中解释说他们真的陷入了困境，需要一些建议。
 
 通过在我们的水杯示例中添加另一个空杯并将水（应用）分成两个独立的部分，
 一半的水现在可以倒入新的空杯，提供 50% 更多的容量，如图 3-2 所示。
-水杯类比是向业务利益相关者和 C 级高管解释架构模块化（单体应用的拆分）的绝佳方式，他们不可避免地要为架构重构工作买单。  
+水杯类比是向业务利益相关者和 C 级高管解释架构模块化（单体应用的拆分）的绝佳方式，
+他们不可避免地要为架构重构工作买单。  
 
 ![图 3-2：两个半满杯代表已拆分的应用，有充足的容量用于增长](../raw/software-architecture-2021/images/figure-0025.png)
 
@@ -1822,9 +1859,12 @@ Addison 在消息中解释说他们真的陷入了困境，需要一些建议。
 > 图 3-3：模块化的驱动因素及其关系。
 
 请注意，*架构模块化*并不总是必须转化为分布式架构。可维护性、
-可测试性和可部署性（定义见以下各节）也可以通过单体架构来实现，如模块化单体甚至微内核架构（参见[附录 B](#附录-b架构决策记录参考) 获取这些架构风格的更多参考资料）。
+可测试性和可部署性（定义见以下各节）也可以通过单体架构来实现，
+如模块化单体甚至微内核架构（参见[附录 B](#附录-b架构决策记录参考) 获取这些架构风格的更多参考资料）。
 这两种架构风格都基于组件的结构方式提供了一定水平的架构模块化。例如，使用模块化单体，
-组件被分组为良好形成的领域，提供所谓的*领域分区架构*（参见 *Fundamentals of Software Architecture* 第 8 章）。使用微内核架构，
+组件被分组为良好形成的领域，
+提供所谓的*领域分区架构*（参见 *Fundamentals of Software Architecture* 第
+8 章）。使用微内核架构，
 功能被分区为独立的插件组件，允许更小的测试和部署范围。  
 
 ### 可维护性  
@@ -2002,7 +2042,8 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 
 像许多架构特征一样，容错有不同的定义。在架构模块化的上下文中，
 我们将容错定义为系统某些部分在其他部分失败时保持响应和可用的能力。例如，
-如果零售应用中支付处理部分发生致命错误（如内存不足情况），系统的用户仍然应该能够搜索商品和下订单，即使支付处理不可用。  
+如果零售应用中支付处理部分发生致命错误（如内存不足情况），系统的用户仍然应该能够搜索商品和下订单，
+即使支付处理不可用。  
 
 所有单体系统都存在低水平的容错。
 虽然可以通过多个实例负载均衡整个应用在单体系统中在一定程度上缓解容错，但这种技术既昂贵又无效。
@@ -2020,7 +2061,8 @@ $k$ 是系统中逻辑组件的总数，$c_i$ 是任何给定组件的耦合水�
 
 ![插图 3-2：Addison 和 Austen 创建业务案例](../raw/software-architecture-2021/images/figure-0034.png)
 
-> 插图 3-2：Addison 和 Austen 将 Sysops Squad 的问题与模块化驱动因素匹配，以创建业务案例。
+> 插图 3-2：Addison 和 Austen 将 Sysops Squad 的问题与模块化驱动因素匹配，
+> 以创建业务案例。
 
 Addison 和 Austen 带着对架构模块化意味着什么以及拆分系统的相应驱动因素的更好理解，
 会面讨论了 Sysops Squad 的问题并尝试将它们与模块化驱动因素匹配起来，
@@ -2222,7 +2264,8 @@ Addison 和 Austen 看着 Logan。"但我们怎么知道该用哪一个？"
 当代码库缺乏内部结构时会发生什么？它甚至可以被分解吗？这种软件有一个通俗的名字——**大泥球反模式**，
 由 Brian Foote 在 1999 年的一篇同名文章 *Big Ball of Mud* 中创造。例如，
 一个复杂的 Web 应用，事件处理器直接连接到数据库调用，没有模块化，
-可以被视为大泥球架构。通常，架构师不会花太多时间为此类系统创建模式；软件架构关注内部结构，而这些系统缺乏这一决定性特征。  
+可以被视为大泥球架构。通常，架构师不会花太多时间为此类系统创建模式；软件架构关注内部结构，
+而这些系统缺乏这一决定性特征。  
 
 不幸的是，如果没有仔细的治理，许多软件系统会退化为大泥球，留给后续的架构师（或者也许是他们自己鄙视的过去）来修复。
 任何架构重构工作的第一步要求架构师确定重构的*计划*，这反过来又要求架构师理解内部结构。
@@ -2344,7 +2387,8 @@ $$ D=|A+I-1| $$
 组件通过命名空间或目录结构来体现，  
 并通过组件文件（或源文件）来实现。  
 例如，在图 4-5 中，  
-目录结构 penultimate/ss/ticket/assign 表示一个名为 Ticket Assign 的组件，  
+目录结构 penultimate/ss/ticket/assign 表示一个名为 Ticket Assign
+的组件，  
 其命名空间为 penultimate.ss.ticket.assign。
 
 ![图 4-5：代码库的目录结构成为组件的命名空间](../raw/software-architecture-2021/images/figure-0040.png)
@@ -2850,7 +2894,8 @@ Addison 和 Austen 选择了基于组件的分解方式，
 负责工单创建、分配、路由和完成。  
 在这种情况下，  
 将单个 Trouble Ticket 组件拆分为四个独立的组件  
-（Ticket Creation、Ticket Assignment、Ticket Routing 和 Ticket Completion）  
+（Ticket Creation、Ticket Assignment、
+Ticket Routing 和 Ticket Completion）  
 可能是有意义的，  
 这样可以降低每个组件所代表的代码百分比，  
 从而创建模块化程度更高的应用。  
@@ -3523,7 +3568,8 @@ ss.survey 会被视为根命名空间，
 而包含在这些根命名空间中的类因此是孤儿类  
 （不属于任何已定义的组件）。  
 因此，图 5-6 中标识的组件只有  
-ss.survey.template、ss.login、ss.ticket.assign 和 ss.ticket.route。
+ss.survey.template、ss.login、
+ss.ticket.assign 和 ss.ticket.route。
 
 扁平化组件分解模式用于移动孤儿类，  
 创建只以目录或命名空间叶节点形式存在的定义良好的组件，  
@@ -3567,7 +3613,8 @@ ss.survey.template、ss.login、ss.ticket.assign 和 ss.ticket.route。
 代码被该命名空间内的其他组件共享。  
 考虑图 5-9 中的例子，  
 客户调查功能驻留在三个组件中  
-（ss.survey.templates、ss.survey.create 和 ss.survey.process），  
+（ss.survey.templates、
+ss.survey.create 和 ss.survey.process），  
 但公共代码（如接口、抽象类、公共工具）  
 驻留在根命名空间 ss.survey 中。
 
@@ -3735,7 +3782,8 @@ Addison 观察到不再存在"山丘"（组件堆叠在组件之上）或孤儿�
 
 ![图 5-12：Survey 组件被扁平化为单个组件，而 Ticket 组件被向上提升并扁平化，形成 Ticket 子领域](../raw/software-architecture-2021/images/figure-0065.png)
 
-> 图 5-12：Survey 组件被扁平化为单个组件，而 Ticket 组件被向上提升并扁平化，形成 Ticket 子领域。
+> 图 5-12：Survey 组件被扁平化为单个组件，而 Ticket 组件被向上提升并扁平化，
+> 形成 Ticket 子领域。
 
 Addison 将迄今为止应用这些分解模式的重构工作结果记录下来，  
 并列在表 5-12 中。
@@ -4588,7 +4636,8 @@ architecture quantum
 
 将数据库拆分为明确定义的 bounded context，
 可以显著帮助控制破坏性数据库变更。
-bounded context 概念来自 Eric Evans 的开创性著作《domain-driven design》（Addison-Wesley），
+bounded context 概念来自 Eric Evans 的开创性著作《domain-driven design》
+（Addison-Wesley），
 它描述了源代码、业务逻辑、数据结构和数据全部绑定在一起——封装——在一个特定的上下文中。
 如图 6-4 所示，围绕服务及其相应数据形成的良好 bounded context 有助于控制变更，
 因为变更仅限于该 bounded context 内的那些服务。
@@ -5251,7 +5300,8 @@ Payment 服务现在必须调用 Customer 服务来获取它原本从视图中�
 如图 6-20 所示，所有服务都可以访问数据库中的所有数据。
 这种做法，
 被称为 Gregor Hohpe 和 Bobby Woolf 在其著作
-*Enterprise Integration Patterns: Designing, Building, and Deploying Messaging 
+*Enterprise Integration Patterns: Designing, Building,
+and Deploying Messaging 
 Solutions*
 （Addison-Wesley）中描述的共享数据库集成风格，
 在数据和访问该数据的服务之间创建了紧密耦合。
@@ -5303,7 +5353,8 @@ Data domain 是一个架构概念，
 
 为了说明将表分配到 schema，
 考虑 Sysops Squad 示例中，
-billing 表必须从其原始 schema 移动到另一个名为 payment 的 data domain schema：
+billing 表必须从其原始 schema 移动到另一个名为 payment 的 data domain
+schema：
 
 ```sql
 ALTER SCHEMA payment TRANSFER sysops.billing;
@@ -5365,7 +5416,8 @@ ON ( history.assigned_to_sysops_user_id = agent.sysops_user_id )
 因此所有数据访问严格通过服务及其连接的 schema 进行。
 在此示例中，Service C 与 Service D 通信，而不是与 SchemaD 通信。
 没有跨 schema 访问；
-在[步骤 2：将表分配到 data domain](#步骤-2将表分配到-data-domain)中创建的所有 synonym 都被移除。
+在[步骤 2：将表分配到 data domain](#步骤-2将表分配到-data-domain)
+中创建的所有 synonym 都被移除。
 
 ![图 6-22：将跨 schema 对象访问移至服务，远离直接的跨 schema 访问](../raw/software-architecture-2021/images/figure-0102.png)
 
@@ -5494,7 +5546,8 @@ ON ( history.assigned_to_sysops_user_id = agent.sysops_user_id )
 #### 可用性/分区容忍性
 
 此特征指数据库是否支持高可用性配置
-（如 MongoDB 中的 *replica-set* 或 **Apache Cassandra** 中的*可调一致性*）。
+（如 MongoDB 中的 *replica-set* 或 **Apache Cassandra**
+中的*可调一致性*）。
 它是否提供处理网络分区的功能？
 星级评分越高，数据库对高可用性和/或更好的分区容忍性的支持越好。
 
@@ -5635,7 +5688,8 @@ Key-value 数据库类似于哈希表数据结构，
 因此可以存储任何类型的数据。
 Key-value 数据库是属于 NoSQL 数据库家族的一部分。
 在 *NoSQL Distilled:
- A Brief Guide to the Emerging World of Polyglot Persistence*
+ A Brief Guide to the Emerging World of Polyglot
+ Persistence*
 （Addison-Wesley）一书中，
 Pramod Sadalage（本书作者之一）和 Martin Fowler 描述了 NoSQL 数据库的兴起，
 以及使用这些类型数据库的动机、用法和 trade-off，
@@ -6011,7 +6065,8 @@ Neo4J 支持一种称为 Cypher 的查询语言，
 图数据库允许同一个节点具有各种类型的关系。
 在 Sysops Squad 示例中，
 示例图可能如下所示：
-a knowledge_base was created_by user sysops_user and knowledge_base used_by sysops_user.
+a knowledge_base was created_by user sysops_user and
+knowledge_base used_by sysops_user.
 因此，关系 created_by 和 used_by 以不同的关系类型连接相同的节点。
 
 ## 更改关系类型
@@ -7170,7 +7225,8 @@ Ruby 环境中的 GEM 或 .NET 环境中的 DLL，
 （与通用的实用工具或基础设施功能相对）。
 如果 shared library 中发生变更，
 这最终需要使用该 shared library 的相应服务进行变更。
-我们说*最终*是因为版本控制有时可以与 shared library 一起使用以提供敏捷性和向后兼容性（参见第 8 章）。
+我们说*最终*是因为版本控制有时可以与 shared library 一起使用以提供敏捷性和向后兼容性（参见第
+8 章）。
 因此，
 所有这些独立部署的服务必须一起变更、测试和部署。
 在这些情况下，
@@ -7831,7 +7887,8 @@ Taylen 对 Skyler 在共享代码方面的做法感到不满，走到 Skyler 的
 架构师常常鼓吹"reuse is abuse!"和"share nothing!"之类的口号，
 试图减少这些类型架构中的共享代码量。这些环境中的架构师甚至被发现提供与著名的 DRY 原则
 （Don't repeat yourself）相反的建议，
-使用一个对立的首字母缩写词 WET（Write every time 或 Write everything twice）。
+使用一个对立的首字母缩写词 WET（Write every time 或 Write everything
+twice）。
 
 虽然开发人员应该尽量限制分布式架构中的代码重用量，但它仍然是软件开发中的一个事实，必须加以解决，
 特别是在分布式架构中。在本章中，我们介绍了几种在分布式架构中管理代码重用的技术，
@@ -7907,7 +7964,8 @@ shared library 是一个外部工件（如 JAR 文件、DLL 等），
 
 考虑图 8-4 中所示的粗粒度 shared library。请注意，
 虽然依赖管理相对简单（每个服务使用单个 shared library），但变更控制却不简单。
-如果粗粒度 shared library 中的任何类文件发生变更，*每个*服务，无论是否关心该变更，最终都必须采用该变更，
+如果粗粒度 shared library 中的任何类文件发生变更，*每个*服务，无论是否关心该变更，
+最终都必须采用该变更，
 因为 shared library 的版本弃用。这迫使所有使用该库的服务进行不必要的重新测试和重新部署，
 从而显著增加了 shared library 变更的整体测试范围。
 
@@ -7929,8 +7987,10 @@ shared library 粒度的选择在只有少数服务时可能不太重要，
 想象一个有 200 个服务和 40 个 shared library 的系统——它很快就会变得过于复杂和不可维护。
 
 > [!TIP]
-> 鉴于变更控制和依赖管理的这些 trade-off，我们的建议是通常避免大型粗粒度 shared library，并尽可能争取更小的、功能分区的库，
-> 从而在依赖管理之上优先考虑变更控制。例如，将相对静态的功能（如格式化器和安全性（认证和授权））分离到它们自己的 shared library 中，
+> 鉴于变更控制和依赖管理的这些 trade-off，我们的建议是通常避免大型粗粒度 shared library，
+> 并尽可能争取更小的、功能分区的库，
+> 从而在依赖管理之上优先考虑变更控制。例如，将相对静态的功能（如格式化器和安全性（认证和授权））
+> 分离到它们自己的 shared library 中，
 > 可以隔离这些静态代码，从而减少其他共享功能的测试范围和不必要的版本弃用部署。
 
 ### 版本控制策略
@@ -7974,13 +8034,15 @@ shared library 版本控制的第一个复杂性是沟通版本变更。
 由于各个 shared library 之间的变更是可变的，全局弃用策略虽然更简单，
 但效果较差。全局弃用策略规定所有 shared library，无论变更速度如何，
 都不会支持超过一定数量的向后版本（例如四个）。虽然这易于维护和治理，
-但它可能导致显著的变动——服务的不断重新测试和重新部署——仅仅为了保持与频繁更改的 shared library 的最新版本的兼容性。
+但它可能导致显著的变动——服务的不断重新测试和重新部署——仅仅为了保持与频繁更改的 shared library
+的最新版本的兼容性。
 这可能会让团队发疯，
 并显著降低整体团队速度和生产力。
 
 无论使用哪种弃用策略，严重缺陷或对共享代码的破坏性变更都会使任何弃用策略失效，导致所有服务一次性（或在非常短的时间内）
 采用 shared library 的最新版本。
-这是我们建议保持 shared library 尽可能细粒度并避免包含系统中所有共享功能的粗粒度 SharedStuff.jar 类型库的另一个原因。
+这是我们建议保持 shared library 尽可能细粒度并避免包含系统中所有共享功能的粗粒度
+SharedStuff.jar 类型库的另一个原因。
 
 关于版本控制的最后一条建议：避免在指定服务需要哪个版本的库时使用 LATEST 版本。根据我们的经验，
 使用 LATEST 版本的服务在进行快速修复或紧急热部署到生产环境时会遇到问题，
@@ -8021,7 +8083,8 @@ shared library 技术适用于共享代码变更为低到中等的同构环境�
 > 图 8-6：shared service 技术——公共功能在运行时通过单独的服务提供。
 
 shared service 技术的一个区别因素是共享代码必须采用组合形式，而不是继承。虽然从源代码设计的角度来看，
-关于组合优于继承的使用存在很多争论（参见 Thoughtworks 文章"Composition vs. Inheritance:
+关于组合优于继承的使用存在很多争论（参见 Thoughtworks 文章"Composition vs.
+Inheritance:
  How to 
 Choose"和 Martin Fowler 的文章"Designed Inheritance"），
 但在选择代码重用技术时，组合与继承在架构上很重要，
@@ -8076,7 +8139,8 @@ latest change -> app/1.4/discountcalc?orderid=123
 版本控制此时开始变得非常主观，使用 shared service 的服务仍然必须更改以指向正确的端点。
 
 API 端点版本控制的另一个问题是，
-它假设对 shared service 的所有访问都是通过 RESTful API 调用进行的，通过网关或点对点通信。然而，
+它假设对 shared service 的所有访问都是通过 RESTful API 调用进行的，
+通过网关或点对点通信。然而，
 在某些情况下，通过服务间通信访问 shared service 通常通过其他类型的协议进行，
 如消息传递和 gRPC（除了 RESTful API 调用）。
 这进一步复杂化了变更的版本控制策略，使得跨多个协议协调版本变得困难。
@@ -8089,7 +8153,8 @@ API 端点版本控制的另一个问题是，
 
 由于需要共享功能的服务必须对 shared service 进行服务间调用，
 因此性能会因网络延迟（以及安全延迟，假设 shared service 的端点是安全的）
-而受到影响。这种 trade-off，如图 8-9 所示，在访问共享代码时使用 shared library 技术是不存在的。
+而受到影响。这种 trade-off，如图 8-9 所示，
+在访问共享代码时使用 shared library 技术是不存在的。
 
 ![图 8-9：shared service 引入网络和安全延迟](../raw/software-architecture-2021/images/figure-0143.png)
 
@@ -8221,7 +8286,8 @@ sidecar 模式不仅代表了一种将运维能力与领域解耦的方式——
 用于解决特定类型的耦合（参见[正交耦合](#正交耦合)）。通常，
 架构解决方案需要几种类型的耦合，例如我们当前的领域与运维耦合示例。
 正交重用模式提供了一种方式来重用与架构中的一个或多个接缝相对的某些方面。例如，
-微服务架构围绕领域组织，但运维耦合需要跨越这些领域。sidecar 允许架构师将这些关注点隔离在跨架构的横切但一致的层中。
+微服务架构围绕领域组织，但运维耦合需要跨越这些领域。
+sidecar 允许架构师将这些关注点隔离在跨架构的横切但一致的层中。
 
 ### 正交耦合
 
@@ -8230,7 +8296,8 @@ sidecar 模式不仅代表了一种将运维能力与领域解耦的方式——
 但仍然必须相交以形成完整的解决方案。本章中明显的例子是运维关注点（如监控），它是必要的，但独立于领域行为（如目录结账）。
 识别正交耦合允许架构师找到在关注点之间造成最少纠缠的交叉点。
 
-虽然 sidecar 模式提供了一个很好的抽象，但像所有其他架构方法一样，它也有 trade-off，如表 8-4 所示。
+虽然 sidecar 模式提供了一个很好的抽象，但像所有其他架构方法一样，它也有 trade-off，
+如表 8-4 所示。
 
 ### trade-off
 
@@ -8279,7 +8346,8 @@ Addison 说："我们碰到了运维共享行为。日志记录只是其中之�
 我们需要一种更好的方式来处理这个问题，以防止问题。
 这就是为什么我们正在实施一个带有 sidecar 组件的 service mesh 来包含这些公共行为。"
 
-Sydney 说："我读过关于 sidecar 和 service mesh 的文章——这是一种跨多个微服务共享东西的方式，
+Sydney 说：
+"我读过关于 sidecar 和 service mesh 的文章——这是一种跨多个微服务共享东西的方式，
 对吧？"
 
 Addison 说："差不多，但不是所有种类的东西。
@@ -8309,7 +8377,8 @@ Sydney 问："但为什么？如果我需要在两个服务中使用相同的类
 Addison 回答："是的，但现在你正在以我们在微服务中试图避免的方式增加耦合。
 在大多数架构中，该服务的单一实现将在需要它的团队之间共享。然而，在微服务中，
 这创建了一个耦合点，以一种不希望的方式将多个服务绑在一起——如果一个团队更改了共享代码，每个团队都必须协调该更改。然而，
-架构师可以决定将 shared library 放在 sidecar 中——毕竟，它是一种技术能力。两种答案都没有明确的对错，
+架构师可以决定将 shared library 放在 sidecar 中——毕竟，它是一种技术能力。
+两种答案都没有明确的对错，
 这使它成为一个架构决策，值得进行 trade-off 分析。
 例如，如果 Address 类发生变化，并且两个服务都依赖它，
 它们都必须更改——这就是耦合的定义。我们用契约来处理这些问题。另一个问题涉及大小：
@@ -8358,7 +8427,8 @@ Sydney 回答："嗯，这意味着每个团队自动拥有该库，不必通过
 
 ## 代码重用：何时增加价值？
 
-许多架构师在遇到某些情况时未能正确评估 trade-off，这不一定是缺陷——许多 trade-off 只有在事后才变得明显。
+许多架构师在遇到某些情况时未能正确评估 trade-off，
+这不一定是缺陷——许多 trade-off 只有在事后才变得明显。
 
 重用是最被滥用的抽象之一，因为组织中的普遍观点是重用代表了团队应该努力追求的值得称赞的目标。然而，
 未能评估与重用相关的所有 trade-off 可能导致架构中的严重问题。
@@ -8493,7 +8563,8 @@ Addison、Taylen 和 Skyler 都查看了共享数据逻辑类文件的仓库历�
 
 "嗯..."Taylen 说，"我以为该代码的变更比仓库中显示的多得多。好的，所以我想共享数据库逻辑的变更确实相当少。"
 
-通过讨论 trade-off 的对话，Taylen 开始意识到 shared service 的负面因素似乎超过了正面因素，
+通过讨论 trade-off 的对话，
+Taylen 开始意识到 shared service 的负面因素似乎超过了正面因素，
 并且没有真正令人信服的理由将共享数据库逻辑放在 shared service 中。
 Taylen 同意将共享数据库逻辑放在共享 DLL 中，
 Addison 为这个架构决策写了一份 ADR：
@@ -8674,7 +8745,8 @@ Catalog 服务将新产品插入表中，移除不再提供的产品，并更新
 架构师或开发人员首先创建一个单独的 Inventory 表，
 包含产品 ID（键）和库存计数（可用项目数量），用现有 Product 表中的数据预填充 Inventory 表，
 然后最终从 Product 表中移除库存计数列。
-示例 9-1 中的源代码清单显示了如何在典型的关系型数据库中使用 data definition language（DDL）实现此技术。
+示例 9-1 中的源代码清单显示了如何在典型的关系型数据库中使用 data definition
+language（DDL）实现此技术。
 
 示例 9-1。拆分 Product 表并将库存计数移动到新 Inventory 表的 DDL 源代码
 
@@ -8756,7 +8828,8 @@ Inventory 服务可以调整库存而无需 Catalog 服务。
 两个服务完全相互独立。
 
 > [!TIP]
-> 选择数据领域技术时，始终重新评估为什么需要单独的服务，因为数据对每个服务都是公共的。理由可能包括可扩展性差异、容错需求、
+> 选择数据领域技术时，始终重新评估为什么需要单独的服务，因为数据对每个服务都是公共的。理由可能包括可扩展性差异、
+> 容错需求、
 > 吞吐量差异或隔离代码变更率（参见第 7 章）。
 
 不幸的是，在分布式架构中共享数据引入了许多问题，首先是更改数据结构（例如更改表的模式）所需的增加努力。
@@ -9129,9 +9202,11 @@ BASE 描述分布式事务的属性：基本可用性、软状态和最终一致
 请求由取消订阅 orchestrator 服务接收，
 该服务然后将请求同步转发到客户资料服务，以从资料表中移除客户。一秒后，
 客户资料服务向取消订阅 orchestrator 服务发送确认，
-然后 orchestrator 向支持合同和账单支付服务发送并行请求（通过线程或某种异步协议）。这两个服务处理取消订阅请求，
+然后 orchestrator 向支持合同和账单支付服务发送并行请求（通过线程或某种异步协议）。
+这两个服务处理取消订阅请求，
 然后一秒后向取消订阅 orchestrator 服务发送确认，表示它们已完成处理请求。现在所有数据同步，
-取消订阅 orchestrator 服务在 11:23:02（初始请求后两秒）向客户端响应，让客户知道他们已成功取消订阅。
+取消订阅 orchestrator 服务在 11:23:02（初始请求后两秒）向客户端响应，
+让客户知道他们已成功取消订阅。
 
 第一个要观察的 trade-off 是编排方法通常倾向于数据一致性而非响应性。
 添加专用编排服务不仅增加了额外的网络跳转和服务调用，
@@ -9157,7 +9232,8 @@ orchestrator 和它调用的服务之间的来回通信需要额外的时间。
 这个现实世界的场景为 orchestrator 创造了一个混乱的局面。因为这是正在使用的最终一致性模式，
 没有其他方法来纠正数据并使事情恢复同步（因此否定了前面列表中的选项 3 和 4）。在这种情况下，
 orchestrator 唯一的真正选择是尝试撤销分布式事务——换句话说，发出*补偿更新*以重新插入客户到资料表中，
-并将合同表中的 `remove_date` 列设回零。这将要求 orchestrator 拥有重新插入客户所需的所有信息，
+并将合同表中的 `remove_date` 列设回零。
+这将要求 orchestrator 拥有重新插入客户所需的所有信息，
 并且创建新客户时不会发生副作用（例如初始化账单信息或支持合同）。
 
 ![图 9-19：使用编排的基于请求的模式时，错误条件很难处理](../raw/software-architecture-2021/images/figure-0178.png)
@@ -9168,7 +9244,8 @@ orchestrator 唯一的真正选择是尝试撤销分布式事务——换句话�
 假设向客户资料服务发出了 compensating transaction 以重新插入客户，
 而该操作失败了。现在怎么办？现在数据真的不同步了，
 而且没有其他服务或进程来修复问题。这些情况通常需要人工干预来修复数据源并使它们恢复同步。
-我们在[事务性 Saga 模式](#事务性-saga-模式)中更详细地介绍了 compensating transaction 和事务性 saga。
+我们在[事务性 Saga 模式](#事务性-saga-模式)
+中更详细地介绍了 compensating transaction 和事务性 saga。
 
 表 9-6 总结了编排的基于请求的模式最终一致性的 trade-off。
 
@@ -9271,9 +9348,11 @@ Sydney 同意，Addison 创建了一份通用架构决策记录，描述如何�
 #### 后果
 
 根据所使用的技术，
-需要只读访问另一个 bounded context 中表的服务在访问不同 bounded context 中的数据时可能会遇到性能和容错问题。
+需要只读访问另一个 bounded context 中表的服务在访问不同 bounded context
+中的数据时可能会遇到性能和容错问题。
 
-现在 Sydney 和 Addison 更好地理解了表所有权以及如何在服务和数据之间形成 bounded context，
+现在 Sydney 和 Addison 更好地理解了表所有权以及如何在服务和数据之间形成 bounded
+context，
 他们开始处理调查功能。
 工单完成服务将写入工单完成的时间戳和执行工作的专家到调查表。
 调查服务将写入调查发送给客户的时间戳，并在收到调查后插入所有调查结果。
@@ -9537,7 +9616,8 @@ Catalog 服务拥有产品描述的内存缓存（意味着它是唯一可以修
 > 图 10-7：复制缓存数据访问模式。
 
 使用此模式，
-Wishlist 服务不再需要对 Catalog 服务进行调用以检索产品描述——它们已经在 Wishlist 服务的内存中。
+Wishlist 服务不再需要对 Catalog 服务进行调用以检索产品描述——它们已经在 Wishlist
+服务的内存中。
 当 Catalog 服务对产品描述进行更新时，缓存产品将更新 Wishlist 服务中的缓存以使数据一致。
 
 复制缓存模式的明显优点是响应性、容错和可扩展性。因为服务之间不需要显式的服务间通信，
@@ -9549,10 +9629,12 @@ Wishlist 服务可以独立于 Catalog 服务扩展。
 
 有了所有这些明显的优点，此模式怎么可能有 trade-off 呢？
 正如我们的书 *The Fundamentals of Software Architecture* 中所述，
-软件架构的第一定律指出，软件架构中的一切都是 trade-off，如果架构师认为他们发现了不是 trade-off 的东西，
+软件架构的第一定律指出，软件架构中的一切都是 trade-off，
+如果架构师认为他们发现了不是 trade-off 的东西，
 那意味着他们只是还没有*识别*出 trade-off。
 
-此模式的第一个 trade-off 是关于缓存数据和启动时序的服务依赖。由于 Catalog 服务拥有缓存并负责填充缓存，
+此模式的第一个 trade-off 是关于缓存数据和启动时序的服务依赖。
+由于 Catalog 服务拥有缓存并负责填充缓存，
 在初始 Wishlist 服务启动时它必须正在运行。
 如果 Catalog 服务不可用，初始 Wishlist 服务必须进入等待状态，
 直到与 Catalog 服务建立连接。注意，
@@ -9838,7 +9920,8 @@ orchestrator 然后调用电子邮件服务通知用户成功的电子产品订�
 
 ![图 11-4：使用 orchestrator 购买电子设备的"快乐路径"工作流（注意虚线表示不太时间敏感的异步调用）](../raw/software-architecture-2021/images/figure-0197.png)
 
-> 图 11-4：使用 orchestrator 购买电子设备的"快乐路径"工作流（注意虚线表示不太时间敏感的异步调用）。
+> 图 11-4：
+> 使用 orchestrator 购买电子设备的"快乐路径"工作流（注意虚线表示不太时间敏感的异步调用）。
 
 考虑电子产品购买的两种潜在错误场景。首先，如果客户的支付方式被拒绝会发生什么？此错误场景出现在图 11-5 中。
 
@@ -9853,7 +9936,8 @@ orchestrator 然后调用电子邮件服务通知用户成功的电子产品订�
 orchestrator 更新订单放置服务的状态，该服务仍然认为这是一个活跃订单。
 
 注意，在此示例中，我们允许每个服务维护自己的事务状态，
-建模我们的[Fairy Tale Saga 模式](#fairy-tale-saga-模式)。现代架构中最难的部分之一是管理事务，
+建模我们的[Fairy Tale Saga 模式](#fairy-tale-saga-模式)。
+现代架构中最难的部分之一是管理事务，
 我们将在第 12 章中介绍。
 
 在第二个错误场景中，工作流已经进展得更远：当履行服务报告缺货时会发生什么？此错误场景出现在图 11-6 中。
@@ -9903,7 +9987,8 @@ Orchestration 通信风格的一般缺点包括：
 这种通信风格不如 choreography 那样可扩展，
 因为它有更多的 orchestrator 协调点，这减少了潜在的并行性。正如我们在第 2 章中讨论的，
 几种动态耦合模式利用 choreography，
-因此实现更高的可扩展性（特别是[Time Travel Saga 模式](#time-travel-saga-模式)和[Anthology Saga 模式](#anthology-saga-模式)）。
+因此实现更高的可扩展性（特别是[Time Travel Saga 模式](#time-travel-saga-模式)
+和[Anthology Saga 模式](#anthology-saga-模式)）。
 
 ### 服务耦合
 
@@ -10020,7 +10105,8 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 ### 工作流状态管理
 
 大多数工作流包括关于工作流状态的瞬态：哪些元素已执行，哪些剩余，排序，错误条件，重试等。对于编排的解决方案，
-明显的工作流状态所有者是 orchestrator（尽管一些架构解决方案为更高的可扩展性创建无状态 orchestrator）。
+明显的工作流状态所有者是 orchestrator（尽管一些架构解决方案为更高的可扩展性创建无状态
+orchestrator）。
 然而，
 对于 choreography，没有明显的工作流状态所有者。
 管理 choreography 中的状态有许多常见选项；以下是三种常见的。
@@ -10065,7 +10151,8 @@ Orchestration 通信风格以 orchestrator 提供的隐喻性中央协调命名�
 
 > 表 11-3：无状态 choreography 的 trade-off。
 
-第三种解决方案利用 stamp 耦合（在[用于工作流管理的 Stamp 耦合](#用于工作流管理的-stamp-耦合)中更详细描述），
+第三种解决方案利用 stamp 耦合（在[用于工作流管理的 Stamp 耦合](#用于工作流管理的-stamp-耦合)
+中更详细描述），
 将额外的工作流状态存储在服务之间传递的消息契约中。
 每个领域服务更新其整体状态的部分，并将其传递给责任链中的下一个。因此，
 该契约的任何消费者可以在不查询每个服务的情况下检查工作流的状态。
@@ -10160,14 +10247,18 @@ choreography 有许多好和坏的 trade-off，通常是对立的，总结在表
 最终，choreography 的最佳位置在于需要响应性和可扩展性的工作流，
 并且要么没有复杂的错误场景，要么它们不频繁。这种通信风格允许高吞吐量；
 它被动态耦合模式[Phone Tag Saga 模式](#phone-tag-saga-模式)、
-[Time Travel Saga 模式](#time-travel-saga-模式)和[Anthology Saga 模式](#anthology-saga-模式)使用。
-然而，当其他力量混合在一起时，它也可能导致极其困难的实现，导致[Horror Story 模式](#horror-story-模式)。
+[Time Travel Saga 模式](#time-travel-saga-模式)
+和[Anthology Saga 模式](#anthology-saga-模式)使用。
+然而，当其他力量混合在一起时，它也可能导致极其困难的实现，
+导致[Horror Story 模式](#horror-story-模式)。
 
 另一方面，*orchestration* 最适合包含边界和错误条件的复杂工作流。
 虽然这种风格不提供与 choreography 一样多的可扩展性，
 但它在大多数情况下大大降低了复杂性。
-这种通信风格出现在[Epic Saga 模式](#epic-saga-模式)、[Fairy Tale Saga 模式](#fairy-tale-saga-模式)、
-[Fantasy Fiction Saga 模式](#fantasy-fiction-saga-模式)和[Parallel Saga 模式](#parallel-saga-模式)中。
+这种通信风格出现在[Epic Saga 模式](#epic-saga-模式)、
+[Fairy Tale Saga 模式](#fairy-tale-saga-模式)、
+[Fantasy Fiction Saga 模式](#fantasy-fiction-saga-模式)
+和[Parallel Saga 模式](#parallel-saga-模式)中。
 
 协调是架构师在确定微服务之间最佳通信方式时产生复杂性的主要力量之一。接下来，
 我们研究这种力量如何与另一个主要力量——一致性——相交。
@@ -10229,7 +10320,8 @@ Austen 插话："trade-off！"
 
 "好的，哪个更好地处理这个问题——orchestration 还是 choreography？"
 
-"更容易控制工作流听起来像 orchestrator 版本更好——我们可以在那里处理所有工作流问题，"Austen 自愿说。
+"更容易控制工作流听起来像 orchestrator 版本更好——我们可以在那里处理所有工作流问题，
+"Austen 自愿说。
 
 "好的，让我们在表 11-6 中构建一个问题和首选解决方案的表格。"
 
@@ -10261,7 +10353,8 @@ Austen 插话："trade-off！"
 | 工作流控制 | |
 | 状态查询 | 状态查询 |
 
-> 表 11-7：工单工作流的 orchestration 与 choreography 之间更新后的 trade-off。
+> 表 11-7：
+> 工单工作流的 orchestration 与 choreography 之间更新后的 trade-off。
 
 "好的，还有什么？"
 
@@ -10292,7 +10385,8 @@ Austen 插话："trade-off！"
 #### 上下文
 
 对于主要工单工作流，架构必须支持轻松跟踪丢失或错误跟踪的消息、出色的错误处理以及跟踪工单状态的能力。
-图 11-16 中所示的 orchestration 解决方案或图 11-15 中所示的 choreography 解决方案都可以工作。
+图 11-16 中所示的 orchestration 解决方案或图 11-15 中所示的 choreography
+解决方案都可以工作。
 
 #### 决策
 
@@ -10320,12 +10414,14 @@ Logan 停下来抬头。"这是你这个周末要做的疯狂极限运动的描�
 "是晚春，所以一群人要去解冻的湖上滑冰。我们穿着全身服，所以实际上是滑冰和游泳的结合。但这不是 Addison 的意思。
 当我给 Addison 看我的工单工作流设计时，我立即被指示来找你，告诉你我创造了一个 horror story。"
 
-Logan 笑了。"哦，我明白怎么回事了——你无意中走进了 Horror Story saga 通信模式。你设计了一个带有异步通信、
+Logan 笑了。"哦，我明白怎么回事了——你无意中走进了 Horror Story saga 通信模式。
+你设计了一个带有异步通信、
 原子事务性和 choreography 的工作流，对吗？"
 
 "你怎么知道？"
 
-"那是 Horror Story saga 模式，或者更确切地说，是反模式。我们从八个通用 saga 模式开始，所以了解它们是什么是好的，
+"那是 Horror Story saga 模式，或者更确切地说，是反模式。我们从八个通用 saga 模式开始，
+所以了解它们是什么是好的，
 因为每个都有不同的 trade-off 平衡。"
 
 架构中 saga 的概念早于微服务，
@@ -10442,7 +10538,8 @@ Epic Saga 的明显优点是与单体系统相似的事务协调，
 orchestration 加事务性可能影响运维架构特性，如性能、可扩展性、
 弹性等——orchestrator 必须确保事务中的所有参与者都成功或失败，
 创建时序瓶颈。其次，
-用于实现分布式事务性的各种模式（如 compensating transaction）会受到各种失败模式和边界条件的影响，
+用于实现分布式事务性的各种模式（如 compensating transaction）
+会受到各种失败模式和边界条件的影响，
 同时通过撤销操作增加固有复杂性。分布式事务呈现了许多困难，因此最好尽可能避免。
 
 Epic Saga 模式具有以下特征：
@@ -10482,7 +10579,8 @@ Orchestration 创建了一个瓶颈，特别是当它还必须协调事务原子
 
 > 表 12-2：Epic Saga 的评分。
 
-幸运的是，架构师不必默认使用那些虽然看似熟悉但创建意外复杂性的模式——存在各种其他模式，具有不同的 trade-off 集。
+幸运的是，架构师不必默认使用那些虽然看似熟悉但创建意外复杂性的模式——存在各种其他模式，
+具有不同的 trade-off 集。
 参见[Sysops Squad Saga：原子事务和补偿更新](#sysops-squad-saga原子事务和补偿更新)，
 了解 Epic Saga 及它呈现的一些复杂挑战（以及如何解决这些挑战）的具体示例。
 
@@ -10521,7 +10619,8 @@ Choreography 与 orchestration 相比如何改善运维架构特性（如可扩�
 由于缺乏协调，快乐路径工作流的性能可能比 Epic Saga 更快。然而，没有 mediator，
 错误条件会慢得多——每个服务必须解开调用链，这也增加了服务之间的耦合。
 
-通常，Phone Tag Saga 提供比 Epic Saga 稍好的可扩展性，因为缺乏可能成为限制瓶颈的 mediator。然而，
+通常，Phone Tag Saga 提供比 Epic Saga 稍好的可扩展性，
+因为缺乏可能成为限制瓶颈的 mediator。然而，
 此模式在错误条件和其他工作流复杂性方面也表现出较低的性能——没有 mediator，工作流必须通过服务之间的通信来解决，
 这影响性能。
 
@@ -10551,7 +10650,8 @@ Phone Tag Saga 模式具有以下特征：
 此模式比 Epic Saga 明显更复杂；此模式中的复杂性与工作流的语义复杂性成线性比例上升：
 工作流越复杂，每个服务中必须出现的逻辑就越多，
 以弥补 orchestrator 的缺乏。或者，
-架构师可以将工作流信息添加到消息本身作为 stamp 耦合的一种形式（参见[用于工作流管理的 Stamp 耦合](#用于工作流管理的-stamp-耦合)），
+架构师可以将工作流信息添加到消息本身作为 stamp
+耦合的一种形式（参见[用于工作流管理的 Stamp 耦合](#用于工作流管理的-stamp-耦合)），
 以维护状态，
 但增加了每个服务所需的开销上下文。
 
@@ -10579,7 +10679,8 @@ Phone Tag Saga 的评分见表 12-3。
 
 > 表 12-3：Phone Tag Saga 的评分。
 
-Phone Tag Saga 模式更适合没有许多常见错误条件的简单工作流。虽然它提供了比 Epic Saga 稍好的几个特性，
+Phone Tag Saga 模式更适合没有许多常见错误条件的简单工作流。
+虽然它提供了比 Epic Saga 稍好的几个特性，
 但缺乏 orchestrator 引入的复杂性抵消了许多优点。
 
 ### Fairy Tale Saga 模式
@@ -10601,13 +10702,15 @@ Fairy Tale Saga 的通信结构如图 12-9 所示。
 
 在此模式中，存在 orchestrator 来协调请求、响应和错误处理。然而，
 orchestrator 不负责管理事务，每个领域服务保留自己的责任（常见工作流的示例，
-参见[第 11 章：管理分布式工作流](#第-11-章管理分布式工作流)）。因此，orchestrator 可以管理补偿调用，但没有在活跃事务中发生的要求。
+参见[第 11 章：管理分布式工作流](#第-11-章管理分布式工作流)）。因此，
+orchestrator 可以管理补偿调用，但没有在活跃事务中发生的要求。
 
 这是一个更具吸引力的模式，常见于许多微服务架构中。拥有 mediator 使管理工作流更容易，
 同步通信是两种选择中更容易的，最终一致性移除了最困难的协调挑战，
 特别是对于错误处理。
 
-Fairy Tale Saga 最大的吸引人优点是缺乏整体事务。每个领域服务管理自己的事务行为，依赖最终一致性来实现整体工作流。
+Fairy Tale Saga 最大的吸引人优点是缺乏整体事务。每个领域服务管理自己的事务行为，
+依赖最终一致性来实现整体工作流。
 
 与许多其他模式相比，此模式通常表现出良好的 trade-off 平衡：
 
@@ -10674,7 +10777,8 @@ choreography 变得越困难。它被称为 Time Travel Saga，因为从时间�
 
 Time Travel Saga 模式中缺乏事务使工作流更容易建模；然而，
 缺乏 orchestrator 意味着每个领域服务必须包含大多数工作流状态和信息。
-与所有编排解决方案一样，工作流复杂性和 orchestrator 的实用性之间存在直接相关性；因此，此模式最适合简单工作流。
+与所有编排解决方案一样，工作流复杂性和 orchestrator 的实用性之间存在直接相关性；因此，
+此模式最适合简单工作流。
 
 对于从高吞吐量中受益的解决方案，此模式对于"即发即忘"风格的工作流（如电子数据摄取、
 批量事务等）非常有效。然而，因为没有 orchestrator，
@@ -10814,7 +10918,8 @@ Fantasy Fiction Saga 模式的评分出现在表 12-6 中。
 每个领域服务必须跟踪多个待处理事务的撤销信息，可能由于异步性而乱序，
 并在错误条件期间相互协调。对于许多可能的可怕例子中的一个，想象事务 Alpha 开始，
 在待处理时，事务 Beta 开始。Alpha 事务的一个调用失败——现在，
-choreographed 的服务必须反转触发顺序，撤销事务的每个（可能乱序的）元素。错误条件的多样性和复杂性使这成为一个令人生畏的选择。
+choreographed 的服务必须反转触发顺序，撤销事务的每个（可能乱序的）元素。
+错误条件的多样性和复杂性使这成为一个令人生畏的选择。
 
 为什么架构师会选择这个选项？异步性作为性能提升是有吸引力的，
 但架构师可能仍然试图保持事务完整性，这有许多各种失败模式。相反，架构师最好选择 Anthology Saga 模式，
@@ -10855,7 +10960,8 @@ Horror Story 模式的 trade-off 出现在表 12-7 中。
 
 > 表 12-7：Horror Story 模式的评分。
 
-恰当命名的 Horror Story 模式通常是善意架构师从 Epic Saga 模式开始，注意到由于复杂工作流导致的缓慢性能，
+恰当命名的 Horror Story 模式通常是善意架构师从 Epic Saga 模式开始，
+注意到由于复杂工作流导致的缓慢性能，
 并意识到提高性能的技术包括异步通信和 choreography 的结果。然而，
 这种思维提供了一个不考虑问题空间中所有纠缠维度的极好例子。孤立地看，
 异步通信提高性能。然而，作为架构师，当它与其他架构维度（如一致性和协调）纠缠在一起时，我们不能孤立地考虑它。
@@ -10930,7 +11036,8 @@ Parallel Saga 的复杂性也较低，反映了之前所述的耦合减少。
 
 > 表 12-8：Parallel Saga 的评分。
 
-总体而言，Parallel Saga 模式为许多场景提供了一个有吸引力的 trade-off 集，特别是对于需要高可扩展性的复杂工作流。
+总体而言，Parallel Saga 模式为许多场景提供了一个有吸引力的 trade-off 集，
+特别是对于需要高可扩展性的复杂工作流。
 
 ### Anthology Saga 模式
 
@@ -10994,7 +11101,8 @@ Anthology Saga 模式的评分表出现在表 12-9 中。
 
 > 表 12-9：Anthology Saga 的评分。
 
-Anthology Saga 模式非常适合具有简单或不频繁错误条件的极高吞吐量通信。例如，*管道和过滤器*架构将完全符合此模式。
+Anthology Saga 模式非常适合具有简单或不频繁错误条件的极高吞吐量通信。例如，
+*管道和过滤器*架构将完全符合此模式。
 
 架构师可以以多种方式实现本节中描述的模式。例如，
 架构师可以通过使用补偿更新或通过使用最终一致性管理事务状态来通过原子事务管理事务性 saga。
@@ -11002,7 +11110,8 @@ Anthology Saga 模式非常适合具有简单或不频繁错误条件的极高�
 
 ## 状态管理与最终一致性
 
-状态管理和最终一致性利用*有限状态机*（参见[Saga 状态机](#saga-状态机)）始终知道事务性 saga 的当前状态，
+状态管理和最终一致性利用*有限状态机*（参见[Saga 状态机](#saga-状态机)）
+始终知道事务性 saga 的当前状态，
 并通过重试或某种自动化或手动纠正操作最终纠正错误条件。为了说明这种方法，
 考虑图 12-20 中所示的工单完成示例的 Fairy Tale Saga 实现。
 
@@ -11245,7 +11354,8 @@ Sysops Squad 专家完成工作并使用专家移动设备上的移动应用程�
 
 Logan 继续说道："我还创建了一个描述每个步骤的列表。图上的圈号与工作流匹配。"
 
-1. Sysops Squad 专家使用其移动设备上的应用程序将工单标记为完成，由工单 orchestrator 服务同步接收。
+1. Sysops Squad 专家使用其移动设备上的应用程序将工单标记为完成，
+   由工单 orchestrator 服务同步接收。
 2. 工单 orchestrator 服务向工单服务发送同步请求，将工单状态从"进行中"更改为"完成"。
 3. 工单服务将数据库表中的工单号更新为"完成"并提交更新。
 4. 作为工单完成过程的一部分，工单服务异步将工单信息（如工单修复时间、工单等待时间、
@@ -11296,7 +11406,8 @@ Austen 思考了一会儿。"但这不是单体中工作流的一部分吗？如
 工单服务可以通过数据泵向分析服务发送另一个请求，告知该服务忽略先前的工单信息，
 但想象一下在分析服务中处理此补偿更改所需的复杂代码和时序逻辑量。此外，
 可能已经对分析服务已经处理的分析数据采取了额外的下游操作，
-进一步复杂化了要撤销和纠正的事件链。在分布式架构和分布式事务中，有时真的是'turtles all the way down'。"
+进一步复杂化了要撤销和纠正的事件链。在分布式架构和分布式事务中，
+有时真的是'turtles all the way down'。"
 
 Logan 停顿了一会儿，然后继续说道："另一个问题——"
 
@@ -11327,7 +11438,9 @@ Sysops Squad 专家）发送什么类型的响应存在困惑。工单状态已�
 
 "这不是最终一致性的改变有助于响应性的地方吗？"Austen 问道。
 
-"是的，虽然响应性有时可以通过最终一致性异步发出补偿更新来解决（例如 Parallel Saga 和 Anthology Saga 模式），
+"是的，
+虽然响应性有时可以通过最终一致性异步发出补偿更新来解决（例如 Parallel Saga 和 Anthology
+Saga 模式），
 但大多数原子分布式事务在涉及补偿更新时具有更差的响应性。"
 
 "好的，这很合理——原子协调总是会有开销，"Austen 说。
@@ -11357,7 +11470,8 @@ Logan 说："虽然这种 compensating transaction 模式存在，但它也提�
 "当 mediator 对服务进行调用并更新值时，mediator 将对作为工作流一部分的后续服务进行调用。然而，
 如果另一个请求出现，针对第一个服务，取决于第一个请求的解决结果，
 无论是来自同一个 mediator 还是不同的上下文？当调用是异步而不是同步时，
-这个分布式架构问题变得更糟（在[Phone Tag Saga 模式](#phone-tag-saga-模式)中说明）。或者，
+这个分布式架构问题变得更糟（在[Phone Tag Saga 模式](#phone-tag-saga-模式)中说明）
+。或者，
 mediator 可以坚持其他服务在工作流过程中不接受调用，
 这保证了有效的事务，但破坏了性能和可扩展性。"
 
@@ -11369,7 +11483,9 @@ Logan 说："正确。让我们哲学一下。概念上，
 
 "有替代使用 Epic Saga 的方法吗？"Addison 问道。
 
-"是的！"Logan 说。"对图 12-24 中描述的场景更现实的方法可能是使用 Fairy Tale Saga 或 Parallel Saga 模式。
+"是的！"Logan 说。
+"对图 12-24 中描述的场景更现实的方法可能是使用 Fairy Tale Saga 或 Parallel
+Saga 模式。
 这些 saga 依赖异步最终一致性和状态管理，而不是在发生错误时使用补偿更新的原子分布式事务。使用这些类型的 saga，
 用户较少受到分布式事务中可能发生的错误的影响，因为错误在幕后解决，
 无需最终用户参与。使用状态管理和最终一致性方法，响应性也更好，
@@ -11557,7 +11673,8 @@ Customer Profile 包含除名称之外的大量客户信息。
 
 严格契约也有一些缺点：
 
-**紧密耦合**：根据我们对耦合的一般定义，严格契约创建紧密耦合点。如果两个服务共享严格契约且契约更改，两个服务都必须更改。
+**紧密耦合**：根据我们对耦合的一般定义，严格契约创建紧密耦合点。如果两个服务共享严格契约且契约更改，
+两个服务都必须更改。
 
 **版本化**：这同时出现在优点和缺点中。虽然保持不同版本允许精确性，
 但如果团队没有明确的弃用策略或尝试支持太多版本，它可能成为集成噩梦。
@@ -11753,7 +11870,8 @@ Stamp 耦合在过度使用时可能产生问题，包括由耦合太紧到带�
 
 ## 用于工作流管理的 Stamp 耦合
 
-在第 12 章中，我们涵盖了许多动态 quantum 通信模式，包括几个以*协调*风格为*choreography*的模式。
+在第 12 章中，我们涵盖了许多动态 quantum 通信模式，
+包括几个以*协调*风格为*choreography*的模式。
 架构师倾向于为复杂工作流使用 mediator，
 原因有很多。然而，如果其他因素（如可扩展性）驱使架构师走向既编排又复杂的解决方案呢？
 
@@ -12116,7 +12234,8 @@ data lake 模式将数据完整性测试、数据质量和其他质量问题推�
 ### data mesh
 
 观察分布式架构中的其他趋势，Zhamak Dehghani 和其他几位创新者从微服务、
-service mesh 和 sidecar（参见[sidecar 与 service mesh](#sidecar-与-service-mesh)）
+service mesh 和
+sidecar（参见[sidecar 与 service mesh](#sidecar-与-service-mesh)）
 的面向领域解耦中推导出 data mesh 模式的核心思想，并将其应用于分析数据，
 并进行了修改。正如我们在第 8 章中提到的，
 sidecar 模式提供了一种组织正交耦合的非纠缠方式（参见[正交耦合](#正交耦合)）；
@@ -12156,7 +12275,8 @@ data mesh 建立在四个原则之上：
 
 此原则确保尽管数据所有权是去中心化的，但组织范围内的治理要求——如合规性、安全性、
 隐私性和数据质量，以及数据产品的互操作性——在所有领域中一致地得到满足。
-data mesh 引入了一个由领域数据产品所有者组成的联邦决策模型。他们制定的策略被自动化并嵌入为每个数据产品中的代码。
+data mesh 引入了一个由领域数据产品所有者组成的联邦决策模型。
+他们制定的策略被自动化并嵌入为每个数据产品中的代码。
 这种治理方法的架构含义是平台提供的嵌入式 sidecar，
 位于每个 data product quantum 中，以在访问点（数据读取或写入）存储和执行策略。
 
@@ -12219,7 +12339,8 @@ DPQ 及其通信实现属于 architecture quantum 的静态耦合。例如，在
 DPQ 应该与服务的实现更改正交，并与数据平面维护单独的契约。
 
 从动态 quantum 耦合的角度来看，
-数据 sidecar 应始终实现同时具有最终一致性和异步性的通信模式之一：要么是[Parallel Saga 模式](#parallel-saga-模式)，
+数据 sidecar 应始终实现同时具有最终一致性和异步性的通信模式之一：
+要么是[Parallel Saga 模式](#parallel-saga-模式)，
 要么是[Anthology Saga 模式](#anthology-saga-模式)。换句话说，
 数据 sidecar 绝不应包含保持运维数据和分析数据同步的事务要求，
 这将违背使用 DPQ 进行正交解耦的目的。类似地，与数据平面的通信通常应该是异步的，
@@ -12553,7 +12674,9 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 解决方案有许多有益的方面，但缺乏阻止成功的关键能力。
 架构师需要确保他们平衡*正确*的 trade-off 集，而不是所有可用的 trade-off。
 
-例如，也许架构师正在尝试决定是否在分布式架构中使用 shared service 或 shared library 来提供公共功能，
+例如，
+也许架构师正在尝试决定是否在分布式架构中使用 shared service 或 shared library
+来提供公共功能，
 如图 15-2 所示。
 
 ![图 15-2：在分布式架构中决定 shared service 还是 shared library](../raw/software-architecture-2021/images/figure-0259.png)
@@ -12659,7 +12782,8 @@ MECE 清单的目标是完全覆盖类别空间，没有空洞或重叠，如图
 而异步解决方案使用消息队列来实现异步通信。
 
 在考虑了指向一种与另一种的通用因素后，
-架构师接下来考虑非技术利益相关者感兴趣的特定领域场景。为此，架构师将构建一个类似于表 15-3 的 trade-off 表。
+架构师接下来考虑非技术利益相关者感兴趣的特定领域场景。为此，
+架构师将构建一个类似于表 15-3 的 trade-off 表。
 
 ### trade-off
 
@@ -12710,7 +12834,8 @@ trade-off 总是最终回来使事情复杂化。
 > 图 15-11：场景 1：将出价历史添加到现有主题。
 
 虽然此解决方案有效，但它有问题。首先，如果团队需要为每个消费者使用不同的契约怎么办？
-构建一个包含所有内容的单一大型契约实现了[用于工作流管理的 Stamp 耦合](#用于工作流管理的-stamp-耦合)反模式；
+构建一个包含所有内容的单一大型契约实现了[用于工作流管理的 Stamp 耦合](#用于工作流管理的-stamp-耦合)
+反模式；
 迫使每个团队统一在一个单一契约上在架构中创建了一个意外的耦合点——如果一个团队更改其所需信息，
 所有团队必须协调该更改。其次，数据安全呢？使用单个发布-订阅主题，
 每个消费者都可以访问所有数据，这可能产生安全问题和 PII 问题。
@@ -12765,7 +12890,8 @@ trade-off 总是最终回来使事情复杂化。
 > [!TIP]
 > 不要让别人强迫你传教某些东西——把它带回到 trade-off。
 
-我们建议架构师避免传教，并尝试成为 trade-off 的客观仲裁者。架构师为组织增加真正价值，不是通过追逐一个又一个银弹，
+我们建议架构师避免传教，并尝试成为 trade-off 的客观仲裁者。架构师为组织增加真正价值，
+不是通过追逐一个又一个银弹，
 而是通过磨练他们分析 trade-off 出现时的技能。
 
 ## Sysops Squad Saga：尾声
@@ -12781,7 +12907,8 @@ trade-off 总是最终回来使事情复杂化。
 
 "没错。但这不是缺点——这是优点。
 一旦我们都学会如何隔离维度并执行 trade-off 分析，我们就在学习关于我们架构的具体事情。谁在乎其他通用的架构呢？
-如果我们能把一个问题的 trade-off 数量减少到足够小，以实际建模和测试它们，我们就获得了关于我们生态系统的宝贵知识。
+如果我们能把一个问题的 trade-off 数量减少到足够小，以实际建模和测试它们，
+我们就获得了关于我们生态系统的宝贵知识。
 你知道，结构工程师已经建立了大量数学和其他预测工具，
 但构建他们的东西既困难又昂贵。软件要...嗯，柔软得多。
 我一直说测试是软件开发的工程严谨性。虽然我们没有其他工程师拥有的那种数学，
@@ -12909,7 +13036,8 @@ trade-off 总是最终回来使事情复杂化。
 
 表 11-6，"工单工作流的 orchestration 与 choreography 之间的 trade-off"
 
-表 11-7，"工单工作流的 orchestration 与 choreography 之间更新后的 trade-off"
+表 11-7，
+"工单工作流的 orchestration 与 choreography 之间更新后的 trade-off"
 
 表 11-8，"工单工作流的 orchestration 与 choreography 之间最终 trade-off"
 
