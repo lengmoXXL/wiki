@@ -54,13 +54,22 @@ def test_referenced_images_are_copied(dist):
             assert (dist / src).is_file(), f"{name}: {src}"
 
 
-def test_index_card_links_resolve(dist):
+def test_index_entry_links_resolve(dist):
     index = (dist / "index.html").read_text(encoding="utf-8")
-    links = re.findall(r'<a class="card" href="([^"]+)"', index)
+    links = re.findall(r'<a class="entry" href="([^"]+)"', index)
     assert links
     for href in links:
         assert (dist / unquote(href)).is_file(), href
 
+
+def test_index_entries_sorted_by_year_descending(dist):
+    index = (dist / "index.html").read_text(encoding="utf-8")
+    links = re.findall(r'<a class="entry" href="([^"]+)"', index)
+    years = [
+        int(m.group(1)) if (m := re.search(r"-(\d{4})", unquote(href))) else 0
+        for href in links
+    ]
+    assert years == sorted(years, reverse=True)
 
 def test_index_external_links(dist):
     index = (dist / "index.html").read_text(encoding="utf-8")

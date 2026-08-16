@@ -168,11 +168,11 @@ a:hover { text-decoration: underline; }
 .hero {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 72px 24px 40px;
+  padding: 48px 24px 24px;
 }
 .hero h1 {
-  margin: 0 0 12px;
-  font-size: 42px;
+  margin: 0 0 8px;
+  font-size: 34px;
   line-height: 1.2;
   letter-spacing: -0.02em;
   background: linear-gradient(120deg, var(--accent), #a855f7);
@@ -180,8 +180,35 @@ a:hover { text-decoration: underline; }
   background-clip: text;
   color: transparent;
 }
-.hero p { margin: 0; color: var(--muted); font-size: 17px; }
+.hero p { margin: 0; color: var(--muted); font-size: 15px; }
 
+.entries {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 4px 24px 48px;
+}
+.entry {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 7px 12px;
+  color: var(--fg);
+  border-bottom: 1px solid var(--border);
+  border-radius: 6px;
+}
+.entry:hover { background: var(--accent-soft); text-decoration: none; }
+.entry:hover .entry-slug { color: var(--accent); }
+.entry-slug {
+  font: 600 14.5px ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: nowrap;
+}
+.entry-title {
+  color: var(--muted);
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .cards {
   max-width: 1080px;
   margin: 0 auto;
@@ -195,7 +222,7 @@ a:hover { text-decoration: underline; }
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 22px 24px;
+  padding: 14px 18px;
   color: var(--fg);
   box-shadow: var(--shadow);
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -205,9 +232,8 @@ a:hover { text-decoration: underline; }
   border-color: var(--accent);
   text-decoration: none;
 }
-.card .card-title { font-size: 17px; font-weight: 600; line-height: 1.5; }
-.card .card-slug { margin-top: 8px; font-size: 13px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-.card .card-desc { margin-top: 8px; font-size: 13.5px; color: var(--muted); }
+.card .card-title { font-size: 15.5px; font-weight: 600; line-height: 1.5; }
+.card .card-desc { margin-top: 6px; font-size: 13px; color: var(--muted); }
 .ext-arrow { color: var(--muted); font-size: 0.85em; }
 .links-section { padding-top: 0; }
 .section-heading { grid-column: 1 / -1; margin: 0 0 4px; font-size: 20px; border: none; padding: 0; }
@@ -443,8 +469,8 @@ INDEX_BODY = """<section class="hero">
 <h1>译文集</h1>
 <p>分布式系统与软件工程论文、图书的中文翻译，共 __COUNT__ 篇。</p>
 </section>
-<section class="cards">
-__CARDS__
+<section class="entries">
+__ENTRIES__
 </section>
 __LINKS__
 """
@@ -504,10 +530,17 @@ def build() -> None:
         entries.append((md_path.stem, title))
         print(f"built {md_path.stem}.html ({len(images)} images)")
 
-    cards = "\n".join(
-        f'<a class="card" href="{quote(slug)}.html">'
-        f'<div class="card-title">{html.escape(title)}</div>'
-        f'<div class="card-slug">{html.escape(slug)}</div></a>'
+    # 按 slug 尾缀年份倒序（最新在前），同年按 slug 字典序
+    entries.sort(
+        key=lambda e: (
+            -(int(m.group(1)) if (m := re.search(r"-(\d{4})$", e[0])) else 0),
+            e[0],
+        )
+    )
+    rows = "\n".join(
+        f'<a class="entry" href="{quote(slug)}.html">'
+        f'<span class="entry-slug">{html.escape(slug)}</span>'
+        f'<span class="entry-title">{html.escape(title)}</span></a>'
         for slug, title in entries
     )
     # 外链卡片用 card external 类，避免被当作本地文章链接
@@ -535,7 +568,7 @@ def build() -> None:
         .replace(
             "__BODY__",
             INDEX_BODY.replace("__COUNT__", str(len(entries))).replace(
-                "__CARDS__", cards
+                "__ENTRIES__", rows
             ).replace("__LINKS__", links),
         )
     )
