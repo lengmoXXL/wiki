@@ -56,15 +56,25 @@ def test_referenced_images_are_copied(dist):
 
 def test_index_entry_links_resolve(dist):
     index = (dist / "index.html").read_text(encoding="utf-8")
-    links = re.findall(r'<a class="entry" href="([^"]+)"', index)
+    links = re.findall(r'<a class="entry-slug" href="([^"]+)"', index)
     assert links
     for href in links:
         assert (dist / unquote(href)).is_file(), href
 
 
+def test_every_article_has_original_file(dist):
+    slugs = {p.stem for p in TR_DIR.glob("*.md")}
+    assert set(build_site.ORIGINAL_FILES) == slugs
+    index = (dist / "index.html").read_text(encoding="utf-8")
+    pdfs = re.findall(r'<a class="entry-pdf" href="([^"]+)"', index)
+    assert len(pdfs) == len(slugs)
+    for href in pdfs:
+        assert href.startswith("/") and href.rsplit(".", 1)[-1] in ("pdf", "epub"), href
+
+
 def test_index_entries_sorted_by_year_descending(dist):
     index = (dist / "index.html").read_text(encoding="utf-8")
-    links = re.findall(r'<a class="entry" href="([^"]+)"', index)
+    links = re.findall(r'<a class="entry-slug" href="([^"]+)"', index)
     years = [
         int(m.group(1)) if (m := re.search(r"-(\d{4})", unquote(href))) else 0
         for href in links
@@ -74,7 +84,7 @@ def test_index_entries_sorted_by_year_descending(dist):
 def test_index_external_links(dist):
     index = (dist / "index.html").read_text(encoding="utf-8")
     for title, url, _ in build_site.EXTERNAL_LINKS:
-        assert f'<a class="card external" href="{url}" target="_blank"' in index, title
+        assert f'<a class="entry external" href="{url}" target="_blank"' in index, title
 
 def test_theme_toggle_and_to_top_buttons(dist):
     for name, html in article_pages(dist).items():

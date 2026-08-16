@@ -36,6 +36,31 @@ IMAGE_RE = re.compile(r"!\[[^\]]*\]\(\.\./raw/([^)]+)\)")
 TITLE_RE = re.compile(r"^#\s+(.+?)\s*$", re.MULTILINE)
 
 # 首页"推荐阅读"外链：(标题, URL, 简介)，构建时渲染到首页底部
+# 译文 slug → 原文在 OSS 中的对象 key（经站点域名根路径直接公开访问，见 README 文档清单）
+ORIGINAL_FILES = {
+    "bigtable-2006": "papers/distributed-systems/bigtable-2006.pdf",
+    "build-event-driven-microservices-2025": "books/build-event-driven-microservices-2025.pdf",
+    "cores-dont-count-2021": "papers/machine/cores-dont-count-2021.pdf",
+    "crdb-2026": "papers/distributed-systems/crdb-2026.pdf",
+    "critique-of-snapshot-isolation-2012": "papers/distributed-systems/critique-of-snapshot-isolation-2012.pdf",
+    "database-internals-2019": "books/database-internals-2019.pdf",
+    "ddia-2026": "books/ddia-2026.pdf",
+    "distributed-consensus-revised-2019": "papers/distributed-systems/distributed-consensus-revised-2019.pdf",
+    "dynamic-composition-2026": "papers/engineer/dynamic-composition-2026.pdf",
+    "dynamo-2007": "papers/distributed-systems/dynamo-2007.pdf",
+    "dynamo-2022": "papers/distributed-systems/dynamo-2022.pdf",
+    "gfs-2003": "papers/distributed-systems/gfs-2003.pdf",
+    "just-for-fun-2002": "books/just-for-fun-2002.pdf",
+    "kafka-2011": "papers/distributed-systems/kafka-2011.pdf",
+    "llm-serving-2023": "papers/llm/llm-serving-2023.pdf",
+    "que-paxa-2023": "papers/distributed-systems/que-paxa-2023.pdf",
+    "rocksdb-2021": "papers/distributed-systems/rocksdb-2021.pdf",
+    "scaling-memcache-at-facebook-2013": "papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf",
+    "slient-data-corruptions-at-scale-2021": "papers/machine/slient-data-corruptions-at-scale-2021.pdf",
+    "software-architecture-2021": "books/software-architecture-2021.pdf",
+    "控制论与科学方法论-2025": "books/控制论与科学方法论-2025.pdf",
+    "若干重大决策与事件的回顾-1991": "books/若干重大决策与事件的回顾-1991.epub",
+}
 EXTERNAL_LINKS = [
     ("动手学深度学习", "https://zh.d2l.ai", "李沐等著，免费在线的深度学习入门书，理论与可运行代码并重"),
     ("Linux 内核文档", "https://docs.kernel.org", "Linux 内核官方文档，覆盖最新内核特性与子系统"),
@@ -190,7 +215,7 @@ a:hover { text-decoration: underline; }
 .entry {
   display: flex;
   align-items: baseline;
-  gap: 16px;
+  gap: 14px;
   padding: 7px 12px;
   color: var(--fg);
   border-bottom: 1px solid var(--border);
@@ -198,45 +223,41 @@ a:hover { text-decoration: underline; }
 }
 .entry:hover { background: var(--accent-soft); text-decoration: none; }
 .entry:hover .entry-slug { color: var(--accent); }
+.entry-year {
+  flex: none;
+  width: 4ch;
+  color: var(--muted);
+  font: 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
 .entry-slug {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font: 600 14.5px ui-monospace, SFMono-Regular, Menlo, monospace;
   white-space: nowrap;
+  color: var(--fg);
 }
+.entry-slug:hover { color: var(--accent); text-decoration: none; }
 .entry-title {
+  flex: 1;
+  min-width: 0;
   color: var(--muted);
   font-size: 13.5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.cards {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 8px 24px 96px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
+.entry-title:hover { color: var(--accent); text-decoration: none; }
+.entry-pdf {
+  flex: none;
+  color: var(--muted);
+  font: 12.5px ui-monospace, SFMono-Regular, Menlo, monospace;
 }
-.card {
-  display: block;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px 18px;
-  color: var(--fg);
-  box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-.card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-  text-decoration: none;
-}
-.card .card-title { font-size: 15.5px; font-weight: 600; line-height: 1.5; }
-.card .card-desc { margin-top: 6px; font-size: 13px; color: var(--muted); }
+.entry-pdf:hover { color: var(--accent); text-decoration: none; }
 .ext-arrow { color: var(--muted); font-size: 0.85em; }
 .links-section { padding-top: 0; }
-.section-heading { grid-column: 1 / -1; margin: 0 0 4px; font-size: 20px; border: none; padding: 0; }
+.section-heading { margin: 0 0 4px; font-size: 20px; border: none; padding: 0; }
 
 .layout {
   max-width: 1080px;
@@ -531,31 +552,32 @@ def build() -> None:
         print(f"built {md_path.stem}.html ({len(images)} images)")
 
     # 按 slug 尾缀年份倒序（最新在前），同年按 slug 字典序
-    entries.sort(
-        key=lambda e: (
-            -(int(m.group(1)) if (m := re.search(r"-(\d{4})$", e[0])) else 0),
-            e[0],
-        )
-    )
-    rows = "\n".join(
-        f'<a class="entry" href="{quote(slug)}.html">'
-        f'<span class="entry-slug">{html.escape(slug)}</span>'
-        f'<span class="entry-title">{html.escape(title)}</span></a>'
+    entries = [
+        (int(m.group(1)) if (m := re.search(r"-(\d{4})$", slug)) else 0, slug, title)
         for slug, title in entries
+    ]
+    entries.sort(key=lambda e: (-e[0], e[1]))
+    rows = "\n".join(
+        f'<div class="entry">'
+        f'<span class="entry-year">{year}</span>'
+        f'<a class="entry-slug" href="{quote(slug)}.html">{html.escape(slug)}</a>'
+        f'<a class="entry-title" href="{quote(slug)}.html">{html.escape(title)}</a>'
+        f'<a class="entry-pdf" href="/{quote(ORIGINAL_FILES[slug])}" target="_blank" rel="noopener">'
+        f'{ORIGINAL_FILES[slug].rsplit(".", 1)[-1].upper()} ↗</a></div>'
+        for year, slug, title in entries
     )
-    # 外链卡片用 card external 类，避免被当作本地文章链接
-    link_cards = "\n".join(
-        f'<a class="card external" href="{html.escape(url)}" target="_blank" rel="noopener">'
-        f'<div class="card-title">{html.escape(title)}<span class="ext-arrow"> ↗</span></div>'
-        f'<div class="card-desc">{html.escape(desc)}</div></a>'
+    link_rows = "\n".join(
+        f'<a class="entry external" href="{html.escape(url)}" target="_blank" rel="noopener">'
+        f'<span class="entry-slug">{html.escape(title)}<span class="ext-arrow"> ↗</span></span>'
+        f'<span class="entry-title">{html.escape(desc)}</span></a>'
         for title, url, desc in EXTERNAL_LINKS
     )
     links = ""
-    if link_cards:
+    if link_rows:
         links = (
-            '<section class="cards links-section">'
+            '<section class="entries links-section">'
             '<h2 class="section-heading">推荐阅读</h2>'
-            f"{link_cards}</section>"
+            f"{link_rows}</section>"
         )
     index = (
         PAGE_TEMPLATE.replace("__PYGMENTS_LIGHT__", pygments_light)
