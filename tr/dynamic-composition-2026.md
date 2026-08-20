@@ -764,6 +764,7 @@ $$ \mathfrak{M}(e):=\langle\{\mathrm{pr}_{1}\circ e\}\cup\{\mathrm{pr}_{2}(e(\ga
    因而包含 $\mathfrak{M}(e_1)$。
    固定 $f \in \mathfrak{M}(e_1)$，与 $f$ 交换的映射同样构成一个子幺半群，
    它包含 $\mathfrak{M}(e_2)$ 的生成元，因而包含 $\mathfrak{M}(e_2)$。
+
 2. 由定义 9，
    $e_1 \diamond e_2$ 的前向映射是
    $(\mathrm{pr}_1 \circ e_1) \circ (\mathrm{pr}_1 \circ e_2)$，
@@ -837,6 +838,7 @@ $$ g_{j}(\delta_{u})=\big(g_{j}\circ f_{u}\circ\cdots\circ f_{j+1}\big)\big(\del
 
    最后一个等式依赖于 $g_j(f_j(\delta_{j-1})) = \delta_{j-1}$，
    这正是定义 8 要求 $e_j$ 在 $\delta_{j-1}$ 处提供的见证。
+
 2. 由 (1)，状态 $\delta_{i-1}$ 是 $f_j(\delta'_{i-1})$，
    且 $f_j \in \mathfrak{M}(e_j)$，
    因此把定义 19 的条款 (2) 应用于 $e_i$ 与 $e_j$ 即得
@@ -1239,6 +1241,7 @@ $\underset{\mathcal{A}_k}{\approx}$，
 而 $\underset{\mathcal{A}_k}{\approx}$ 本身是可采纳的。
 
 引理 35 的证明。
+
 1. 设 $v \approx v'$，并设 $a \in \mathcal{A}$ 被应用于一个参数。
    在一个测试前面加一个字母仍是测试，因此正向映射到达的值不可区分，任一产生的逆从不可区分的参数到达的值也不可区分；
    单字母测试给出两者处都有定义或都无定义以及结果的相等。

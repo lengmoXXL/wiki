@@ -54,8 +54,8 @@ Just for fun : the story of an accidental revolutionary /
 Linus Torvalds and David Diamond.
 p. cm.
 ISBN 0-06-662072-4 (bc)
-1. Torvalds, Linus, 1969– 2. 计算机程序员——芬兰——传记。
-3. Linux。I. Diamond, David。II. 书名。
+1\. Torvalds, Linus, 1969– 2. 计算机程序员——芬兰——传记。
+3\. Linux。I. Diamond, David。II. 书名。
 QA76.2.T67 T67 2001
 005.1'092—dc21
 \{B\}

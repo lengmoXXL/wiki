@@ -196,38 +196,38 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
    - [Sysops Squad Saga：工单处理的数据所有权](#sysops-squad-saga工单处理的数据所有权)
 
 10. **[第 10 章：分布式数据访问](#第-10-章分布式数据访问)**
-    - [服务间通信模式](#服务间通信模式)
-    - [数据领域模式](#数据领域模式)
-    - [Sysops Squad Saga：工单分配的数据访问](#sysops-squad-saga工单分配的数据访问)
+   - [服务间通信模式](#服务间通信模式)
+   - [数据领域模式](#数据领域模式)
+   - [Sysops Squad Saga：工单分配的数据访问](#sysops-squad-saga工单分配的数据访问)
 
 11. **[第 11 章：管理分布式工作流](#第-11-章管理分布式工作流)**
-    - [Orchestration 通信风格](#orchestration-通信风格)
-    - [Choreography 通信风格](#choreography-通信风格)
-    - [状态所有者和耦合](#状态所有者和耦合)
+   - [Orchestration 通信风格](#orchestration-通信风格)
+   - [Choreography 通信风格](#choreography-通信风格)
+   - [状态所有者和耦合](#状态所有者和耦合)
 
 12. **[第 12 章：事务性 Saga](#第-12-章事务性-saga)**
-    - [事务性 Saga 模式](#事务性-saga-模式)
-    - [状态管理与最终一致性](#状态管理与最终一致性)
-    - [管理 Saga 的技术](#管理-saga-的技术)
+   - [事务性 Saga 模式](#事务性-saga-模式)
+   - [状态管理与最终一致性](#状态管理与最终一致性)
+   - [管理 Saga 的技术](#管理-saga-的技术)
 
 13. **[第 13 章：契约](#第-13-章契约)**
-    - [严格契约与松散契约](#严格契约与松散契约)
-    - [严格与松散契约之间的 trade-off](#严格与松散契约之间的-trade-off)
-    - [微服务中的契约](#微服务中的契约)
+   - [严格契约与松散契约](#严格契约与松散契约)
+   - [严格与松散契约之间的 trade-off](#严格与松散契约之间的-trade-off)
+   - [微服务中的契约](#微服务中的契约)
 
 14. **[第 14 章：管理分析数据](#第-14-章管理分析数据)**
-    - [数据仓库](#数据仓库)
-    - [data lake](#data-lake)
-    - [data mesh](#data-mesh)
-    - [data mesh 的定义](#data-mesh-的定义)
-    - [何时使用 data mesh](#何时使用-data-mesh)
+   - [数据仓库](#数据仓库)
+   - [data lake](#data-lake)
+   - [data mesh](#data-mesh)
+   - [data mesh 的定义](#data-mesh-的定义)
+   - [何时使用 data mesh](#何时使用-data-mesh)
 
 15. **[第 15 章：构建你自己的 trade-off 分析](#第-15-章构建你自己的-trade-off-分析)**
-    - [评估 trade-off](#评估-trade-off)
-    - [trade-off 技术](#trade-off-技术)
-    - [MECE 清单](#mece-清单)
-    - ["脱离上下文"陷阱](#脱离上下文陷阱)
-    - [建模相关领域案例](#建模相关领域案例)
+   - [评估 trade-off](#评估-trade-off)
+   - [trade-off 技术](#trade-off-技术)
+   - [MECE 清单](#mece-清单)
+   - ["脱离上下文"陷阱](#脱离上下文陷阱)
+   - [建模相关领域案例](#建模相关领域案例)
 
 - **[附录 A：概念与术语参考](#附录-a概念与术语参考)**
 - **[附录 B：架构决策记录参考](#附录-b架构决策记录参考)**
@@ -8089,8 +8089,8 @@ shared library 粒度的选择在只有少数服务时可能不太重要，
 
 ### 版本控制策略
 
-我们对 shared library 版本控制的一般建议是*始终使用版本控制！
-* 对你的 shared library 进行版本控制不仅提供向后兼容性，
+我们对 shared library 版本控制的一般建议是*始终使用版本控制！*
+对你的 shared library 进行版本控制不仅提供向后兼容性，
 还提供高水平的敏捷性——快速响应变化的能力。
 
 为了说明这一点，考虑一个包含通用字段验证规则的 shared library，
