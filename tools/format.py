@@ -62,16 +62,15 @@ def wrap(text, width):
     while len(text) > width:
         n = len(text)
         # 断点须在其后还留有足够内容（忽略行尾空格），避免产生只有标点的孤行
-        rest_len = lambda i: len(text[i + 1:].strip())
         punct = [i for i, ch in enumerate(text) if ch in BREAK_CHARS
-                 and rest_len(i) >= 4 and not in_span(i, hard + soft)]
+                 and len(text[i + 1:].strip()) >= 4 and not in_span(i, hard + soft)]
         under = [p for p in punct if p < width] or [
             p for p, ch in enumerate(text)
-            if ch == " " and rest_len(p) >= 4 and not in_span(p, hard) and p < width]
+            if ch == " " and len(text[p + 1:].strip()) >= 4 and not in_span(p, hard) and p < width]
         if under:
             cut = max(under)
         else:
-            after = [p for p in punct if rest_len(p) >= 8]
+            after = [p for p in punct if len(text[p + 1:].strip()) >= 8]
             if not after:
                 break
             cut = min(after)

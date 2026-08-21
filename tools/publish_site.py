@@ -44,12 +44,18 @@ def main() -> int:
         if path.is_file():
             key = OSS_PREFIX + path.relative_to(DIST_DIR).as_posix()
             local[key] = path
-
+    # 域名根路径 / 由静态托管映射到根 index.html；同步一份到无前缀 key，
+    # 使从根路径访问时 <base href="/blog/"> 的相对链接仍指向 /blog/ 下的资源
+    local["index.html"] = DIST_DIR / "index.html"
     # ETag 即简单上传对象的内容 MD5，一次 list 调用取回，增量对比
     remote = {}
     for obj in oss2.ObjectIteratorV2(bucket, prefix=OSS_PREFIX):
         if not obj.key.endswith("/"):
             remote[obj.key] = obj.etag.strip('"').lower()
+    try:
+        remote["index.html"] = bucket.head_object("index.html").etag.strip('"').lower()
+    except oss2.exceptions.NoSuchKey:
+        pass
 
     uploads = {}
     for key, path in local.items():
@@ -66,21 +72,6 @@ def main() -> int:
         if content_type.startswith("text/"):
             content_type += "; charset=utf-8"
         bucket.put_object_from_file(key, str(path), headers={"Content-Type": content_type})
-
-    # 域名根路径 / 由静态托管映射到根 index.html；上传带 <base href="/blog/"> 的首页，
-    # 使其从根路径访问时相对链接仍指向 /blog/ 下的文章和图片
-    index = DIST_DIR / "index.html"
-    index_md5 = hashlib.md5(index.read_bytes()).hexdigest()
-    try:
-        root_etag = bucket.head_object("index.html").etag.strip('"').lower()
-    except oss2.exceptions.NoSuchKey:
-        root_etag = None
-    if root_etag != index_md5:
-        print("upload index.html (root)")
-        if not args.dry_run:
-            bucket.put_object_from_file(
-                "index.html", str(index), headers={"Content-Type": "text/html; charset=utf-8"}
-            )
 
     for key in deletions:
         print(f"delete {key}")

@@ -23,7 +23,6 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OSS_BUCKET = "lengmo-asserts"
 OSS_ENDPOINT = "https://oss-cn-beijing.aliyuncs.com"
 DOCMIND_ENDPOINT = "docmind-api.cn-hangzhou.aliyuncs.com"
-VLM_ENHANCEMENT = True
 POLL_INTERVAL_SECONDS = 5.0
 TIMEOUT_SECONDS = 1800.0
 
@@ -67,10 +66,6 @@ def main() -> int:
             bucket.get_object_to_file(object_key, str(pdf_path))
         except oss2.exceptions.OssError as error:
             print(f"OSS download failed: {error}", file=sys.stderr)
-            print(
-                "Check that OSS_ENDPOINT matches the bucket region and the RAM user has oss:GetObject.",
-                file=sys.stderr,
-            )
             return 1
         print(f"Downloaded {pdf_path.stat().st_size / 1024 / 1024:.1f} MiB")
 
@@ -81,7 +76,7 @@ def main() -> int:
         config.endpoint = DOCMIND_ENDPOINT
         client = DocMindClient(config)
 
-        print(f"Submitting DocMind job (VLM enhancement: {VLM_ENHANCEMENT}) ...")
+        print("Submitting DocMind job ...")
         with pdf_path.open("rb") as pdf_file:
             request = docmind_models.SubmitDocParserJobAdvanceRequest(
                 file_name=pdf_path.name,
@@ -89,10 +84,9 @@ def main() -> int:
                 file_url_object=pdf_file,
                 formula_enhancement=True,
                 output_format=["visualLayoutInfo"],
-                llm_enhancement=VLM_ENHANCEMENT,
+                llm_enhancement=True,
             )
-            if VLM_ENHANCEMENT:
-                request.enhancement_mode = "VLM"
+            request.enhancement_mode = "VLM"
             response = client.submit_doc_parser_job_advance(request, RuntimeOptions())
         job_id = response.body.data.id
         if not job_id:

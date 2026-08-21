@@ -572,13 +572,11 @@ def build() -> None:
         f'<span class="entry-title">{html.escape(desc)}</span></a>'
         for title, url, desc in EXTERNAL_LINKS
     )
-    links = ""
-    if link_rows:
-        links = (
-            '<section class="entries links-section">'
-            '<h2 class="section-heading">推荐阅读</h2>'
-            f"{link_rows}</section>"
-        )
+    links = (
+        '<section class="entries links-section">'
+        '<h2 class="section-heading">推荐阅读</h2>'
+        f"{link_rows}</section>"
+    )
     index = (
         PAGE_TEMPLATE.replace("__PYGMENTS_LIGHT__", pygments_light)
         .replace("__PYGMENTS_DARK_SYSTEM__", dark_system)
