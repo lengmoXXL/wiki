@@ -89,7 +89,8 @@ DynamoDB 以独特的方式整合了以下六项基本系统属性：
   简洁的 DynamoDB API 提供 `GetItem` 和 `PutItem` 操作，
   因而能以稳定的低延迟响应请求。
   对于 1 KB 的 item，
-  与数据运行在同一 AWS Region 的应用程序通常会观察到个位数毫秒级的低服务端平均延迟。
+  部署在与数据相同 AWS Region 的应用程序，
+  通常能观察到处于个位数毫秒低位的平均服务端延迟。
   最重要的是，
   DynamoDB 的延迟可以预测。
   即使表从几 MB 增长到数百 TB，
@@ -154,8 +155,8 @@ DynamoDB 以独特的方式整合了以下六项基本系统属性：
   从而确保系统始终预置了足以应对意外情况的资源。
 
 本文结构如下：
-第 2 节进一步回顾 DynamoDB 的历史并说明其起源，
-其源头是最初的 Dynamo 系统。
+第 2 节进一步回顾 DynamoDB 的历史，
+说明它源于最初的 Dynamo 系统。
 第 3 节概述 DynamoDB 架构。
 第 4 节介绍 DynamoDB 从 provisioned table 走向 on-demand table 的历程。
 第 5 节介绍 DynamoDB 如何确保高持久性，
@@ -226,10 +227,9 @@ SimpleDB 虽然很成功并支撑了许多应用程序，
 我们意识到，
 SimpleDB API 无法实现消除 SimpleDB 局限、提供性能可预测的可扩展 NoSQL 数据库服务这一目标。
 我们得出结论，
-更好的解决方案应结合原始 Dynamo 设计的优点，
-即增量可扩展性和可预测的高性能，
-以及 SimpleDB 的优点，
-即云服务易于管理、支持一致性，
+更好的解决方案应结合原始 Dynamo 设计与 SimpleDB 各自的优点：
+前者提供增量可扩展性和可预测的高性能，
+后者提供易于管理的云服务、一致性支持，
 以及比纯键值存储更丰富的表数据模型。
 这些架构讨论最终催生了 Amazon DynamoDB，
 并于 2012 年作为公共服务推出。
@@ -279,7 +279,7 @@ Isolation, Durability，ACID）事务，
 同时保证 item 间的原子性、一致性、隔离性和持久性，
 而不牺牲 DynamoDB 表的可扩展性、可用性与性能特征。
 
-DynamoDB 表被划分成多个 partition，
+DynamoDB 表被划分为多个 partition，
 以满足表的吞吐量和存储需求。
 表的每个 partition 承载表 key range 中互不重叠且连续的一段。
 每个 partition 都有多个 replica，
@@ -356,7 +356,7 @@ storage service 负责在 storage node 机群上存储客户数据。
 > 再把请求路由到跨多个 Availability Zone 部署的 storage node。
 
 autoadmin service 被设计成 DynamoDB 的中枢神经系统。
-它负责机群健康状况、partition 健康状况、表扩展，
+它负责机群健康、partition 健康、表扩展，
 以及执行所有 control plane 请求。
 该服务持续监控所有 partition 的健康状况，
 并替换任何被判定为不健康的 replica，
@@ -408,7 +408,7 @@ storage node 根据其本地存储 partition 的分配独立执行 admission con
 由于一个 storage node 会承载多个表的 partition，
 每个 partition 的已分配吞吐量被用于隔离工作负载。
 DynamoDB 对单个 partition 可以分配的最大吞吐量设置上限，
-并确保 storage node 所承载全部 partition 的总吞吐量，
+并确保 storage node 所承载的全部 partition 的总吞吐量，
 小于或等于根据存储驱动器的物理特性确定的节点最大允许吞吐量。
 
 当整张表的吞吐量发生变化，
@@ -492,8 +492,8 @@ DynamoDB 最多保留一个 partition 的部分闲置容量 300 秒，
 时便会使用它。
 这些闲置容量称为 burst capacity。
 
-DynamoDB 仍通过限制 partition 只能在节点层级有闲置吞吐量时 burst，
-来维持工作负载隔离。
+DynamoDB 规定，只有节点层级存在闲置吞吐量时，
+partition 才能 burst，以此维持工作负载隔离。
 容量在 storage node 上通过多个 token bucket 管理：
 每个 partition 有两个，
 分别对应 allocated capacity 和 burst capacity；
@@ -863,11 +863,11 @@ leader 故障检测是高可用系统中的关键组件之一。
 故障检测的 false positive 会造成更多可用性干扰。
 当组内每个 replica 都与 leader 失去连接时，
 故障检测工作良好。
-然而节点可能遇到 gray network failure。
+然而，节点可能遇到 gray network failure。
 这可能源于 leader 与 follower 之间的通信问题、
 节点出站或入站通信问题，
-或 front-end router 无法与 leader 通信，
-尽管 leader 和 follower 之间仍可以通信。
+也可能出现 leader 与 follower 之间通信正常、
+但 front-end router 无法与 leader 通信的情况。
 gray failure 可能因故障检测出现 false positive 或根本未检测到故障而破坏可用性。
 例如，
 收不到 leader heartbeat 的 replica 会尝试选举新 leader，
@@ -896,7 +896,7 @@ DynamoDB 在服务与表两个层级持续监控可用性。
 系统就会触发告警。
 这类告警称为 customer-facing alarm（CFA）。
 其目标是报告任何与可用性相关的问题，
-并通过自动化机制或运维人员干预主动缓解问题。
+并通过自动化机制或运维人员干预主动加以缓解。
 除了实时跟踪之外，
 系统还运行每日任务触发聚合，
 计算每位客户的整体可用性指标。
@@ -908,7 +908,7 @@ DynamoDB 还会衡量客户端观察到的可用性并据此告警。
 第一组是使用 DynamoDB 作为数据存储的 Amazon 内部服务；
 这些服务会分享其软件观察到的 DynamoDB API 调用可用性指标。
 第二组是 DynamoDB canary 应用程序。
-这些应用程序从 Region 中每个 AZ 运行，
+这些应用程序部署在 Region 内的每个 AZ 中，
 并通过每个公共 endpoint 与 DynamoDB 通信。
 真实应用程序流量使我们能够推断客户所见的 DynamoDB 可用性与延迟，
 并捕获 gray failure [10, 11]。
@@ -927,8 +927,8 @@ DynamoDB 按固定节奏推送软件更新。
 一次部署会把软件从一种状态带到另一种状态。
 新软件会经历完整的开发与测试周期，
 以建立对代码正确性的信心。
-经过多年和多次部署，
-DynamoDB 认识到重要的不仅是结束状态和开始状态；
+经过多年来的多次部署，
+DynamoDB 认识到，重要的不仅是开始状态和结束状态；
 有时新部署的软件无法正常工作，
 必须 rollback。
 rollback 后的状态可能不同于软件的初始状态。
@@ -940,7 +940,7 @@ DynamoDB 都会在组件层级运行一套 upgrade 和 downgrade 测试。
 软件会被有意 rollback，
 并通过运行功能测试进行检验。
 DynamoDB 发现这一流程很有价值，
-它可以捕获那些一旦发生便很难安全 rollback 的问题。
+它能捕获那些在需要时会导致难以安全 rollback 的问题。
 
 在单个节点上部署软件与向多个节点部署截然不同。
 分布式系统中的部署不是原子的；
@@ -967,7 +967,7 @@ DynamoDB 为第 6.3 节提到的可用性指标设置告警阈值。
 如果部署期间错误率或延迟超过阈值，
 系统就会触发自动 rollback。
 向 storage node 部署软件会触发 leader failover，
-其设计不会影响可用性。
+这种 failover 经过专门设计，不会影响可用性。
 leader replica 会主动放弃 leadership，
 因此组的新 leader 无须等待旧 leader 的 lease 到期。
 
@@ -1043,8 +1043,8 @@ router 只需要承载该请求 key 的 partition 信息。
 DynamoDB 构建了名为 MemDS 的内存分布式 datastore。
 MemDS 将全部 metadata 存储在内存中，
 并在 MemDS 机群中复制。
-MemDS 通过水平扩展处理 DynamoDB 的全部传入请求速率，
-其中数据经过高度压缩。
+MemDS 通过水平扩展承载 DynamoDB 的全部传入请求速率，
+数据经过高度压缩。
 节点上的 MemDS process 封装了 Perkle 数据结构，
 它是 Patricia tree [17] 与 Merkle tree 的混合体。
 Perkle tree 允许插入 key 及其关联值，
@@ -1067,13 +1067,13 @@ cache hit 也会异步调用 MemDS 刷新 cache。
 新 cache 都能确保 MemDS 机群始终处理恒定流量。
 与由 cache hit ratio 决定后端流量的传统 cache 相比，
 这种恒定流量会增加 metadata 机群的负载，
-却能避免 cache 失效时在系统其他部分造成 cascading failure。
+却能避免 cache 变得无效时在系统其他部分造成 cascading failure。
 
 DynamoDB storage node 是 partition membership 数据的权威来源。
 storage node 会把 partition membership 更新推送到 MemDS，
 每项更新都会传播到全部 MemDS node。
 如果 MemDS 提供的 partition membership 已经过时，
-被错误联系的 storage node 要么返回自己已知的最新 membership，
+被错误访问的 storage node 要么返回自己已知的最新 membership，
 要么返回一个错误码，
 触发 request router 再次查询 MemDS。
 
@@ -1090,7 +1090,7 @@ B 类包含 95% 读取和 5% 更新。
 ![图 5：YCSB 读取延迟汇总](../raw/dynamo-2022/images/figure-0006.png)
 
 > 图 5：YCSB 读取延迟汇总。比较 YCSB-A 与 YCSB-B 在每秒 10 万、25 万、
-> 50 万和 100 万次操作下第 50 百分位（P50）与第 99 百分位（P99）的读取延迟。
+> 50 万和 100 万次操作下的第 50 百分位（P50）与第 99 百分位（P99）的读取延迟。
 
 ![图 6：YCSB 写入延迟汇总](../raw/dynamo-2022/images/figure-0007.png)
 
@@ -1103,9 +1103,9 @@ B 类包含 95% 读取和 5% 更新。
 DynamoDB 的读取延迟也只有极小变化；
 随着工作负载吞吐量增加，
 延迟仍保持相同。
-工作负载 B 的读取吞吐量约为工作负载 A 的两倍，
+工作负载 B 的读取吞吐量是工作负载 A 的两倍，
 但延迟的变化仍非常小。
-图 6 展示两种工作负载在 P50 和 P99 的写入延迟。
+图 6 展示两种工作负载的 P50 和 P99 写入延迟。
 与读取延迟一样，
 无论工作负载吞吐量如何，
 写入延迟都保持不变。
@@ -1128,7 +1128,7 @@ multi-Region replication 和 atomic transaction 等突破性功能，
 
 ## 9 致谢
 
-DynamoDB 从客户身上获益良多，
+DynamoDB 从客户那里获益良多，
 客户持续不断的反馈推动我们为他们不断创新。
 在这段历程中，
 我们有幸与一支卓越的团队同行。
