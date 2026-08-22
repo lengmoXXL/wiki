@@ -22,6 +22,7 @@
 - [Silent Data Corruptions at Scale](tr/slient-data-corruptions-at-scale-2021.md)：`oss://lengmo-asserts/papers/machine/slient-data-corruptions-at-scale-2021.pdf`
 - [Software Architecture: The Hard Parts](tr/software-architecture-2021.md)：`oss://lengmo-asserts/books/software-architecture-2021.pdf`
 - [QuePaxa: Escaping the Tyranny of Timeouts in Consensus](tr/que-paxa-2023.md)：`oss://lengmo-asserts/papers/distributed-systems/que-paxa-2023.pdf`
+- [The Pragmatic Programmer](tr/pragmatic-programmer-2020.md)：`oss://lengmo-asserts/books/pragmatic-programmer-2020.pdf`（中文版，仅校对）
 - [控制论与科学方法论](tr/控制论与科学方法论-2025.md)：`oss://lengmo-asserts/books/控制论与科学方法论-2025.pdf`（中文原著，仅校对）
 - [若干重大决策与事件的回顾](tr/若干重大决策与事件的回顾-1991.md)：`oss://lengmo-asserts/books/若干重大决策与事件的回顾-1991.epub`（中文原著，仅校对）
 

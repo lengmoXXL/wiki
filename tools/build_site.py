@@ -53,6 +53,7 @@ ORIGINAL_FILES = {
     "just-for-fun-2002": "books/just-for-fun-2002.pdf",
     "kafka-2011": "papers/distributed-systems/kafka-2011.pdf",
     "llm-serving-2023": "papers/llm/llm-serving-2023.pdf",
+    "pragmatic-programmer-2020": "books/pragmatic-programmer-2020.pdf",
     "que-paxa-2023": "papers/distributed-systems/que-paxa-2023.pdf",
     "rocksdb-2021": "papers/distributed-systems/rocksdb-2021.pdf",
     "scaling-memcache-at-facebook-2013": "papers/distributed-systems/scaling-memcache-at-facebook-2013.pdf",
