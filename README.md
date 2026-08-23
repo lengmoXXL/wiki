@@ -164,13 +164,7 @@ PDF 转换得到的所有图片均保留在 `raw/<原目录名>/images/` 下，
   参见[识别并确定组件大小模式](#识别并确定组件大小模式)。
   ```
 
-- 正文与译文按标点换行，句号、逗号、问号、叹号等都可断行，一行尽可能短。例如 `tr/scaling-memcache-at-facebook-2013.md` 中：
-
-  > 此后，
-  > 我们使用"memcached"来指代源代码或运行中的二进制文件，
-  > 使用"memcache"来描述分布式系统。
-
-  Markdown 仍会把这些短行识别为同一段落。图注 blockquote 同理。图片引用行 `![alt](url)` 的 alt 须保持单行，便于 git diff 逐行查看。
+- 段落换行由 dprint 统一重排（见第 4 节），无需手工断行。图片引用行 `![alt](url)` 的 alt 须保持单行，便于 git diff 逐行查看。
 
 ### O'Reilly 书籍的校对要点
 
@@ -234,8 +228,7 @@ O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
 ## 4. 检查改动
 
 ```bash
-python tools/format.py tr/xxx.md  # 超长译文行按标点断开（只拆不并）
-dprint fmt                        # 统一 tr/*.md 排版格式（配置见 dprint.json）
+dprint fmt  # 统一 tr/*.md 排版格式（配置见 dprint.json）
 git diff --check
 git diff
 ```

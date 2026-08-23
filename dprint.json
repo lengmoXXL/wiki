@@ -1,9 +1,9 @@
 {
   "$schema": "https://dprint.dev/schemas/v0.json",
   "markdown": {
-    "lineWidth": 120,
+    "lineWidth": 80,
     "newLineKind": "lf",
-    "textWrap": "maintain",
+    "textWrap": "always",
     "emphasisKind": "asterisks",
     "strongKind": "asterisks",
     "unorderedListKind": "dashes",
