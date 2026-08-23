@@ -11,6 +11,7 @@
 - [Efficient Memory Management for Large Language Model Serving with PagedAttention](tr/llm-serving-2023.md)：`oss://lengmo-asserts/papers/llm/llm-serving-2023.pdf`
 - [The Google File System](tr/gfs-2003.md)：`oss://lengmo-asserts/papers/distributed-systems/gfs-2003.pdf`
 - [Just for Fun](tr/just-for-fun-2002.md)：`oss://lengmo-asserts/books/just-for-fun-2002.pdf`
+- [Learning eBPF](tr/learning-ebpf-2023.md)：`oss://lengmo-asserts/books/learning-ebpf-2023.pdf`
 - [Kafka: a Distributed Messaging System for Log Processing](tr/kafka-2011.md)：`oss://lengmo-asserts/papers/distributed-systems/kafka-2011.pdf`
 - [The RocksDB Experience](tr/rocksdb-2021.md)：`oss://lengmo-asserts/papers/distributed-systems/rocksdb-2021.pdf`
 - [Scalable Leader Leases for Multi Consensus Groups in CockroachDB](tr/crdb-2026.md)：`oss://lengmo-asserts/papers/distributed-systems/crdb-2026.pdf`

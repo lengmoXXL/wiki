@@ -51,6 +51,7 @@ ORIGINAL_FILES = {
     "dynamo-2022": "papers/distributed-systems/dynamo-2022.pdf",
     "gfs-2003": "papers/distributed-systems/gfs-2003.pdf",
     "just-for-fun-2002": "books/just-for-fun-2002.pdf",
+    "learning-ebpf-2023": "books/learning-ebpf-2023.pdf",
     "kafka-2011": "papers/distributed-systems/kafka-2011.pdf",
     "llm-serving-2023": "papers/llm/llm-serving-2023.pdf",
     "pragmatic-programmer-2020": "books/pragmatic-programmer-2020.pdf",
