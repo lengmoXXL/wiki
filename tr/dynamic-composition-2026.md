@@ -6,11 +6,11 @@ Yifan Shi¹,²、Wei Zhang¹、Tianyi Cui²
 
 ## 摘要
 
-现代软件——从插件系统到自进化 agent 运行时——越来越需要*动态组合*，但其形式基础仍不完善。
+现代软件——从插件系统到自进化 agent 运行时——越来越需要_动态组合_，但其形式基础仍不完善。
 我们识别出该问题的两个正交维度：*时间可组合性*，即在组件移除时能够完整回退其副作用的能力；*空间可组合性*，
 即能够声明并以响应式方式管理组件间依赖的能力。我们通过将经典的效应与系数概念提升为运行时机制来应对这两个维度。具体而言，
-我们形式化了*可逆效应*，其中每个上下文变换都携带一个由运行时跟踪的逆。我们形式化了*响应式系数*，
-其中上下文的每次变化都会依据组件的系数规约通知该组件。我们将效应上下文与系数上下文统一为单一的*上下文类型*，
+我们形式化了_可逆效应_，其中每个上下文变换都携带一个由运行时跟踪的逆。我们形式化了_响应式系数_，
+其中上下文的每次变化都会依据组件的系数规约通知该组件。我们将效应上下文与系数上下文统一为单一的_上下文类型_，
 由此构成一种编程范式。随后，我们将这些机制组合为*组件*这一概念，并给出一个动态组合演算，
 其元理论把时空可组合性从单个组件延伸到由交错组件构成的整个系统。
 我们在 *Cordis* 中实现了这些想法——一个时空可组合性的元框架，它提供具备效应跟踪与系数解析的核心库，
@@ -90,9 +90,7 @@ Yifan Shi¹,²、Wei Zhang¹、Tianyi Cui²
 
 **[8. 结论](#8-结论)**
 
-
 **[参考文献](#参考文献)**
-
 
 ## 引言
 
@@ -189,6 +187,7 @@ VSCode 将扩展引向宿主提供的一组固定扩展点，而没有为它们�
    它提供以效应跟踪与系数解析实现形式模型的核心库，以及具备配置调和与热模块替换的声明式组件加载器。
 
 [^1]: 数据于 2026 年 6 月 9 日取自 Visual Studio Code Marketplace。
+
 ## 2. 预备知识
 
 本节简要概述效应系统与系数系统——它们是支撑我们工作的两大理论支柱。
@@ -221,7 +220,7 @@ $\mu: T(T(A)) \to T(A)$ 则对嵌套计算进行顺序化。
 从而建立起一个效应接口与其实现相解耦的框架。
 效应签名 $\Sigma$ 声明一组运算（例如对状态而言，get : () → $S$ 与 put : $S$ → ()
 ）；程序可以自由调用这些运算，而无需承诺某种特定解释。
-Plotkin 与 Pretnar [25] 随后引入了*效应处理器*，它通过提供延续语义来解释这些运算：
+Plotkin 与 Pretnar [25] 随后引入了_效应处理器_，它通过提供延续语义来解释这些运算：
 
 handle e with { op(v, $ \kappa $) $\mapsto$ ... }
 
@@ -280,11 +279,12 @@ $\infty$ 表示无限制使用。
 
 这促使我们转换视角：与其用更多标注来扩展静态类型系统，不如将效应与系数的概念结构具体化，使运行时能够直接对其操作，
 从而动态地建立起这些系统静态所提供的保证。
+
 ## 3. 可逆效应与响应式系数
 
 本节把 2 节引入的效应与系数概念提升为运行时机制，
 构建出动态组合的理论。
-核心思想是把携带效应与系数的*类型上下文*转化为*上下文类型*，
+核心思想是把携带效应与系数的*类型上下文*转化为_上下文类型_，
 即把上下文具体化为头等实体的、可在运行时操作的类型。
 对效应类型，我们把它建模为与一个逆配对的上下文变换，
 从而获得局部时间可组合性。
@@ -331,7 +331,7 @@ $\Gamma$ 上的效应居于变换 $\Gamma \to \Gamma$ 在组合 $\circ$
 撤销是单侧的：逆所承担的是 $g \circ f$，而绝不是 $f \circ g$。
 变换对自身带有一种乘法：
 
-**定义 1。** 如下定义上下文变换对的*扭转组合*：
+**定义 1。** 如下定义上下文变换对的_扭转组合_：
 
 $$ (f_{1},g_{1})\circ(f_{2},g_{2}):=(f_{1}\circ f_{2},g_{2}\circ g_{1}) $$
 
@@ -354,7 +354,7 @@ $$ \partial\Gamma:=\Gamma\times(\Gamma\to\Gamma) $$
 它可理解为一个二元组 $(\gamma, \varphi)$，其中：
 
 - $\gamma : \Gamma$ 是当前的上下文状态；
-- $\varphi : \Gamma \to \Gamma$ 是*累加器*，即到目前为止已执行效应的逆的复合，
+- $\varphi : \Gamma \to \Gamma$ 是_累加器_，即到目前为止已执行效应的逆的复合，
   也就是把上下文恢复到初始状态的函数。
 
 特别地，初始效应上下文可表示为 $(\gamma_0, \mathrm{id}_\Gamma)$。
@@ -471,7 +471,7 @@ $$ \mathrm{recover}_{\Gamma}((\mathrm{track}_{\Gamma}(f_{n},g_{n})\circ\cdots\ci
 满足 $g \circ f = \mathrm{id}_\Gamma$ 的二元组在每个状态都满足该假设。
 恢复通过量 $\varphi(\gamma)$ 读取一个状态，
 我们把 $\varphi(\gamma) = \gamma_0$ 称为 $\partial\Gamma$
-中状态的*健全性不变量*。
+中状态的_健全性不变量_。
 
 ### 3.1.2 可逆效应函数
 
@@ -529,14 +529,13 @@ $\mathfrak{E}_{\Gamma}^{*}$ 的一个元素；
 因此，我们为效应组合定义一个新的运算：
 
 **定义 9。** 给定函数 $f, g \in \mathfrak{E}_{\Gamma}$，
-定义它们的*效应组合* $f \diamond g$ 为：
+定义它们的_效应组合_ $f \diamond g$ 为：
 
 $$ f \diamond g : \Gamma \to \partial\Gamma $$
 
 $$ f \diamond g = \gamma \mapsto \mathrm{let}~(\delta, s) = g(\gamma)~\mathbf{in}~\mathrm{let}~(\varepsilon, t) = f(\delta)~\mathbf{in}~(\varepsilon, s \circ t) $$
 
 (13)
-
 
 **定理 10。
 ** 效应组合把 $\mathfrak{T}_{\Gamma}$ 的幺半群结构传递到
@@ -718,7 +717,6 @@ $(\gamma_0, \mathrm{id}_\Gamma)$ 起依序应用，
 因此由定理 15，该回退精确恢复前一个状态，同时也保持 $\varphi(\gamma)$；
 两个结论都不依赖于该逆所接收的累加器。$\square$
 
-
 ### 3.1.3 效应的独立性
 
 在效应自身应用所产生的状态处回退该效应，是定理 16 所涵盖的情形；
@@ -735,7 +733,7 @@ $(\gamma_0, \mathrm{id}_\Gamma)$ 起依序应用，
 因为 $\varphi$ 是一个复合，它按一种顺序、一次性运行它所持有的所有逆。
 
 **定义 17。** 对效应函数 $e \in \mathfrak{E}_{\Gamma}$，
-其*变换幺半群* $\mathfrak{M}(e)$ 是由 $e$ 的前向映射连同 $e$ 所产生的每个逆生成的
+其_变换幺半群_ $\mathfrak{M}(e)$ 是由 $e$ 的前向映射连同 $e$ 所产生的每个逆生成的
 $\Gamma \to \Gamma$ 的子幺半群，
 而 $\mathfrak{M}(e)$ 的*生成元*就是该生成集的元素：
 
@@ -772,7 +770,7 @@ $$ \mathfrak{M}(e):=\langle\{\mathrm{pr}_{1}\circ e\}\cup\{\mathrm{pr}_{2}(e(\ga
    其中 $s$ 由 $e_2$ 产生、$t$ 由 $e_1$ 产生。
    因此，$\mathfrak{M}(e_1 \diamond e_2)$ 的每个生成元都是这两个效应生成元的复合。
 
-**定义 19。** 效应函数 $e_1, e_2 \in \mathfrak{E}_\Gamma$ 是*独立的*，当
+**定义 19。** 效应函数 $e_1, e_2 \in \mathfrak{E}_\Gamma$ 是_独立的_，当
 
 1. 一个效应的每个变换都与另一个效应的每个变换交换，
 
@@ -836,8 +834,8 @@ $\delta'_i := (f_i \circ \cdots \circ f_{j+1})(\delta_{j-1})$ 为去掉 $e_j$ �
 
 $$ g_{j}(\delta_{u})=\big(g_{j}\circ f_{u}\circ\cdots\circ f_{j+1}\big)\big(\delta_{j}\big)=\big(f_{u}\circ\cdots\circ f_{j+1}\big)\big(g_{j}\big(f_{j}\big(\delta_{j-1}\big)\big)\big)=\delta_{u}^{\prime} $$
 
-   最后一个等式依赖于 $g_j(f_j(\delta_{j-1})) = \delta_{j-1}$，
-   这正是定义 8 要求 $e_j$ 在 $\delta_{j-1}$ 处提供的见证。
+最后一个等式依赖于 $g_j(f_j(\delta_{j-1})) = \delta_{j-1}$，
+这正是定义 8 要求 $e_j$ 在 $\delta_{j-1}$ 处提供的见证。
 
 2. 由 (1)，状态 $\delta_{i-1}$ 是 $f_j(\delta'_{i-1})$，
    且 $f_j \in \mathfrak{M}(e_j)$，
@@ -869,11 +867,11 @@ LIFO 次序就是这样一个置换，而定理 16 在无需任何假设的情�
 独立性所换来的是一切其他次序，以及随之而来交错多个组件的序列——
 4.4.2 节把它推广为整个系统的 trace。
 
-这些构造合起来构成*可逆效应*：
+这些构造合起来构成_可逆效应_：
 $\mathfrak{E}_{\Gamma}^{*}$ 中的每个效应函数都显式地提供自己的逆，
 effect 在效应上下文 $\partial\Gamma$ 上跟踪这些逆，
 而 $\diamond$ 运算在保持可逆性的同时把它们组合起来。
-它们所带来的是*局部时间可组合性*——“局部”在于该保证只针对单个组件自身的效应。
+它们所带来的是_局部时间可组合性_——“局部”在于该保证只针对单个组件自身的效应。
 我们把这视为如下准则：
 对组件所应用的每个效应函数序列，累加器恢复它开始时的上下文（定理 7），
 且回退该序列时每个逆得到的都是它自身应用所针对的状态（定理 16）。
@@ -887,6 +885,7 @@ effect 在效应上下文 $\partial\Gamma$ 上跟踪这些逆，
 在独立性不成立的地方，次序必须由别处承担：
 在单个组件内部由累加器承担——无论效应如何，它都按 LIFO 次序回退（4.3.2 节）；
 跨组件则由一个声明的系数承担——它把一个激活与另一个激活排序（4.3.1 节）。
+
 ### 3.2 响应式系数
 
 空间可组合性指组件彼此声明依赖、系统在运行时解析、提供并撤销这些依赖的能力。
@@ -934,7 +933,7 @@ $\Sigma \to \text{Maybe}(\Sigma)$，并在 Maybe monad 中组合（2.1 节），
 
 **定义 23。** $\Sigma$ 上的 get 与 set 运算定义如下：
 
-$$ \begin{array}{r c l r c l r c l}&{\mathrm{g e t}}&{:}&{\quad(k:K)}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\mathcal{V}_{k}}\\ &{\mathrm{g e t}}&{=}&{\quad k}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}&{\sigma(k)}\\ &{\mathrm{s e t}}&{:}&{\quad(k:K)\times\mathcal{V}_{k}}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\Sigma\times(\Sigma\rightarrow\Sigma)}\\ &{\mathrm{s e t}}&{=}&{\quad(k,v)}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}(\sigma[k\mapsto v],\lambda\sigma^{\prime}.\sigma^{\prime}\setminus k)}\end{array} $$
+$$ \begin{array}{r c l r c l r c l}&{\mathrm{g e t}}&{:}&{\quad(k:K)}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\mathcal{V}*{k}}\\ &{\mathrm{g e t}}&{=}&{\quad k}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}&{\sigma(k)}\\ &{\mathrm{s e t}}&{:}&{\quad(k:K)\times\mathcal{V}*{k}}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\Sigma\times(\Sigma\rightarrow\Sigma)}\\ &{\mathrm{s e t}}&{=}&{\quad(k,v)}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}(\sigma[k\mapsto v],\lambda\sigma^{\prime}.\sigma^{\prime}\setminus k)}\end{array} $$
 
 (21)
 
@@ -954,7 +953,7 @@ get 交给组件的只是一个值，而组件能用该值做什么，则取决�
 $\left(\mathcal{V}_k, \underset{k}{\sim}, \mathcal{A}_k\right)$，
 其中 $\mathcal{V}_k$ 是定义 22 中的值类型，
 $\underset{k}{\sim}$ 是 $\mathcal{V}_k$ 上的等价关系，
-键 $k$ 处的值以该等价关系为准进行比较（3.3.2 节），$\mathcal{A}_k$ 是一组*系数运算*，
+键 $k$ 处的值以该等价关系为准进行比较（3.3.2 节），$\mathcal{A}_k$ 是一组_系数运算_，
 即绑定在 $k$ 处的值提供给持有它的组件的运算。
 一个运算 $a \in \mathcal{A}_k$ 带有参数类型 $X_a$ 与结果类型 $B_a$，
 并且只作用在该值本身上：
@@ -1049,9 +1048,9 @@ set 与 notify 一起交付的是局部空间可组合性——此处的“局�
 **实现。** 两种机制与 get 和 set 的区别在于它们作用的对象。
 一次提供写入的是每个组件都读取的共享表，因此它是该表上的一个效应，并携带一个逆以便撤销。
 隔离与拦截则调整的是某个上下文之下的组件解析键的方式，而让表本身保持原样。
-把一个运算类型化为效应，固定的是它的*指称*——一个后继状态与一个逆的配对，而不是它的*实现*，后者决定该逆如何执行。
+把一个运算类型化为效应，固定的是它的_指称_——一个后继状态与一个逆的配对，而不是它的_实现_，后者决定该逆如何执行。
 
-**定义 27。** 上下文上的一个效应函数承认两种*实现*：
+**定义 27。** 上下文上的一个效应函数承认两种_实现_：
 
 • 就地实现就地变更上下文并返回一个非平凡的逆；后继与输入互为别名，恢复运行该逆以撤销这一变更。
 
@@ -1065,7 +1064,7 @@ set 与 notify 一起交付的是局部空间可组合性——此处的“局�
 而恢复会连同其携带的调整一起丢弃派生上下文。
 对派生表的赋值会覆盖继承表在该键处原有的内容，这正是两个运算都不携带前置条件的原因。
 
-**系数隔离。** 通过引入*隔离 realm*，系数隔离允许同一个依赖在不同上下文中绑定到不同值。
+**系数隔离。** 通过引入_隔离 realm_，系数隔离允许同一个依赖在不同上下文中绑定到不同值。
 这在多租户系统、测试环境与组件沙箱中有广泛应用。
 
 **定义 28。** 把带隔离的系数上下文定义为：
@@ -1105,7 +1104,7 @@ isolate$(k, r)$ 派生的上下文把 realm $r$ 赋给 $k$ 并原样继承依赖
 set 仍然是效应函数（$\mathfrak{E}_{\Sigma^{\text{iso}}}^{*}$），
 因而继承了可逆性，而 isolate 不需要可逆性，它派生一个上下文而不是写入共享表。
 
-**系数拦截。** 第二种机制，即*系数拦截*，把横切元数据附加到依赖访问上，在不修改依赖值的情况下增加行为。
+**系数拦截。** 第二种机制，即_系数拦截_，把横切元数据附加到依赖访问上，在不修改依赖值的情况下增加行为。
 该元数据既可由上下文携带，也可由组件声明，因此我们同时扩展系数上下文与系数规约：
 
 **定义 30。** 把带拦截的系数上下文与系数规约定义为：
@@ -1428,6 +1427,7 @@ Java 的服务定位器模式（例如 Spring 的 ApplicationContext.getBean(...
 而非与其并列编写。
 对响应式系数，组件只声明它所需的依赖，运行时自动解析并重新接线（3.2 节），在提供者被添加、移除或替换时保持一致接线。
 在两个方向上，原本依赖开发者纪律的正确性都成为该范式的结构性性质。
+
 ## 4. 动态组合演算
 
 3 节仅以局部形式建立了空间可组合性与时间可组合性。
@@ -1453,7 +1453,7 @@ Java 的服务定位器模式（例如 Spring 的 ApplicationContext.getBean(...
 本节确定规则所作用的对象：
 *组件*；
 *fiber*，即携带自身生命周期状态的一次组件实例化；
-以及*注册表*，它持有状态所携带的 fiber，系数上下文即从中读出。
+以及_注册表_，它持有状态所携带的 fiber，系数上下文即从中读出。
 
 **组件。** 组件以三元组给出，其系数一侧分为它从环境读取的内容与它向环境提供的内容。
 
@@ -1496,7 +1496,7 @@ $\mathfrak{D}_{\Gamma}$。
 这正是一个只消费或注册其他组件的组件的常见情形。
 
 在运行系统中被实例化的组件随时间被激活与停用，
-因此它携带一个*生命周期状态*，
+因此它携带一个_生命周期状态_，
 而*转移*正是把它从一个生命周期状态移到另一个生命周期状态的东西：
 一次*激活*执行 $e$，在上下文上累积副作用，
 一次*停用*应用累加器以恢复上下文。
@@ -1513,14 +1513,14 @@ $\mathfrak{D}_{\Gamma}$。
 一个 fiber 记录产生它的组件、在其下实例化它的那个 fiber、它所提供的系数，以及它处于生命周期的哪个阶段。
 
 **定义 44。** 固定 fiber 名集合 $\mathfrak{N}$。
-实例化组件 $(d, p, e) \in \mathfrak{C}_\Gamma$ 的*fiber* 是一个元组
+实例化组件 $(d, p, e) \in \mathfrak{C}_\Gamma$ 的_fiber_ 是一个元组
 $\langle d, p, e, \pi, \sigma, \tau, \theta \rangle$，其中
 
 • $d : \mathfrak{D}_{\Gamma}, p : \mathfrak{P}_{\Gamma}$ 与
 $e : \mathfrak{E}_{\Gamma}^{*}$ 是定义 43 的系数规约、提供与效应函数；
 
--  $ \pi : \mathfrak{M} \cup \{\text{root}\} $  是父级，
-   即这个 fiber 在其下被实例化的 fiber，或根标记 root；
+- $ \pi : \mathfrak{M} \cup \{\text{root}\} $ 是父级，
+  即这个 fiber 在其下被实例化的 fiber，或根标记 root；
 
 • $\sigma : \Sigma$ 是 fiber 自身的系数表（定义 22），在它激活前为空，
 并随其效应运行而被写入；
@@ -1545,7 +1545,7 @@ $\omega : d \to \mathfrak{N}$ 是已提交视图。
 **注册表。** 一个状态以其名持有它的 fiber，fiber 的同一性与 3.2 节的系数上下文都从这一安排中读出。
 
 **定义 45。** 记 $\mathfrak{F}_{\Gamma}$ 为 $\Gamma$ 上的 fiber 集合。
-状态 $\gamma \in \Gamma$ 携带一个*注册表*
+状态 $\gamma \in \Gamma$ 携带一个_注册表_
 
 $$ F_{\gamma}:\mathfrak{N}\to\mathfrak{F}_{\Gamma} $$
 
@@ -1663,7 +1663,9 @@ $\text{target}_n(\gamma)$ 是它应当运行所依据的解析，
 一步序列交织二者，下文 $\longrightarrow^*$ 表示仅含生命周期步。
 
 $$ \frac{n\notin\operatorname{dom}\big(F_{\gamma}\big)\quad\pi\in\operatorname{dom}\big(F_{\gamma}\big)\cup\{\operatorname{root}\}\quad(d,p,e)\in\mathfrak{C}_{\Gamma}\quad\forall m\in\operatorname{dom}\big(F_{\gamma}\big).\,p\cap p_{m}=\varnothing}{\gamma\Rightarrow\gamma[n\mapsto\langle d,p,e,\pi,\varnothing,\perp,\operatorname{Inactive}\rangle]}\quad\text{O-Insert} $$
+
 $$ \frac{n\in\operatorname{dom}\big(F_{\gamma}\big)}{\gamma\Rightarrow\gamma[\tau_{n}\mapsto\top]}\quad\text{O-Retire} $$
+
 $$ \frac{\tau_{n}=\top\quad\theta_{n}=\operatorname{Inactive}\quad\forall m.\,\pi_{m}\neq n}{\gamma\Rightarrow\gamma\setminus n}\quad\text{O-Remove} $$
 
 插入与退役是仅有的外部输入：
@@ -1752,7 +1754,7 @@ $\delta(m) = \gamma(m)$，
 这些规则是非确定性的：
 多个 fiber 可能持有与其目标视图不同的已提交视图，
 而该关系不对它们承诺任何顺序。
-它们也仅具*响应性*，
+它们也仅具_响应性_，
 因为没有规则提及调度器；
 步是规则应用的任意序列，
 因此对所有此类序列证明的定理，对运行时可能采用的每种调度策略都成立。
@@ -1835,13 +1837,13 @@ $$ \mathrm{q u i e t}(\gamma):=\forall n\in\mathrm{d o m}\big(F_{\gamma}\big).\b
 这一层把那一步一分为二，并用如下条件守卫后一半。
 
 **定义 50。** 当某个其他已安装 fiber 把一个键解析到 fiber $n$ 时，
-$n$ 在 $\gamma$ 处*被依赖*：
+$n$ 在 $\gamma$ 处_被依赖_：
 
 $$ \mathrm{r e l i e d}_{n}(\gamma):=\exists m\in\mathrm{d o m}\big(F_{\gamma}\big),k\in d_{m}.m\neq n\land\mathrm{i n s t a l l e d}_{m}(\gamma)\land\omega_{m}(k)=n $$
 
 (46)
 
-$$ \begin{aligned}{\frac{\theta_{n}=\mathbf{A c t i v e}(g,\omega)\quad\mathrm{t a r g e t}_{n}(\gamma)\neq\omega}{\gamma\longrightarrow\gamma[\theta_{n}\mapsto\mathbf{U n l o a d i n g}(g,\omega,\bot)]}}\mathrm{L-L e a v e}\\ {\frac{\theta_{n}=\mathbf{U n l o a d i n g}(g,\omega,\zeta)\quad\lnot\mathrm{r e l i e d}_{n}(\gamma)\quad g(\gamma)=\delta}{\gamma\longrightarrow\delta[\theta_{n}\mapsto\mathbf{I n a c t i v e}(\zeta)]}}\mathrm{L-U n l o a d}}\end{aligned} $$
+$$ \begin{aligned}{\frac{\theta_{n}=\mathbf{A c t i v e}(g,\omega)\quad\mathrm{t a r g e t}*{n}(\gamma)\neq\omega}{\gamma\longrightarrow\gamma[\theta*{n}\mapsto\mathbf{U n l o a d i n g}(g,\omega,\bot)]}}\mathrm{L-L e a v e}\\ {\frac{\theta_{n}=\mathbf{U n l o a d i n g}(g,\omega,\zeta)\quad\lnot\mathrm{r e l i e d}*{n}(\gamma)\quad g(\gamma)=\delta}{\gamma\longrightarrow\delta[\theta*{n}\mapsto\mathbf{I n a c t i v e}(\zeta)]}}\mathrm{L-U n l o a d}}\end{aligned} $$
 
 L-Leave 记录停用的决定而不付诸行动，
 这使 fiber 停止提供其系数，同时让它自己的已提交视图与所有其他 fiber 的保持不变。
@@ -1955,7 +1957,7 @@ L-Divert 与所有其他停用一样经由 Unloading 走，
 而不是就地应用累加器，
 它在那里遇到的守卫是空的，
 因为从未 Active 过的 fiber 不提供任何内容、也不出现在任何已提交视图中。
-其两个选项中的第一个*中止* fiber 正持有的迭代，
+其两个选项中的第一个_中止_ fiber 正持有的迭代，
 而这只有迭代边界才使之成为可能，
 因此转向可落入的粒度正是迭代器的粒度；
 第二个让该迭代落地，4.3.3 节正是需要它的地方。
@@ -2048,6 +2050,7 @@ L-Begin 以 Inactive($\bot$) 为前提，
 因此转移失败的组件让其兄弟 fiber 继续运行，
 这正是插件宿主想要的行为，
 也是结果按 fiber 而非作为整个状态性质的原因。
+
 ### 4.4 元理论
 
 4.3 节提供了十条规则：4.2 节的三条编排规则；
@@ -2144,18 +2147,18 @@ $$ \gamma\simeq\delta\quad:=\quad\sigma_{\gamma}\simeq\sigma_{\delta}\wedge\math
 而一个其累加器使某 fiber 退休的 L-Unload 则携带 O-Retire 行的写入。
 下面每个分情形分析都是表中的一次查表，有五次查表频繁到值得命名。
 
-| 规则 | $\theta_n^t$ | $\theta_n^{t+1}$ | $\Psi^t$ | 被编辑的控制字段 |
-| --- | --- | --- | --- | --- |
-| O-Insert | 未定义 | Inactive($\bot$) | id Γ | dom($F_\gamma$) |
-| O-Retire | 不受约束 | 不变 | id Γ | $\tau_n$ |
-| O-Remove | Inactive($\bot$) | 未定义 | id Γ | dom($F_\gamma$) |
-| L-Begin | Inactive($\bot$) | Reloading($e_n, \text{id}_\Gamma, \omega$) | id Γ | $\theta_n$ |
-| L-Iter | Reloading($i, g, \omega$) | Reloading($i', g \circ h, \omega$) | pr 1 $\circ$ $i$ | $\theta_n$ |
-| L-Finish | Reloading($i, g, \omega$) | Active($g \circ h, \omega$) | pr 1 $\circ$ $i$ | $\theta_n$ |
-| L-Divert | Reloading($i, g, \omega$) | Unloading($g \circ h, \omega, \bot$) | id Γ 或 pr 1 $\circ$ $i$ | $\theta_n$ |
-| L-Raise | Reloading($i, g, \omega$) | Unloading($g, \omega, \xi$) | id Γ | $\theta_n$ |
-| L-Leave | Active($g, \omega$) | Unloading($g, \omega, \bot$) | id Γ | $\theta_n$ |
-| L-Unload | Unloading($g, \omega, \zeta$) | Inactive($\zeta$) | $g$ | $\theta_n$ |
+| 规则     | $\theta_n^t$                  | $\theta_n^{t+1}$                           | $\Psi^t$                 | 被编辑的控制字段 |
+| -------- | ----------------------------- | ------------------------------------------ | ------------------------ | ---------------- |
+| O-Insert | 未定义                        | Inactive($\bot$)                           | id Γ                     | dom($F_\gamma$)  |
+| O-Retire | 不受约束                      | 不变                                       | id Γ                     | $\tau_n$         |
+| O-Remove | Inactive($\bot$)              | 未定义                                     | id Γ                     | dom($F_\gamma$)  |
+| L-Begin  | Inactive($\bot$)              | Reloading($e_n, \text{id}_\Gamma, \omega$) | id Γ                     | $\theta_n$       |
+| L-Iter   | Reloading($i, g, \omega$)     | Reloading($i', g \circ h, \omega$)         | pr 1 $\circ$ $i$         | $\theta_n$       |
+| L-Finish | Reloading($i, g, \omega$)     | Active($g \circ h, \omega$)                | pr 1 $\circ$ $i$         | $\theta_n$       |
+| L-Divert | Reloading($i, g, \omega$)     | Unloading($g \circ h, \omega, \bot$)       | id Γ 或 pr 1 $\circ$ $i$ | $\theta_n$       |
+| L-Raise  | Reloading($i, g, \omega$)     | Unloading($g, \omega, \xi$)                | id Γ                     | $\theta_n$       |
+| L-Leave  | Active($g, \omega$)           | Unloading($g, \omega, \bot$)               | id Γ                     | $\theta_n$       |
+| L-Unload | Unloading($g, \omega, \zeta$) | Inactive($\zeta$)                          | $g$                      | $\theta_n$       |
 
 > 表 1：把规则读作对其所作用的 fiber n 的写入，其中 step$^t$ 就是在 n 处应用的那条规则。
 
@@ -2318,8 +2321,8 @@ installed$_n$ 不成立，因此 $n$ 不对 relied$_m$ 贡献任何析取项；
 2. $m \neq n \Rightarrow p_m \cap p_n = \emptyset$；
 3. installed$_n(\gamma) \Rightarrow \omega_n$ 在 $d_n$
    上全定义且在 dom($F_\gamma$) 中取值；
-4. installed\(_{n}(\gamma)
-   \wedge k \in d_{n} \wedge \omega_{n}(k)
+4. installed\(*{n}(\gamma)
+   \wedge k \in d*{n} \wedge \omega_{n}(k)
    = m \Rightarrow \text{installed}_{m}(\gamma)$
 
 第（1）款是定义 45 的树一次读一条边，保持父指针落在注册表中。
@@ -2534,8 +2537,8 @@ $$ \mathrm{s t e p}^{t}=\mathrm{L-B e g i n}(m)\Rightarrow\gamma^{t}\models d_{m
 3. $k \in \operatorname{dom}(\sigma_{n}^{t})$ 且
    $\sigma_{n}^{t}(\dot{k}) = \sigma_{n}^{b^{\prime}}(k)$。
 
-定理 63 的证明。第一个断言是 L-Begin 的前提 target\(^{t}_{m} \neq \perp\)，
-它由定义 46 给出 \(\gamma^{t} \vdash d_{m}\)。
+定理 63 的证明。第一个断言是 L-Begin 的前提 target\(^{t}*{m} \neq \perp\)，
+它由定义 46 给出 \(\gamma^{t} \vdash d*{m}\)。
 
 （1）即引理 54（2）。
 
@@ -2764,7 +2767,7 @@ target 记录的是提供 fiber 而非布尔值，而在 4.2 节的单一来源�
 这正是使它成为输入而非调度的函数的原因。
 
 **定义 67。** 当一个 fiber 未被退休、注册它的 fiber 受支持、
-且它声明的每个键都由一个受支持的 fiber 提供时，称该 fiber 在 $\gamma$ 处*受支持*。
+且它声明的每个键都由一个受支持的 fiber 提供时，称该 fiber 在 $\gamma$ 处_受支持_。
 $\text{dom}(F_\gamma)$ 上的*支持关系*是这些条款所读取的两个关系的并，
 
 $$ m\triangleleft n:=m\prec n\lor\pi_{n}=m $$
@@ -2812,7 +2815,7 @@ $\text{dom}(\sigma_n) \subseteq p_n$ 把二者关联。
 
 **定义 69。** 当一个组件 $(d, p, e)$ 的一次完成的激活已安装了 $p$ 的每个键、
 从而在每个实例化它的 Active fiber 处 $\text{dom}(\sigma_n) = p_n$ 时，
-称该组件*对其提供全定义*。
+称该组件_对其提供全定义_。
 
 与独立性（定义 60）一样，这是只关乎组件的条件，不提及任何生命周期状态与任何步骤；
 而独立性已经界定了它能失败到什么程度：若一个组件只在另一个组件的效应所到达的上下文状态处安装某个键，
@@ -2942,10 +2945,10 @@ $\text{target}_m(\gamma)$ 或 $\text{relied}_m(\gamma)$ 读取 n。
 那么
 
 1. （范式）$\gamma^T$ 从 $\gamma^0$ 出发、除归约所撤销的那些名称的条目外，由这样一个序列到达：
-它按原顺序采取相同的编排步骤——作用于编排者所插入 fiber 的那些编排步骤先于每个生命周期步骤，
-其余每个编排步骤跟随注册了它所作用的 fiber 的那个步骤——
-并且，对把 $\triangleleft$ 线性化的 $A$ 的一个枚举 $n_1, ..., n_k$，
-按该顺序采取每个 $n_i$ 的一个片段。
+   它按原顺序采取相同的编排步骤——作用于编排者所插入 fiber 的那些编排步骤先于每个生命周期步骤，
+   其余每个编排步骤跟随注册了它所作用的 fiber 的那个步骤——
+   并且，对把 $\triangleleft$ 线性化的 $A$ 的一个枚举 $n_1, ..., n_k$，
+   按该顺序采取每个 $n_i$ 的一个片段。
 2. （汇合性）从 $\gamma^0$ 出发、采取相同编排步骤的任意两个这样的序列，在如引理 56 那样重命名之后，
    到达由 $\simeq$ 与由 $\approx$ 关联的状态。
 
@@ -3027,6 +3030,7 @@ $i_{n_1}$，由表 1 只有 $n_1$ 写入它们；
 而一个推理哪些系数在作用域内的组件作者，可以只对静止状态推理。
 它也界定了该保证：它谈的是状态，而非系统沿途产生的排放，这正是 6.1 节在获取（在边界内被跟踪）与排放（跨越边界）
 之间所划的区分。
+
 ## 5. 实现与案例研究
 
 本节介绍 Cordis，它把 3 节的形式化模型实现为一种实用的编程抽象。
@@ -3042,38 +3046,38 @@ Cordis 是一个时空可组合性的元框架：与面向具体领域（如 Web
 我们还用 @name 表示框架内部的符号键，因此 ctx[@@store]
 中的方括号表示以符号为键访问上下文上的一个不透明槽位，而不是索引到以字符串为键的映射。
 
-| 理论（3 节、4 节） | 实现 |
-| --- | --- |
-| Γ ∞ | ctx，一等上下文 |
-| γ ∈ Γ | 上下文树连同运行系统已触及的一切 |
-| ℰ Γ , ℰ iter Γ | 返回 / 产出逆的效应回调 |
-| effect Γ (e) | ctx.effect(callback) |
-| Σ, Σ iso , Σ inter | ctx[@@store], ctx[@isolate], ctx[@interrupt] |
-| get(k), set(k, v) | ctx.get(key), ctx.set(key, value) |
-| isolate(k, r) | ctx.isolate(key, realm) |
-| interrupt(k, ν) | ctx.interrupt(key, metadata) |
-| ⟨d, p, e, π, σ, τ, θ⟩ | fiber，组件在 ℰ Γ 中的一次实例化 |
-| dom(F γ ) | 通过 ctx.registry 枚举 |
-| n : ℵ | fiber.uint |
-| d : ℵ Γ | fiber.inject |
-| p : ℵ Γ | 组件的 provide |
-| e : ℰ * Γ | fiber.apply |
-| π : ℵ | fiber.parent.fiber.uint，拥有其被实例化所在上下文的 fiber |
-| 派生实现（定义 27） | fiber.ctx，fiber 运行于其中的子上下文 |
-| θ（定义 44） | fiber.state，生命周期状态，其 LOADING 即 Reloading、其 FAILED 即 Inactive(ξ) |
-| recover、累加器 g | fiber.dispose，累加器 |
-| ω（定义 44） | fiber.committed，已提交视图 |
-| provider k (γ) | 其 provider fiber 处于 ACTIVE 的 Impl |
-| target(γ, n) | fiber.target，由 refresh（算法 5）重新计算，其中 ⊥ 即 INACTIVE |
-| Future、inertia（4.3.3 节） | fiber.inertia，进行中转移的句柄 |
-| O-Insert、O-Retire（定义 47） | ctx.use 及其回调的逆（算法 4） |
-| O-Remove | 从运行时丢弃、uid 被清除的 fiber |
-| L-Begin、L-Iter、L-Finish | execute 的迭代循环（算法 1） |
-| L-Divert | guard 在迭代边界处失败（算法 1），或 reload 链入 unload |
-| L-Leave | refresh 将 fiber 标记为 UNLOADING（第 10 行） |
-| L-Unload | unload 及其惯性链式转移（算法 5） |
-| guard on L-Unload | unload 等待被通知的依赖方（第 25 行） |
-| L-Raise | 记录在 fiber 上的错误，其 target 被置为 ⊥ |
+| 理论（3 节、4 节）            | 实现                                                                         |
+| ----------------------------- | ---------------------------------------------------------------------------- |
+| Γ ∞                           | ctx，一等上下文                                                              |
+| γ ∈ Γ                         | 上下文树连同运行系统已触及的一切                                             |
+| ℰ Γ , ℰ iter Γ                | 返回 / 产出逆的效应回调                                                      |
+| effect Γ (e)                  | ctx.effect(callback)                                                         |
+| Σ, Σ iso , Σ inter            | ctx[@@store], ctx[@isolate], ctx[@interrupt]                                 |
+| get(k), set(k, v)             | ctx.get(key), ctx.set(key, value)                                            |
+| isolate(k, r)                 | ctx.isolate(key, realm)                                                      |
+| interrupt(k, ν)               | ctx.interrupt(key, metadata)                                                 |
+| ⟨d, p, e, π, σ, τ, θ⟩         | fiber，组件在 ℰ Γ 中的一次实例化                                             |
+| dom(F γ )                     | 通过 ctx.registry 枚举                                                       |
+| n : ℵ                         | fiber.uint                                                                   |
+| d : ℵ Γ                       | fiber.inject                                                                 |
+| p : ℵ Γ                       | 组件的 provide                                                               |
+| e : ℰ * Γ                     | fiber.apply                                                                  |
+| π : ℵ                         | fiber.parent.fiber.uint，拥有其被实例化所在上下文的 fiber                    |
+| 派生实现（定义 27）           | fiber.ctx，fiber 运行于其中的子上下文                                        |
+| θ（定义 44）                  | fiber.state，生命周期状态，其 LOADING 即 Reloading、其 FAILED 即 Inactive(ξ) |
+| recover、累加器 g             | fiber.dispose，累加器                                                        |
+| ω（定义 44）                  | fiber.committed，已提交视图                                                  |
+| provider k (γ)                | 其 provider fiber 处于 ACTIVE 的 Impl                                        |
+| target(γ, n)                  | fiber.target，由 refresh（算法 5）重新计算，其中 ⊥ 即 INACTIVE               |
+| Future、inertia（4.3.3 节）   | fiber.inertia，进行中转移的句柄                                              |
+| O-Insert、O-Retire（定义 47） | ctx.use 及其回调的逆（算法 4）                                               |
+| O-Remove                      | 从运行时丢弃、uid 被清除的 fiber                                             |
+| L-Begin、L-Iter、L-Finish     | execute 的迭代循环（算法 1）                                                 |
+| L-Divert                      | guard 在迭代边界处失败（算法 1），或 reload 链入 unload                      |
+| L-Leave                       | refresh 将 fiber 标记为 UNLOADING（第 10 行）                                |
+| L-Unload                      | unload 及其惯性链式转移（算法 5）                                            |
+| guard on L-Unload             | unload 等待被通知的依赖方（第 25 行）                                        |
+| L-Raise                       | 记录在 fiber 上的错误，其 target 被置为 ⊥                                    |
 
 > 表 2：理论到实现的对应关系
 
@@ -3220,6 +3224,7 @@ ctx.isolate(key, realm) 用 realm 覆盖 realm 映射 $\rho$，
 ctx.intercept(key, metadata)
 把元数据合并进拦截表 $\iota$（实现 intercept，定义 31）：依照该定义，
 新元数据与上下文已为 key 携带的内容组合，并优先于后者。
+
 ### 5.1.3 组件生命周期
 
 组件由 ctx.use 实例化为 fiber。
@@ -3367,6 +3372,7 @@ Cordis 在这个反射式 API 之上叠加了第二种、更原生的扩展与�
 这种拒绝是在访问点执行的运行时检查。
 由于组件的系数规约 $d$ 是静态声明的，同一违规原则上可在编译期检测出来，方法是在执行前把每个 ctx[key]
 针对已声明的 $d$ 解析；6.4 节讨论宿主语言的类型级依赖声明与编译期元编程如何恰好执行这种中介。
+
 ### 5.2 组件加载器
 
 核心库为组件开发者提供了用于动态组合的命令式原语，如 ctx.effect、ctx.use 和 ctx.set。
@@ -3484,6 +3490,7 @@ $$\gamma^{\prime}[\delta_{k}] = d_{1} \Longleftrightarrow \gamma^{\prime} \text{
 当 own 在依赖方与提供者处一致时，二者要么都移动、要么都不动，因此依赖方之后看到绑定的情况恰好与之前相同。
 当 own 把二者分开时，一方移动而另一方留下，因此依赖方获得或失去该绑定。
 那个不等式正是这种分离，而成员测试则丢弃在任一 realm 中都不解析 $k$ 的依赖方——移动的任何部分都够不到它们。
+
 ### 5.2.2 热模块替换
 
 热模块替换（HMR）把可逆效应模式应用到模块层面：当源文件变化时（通常发生在开发期间），
@@ -3628,6 +3635,7 @@ Koishi 的生态系统展现出真正的依赖拓扑：IM 适配器提供对各�
 而非针对替代架构的受控比较。
 因此，案例研究所确立的是存在性与采纳性结果，而非定量结果；对照基线衡量该抽象的额外开销及其对开发者生产力的影响，
 仍是未来工作。
+
 ## 6. 讨论
 
 前几节给出的形式化模型与实现引入了一种面向动态可组合性的编程范式。
@@ -3725,6 +3733,7 @@ inject 声明充当能力请求，上下文 proxy 充当能力中介。
 无论采用何种机制，不可信组件都运行在自己的沙箱化上下文中，并通过桥接触及宿主提供的依赖，
 这推广了 6.2 节的跨进程调用：同样的透明性论证使这种桥接访问与本地注入无法区分。
 在宿主一侧，桥接是一个普通 fiber，其能力可被上述访问控制削弱。
+
 ### 6.4 语言独立性与选择
 
 尽管 Cordis 是用 TypeScript 实现的，上下文范式是语言无关的：时空可组合性仅由其两个可组合性维度定义，
@@ -3761,7 +3770,7 @@ TypeScript 的模块增强 [63] 同样让提供者模块把声明合并进上下
 
 在运行时层面，依赖访问必须被动态中介：键背后的系数可能随提供者的装载与卸载而变化，并可能在不同上下文中被不同地解析。
 因此，语言需要一种透明地介入访问的方式，使消费者代码保持不变，
-例如经由 JavaScript 的 Proxy 对象 [64] 或 Python 的描述符协议（__get__）[65]。
+例如经由 JavaScript 的 Proxy 对象 [64] 或 Python 的描述符协议（**get**）[65]。
 没有这种原语时，运行时反射 [66, 67] 可以动态中介访问，代价是类型安全与开发者体验。
 
 在这两个层面之上，元编程设施同时提供类型化与中介。
@@ -3885,6 +3894,7 @@ request-mediation（依赖两个 core，以对入站请求应用访问控制）
 此外，操作系统可以让 6.1 节只能暂扣或补偿的某些操作变得可逆。
 以事务方式执行持久化存储写入的系统可以将其回滚 [79]，
 而构建于写时复制或不可变存储之上的系统通过移动指针即可回到更早的状态 [80, 81]。
+
 ## 7. 相关工作
 
 动态可组合性与多个成熟的研究领域相交。
@@ -3912,11 +3922,11 @@ Cordis 则相反，为每个效应配对了一个逆，并在提供者来来去�
 **作为能力的代数效应。**
 代数效应（2.1 节）让效应操作对类型系统可见。
 与我们的工作最接近的扩展是 Brachthäuser 等人的 Effekt 语言，
-它把效应类型重新解释为*能力* [85, 86]：效应类型表达的是计算从上下文中需要什么，而非它可能产生什么副作用。
+它把效应类型重新解释为_能力_ [85, 86]：效应类型表达的是计算从上下文中需要什么，而非它可能产生什么副作用。
 这一视角与我们一样，把上下文视为能力的中介。
 Cordis 与 Effekt 在两方面有所不同。
-(1) 在目的上，代数效应让效应可见以支持*模块化解释*，为同一操作赋予多种处理器语义；
-而 Cordis 让效应可见以支持*跟踪与逆转*，为每个上下文变换配对逆。
+(1) 在目的上，代数效应让效应可见以支持_模块化解释_，为同一操作赋予多种处理器语义；
+而 Cordis 让效应可见以支持_跟踪与逆转_，为每个上下文变换配对逆。
 (2) 在设定上，Effekt 在类型层面静态约束效应，默认采用基于作用域的推理，其中能力是第二等的、
 被限制在其词法作用域内，需通过装箱恢复一等使用——装箱在类型中跟踪被捕获的能力，从而解除这一限制；Cordis 则相反，
 在运行时约束效应，目标是在组件移除时实现完全的资源恢复；
@@ -3950,7 +3960,7 @@ Orchard 等人 [88] 提出*分级模态类型*作为涵盖效应推理（通过�
 两种成熟的范式值得明确比较：一种与我们共享术语，另一种与我们共享对横切关注点的处理。
 
 **面向上下文编程。**
-COP [92, 93] 为语言配备*层*——即根据执行上下文在运行时被激活和停用的部分方法与类定义，
+COP [92, 93] 为语言配备_层_——即根据执行上下文在运行时被激活和停用的部分方法与类定义，
 从而让行为在基代码不显式命名其上下文依赖的情况下适应变化 [94]。
 COP 与 Cordis 一致之处在于，都把上下文视为一等、运行时可变的实体，并动态激活和停用行为，
 但这种相似只是名义上的。
@@ -3965,9 +3975,9 @@ COP 把激活折叠进宿主语言的方法分派，以语言的特定性为代�
 因此 Cordis 只能把 COP 的全局、值驱动的片段表达为系数：在实现之间的上下文相关选择，而非动态作用域的激活。
 
 **面向切面编程。**
-AOP [95, 96] 把横切关注点模块化为一个*切面*：一个在基程序中选定的*连接点*上做量化的*切入点*，
-以及在每个连接点处织入的*增强*。
-Cordis 解决的是同一类问题——那些否则会散落在各组件之间的上下文相关行为，但它的切面对应物是一个*系数*：
+AOP [95, 96] 把横切关注点模块化为一个_切面_：一个在基程序中选定的*连接点*上做量化的_切入点_，
+以及在每个连接点处织入的_增强_。
+Cordis 解决的是同一类问题——那些否则会散落在各组件之间的上下文相关行为，但它的切面对应物是一个_系数_：
 一个许多组件声明依赖的共享中介点，从而可以在那里重塑横切行为而无需编辑其中任何一个。
 两种范式随后在两条轴上有所不同。
 (1) *声明与无感知*：AOP 的切入点是无感知的、量化的，匹配任意连接点，其代码并不知道自己正被增强；
@@ -3987,8 +3997,8 @@ Cordis 解决的是同一类问题——那些否则会散落在各组件之间�
 **有状态的前向迁移。**
 一大类系统在不停机的情况下替换运行中的组件，方式是把状态跨版本向前迁移。
 它们都遵循同一时间纪律：组件只有在到达安全、无交互的点时才能被替换。
-Kramer 与 Magee 把这一准则确立为*静默* [51]，
-Vandewoude 等人后来将其放宽为破坏性更小的*平静* [52]；我们的滚动更新模式（6.2 节）
+Kramer 与 Magee 把这一准则确立为_静默_ [51]，
+Vandewoude 等人后来将其放宽为破坏性更小的_平静_ [52]；我们的滚动更新模式（6.2 节）
 通过在卸载提供者之前排空进行中的请求来落实这一准则。
 动态软件更新（DSU）随后通过手写的变换函数向前迁移状态：Hicks 等人的通用 C 语言 DSU [99]、
 Stoyle 等人通过 con-freeness 分析得到的类型安全更新点 [100]，
@@ -4093,7 +4103,7 @@ Angular Signals 中的信号 [121, 122]）以*值级*粒度传播变化：当信
 被推导的计算被同步地或在调度器 [123] 下重新求值。
 Cordis 的响应式系数以*组件级*粒度运作，加入了值级传播所不建模的异步生命周期语义。
 同样的粒度差异在一致性上朝相反方向起作用：在一个回合内、以依赖图固定的次序传播，
-让 FRP 得以要求没有任何被推导的计算读到更新与陈旧输入的混合，这就是*无毛刺* [124]；
+让 FRP 得以要求没有任何被推导的计算读到更新与陈旧输入的混合，这就是_无毛刺_ [124]；
 而 Cordis 没有回合的对应物——编排动作一次到达一个——并且只保证没有单次转移跨越其系数的两次解析（定理 64）。
 两者是互补而非竞争：Cordis 系数本身可以携带响应式值，组件只在其实际消费的部分上更新，
 从而把组件级响应性细化为跨越两个层面的、更细粒度的响应式系数。

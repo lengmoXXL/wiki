@@ -112,16 +112,17 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
 
 - **[前言](#前言)**
 
-   - [谁应该阅读本书？](#谁应该阅读本书)
-   - [本书内容](#本书内容)
-   - [预备知识](#预备知识)
-   - [示例代码与练习](#示例代码与练习)
-   - [eBPF 只适用于 Linux 吗？](#ebpf-只适用于-linux-吗)
-   - [本书使用的排版约定](#本书使用的排版约定)
-   - [使用代码示例](#使用代码示例)
-   - [O'Reilly 在线学习](#oreilly-在线学习)
-   - [如何联系我们](#如何联系我们)
-   - [致谢](#致谢)
+  - [谁应该阅读本书？](#谁应该阅读本书)
+  - [本书内容](#本书内容)
+  - [预备知识](#预备知识)
+  - [示例代码与练习](#示例代码与练习)
+  - [eBPF 只适用于 Linux 吗？](#ebpf-只适用于-linux-吗)
+  - [本书使用的排版约定](#本书使用的排版约定)
+  - [使用代码示例](#使用代码示例)
+  - [O'Reilly 在线学习](#oreilly-在线学习)
+  - [如何联系我们](#如何联系我们)
+  - [致谢](#致谢)
+
 1. **[第 1 章 什么是 eBPF，它为什么重要？](#第-1-章-什么是-ebpf它为什么重要)**
    - [eBPF 的起源：Berkeley Packet Filter](#ebpf-的起源berkeley-packet-filter)
    - [从 BPF 到 eBPF](#从-bpf-到-ebpf)
@@ -261,48 +262,51 @@ O'Reilly 标志是 O'Reilly Media, Inc. 的注册商标。
    - [网络安全](#网络安全)
    - [小结](#chapter-9-summary)
 10. **[第 10 章 eBPF 编程](#第-10-章-ebpf-编程)**
-   - [Bpftrace](#bpftrace)
-   - [内核中 eBPF 的语言选择](#内核中-ebpf-的语言选择)
-   - [BCC Python/Lua/C++](#bcc-pythonluac)
-   - [C 和 Libbpf](#c-和-libbpf)
-   - [Go](#go)
-   - [Rust](#rust)
-   - [测试 BPF 程序](#测试-bpf-程序)
-   - [多个 eBPF 程序](#多个-ebpf-程序)
-   - [小结](#chapter-10-summary)
-   - [练习](#chapter-10-exercises)
+
+- [Bpftrace](#bpftrace)
+- [内核中 eBPF 的语言选择](#内核中-ebpf-的语言选择)
+- [BCC Python/Lua/C++](#bcc-pythonluac)
+- [C 和 Libbpf](#c-和-libbpf)
+- [Go](#go)
+- [Rust](#rust)
+- [测试 BPF 程序](#测试-bpf-程序)
+- [多个 eBPF 程序](#多个-ebpf-程序)
+- [小结](#chapter-10-summary)
+- [练习](#chapter-10-exercises)
+
 11. **[第 11 章 eBPF 的未来演进](#第-11-章-ebpf-的未来演进)**
-   - [eBPF 基金会](#ebpf-基金会)
-   - [eBPF for Windows](#ebpf-for-windows)
-   - [Linux eBPF 的演进](#linux-ebpf-的演进)
-   - [eBPF 是平台，而非特性](#ebpf-是平台而非特性)
-   - [延伸阅读](#延伸阅读)
-   - [结语](#结语)
+
+- [eBPF 基金会](#ebpf-基金会)
+- [eBPF for Windows](#ebpf-for-windows)
+- [Linux eBPF 的演进](#linux-ebpf-的演进)
+- [eBPF 是平台，而非特性](#ebpf-是平台而非特性)
+- [延伸阅读](#延伸阅读)
+- [结语](#结语)
 - **[索引](#索引)**
 
-   - [A](#a)
-   - [B](#b)
-   - [C](#c)
-   - [D](#d)
-   - [E](#e)
-   - [F](#f)
-   - [G](#g)
-   - [H](#h)
-   - [I](#i)
-   - [J](#j)
-   - [K](#k)
-   - [L](#l)
-   - [M](#m)
-   - [N](#n)
-   - [O](#o)
-   - [P](#p)
-   - [R](#r)
-   - [S](#s)
-   - [T](#t)
-   - [U](#u)
-   - [V](#v)
-   - [W](#w)
-   - [X](#x)
+  - [A](#a)
+  - [B](#b)
+  - [C](#c)
+  - [D](#d)
+  - [E](#e)
+  - [F](#f)
+  - [G](#g)
+  - [H](#h)
+  - [I](#i)
+  - [J](#j)
+  - [K](#k)
+  - [L](#l)
+  - [M](#m)
+  - [N](#n)
+  - [O](#o)
+  - [P](#p)
+  - [R](#r)
+  - [S](#s)
+  - [T](#t)
+  - [U](#u)
+  - [V](#v)
+  - [W](#w)
+  - [X](#x)
 - **[关于作者](#关于作者)**
 
 - **[版权说明](#版权说明)**
@@ -823,26 +827,26 @@ Linux 内核是位于应用程序与其运行硬件之间的软件层。
 举个例子，用 `cat` 把 hello 这个词输出到屏幕上，
 就涉及 100 多次系统调用：
 
-| % time | seconds | usecs/call | calls | errors | syscall |
-| --- | --- | --- | --- | --- | --- |
-| 24.62 | 0.001693 | 56 | 30 | 12 | openat |
-| 17.49 | 0.001203 | 60 | 20 | | mmap |
-| 15.92 | 0.001095 | 57 | 19 | | newfstatat |
-| 15.66 | 0.001077 | 53 | 20 | | close |
-| 10.35 | 0.000712 | 712 | 1 | | execve |
-| 3.04 | 0.000209 | 52 | 4 | | mprotect |
-| 2.52 | 0.000173 | 57 | 3 | | read |
-| 2.33 | 0.000160 | 53 | 3 | | brk |
-| 2.09 | 0.000144 | 48 | 3 | | munmap |
-| 1.11 | 0.000076 | 76 | 1 | | write |
-| 0.96 | 0.000066 | 66 | 1 | 1 | faccessat |
-| 0.76 | 0.000052 | 52 | 1 | | getrandom |
-| 0.68 | 0.000047 | 47 | 1 | | rseq |
-| 0.65 | 0.000045 | 45 | 1 | | set_robust_list |
-| 0.63 | 0.000043 | 43 | 1 | | prlimit64 |
-| 0.61 | 0.000042 | 42 | 1 | | set_tid_address |
-| 0.58 | 0.000040 | 40 | 1 | | futex |
-| 100.00 | 0.006877 | 61 | 111 | 13 | total |
+| % time | seconds  | usecs/call | calls | errors | syscall         |
+| ------ | -------- | ---------- | ----- | ------ | --------------- |
+| 24.62  | 0.001693 | 56         | 30    | 12     | openat          |
+| 17.49  | 0.001203 | 60         | 20    |        | mmap            |
+| 15.92  | 0.001095 | 57         | 19    |        | newfstatat      |
+| 15.66  | 0.001077 | 53         | 20    |        | close           |
+| 10.35  | 0.000712 | 712        | 1     |        | execve          |
+| 3.04   | 0.000209 | 52         | 4     |        | mprotect        |
+| 2.52   | 0.000173 | 57         | 3     |        | read            |
+| 2.33   | 0.000160 | 53         | 3     |        | brk             |
+| 2.09   | 0.000144 | 48         | 3     |        | munmap          |
+| 1.11   | 0.000076 | 76         | 1     |        | write           |
+| 0.96   | 0.000066 | 66         | 1     | 1      | faccessat       |
+| 0.76   | 0.000052 | 52         | 1     |        | getrandom       |
+| 0.68   | 0.000047 | 47         | 1     |        | rseq            |
+| 0.65   | 0.000045 | 45         | 1     |        | set_robust_list |
+| 0.63   | 0.000043 | 43         | 1     |        | prlimit64       |
+| 0.61   | 0.000042 | 42         | 1     |        | set_tid_address |
+| 0.58   | 0.000040 | 40         | 1     |        | futex           |
+| 100.00 | 0.006877 | 61         | 111   | 13     | total           |
 
 正因为应用如此重度地依赖内核，
 只要能观察应用与内核之间的交互，
@@ -1344,7 +1348,6 @@ root 用户自动拥有这些权限，
 > 不过你可能还需要额外的能力：
 >
 > - 加载追踪类程序需要同时具备 CAP_PERFMON 和 CAP_BPF。
->
 > - 加载网络类程序需要同时具备 CAP_NET_ADMIN 和 CAP_BPF。
 >
 > Milan Landaverde 的博客文章
@@ -1453,7 +1456,7 @@ Linux 的 *uapi/linux/bpf.h* 文件中定义了多种类型的 BPF 映射，
 有些映射类型有 per-CPU 变体，
 也就是说，
 内核为每个 CPU 核心的该映射版本使用不同的内存块。
-这可能会让你想到*非* per-CPU 映射的并发问题——
+这可能会让你想到_非_ per-CPU 映射的并发问题——
 多个 CPU 核心可能同时访问同一个映射。
 内核版本 5.1 为（部分）映射加入了自旋锁支持，
 我们将在第 5 章回到这个话题。
@@ -2204,11 +2207,11 @@ b' ls-2774 ... Another syscall: 61'
 
 [5] C++ 支持，但 C 不支持。
 
-[6] 低 32 位是*线程组 ID*。
+[6] 低 32 位是_线程组 ID_。
 对于单线程进程，
 它与进程 ID 相同，
 但该进程的其他线程会被赋予不同的 ID。
-GNU C 库的文档对*进程* ID 和*线程组* ID 的区别有很好的描述。
+GNU C 库的文档对_进程_ ID 和_线程组_ ID 的区别有很好的描述。
 
 [7] 这只是示例代码，
 所以我没有操心键盘中断时的清理之类的细节！
@@ -3176,7 +3179,7 @@ static __attribute((noinline)) int get_opcode(struct bpf_raw_tracepoint_args *ct
 如果任由编译器选择，
 它很可能会把这个只在一处调用的极简函数内联掉。
 那样就达不到本例的目的了，
-所以我加了 __attribute((__noinline__)) 强制编译器就范。
+所以我加了 __attribute((**noinline**)) 强制编译器就范。
 在正常情况下，
 你应该去掉这个属性，
 让编译器按它认为合适的方式优化。
@@ -3660,12 +3663,12 @@ bpf(BPF_PROG_LOAD, {prog_type=BPF_PROG_TYPE_KPROBE, insn_cnt=44, insns=0xffffffa
 
 表 4-1：运行 hello-buffer-config.py 加载程序后的文件描述符
 
-| 文件描述符 | 代表的对象 |
-| --- | --- |
-| 3 | BTF 数据 |
-| 4 | output perf 缓冲区映射 |
-| 5 | config 哈希表映射 |
-| 6 | hello eBPF 程序 |
+| 文件描述符 | 代表的对象             |
+| ---------- | ---------------------- |
+| 3          | BTF 数据               |
+| 4          | output perf 缓冲区映射 |
+| 5          | config 哈希表映射      |
+| 6          | hello eBPF 程序        |
 
 ## 从用户空间修改映射
 
@@ -3757,14 +3760,14 @@ bpftool 怎么知道该如何格式化这些输出？
 ## BPF 程序与映射的引用
 
 你知道，用 `bpf()` 系统调用把 BPF 程序加载进内核会返回一个文件描述符。
-在内核中，这个文件描述符就是对该程序的一个*引用*。
+在内核中，这个文件描述符就是对该程序的一个_引用_。
 发起系统调用的用户空间进程拥有这个文件描述符；
 当该进程退出时，文件描述符被释放，
 程序的引用计数随之减一。
 当一个 BPF 程序不再有任何引用时，
 内核就会移除这个程序。
 
-把程序*固定*（pin）到文件系统会额外创建一个引用。
+把程序_固定_（pin）到文件系统会额外创建一个引用。
 
 ### 固定到文件系统
 
@@ -4096,12 +4099,12 @@ ppoll([{fd=8, events=POLLIN}, {fd=9, events=POLLIN}, {fd=10, events=POLLIN}, {fd
 
 表 4-2：使用 perf 缓冲区与使用环形缓冲区的 BCC 示例代码差异
 
-| hello-buffer-config.py | hello-ring-buffer-config.py |
-| --- | --- |
-| BPF_PERF_OUTPUT(output); | BPF_RINGBUF_OUTPUT(output, 1); |
+| hello-buffer-config.py                        | hello-ring-buffer-config.py                    |
+| --------------------------------------------- | ---------------------------------------------- |
+| BPF_PERF_OUTPUT(output);                      | BPF_RINGBUF_OUTPUT(output, 1);                 |
 | output.perf_submit(ctx, &data, sizeof(data)); | output.ringbuf_output(&data, sizeof(data), 0); |
-| b["output"].open_perf_buffer(print_event) | b["output"].open_ring_buffer(print_event) |
-| b.perf_buffer_poll() | b.ring_buffer_poll() |
+| b["output"].open_perf_buffer(print_event)     | b["output"].open_ring_buffer(print_event)      |
+| b.perf_buffer_poll()                          | b.ring_buffer_poll()                           |
 
 不出所料，
 由于这些改动只涉及输出缓冲区，
@@ -4460,15 +4463,15 @@ bpf(BPF_RAW_TRACEPOINT_OPEN) 用于 raw tracepoint
 [^1]: 完整的 BPF 命令集记录在 *linux/bpf.h* 头文件中。
 
 [^2]: BTF 是在 5.1 内核中合入上游的，
-但一些 Linux 发行版已经把它回移植到了旧版本，
-参见内核邮件列表中的相关讨论。
+    但一些 Linux 发行版已经把它回移植到了旧版本，
+    参见内核邮件列表中的相关讨论。
 
 [^3]: 这些挂载类型定义在 linux/bpf.h 的 bpf_attach_type 枚举中。
 
 [^4]: 再次提醒，
-想进一步了解两者的区别，
-可以读 Andrii Nakryiko
-的["BPF ring buffer"](https://nakryiko.com/posts/bpf-ringbuf/)博客文章。
+    想进一步了解两者的区别，
+    可以读 Andrii Nakryiko
+    的["BPF ring buffer"](https://nakryiko.com/posts/bpf-ringbuf/)博客文章。
 
 # 第 5 章 CO-RE、BTF 与 Libbpf
 
@@ -4950,7 +4953,7 @@ bpftool 之类的工具也能检索类型信息用于美化打印，
 
 在类型 32 中可以看到，
 名为 hello 的函数被定义为具有前一行定义的类型。
-那是一个*函数原型*，
+那是一个_函数原型_，
 返回值的类型 ID 是 23，
 接收一个参数（vlen=1），
 名为 ctx，类型 ID 是 10。
@@ -5535,7 +5538,7 @@ kprobe 的参数是一个 pt_regs 结构，
 pt_regs 结构的定义取决于你运行的架构。
 这意味着如果想用这些宏，
 还需要告诉编译器目标架构是什么。
-可以通过设置 -D __TARGET_ARCH_$(ARCH) 来做到，
+可以通过设置 -D _*TARGET_ARCH*$(ARCH) 来做到，
 其中 $(ARCH) 是 arm64、amd64 之类的架构名。
 
 还要注意，
@@ -7982,7 +7985,7 @@ eBPF 程序可以挂载在任一方向上，
 TC 可以挂载多个 eBPF 程序，
 它们将按顺序依次执行。
 
-传统流量控制分为*分类器*（classifier）和*动作*（action）：
+传统流量控制分为_分类器_（classifier）和_动作_（action）：
 分类器根据某种规则对数据包分类，
 动作则根据分类器的输出决定如何处置数据包。
 可以有一系列分类器，

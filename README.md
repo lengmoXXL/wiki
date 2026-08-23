@@ -72,6 +72,8 @@ raw/kafka-2011/
 `tr/` 下的文件名沿用对应的 `raw/` 子目录名。
 中文原著（如《控制论与科学方法论》）不需要翻译，但仍需对照 PDF 校对，结果同样写入 `tr/<原目录名>.md`。
 
+排版格式由工具统一处理（见第 4 节），翻译和校对时无需手工调整。
+
 PDF 转换得到的所有图片均保留在 `raw/<原目录名>/images/` 下，
 译文以 `../raw/<原目录名>/images/figure-XXXX.png` 引用其中需要的图片。
 译文提交后目录结构如下：
@@ -235,9 +237,12 @@ O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
 
 ```bash
 python tools/format.py tr/xxx.md  # 超长译文行按标点断开（只拆不并）
+dprint fmt                        # 统一 tr/*.md 排版格式（配置见 dprint.json）
 git diff --check
 git diff
 ```
+
+`dprint` 命令不存在时，提示用户安装（https://dprint.dev/install/），不要手工调整排版格式。
 
 ## 5. 站点发布
 

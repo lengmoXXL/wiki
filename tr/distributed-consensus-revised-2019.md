@@ -172,7 +172,6 @@ Nick Spooner、Diego Ongaro、Jenny Wolochow 和 Igor Zablotschi。
 
 **[参考文献](#参考文献)**
 
-
 # 第 1 章 引言
 
 我们在生活的方方面面都依赖计算机系统。
@@ -585,22 +584,22 @@ Ring Paxos [MPSP10] 和 Multi-Ring Paxos [MPP12]
 针对提供 IP 组播的网络进行了优化。
 
 [^ch1-1]: 目前，
-我们用 Paxos 一词指代该算法今天通常的形式，
-而不是 Lamport 最初描述的形式。
-为此人们也常使用 Multi-degree Paxos 或简称 Multi-Paxos。
+    我们用 Paxos 一词指代该算法今天通常的形式，
+    而不是 Lamport 最初描述的形式。
+    为此人们也常使用 Multi-degree Paxos 或简称 Multi-Paxos。
 
 [^ch1-2]: 实现包括 Zookeeper（zookeeper.apache.org）、Consul（www.consul.io）和 Etcd（coreos.com/etcd）。
 
 [^ch1-3]: 应用包括 HBase（hbase.apache.org）、MongoDB（mongodb.com）等数据库，
-以及 Kubernetes（kubernetes.io）、
-Docker Swarm（github.com/docker/swarm）
-和 Mesos（mesos.apache.org）等编排工具。
+    以及 Kubernetes（kubernetes.io）、
+    Docker Swarm（github.com/docker/swarm）
+    和 Mesos（mesos.apache.org）等编排工具。
 
 [^ch1-4]: 例如，
-Chubby 在一小组服务器之间达成共识，
-通常为五台 [CGR07]。
-同样，
-Raft 集群通常包含五台服务器 [OO14, §5.1]。
+    Chubby 在一小组服务器之间达成共识，
+    通常为五台 [CGR07]。
+    同样，
+    Raft 集群通常包含五台服务器 [OO14, §5.1]。
 
 [^ch1-5]: 这种效应的例子可见 [MJM08, Figure 8]。
 
@@ -711,7 +710,7 @@ Raft 集群通常包含五台服务器 [OO14, §5.1]。
 把 proposer 集合记为 $P = \{p_1, p_2, \ldots\}$，
 其中 $P \subseteq U$ 且 $|P| = n_p$。
 共识算法定义了 acceptor 从 proposer 提出的值中选定值 $v$ 的过程。
-我们把 acceptor 已对某个特定值作出决定的时刻称为*提交点*。
+我们把 acceptor 已对某个特定值作出决定的时刻称为_提交点_。
 在这一时刻之后，
 $v$ 已被决定，
 之后不能再更改。
@@ -731,7 +730,7 @@ proposer 获知哪个值已被决定，
 ### 2.1.1 单 acceptor 算法
 
 本节介绍一个求解分布式共识的稻草人算法。
-这个算法称为*单 acceptor 算法*（SAA），
+这个算法称为_单 acceptor 算法_（SAA），
 它要求恰好有一个参与者被分配 acceptor 角色[^ch2-4]。
 SAA 的活性条件是：
 acceptor 和至少一个 proposer 在线，
@@ -754,40 +753,40 @@ acceptor 就用 $accept(\gamma')$ 把已决定的值 $\gamma'$ 回复给 propose
 proposer 就能获知已决定值。
 该方法的伪代码描述见算法 1 和算法 2[^ch2-5]。
 
-| 记号 | 说明 | 首次使用 |
-| --- | --- | --- |
-| $u_1, u_2, \dots$ | 参与者 | 2.1 |
-| $a_1, a_2, \dots / p_1, p_2, \dots$ | 具体的 acceptor/proposer | 2.1 |
-| $n/n_a/n_p$ | 参与者/acceptor/proposer 的数量 | 2.1 |
-| $v, w, x, \dots$ | 值 | 2.1 |
-| $v_1, v_2, \dots$ | 值序列 | 2.1 |
-| $a, a', \dots / p, p', \dots$ | acceptor/proposer | 2.1.1 |
-| $A, B, C \dots$ | 具体的值 | 2.1.1 |
-| $\gamma, \gamma'$ | 候选值 | 2.1.1 |
-| $v_{acc}$ | 最近接受的值 | 2.1.1 |
-| $e, f, g, \dots$ | epoch | 2.2 |
-| $(e, v)$ | epoch 为 $e$、值为 $v$ 的提案 | 2.2 |
-| $e_{min}/e_{max}$ | 最小/最大 epoch | 2.2 |
-| $e_{pro}/e_{acc}$ | 最近承诺/接受的 epoch | 2.2 |
-| $v_{dec}$ | 已决定值 | 3.3 |
-| $pid/sid/vid$ | proposer ID/序列 ID/版本 ID | 3.8 |
-| $p_{lst}$ | 最近的 proposer | 3.9 |
-| $U/A/P$ | 参与者/acceptor/proposer 集合 | 2.1 |
-| $V$ | 值集合 | 2.1 |
-| $E$ | epoch 集合 | 2.2 |
-| $\mathcal{E}$ | 未使用的 epoch 集合 | 2.2 |
-| $Q_P/Q_A$ | 已承诺/已接受的 acceptor 集合 | 2.2 |
-| $Q_V$ | 以 $e_{max}$ 作出承诺的 acceptor 集合 | 3.2 |
-| $\Gamma$ | 候选值集合 | 2.2 |
-| $Q, Q', \dots$ | 法定人数（acceptor 集合） | 3.11 |
-| $\mathcal{Q}, \mathcal{Q}', \dots$ | 法定人数集合 | 3.11 |
-| $\mathcal{Q}_i^e$ | 阶段 $i$、epoch $e$ 的法定人数集合 | 4.1 |
-| $V_{dec}$ | 可能已被决定的值的集合 | 6.1 |
-| $R$ | 从 acceptor 到承诺、$no$ 或 $(e, v)$ 的映射 | 6.1 |
-| $D$ | 从法定人数到决定的映射 | 6.1 |
-| $min(\mathcal{E})$ | 返回 $\mathcal{E}$ 中的最小 epoch | 2.2 |
-| $succ(e)$ | 返回 epoch $e$ 的后继 | 3.8 |
-| $only(V)$ | 返回单元素集合 $V$ 中唯一的元素 | 6.1 |
+| 记号                                | 说明                                        | 首次使用 |
+| ----------------------------------- | ------------------------------------------- | -------- |
+| $u_1, u_2, \dots$                   | 参与者                                      | 2.1      |
+| $a_1, a_2, \dots / p_1, p_2, \dots$ | 具体的 acceptor/proposer                    | 2.1      |
+| $n/n_a/n_p$                         | 参与者/acceptor/proposer 的数量             | 2.1      |
+| $v, w, x, \dots$                    | 值                                          | 2.1      |
+| $v_1, v_2, \dots$                   | 值序列                                      | 2.1      |
+| $a, a', \dots / p, p', \dots$       | acceptor/proposer                           | 2.1.1    |
+| $A, B, C \dots$                     | 具体的值                                    | 2.1.1    |
+| $\gamma, \gamma'$                   | 候选值                                      | 2.1.1    |
+| $v_{acc}$                           | 最近接受的值                                | 2.1.1    |
+| $e, f, g, \dots$                    | epoch                                       | 2.2      |
+| $(e, v)$                            | epoch 为 $e$、值为 $v$ 的提案               | 2.2      |
+| $e_{min}/e_{max}$                   | 最小/最大 epoch                             | 2.2      |
+| $e_{pro}/e_{acc}$                   | 最近承诺/接受的 epoch                       | 2.2      |
+| $v_{dec}$                           | 已决定值                                    | 3.3      |
+| $pid/sid/vid$                       | proposer ID/序列 ID/版本 ID                 | 3.8      |
+| $p_{lst}$                           | 最近的 proposer                             | 3.9      |
+| $U/A/P$                             | 参与者/acceptor/proposer 集合               | 2.1      |
+| $V$                                 | 值集合                                      | 2.1      |
+| $E$                                 | epoch 集合                                  | 2.2      |
+| $\mathcal{E}$                       | 未使用的 epoch 集合                         | 2.2      |
+| $Q_P/Q_A$                           | 已承诺/已接受的 acceptor 集合               | 2.2      |
+| $Q_V$                               | 以 $e_{max}$ 作出承诺的 acceptor 集合       | 3.2      |
+| $\Gamma$                            | 候选值集合                                  | 2.2      |
+| $Q, Q', \dots$                      | 法定人数（acceptor 集合）                   | 3.11     |
+| $\mathcal{Q}, \mathcal{Q}', \dots$  | 法定人数集合                                | 3.11     |
+| $\mathcal{Q}_i^e$                   | 阶段 $i$、epoch $e$ 的法定人数集合          | 4.1      |
+| $V_{dec}$                           | 可能已被决定的值的集合                      | 6.1      |
+| $R$                                 | 从 acceptor 到承诺、$no$ 或 $(e, v)$ 的映射 | 6.1      |
+| $D$                                 | 从法定人数到决定的映射                      | 6.1      |
+| $min(\mathcal{E})$                  | 返回 $\mathcal{E}$ 中的最小 epoch           | 2.2      |
+| $succ(e)$                           | 返回 epoch $e$ 的后继                       | 3.8      |
+| $only(V)$                           | 返回单元素集合 $V$ 中唯一的元素             | 6.1      |
 
 > 表 2.1：记号速查表。
 
@@ -978,26 +977,26 @@ $E$ 是任意无限全序集，
 #### 经典 Paxos 阶段一
 
 1. proposer 选择一个唯一的 epoch $e$，
-并向各 acceptor 发送 $prepare(e)$。
+   并向各 acceptor 发送 $prepare(e)$。
 
 2. 每个 acceptor 存储最近承诺的 epoch 和最近接受的提案。
-acceptor 收到 $prepare(e)$ 时，
-如果 $e$ 是它承诺的第一个 epoch，
-或者 $e$ 大于或等于最近承诺的 epoch，
-就把 $e$ 写入存储，
-并回复 $promise(e,f,v)$。
-其中 $(f,v)$ 是最近接受的提案（如果存在），
-$f$ 是 epoch，
-$v$ 是相应的提案值。
+   acceptor 收到 $prepare(e)$ 时，
+   如果 $e$ 是它承诺的第一个 epoch，
+   或者 $e$ 大于或等于最近承诺的 epoch，
+   就把 $e$ 写入存储，
+   并回复 $promise(e,f,v)$。
+   其中 $(f,v)$ 是最近接受的提案（如果存在），
+   $f$ 是 epoch，
+   $v$ 是相应的提案值。
 
 3. 一旦 proposer 从多数派 acceptor 收到 $promise(e,_,_-)$，
-就进入阶段二。
-承诺中可以包含最近接受的提案，
-供下一阶段使用。
+   就进入阶段二。
+   承诺中可以包含最近接受的提案，
+   供下一阶段使用。
 
 4. 否则，
-如果 proposer 超时，
-就用更大的 epoch 重试。
+   如果 proposer 超时，
+   就用更大的 epoch 重试。
 
 #### 经典 Paxos 阶段二
 
@@ -1015,24 +1014,24 @@ $v$ 是相应的提案值。
    随后 proposer 向各 acceptor 发送 $propose(e,v)$。
 
 2. 每个 acceptor 收到 $propose(e,v)$。
-如果 $e$ 是它承诺的第一个 epoch，
-或者 $e$ 大于或等于最近承诺的 epoch，
-就更新承诺的 epoch 和接受的提案，
-并回复 $accept(e)$。
+   如果 $e$ 是它承诺的第一个 epoch，
+   或者 $e$ 大于或等于最近承诺的 epoch，
+   就更新承诺的 epoch 和接受的提案，
+   并回复 $accept(e)$。
 
 3. 一旦 proposer 从多数派 acceptor 收到 $accept(e)$，
-它就获知值 $v$ 已被决定。
+   它就获知值 $v$ 已被决定。
 
 4. 否则，
-如果 proposer 超时，
-就用更大的 epoch 重试阶段一。
+   如果 proposer 超时，
+   就用更大的 epoch 重试阶段一。
 
-|  | 消息 | 说明 | 发送方 | 接收方 |
-| --- | --- | --- | --- | --- |
-| 阶段一 | prepare(e) | e：epoch | proposer | acceptor |
+|        | 消息           | 说明                                                            | 发送方   | 接收方   |
+| ------ | -------------- | --------------------------------------------------------------- | -------- | -------- |
+| 阶段一 | prepare(e)     | e：epoch                                                        | proposer | acceptor |
 | 阶段一 | promise(e,f,v) | e：epoch；f：最近接受的 epoch*；v：最近接受的值*（*可能为 nil） | acceptor | proposer |
-| 阶段二 | propose(e,v) | e：epoch；v：提案值 | proposer | acceptor |
-| 阶段二 | accept(e) | e：epoch | acceptor | proposer |
+| 阶段二 | propose(e,v)   | e：epoch；v：提案值                                             | proposer | acceptor |
+| 阶段二 | accept(e)      | e：epoch                                                        | acceptor | proposer |
 
 > 表 2.2：经典 Paxos 中交换的消息。
 
@@ -1184,7 +1183,7 @@ acceptor 就把 $e_{acc}$ 和 $v_{acc}$ 设为提案 $(e,v)$（算法 4 第 10 �
 这个定义并不要求该提案仍是多数派 acceptor 上最近接受的提案。
 如果存在 epoch $e \in E$ 使得提案 $(e, v)$ 已被决定，
 则称值 $v \in V$ 已被决定。
-这也可以表述为值 $v$ 在 $e$ 中被*决定*。
+这也可以表述为值 $v$ 在 $e$ 中被_决定_。
 *提交点*是某个提案首次被决定的时刻。
 
 ## 2.3 示例
@@ -1684,20 +1683,20 @@ $p$ 必定从多数派 acceptor 收到了某个 epoch $e$ 的 $accept(e)$（性�
 根据定义，
 值 $v$ 已被决定（性质 9）。
 
-| 结论 | 用到的性质 | 用到的其他结论 |
-| --- | --- | --- |
-| 承诺的单调性（6） | 6, 7, 10 | |
-| acceptor 各 epoch 之间的关系（7） | 8, 10 | 6 |
-| 承诺的一般形式（8） | 8 | 7 |
-| 值的唯一性（9） | 1 | |
-| 消息定序（10） | 6, 7, 8, 9 | 6 |
-| 法定人数交集（11） | 2 | |
-| 弱化的未来提案安全性（12） | 4, 7, 9 | 11, 8, 10, 6 |
-| 未来提案安全性的基础情形（12.1） | | 9, 12 |
-| 未来提案安全性的归纳情形（12.2） | | 9, 12 |
-| 未来提案的安全性（13） | | 12.1, 12.2 |
-| 经典 Paxos 的安全性（14） | | 9, 13 |
-| 获知的安全性（15） | 1, 3, 9 | |
+| 结论                              | 用到的性质 | 用到的其他结论 |
+| --------------------------------- | ---------- | -------------- |
+| 承诺的单调性（6）                 | 6, 7, 10   |                |
+| acceptor 各 epoch 之间的关系（7） | 8, 10      | 6              |
+| 承诺的一般形式（8）               | 8          | 7              |
+| 值的唯一性（9）                   | 1          |                |
+| 消息定序（10）                    | 6, 7, 8, 9 | 6              |
+| 法定人数交集（11）                | 2          |                |
+| 弱化的未来提案安全性（12）        | 4, 7, 9    | 11, 8, 10, 6   |
+| 未来提案安全性的基础情形（12.1）  |            | 9, 12          |
+| 未来提案安全性的归纳情形（12.2）  |            | 9, 12          |
+| 未来提案的安全性（13）            |            | 12.1, 12.2     |
+| 经典 Paxos 的安全性（14）         |            | 9, 13          |
+| 获知的安全性（15）                | 1, 3, 9    |                |
 
 > 表 2.3：在经典 Paxos 安全性证明中对算法性质的使用。
 
@@ -1733,12 +1732,12 @@ FLP 结果 [FLP85] 已经证明了这一点。
 以下*活性条件*必须在足够长的时间内成立：
 
 - 至少多数派 acceptor 在线，
-并在已知上界 $\delta_a$ 内回复 proposer 的消息，
-如果算法要求回复的话[^ch2-16]。
+  并在已知上界 $\delta_a$ 内回复 proposer 的消息，
+  如果算法要求回复的话[^ch2-16]。
 
 - 恰好一个（固定的）proposer 在线，
-其相对时钟最多比全局时间快 $\delta_d$。
-我们假定来自其他 proposer 的消息都不会被送达[^ch2-17]。
+  其相对时钟最多比全局时间快 $\delta_d$。
+  我们假定来自其他 proposer 的消息都不会被送达[^ch2-17]。
 
 - proposer 与多数派 acceptor 之间的消息在已知上界 $\delta_m$ 内送达。
 
@@ -1848,16 +1847,16 @@ SAA 要求唯一的 acceptor 在线，
 如果不对系统的活性和/或同步性作出假设，
 就无法保证进展。
 
-|  | SAA | 经典 Paxos |
-| --- | --- | --- |
-| acceptor 数量 | 1 | $n_a$ |
-| 进展条件： | | |
-| 在线 proposer 数量 | 1 个或更多 | 恰好 1 个 |
+|                    | SAA          | 经典 Paxos                           |
+| ------------------ | ------------ | ------------------------------------ |
+| acceptor 数量      | 1            | $n_a$                                |
+| 进展条件：         |              |                                      |
+| 在线 proposer 数量 | 1 个或更多   | 恰好 1 个                            |
 | 在线 acceptor 数量 | 全部（1 个） | $\lfloor n_a/2 \rfloor + 1$ 个或更多 |
-| 同步性 | 否 | 是 |
-| 消息数量 | 2 | $2n_a + 2$ 或更多 |
-| 往返次数 | 1 | 2 次或更多 |
-| 持久写入次数 | 1 | 3 次或更多 |
+| 同步性             | 否           | 是                                   |
+| 消息数量           | 2            | $2n_a + 2$ 或更多                    |
+| 往返次数           | 1            | 2 次或更多                           |
+| 持久写入次数       | 1            | 3 次或更多                           |
 
 > 表 2.4：SAA 与经典 Paxos 的比较。
 
@@ -1989,7 +1988,6 @@ acceptor 还可以在否定响应中附带更多信息，
 23             ℰ ← {n ∈ ℰ | n > f}
 24             goto line 1
 25 return v
-
 ```
 
 算法 5 和算法 6 给出了这种方法在实践中的一个示例。
@@ -2020,7 +2018,6 @@ $no\text{-}accept(e,f)$，
 14         else
             /* e < e_pro，回复 NACK */
 15             send no-accept(e, e_pro) to proposer
-
 ```
 
 图 3.1 给出了算法 5 和算法 6 在实践中的一个示例。
@@ -2152,7 +2149,6 @@ state：
 29         case timeout
 30             goto line 1
 31     return v
-
 ```
 
 我们可以用以下技术提高阶段二绕过的可能性：
@@ -2273,7 +2269,6 @@ state：
 16         case decided(v) received from proposer
             /* 保存已决定值 */
 17             v_dec ← v
-
 ```
 
 算法 9 为 acceptor 增加了*已决定值*状态 $v_{dec}$。
@@ -2329,7 +2324,7 @@ acceptor 一旦得知某个提案已被决定，
 使我们的进展证明（2.7 节）假设恰好只有一个 proposer 在执行经典 Paxos。
 
 在实践中，
-算法可以指定一个 proposer 为*指定 proposer*，
+算法可以指定一个 proposer 为_指定 proposer_，
 从而尽量减少 proposer 决斗的可能性。
 通过修改非指定 proposer 的 proposer 算法，
 把候选值转发给这个 proposer，
@@ -2744,7 +2739,7 @@ $Q \in \mathcal{P}(A) \setminus \emptyset$。*
 **定义 7。** 法定人数集合 $\mathcal{Q}$ 是法定人数的非空集合，
 $\mathcal{Q} \subseteq \mathcal{P}(A) \setminus \emptyset$。
 
-到目前为止描述的经典 Paxos 使用*严格多数派法定人数*。
+到目前为止描述的经典 Paxos 使用_严格多数派法定人数_。
 形式化地，
 我们把法定人数集合定义如下：
 
@@ -3132,7 +3127,6 @@ state:
 21         case timeout
 22             goto line 1
 23 return v
-
 ```
 
 由表 2.3 可知，
@@ -3238,7 +3232,7 @@ $$ \forall Q\in\mathcal{Q}_{1}^{e},\forall f\in E,\forall Q^{\prime}\in\mathcal{
 同样，
 一个 epoch 的阶段一法定人数也不必与所有更大 epoch 的阶段二法定人数相交。
 
-这一新修订的法定人数交集要求称为*修订 B 的法定人数交集要求*，
+这一新修订的法定人数交集要求称为_修订 B 的法定人数交集要求_，
 对每个 epoch $e$ 可表述为：
 
 $$ \forall Q\in\mathcal{Q}_{1}^{e},\forall f\in E:f<e\implies\forall Q^{\prime}\in\mathcal{Q}_{2}^{f}:Q\cap Q^{\prime}\neq\emptyset $$
@@ -3475,11 +3469,11 @@ All aboard Paxos 的主要局限是必须所有参与者都在线才能保证进
 $k$ 可以取任何大于或等于 1 的值。
 表 4.1 第三列给出了一组阶段二法定人数的示例。
 
-| | 阶段一法定人数，$\mathcal{Q}_1^e =$ | 阶段二法定人数，$\mathcal{Q}_2^e =$ |
-| --- | --- | --- |
-| $e = 0$ | ${{}}$ | ${{a_1, a_2, a_3}}$ |
-| $e \in [1, k]$ | ${{a_1}, {a_2}, {a_3}}$ | ${{a_1, a_2, a_3}}$ |
-| $e = k + 1$ | ${{a_1}, {a_2}, {a_3}}$ | ${{a_1, a_2}, {a_2, a_3}, {a_1, a_3}}$ |
+|                         | 阶段一法定人数，$\mathcal{Q}_1^e =$    | 阶段二法定人数，$\mathcal{Q}_2^e =$    |
+| ----------------------- | -------------------------------------- | -------------------------------------- |
+| $e = 0$                 | ${{}}$                                 | ${{a_1, a_2, a_3}}$                    |
+| $e \in [1, k]$          | ${{a_1}, {a_2}, {a_3}}$                | ${{a_1, a_2, a_3}}$                    |
+| $e = k + 1$             | ${{a_1}, {a_2}, {a_3}}$                | ${{a_1, a_2}, {a_2, a_3}, {a_1, a_3}}$ |
 | $e \in [k + 2, \infty]$ | ${{a_1, a_2}, {a_2, a_3}, {a_1, a_3}}$ | ${{a_1, a_2}, {a_2, a_3}, {a_1, a_3}}$ |
 
 > 表 4.1：
@@ -3654,10 +3648,10 @@ $$ \forall Q,Q^{\prime}\in\mathcal{Q}_{1}^{e}:Q\cap Q^{\prime}\neq\emptyset $$
 的阶段二法定人数都收到一个承诺，
 即可完成阶段一。
 
-| 经典 Paxos | $\exists Q \in \mathcal{Q} : Q_P \cap Q = \emptyset$ |
-| --- | --- |
-| 修订 A | $\exists Q \in \mathcal{Q}_2 : Q_P \cap Q = \emptyset$ |
-| 修订 B | $\exists f \in E : f   < e \land \exists Q \in \mathcal{Q}_2^f : Q_P \cap Q = \emptyset$ |
+| 经典 Paxos | $\exists Q \in \mathcal{Q} : Q_P \cap Q = \emptyset$                                     |
+| ---------- | ---------------------------------------------------------------------------------------- |
+| 修订 A     | $\exists Q \in \mathcal{Q}_2 : Q_P \cap Q = \emptyset$                                   |
+| 修订 B     | $\exists f \in E : f   < e \land \exists Q \in \mathcal{Q}_2^f : Q_P \cap Q = \emptyset$ |
 
 > 表 4.2：阶段一 while 条件的几种替代形式。
 
@@ -3714,7 +3708,7 @@ $$ \forall Q\in\mathcal{Q}_{1}^{e},\forall g\in E:f<g<e\implies\forall Q^{\prime
 
 （5.1）
 
-这称为*修订 C 法定人数交集要求*。
+这称为_修订 C 法定人数交集要求_。
 
 回想一下，
 Paxos 阶段一的目的有二：
@@ -3763,7 +3757,6 @@ $e$ 的 proposer 本质上可以复用 $f$ 的 proposer 成功执行过的那次
 21         case timeout
 22             goto line 1
 23 return v
-
 ```
 
 ## 5.3 安全性
@@ -3915,7 +3908,7 @@ proposer 可以利用法定人数交集的传递性，
 阶段一完成后，
 只要 $v$ 不是 nil 就提出 $v$，
 否则提出 proposer 自己的候选值。
-此后我们把这种方法称为*经典值选择*。
+此后我们把这种方法称为_经典值选择_。
 
 然而，
 本章将利用 proposer 从每个承诺中获得的额外信息，
@@ -4063,7 +4056,6 @@ state:
             /* 法定人数返回的所有提案都是同一个值，因此该值可能已被决定 */
 9             D[Q] ← only({w ∈ V | ∃a ∈ Q : R[a] = (_, w)})
 10     return {w ∈ V | ∃Q ∈ 𝒬_2 : D[Q] = w}
-
 ```
 
 算法 18 第 5—7 行利用了引理 20：
@@ -4472,7 +4464,6 @@ proposer 可以自由提出任意值。
 24         case timeout
 25             goto line 1
 26 return v
-
 ```
 
 算法 19 和 20 给出了适用于 Paxos 修订 B 和 C 的、基于法定人数的值选择实现。
@@ -4512,7 +4503,6 @@ state:
 15         return V
 16     else
 17         return {v ∈ V | ∃f ∈ E, ∃Q ∈ 𝒬_2^f : f < e ∧ D[Q] = v}
-
 ```
 
 ### 6.2.1 安全性
@@ -4948,7 +4938,6 @@ state:
 30         case timeout
 31             goto line 1
 32 return e mod 2
-
 ```
 
 ![图 7.1：二元共识的 Paxos](../raw/distributed-consensus-revised-2019/images/figure-0019.png)
@@ -4978,7 +4967,7 @@ state:
 即引理 9 的技术。
 但在本节中，
 我们将考虑如何取消值对 epoch 必须唯一这一要求。
-我们的方法称为*经恢复分配的 epoch*，
+我们的方法称为_经恢复分配的 epoch_，
 它允许 proposer 使用任意 epoch，
 同时增加相应机制，
 以便在同一个 epoch 被提议了多个值时进行恢复。
@@ -5018,7 +5007,7 @@ acceptor 不能用相同 epoch 覆盖已接受的值。
 
 **问题 3：**再次，
 到目前为止描述的方法可能进入一种在通常活性条件下无法取得进展的状态。
-我们称之为*值冲突*。
+我们称之为_值冲突_。
 
 回忆一下，
 Paxos 的值选择规则要求 proposer 选定阶段一中收到的最高 epoch 所关联的值。
@@ -5188,7 +5177,6 @@ state:
             /* 该法定人数返回的提案都属于同一个值，因此该值可能被决定 */
 12             D[Q] ← only({w ∈ V | ∃a ∈ Q : R[a] = (_, w)})
 13     return {w ∈ V | ∃Q ∈ 𝒬_2 : D[Q] = w}
-
 ```
 
 ### 7.3.3 安全性
@@ -5490,7 +5478,7 @@ epoch $e$ 中的所有阶段二法定人数保证在 $Q^e$ 的所有 acceptor �
 我们经恢复分配 epoch 的算法，
 即算法 25，
 与法定人数系统无关。
-本节把该算法特化到*计数法定人数*：
+本节把该算法特化到_计数法定人数_：
 任意 $k$ 个或更多 acceptor 组成的集合都是阶段二法定人数。
 算法 29 给出了 proposer 算法的伪代码。
 acceptor 算法保持不变。
@@ -5552,7 +5540,6 @@ state:
 23         case timeout
 24             goto line 1
 25 return v
-
 ```
 
 最坏情况下，
@@ -5603,7 +5590,6 @@ state:
 29         case timeout
 30             goto line 1
 31 return v
-
 ```
 
 | $n_a$ | $k$ | $|Q_P|$ |
@@ -5726,13 +5712,13 @@ proposer $p_2$ 收到 acceptor $a_1$ 随承诺返回的提案 $(0, A)$。
 
 ## 7.4 混合 epoch 分配
 
-| epoch 分配方法 | epoch 对值唯一 | epoch 对 proposer 唯一 | 需要指定 epoch |
-| --- | --- | --- | --- |
-| 预先分配 | 是 | 是 | 是，指定给 proposer |
-| 投票 | 是 | 是 | 否 |
-| 分配器 | 是 | 是与否[^ch7-12] | 否 |
-| 按值分配 | 是 | 否 | 是，指定给值 |
-| 恢复分配 | 否 | 否 | 否 |
+| epoch 分配方法 | epoch 对值唯一 | epoch 对 proposer 唯一 | 需要指定 epoch      |
+| -------------- | -------------- | ---------------------- | ------------------- |
+| 预先分配       | 是             | 是                     | 是，指定给 proposer |
+| 投票           | 是             | 是                     | 否                  |
+| 分配器         | 是             | 是与否[^ch7-12]        | 否                  |
+| 按值分配       | 是             | 否                     | 是，指定给值        |
+| 恢复分配       | 否             | 否                     | 否                  |
 
 > 表 7.2：epoch 分配的各种方法。
 

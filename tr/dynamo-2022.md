@@ -238,12 +238,12 @@ SimpleDB API 无法实现消除 SimpleDB 局限、提供性能可预测的可扩
 Amazon DynamoDB 汇聚了我们为 Amazon.com 构建大规模非关系数据库所获得的全部经验，
 并基于我们在 AWS 构建高度可扩展且可靠的云计算服务的经验持续演进。
 
-| 操作 | 说明 |
-| --- | --- |
-| `PutItem` | 插入新 item，或用新 item 替换旧 item。 |
+| 操作         | 说明                                                     |
+| ------------ | -------------------------------------------------------- |
+| `PutItem`    | 插入新 item，或用新 item 替换旧 item。                   |
 | `UpdateItem` | 更新现有 item；如果 item 尚不存在，则向表中添加新 item。 |
-| `DeleteItem` | 根据 primary key 从表中删除单个 item。 |
-| `GetItem` | 返回具有指定 primary key 的 item 的一组 attribute。 |
+| `DeleteItem` | 根据 primary key 从表中删除单个 item。                   |
+| `GetItem`    | 返回具有指定 primary key 的 item 的一组 attribute。      |
 
 > 表 1：DynamoDB 用于 item 的 create、read、update、delete（CRUD）API。
 
