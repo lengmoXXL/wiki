@@ -365,6 +365,7 @@ p code, li code, td code, blockquote code {
   padding: 0.15em 0.4em;
 }
 .highlight {
+  background: var(--code-bg);
   border-radius: 12px;
   border: 1px solid var(--border);
   overflow: hidden;
@@ -514,13 +515,14 @@ def build() -> None:
         shutil.rmtree(DIST_DIR)
     DIST_DIR.mkdir()
 
-    pygments_light = HtmlFormatter(style="default").get_style_defs(".highlight")
-    dark_system = HtmlFormatter(style="monokai").get_style_defs(
-        ':root:not([data-theme="light"]) .highlight'
-    )
-    dark_forced = HtmlFormatter(style="monokai").get_style_defs(
-        '[data-theme="dark"] .highlight'
-    )
+    def style_defs(style: str, selector: str) -> str:
+        defs = HtmlFormatter(style=style).get_style_defs(selector)
+        # 代码块容器底色统一由模板的 --code-bg 控制，去掉主题自带的背景
+        return re.sub(r"\{ background: [^;}]+; ", "{ ", defs)
+
+    pygments_light = style_defs("default", ".highlight")
+    dark_system = style_defs("github-dark", ':root:not([data-theme="light"]) .highlight')
+    dark_forced = style_defs("github-dark", '[data-theme="dark"] .highlight')
 
     entries = []
     for md_path in sorted(TR_DIR.glob("*.md")):
