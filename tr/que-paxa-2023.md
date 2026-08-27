@@ -1,6 +1,6 @@
 # QuePaxa: Escaping the Tyranny of Timeouts in Consensus
 
-Pasindu Tennage\*¹、Cristina Băiescu\*¹、Ewa Syta²、 Lefteris Kokoris-Kogias³、
+Pasindu Tennage\*¹、Cristina Băiescu\*¹、Ewa Syta²、Lefteris Kokoris-Kogias³、
 Vero Estrada-Galiñanes¹ 和 Bryan Ford¹
 
 ¹ EPFL　² Trinity College　³ ISTA and Mysten Labs
@@ -176,7 +176,7 @@ Rabia [66] 是一种随机化 crash 容错 SMR 协议， 它以 Ben-Or 的二元
 个可能故障， 即永远保持沉默（故障不是 Byzantine）。
 我们假设副本集合是已知且静态的， 但也可以通过标准实践支持重新配置 [42, 64]。
 提交者将命令发送给所有副本， 因此无论哪些 proposer 提交事务，
-已提交的命令都不会无限期地处于饥饿状态。[^1]
+提交者发出的命令都不会无限期地处于饥饿状态。[^1]
 
 [^1]: 在任何共识协议中，提交者都必须至少向 $f + 1$ 个副本发送命令，因为 $f$
     个副本可能故障。一个降低带宽与负载的标准优化是：提交者先只联系当前
@@ -189,7 +189,7 @@ Rabia [66] 是一种随机化 crash 容错 SMR 协议， 它以 Ben-Or 的二元
 
 ### 3.2 假设与威胁模型
 
-QuePaxa 假设 $n$ 个副本是可信的， 但通信路径却不可信。 特别是在广域网（WAN）中，
+QuePaxa 假设 $n$ 个副本是可信的， 但通信路径却不可信。 特别是在 WAN 中，
 间歇性中断、 高延迟或抖动、 非对称连接等 都可能在实际中破坏通信 [7, 47]。
 网络中的智能对手可能会识别出共识协议流量 （例如借助流量分析模式），
 并试图通过针对性 DoS、 路由劫持 [19] 或其他攻击来拖慢或中止进展。
@@ -261,7 +261,7 @@ proposer "应当"在一个 slot 中（首先）提案。 然而， 两种协议�
 
 > 图 3：共识算法中多个 proposer 之间的破坏性并发与建设性并发。
 
-Paxos 的 **prepare** 阶段的目的， 类似于在多数派 proposer 上占据领地主张； Paxos
+Paxos 的 **prepare** 阶段的目的， 类似于在多数派 proposer 上宣示领地主张； Paxos
 的 **accept** 阶段则本质上是记录一次成功的主张。 然而， 两个相互竞争的 proposer
 会破坏性地相互干扰， 最坏情况下会无限期地阻塞对方的进展。 在图 3a 中， proposer
 B 的 **prepare** 阶段打断了 proposer A 完成（通过 **accept**）一个它已成功
@@ -313,8 +313,8 @@ proposer 在第一个 proposer 完成之前就开始行动， 共识也仍然保
 #### 自动调优
 
 由于 QuePaxa 中 leader 的选择与 hedging 计划 是对活性并不关键的优化参数，
-这些选择构成一种多臂老虎机（multi-armed bandit，MAB）问题 [78]。 因此， QuePaxa
-利用受 MAB 理论启发的简单探索/利用（explore/exploit）过程， 来探索替代方案，
+这些选择构成一种多臂老虎机（MAB）问题 [78]。 因此， QuePaxa 利用受 MAB
+理论启发的简单探索/利用过程， 来探索替代方案，
 并自动调优共识以利用已习得的知识。 与现有协议不同， QuePaxa 因此可以在现任
 leader 尚未故障时， 就主动找到更好的 leader。 QuePaxa
 还消除了配置超时的管理负担， 以及错误配置超时的主要风险。
@@ -463,13 +463,13 @@ universal 集合 $U_i$ 中， 那么每个副本 $i$ 保证在该轮做出决定
 
 具体 QuePaxa 共识协议在本质上模拟了上述抽象协议，
 并以几种方式更真实、更高效地实现它。 如前面 3.3 节所述， 具体 QuePaxa
-协议分离了每个副本的主动与被动角色， 通过 threshold clock 处理网络异步 [28]，
-只传输常数空间的整数摘要而非 proposal 集合， 并加入一个类 Paxos 的 fast path，
-以便在有利的网络条件下、有已知 leader 时实现单轮共识。
+协议分离了每个副本的主动与被动角色， 通过 threshold logical clock 处理网络异步
+[28]， 只传输常数空间的整数摘要而非 proposal 集合， 并加入一个类 Paxos 的 fast
+path， 以便在有利的网络条件下、有已知 leader 时实现单轮共识。
 
 图 5 概览了上述抽象协议中的三次 **tcast** 操作
-如何映射到下文详述的具体协议的四相。 具体实现算法 1 中的第一次 **tcast** 操作
-只需要一个 threshold clock 时间步（阶段 0），
+如何映射到下文详述的具体协议的四个阶段。 具体实现算法 1 中的第一次 **tcast**
+操作 只需要一个 threshold clock 时间步（阶段 0），
 因为这一步只需要每个副本从多数派副本获得 proposals。 具体实现算法 1
 中的第二、三次 **tcast** 操作 各需要两个 threshold clock 步， 使用下文详述的
 *spread/gather* 序列， 将至少一个副本的 **tcast** 输入传播给*所有*存活副本。
@@ -528,7 +528,7 @@ register（ISR）， 它的价值可能超出 QuePaxa 本身。 直观地说， 
 算法 2 以通用、抽象的形式刻画了我们的 ISR 的运行。 ISR 只提供一个操作 record，
 接受两个参数 s、v，返回三个结果 $s'$、$f'$、$a'$。 值 v 关联逻辑时间步 s。
 record 操作首先使用 s 将 ISR 的内部步计数器 S 增加到迄今所见的最大步数，
-并记录在这步提交的第一个值 v。 随后，ISR 使用某个二元组合子 **aggregate**
+并记录在每一步提交的第一个值 v。 随后，ISR 使用某个二元组合子 **aggregate**
 （我们稍后在本节详述） 来汇总每一步内看到的所有值。 如果与 v 关联的步 s 小于 ISR
 的内部步计数器 S， 则说明提供的值 v 已过时，ISR 直接丢弃它。 无论如何， ISR
 都返回其内部步计数器 S、 当前步提交的第一个值，
@@ -628,7 +628,7 @@ recorder 可以将 proposal 简单地视为一个二进制整数。
 消歧。
 
 Proposal 随机化： 每轮的阶段 0（即 $s \bmod 4 = 0$） 实现 proposals
-的优先级排序以及算法 1 中的第一次 tcast。 proposer i 为每个 recorder
+的优先级指派以及算法 1 中的第一次 tcast。 proposer i 为每个 recorder
 选择一个随机优先级， 但基于 leader 的轮次除外（如 4.2.5 节稍后讨论）。 将每个
 proposal $p_j$ 发送给 recorder $j$ 后， proposer $i$ 等待来自多数派 quorum 的
 recorder 以 $(s'_j, f'_j, a'_j)$ 形式回复。 如果该 quorum 中每个 recorder $j$
@@ -680,7 +680,7 @@ recorder $j$ 的前一步聚合 $a'_j$ 中选择最佳值，作为下一共识�
 $p$。 这个 $p$ 对应算法 1 中计算出的下一个候选 $\text{best}(C)$.value， 并定义
 $i$ 在下一轮的偏好值。
 
-#### 4.2.5 快速路径：支持基于 leader 的轮次
+#### 4.2.5 fast path：支持基于 leader 的轮次
 
 具体 QuePaxa 协议既可以实现无 leader 的异步共识， 也可以实现高效的基于 leader
 的共识。 每轮开始时， 所有 proposer 必须已经就本轮由哪个 proposer（如果有）担任
@@ -727,11 +727,11 @@ Hedging 是一种同时在不同节点上冗余启动操作的做法，
 是首个将这一概念应用于共识协议的工作。
 
 超时与 hedging 延迟之间存在根本区别。 超时用于追溯式地检测可能已经发生的故障，
-其依据是观察不到正常的进展。 超时通常会启动异常情形下的恢复流程， 如视图切换；
-若视图切换触发过早， 会干扰正常进展。 相比之下， hedging
+其依据是观察不到正常情形下的进展。 超时通常会启动异常情形下的恢复流程，
+如视图切换； 若视图切换触发过早， 会干扰正常情形下的进展。 相比之下， hedging
 启动的是不产生干扰的并行工作， 从而主动限制长延迟的风险。 即使没有发生任何故障，
 hedging 也是安全且常常有用的。 超时永远无法被合理地配置为零，
-因为那样不会给正常进展留出时间， 会使系统陷入无休止的故障—恢复循环。
+因为那样不会给正常情形下的进展留出时间， 会使系统陷入无休止的故障—恢复循环。
 而当降低长延迟风险带来的收益 能抵消同时进行冗余工作的成本时， 零 hedging
 延迟不仅合理，而且很常见。
 
@@ -769,16 +769,14 @@ $\delta$ 选得过小， 会让过多 proposer 被激活， 退化到异步条�
 选择是一种多臂老虎机问题， 这一术语源自一种赌博机（bandit），
 它有多个拉杆（arms）， 每个拉杆都有各不相同且未知的回报概率 [78]。
 
-QuePaxa 针对这类问题采用了一种众所周知的策略：
-先_探索_（exploring），即尝试各种备选方案；
-再_利用_（exploiting），即应用学到的知识。 QuePaxa 将 SMR 槽位划分为定长的
-*epochs*， 每个 epoch 有一位稳定的 leader。 在前 $2n+1$ 个 epoch 中， QuePaxa
-以轮询（round-robin）方式在 leader 之间轮换， 让每个副本担任两个 epoch 的
-leader。 探索结束后， QuePaxa 利用这些尝试： 它形成并按所有副本观测到的平均
-epoch 完成时间降序排列， 就这样的 hedging schedule 达成一致。 随后 QuePaxa
-继续监控当前 leader 的表现， 每个 epoch 重新计算 hedging schedule，
-但不再主动探索其他 leader， 除非当前 leader 的表现下降到 schedule 中下一个
-leader 之下。[^7]
+QuePaxa 针对这类问题采用了一种众所周知的策略： 先_探索_，即尝试各种备选方案；
+再_利用_，即应用学到的知识。 QuePaxa 将 SMR slot 划分为定长的 *epochs*， 每个
+epoch 有一位稳定的 leader。 在前 $2n+1$ 个 epoch 中， QuePaxa 以轮询方式在
+leader 之间轮换， 让每个副本担任两个 epoch 的 leader。 探索结束后， QuePaxa
+利用这些尝试： 它形成并就一个 hedging schedule 达成一致， 其中副本按观测到的平均
+epoch 完成时间降序排列。 随后 QuePaxa 继续监控当前 leader 的表现， 每个 epoch
+重新计算 hedging schedule， 但不再主动探索其他 leader， 除非当前 leader
+的表现下降到 schedule 中下一个 leader 之下。[^7]
 
 [^7]: 受 restless bandits [90] 启发的改进 可能会周期性地重新探索， 以检测非
     leader 副本中动态的性能提升。
@@ -833,16 +831,20 @@ ID 的 proposal 时， 它首先检查自己是否已收到该批的内容； �
 
 EPaxos 是一种 multi-leader 协议，
 它在依赖关系允许时将命令并行分区到多个共识实例上。 EPaxos
-通过并行性提升吞吐量的首要目标， 与 QuePaxa 的首要目标——稳健性——正交且互补，
-因此它不如 Multi-Paxos 和 Raft 那样是 apples-to-apples 的可比基线，
+通过并行性提升吞吐率的首要目标， 与 QuePaxa 的首要目标——稳健性——正交且互补，
+因此它不像 Multi-Paxos 和 Raft 那样是 apples-to-apples 的可比基线，
 但我们仍在可行时将其纳入，以丰富比较的维度。
 
-| 算法 | 实现 | 代码行数 | 备注 | | Multi-Paxos | 已有 [54] | 2891 | [^8] | |
-EPaxos | 已有 [54] | 4658 | [^8] | | Rabia | 已有 [65] | 4572 | [^8] | |
-Multi-Paxos | 新建 [82] | 2743 | [^8] | | Raft | 新建 [82] | 2802 | [^8] | |
-QuePaxa | 新建 [83] | 4368 | [^8] |
+| 算法        | 实现      | 代码行数 | 备注 |
+| ----------- | --------- | -------- | ---- |
+| Multi-Paxos | 已有 [54] | 2891     |      |
+| EPaxos      | 已有 [54] | 4658     |      |
+| Rabia       | 已有 [65] | 4572     | [^8] |
+| Multi-Paxos | 新建 [82] | 2743     |      |
+| Raft        | 新建 [82] | 2802     |      |
+| QuePaxa     | 新建 [83] | 4368     |      |
 
-> 表 1：SMR 实现的代码行数（[22] 用 CLOC 统计）。
+> 表 1：SMR 实现的代码行数（用 CLOC [22] 统计）。
 
 [^8]: Rabia 实现包含日志压缩，其余实现没有。
 
@@ -914,7 +916,7 @@ EPaxos 将命令分区到多个共识实例上， 这是一项可与 QuePaxa 结
 我们在图 6a 中观察到， Rabia 的中位延迟与 QuePaxa 相当。 然而， 如图 6b 所示，
 在 250k–400k 的吞吐率区间内， 由于 Rabia 中放弃 slot 的成本 [66]， 其尾延迟比
 QuePaxa 高 100ms–300ms。 此外我们观察到， 在 WAN 部署下， Rabia 的吞吐率跌至 10
-cmd/sec 以下 [^8]， 延迟超过 2s。 这种低下的 WAN 性能源于 Rabia 的一个假设：
+cmd/sec 以下， 延迟超过 2s。 这种低下的 WAN 性能源于 Rabia 的一个假设：
 网络延迟与连续请求之间的间隔相比很小 [66, §3.2]。 该条件在 LAN 中成立， 但在 WAN
 中不成立。
 
@@ -1075,12 +1077,12 @@ path、$O(n)$ 的正常情形开销、 hedging 与 leader 选择优化。
 34, 61, 79, 80, 85]。 然而， 这些协议在同步操作下仍然依赖超时来从故障中恢复，
 并且无法达到 QuePaxa 单次往返、$O(n)$ 开销的正常情形效率。
 
-Rabia [66] 是一种随机化崩溃容错 SMR 方案， 以 Ben-Or 的异步共识算法 [14]
+Rabia [66] 是一种随机化 crash 容错 SMR 方案， 以 Ben-Or 的异步共识算法 [14]
 作为组件。 然而， Rabia 专为低延迟、高容量的数据中心网络设计，
 其假设与设计选择限制了它在其他场景中的实用性。 与 QuePaxa 两跳、线性复杂度的
 fast path 相比， Rabia 的 fast path 需要三次网络跳转与平方级消息复杂度。 Rabia
-假设传入请求均被（正确地）打上时间戳， 且“网络延迟与连续请求之间的间隔相比很小”
-[66, §3.2]。 实验中我们发现， Rabia
+假设传入请求均被（正确地）打上时间戳，
+且“消息延迟与两个连续请求之间的间隔相比很小” [66, §3.2]。 实验中我们发现， Rabia
 仅适用于低延迟、高网络容量、且副本数较少（n=3 或 5）的局域网， 如第 7
 节与先前的报告 [85] 所述。 附录 E 提供了与 Rabia 的深入比较。
 
@@ -1093,7 +1095,7 @@ fast path 相比， Rabia 的 fast path 需要三次网络跳转与平方级消�
 **自动调优：** 大多数共识协议包含许多可调参数： 例如 leader
 超时、批大小、批处理时间、流水线长度、垃圾回收频率。 Couceiro 等人 [20]
 使用机器学习预测全序广播协议的性能。 Paolo 等人 [74]
-运用多臂老虎机理论调优共识协议中的批次处理。 QuePaxa 专注于调优 leader 选择与
+运用多臂老虎机理论调优共识协议中的批处理。 QuePaxa 专注于调优 leader 选择与
 hedging schedule， 因此与先前工作互补。 当然，
 多臂老虎机理论也已被用于共识之外的许多领域 [3, 21, 45, 48, 91]。
 
@@ -1611,8 +1613,8 @@ $\log_2 n$ 比特的熵， 算法就能保持相当高的恒定成功概率。
 例如， 假设每个副本以 $1/n$ 的几率选择优先级 2， 否则以 $1 - 1/n$
 的几率选择优先级 1。 （优先级 0 不使用， 优先级 3 保留给 fast-path leader，
 如果有的话。） 那么给定副本 $i$ 做出决定的理想事件发生，
-当且仅当恰好一个副本选择优先级 2、 且该副本的 proposal 出现在 $i$ 的 universal
-集合 $U_i$ 中。 某个特定副本 $j$ 选择唯一那个优先级 2 的 proposal 的事件， 以
+当恰好一个副本选择优先级 2、 且该副本的 proposal 出现在 $i$ 的 universal 集合
+$U_i$ 中时。 某个特定副本 $j$ 选择唯一那个优先级 2 的 proposal 的事件， 以
 $\frac{1}{n}(1-\frac{1}{n})^{n-1}$ 的几率发生。 此外， $U_i$ 中至少有 $n-f> n/2$
 个这样的副本， 从而促成这一理想结果。 由此得到的每轮总成功几率至少为
 $\frac{1}{2}(1-\frac{1}{n})^{n-1}$， 对所有 $n \ge 1$ 而言， 它总是大于
@@ -1631,8 +1633,8 @@ leader 的轮次的 最坏情形成功几率为零， 协议依赖随后的无 l
 因此， QuePaxa 使用 private coin 反而更简单、更高效， 这有些有违传统观念。
 简言之， 这是因为 QuePaxa 用随机性来选择 proposal 优先级，
 而不是像大多数先前异步协议那样 选择回退共识值或唯一 leader。
-本节简要讨论在共识协议中使用 common coin 的主要先例 及这些先例与 QuePaxa
-的关系， 最后简要讨论 common coin 的实现问题。
+本节简要讨论在共识协议中使用 common coin 的主要先例与理由， 以及这些先例与
+QuePaxa 的关系， 最后简要讨论 common coin 的实现问题。
 
 **先例：随机化回退值** Ben-Or 经典的异步二元共识算法 [14]
 使用随机性为副本选择实际达成一致的值， 作为它们对初始输入不一致时的"回退"。
@@ -1699,7 +1701,7 @@ coin 协议 很可能与 private coin 协议同样高效： 甚至可能略高�
 则简单得多。
 
 拜占庭共识协议通常需要 使用 Shamir 秘密共享 [77] 等技术 来构建 common coin，
-因为通常重要的是： 在达到某个阈值数量的副本进入某阶段之前， common coin
+因为通常重要的是： 在某个阈值数量的副本达到某阶段之前， common coin
 的值对所有参与者 （尤其是拜占庭副本）保持隐藏。 这种对秘密共享的依赖，
 反过来又要求某种形式的 用于初始化的分布式密钥生成（DKG）[28, 35]。 对 DKG
 的这种有效依赖 还给拜占庭共识带来了"先有鸡还是先有蛋"的问题： 解决 DKG
@@ -1919,8 +1921,8 @@ $x$，$\exists$ proposer $y$， 使得 $x.\text{step} < y.\text{step}$，
 这是不可能的。
 
 因此 $i$ 追赶到了与 proposer $k$ 相同的状态， 而 proposer $k$
-没有执行任何追赶语句。 此外， 根据我们对网络攻击者与通信模型的假设， 任何
-proposer 的消息投递时序都与 proposer 的身份无关。 我们得出结论： 对 proposer $i$
+没有执行任何追赶语句。 此外， 根据我们对网络对手与通信模型的假设， 任何 proposer
+的消息投递时序都与 proposer 的身份无关。 我们得出结论： 对 proposer $i$
 存在一次合法执行， 例如与 proposer $k$ 相同的执行和消息投递， 使 $i$ 达到状态
 $s'_j, f'_j$。
 
@@ -1953,8 +1955,8 @@ recorder 推进 $S = s_i$ 并存储 $F[S] = p_i$， 即 $F[S]$ 是 recorder 在 
 $p \leftarrow \text{best}(f'_j)$（$\forall r_j \in R$） 代表多数派 proposal
 中的最佳者。 因此 $p$ 与抽象 QuePaxa 中的 $\text{best}(P)$ 相同。
 
-情形 2：至少一个 proposal $r_j \in R$ 的 step 满足 $s'_j \neq s$。 由引理 C.2
-可知 $s'_j \not\lt s$。 当 $s'_j > s$ 时， proposer 落后于某个 recorder，
+情形 2：至少一个回复 $r_j \in R$ 的 step 满足 $s'_j \neq s$。 由引理 C.2 可知
+$s'_j \not\lt s$。 当 $s'_j > s$ 时， proposer 落后于某个 recorder，
 于是执行追赶序列。 引理 C.3 证明： proposer 能正确追赶至 step $s'_j$ 的开头，
 并从 step $s'_j$ 恢复执行。
 
@@ -1970,7 +1972,7 @@ proposer 都 gather 到 $p$， 这对应于 tcast 中的 $p \in B$。
 
 设 proposer $i$ 在所有 recorder 处调用 record$(s, p)$， 然后等待在 $R$
 中收集多数派 recorder 的回复， 其中 $r_j = \langle s'_j, f'_j, a'_j, j \rangle$
-是 recorder $j$ 的回复。 根据回复 recorder 的当前 step，有三种情形。
+是 recorder $j$ 的回复。 根据回复 recorder 的当前 step，有两种情形。
 
 情形 1：所有回复的 recorder ISR step 都等于 proposer 的 step $s$， 即
 $\forall r_j = (s'_j, f'_j, a'_j, j) \in R$，$s'_j = s$。 设 $A = \{$ recorder
@@ -2241,7 +2243,7 @@ Rabia 的 fast path 需要三次网络跳转， 且始终呈现平方级通信�
 Rabia 依靠请求时间戳和上述数据中心延迟假设 来避开这种复杂度。 本质上， Rabia
 假设低延迟的数据中心网络 通常会在副本之间 就"最早（带时间戳的）待处理请求"
 形成天然的多值共识 [66, §3.2]。 随后， 副本使用 Ben-Or 二元共识
-仅仅是为了确认这种基于网络的多值共识 是否已在某个特定的 SMR 决定槽位发生。
+仅仅是为了确认这种基于网络的多值共识 是否已在某个特定的 SMR 决策 slot 发生。
 
 QuePaxa 的设计则根本不同： 它使用随机性来选择 proposal 优先级， 而不是像 Ben-Or
 二元共识那样选择备用的一致值， 也不像许多其他先前协议那样选择随机 leader。
