@@ -2229,10 +2229,10 @@ $\mathcal{Q}_2$， 也可以只提供其中一个法定人数集合， 再按需
 
 回顾以下性质（最初定义于 2.4 节）：
 
-**性质 2。 ** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
+**性质 2。** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
 的承诺后才提出值。*
 
-**性质 3。 ** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
+**性质 3。** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
 的接受后才返回值。*
 
 现在用 Paxos 修订 A 的以下性质替换它们。 其余性质保持不变。
@@ -2367,10 +2367,10 @@ acceptor 算法与算法 4 相比没有变化。 请注意，
 
 回顾以下性质（最初定义于 2.4 节）：
 
-**性质 2。 ** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
+**性质 2。** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
 的承诺后才提出值。*
 
-**性质 3。 ** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
+**性质 3。** *proposer 只有在收到 $\lfloor n_a/2 \rfloor + 1$ 个 acceptor
 的接受后才返回值。*
 
 与之前一样， 我们先重新定义性质 2 和性质 3。 其余性质保持不变。
@@ -2739,7 +2739,7 @@ proposer 本质上可以复用 $f$ 的 proposer 成功执行过的那次阶段�
 
 回忆以下性质（最初在 4.2.2 节定义）：
 
-**性质 13。 ** *proposer 只有在收到 epoch $e$ 的一个阶段一法定人数
+**性质 13。** *proposer 只有在收到 epoch $e$ 的一个阶段一法定人数
 $\mathcal{Q}_1^e$ 中 acceptor 的承诺之后， 才会在 epoch $e$ 中提出值。*
 
 我们将性质 13 修订如下， 其余性质全部保持不变。
@@ -2931,7 +2931,7 @@ state:
 这个计算法定人数决定情况的算法（算法 18 第 2—9 行），
 并不是简单地计算每个法定人数中的最大 epoch 提案， 而是利用了以下两个结论：
 
-**引理 19。 ** 如果 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e, w) = nil$，
+**引理 19。** 如果 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e, w) = nil$，
 那么在小于 $f$ 的 epoch 中， 包含 $a$ 的法定人数没有达成任何决定。
 
 算法 18 第 3—4 行利用了引理 19： 如果法定人数中任一 acceptor 返回了 nil 承诺，
@@ -3076,7 +3076,7 @@ $w$（推论 8.1）。 由于 $Q$ 中所有 acceptor 都接受过 $(e, v)$，
 接下来， 我们将证明基于法定人数的值选择所利用的两个结论（引理 19 与
 20）的正确性。
 
-**引理 19。 ** 如果 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e, w) = nil$，
+**引理 19。** 如果 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e, w) = nil$，
 那么在小于 $f$ 的 epoch 中， 包含 $a$ 的法定人数没有达成任何决定。
 
 引理 19 的证明。 假设 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e,w)=nil$。
@@ -3096,10 +3096,10 @@ $a$ 不可能接受过 epoch 小于等于 $f$ 的任何提案。 因此， 包�
 
 提案要被接受， 必须先被提出， 因此可得：
 
-**推论 20.1。 ** 如果 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e, w) \neq nil$，
+**推论 20.1。** 如果 acceptor $a$ 发送 `promise(f,e,w)` 且 $(e, w) \neq nil$，
 那么如果在小于等于 $e$ 的 epoch 中达成了决定， 选定的值就是 $w$。
 
-**引理 21。 ** 如果两个 acceptor $a_1$ 和 $a_2$ 分别发送 `promise(g,e,w)` 和
+**引理 21。** 如果两个 acceptor $a_1$ 和 $a_2$ 分别发送 `promise(g,e,w)` 和
 `promise(g,f,x)`， 其中 $e < f$ 且 $w \neq x$， 那么在小于等于 $e$ 的 epoch
 中没有达成任何决定。
 

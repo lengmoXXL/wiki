@@ -1,6 +1,6 @@
 # Efficient Memory Management for Large Language Model Serving with PagedAttention
 
-Woosuk Kwon、Zhuohan Li*、Siyuan Zhuang、Ying Sheng、 Lianmin Zheng、Cody Hao
+Woosuk Kwon*、Zhuohan Li*、Siyuan Zhuang、Ying Sheng、 Lianmin Zheng、Cody Hao
 Yu、 Joseph E. Gonzalez、Hao Zhang、Ion Stoica
 
 加州大学伯克利分校、斯坦福大学、独立研究者、加州大学圣地亚哥分校
@@ -334,9 +334,9 @@ KV cache。 借助 PagedAttention， 我们将 KV cache 组织为固定大小的
 
 一个请求的 KV cache 表示为一系列逻辑 KV 块， 随着新 token 及其 KV cache
 的生成从左到右填充。 最后一个 KV 块中未填充的位置为后续生成预留。 在 GPU worker
-上， block engine 分配一块连续的 GPU DRAM， 并将其划分为_物理 KV 块_（在 CPU RAM
+上， block engine 分配一块连续的 GPU DRAM， 并将其划分为*物理 KV 块*（在 CPU RAM
 上也做同样的划分， 用于交换，见 §4.5）。 *KV
-块管理器*还维护_块表_——每个请求的逻辑 KV 块与物理 KV 块之间的映射。
+块管理器*还维护*块表*——每个请求的逻辑 KV 块与物理 KV 块之间的映射。
 每个块表项记录一个逻辑块对应的物理块以及已填充位置的数量。 将逻辑 KV 块与物理 KV
 块分离， 使 vLLM 能够动态增长 KV cache 内存， 而不必事先为所有位置预留，
 从而消除了现有系统中的大部分内存浪费， 如图 2 所示。
@@ -451,7 +451,7 @@ cache 写入物理块 1。
 而这只涉及复制一个块的数据。
 
 **共享前缀。** 通常， LLM 用户会提供一段（很长的）任务描述，
-包括指令以及示例输入和输出， 也称为_系统 prompt_ [36]。
+包括指令以及示例输入和输出， 也称为*系统 prompt* [36]。
 这段描述与实际任务输入拼接， 构成请求的 prompt。 LLM 基于完整的 prompt
 生成输出。 图 10 展示了一个例子。 此外， 共享前缀还可以通过 prompt engineering
 进一步调整， 以提高下游任务的精度 [26, 27]。
@@ -768,7 +768,7 @@ vLLM 同时支持重计算和交换作为恢复机制。 为理解两种方法�
 
 ## 8. 讨论
 
-**将虚拟内存与分页技术应用于其他 GPU 工作负载。 **
+**将虚拟内存与分页技术应用于其他 GPU 工作负载。**
 虚拟内存与分页的思想之所以能有效管理 LLM 服务中的 KV cache，
 是因为该工作负载需要动态内存分配（输出长度无法事先预知）， 且其性能受 GPU
 内存容量限制。 然而， 这一点并非对所有 GPU 工作负载都成立。 例如，在 DNN

@@ -257,9 +257,9 @@ $$ \Gamma_{\mathrm{c o e f f e c t}}\vdash t:T $$
 或需要依赖的服务。
 效应刻画的是程序对世界的影响，而系数刻画的是世界对程序的约束。
 
-**Comonad 系数。 ** 用 comonad 组织依赖上下文的计算这一思想最早由 Uustalu 与
-Vene [32] 提出， 他们提出了对称（半）幺半 comonad，作为 Moggi 效应 monad
-框架的对偶， 用以刻画数据流与属性求值等概念。 Petricek 等人 [18]
+**Comonad 系数。** 用 comonad 组织依赖上下文的计算这一思想最早由 Uustalu 与 Vene
+[32] 提出， 他们提出了对称（半）幺半 comonad，作为 Moggi 效应 monad 框架的对偶，
+用以刻画数据流与属性求值等概念。 Petricek 等人 [18]
 在此基础上提出把系数作为对上下文依赖性的统一静态分析。 comonad
 $(D, \varepsilon, \delta)$ 刻画依赖上下文的计算： $\varepsilon : D(A) \to A$
 从上下文中提取当前值， 而 $\delta : D(A) \to D(D(A))$ 复制上下文以支持嵌套访问。
@@ -329,7 +329,7 @@ $x : X$， 由之诱导的映射 $\gamma \mapsto \mathrm{pr}_1(f(\gamma, x))$ �
 
 为了建模可被撤销的效应， 我们给每个变换 $f$ 配上另一个撤销 $f$ 的变换 $g$， 并称
 $g$ 为 $f$ 的左逆，在本文中一律简称为逆。 撤销是单侧的：逆所承担的是
-$g \circ f$，而绝不是 $f \circ g$。 变换对自身带有一种乘法：
+$g \circ f$，而绝不是 $f \circ g$。 变换对本身带有一种乘法：
 
 **定义 1。** 如下定义上下文变换对的_扭转组合_：
 
@@ -373,7 +373,7 @@ $$ \begin{array}{r l r l r l r l}&{\mathrm{track}_{\Gamma}}&{:}&{(\Gamma\to\Gamm
 用 $f$ 变换 $\gamma$，并把逆 $g$ 复合到 $\varphi$ 上， 从而在上下文中跟踪 $f$
 的效应。
 
-**定理 4。 ** 对每个
+**定理 4。** 对每个
 $(f, g) \in (\Gamma \to \Gamma) \times (\Gamma \to \Gamma)$， 下图可交换，即，
 
 $$ \mathrm{pr}_{1}\circ\mathrm{track}_{\Gamma}(f,g)=f\circ\mathrm{pr}_{1} $$
@@ -390,7 +390,7 @@ $$ \mathrm{pr}_{1}\circ\mathrm{track}_{\Gamma}(f,g)=f\circ\mathrm{pr}_{1} $$
 
 $$ \begin{aligned}{(\operatorname{pr}_{1}\circ\operatorname{track}_{\Gamma}(f,g))(\gamma,\varphi)}&{{}=\operatorname{pr}_{1}(f(\gamma),\varphi\circ g)}\\ {}&{{}=f(\gamma)}\\ {}&{{}=(f\circ\operatorname{pr}_{1})(\gamma,\varphi)}\\ \end{aligned} $$
 
-**定理 5。 ** $\mathrm{track}_{\Gamma}$ 是从 $\mathfrak{T}_{\Gamma}$ 到
+**定理 5。** $\mathrm{track}_{\Gamma}$ 是从 $\mathfrak{T}_{\Gamma}$ 到
 $\partial\Gamma \to \partial\Gamma$ 的幺半群同态。即，
 
 1. $\mathrm{track}_{\Gamma}(\mathrm{id}_{\Gamma}, \mathrm{id}_{\Gamma}) = \mathrm{id}_{\partial\Gamma}$；
@@ -410,7 +410,7 @@ $$ \begin{aligned}{(\operatorname{track}_{\Gamma}(f_{1},g_{1})\circ\operatorname
 
 $\square$
 
-**定义 6。 ** 如下定义 $\partial\Gamma$ 上的变换 $\mathrm{recover}_{\Gamma}$：
+**定义 6。** 如下定义 $\partial\Gamma$ 上的变换 $\mathrm{recover}_{\Gamma}$：
 
 $$ \begin{array}{r c l r c l}{{\mathrm{recover}}_{\Gamma}}&{{:}}&{{\partial\Gamma}}&{{\to}}&{{\partial\Gamma}}\\ {{\mathrm{recover}}_{\Gamma}}&{{=}}&{{(\gamma,\varphi)}}&{{\mapsto}}&{{(\varphi(\gamma),\mathrm{id}_{\Gamma})}}\end{array} $$
 
@@ -428,7 +428,7 @@ $\partial\Gamma$ 之后， recover 如何把上下文恢复到其初始状态：
 该图表明，被跟踪的效应之后接上 recover，会把初始效应上下文带回其自身。
 每个跟踪步骤所保持的，正是恢复本身的结果——无论从哪个状态进行恢复：
 
-**定理 7。 ** 对每个 $(\gamma, \varphi) \in \partial\Gamma$ 以及每个满足
+**定理 7。** 对每个 $(\gamma, \varphi) \in \partial\Gamma$ 以及每个满足
 $g(f(\gamma)) = \gamma$ 的二元组 $(f, g)$，
 
 $$ \mathrm{recover}_{\Gamma}(\mathrm{track}_{\Gamma}(f,g)(\gamma,\varphi))=\mathrm{recover}_{\Gamma}(\gamma,\varphi) $$
@@ -479,7 +479,7 @@ $\partial\Gamma$ 中状态的_健全性不变量_。
 track 的数学性质。 由此得到的类型是效应函数 $\mathfrak{E}_{\Gamma}$
 及其带见证的精化 $\mathfrak{E}_{\Gamma}^{*}$：
 
-**定义 8。 ** 如下定义效应函数 $\mathfrak{E}_{\Gamma}$ 和*带见证的*效应函数
+**定义 8。** 如下定义效应函数 $\mathfrak{E}_{\Gamma}$ 和*带见证的*效应函数
 $\mathfrak{E}_{\Gamma}^{*}$：
 
 $$ \begin{aligned}{\mathfrak{E}_{\Gamma}}&{{}:=\Gamma\to\Gamma\times(\Gamma\to\Gamma)}\\ {\mathfrak{E}_{\Gamma}^{*}}&{{}:=(e:\Gamma\to\Gamma\times(\Gamma\to\Gamma))}\\ {}&{{}\times((\gamma:\Gamma)\to((\delta:\Gamma)\times(g:\Gamma\to\Gamma)\times((\delta,g)=e(\gamma)\to g(\delta)=\gamma)))}\\ \end{aligned} $$
@@ -516,7 +516,7 @@ $$ f \diamond g = \gamma \mapsto \mathrm{let}~(\delta, s) = g(\gamma)~\mathbf{in
 
 (13)
 
-**定理 10。 ** 效应组合把 $\mathfrak{T}_{\Gamma}$ 的幺半群结构传递到
+**定理 10。** 效应组合把 $\mathfrak{T}_{\Gamma}$ 的幺半群结构传递到
 $\mathfrak{E}_{\Gamma}$ 上。即，
 
 1. $(\mathfrak{E}_{\Gamma}, \diamond)$ 是以
@@ -535,7 +535,7 @@ $\mathfrak{E}_{\Gamma}$ 上。即，
 
 $\square$
 
-**定理 11。** *见证在效应组合下保持，且均匀的逆在每个状态都提供见证。*即，
+**定理 11。** *见证在效应组合下保持，且统一的逆在每个状态都提供见证。*即，
 
 1. $\mathfrak{E}_{\Gamma}^{*}$ 是 $\mathfrak{E}_{\Gamma}$ 的子幺半群；
 2. 定理 10 的同态把每个满足 $g \circ f = \mathrm{id}_{\Gamma}$ 的二元组映到
@@ -655,7 +655,7 @@ $\mathrm{recover}_{\Gamma}(g'(\Delta)) = \mathrm{recover}_{\Gamma}(\gamma, \varp
 以与它们被应用顺序相反的次序回退效应，不需要任何额外条件，
 因为此时每个逆遇到的正是它自身应用所产生的状态：
 
-**定理 16。 ** 令 $e_1, \cdots, e_n \in \mathfrak{E}_\Gamma^*$ 从
+**定理 16。** 令 $e_1, \cdots, e_n \in \mathfrak{E}_\Gamma^*$ 从
 $(\gamma_0, \mathrm{id}_\Gamma)$ 起依序应用， 并以相反次序回退。那么
 
 1. 每次回退都恢复它自身应用所针对的上下文状态；
@@ -746,7 +746,7 @@ $g_2$、$f_1$ 与 $g_2$、$g_1$ 与 $f_2$； 条款 (2)
 在独立性之下，逆可以在被后续效应移动过的状态处运行，
 而它在那里所撤销的正是它自身的贡献，别无其他：
 
-**定理 20。 ** 令 $e_1, \cdots, e_n \in \mathfrak{E}_\Gamma^*$ 两两独立， 并从
+**定理 20。** 令 $e_1, \cdots, e_n \in \mathfrak{E}_\Gamma^*$ 两两独立， 并从
 $\gamma_0$ 起依序应用。 记 $f_i := \mathrm{pr}_1 \circ e_i$， 令
 $\delta_i := f_i(\delta_{i-1})$，其中 $\delta_0 := \gamma_0$， 并令
 $g_i := \mathrm{pr}_2(e_i(\delta_{i-1}))$ 为 $e_i$ 在其应用处所产生的逆。 固定
@@ -784,7 +784,7 @@ $e_j$ 在 $\delta_{j-1}$ 处提供的见证。
 (2) 定位了其他效应在那里所持有的逆，
 两者合起来使该定理可以再次应用于更短的序列：
 
-**推论 21。 ** 令 $e_1, \cdots, e_n \in \mathfrak{E}_\Gamma^*$ 两两独立并从
+**推论 21。** 令 $e_1, \cdots, e_n \in \mathfrak{E}_\Gamma^*$ 两两独立并从
 $\gamma_0$ 起依序应用， 且令 $g_1, \cdots, g_n$ 如上。 在 $\delta_n$ 处按
 $\{1, \cdots, n\}$ 的任意置换的次序应用这 $n$ 个逆， 都到达 $\gamma_0$。
 
@@ -795,7 +795,7 @@ $\delta_n$ 处应用 $g_j$ 到达 $\delta'_n$， 即去掉 $e_j$ 的序列所到
 因此归纳假设适用于它以及该置换的其余部分；空序列到达 $\gamma_0$。$\square$
 
 LIFO 次序就是这样一个置换，而定理 16 在无需任何假设的情况下就按该次序回退。
-独立性所换来的是一切其他次序，以及随之而来交错多个组件的序列—— 4.4.2
+独立性所换来的是一切其他次序，以及随之而来的交错多个组件的序列—— 4.4.2
 节把它推广为整个系统的 trace。
 
 这些构造合起来构成_可逆效应_： $\mathfrak{E}_{\Gamma}^{*}$
@@ -860,13 +860,12 @@ $\Sigma \to \text{Maybe}(\Sigma)$，并在 Maybe monad 中组合（2.1 节），
 
 **定义 23。** $\Sigma$ 上的 get 与 set 运算定义如下：
 
-$$ \begin{array}{r c l r c l r c l}&{\mathrm{g e
-t}}&{:}&{\quad(k:K)}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\mathcal{V}*{k}}\\
-&{\mathrm{g e t}}&{=}&{\quad
-k}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}&{\sigma(k)}\\ &{\mathrm{s e
-t}}&{:}&{\quad(k:K)\times\mathcal{V}*{k}}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\Sigma\times(\Sigma\rightarrow\Sigma)}\\
-&{\mathrm{s e
-t}}&{=}&{\quad(k,v)}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}(\sigma[k\mapsto
+$$ \begin{array}{r c l r c l r c
+l}&{\mathrm{get}}&{:}&{\quad(k:K)}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\mathcal{V}_k}\\
+&{\mathrm{get}}&{=}&{\quad
+k}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}&{\sigma(k)}\\
+&{\mathrm{set}}&{:}&{\quad(k:K)\times\mathcal{V}_k}&{\quad}&{\rightarrow}&{\Sigma}&{\rightarrow}&{\quad}&{\Sigma\times(\Sigma\rightarrow\Sigma)}\\
+&{\mathrm{set}}&{=}&{\quad(k,v)}&{\quad}&{\mapsto}&{\sigma}&{\mapsto}&{\quad}(\sigma[k\mapsto
 v],\lambda\sigma^{\prime}.\sigma^{\prime}\setminus k)}\end{array} $$
 
 (21)
@@ -883,7 +882,7 @@ get
 交给组件的只是一个值，而组件能用该值做什么，则取决于该键处系数所提供的全部能力。
 因此，一个键携带的不止是值类型：
 
-**定义 24。 ** 键 $k$ 处的*系数*是一个三元组
+**定义 24。** 键 $k$ 处的*系数*是一个三元组
 $\left(\mathcal{V}_k, \underset{k}{\sim}, \mathcal{A}_k\right)$， 其中
 $\mathcal{V}_k$ 是定义 22 中的值类型， $\underset{k}{\sim}$ 是 $\mathcal{V}_k$
 上的等价关系， 键 $k$ 处的值以该等价关系为准进行比较（3.3.2
@@ -926,7 +925,7 @@ $X_a$，而下一小节的响应式纪律正是把该值固定住，
 系数上下文 $\Sigma$ 带有一种天然的观测结构，使这两个问题都可处理：
 对任意系数规约 $d \subseteq K$，定义满足谓词：
 
-$$ \sigma\nmid d:=\forall k\in d.k\in\mathrm{d o m}(\sigma) $$
+$$ \sigma\vDash d:=\forall k\in d.k\in\mathrm{d o m}(\sigma) $$
 
 (24)
 
@@ -947,10 +946,10 @@ $$ \mathfrak{D}_{\Sigma}:=\operatorname{S e t}(K) $$
 的效应都可以被规约 $d \in \mathfrak{D}_{\Sigma}$ 归类，依据是 $d$
 的满足状态是否发生改变：
 
-**定义 26。 ** 给定系数规约 $d \subseteq K$ 与状态
+**定义 26。** 给定系数规约 $d \subseteq K$ 与状态
 $\sigma, \sigma' \in \Sigma$，定义：
 
-$$ \mathrm{notify}_{d}(\sigma,\sigma^{\prime}):=\begin{cases}{\mathrm{activating}}&{\mathrm{if}\sigma\not\equiv d\wedge\sigma^{\prime}\nmid d}\\ {\mathrm{deactivating}}&{\mathrm{if}\sigma\equiv d\wedge\sigma^{\prime}\not\equiv d}\\ {\mathrm{neutral}}&{\mathrm{otherwise}}\end{cases} $$
+$$ \mathrm{notify}_{d}(\sigma,\sigma^{\prime}):=\begin{cases}{\mathrm{activating}}&{\mathrm{if}\sigma\nvDash d\wedge\sigma^{\prime}\vDash d}\\ {\mathrm{deactivating}}&{\mathrm{if}\sigma\vDash d\wedge\sigma^{\prime}\nvDash d}\\ {\mathrm{neutral}}&{\mathrm{otherwise}}\end{cases} $$
 
 (26)
 
@@ -968,8 +967,8 @@ set 与 notify 一起交付的是局部空间可组合性——此处的“局�
 
 该准则覆盖系数次序的一个方向而非另一个方向。 若组件 A 提供键 k、组件 B 声明
 $k \in d_{B}$， 则 B 只能在 A 已激活并提供了 k 之后才激活， 因为
-$\sigma \nmid d_{B}$ 要求 $k \in \text{dom}(\sigma)$。 逆命题不成立：卸载 A 会从
-$\text{dom}(\sigma)$ 中移除 k，从而破坏 B 的满足， 但一次通知本身既不能把 k
+$\sigma \vDash d_{B}$ 要求 $k \in \text{dom}(\sigma)$。 逆命题不成立：卸载 A
+会从 $\text{dom}(\sigma)$ 中移除 k，从而破坏 B 的满足， 但一次通知本身既不能把 k
 保持可读到 B 自身拆除所需之时，也不能把 A 的恢复拖到 B 完成之后。
 把撤销安排在其引起的停用之后，是对其他组件而非对执行动作的那个组件提出的条件，因此它属于该保证的全局形式，
 4.3.1 节提供所需的机制。
@@ -1055,7 +1054,7 @@ $$ \begin{array}{r l}{\Sigma^{\mathrm{i n t e r}}:=}&{((k:K)\to\mathcal{M}_{k})\
 把每个键 $k$ 映射到一个从元数据 $\mathcal{M}_k$ 到值 $\mathcal{V}_k$
 的提供者函数。 规约 $d \in \mathfrak{D}^{\text{inter}}$ 携带由组件声明的元数据，
 为每个键赋上其元数据 $d(k)$，并以 $\text{dom}(d)$ 作为依赖集合。
-每个键为其元数据配备一个 monoid $(\mathcal{M}_k, \oplus_k, \epsilon_k)$： 合并
+每个键为其元数据配备一个幺半群 $(\mathcal{M}_k, \oplus_k, \epsilon_k)$： 合并
 $\oplus_k$ 是结合的，并以 $\epsilon_k$（空元数据）为单位元。
 
 **定义 31。** $\Sigma^{\text{inter}}$ 上的 get、 set 与 intercept 运算是：
@@ -1152,7 +1151,7 @@ $$ \begin{array}{r c l}{\sigma\simeq\sigma^{\prime}}&{:=}&{\mathrm{d o m}(\sigma
 一个状态中没有键绑定的部分由此被遗忘，而遗忘它正是让定理 7 能够以 $\simeq$
 为准来读取的原因：
 上述例子中的堆布局与生成性名字处于该关系之外，除非有某个键绑定它们。 3.2.2
-节所需 $\simeq$ 的性质是随之而来，而非被假定。 相关状态具有相同的定义域，
+节所需 $\simeq$ 的性质随之而来，而非被假定。 相关状态具有相同的定义域，
 因此它们在满足谓词 $\sigma \vDash d$ 以及定义 26 的归类 notify$_d$ 上一致，
 响应性是 $\Sigma/\simeq$ 的一个性质。
 
@@ -1161,10 +1160,10 @@ $$ \begin{array}{r c l}{\sigma\simeq\sigma^{\prime}}&{:=}&{\mathrm{d o m}(\sigma
 一个值的观测者运行那些运算并读取其结果。
 
 **定义 34。** 设 $V$ 按定义 24 的意义带有一组运算 $\mathcal{A}$， 并用
-$\mathfrak{M}(a)$ 记效应函数 $a(x)$（对每个参数 $x : X_a$） 的变换 monoid（定义
-17）。 $\mathcal{A}$ 上的一个*测试*是 monoid
-$\mathfrak{M}(a), a \in \mathcal{A}$ 的生成元上的一个有限字，
-每个字母作用于其前面字母所留下的值；其*结果*是那些作为运算正向映射的字母沿途产生的结果，而在前置条件失败处无定义。
+$\mathfrak{M}(a)$ 记效应函数 $a(x)$（对每个参数 $x : X_a$） 的变换幺半群（定义
+17）。 $\mathcal{A}$ 上的一个*测试*是幺半群 $\mathfrak{M}(a), a \in \mathcal{A}$
+的生成元上的一个有限字，
+每个字母作用于其前面字母所留下的值；其*结果*是那些作为运算前向映射的字母沿途产生的结果，而在前置条件失败处无定义。
 值 $v, v' : V$ 是*不可区分*的，记作 $v \approx_{\mathcal{A}} v'$， 当
 $\mathcal{A}$
 上的每个测试要么在两者处都有定义、要么在两者处都无定义，并在两者处产生相同的结果。
@@ -1182,10 +1181,10 @@ $\underset{\mathcal{A}_k}{\approx}$， 而 $\underset{\mathcal{A}_k}{\approx}$
 引理 35 的证明。
 
 1. 设 $v \approx v'$，并设 $a \in \mathcal{A}$ 被应用于一个参数。
-   在一个测试前面加一个字母仍是测试，因此正向映射到达的值不可区分，任一产生的逆从不可区分的参数到达的值也不可区分；
+   在一个测试前面加一个字母仍是测试，因此前向映射到达的值不可区分，任一产生的逆从不可区分的参数到达的值也不可区分；
    单字母测试给出两者处都有定义或都无定义以及结果的相等。
 2. 设 R 是这样一个等价且
-   $vRv'$。测试的每个字母要么是一个运算的正向映射，要么是其产生的逆， 而尊重把 R
+   $vRv'$。测试的每个字母要么是一个运算的前向映射，要么是其产生的逆， 而尊重把 R
    沿两者传递，使到达的值在每个字母处都保持相关、结果保持相等。 因此每个测试在 v
    与 $v'$ 处一致。$\square$
 
@@ -1229,7 +1228,7 @@ $\simeq$ 的映射的复合尊重 $\simeq$，基例是 $\mathrm{id}_{\Gamma}$。
 节的证明于是原样成立，尊重正是把关系沿逆传递的东西： 由
 $g_2(\delta_2) \simeq \delta_1$ 与 $g_1(\delta_1) \simeq \gamma$， 尊重给出
 $(g_1 \circ g_2)(\delta_2) \simeq \gamma$， 这正是逆的每次复合所迈出的一步，
-而定理 7 的健全性不变式按这一步读作 $\varphi(\gamma) \simeq \gamma_0$。
+而定理 7 的健全性不变量按这一步读作 $\varphi(\gamma) \simeq \gamma_0$。
 $\square$
 
 定义 19 所要求的交换性由同一个引理以 $\simeq$
@@ -1246,8 +1245,8 @@ $$ \forall x:X_{a},g\in\mathfrak{M}(a^{\prime\Sigma}),\sigma\in\Sigma.\quad\math
 (35)
 
 并且 $a$ 与 $a'$ 交换后同样成立， 其中 $\mathfrak{M}(a^{\Sigma})$ 记提升
-$a^{\Sigma}(x)$（对每个参数） 的变换 monoid，正如定义 34 用 $\mathfrak{M}(a)$
-记运算本身的变换 monoid。 键 $k$ 是交换的，当 $\mathcal{A}_k$
+$a^{\Sigma}(x)$（对每个参数） 的变换幺半群，正如定义 34 用 $\mathfrak{M}(a)$
+记运算本身的变换幺半群。 键 $k$ 是交换的，当 $\mathcal{A}_k$
 中任意两个运算都独立，其中运算也被要求与自身独立。
 
 在不同键之间，该条件直接成立。
@@ -1256,11 +1255,11 @@ $a^{\Sigma}(x)$（对每个参数） 的变换 monoid，正如定义 34 用 $\ma
 
 定理 40 的证明。设 $a$ 在 $\mathcal{A}_k$ 中、 $a'$ 在 $\mathcal{A}_{k'}$ 中，且
 $k \neq k'$。 按定义 24， $\mathfrak{M}(a^\Sigma)$ 的每个生成元都具有形式
-$\sigma \mapsto \sigma[k \mapsto u(\sigma(k))]$， 其中 $u$ 是 $\mathcal{V}_{k'}$
-上的一个映射，它要么是正向映射的提升，要么是所产生逆的提升； $a'$ 在 $k'$
+$\sigma \mapsto \sigma[k \mapsto u(\sigma(k))]$， 其中 $u$ 是 $\mathcal{V}_{k}$
+上的一个映射，它要么是前向映射的提升，要么是所产生逆的提升； $a'$ 在 $k'$
 处同样如此。
 两个这样的映射交换，因为它们各自只读取和写入一个键，而这两个键不同；引理 18(1)
-把交换性从生成元扩展到两个 monoid。 对于第二个条件， $a^\Sigma$ 在 $\sigma$
+把交换性从生成元扩展到两个幺半群。 对于第二个条件， $a^\Sigma$ 在 $\sigma$
 处产生的东西——逆与结果都一样——由 $\sigma(k)$ 决定， 而 $\mathfrak{M}(a'^\Sigma)$
 的每个生成元都让它保持原样。$\square$
 
@@ -1278,7 +1277,7 @@ $\sigma \mapsto \sigma[k \mapsto u(\sigma(k))]$， 其中 $u$ 是 $\mathcal{V}_{
 组件执行的是运算的一个序列，其中每个运算都可能依赖其前面运算所产生的结果，
 而具有这种形状的效应函数正是下面定理所谈论的对象。
 
-**定义 41。 ** 系数中介的效应函数构成最小集合
+**定义 41。** 系数中介的效应函数构成最小集合
 $\mathfrak{E}_{\Sigma}^{A} \subseteq \mathfrak{E}_{\Sigma}$， 它包含单位
 $\eta_{\Sigma}$，并在如下运算下封闭：对键 $k$、 运算 $a \in \mathcal{A}_k$、
 参数 $x : X_a$ 以及一族成员 $(e_b)_{b \in B_a}$，
@@ -1296,21 +1295,21 @@ $$ \sigma\mapsto{\bf l e t}(\delta,s,b)=a^{\Sigma}(x)(\sigma){\bf i n}{\bf l e t
 19）。
 
 定理 42 的证明。按定义 41 的构造归纳， $\mathfrak{M}(e_i)$ 位于 $e_i$
-中出现的运算的生成元所生成的子 monoid 中： 单位生成平凡 monoid，而一个阶段是
+中出现的运算的生成元所生成的子幺半群中： 单位生成平凡幺半群，而一个阶段是
 $a^\Sigma(x)$ 与一个成员的 $\diamond$-复合， 引理 18(2) 适用于此。
 
-因此，对于定义 19 的子句 (1)，按引理 18(1)， 只需证明 $e_1$
+因此，对于定义 19 的条款 (1)，按引理 18(1)， 只需证明 $e_1$
 中出现的运算的一个生成元与 $e_2$ 中出现的运算的一个生成元交换。
 当两个运算位于不同键时，这是定理
 40；当它们位于同一键时，该键承载两者的运算，按假设是交换的。
 
-对于子句 (2)，取 $g \in \mathfrak{M}(e_2)$， 它是 $e_2$
+对于条款 (2)，取 $g \in \mathfrak{M}(e_2)$， 它是 $e_2$
 中出现的运算的生成元的一个复合，并对 $e_1$ 的构造归纳。 单位在每个状态处产生
 $\mathrm{id}_{\Sigma}$。 在一个阶段处， 设
 $(\delta, s, b) = a^{\Sigma}(x)(\sigma)$ 与 $(\varepsilon, t) = e_b(\delta)$，
-于是该阶段在 $\sigma$ 处产生 $s \circ t$。 把运算的独立性一次应用于 $g$
-的一个生成元，在 $g(\sigma)$ 处再次得到 $s$ 与 $b$， 因此选择同一个后继
-$e_b$，而子句 (1) 把它运行所处的状态放在 $g(\delta)$， 在那里归纳假设再次得到
+于是该阶段在 $\sigma$ 处产生 $s \circ t$。 把运算的独立性逐一应用于 $g$
+的每个生成元，在 $g(\sigma)$ 处再次得到 $s$ 与 $b$， 因此选择同一个后继
+$e_b$，而条款 (1) 把它运行所处的状态放在 $g(\delta)$， 在那里归纳假设再次得到
 $t$。 因此该阶段在 $g(\sigma)$ 处产生 $s \circ t$。$\square$
 
 组件与其环境之间的每一次交互都经过上下文，而类型族 $\mathcal{V}$ 不受约束，
@@ -1446,7 +1445,7 @@ $e : \mathfrak{E}_{\Gamma}^{*}$ 是定义 43 的系数规约、提供与效应�
 并随其效应运行而被写入；
 
 • $\tau^{\cdot}$: $\{\bot, \top\}$ 是退役标志，新 fiber 中为 $\bot$，
-一旦编排器令该 fiber 退役即为 $\top$；
+一旦编排者令该 fiber 退役即为 $\top$；
 
 • $\theta : \Theta_{\Gamma}$ 是生命周期状态，在 4.2 节的两状态模型中为
 
@@ -1551,7 +1550,7 @@ $\omega_n$ 是 $n$ 激活时所依据的解析， $\text{target}_n(\gamma)$
 4.3 节放弃全部三者。
 
 五条规则生成两种关系。 *编排*规则以 O- 为前缀、写作
-$\gamma \Rightarrow \delta$，是编排器可执行的动作；
+$\gamma \Rightarrow \delta$，是编排者可执行的动作；
 其前提说的是该动作何时合法，而非何时发生。 *生命周期*规则以 L- 为前缀、写作
 $\gamma \longrightarrow \delta$， 是系统在其前提成立时自发进行的一步。
 一步序列交织二者，下文 $\longrightarrow^*$ 表示仅含生命周期步。
@@ -1562,14 +1561,14 @@ $$ \frac{n\in\operatorname{dom}\big(F_{\gamma}\big)}{\gamma\Rightarrow\gamma[\ta
 
 $$ \frac{\tau_{n}=\top\quad\theta_{n}=\operatorname{Inactive}\quad\forall m.\,\pi_{m}\neq n}{\gamma\Rightarrow\gamma\setminus n}\quad\text{O-Remove} $$
 
-插入与退役是仅有的外部输入： 编排器请求一个 fiber
+插入与退役是仅有的外部输入： 编排者请求一个 fiber
 存在或停止存在，而从不直接设置其生命周期状态。 O-Retire 不依赖 fiber
 的状态，因为退役是一个请求，由生命周期规则来执行。 退役与移除分离出于同样原因：
 一个已退役但仍为 Active 的 fiber 必须先被停用，
 过早移除它会丢弃累加器并造成泄漏。 前提 $\forall m. \pi_m \neq n$
 通过在移除父级之前移除子级来保持树的良构。 O-Insert
 的最后一个前提正是施加单一来源纪律之处：
-一个键只有一个可能的提供者，因为编排器不得接纳声明该键的第二个组件。
+一个键只有一个可能的提供者，因为编排者不得接纳声明该键的第二个组件。
 
 $$ \begin{aligned}{\frac{\theta_{n}=\mathsf{I n a c t i v e}\quad\omega=\mathsf{t a r g e t}_{n}(\gamma)\neq\perp\quad e_{n}(\gamma)=(\delta,g)}{\gamma\longrightarrow\delta[\theta_{n}\mapsto\mathsf{A c t i v e}(g,\omega)]}}&{{}\mathsf{L-R e l o a d}}\\ {\frac{\theta_{n}=\mathsf{A c t i v e}(g,\omega)\quad\mathsf{t a r g e t}_{n}(\gamma)\neq\omega\quad g(\gamma)=\delta}{\gamma\longrightarrow\delta[\theta_{n}\mapsto\mathsf{I n a c t i v e}]}}&{{}\mathsf{L-U n l o a d}}\end{aligned} $$
 
@@ -1594,7 +1593,7 @@ O-Insert 的新鲜性前提约束），并把它交给效应函数。
 的父级无法运行其累加器， 而由于定义 46 不读取 fiber 树，也没有规则会移动该子级。
 O-Retire 仅以 $n \in \text{dom}(F_\gamma)$ 为唯一前提。
 它在注册发生时所处状态留下的条目已退役，为
-$\text{Inactive}(\perp)$，且持有空表， 这正是引理 57 的残余条目： 它与该 fiber
+$\text{Inactive}(\perp)$，且持有空表， 这正是引理 57 的退化条目： 它与该 fiber
 的不存在仅在控制字段上不同，而没有规则能区分二者。
 
 令子级退役会设置 $\tau$，从而把其目标视图带到 $\perp$， 此后普通规则把它带回
@@ -1711,14 +1710,13 @@ $$ \mathrm{r e l i e d}_{n}(\gamma):=\exists m\in\mathrm{d o m}\big(F_{\gamma}\b
 
 (46)
 
-$$ \begin{aligned}{\frac{\theta_{n}=\mathbf{A c t i v e}(g,\omega)\quad\mathrm{t
-a r g e
-t}*{n}(\gamma)\neq\omega}{\gamma\longrightarrow\gamma[\theta*{n}\mapsto\mathbf{U
-n l o a d i n g}(g,\omega,\bot)]}}\mathrm{L-L e a v e}\\
-{\frac{\theta_{n}=\mathbf{U n l o a d i n g}(g,\omega,\zeta)\quad\lnot\mathrm{r
-e l i e d}*{n}(\gamma)\quad
-g(\gamma)=\delta}{\gamma\longrightarrow\delta[\theta*{n}\mapsto\mathbf{I n a c t
-i v e}(\zeta)]}}\mathrm{L-U n l o a d}}\end{aligned} $$
+$$ \begin{aligned}{\frac{\theta_n=\mathbf{A c t i v e}(g,\omega)\quad\mathrm{t a
+r g e
+t}_n(\gamma)\neq\omega}{\gamma\longrightarrow\gamma[\theta_n\mapsto\mathbf{U n l
+o a d i n g}(g,\omega,\bot)]}}\mathrm{L-L e a v e}\\ {\frac{\theta_n=\mathbf{U n
+l o a d i n g}(g,\omega,\zeta)\quad\lnot\mathrm{r e l i e d}_n(\gamma)\quad
+g(\gamma)=\delta}{\gamma\longrightarrow\delta[\theta_n\mapsto\mathbf{I n a c t i
+v e}(\zeta)]}}\mathrm{L-U n l o a d}}\end{aligned} $$
 
 L-Leave 记录停用的决定而不付诸行动， 这使 fiber
 停止提供其系数，同时让它自己的已提交视图与所有其他 fiber 的保持不变。 L-Unload
@@ -1753,7 +1751,7 @@ fiber 取并集： 一旦 L-Leave 标记了 $n$，它的表便离开 $\sigma_\ga
 我们用*效应迭代器*来建模这样的激活，
 其每个迭代产生修改后的上下文、一个逆与一个延续：
 
-**定义 51。 ** 把效应迭代器 $\mathfrak{E}_{\Gamma}^{\mathrm{iter}}$
+**定义 51。** 把效应迭代器 $\mathfrak{E}_{\Gamma}^{\mathrm{iter}}$
 与带见证的效应迭代器 $\mathfrak{E}_{\Gamma}^{\mathrm{iter*}}$
 定义为如下递归类型：
 
@@ -1815,7 +1813,7 @@ $$ \begin{array}{c}\theta_{n}=\mathrm{Inactive}(\perp)\quad\omega=\mathrm{target
 而不是就地应用累加器， 它在那里遇到的守卫是空的， 因为从未 Active 过的 fiber
 不提供任何内容、也不出现在任何已提交视图中。 其两个选项中的第一个_中止_ fiber
 正持有的迭代， 而这只有迭代边界才使之成为可能，
-因此转向可落入的粒度正是迭代器的粒度； 第二个让该迭代落地，4.3.3
+因此转向可落入的粒度正是迭代器的粒度； 第二个让该迭代着陆，4.3.3
 节正是需要它的地方。
 
 普通效应函数（$\mathfrak{E}_\Gamma$）是第一次迭代即已产生 Nothing 的退化情形。
@@ -1826,20 +1824,20 @@ $\text{id}_\Gamma$ 且尚无迭代运行，
 ### 4.3.3 异步性
 
 迄今的各层允许环境在一个迭代与下一个迭代之间移动，
-并假设每个迭代本身瞬时完成，其启动与落地为同一步。 我们抽象地建模非即时性：
+并假设每个迭代本身瞬时完成，其启动与着陆为同一步。 我们抽象地建模非即时性：
 迭代产生类型 $Future(A)$ 的值， 其中 $Future$ 是一个不透明类型构造子，
 其定义性性质是：在提交与解析之间，外部状态可能改变。
 
-在此模型下，一个迭代在一个状态启动、在另一个状态落地， 而 fiber 在其在途期间处于
-Reloading。 这一层所增加的是惯性： 一旦启动，迭代就会落地，且其落地不可拒绝。
+在此模型下，一个迭代在一个状态启动、在另一个状态着陆， 而 fiber 在其在途期间处于
+Reloading。 这一层所增加的是惯性： 一旦启动，迭代就会着陆，且其着陆不可拒绝。
 因此，在飞行期间转向的目标视图不能以中止迭代来回应， L-Divert
-中让迭代落地的那个选项成为唯一可用： 迭代落地，随后 fiber 停用。
+中让迭代着陆的那个选项成为唯一可用： 迭代着陆，随后 fiber 停用。
 因此这一层不增加任何规则、也不增加任何规则所匹配的类型； 在 $\Gamma$
 的粒度上，惯性就是它的全部内容， 其形式是宿主可选取 L-Divert 哪个选项的限制。
 
 该选项正是基础演算无法表达的东西。
 在基础演算中，目标视图已转向的转移在发现它的同一步即被撤销；
-而在此处，在途的迭代必须先落地， 因此 fiber 需要在其逆运行期间有一个容身之处，
+而在此处，在途的迭代必须先着陆， 因此 fiber 需要在其逆运行期间有一个容身之处，
 而唯一可靠之处是持有迭代所产生之逆的 Unloading。 若改经 Active，则会令 fiber
 提供其系数长达一步之久， 并迫使依赖者依据一个已在离开的组件激活。 这正是实现中
 reload 与 unload 的相互链式衔接。
@@ -1892,7 +1890,8 @@ Inactive，故不携带已提交视图，无法使 relied 成立。
 L-Finish； 针对激活可能提前结束的两种方式的 L-Divert 与 L-Raise； 以及针对停用的
 L-Leave 与 L-Unload。 本节以全局形式从这些规则读出可组合性的两个维度—— 一个
 fiber 的保证始终成立，无论其余 fiber 在其间做什么——
-并补充只有对整个系统才能提出的要求：
+并补充只有对整个系统才能提出的要求： 它总能到达其目标所要求的配置，
+且该配置正是静态装配本会产生的那个。
 下面的每个性质都是关于一步序列的性质，因此我们对步骤编号，并从该编号读出状态的各字段。
 
 两条约定把 3.3.2 节带入本节。 下面状态之间的每个等式都按定义 33 的观测等价
@@ -1969,7 +1968,7 @@ $$ \gamma\simeq\delta\quad:=\quad\sigma_{\gamma}\simeq\sigma_{\delta}\wedge\math
 $\theta_n$ 的组成部分，因此第三列也记录对它们的写入， 而其中的 $h$
 命名第四列那次迭代所产生的逆， 在 L-Divert 中止该迭代之处为 $\text{id}_\Gamma$。
 当一个由迭代器构造的 $\Psi^t$ 注册一个 fiber（定义 47）时，
-该注册在其抽取的名称处携带 O-Insert 行的写入； 而一个其累加器使某 fiber 退休的
+该注册在其抽取的名称处携带 O-Insert 行的写入； 而一个其累加器使某 fiber 退役的
 L-Unload 则携带 O-Retire 行的写入。
 下面每个分情形分析都是表中的一次查表，有五次查表频繁到值得命名。
 
@@ -2066,7 +2065,7 @@ $\text{edit}^t$ 所赋的值是它所匹配的前提的组成部分， 它们由
 在两个状态处被关联——定义 51 把迭代器在由 $\simeq$
 关联的状态处所产生的三元组关联起来。 而 $\Psi^t$ 尊重 $\simeq$：它是
 $\text{id}_\Gamma$， 或是 $e_n$ 的一次迭代——定义 51 要求它尊重 $\simeq$——或是
-$\theta_n$ 内部的累加器， 即各逆的复合，其中每个逆都由同一结论尊重
+$\theta_n$ 内部的累加器， 即各逆的复合，其中每个逆都由同一定义尊重
 $\simeq$。$\square$
 
 一个状态所携带的名称由上述观测中的两个读取，即 $\text{dom}(F_\gamma)$
@@ -2134,15 +2133,15 @@ $\forall m'. \pi_{m'} \neq m$ 不受影响； 而 $\theta_n, \tau_n$ 与 $\pi_n$
 固定了注册表的形状，而在下面的结果能在其上补充之前，必须先对照它检查各规则。
 本小节指出规则所保持的不变量，其第一款就是那个形状，其余各款则是那些结果所假设的东西。
 
-**定义 58。 ** 当对所有 $m, n \in \text{dom}(F_{\sim})$ 与所有 $k \in K$
+**定义 58。** 当对所有 $m, n \in \text{dom}(F_{\sim})$ 与所有 $k \in K$
 都满足下列条件时，称注册表 $F_{\sim}$ 是*良构*的：
 
 1. $\pi_n \in \text{dom}(F_\gamma) \cup \{\text{root}\}$；
 2. $m \neq n \Rightarrow p_m \cap p_n = \emptyset$；
 3. installed$_n(\gamma) \Rightarrow \omega_n$ 在 $d_n$ 上全定义且在
    dom($F_\gamma$) 中取值；
-4. installed\(*{n}(\gamma) \wedge k \in d*{n} \wedge \omega_{n}(k) = m
-   \Rightarrow \text{installed}_{m}(\gamma)$
+4. installed$_n(\gamma) \wedge k \in d_n \wedge \omega_n(k) = m
+   \Rightarrow \text{installed}_m(\gamma)$
 
 第（1）款是定义 45 的树一次读一条边，保持父指针落在注册表中。
 该定义还要求的无环性无需条款，因为指针所命名的 fiber 在命名它的 fiber
@@ -2191,7 +2190,7 @@ target$_n^t$，其值是 $d_n$ 的各键的提供者， 因而在 $\gamma^t$ 处
 L-Unload 上的守卫正是承载第（3）、（4）款的东西。 O-Remove 的前提 $\forall m$.
 $\pi_m \neq n$ 只谈及父指针； 使已提交视图不命名被移除 fiber
 的是那个守卫——它在若干步之前、出于不同的理由被施加。 由于失败同样经由 Unloading
-路由，该论证无需为错误结局重复。 由此推出基础演算所不具备的两件事。 一个由
+路由，该论证无需为错误结果重复。 由此推出基础演算所不具备的两件事。 一个由
 O-Remove 释放的名称可以被 O-Insert 重新发放，因为没有陈旧的已提交视图能命名它；
 而一个 fiber 一旦成为 Inactive 就可以被移除，无需单独检查无人依赖它。
 
@@ -2203,7 +2202,7 @@ $g_n$ 运行那一刻之间，其他 fiber 已经移动了状态。 $g_n$
 在那里是否仍撤销它被构造来撤销的东西，正是该保证的全局形式所断言的内容，而它所依赖的条件是：
 介入的各步与 $g_n$ 交换。
 
-**定义 60。 ** 对 $i \in \mathfrak{E}_{\Gamma}^{\mathrm{iter} *}$， 令
+**定义 60。** 对 $i \in \mathfrak{E}_{\Gamma}^{\mathrm{iter} *}$， 令
 $\mathrm{reach}(i)$ 为包含 $i$ 且在延续下封闭的最小迭代器集合，
 并按下述方式在迭代器处读出定义 17 的变换 monoid $\mathfrak{M}$： 取其生成元为
 $\mathrm{reach}(i)$ 中每个迭代器的前向映射与所产生的逆：
@@ -2293,7 +2292,7 @@ $$ g_{n}^{u}(\gamma^{u+1})\approx g_{n}^{u}(\Psi^{u}(\gamma^{u}))=\Psi^{u}(g_{n}
 这就是附加上 $\Psi^u$ 的归纳假设。
 
 **推论 62**（终止恢复）。令步骤序列两两独立，令 n 的一个片段在 b 处打开并在 u
-处关闭， 无论 n 到达何种结局。 那么，用与定理 61 中相同的
+处关闭， 无论 n 到达何种结果。 那么，用与定理 61 中相同的
 $t_{1} < \cdots < t_{l}$，
 
 $$ \gamma^{u+1}\approx\left(\Psi^{t_{l}}\circ\ldots\circ\Psi^{t_{1}}\right)\left(\gamma^{b}\right) $$
@@ -2312,7 +2311,7 @@ $\theta_n = \text{Inactive}(-)$。
 当一个组件执行的每个效应都是某个键的操作且每个键都可交换时，由这些操作构造的任意两个效应函数都独立（定理
 42）。 把该结果从效应函数带到迭代器不需要任何新东西——系数中介的效应函数（定义
 41）
-已经根据每个阶段所产生的结局选择该阶段之后的内容，而这正是迭代器在其延续中携带的东西。
+已经根据每个阶段所产生的结果选择该阶段之后的内容，而这正是迭代器在其延续中携带的东西。
 3.2
 节的系数操作是完全无需假设的情形：组件在那里贡献的映射是集合操作与相应限制的复合，
 两个这样的映射只要触及不相交的键就可交换，而定义 58 第（2）款使不同 fiber
@@ -2344,8 +2343,8 @@ $[b', u']$ 上取值。 那么
 3. $k \in \operatorname{dom}(\sigma_{n}^{t})$ 且
    $\sigma_{n}^{t}(\dot{k}) = \sigma_{n}^{b^{\prime}}(k)$。
 
-定理 63 的证明。第一个断言是 L-Begin 的前提 target\(^{t}*{m} \neq \perp\)，
-它由定义 46 给出 \(\gamma^{t} \vdash d*{m}\)。
+定理 63 的证明。第一个断言是 L-Begin 的前提 $\text{target}^t_m \neq \perp$，
+它由定义 46 给出 $\gamma^{t} \vdash d_m$。
 
 （1）即引理 54（2）。
 
@@ -2397,7 +2396,7 @@ $$ \forall t\in[b,r].\operatorname{s t e p}^{t}\in\{\mathrm{L-I t e r}(n),\mathr
 
 定理 64 的证明。$b-1$ 处的 L-Begin 写入 Reloading， 而由表 1
 它是引向该生命周期状态的唯一规则； 其前提 $\theta_n = \text{Inactive}(\perp)$
-与引理 54（4） 把它任何第二次应用都放到片段之外。 因此 Reloading 占据 $[b, u]$
+与引理 54（4） 把它的任何第二次应用都放到片段之外。 因此 Reloading 占据 $[b, u]$
 的一个初始区间 $[b, r]$ 且不被再次进入。
 
 第一个断言于是是表 1 给 L-Iter 与 L-Finish 的前提
@@ -2535,7 +2534,7 @@ target 记录的是提供 fiber 而非布尔值，而在 4.2 节的单一来源�
 
 至此的结果都是关于单个 fiber 的。
 表征整个系统的性质是：它的动态历史不留下痕迹——无论一个运行中的系统经历过怎样的激活与停用序列，它所静止于的状态，
-正是同样的插入与退休在如下情形本会产生的那个状态： 每个最终处于 active
+正是同样的插入与退役在如下情形本会产生的那个状态： 每个最终处于 active
 的组件都只按依赖顺序加载一次，且从未被卸载。
 生命周期关系是汇合的，而它收敛到的范式正是静态装配的那个。
 对于动态组合，这正是变更传播为增量计算所确立的、与从头求值的一致性 [45] 的类比。
@@ -2548,7 +2547,7 @@ target 记录的是提供 fiber 而非布尔值，而在 4.2 节的单一来源�
 首先需要三个引理。 第一个在不参照任何步骤序列的情况下固定最终处于 Active 的
 fiber 集合， 这正是使它成为输入而非调度的函数的原因。
 
-**定义 67。** 当一个 fiber 未被退休、注册它的 fiber 受支持、
+**定义 67。** 当一个 fiber 未被退役、注册它的 fiber 受支持、
 且它声明的每个键都由一个受支持的 fiber 提供时，称该 fiber 在 $\gamma$
 处_受支持_。 $\text{dom}(F_\gamma)$
 上的*支持关系*是这些条款所读取的两个关系的并，
@@ -2624,7 +2623,7 @@ $\text{dom}(\sigma_\gamma)$ 时成立， 而由定义 69 有
 $\text{dom}(\sigma_\gamma) = \bigcup_{m \in A'} p_m$。 中间那个条款是 target
 不再携带的，而注册补上了它： 一个满足 $\pi_n \neq \text{root}$ 的 fiber 只由
 $\pi_n$ 的一次激活注册， 而若 $\pi_n \notin A'$ 则 $\pi_n$ 不是 Active，
-因此其累加器已运行并由定义 47 使 $n$ 退休，给出 $\tau_n$。 因此 $A'$ 满足定义 67
+因此其累加器已运行并由定义 47 使 $n$ 退役，给出 $\tau_n$。 因此 $A'$ 满足定义 67
 的各条款，而引理 68 给它们唯一解，故 $A = A'$。$\square$
 
 **引理 71**（转置）。令各步骤两两独立且 $F^t$ 良构， 并令步骤 $t$ 与 $t + 1$
@@ -2640,7 +2639,7 @@ $\pi_n$ 的一次激活注册， 而若 $\pi_n \notin A'$ 则 $\pi_n$ 不是 Act
 $\Psi^t \in \mathfrak{M}(e_m)$ 内写入表 $\sigma_m$ 与效应部分。 因此它不碰
 $\theta_n$ 与 $i_n$，而由定义 60 的第二个条件，它也不碰 $i_n$ 所产生的逆与延续，
 于是只剩 step $t + 1$ 中提及 target$_n$ 的前提需要检查。
-其退休那一半不可能失败——没有任何激活规则写入 $\tau$。 其解析那一半也不可能移动：
+其退役那一半不可能失败——没有任何激活规则写入 $\tau$。 其解析那一半也不可能移动：
 step $t + 1$ 在 $\gamma^t$ 处适用把每个 $k \in d_n$ 都放进
 dom($\sigma^t$)，而定义 58 第（2）款使提供这样一个 $k$ 的 fiber
 是唯一能提供它的那个， 因此 $k \notin p_m$ 且 $\sigma_m$ 的任何写入都够不到
@@ -2685,7 +2684,7 @@ Inactive($\bot$) ——没有任何 fiber 失败——且它原本在 $\gamma^{b
 的点所到达的状态。 我们断言，对每个 $t > u$，都有 $\gamma^t \approx \gamma'^t$、
 $R$ 的每个名称在 $\gamma^t$ 处退化且在 $\gamma'^t$ 处缺席， 且这两个状态在 $R$
 之外每个名称的每个字段上都一致。 在 $t = u + 1$ 处，这就是上一段连同定义 47：
-它使 $R$ 的每个名称都由在 $u$ 处运行的累加器退休——Inactive($\bot$)
+它使 $R$ 的每个名称都由在 $u$ 处运行的累加器退役——Inactive($\bot$)
 且持有空表——因为由假设，$R$ 的各 fiber 没有片段。 归纳步是在 $R$
 的每个名称处依次应用引理 57（1）：作用于 $R$
 之外的步骤在两个状态处有相同的前提， 再次到达 $\approx$ 相等的状态，并使 $R$
@@ -2727,8 +2726,8 @@ fiber 失败， 令各步骤两两独立且每个组件都对其提供全定义�
 $n$ 在其片段仍关闭的那些 fiber 中是 $\triangleleft$ 极大的； 由引理 68 与 $N$
 的有限性，这样的片段存在。 引理 72 的三个假设随即满足。 由极大性，没有任何满足
 $n \prec m$ 的 $m$ 有关闭片段。 且 $n$ 在 $[b, u]$ 期间注册的任何 fiber
-都没有片段： 这样的 fiber 由在 $u$ 处运行的累加器退休（定义 47），并由引理
-54（5）保持退休， 因此其目标视图是 $\perp$，而引理 70 把它置于 $A$ 之外，
+都没有片段： 这样的 fiber 由在 $u$ 处运行的累加器退役（定义 47），并由引理
+54（5）保持退役， 因此其目标视图是 $\perp$，而引理 70 把它置于 $A$ 之外，
 于是它在 $\gamma^T$ 处没有打开的片段； 而 $\triangleleft$ 通过其父指针把它与 $n$
 关联，因此由极大性它也没有关闭的片段。
 该引理移除这个片段、连同它注册的各名称的步骤，使 $\gamma^T$
@@ -2754,7 +2753,7 @@ O-Insert 所引入的。 对于同一 fiber 的生命周期步骤则无可交换
 把 $d_{n_1}$ 的某个键的提供者与注册 $n_1$ 的 fiber 都放进 $A$， 而
 $\triangleleft$ 把二者都置于 $n_1$ 之下。 因此 $\text{target}_{n_1}$
 不读取另一个 fiber 的任何字段， 且——没有剩下写入 $\tau_{n_1}$ 的编排步骤，
-也没有剩下使 $n_1$ 退休的其下 fiber——它是恒定的。 作用于 $n_1$
+也没有剩下使 $n_1$ 退役的其下 fiber——它是恒定的。 作用于 $n_1$
 的每一步都是激活步骤——没有任何片段关闭——而其剩余前提读取 $\theta_{n_1}$ 与
 $i_{n_1}$，由表 1 只有 $n_1$ 写入它们； 因此每一步在每一较早状态处都适用，而引理
 71 在不移动终点的情况下把它向前移一位。 在每次应用时，先于 $n_1$ 某一步的其他
@@ -2766,14 +2765,14 @@ $\triangleleft$ 线性化。
 对于（2），两个序列都由（1）归约到一个规范序列，而两个归约在同一个 $A$
 上运行、除重命名外一致。 定义 67 读取 $\tau, \pi, d$ 与 $p$，其中后三个随 fiber
 的进入被写入一次（引理 54（5） ），因此需要看到的是： 相同的名称带着相同的
-$d, p$ 与 $\pi$ 进入存在，且相同的名称被退休。 插入由假设为两个序列所共有。
+$d, p$ 与 $\pi$ 进入存在，且相同的名称被退役。 插入由假设为两个序列所共有。
 注册同样共有：$A$ 的一个 fiber
 的激活在其每次迭代处注册该迭代器在那里所命名的组件， 而定义 60
 的第二个条件使它在交错下固定， 因此一个 $A$ 的 fiber 之下的注册树是该 fiber
 的组件的函数； 这些注册所抽取的名称并不共有，而引理 56
 正是在这里被应用，用一个双射匹配这两棵树。
-而一次退休要么是一次编排步骤（共有）， 要么是累加器所采取的一次
-O-Retire——它恰好退休同一次激活所注册的那些名称。 把 $\triangleleft$
+而一次退役要么是一次编排步骤（共有）， 要么是累加器所采取的一次
+O-Retire——它恰好退役同一次激活所注册的那些名称。 把 $\triangleleft$
 线性化的两个枚举相差于不可比较片段的转置，而引理 71 同样使终点不受其影响，
 因此两个规范序列一致。 连同定理 66
 的终止性，生命周期关系因此具有唯一范式。$\square$
@@ -2928,7 +2927,7 @@ ctx.get(key)（算法 2）先从 @isolate 读取 realm 符号 $\rho(k)$， 再�
 提供与通知，安装或撤回绑定并把变化传播给依赖方；(2)
 隔离与拦截，重塑键的解析方式。
 
-**提供与通知。 ** 由于 set$(k, v)$ 具有类型 $\mathfrak{E}_{\Sigma}$（3.1 节），
+**提供与通知。** 由于 set$(k, v)$ 具有类型 $\mathfrak{E}_{\Sigma}$（3.1 节），
 系数提供是一次 ctx.effect 调用，并继承其自动跟踪与恢复。 算法 2 实现
 ctx.set(key, value)，即具体的 set$(k, v)$： 回调把值绑定到 realm 符号 $\rho(k)$
 之下的存储中，返回的 dispose 函数将其移除。 安装与移除都会调用 notify
@@ -3435,7 +3434,7 @@ Cordis 使这种移除不仅成为可能，而且对插件作者而言毫不费�
 
 3.1 节中的每个效应都携带一个逆，而这个逆意味着什么，由 *系统边界* 决定。
 边界把系统所运行于其上的环境分为两部分。 (1)
-当系统能够独占修改某位置并在修改前恢复其状态时，该位置位于 *内部*，
+当系统能够独占修改某位置并能将其状态恢复到修改之前时，该位置位于 *内部*，
 因此对它的操作在 $\Gamma$ 中被跟踪，并可在之后恢复。 (2)
 当这两项能力中任一项不成立时，该位置位于 *外部*，因此对它的操作表现为
 $\text{id}_\Gamma$， 既不被跟踪也不被恢复。
@@ -3446,7 +3445,7 @@ $\text{id}_\Gamma$， 既不被跟踪也不被恢复。
 其中每个操作它都能提供一个逆，因此原本表现为 id$_\Gamma$ 的操作开始被跟踪到
 $\Gamma$ 中并被恢复。
 边界因此是按位置而非按介质划分的，因为上述两项能力都是位置的性质，而具体化改变的是位置如何被访问，其介质则保持原样。
-例如，当只有系统写入某内存 region
+例如，当只有系统写入某内存区域
 时，它位于内部；当其他进程也写入它时，它位于外部。
 当只有系统能触及某文件时——如私有路径下的暂存文件——它位于内部；当它是其他程序也读写的路径时，它位于外部。
 移动边界本身就是一种权衡：一边是环境是否为某位置提供可逆语义，另一边是提供这些语义在每次访问上的代价。
@@ -3570,7 +3569,7 @@ impl [62] 扩展上下文类型来实现这一点。 TypeScript 的模块增强 
 
 在运行时层面，依赖访问必须被动态中介：键背后的系数可能随提供者的装载与卸载而变化，并可能在不同上下文中被不同地解析。
 因此，语言需要一种透明地介入访问的方式，使消费者代码保持不变， 例如经由
-JavaScript 的 Proxy 对象 [64] 或 Python 的描述符协议（**get**）[65]。
+JavaScript 的 Proxy 对象 [64] 或 Python 的描述符协议（`__get__`）[65]。
 没有这种原语时，运行时反射 [66, 67]
 可以动态中介访问，代价是类型安全与开发者体验。
 
@@ -3604,13 +3603,13 @@ policy-management（依赖两个 core，以经由服务器暴露策略修改）�
 然而，它可能影响开发者体验：更多组件意味着更多配置、更多命名，以及理解依赖图时更多的认知负担。
 
 减轻这种粒度成本是一个工程问题，而非理论问题。
-实用策略包括包打包（即把相关的细粒度组件归组为单个可安装单元）、基于约定的接线（即自动连接名称或类型匹配某模式的组件）
+实用策略包括包打包（即把相关的细粒度组件归组为单个可安装单元）、基于约定的装配（即自动连接名称或类型匹配某模式的组件）
 以及脚手架工具（即从声明式规约生成样板集成组件）。
 这些策略在保留无环模型形式化保证的同时，把编写负担降低到接近单体情形的程度。
 
 ### 6.6 依赖类型化与版本化
 
-在形式化模型中，依赖链纯粹由键身份建立：提供键 $k$ 的组件满足在其依赖集中声明
+在形式化模型中，依赖链接纯粹由键身份建立：提供键 $k$ 的组件满足在其依赖集中声明
 $k$ 的任何组件。 类型族 $\mathcal{V}_k$ 在单个编译单元内确保类型级一致，
 但当组件被独立开发与构建时（组件生态系统中常见的场景），这一保证就失效了。
 这种失效导致两个不同的问题。
@@ -3643,7 +3642,7 @@ peer 范围之外， 不兼容性在安装时被捕获，而不是表现为运�
 它依赖提供者忠实地遵循语义化版本，而这是一种无法强制执行的约定；(2)
 包管理器通常把每个依赖解析到单一版本，这阻止了在一个应用内装载来自同一包多个版本的组件。
 
-**结构化兼容。 ** 一种完全语言无关的方法会用一个兼容性谓词取代成员检查
+**结构化兼容。** 一种完全语言无关的方法会用一个兼容性谓词取代成员检查
 $k \in \text{dom}(\sigma)$，
 该谓词验证提供者的实际接口在结构上涵盖消费者的期望。 这类似于结构子类型化
 [73]：若所提供接口是所需接口的子类型，则提供者满足消费者。
@@ -3860,7 +3859,7 @@ Cordis
 节的守卫把提供者的撤销推迟到其消费者都停用之后（定理 63）。
 然而，其可达范围由语义固定——已执行的每个动作都保持可撤销；而 Cordis
 组件为每个原子效应提供逆， 其累加器把上下文带回其组合开始之处。 线性类型
-[115]、RAII [4] 和 Rust 的所有权系统 [61] 把资源的释放绑定到词法 region。
+[115]、RAII [4] 和 Rust 的所有权系统 [61] 把资源的释放绑定到词法区域。
 每一种都在静态上固定逆转的作用域与可达范围；Cordis
 则相反，不预先固定这种作用域：
 它在一个组件的生命周期内逆转任意的上下文操作，并把词法资源管理视为补充，适用于单个组件内部的局部资源。

@@ -30,7 +30,7 @@ Processing Unit（CPU）内部的错误报告机制无法捕获 SDC，
 
 ## 关键词
 
-silent data error；数据损坏；系统可靠性；硬件可靠性；比特翻转
+silent data errors；数据损坏；系统可靠性；硬件可靠性；比特翻转
 
 ## 1 引言
 
@@ -258,7 +258,7 @@ $$
 
 ```console
 [root@hostname ~]# for x in {0..2}; do taskset -c 59 ./bitflip_repro.sh; done
-Int(1.1^53), Int(1.1^68), Int(1.1^78)
+  Int(1.1^53), Int(1.1^68), Int(1.1^78)
 Iteration 1: 0, 0, 1692
 Iteration 2: 0, 0, 1692
 Iteration 3: 0, 0, 1692
