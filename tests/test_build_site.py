@@ -116,6 +116,13 @@ def test_toc_is_scrollable(dist):
         assert "overscroll-behavior: contain" in html, name
 
 
+def test_toc_locates_current_entry_when_opened(dist):
+    # 展开目录面板时滚动定位到当前阅读的条目，并以 accent 色高亮
+    for name, html in article_pages(dist).items():
+        assert 'if (toc.classList.toggle("open")) locateCurrent();' in html, name
+        assert ".toc a.active { color: var(--accent); }" in html, name
+
+
 def test_nested_lists_render_nested(dist):
     # mdx_truly_sane_lists：2/3 空格缩进的子列表必须渲染为嵌套 <ul>（默认渲染器会拉平）
     html = (dist / "控制论与科学方法论-2025.html").read_text(encoding="utf-8")

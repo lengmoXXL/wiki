@@ -318,6 +318,7 @@ a:hover { text-decoration: underline; }
 .toc li { margin: 2px 0; }
 .toc a { color: var(--muted); display: block; padding: 2px 0; }
 .toc a:hover { color: var(--accent); text-decoration: none; }
+.toc a.active { color: var(--accent); }
 
 
 article { min-width: 0; }
@@ -463,9 +464,33 @@ __BODY__
   var toc = document.getElementById("toc");
   var tocToggle = document.getElementById("toc-toggle");
   if (toc && tocToggle) {
+    // 展开目录时定位到当前阅读的条目：目录链接与正文标题成对收集，二分找视口内最后一个标题
+    var entries = [];
+    toc.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      var h = document.getElementById(a.getAttribute("href").slice(1));
+      if (h) entries.push([h, a]);
+    });
+    function locateCurrent() {
+      // 标题锚点定位后停在视口顶部 68px（scroll-margin-top），判定窗口略放宽
+      var lo = 0, hi = entries.length - 1, idx = -1;
+      while (lo <= hi) {
+        var mid = (lo + hi) >> 1;
+        if (entries[mid][0].getBoundingClientRect().top <= 90) { idx = mid; lo = mid + 1; }
+        else hi = mid - 1;
+      }
+      // 滚到底时末节标题可能永远到不了顶部，直接取最后一条
+      if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 2)
+        idx = entries.length - 1;
+      if (idx < 0) return;
+      var a = entries[idx][1];
+      var prev = toc.querySelector("a.active");
+      if (prev) prev.classList.remove("active");
+      a.classList.add("active");
+      toc.scrollTop = a.offsetTop + a.offsetHeight / 2 - toc.clientHeight / 2;
+    }
     tocToggle.addEventListener("click", function (e) {
       e.stopPropagation();
-      toc.classList.toggle("open");
+      if (toc.classList.toggle("open")) locateCurrent();
     });
     toc.addEventListener("click", function (e) {
       if (e.target.closest("a")) toc.classList.remove("open");
