@@ -183,8 +183,8 @@ a:hover { text-decoration: underline; }
 #toc-toggle {
   display: none;
   position: fixed;
-  left: 24px;
-  bottom: 24px;
+  right: 24px;
+  bottom: 78px;
   z-index: 20;
   width: 42px;
   height: 42px;
