@@ -45,11 +45,11 @@ ALIBABA_CLOUD_ACCESS_KEY_SECRET=...
 
 ## 2. 文档转 Markdown
 
-`tools/parse_docmind.py` 接收 DocMind 支持的 PDF、EPUB 等 OSS 对象 key。
-例如，转换 Kafka 论文：
+文档转换用 doc-research CLI 的 `parse` 子命令（DocMind 支持 PDF、EPUB 等），输入为本地文件。
+先从 OSS 下载文档到本地（oss2 用法见第 3 节“导出 PDF 页面图片核对”），再转换。例如，转换 Kafka 论文：
 
 ```bash
-python tools/parse_docmind.py papers/distributed-systems/kafka-2011.pdf
+doc-research parse /tmp/kafka-2011.pdf -o raw/kafka-2011
 ```
 
 转换结果为：
@@ -62,9 +62,9 @@ raw/kafka-2011/
     └── ...
 ```
 
-其中 `raw.md` 是 DocMind 脚本直接转换的结果，**不需要做任何修改**。
-`images/` 下的图片是脚本裁剪的原始图片，同样不应修改。
-脚本重跑时会覆盖 `raw.md` 和 `images/`，但不会修改 `tr/` 下的译文。
+其中 `raw.md` 是 doc-research 直接转换的结果，**不需要做任何修改**。
+`images/` 下的图片是它裁剪的原始图片，同样不应修改。
+重跑时会覆盖 `raw.md` 和 `images/`，但不会修改 `tr/` 下的译文。
 
 ## 3. 校对并翻译
 
@@ -205,17 +205,10 @@ O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
    先用一个已知地标确定偏移量，例如某公式在书页 13、在 PDF 第 32 页（0 基索引 31），偏移即 +18；
    之后「0 基页索引 = 书页码 + 偏移 - 1」。
    不知道书页码时，可按译文行号占全文的比例估算大致范围，再用第 4 步的拼图快速扫页定位。
-3. 用 pymupdf 导出整页或裁剪局部：
+3. 用 doc-research 的 `export-page` 导出整页或裁剪局部：
    ```bash
-   .venv/bin/python - <<'EOF'
-   import fitz
-   doc = fitz.open("/tmp/book.pdf")
-   page = doc[31]  # 0 基页索引
-   page.get_pixmap(dpi=100).save("/tmp/page.png")  # 整页
-   r = page.rect
-   clip = fitz.Rect(r.width*0.25, r.height*0.55, r.width*0.85, r.height*0.80)
-   page.get_pixmap(dpi=200, clip=clip).save("/tmp/crop.png")  # 局部放大
-   EOF
+   doc-research export-page /tmp/book.pdf 31 -o /tmp/page.png  # 整页（31 为 0 基页索引）
+   doc-research export-page /tmp/book.pdf 31 -o /tmp/crop.png --dpi 200 --clip 0.25,0.55,0.85,0.80  # 局部放大（相对坐标）
    ```
 4. 连续扫页时用 ImageMagick 拼图（每行 4 页，两行 8 页一屏）：
    ```bash
