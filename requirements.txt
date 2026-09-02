@@ -1,8 +1,4 @@
 oss2
 python-dotenv
-markdown
-pymdown-extensions
-pygments
 pytest
 playwright
-mdx_truly_sane_lists

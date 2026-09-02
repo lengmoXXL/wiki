@@ -29,7 +29,7 @@ def main() -> int:
     args = parser.parse_args()
 
     if not DIST_DIR.is_dir():
-        print("dist/ does not exist, run tools/build_site.py first", file=sys.stderr)
+        print("dist/ does not exist, run doc-research build first (see README)", file=sys.stderr)
         return 1
 
     load_dotenv(PROJECT_ROOT / ".env")

@@ -36,6 +36,8 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+文档转换（`parse`）、PDF 页面导出（`export-page`）与站点构建（`build`）均使用 doc-research CLI，需先安装（`uv tool install --editable ../doc-research`）。
+
 在 `.env` 中填写 OSS 和 DocMind 使用的阿里云凭据：
 
 ```dotenv
@@ -231,7 +233,7 @@ git diff
 ## 5. 站点发布
 
 ```bash
-python tools/build_site.py              # tr/*.md → dist/
+doc-research build tr -o dist --title 译文集 --desc "分布式系统与软件工程论文、图书的中文翻译" --base /blog/
 python tools/publish_site.py --dry-run  # 只打印将上传/删除的对象
 python tools/publish_site.py            # 同步 dist/ → oss://lengmo-asserts/blog/
 python -m pytest tests/                 # 测试
