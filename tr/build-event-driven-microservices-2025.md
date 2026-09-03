@@ -1,3 +1,7 @@
+---
+tags: [books]
+---
+
 # Building Event-Driven Microservices
 
 大规模利用组织数据

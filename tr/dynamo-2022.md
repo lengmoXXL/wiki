@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service
 
 Mostafa Elhemali、Niall Gallagher、Nicholas Gordon、 Joseph Idziorek、Richard

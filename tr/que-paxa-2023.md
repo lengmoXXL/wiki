@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # QuePaxa: Escaping the Tyranny of Timeouts in Consensus
 
 Pasindu Tennage\*¹、Cristina Băiescu\*¹、Ewa Syta²、Lefteris Kokoris-Kogias³、

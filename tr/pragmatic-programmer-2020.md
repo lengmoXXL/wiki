@@ -1,3 +1,7 @@
+---
+tags: [books]
+---
+
 # 程序员修炼之道：通向务实的最高境界（第2版）
 
 [美] David Thomas、Andrew Hunt 著

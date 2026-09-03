@@ -1,3 +1,7 @@
+---
+tags: [papers, machine]
+---
+
 # Silent Data Corruptions at Scale
 
 Harish Dattatraya Dixit、Sneha Pendharkar、Matt Beardon、 Chris Mason、 Tejasvi

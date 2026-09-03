@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # Dynamo: Amazon's Highly Available Key-value Store
 
 Giuseppe DeCandia、Deniz Hastorun、Madan Jampani、 Gunavardhan

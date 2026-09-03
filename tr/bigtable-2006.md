@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # Bigtable: A Distributed Storage System for Structured Data
 
 Fay Chang、Jeffrey Dean、Sanjay Ghemawat、 Wilson C. Hsieh、Deborah A. Wallach、

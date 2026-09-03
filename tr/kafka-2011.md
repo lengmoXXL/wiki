@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # Kafka: a Distributed Messaging System for Log Processing
 
 **Jay Kreps · Neha Narkhede · Jun Rao**<br> LinkedIn Corp.<br>

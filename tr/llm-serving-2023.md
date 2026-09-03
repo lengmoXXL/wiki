@@ -1,3 +1,7 @@
+---
+tags: [papers, llm]
+---
+
 # Efficient Memory Management for Large Language Model Serving with PagedAttention
 
 Woosuk Kwon*、Zhuohan Li*、Siyuan Zhuang、Ying Sheng、 Lianmin Zheng、Cody Hao

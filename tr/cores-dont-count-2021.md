@@ -1,3 +1,7 @@
+---
+tags: [papers, machine]
+---
+
 # Cores that don't count
 
 Peter H. Hochschild、Paul Turner、Jeffrey C. Mogul、 Rama

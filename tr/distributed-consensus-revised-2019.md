@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # Distributed consensus revised
 
 Heidi Howard

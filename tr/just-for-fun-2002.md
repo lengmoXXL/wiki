@@ -1,3 +1,7 @@
+---
+tags: [books]
+---
+
 # Just for Fun
 
 **一个意外革命者的故事**

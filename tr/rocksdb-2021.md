@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # Evolution of Development Priorities in Key-value Stores Serving Large-scale Applications: The RocksDB Experience
 
 https://www.usenix.org/conference/fast21/presentation/dong

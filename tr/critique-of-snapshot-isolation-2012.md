@@ -1,3 +1,7 @@
+---
+tags: [papers, distributed-systems]
+---
+
 # A Critique of Snapshot Isolation
 
 Daniel Gómez Ferro、Maysam Yabandeh*
