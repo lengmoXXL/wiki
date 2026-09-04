@@ -299,7 +299,7 @@ tablet。 如果某个 tablet 尚未分配， 同时有一台 tablet 服务器�
 
 Bigtable 使用 Chubby 跟踪 tablet 服务器。 tablet 服务器启动时，会在特定 Chubby
 目录中创建一个名称唯一的文件， 并获取该文件的排他锁。
-主服务器监视这个目录（称为_服务器目录_） 来发现 tablet 服务器。 如果 tablet
+主服务器监视这个目录（称为*服务器目录*） 来发现 tablet 服务器。 如果 tablet
 服务器失去排他锁， 例如网络分区导致它失去 Chubby 会话， 它就停止为自己的 tablet
 提供服务。 （Chubby 提供了一种高效机制， 使 tablet
 服务器无需产生网络流量即可检查自己是否仍持有锁。） 只要文件仍存在，tablet
@@ -382,7 +382,7 @@ GFS。 这个*minor compaction*过程有两个目的： 减少 tablet 服务器�
 
 每次 minor compaction 都会创建一个新的 SSTable。
 如果不加限制，读操作可能需要合并任意数量 SSTable 中的更新。
-为此，我们在后台定期执行_merging compaction_， 限制这类文件的数量。 merging
+为此，我们在后台定期执行*merging compaction*， 限制这类文件的数量。 merging
 compaction 读取若干 SSTable 和 memtable 的内容， 并写出一个新的 SSTable。
 compaction 完成后，输入的 SSTable 和 memtable 即可丢弃。
 
