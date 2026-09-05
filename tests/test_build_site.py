@@ -93,8 +93,8 @@ def test_index_md_rendered_on_homepage(dist):
     assert extra_urls
     for url in extra_urls:
         assert f'href="{url}"' in index, url
-    assert 'class="index-extra"' in index
 
+    assert 'class="index-content"' in index
 
 def test_index_entries_are_pinnable(dist):
     index = (dist / "index.html").read_text(encoding="utf-8")
