@@ -167,7 +167,7 @@ PDF 转换得到的所有图片均保留在 `raw/<原目录名>/images/` 下，
   参见[识别并确定组件大小模式](#识别并确定组件大小模式)。
   ```
 
-- 段落换行由 dprint 统一重排（见第 4 节），无需手工断行。图片引用行 `![alt](url)` 的 alt 须保持单行，便于 git diff 逐行查看。
+- 段落换行不做统一要求。图片引用行 `![alt](url)` 的 alt 须保持单行，便于 git diff 逐行查看。
 
 ### O'Reilly 书籍的校对要点
 
@@ -224,12 +224,9 @@ O'Reilly 图书（如 DDIA）还有一些特有的校对约定：
 ## 4. 检查改动
 
 ```bash
-dprint fmt  # 统一 tr/*.md 排版格式（配置见 dprint.json）
 git diff --check
 git diff
 ```
-
-`dprint` 未安装时参考 https://dprint.dev/install/ 安装。
 
 ## 5. 站点发布
 
