@@ -233,6 +233,7 @@ git diff
 ## 5. 站点发布
 
 ```bash
+python tools/update_index.py           # 重新生成 tr/index.md 首页条目块
 doc-research build tr -o dist --title 译文集 --desc "分布式系统与软件工程论文、图书的中文翻译" --base /blog/
 python tools/publish_site.py --dry-run  # 只打印将上传/删除的对象
 python tools/publish_site.py            # 同步 dist/ → oss://lengmo-asserts/blog/
