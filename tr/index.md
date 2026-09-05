@@ -1,7 +1,6 @@
 ## 文章
 
 <!-- doc-research:entries -->
-
 - [Scalable Leader Leases For Multi Consensus Groups in CockroachDB](crdb-2026.md)
 - [Designing Data-Intensive Applications](ddia-2026.md)
 - [A Programming Paradigm for Spatiotemporal Composability](dynamic-composition-2026.md)
@@ -18,6 +17,7 @@
 - [程序员修炼之道：通向务实的最高境界（第2版）](pragmatic-programmer-2020.md)
 - [Database Internals: A Deep-Dive into How Distributed Data Systems Work](database-internals-2019.md)
 - [Distributed consensus revised](distributed-consensus-revised-2019.md)
+- [重构：改善既有代码的设计（第2版）](重构-2019.md)
 - [Scaling Memcache at Facebook](scaling-memcache-at-facebook-2013.md)
 - [A Critique of Snapshot Isolation](critique-of-snapshot-isolation-2012.md)
 - [Kafka: a Distributed Messaging System for Log Processing](kafka-2011.md)
@@ -26,7 +26,6 @@
 - [The Google File System](gfs-2003.md)
 - [Just for Fun](just-for-fun-2002.md)
 - [若干重大决策与事件的回顾](若干重大决策与事件的回顾-1991.md)
-
 <!-- /doc-research:entries -->
 
 ## 推荐阅读
