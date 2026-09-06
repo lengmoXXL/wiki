@@ -31,7 +31,11 @@ def dist(tmp_path_factory):
 
 
 def article_pages(dist):
-    return {p.name: p.read_text(encoding="utf-8") for p in dist.glob("*.html") if p.name != "index.html"}
+    return {
+        p.name: p.read_text(encoding="utf-8")
+        for p in dist.glob("*.html")
+        if p.name != "index.html"
+    }
 
 
 def test_every_markdown_file_is_built(dist):
@@ -149,4 +153,6 @@ def test_toc_locates_current_entry_when_opened(dist):
 def test_nested_lists_render_nested(dist):
     # mdx_truly_sane_lists：2/3 空格缩进的子列表必须渲染为嵌套 <ul>（默认渲染器会拉平）
     html = (dist / "控制论与科学方法论-2025.html").read_text(encoding="utf-8")
-    assert re.search(r'<li><strong><a href="#第一章[^"]*">[^<]+</a></strong>\s*<ul>', html, re.S)
+    assert re.search(
+        r'<li><strong><a href="#第一章[^"]*">[^<]+</a></strong>\s*<ul>', html, re.DOTALL
+    )

@@ -6,13 +6,14 @@
 """
 
 import re
+import sys
 from pathlib import Path
 
 TR_DIR = Path(__file__).resolve().parent.parent / "tr"
 BEGIN = "<!-- doc-research:entries -->"
 END = "<!-- /doc-research:entries -->"
-FRONTMATTER_RE = re.compile(r"\A---\n.*?\n---(?:\n|$)", re.S)
-TITLE_RE = re.compile(r"^#\s+(.+?)\s*$", re.M)
+FRONTMATTER_RE = re.compile(r"\A---\n.*?\n---(?:\n|$)", re.DOTALL)
+TITLE_RE = re.compile(r"^#\s+(.+?)\s*$", re.MULTILINE)
 
 
 def main() -> int:
@@ -38,11 +39,11 @@ def main() -> int:
 
     if BEGIN in text and END in text:
         new_text = re.sub(
-            re.escape(BEGIN) + r".*?" + re.escape(END), lambda _: block, text, flags=re.S
+            re.escape(BEGIN) + r".*?" + re.escape(END), lambda _: block, text, flags=re.DOTALL
         )
     else:
         section = f"## 文章\n\n{block}\n"
-        m = re.search(r"^## ", text, re.M)
+        m = re.search(r"^## ", text, re.MULTILINE)
         if m:
             new_text = text[: m.start()] + section + "\n" + text[m.start() :]
         else:
@@ -57,4 +58,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
