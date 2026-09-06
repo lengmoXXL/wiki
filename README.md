@@ -25,6 +25,7 @@
 - [QuePaxa: Escaping the Tyranny of Timeouts in Consensus](tr/que-paxa-2023.md)：`oss://lengmo-asserts/papers/distributed-systems/que-paxa-2023.pdf`
 - [The Pragmatic Programmer](tr/pragmatic-programmer-2020.md)：`oss://lengmo-asserts/books/pragmatic-programmer-2020.pdf`（中文版，仅校对）
 - [Refactoring: Improving the Design of Existing Code (2nd Edition)](tr/重构-2019.md)：`oss://lengmo-asserts/books/重构-2019.pdf`（中文版，仅校对）
+- [Code Complete: A Practical Handbook of Software Construction (2nd Edition)](tr/代码大全-2016.md)：`oss://lengmo-asserts/books/代码大全-2016.epub`（中文版，仅校对；精选本）
 - [控制论与科学方法论](tr/控制论与科学方法论-2025.md)：`oss://lengmo-asserts/books/控制论与科学方法论-2025.pdf`（中文原著，仅校对）
 - [若干重大决策与事件的回顾](tr/若干重大决策与事件的回顾-1991.md)：`oss://lengmo-asserts/books/若干重大决策与事件的回顾-1991.epub`（中文原著，仅校对）
 

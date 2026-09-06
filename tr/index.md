@@ -18,6 +18,7 @@
 - [Database Internals: A Deep-Dive into How Distributed Data Systems Work](database-internals-2019.md)
 - [Distributed consensus revised](distributed-consensus-revised-2019.md)
 - [重构：改善既有代码的设计（第2版）](重构-2019.md)
+- [代码大全（第2版）](代码大全-2016.md)
 - [Scaling Memcache at Facebook](scaling-memcache-at-facebook-2013.md)
 - [A Critique of Snapshot Isolation](critique-of-snapshot-isolation-2012.md)
 - [Kafka: a Distributed Messaging System for Log Processing](kafka-2011.md)
