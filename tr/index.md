@@ -21,6 +21,7 @@
 - [代码大全（第2版）](代码大全-2016.md)
 - [Scaling Memcache at Facebook](scaling-memcache-at-facebook-2013.md)
 - [A Critique of Snapshot Isolation](critique-of-snapshot-isolation-2012.md)
+- [程序员的职业素养](程序员的职业素养-2012.md)
 - [Kafka: a Distributed Messaging System for Log Processing](kafka-2011.md)
 - [Dynamo: Amazon's Highly Available Key-value Store](dynamo-2007.md)
 - [Bigtable: A Distributed Storage System for Structured Data](bigtable-2006.md)
