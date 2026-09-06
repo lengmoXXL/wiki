@@ -24,8 +24,9 @@ Bigtable 是一个用于管理结构化数据的分布式存储系统， 设计�
 
 ## 1. 引言
 
-在过去两年半中，我们在 Google 设计、实现并部署了
-一个用于管理结构化数据的分布式存储系统——Bigtable。 Bigtable 旨在可靠地扩展到 PB
+在过去两年半中，我们在 Google 设计、
+实现并部署了一个用于管理结构化数据的分布式存储系统——Bigtable。
+ Bigtable 旨在可靠地扩展到 PB
 级数据和数千台机器。
 它实现了几个目标：广泛的适用性、可扩展性、高性能和高可用性。 Google Analytics、
 Google Finance、 Orkut、个性化搜索、 Writely 和 Google Earth 等六十多个 Google
