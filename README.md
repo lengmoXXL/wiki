@@ -23,6 +23,7 @@
 - [Silent Data Corruptions at Scale](tr/slient-data-corruptions-at-scale-2021.md)：`oss://lengmo-asserts/papers/machine/slient-data-corruptions-at-scale-2021.pdf`
 - [Software Architecture: The Hard Parts](tr/software-architecture-2021.md)：`oss://lengmo-asserts/books/software-architecture-2021.pdf`
 - [QuePaxa: Escaping the Tyranny of Timeouts in Consensus](tr/que-paxa-2023.md)：`oss://lengmo-asserts/papers/distributed-systems/que-paxa-2023.pdf`
+- [Start Small, Stay Small: A Developer's Guide to Launching a Startup](tr/start-small-stay-small-2010.md)：`oss://lengmo-asserts/books/start-small-stay-small-2010.pdf`
 - [The Pragmatic Programmer](tr/pragmatic-programmer-2020.md)：`oss://lengmo-asserts/books/pragmatic-programmer-2020.pdf`（中文版，仅校对）
 - [Refactoring: Improving the Design of Existing Code (2nd Edition)](tr/重构-2019.md)：`oss://lengmo-asserts/books/重构-2019.pdf`（中文版，仅校对）
 - [Code Complete: A Practical Handbook of Software Construction (2nd Edition)](tr/代码大全-2016.md)：`oss://lengmo-asserts/books/代码大全-2016.epub`（中文版，仅校对；精选本）

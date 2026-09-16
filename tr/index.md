@@ -23,6 +23,7 @@
 - [A Critique of Snapshot Isolation](critique-of-snapshot-isolation-2012.md)
 - [程序员的职业素养](程序员的职业素养-2012.md)
 - [Kafka: a Distributed Messaging System for Log Processing](kafka-2011.md)
+- [Start Small, Stay Small: A Developer's Guide to Launching a Startup](start-small-stay-small-2010.md)
 - [Dynamo: Amazon's Highly Available Key-value Store](dynamo-2007.md)
 - [Bigtable: A Distributed Storage System for Structured Data](bigtable-2006.md)
 - [The Google File System](gfs-2003.md)
@@ -38,5 +39,7 @@
 - [Linux man pages](https://man7.org/linux/man-pages/)：Linux
   系统调用与库函数的权威 API 参考，持续更新
 - [Linux Insides](https://0xax.gitbooks.io/linux-insides/content/)：社区维护的开源书籍，深入
-- [OI Wiki](https://oi-wiki.org)：算法竞赛社区维护的知识库，数据结构与算法讲解系统、持续更新
   Linux 内核内部机制
+- [OI Wiki](https://oi-wiki.org)：算法竞赛社区维护的知识库，数据结构与算法讲解系统、持续更新
+- [Mitchell Hashimoto](https://mitchellh.com)：Vagrant、Terraform 与 Ghostty 作者的个人博客，
+  涉及系统编程、终端与工程实践
