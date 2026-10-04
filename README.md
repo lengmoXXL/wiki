@@ -30,6 +30,7 @@
 - [控制论与科学方法论](tr/控制论与科学方法论-2025.md)：`oss://lengmo-asserts/books/控制论与科学方法论-2025.pdf`（中文原著，仅校对）
 - [The Clean Coder: A Code of Conduct for Professional Programmers](tr/程序员的职业素养-2012.md)：`oss://lengmo-asserts/books/代码整洁之道-2016.pdf`（中文版，仅校对；OSS 文件名有误，内容实为《程序员的职业素养》）
 - [若干重大决策与事件的回顾](tr/若干重大决策与事件的回顾-1991.md)：`oss://lengmo-asserts/books/若干重大决策与事件的回顾-1991.epub`（中文原著，仅校对）
+- [The Staff Engineer's Path](tr/the-staff-engineer-path-2022.md)：`oss://lengmo-asserts/books/the-staff-engineer-path-2022.pdf`
 
 ## 1. 准备环境
 

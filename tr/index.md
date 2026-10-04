@@ -10,6 +10,7 @@
 - [Efficient Memory Management for Large Language Model Serving with PagedAttention](llm-serving-2023.md)
 - [QuePaxa: Escaping the Tyranny of Timeouts in Consensus](que-paxa-2023.md)
 - [Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service](dynamo-2022.md)
+- [The Staff Engineer's Path](the-staff-engineer-path-2022.md)
 - [Cores that don't count](cores-dont-count-2021.md)
 - [Evolution of Development Priorities in Key-value Stores Serving Large-scale Applications: The RocksDB Experience](rocksdb-2021.md)
 - [Silent Data Corruptions at Scale](slient-data-corruptions-at-scale-2021.md)
