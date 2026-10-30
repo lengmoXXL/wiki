@@ -4865,7 +4865,7 @@ $x^*$吸引相空间中的所有轨迹，因此称之为全局吸引的。
 
 对于一般情况，我们将找出这些直线轨迹的模拟。也就是，寻找形如
 
-$$ \boldsymbol{x}(t)=\mathsf{e}^{\lambda t}\boldsymbol{v} $$
+$$ \boldsymbol{x}(t)=\mathrm{e}^{\lambda t}\boldsymbol{v} $$
 
 (1)
 
@@ -4922,7 +4922,7 @@ $$ \lambda_1=\frac{\tau+\sqrt{\tau^2-4\Delta}}{2},\lambda_2=\frac{\tau-\sqrt{\ta
 特别是，任意初始条件 $x_0$ 可写为特征向量的线性组合，
 比如说$x_0 = c_1 v_1 + c_2 v_2$。于是我们可以写出$x(t)$的通解如下：
 
-$$ \boldsymbol{x}(t)=c_1\mathbf{e}^{\lambda_1 t}\boldsymbol{v}_1+c_2\mathbf{e}^{\lambda_2 t}\boldsymbol{v}_2 $$
+$$ \boldsymbol{x}(t)=c_1\mathrm{e}^{\lambda_1 t}\boldsymbol{v}_1+c_2\mathrm{e}^{\lambda_2 t}\boldsymbol{v}_2 $$
 
 (5)
 
@@ -4955,7 +4955,7 @@ $$ \boldsymbol{v}_1=\begin{pmatrix}1\\ 1\end{pmatrix},\boldsymbol{v}_2=\begin{pm
 
 下面我们写出特征解的线性组合作为通解。根据式（5），通解为
 
-$$ \boldsymbol{x}(t)=c_1\binom{1}{1}\mathbf{e}^{2t}+c_2\binom{1}{-4}\mathbf{e}^{-3t} $$
+$$ \boldsymbol{x}(t)=c_1\binom{1}{1}\mathrm{e}^{2t}+c_2\binom{1}{-4}\mathrm{e}^{-3t} $$
 
 (6)
 
@@ -5033,7 +5033,7 @@ $$ \alpha=\tau/2,\omega=\frac{1}{2}\sqrt{4\Delta-\tau^2} $$
 
 根据假设，$\omega \neq 0$。则特征值是不同的，因此通解仍为
 
-$$ \boldsymbol{x}(t)=c_1\mathbf{e}^{\lambda_1 t}\boldsymbol{v}_1+c_2\mathbf{e}^{\lambda_2 t}\boldsymbol{v}_2 $$
+$$ \boldsymbol{x}(t)=c_1\mathrm{e}^{\lambda_1 t}\boldsymbol{v}_1+c_2\mathrm{e}^{\lambda_2 t}\boldsymbol{v}_2 $$
 
 但是现在 $c$ 与 $v$ 为复数，由于 $\lambda$ 为复数。
 这意味着$x(t)$包含了$e^{(\alpha+i\omega)t}$ 的线性组合。利用欧拉公式，
@@ -8255,7 +8255,7 @@ $$ x(0)=0,\quad\dot{x}(0)=1 \tag{6} $$
 
 利用第 5 章中的技巧，得到精确解
 
-$$ x(t,\varepsilon)=(1-\varepsilon^{2})^{1/2}\mathrm{e}^{-\varepsilon t}\sin[(1-\varepsilon^{2})^{1/2}t] \tag{7} $$
+$$ x(t,\varepsilon)=(1-\varepsilon^{2})^{-1/2}\mathrm{e}^{-\varepsilon t}\sin[(1-\varepsilon^{2})^{1/2}t] \tag{7} $$
 
 现在我们利用摄动理论解决同样的问题。将式（4）代入式（5）得到
 
@@ -10862,7 +10862,7 @@ $$ \boldsymbol{v}_{1}=[\boldsymbol{D}\boldsymbol{P}(\boldsymbol{x}^{*})]\boldsym
 然后对于一个特征向量$\{e_j\}$的基，
 可以将一些标量$v_j$写为$v_0 = \sum_{j=1}^{n-1} v_j e_j$。因此
 
-$$ \boldsymbol{v}_{1}=\left[\boldsymbol{D}\boldsymbol{P}(\boldsymbol{x}^{*})\right]\sum_{j=1}^{n-1}\boldsymbol{v}_{j}\boldsymbol{e}_{j}=\sum_{j=1}^{n-1}\boldsymbol{v}_{j}\lambda_{j}\boldsymbol{e}_{j} $$
+$$ \boldsymbol{v}_{1}=\left[\boldsymbol{D}\boldsymbol{P}(\boldsymbol{x}^{*})\right]\sum_{j=1}^{n-1}v_{j}\boldsymbol{e}_{j}=\sum_{j=1}^{n-1}\boldsymbol{v}_{j}\lambda_{j}\boldsymbol{e}_{j} $$
 
 迭代线性映射 k 次后，得
 
